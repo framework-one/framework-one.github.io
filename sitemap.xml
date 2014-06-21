@@ -26,17 +26,29 @@
     <priority>0.8</priority>
   </url>
   
+  <url>
+    <loc>http://framework-one.github.io/blog/2013/05/07/where-can-i-download-old-versions-of-fw1/</loc>
+    <lastmod>2013-05-07T14:18:12-07:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://framework-one.github.io/blog/2013/01/05/fw1-version-2-1-released/</loc>
+    <lastmod>2013-01-05T13:23:53-08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
   
   <url>
     <loc>http://framework-one.github.io/blog/archives/</loc>
-    <lastmod>2014-06-21T12:45:23-07:00</lastmod>
+    <lastmod>2014-06-21T14:31:30-07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://framework-one.github.io/</loc>
-    <lastmod>2014-06-21T12:45:23-07:00</lastmod>
+    <lastmod>2014-06-21T14:31:30-07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>

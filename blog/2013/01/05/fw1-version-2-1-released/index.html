@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>FW/1 2.5 Is Released! - FW/1 - The Invisible Framework</title>
+  <title>FW/1 Version 2.1 Released - FW/1 - The Invisible Framework</title>
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="This is a migration release to pave the way for breaking changes in Release 3.0. All examples have been updated to latest best practices and now use &hellip;">
+  <meta name="description" content="FW/1 2.1 is now the official master release. The develop branch has been merged to master and the &lsquo;v2.1&rsquo; tag has been added. Work on &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://framework-one.github.io/blog/2014/05/25/fw1-2-5-is-released">
+  <link rel="canonical" href="http://framework-one.github.io/blog/2013/01/05/fw1-version-2-1-released">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
@@ -68,7 +68,7 @@
   
   <header>
     
-      <h1 class="entry-title">FW/1 2.5 Is Released!</h1>
+      <h1 class="entry-title">FW/1 Version 2.1 Released</h1>
     
     
       <p class="meta">
@@ -84,7 +84,7 @@
   
 
 
-<time datetime="2014-05-25T23:13:39-07:00" pubdate data-updated="true">May 25<span>th</span>, 2014</time>
+<time datetime="2013-01-05T13:23:53-08:00" pubdate data-updated="true">Jan 5<span>th</span>, 2013</time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://framework-one.github.io">Comments</a>
@@ -94,30 +94,32 @@
   </header>
 
 
-<div class="entry-content"><p>This is a migration release to pave the way for breaking changes in Release 3.0. All examples have been updated to latest best practices and now use cfcscript exclusively. Examples use DI/1 0.5.0 to manage all beans and services (as <code>framework.ioc</code>), and no longer rely on start/end actions or the <code>service()</code> method.<!-- more --></p>
+<div class="entry-content"><p>FW/1 2.1 is now the official master release.</p>
 
-<p>As always, FW/1 can be downloaded from the <a href="http://fw1.riaforge.org">FW/1 page on RIAForge</a>. Release 2.5 is now the latest stable release of this framework, as it approaches its fifth birthday!</p>
+<p>The develop branch has been merged to master and the &lsquo;v2.1&rsquo; tag has been added. Work on version 2.2 will soon start on the develop branch.<!-- more --></p>
 
-<p>For a full list of all tickets closed in Release 2.5: <a href="https://github.com/framework-one/fw1/issues?milestone=14&amp;page=1&amp;state=closed">https://github.com/framework-one/fw1/issues?milestone=14&amp;page=1&amp;state=closed</a></p>
+<p>Version 2.1 has been a long time in the works. Version 2.0 was released in December 2011, just over a year ago. So what has been going on in Framework One Land since then? You can play along at home by reading <a href="https://github.com/seancorfield/fw1/commits/master">the commit list for the master branch</a>&hellip;</p>
 
-<h2>Migration from 2.2.1</h2>
+<p>January 2012 saw version 2.0.1 appear with a fix for <code>buildUrl("")</code> which was broken just before the 2.0 gold release and caught by Seb Duggan. Thank you. January also saw a patch from Daryl Banttari to improve the performance of <code>expandPath()</code> by caching, similar to how <code>fileExists()</code> was handled.</p>
 
-<p>The <code>service()</code> call has been deprecated, as have start/end action items. Global access to <code>rc</code> in <code>Application.cfc</code> has also been deprecated. If you just drop 2.5 into your setup and you rely on these features, you&rsquo;ll get exceptions explaining how to enable these features for backward compatibility, namely add the following to your framework configuration:</p>
+<p>February brought the start of FW/1&rsquo;s MXUnit-based test suite with some stellar work by Ryan Anklam. Ryan continued that work in March, June and July &ndash; thank you! March brought a pull request from John Whish to improve application startup behavior in the face of errors in user code. In June, Matt Quackenbush contributed a nice improvement to <code>redirect()</code>: support for HTTP status codes. In July, Ryan Anklam contributed to <code>populate()</code>, providing the ability to handle child objects automatically, and Giancarlo Gomez enhanced the regex support in routes. In August, I fixed a bug in autowiring bean factories when using subsystems which was identified by Marco Betschart, and then Marcin Szczepanski substantially expanded the test suite throughout August, September and October &ndash; much appreciated! In October, I fixed a bug in how <code>setView()</code> interfered with error handling, identified by Alex Purice, and then I worked on the test suite and I test-drove the development of the new &ldquo;environment control&rdquo; feature. Peter Boughton spotted that <code>setLayout()</code> did not work inside <code>onMissingView()</code> so I test-drove a fix for that. I added the <code>unhandledExceptionCaught</code> option so you can choose to rely on FW/1 for handling errors in requests that would otherwise be &lsquo;unhandled&rsquo; by the framework (thanks to &lsquo;stubotnik&rsquo; for that suggestion). Dave Ferguson identified a nasty bug in ColdFusion 10&rsquo;s WebSocket implementation that was causing him problems with FW/1 &ndash; which I fixed by copying <code>CGI</code> variables to the <code>request</code> scope. I cleaned up <code>request</code> scope usage and further improved FW/1&rsquo;s robustness in the face of errors at startup, due to user code problems. In November, Richard Herbert found a case where FW/1 failed if <code>session</code> scope was disabled (now fixed). December was then a busy month with the addition of the new tracing / debugging facility, ensuring HTTP status code 500 is set when an unhandled exception is reported, and various small bug fixes and code cleanup in the new features added. Thanx there to Nando Breiter, Marcin Szczepanski and Chris Blackwell for finding those bugs!</p>
 
-<pre><code>enableGlobalRC = true,
-suppressServiceQueue = false
-</code></pre>
+<p>Thank you everyone for your contributions to FW/1 &ndash; I really appreciate the assistance in making the framework better for its community! As can be seen above, it really is a team effort.</p>
 
-<p>The ability to enable the implicit service calls is still present via:</p>
+<p>In summary then, version 2.1 contains:</p>
 
-<pre><code>suppressImplicitService = false
-</code></pre>
+<ul>
+<li>Environment Control support.</li>
+<li>Application tracing.</li>
+<li><code>populate()</code> now handles child objects automatically.</li>
+<li>Improved regex support in routes.</li>
+<li>Addition of a nice test suite, making it easier to test-drive the development of new features, as well as ensure fewer regression bugs sneak in.</li>
+<li><code>request</code> scope cleanup (and removal of several <code>request</code> variables that had previously been marked as deprecated.</li>
+<li>Lots of small improvements to the robustness of application startup in the face of user code problems, making it easier to debug those problems, and several enhancements to error handling in general.</li>
+</ul>
 
-<p>but, like the other two options, defaults to disallowing the deprecated feature.</p>
 
-<p>If you enable these deprecated features, you will no longer get exceptions using them, but you will see deprecation warnings in your application server&rsquo;s console log. This is to remind you to update your code in preparation for 3.0 later this year!</p>
-
-<p><em>Please note that Release 3.0 will completely remove these backward compatibility options &ndash; and the associated deprecated features. In addition, <code>org.corfield.framework</code> will move to <code>framework.one</code> in Release 3.0, alongside <code>framework.ioc</code>.</em></p>
+<p>You can <a href="http://fw1.riaforge.org/">download FW/1 2.1 at RIAForge</a>.</p>
 </div>
 
 
@@ -140,7 +142,7 @@ suppressServiceQueue = false
   
 
 
-<time datetime="2014-05-25T23:13:39-07:00" pubdate data-updated="true">May 25<span>th</span>, 2014</time>
+<time datetime="2013-01-05T13:23:53-08:00" pubdate data-updated="true">Jan 5<span>th</span>, 2013</time>
       
 
 <span class="categories">
@@ -154,7 +156,7 @@ suppressServiceQueue = false
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://framework-one.github.io/blog/2014/05/25/fw1-2-5-is-released/" data-via="" data-counturl="http://framework-one.github.io/blog/2014/05/25/fw1-2-5-is-released/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://framework-one.github.io/blog/2013/01/05/fw1-version-2-1-released/" data-via="" data-counturl="http://framework-one.github.io/blog/2013/01/05/fw1-version-2-1-released/" >Tweet</a>
   
   
   
@@ -163,8 +165,8 @@ suppressServiceQueue = false
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/12/18/fw1-2-2-released/" title="Previous Post: FW/1 2.2 Released!">&laquo; FW/1 2.2 Released!</a>
       
+        <a class="basic-alignment right" href="/blog/2013/05/07/where-can-i-download-old-versions-of-fw1/" title="Next Post: Where can I download old versions of FW/1?">Where can I download old versions of FW/1? &raquo;</a>
       
     </p>
   </footer>
@@ -263,8 +265,8 @@ suppressServiceQueue = false
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://framework-one.github.io/blog/2014/05/25/fw1-2-5-is-released/';
-        var disqus_url = 'http://framework-one.github.io/blog/2014/05/25/fw1-2-5-is-released/';
+        var disqus_identifier = 'http://framework-one.github.io/blog/2013/01/05/fw1-version-2-1-released/';
+        var disqus_url = 'http://framework-one.github.io/blog/2013/01/05/fw1-version-2-1-released/';
         var disqus_script = 'embed.js';
       
     (function () {
