@@ -4,7 +4,7 @@
   <title><![CDATA[FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2014-06-21T14:36:28-07:00</updated>
+  <updated>2014-06-21T14:40:23-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -52,7 +52,7 @@ suppressServiceQueue = false
     <id>http://framework-one.github.io/blog/2013/12/18/fw1-2-2-released</id>
     <content type="html"><![CDATA[<p>Framework One version 2.2 is now available for production use! You can download it from the <a href="http://fw1.riaforge.org/">Framework One page on RIAForge</a>. This includes one bug fix over RC2 (interaction between <code>renderData()</code> and trace output).<!-- more --></p>
 
-<p>The main focus of the 2.2 release is improved support for REST APIs, through the addition of <code>renderData()</code> to simplify returning JSON, XML and plain text results to the caller, as well as more sophisticated route handling via &ldquo;resource packs&rdquo; which let you define a family of related routes for a given resource type, using a shorthand notation. For more information, see this <a href="http://corfield.org/blog/post.cfm/fw-1-releases-and-roadmap">blog post about the latest FW/1 release and the roadmap</a>.</p>
+<p>The main focus of the 2.2 release is improved support for REST APIs, through the addition of <code>renderData()</code> to simplify returning JSON, XML and plain text results to the caller, as well as more sophisticated route handling via &ldquo;resource packs&rdquo; which let you define a family of related routes for a given resource type, using a shorthand notation. For more information, see this <a href="http://framework-one.github.io/blog/2013/11/03/fw1-releases-and-roadmap/">blog post about the latest FW/1 release and the roadmap</a>.</p>
 
 <p>As noted previously, the master branch is the current stable release (2.2), and the develop branch has become the next release (2.5). 2.5 will be released next month and will be a stepping stone toward some substantial changes coming in 3.0. For more detail, read this <a href="http://framework-one.github.io/blog/2013/11/02/fw1-the-year-ahead">blog post explaining the changes coming in 2.5 and 3.0</a>.</p>
 ]]></content>
