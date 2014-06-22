@@ -74,24 +74,36 @@
     <priority>0.8</priority>
   </url>
   
+  <url>
+    <loc>http://framework-one.github.io/blog/2010/01/04/fw1-1-0-released-for-2010/</loc>
+    <lastmod>2010-01-04T18:23:40-08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://framework-one.github.io/blog/2009/07/19/introducing-framework-one/</loc>
+    <lastmod>2009-07-19T19:26:21-07:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
   
   <url>
     <loc>http://framework-one.github.io/blog/archives/</loc>
-    <lastmod>2014-06-21T19:23:13-07:00</lastmod>
+    <lastmod>2014-06-21T19:30:11-07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://framework-one.github.io/</loc>
-    <lastmod>2014-06-21T19:23:13-07:00</lastmod>
+    <lastmod>2014-06-21T19:30:11-07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://framework-one.github.io/documentation/</loc>
-    <lastmod>2014-06-21T19:23:13-07:00</lastmod>
+    <lastmod>2014-06-21T19:30:11-07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

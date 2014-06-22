@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Clojure | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/clojure/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2014-06-21T19:23:13-07:00</updated>
+  <updated>2014-06-21T19:30:11-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -18,7 +18,7 @@
     <link href="http://framework-one.github.io/blog/2011/11/07/fw1-comes-to-clojure/"/>
     <updated>2011-11-07T17:53:44-08:00</updated>
     <id>http://framework-one.github.io/blog/2011/11/07/fw1-comes-to-clojure</id>
-    <content type="html"><![CDATA[<p>After two years in the CFML world, FW/1 (Framework One) comes to Clojure!</p>
+    <content type="html"><![CDATA[<p>After two years in the CFML world, FW/1 (Framework One) comes to Clojure!<!-- more --></p>
 
 <p>Intended to bring the same simple, lightweight, convention-based MVC web application development that has proved so popular in the CFML world to the world of Clojure, <a href="https://github.com/framework-one/fw1-clj">FW/1 for Clojure</a> is available on Clojars (0.1.0, as of April 2012). If you clone the github repo, you&rsquo;ll see a &ldquo;user manager&rdquo; example application which is a port of the same app from the CFML version of the framework. The documentation is, as always, a work in progress but covers the basic API and how to create a driver program for the framework in Clojure. More information on the rationale, approach and API of FW/1 can be found on the <a href="https://github.com/framework-one/fw1/wiki">FW/1 (for CFML) wiki</a>. I plan to adapt this for the Clojure version shortly&hellip;</p>
 ]]></content>

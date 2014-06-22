@@ -4,7 +4,7 @@
   <title><![CDATA[FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2014-06-21T19:23:13-07:00</updated>
+  <updated>2014-06-21T19:30:11-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -186,7 +186,7 @@ suppressServiceQueue = false
     <link href="http://framework-one.github.io/blog/2011/11/07/fw1-comes-to-clojure/"/>
     <updated>2011-11-07T17:53:44-08:00</updated>
     <id>http://framework-one.github.io/blog/2011/11/07/fw1-comes-to-clojure</id>
-    <content type="html"><![CDATA[<p>After two years in the CFML world, FW/1 (Framework One) comes to Clojure!</p>
+    <content type="html"><![CDATA[<p>After two years in the CFML world, FW/1 (Framework One) comes to Clojure!<!-- more --></p>
 
 <p>Intended to bring the same simple, lightweight, convention-based MVC web application development that has proved so popular in the CFML world to the world of Clojure, <a href="https://github.com/framework-one/fw1-clj">FW/1 for Clojure</a> is available on Clojars (0.1.0, as of April 2012). If you clone the github repo, you&rsquo;ll see a &ldquo;user manager&rdquo; example application which is a port of the same app from the CFML version of the framework. The documentation is, as always, a work in progress but covers the basic API and how to create a driver program for the framework in Clojure. More information on the rationale, approach and API of FW/1 can be found on the <a href="https://github.com/framework-one/fw1/wiki">FW/1 (for CFML) wiki</a>. I plan to adapt this for the Clojure version shortly&hellip;</p>
 ]]></content>
@@ -291,6 +291,36 @@ fold URL / form into request.context</li>
 </blockquote>
 
 <p>That&rsquo;s it. I wrote the first version of FW/1 on July 19th. You can see the <a href="https://github.com/framework-one/fw1/blob/a686fd441ccd86e147f770f41b10f79a07be11f2/org/corfield/framework.cfc">original 381 line framework.cfc</a> on Github. So there you go: an insight into my design process!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 1.0 Released for 2010]]></title>
+    <link href="http://framework-one.github.io/blog/2010/01/04/fw1-1-0-released-for-2010/"/>
+    <updated>2010-01-04T18:23:40-08:00</updated>
+    <id>http://framework-one.github.io/blog/2010/01/04/fw1-1-0-released-for-2010</id>
+    <content type="html"><![CDATA[<p>The <a href="https://github.com/framework-one/fw1/wiki/Reference-Manual">Reference Manual</a> has been completed so it&rsquo;s time to declare a 1.0 release for Framework One! Several people have already taken FW/1-powered applications to production, Javier Julio is soon to present the first user group session on FW/1! FW/1 has come of age and for companies that will only use official public releases, a 1.0 release may mean that more people will be able to try this lightweight, convention-based framework. Thank you to everyone who has contributed so far &ndash; for all the feedback, bug reports, blog posts and suggestions. Thank you in particular to Ryan Cogswell for contributing a lot of enhancements to the code and the subsystem implementation, Dutch Rapley for the Using Systems documentation, and Javier Julio for the User Manager sample applications. Thank you to AJ Mercer for submitting a talk to webDU and and Ray Camden for blogging about FW/1 and submitting a talk to cf.Objective().</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Introducing Framework One]]></title>
+    <link href="http://framework-one.github.io/blog/2009/07/19/introducing-framework-one/"/>
+    <updated>2009-07-19T19:26:21-07:00</updated>
+    <id>http://framework-one.github.io/blog/2009/07/19/introducing-framework-one</id>
+    <content type="html"><![CDATA[<p>The first question on everyone&rsquo;s mind is probably: why on earth would you create and publish yet another MVC application framework?<!-- more --></p>
+
+<p>I&rsquo;ve become increasingly dissatisfied with the application frameworks out there. They&rsquo;re big, bloated, complex and, with one or two exceptions, they require XML configuration in some way or other. A discussion on the recently created <a href="http://groups.google.com/group/coldfusionoo">ColdFusion OO mailing list</a> (started in the wake of the verbal sparring match between Brian Kotek and Hal Helms), saw me admit this&hellip; ColdFusion&rsquo;s simplicity was being buried in the complexity of application frameworks and there was no simple on-ramp. Even Fusebox, the mainstay of ColdFusion application frameworks has become far too much for simple applications.</p>
+
+<p>The second question is probably: why did you choose that name?</p>
+
+<p>Years ago, I worked with a programming language called PL/1 (Programming Language One) which was intended to be the &ldquo;one language to rule them all&rdquo;, so to speak. I wanted to create a very small, simple framework. Something that involved only one core file if possible. Once I&rsquo;d built it, I needed a name for my one file framework&hellip; FW/1 seemed like a good pun.</p>
+
+<p>The third question is going to be: why should I care and why should I use it?</p>
+
+<p>If you&rsquo;re happy with an existing framework, keep using and feel free to ignore FW/1. If you haven&rsquo;t picked a framework yet because they all seem so complex, maybe FW/1 is for you. If, like me, you&rsquo;re tired of framework bloat, try FW/1 and give me your feedback.</p>
+
+<p>I&rsquo;ll be posting some examples as blog posts as well as building out the project wiki over the coming weeks. I built FW/1 in a few hours. It&rsquo;s a single CFC. It&rsquo;s 400 lines of code &ndash; including comments. It&rsquo;s entirely convention based. It supports controllers (CFCs), services (CFCs), views (.cfm) and layouts (.cfm). URL/form actions take the form section.item and FW/1 will look for section.cfc (controller and service) and section/item.cfm (view and layouts). It optionally supports your favorite bean factory (ColdSpring, Lightwire and any other IoC container that implements getBean() and containsBean() methods). If you use a bean factory, it will autowire your controllers and services &ndash; or your controllers and/or services can be managed by the bean factory.</p>
 ]]></content>
   </entry>
   
