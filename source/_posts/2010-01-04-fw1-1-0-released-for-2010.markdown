@@ -1,0 +1,8 @@
+---
+layout: post
+title: "FW/1 1.0 released for 2010"
+date: 2010-01-04 19:23:40 -0700
+comments: true
+categories: releases
+---
+The [Reference Manual](https://github.com/framework-one/fw1/wiki/Reference-Manual) has been completed so it's time to declare a 1.0 release for Framework One! Several people have already taken FW/1-powered applications to production, Javier Julio is soon to present the first user group session on FW/1! FW/1 has come of age and for companies that will only use official public releases, a 1.0 release may mean that more people will be able to try this lightweight, convention-based framework. Thank you to everyone who has contributed so far - for all the feedback, bug reports, blog posts and suggestions. Thank you in particular to Ryan Cogswell for contributing a lot of enhancements to the code and the subsystem implementation, Dutch Rapley for the Using Systems documentation, and Javier Julio for the User Manager sample applications. Thank you to AJ Mercer for submitting a talk to webDU and and Ray Camden for blogging about FW/1 and submitting a talk to cf.Objective().
