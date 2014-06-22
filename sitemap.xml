@@ -38,24 +38,60 @@
     <priority>0.8</priority>
   </url>
   
+  <url>
+    <loc>http://framework-one.github.io/blog/2011/12/18/fw1-2-0-released/</loc>
+    <lastmod>2011-12-18T17:51:18-08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://framework-one.github.io/blog/2011/11/07/fw1-comes-to-clojure/</loc>
+    <lastmod>2011-11-07T17:53:44-08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://framework-one.github.io/blog/2011/03/19/fw1-roadmap/</loc>
+    <lastmod>2011-03-19T18:56:31-07:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://framework-one.github.io/blog/2010/10/18/fw1-1-2-available/</loc>
+    <lastmod>2010-10-18T18:59:11-07:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://framework-one.github.io/blog/2010/06/11/fw1-release-1-1-available/</loc>
+    <lastmod>2010-06-11T19:02:00-07:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://framework-one.github.io/blog/2010/02/06/fw1-the-napkin-spec/</loc>
+    <lastmod>2010-02-06T18:09:11-08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
   
   <url>
     <loc>http://framework-one.github.io/blog/archives/</loc>
-    <lastmod>2014-06-21T15:07:06-07:00</lastmod>
+    <lastmod>2014-06-21T19:23:13-07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://framework-one.github.io/</loc>
-    <lastmod>2014-06-21T15:07:06-07:00</lastmod>
+    <lastmod>2014-06-21T19:23:13-07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://framework-one.github.io/documentation/</loc>
-    <lastmod>2014-06-21T15:07:06-07:00</lastmod>
+    <lastmod>2014-06-21T19:23:13-07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

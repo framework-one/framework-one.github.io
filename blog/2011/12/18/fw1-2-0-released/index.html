@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>FW/1 the Year Ahead - FW/1 - The Invisible Framework</title>
+  <title>FW/1 2.0 Released - FW/1 - The Invisible Framework</title>
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="With FW/1 Version 2.2 just around the corner &ndash; after a long time in incubation &ndash; and FW/1 itself being almost four and a half years old, &hellip;">
+  <meta name="description" content="After a long period of testing out in the wild FW/1 2.0 reached RC2 back in October and no further bugs have been reported. Only documentation &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://framework-one.github.io/blog/2013/11/02/fw1-the-year-ahead">
+  <link rel="canonical" href="http://framework-one.github.io/blog/2011/12/18/fw1-2-0-released">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
@@ -69,7 +69,7 @@
   
   <header>
     
-      <h1 class="entry-title">FW/1 the Year Ahead</h1>
+      <h1 class="entry-title">FW/1 2.0 Released</h1>
     
     
       <p class="meta">
@@ -85,7 +85,7 @@
   
 
 
-<time datetime="2013-11-02T23:42:41-07:00" pubdate data-updated="true">Nov 2<span>nd</span>, 2013</time>
+<time datetime="2011-12-18T17:51:18-08:00" pubdate data-updated="true">Dec 18<span>th</span>, 2011</time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://framework-one.github.io">Comments</a>
@@ -95,21 +95,7 @@
   </header>
 
 
-<div class="entry-content"><p>With FW/1 Version 2.2 just around the corner &ndash; after a long time in incubation &ndash; and FW/1 itself being almost four and a half years old, it&rsquo;s a good time to look ahead at what&rsquo;s in store.<!-- more --></p>
-
-<p>When FW/1 was first conceived, it was intended to be drop-dead simple and help on-board developers who were new to MVC and new to frameworks and also new to OOP. It leveraged conventions very heavily to encourage simple controller logic and delegation to a service layer for heavy lifting. That was the conceptual justification for the implicit service calls in the 1.x version and the ability to split controller methods in two &ndash; start/end-item &ndash; to wrap the automatic call to the service layer.</p>
-
-<p>While that conceptual framework served its purpose admirably, users very quickly grew out of it and needed to start managing service calls more directly. That&rsquo;s why implicit service calls were no longer the default in 2.0 (although you could turn them back on). Even with that change, many users find the queuing of service calls confusing, even tho&#8217; controller calls are also queued (although that&rsquo;s mostly invisible to users).</p>
-
-<p>In version 2.5, scheduled for early January 2014, FW/1 will begin the move away from queuing services by deprecating the <code>service()</code> call and requiring a configuration setting to enable its use in your application. In version 3.0, scheduled for release just after cf.Objective() 2014, the <code>service()</code> call will be removed. Along with that, the start/end-item calls will be deprecated in 2.5 and removed in 3.0, since they were only introduced in the first place to create the queued services workflow!</p>
-
-<p>This means that users will need to manage services themselves and of course I recommend using a Dependency Injection framework for that (or at least using some sort of object factory as a bare minimum). Accordingly, DI/1 will have a higher profile in FW/1 2.5 and the two frameworks will be officially bundled together in 3.0. FW/1 will continue to support any bean factory that provides the <code>containsBean()</code> and <code>getBean()</code> API such as ColdSpring (WireBox uses a slightly different API but I plan to provide an adapter for it in 2.5).</p>
-
-<p>Also as part of 3.0, the framework CFC itself will be renamed and the <code>/org/corfield</code> structure removed. The default path will be <code>/framework/one.cfc</code> so your <code>Application.cfc</code> will have <code>extends="framework.one"</code> by default. In 2.5, DI/1 will have adopted this pattern as <code>/framework/ioc.cfc</code>, but since 2.5 will still be backward compatible with 2.2 (after you&rsquo;ve added the compatibility setting in <code>Application.cfc</code>), I don&rsquo;t want to force renaming or reorganizing on users until 3.0.</p>
-
-<p>Finally, as part of 3.0, the entire repository will be restructured to better reflect what is considered &ldquo;best practices&rdquo; in terms of where you install things and what lives in your webroot (only web-accessible assets!). This will make it easier to get started with the FW/1 skeleton application as a &ldquo;best practice&rdquo; out-of-the-box experience.</p>
-
-<p>Note that the DI/1 and AOP/1 repositories will remain active but DI/1 versions will be in lockstep with FW/1 from 3.0 onward, and development will be conducted as part of the FW/1 repository, with releases being merged to the DI/1 repository. Once AOP/1 reaches a similar level of maturity, it will likely follow the same trajectory.</p>
+<div class="entry-content"><p>After a long period of testing out in the wild FW/1 2.0 reached RC2 back in October and no further bugs have been reported. Only documentation remained and that has now been completed. FW/1 2.0 is gold and can be downloaded from <a href="http://fw1.riaforge.org/">FW/1&rsquo;s RIAForge site</a>. Happy Holidays!</p>
 </div>
 
 
@@ -132,12 +118,12 @@
   
 
 
-<time datetime="2013-11-02T23:42:41-07:00" pubdate data-updated="true">Nov 2<span>nd</span>, 2013</time>
+<time datetime="2011-12-18T17:51:18-08:00" pubdate data-updated="true">Dec 18<span>th</span>, 2011</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/roadmap/'>roadmap</a>
+    <a class='category' href='/blog/categories/releases/'>releases</a>
   
 </span>
 
@@ -146,7 +132,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://framework-one.github.io/blog/2013/11/02/fw1-the-year-ahead/" data-via="" data-counturl="http://framework-one.github.io/blog/2013/11/02/fw1-the-year-ahead/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://framework-one.github.io/blog/2011/12/18/fw1-2-0-released/" data-via="" data-counturl="http://framework-one.github.io/blog/2011/12/18/fw1-2-0-released/" >Tweet</a>
   
   
   
@@ -155,10 +141,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/05/07/where-can-i-download-old-versions-of-fw1/" title="Previous Post: Where can I download old versions of FW/1?">&laquo; Where can I download old versions of FW/1?</a>
+        <a class="basic-alignment left" href="/blog/2011/11/07/fw1-comes-to-clojure/" title="Previous Post: FW/1 comes to Clojure">&laquo; FW/1 comes to Clojure</a>
       
       
-        <a class="basic-alignment right" href="/blog/2013/11/03/fw1-releases-and-roadmap/" title="Next Post: FW/1 Releases and Roadmap">FW/1 Releases and Roadmap &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2013/01/05/fw1-version-2-1-released/" title="Next Post: FW/1 Version 2.1 Released">FW/1 Version 2.1 Released &raquo;</a>
       
     </p>
   </footer>
@@ -278,8 +264,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://framework-one.github.io/blog/2013/11/02/fw1-the-year-ahead/';
-        var disqus_url = 'http://framework-one.github.io/blog/2013/11/02/fw1-the-year-ahead/';
+        var disqus_identifier = 'http://framework-one.github.io/blog/2011/12/18/fw1-2-0-released/';
+        var disqus_url = 'http://framework-one.github.io/blog/2011/12/18/fw1-2-0-released/';
         var disqus_script = 'embed.js';
       
     (function () {
