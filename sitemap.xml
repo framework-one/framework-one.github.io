@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://framework-one.github.io/blog/2014/08/18/fw1-3-0-beta-1-available/</loc>
+    <lastmod>2014-08-18T11:21:49-07:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://framework-one.github.io/blog/2014/07/20/fw1-3-0-alpha-1-available-for-testing/</loc>
     <lastmod>2014-07-20T18:14:24-07:00</lastmod>
     <priority>0.8</priority>
@@ -95,21 +101,21 @@
   
   <url>
     <loc>http://framework-one.github.io/blog/archives/</loc>
-    <lastmod>2014-08-03T13:36:29-07:00</lastmod>
+    <lastmod>2014-08-18T12:15:42-07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://framework-one.github.io/</loc>
-    <lastmod>2014-08-03T13:36:29-07:00</lastmod>
+    <lastmod>2014-08-18T12:15:42-07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://framework-one.github.io/documentation/</loc>
-    <lastmod>2014-08-03T13:36:29-07:00</lastmod>
+    <lastmod>2014-08-18T12:15:42-07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
