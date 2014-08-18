@@ -114,22 +114,36 @@
 <li>New option <code>omitDirectoryAliases</code> &ndash; default <code>false</code> <a href="https://github.com/framework-one/di1/issues/64">di1/#64</a>. Set this <code>true</code> if you want to suppress the directory-based aliases that DI/1 creates (e.g., <code>beans/user.cfc</code> => <code>userBean</code>). This will enforce uniqueness of bean names (since the suffix will no longer differentiate beans with the same name in different folders).</li>
 <li>IIS web server mapping case sensitivity <a href="https://github.com/framework-one/di1/issues/65">di1/#65</a>. A bug fix for an annoying edge case caused by IIS being case sensitive in a situation that caused hard-to-debug errors from DI/1.</li>
 <li>AOP/1 now handles intercepted methods that return null <a href="https://github.com/framework-one/fw1/issues/264">#264</a>. Self-explanatory.</li>
-<li><p>DI/1 now accepts a load listener as part of its configuration <a href="https://github.com/framework-one/fw1/issues/273">#273</a>. This was added to allow load listeners to be added easily via <code>diConfig</code> when using FW/1. A load listener is the recommended way to declare new beans, add aliases and additional beans and set up factory beans/methods (see next item). The following DI/1 setups are now equivalent:</p>
+<li>DI/1 now accepts a load listener as part of its configuration <a href="https://github.com/framework-one/fw1/issues/273">#273</a>. This was added to allow load listeners to be added easily via <code>diConfig</code> when using FW/1. A load listener is the recommended way to declare new beans, add aliases and additional beans and set up factory beans/methods (see next item).</li>
+</ul>
 
-<p>  var bf1 = new framework.ioc( &ldquo;&hellip;&rdquo; );
-  bf1.onLoad( myListener );</p>
 
-<p>  var bf2 = new framework.ioc( &ldquo;&hellip;&rdquo;, { loadListener = myListener } );</p></li>
-<li><p>DI/1 now supports factory beans / factory methods <a href="https://github.com/framework-one/fw1/issues/274">#274</a>. The new API <code>factoryBean()</code> allows you to specify that a bean should be obtained from another bean &ndash; the <em>factory bean</em> &ndash; by calling a specified method &ndash; the <em>factory method</em> &ndash; with optionally specified arguments, and optional bean value overrides (similar to the <code>declareBean()</code> API). Here are some examples:</p>
+<p>The following DI/1 setups are now equivalent:</p>
 
-<p>  bf.factoryBean( &ldquo;a1Bean&rdquo;, &ldquo;myFactory&rdquo;, &ldquo;theMethod&rdquo; );
-  // a1Bean = bf.getBean(&ldquo;myFactory&rdquo;).theMethod();
-  bf.factoryBean( &ldquo;a2Bean&rdquo;, &ldquo;yourFactory&rdquo;, &ldquo;createIt&rdquo;, [ &ldquo;dsn&rdquo; ] );
-  // a2Bean = bf.getBean(&ldquo;yourFactory&rdquo;).createIt( bf.getBean(&ldquo;dsn&rdquo;) );
-  bf.factoryBean( &ldquo;a3Bean&rdquo;, &ldquo;warehouse&rdquo;, &ldquo;builder&rdquo;, [ &ldquo;dsn&rdquo;, &ldquo;config&rdquo; ],
-      { dsn = &ldquo;myDB&rdquo; } );
-  // a3Bean = bf.getBean(&ldquo;warehouse&rdquo;).builder( &ldquo;myDB&rdquo;, bf.getBean(&ldquo;config&rdquo;) );</p></li>
-<li><p>DI/1 now supports a post-injection <em>init-method</em> like ColdSpring <a href="https://github.com/framework-one/fw1/issues/275">#275</a>. A new configuration option <code>initMethod</code> allows you to specify a no-argument method that DI/1 should attempt to call on all managed beans after all of their dependencies have been injected. This allows beans to perform additional configuration that requires access to their injected dependencies, which cannot be performed in a constructor. You can thank Daniel Budde II for this feature being added (and for spurring me to finally add factory beans/methods which I&rsquo;d been thinking about for a while)!</p></li>
+<pre><code>var bf1 = new framework.ioc( "..." );
+bf1.onLoad( myListener );
+
+var bf2 = new framework.ioc( "...", { loadListener = myListener } );
+</code></pre>
+
+<ul>
+<li>DI/1 now supports factory beans / factory methods <a href="https://github.com/framework-one/fw1/issues/274">#274</a>. The new API <code>factoryBean()</code> allows you to specify that a bean should be obtained from another bean &ndash; the <em>factory bean</em> &ndash; by calling a specified method &ndash; the <em>factory method</em> &ndash; with optionally specified arguments, and optional bean value overrides (similar to the <code>declareBean()</code> API).</li>
+</ul>
+
+
+<p>Here are some examples:</p>
+
+<pre><code>bf.factoryBean( "a1Bean", "myFactory", "theMethod" );
+// a1Bean = bf.getBean("myFactory").theMethod();
+bf.factoryBean( "a2Bean", "yourFactory", "createIt", [ "dsn" ] );
+// a2Bean = bf.getBean("yourFactory").createIt( bf.getBean("dsn") );
+bf.factoryBean( "a3Bean", "warehouse", "builder", [ "dsn", "config" ],
+    { dsn = "myDB" } );
+// a3Bean = bf.getBean("warehouse").builder( "myDB", bf.getBean("config") );
+</code></pre>
+
+<ul>
+<li>DI/1 now supports a post-injection <em>init-method</em> like ColdSpring <a href="https://github.com/framework-one/fw1/issues/275">#275</a>. A new configuration option <code>initMethod</code> allows you to specify a no-argument method that DI/1 should attempt to call on all managed beans after all of their dependencies have been injected. This allows beans to perform additional configuration that requires access to their injected dependencies, which cannot be performed in a constructor. You can thank Daniel Budde II for this feature being added (and for spurring me to finally add factory beans/methods which I&rsquo;d been thinking about for a while)!</li>
 <li>AOP/1 now intercepts injected beans <a href="https://github.com/framework-one/fw1/issues/277">#277</a>. This was the rewrite of AOP/1 to hook into DI/1&rsquo;s <code>resolveBean()</code> method via a new <code>setupInitMethod()</code> extension point (which will make additional extensions to DI/1 easier). Previously AOP/1 only intercepted beans obtained directly via <code>getBean()</code>. Thank you to Daniel Budde II for identifying this issue and providing a test case to help debug and verify the new behavior.</li>
 <li>DI/1 no longer resolves beans multiple times <a href="https://github.com/framework-one/fw1/issues/279">#279</a>. This was a performance issue but previously harmless. With the enhancements to AOP/1, this introduced several bugs (hopefully all fixed now!).</li>
 </ul>
