@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Documentation - FW/1 - The Invisible Framework</title>
+  <title>Getting Started With FW/1 - FW/1 - The Invisible Framework</title>
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Documentation Jun 21st, 2014 This will soon be the hub for all FW/1 documentation. Jun 21st, 2014 About FW/1 FW/1 - Framework One - is a family of &hellip;">
+  <meta name="description" content="Getting Started With FW/1 Aug 28th, 2014 FW/1 was created in July 2009 as a reaction against complexity and bloat in other frameworks in the CFML &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,7 +68,7 @@
 <article role="article">
   
   <header>
-    <h1 class="entry-title">Documentation</h1>
+    <h1 class="entry-title">Getting Started With FW/1</h1>
     <p class="meta">
 
 
@@ -81,10 +81,226 @@
   
 
 
-<time datetime="2014-06-21T15:02:00-07:00" pubdate data-updated="true">Jun 21<span>st</span>, 2014</time></p>
+<time datetime="2014-08-28T16:02:00-07:00" pubdate data-updated="true">Aug 28<span>th</span>, 2014</time></p>
   </header>
   
-  <p>This will soon be the hub for all FW/1 documentation.</p>
+  <p>FW/1 was created in July 2009 as a reaction against complexity and bloat in other frameworks in the CFML community. FW/1 itself is a single file, and provides a simple, convention-based approach to MVC (Model-View-Controller) applications. Whilst it has become more sophisticated over time, it has remained a single file, focused on getting out of your way and providing the intuitive plumbing you need. For historical background, you can read the <a href="http://framework-one.github.io/blog/2009/07/19/introducing-framework-one/">introductory blog post</a> from July 2009.</p>
+
+<p>As of release 3.0, FW/1 also includes DI/1 &ndash; a simple, convention-based Dependency Injection framework &ndash; and AOP/1 &ndash; an Aspect-Oriented Programming extension to DI/1. If those phrases don&rsquo;t mean anything to you, don&rsquo;t worry, you won&rsquo;t need to know anything about them to get started.</p>
+
+<h2>Requirements &amp; Supported Platforms</h2>
+
+<p>FW/1 3.0 supports Adobe ColdFusion 9.0.1 or later (not 9.0.0) and Railo 3.2.2 or later. I recommend using <a href="http://www.getrailo.org/index.cfm/download/">Railo 4.2</a> or later since it&rsquo;s free, open source, and fast, with a small footprint. If you&rsquo;re using Adobe ColdFusion, I strongly recommend upgrading to the latest version (ColdFusion 11 as of August 2014) to take advantage of the huge improvements in the core language since ColdFusion 9.0.1 (closures, member functions, full cfscript support, etc).</p>
+
+<p>If you&rsquo;re on ColdFusion 9.0.0 or earlier, or still using Open BlueDragon, you&rsquo;ll need to stick with FW/1 1.3. Sorry, but supporting those versions is just too painful!</p>
+
+<h2>Your First FW/1 Application</h2>
+
+<p>FW/1 itself consists of a single CFC: <code>framework.one</code>, i.e., <code>framework/one.cfc</code>. Your <code>Application.cfc</code> will extend that and your application&rsquo;s &ldquo;pages&rdquo; will live under a <code>views</code> folder inside a subfolder for each <em>section</em> of your application.</p>
+
+<p>When you download FW/1 (or check it out from Github), it&rsquo;s a complete web application. <strong>The <code>framework</code> folder should either be copied to your webroot (the simplest way to get started) or else made accessible via a mapping for <code>/framework</code>.</strong> Since <code>Application.cfc</code> extends <code>framework.one</code>, you have to add that mapping in your CFML admin &ndash; you cannot use a per-application mapping.</p>
+
+<p><em>Note: do not install FW/1 into a subfolder that contains . in the name as this may prevent CFC resolution from working!</em></p>
+
+<p>The simplest FW/1 application comprises:</p>
+
+<ul>
+<li><code>Application.cfc</code> which extends <code>framework.one</code></li>
+<li>Empty <code>index.cfm</code> (this file is required but the content is ignored)</li>
+<li><code>views</code> folder containing a <code>main</code> subfolder containing <code>default.cfm</code> &ndash; your initial application view</li>
+</ul>
+
+
+<p>See the <code>helloworld</code> example in the <code>examples</code> folder which is this same minimal application.</p>
+
+<p>Create <code>Application.cfc</code> containing:</p>
+
+<pre><code>component extends=framework.one {
+}
+</code></pre>
+
+<p>Create an empty <code>index.cfm</code> file.</p>
+
+<p>Create <code>views/main/default.cfm</code> containing:</p>
+
+<pre><code>&lt;p&gt;Hello FW/1!&lt;/p&gt;
+</code></pre>
+
+<p>When you access the application, it should say <code>Hello FW/1!</code></p>
+
+<h3>Linking Pages Together</h3>
+
+<p>FW/1 provides a convenient method for generating links between pages. We&rsquo;re going to use that to link two pages together.</p>
+
+<p>Edit <code>views/main/default.cfm</code> and wrap the content in <code>cfoutput</code> since we&rsquo;re going to be executing CFML code now:</p>
+
+<pre><code>&lt;cfoutput&gt;
+  &lt;p&gt;Hello FW/1&lt;/p&gt;
+&lt;/cfoutput&gt;
+</code></pre>
+
+<p>Now we&rsquo;ll add a link to a new page &ndash; a new <em>section.item</em> &ndash; using the <code>buildURL()</code> function FW/1 provides. Edit <code>default.cfm</code> so it looks like this:</p>
+
+<pre><code>&lt;cfoutput&gt;
+  &lt;p&gt;Hello FW/1&lt;/p&gt;
+  &lt;p&gt;&lt;a href="#buildURL('main.other')#"&gt;Go away&lt;/a&gt;!&lt;/p&gt;
+&lt;/cfoutput&gt;
+</code></pre>
+
+<p>This will generate a link with an <code>action</code> of <code>main.other</code>. Now we&rsquo;ll create <code>views/main/other.cfm</code> with this content:</p>
+
+<pre><code>&lt;cfoutput&gt;
+  &lt;p&gt;Goodbye FW/1&lt;/p&gt;
+  &lt;p&gt;&lt;a href="#buildURL('main')#"&gt;Come back&lt;/a&gt;!&lt;/p&gt;
+&lt;/cfoutput&gt;
+</code></pre>
+
+<p>This will generate a link with an <code>action</code> of <code>main</code>, which is equivalent to <code>main.default</code> as we&rsquo;ll see in the next section.</p>
+
+<p>Reload your application in your browser: you should see a <code>Go away!</code> link after <code>Hello FW/1!</code>. Click it and you should go to a URL with <code>?action=main.other</code> which should display <code>Goodbye FW/1!</code> and a link back to your default page. Click that <code>Come back</code> link and you should see your original page. Note that FW/1 realized that the <code>main</code> action is the default and omitted it from the URL completely: this helps keep URLs unique for search engines.</p>
+
+<p>See the <code>hellolinked</code> example in the <code>examples</code> folder which is this simple two page application.</p>
+
+<h3>An Aside on URL Structure</h3>
+
+<p>Pages are accessed using <code>?action=section.item</code> in the URL which will display the <code>views/section/item.cfm</code> file. The default action is <code>main.default</code>, as you might have guessed from the examples above! If you specify just the section name &ndash; <code>?action=section</code> then the item has the value <code>default</code>, in other words, <code>?action=section</code> is equivalent to <code>?action=section.default</code>.</p>
+
+<p>If your application server supports it, so-called SES (Search Engine Safe) URLs can be used with FW/1:</p>
+
+<ul>
+<li><code>index.cfm/section</code> &ndash; equivalent to <code>?action=section</code></li>
+<li><code>index.cfm/section/item</code> &ndash; equivalent to <code>?action=section.item</code></li>
+<li><code>index.cfm/section/item/name/value</code> &ndash; equivalent to <code>?action=section.item&amp;name=value</code></li>
+</ul>
+
+
+<p>To use <em>name/value</em> pairs in SES URLs, you must specify both the <em>section</em> and <em>item</em> parts of the action. A trailing <em>name</em> with no <em>value</em> is equivalent to <em>&amp;name=</em> in a normal URL.</p>
+
+<p>You can tell FW/1 to generate URLs like this from <code>buildURL()</code> through a configuration setting we&rsquo;ll look at later. You can also tell FW/1 to omit <code>index.cfm/</code> from the generated URL (although you&rsquo;ll need web server URL rewrites in place to add <code>index.cfm/</code> back in so the requests are processed correctly by your CFML application server).</p>
+
+<h3>Adding a Controller to Your Application</h3>
+
+<p>When you ask for <code>action=section.item</code> FW/1 also looks for <code>section.cfc</code> in a <code>controllers</code> folder and, if present, invokes the <code>item()</code> method on it (and then displays the matching view). We&rsquo;re going to change our view to display a variable and add a controller to set that variable.</p>
+
+<p>Change <code>views/main/default.cfm</code> to contain:</p>
+
+<pre><code>&lt;cfoutput&gt;Hello #rc.name#!&lt;/cfoutput&gt;
+</code></pre>
+
+<p>Add <code>controllers/main.cfc</code> with a method, <code>default()</code>, that takes a single struct argument called <code>rc</code> (for request context) like this:</p>
+
+<pre><code>component {
+    function default( struct rc ) {
+        param name="rc.name" default="anonymous";
+    }
+}
+</code></pre>
+
+<p>Note that controller CFC names must be all lowercase.</p>
+
+<p>When you access the application now, it should say <code>Hello anonymous!</code> but if you put <code>?name=Sean</code> on the URL, it should say <code>Hello Sean!</code> The request context passed to the controller method contains all the URL and form variables from the browser and is also made available to the view directly, as <code>rc</code>.</p>
+
+<p>See the <code>hellocontroller</code> example in the <code>examples</code> folder which is this simple controller example.</p>
+
+<p>Controllers are cached. Add <code>?reload=true</code> to the URL to reload your controllers if you make changes.</p>
+
+<h3>Adding a Layout to Your Application</h3>
+
+<p>When you ask for <code>action=section.item</code> FW/1 looks for <code>layouts/section/item.cfm</code> to find a specific layout (it also knows how to look for default layouts for sections and for an application-wide layout &ndash; we&rsquo;ll cover that next). The basic view is passed in as a variable called <code>body</code>. Let&rsquo;s try this for our default action, <code>main.default</code>:</p>
+
+<p>Create <code>layouts/main/default.cfm</code> containing:</p>
+
+<pre><code>&lt;h1&gt;Welcome to FW/1!&lt;/h1&gt;
+&lt;cfoutput&gt;#body#&lt;/cfoutput&gt;
+</code></pre>
+
+<p>Layout filenames, like view filenames, must be all lowercase.</p>
+
+<p>When you access the application now, it should have <code>Welcome to FW/1!</code> as a heading above the previous output.</p>
+
+<p>FW/1 also looks for a section-specific layout in <code>layouts/section.cfm</code> and an application-wide layout in <code>layouts/default.cfm</code>. Let&rsquo;s create those just to see them in action!</p>
+
+<p>Create <code>layouts/main.cfm</code> containing:</p>
+
+<pre><code>&lt;cfoutput&gt;&lt;div style="border: solid blue 1px;"&gt;#body#&lt;/div&gt;&lt;/cfoutput&gt;
+</code></pre>
+
+<p>When you access the application, you should see a blue box around the output you had before. Note that if you ask for <code>action=main.other</code> you&rsquo;ll get the blue box but you won&rsquo;t get <code>Welcome to FW/1!</code> because that came from a layout specific to the <code>main.default</code> action.</p>
+
+<p>Now create <code>layouts/default.cfm</code> containing:</p>
+
+<pre><code>&lt;cfoutput&gt;
+  &lt;div style="border: solid green 2px; padding: 20px;"&gt;
+    #body#
+  &lt;/div&gt;
+&lt;/cfoutput&gt;
+</code></pre>
+
+<p>When you access the application now, you should see a green box added around the blue box that was there before.</p>
+
+<div style="border: solid green 2px; padding: 20px;">
+  <div style="border: solid blue 1px;">
+    <h1>Welcome to FW/1!</h1>
+    <p>Hello anonymous!</p>
+  </div>
+</div>
+
+
+<p>You can see how the layouts nest (and hopefully your artistic skills with CSS and HTML can produce something that looks a lot nicer than this example!).</p>
+
+<p>The <code>hellolayout</code> example in the <code>examples</code> folder corrsponds to what you should have at this point.</p>
+
+<h3>Adding a Service to Your Application</h3>
+
+<p>Whilst you can keep adding functionality to your controllers, a well-structured MVC application tries to keep the controllers lightweight and delegate all the business logic to the &ldquo;Model&rdquo; of your application. The Model is generally exposed to your controllers through a service layer, including smart objects that represent the problem domain, known as domain objects.</p>
+
+<p>You can manage service CFCs yourself if you want but FW/1 ships with an easy to use &ldquo;bean factory&rdquo; that makes it easy to create service CFCs, have them automatically wired into your controllers, and then call their methods directly.</p>
+
+<p>Let&rsquo;s create a greeting service that we can call from our controller. Create a <code>model</code> folder, with a <code>services</code> subfolder, and inside that we&rsquo;ll put our <code>greeting.cfc</code>:</p>
+
+<pre><code>component {
+    function greet( string name ) {
+        return "so-called " &amp; name;
+    }
+}
+</code></pre>
+
+<p>FW/1 automatically looks in the <code>model</code> folder for CFCs to create and it expects domain objects to be in a <code>beans</code> subfolder and treats everything else as singletons, creating only a single unique instance.</p>
+
+<p>Now we need to tell our controller about this service so we will add <code>accessors=true</code> to the <code>component</code> tag (so that CFML will automatically provide set and get methods for our properties), and we will add a <code>property</code> for our greeting service like this:</p>
+
+<pre><code>component accessors=true {
+    property greetingService;
+    function default( struct rc ) {
+        param name="rc.name" default="anonymous";
+    }
+}
+</code></pre>
+
+<p>Then <code>Service</code> suffix is just a convention that FW/1 and DI/1 use so that you don&rsquo;t have to worry about CFCs with the same name in different parts of your application model &ndash; the subfolder is used as the suffix.</p>
+
+<p>Now we&rsquo;ll add a call to the <code>greet()</code> method of that service:</p>
+
+<pre><code>component accessors=true {
+    property greetingService;
+    function default( struct rc ) {
+        param name="rc.name" default="anonymous";
+        rc.name = variables.greetingService.greet( rc.name );
+    }
+}
+</code></pre>
+
+<p>When you access the application, you&rsquo;ll see it says <code>Hello so-called anonymous!</code> so FW/1 has automatically found our service, <em>injected</em> it into our controller, and made it available for us to call in our <code>default()</code> method! This is called <em>Dependency Injection</em> and as we mentioned right at the start of this page, you mostly don&rsquo;t need to worry about what it means or how it works: you just declare a <code>property</code> for each service you <em>depend on</em> and FW/1 and DI/1 work together to <em>inject</em> it for you.</p>
+
+<p>If you access the application with <code>?name=Sean</code> in the URL, it should say <code>Hello so-called Sean!</code> so you can see how URL variables are passed into the controller and can be passed as arguments to service calls.</p>
+
+<p>Your application at this point corresponds to the <code>helloservice</code> example in the <code>examples</code> folder.</p>
+
+<h2>What&rsquo;s Next?</h2>
+
+<p>Once you&rsquo;ve read this Getting Started guide, you&rsquo;ll want to move on to the <a href="/documentation/developing-applications.html">Developing Applications Manual</a> and when you need to look things up, use the <a href="/documentation/reference-manual.html">Reference Manual</a>. You may also want to learn about <a href="/documentation/using-subsystems.html">Using Subsystems</a> which allows FW/1 applications to be combined as modules of a larger FW/1 application.</p>
+
+<p>You probably also want to <a href="http://groups.google.com/group/framework-one/">join the FW/1 mailing list</a> on Google Groups or <a href="http://twitter.com/search/%23FW1">follow the #FW1 twitter stream</a>; you may also find help and inspiration in the <a href="https://github.com/framework-one/fw1/wiki/FW-1-Site-Showcase">FW/1 Site Showcase</a>, a directory of sites created with FW/1. To read about what&rsquo;s coming in the future, take a look at the <a href="/documentation/roadmap.html">Roadmap</a>.</p>
 
   
     <footer>
@@ -102,7 +318,7 @@
   
 
 
-<time datetime="2014-06-21T15:02:00-07:00" pubdate data-updated="true">Jun 21<span>st</span>, 2014</time>
+<time datetime="2014-08-28T16:02:00-07:00" pubdate data-updated="true">Aug 28<span>th</span>, 2014</time>
         
       </p>
       
