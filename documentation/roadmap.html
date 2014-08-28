@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Roadmap Aug 27th, 2014 Aug 27th, 2014 About FW/1 FW/1 - Framework One - is a family of small, lightweight, convention-over-configuration &hellip;">
+  <meta name="description" content="FW/1 Roadmap Aug 28th, 2014 Whilst you can read the FW/1 issues list to see what&rsquo;s on the cards for future releases, several people have asked &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,10 +81,57 @@
   
 
 
-<time datetime="2014-08-27T15:02:00-07:00" pubdate data-updated="true">Aug 27<span>th</span>, 2014</time></p>
+<time datetime="2014-08-28T16:02:00-07:00" pubdate data-updated="true">Aug 28<span>th</span>, 2014</time></p>
   </header>
   
-  
+  <p>Whilst you can read the <a href="https://github.com/framework-one/fw1/issues">FW/1 issues list</a> to see what&rsquo;s on the cards for future releases, several people have asked that I document things at a higher level so they can get a better sense of what&rsquo;s coming.</p>
+
+<h2>1.x Release Stream</h2>
+
+<p>This is the legacy version. FW/1 1.3 is the most recent legacy version, provided to support older CFML engines (Adobe ColdFusion 9.0.0 and earlier, Railo 3.1.x, Open BlueDragon). FW/1 2.x and 3.x will not run on these older CFML engines. Only critical fixes will be made to the 1.x release stream. Currently no new 1.x releases are planned.</p>
+
+<h2>2.x Release Stream</h2>
+
+<p>This is the current stable version. FW/1 2.5 is the latest stable version. The 2.x versions support Adobe ColdFusion 9.0.1 and later, Railo 3.2.2 and later.</p>
+
+<p>Changes between 1.x and 2.x include:</p>
+
+<ul>
+<li>No more implicit service calls</li>
+<li>Custom route support</li>
+<li>Property-based injection in controllers</li>
+<li>Better lifecycle control: layout and view control, abort controllers</li>
+<li>Better REST support: render data instead of views, resource packs and regular expressions in routes</li>
+<li>Environment control</li>
+<li>Application tracing</li>
+<li>Automated test suite</li>
+</ul>
+
+
+<h2>2.5 Deprecations</h2>
+
+<p>FW/1 2.5 represents a large shift from 2.2.1 and deprecates a number of long-standing features that will be removed in 3.0:</p>
+
+<ul>
+<li>Service queue &ndash; implicit service calls were disabled in 2.x but still supported for backward compatibility with 1.x, but in 2.5 the whole service queue machinery is deprecated, including the <code>service()</code> call, and will be removed in 3.0.</li>
+<li><code>startItem()</code> / <code>endItem()</code> controller methods &ndash; these were originally introduced to encourage a clean separation of controller logic from (queued) service logic. With the service queue going away, they make no sense, so they are deprecated in 2.5 and will be removed in 3.0.</li>
+<li>Global access to the <code>rc</code> variable &ndash; this was never really intended to be supported but some users found it convenient and started to rely on it. Due to edge case bugs, and the fact that there are better ways to manage the <code>rc</code> in the lifecycle, global access is deprecated in 2.5 and will be removed in 3.0. This will mostly affect users who update the <code>rc</code> in <code>setupRequest()</code> &ndash; logic which should generally be moved to <code>Application.cfc</code> in the global <code>before()</code> controller method.</li>
+</ul>
+
+
+<h2>3.0 Integrations</h2>
+
+<p>FW/1 3.0 is currently in beta and represents the direction that most users have already been going:</p>
+
+<ul>
+<li>Using DI/1 to manage services and beans</li>
+<li>Explicitly calling services in the <code>item()</code> controller methods</li>
+</ul>
+
+
+<p>FW/1 3.0 bundles both DI/1 and AOP/1 and automatically creates bean factories following the convention of a <code>model</code> folder containing <code>services</code> and <code>beans</code> subfolders. Subsystems also follow this convention and use the main application&rsquo;s bean factory as a parent to enable sharing of common services across subsystems.</p>
+
+<p>FW/1 3.0 also slims down the framework by removing all of the service queue machinery and the start/end variants of controller methods, as well as coalescing all the framework components in a single folder <code>framework</code> (with <code>org.corfield.framework</code> replaced by <code>framework.one</code>).</p>
 
   
     <footer>
@@ -102,7 +149,7 @@
   
 
 
-<time datetime="2014-08-27T15:02:00-07:00" pubdate data-updated="true">Aug 27<span>th</span>, 2014</time>
+<time datetime="2014-08-28T16:02:00-07:00" pubdate data-updated="true">Aug 28<span>th</span>, 2014</time>
         
       </p>
       
