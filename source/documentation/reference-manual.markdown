@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2014-08-30 16:20
+date: 2014-09-07 14:28
 comments: false
 sharing: false
 footer: true
@@ -453,71 +453,67 @@ When you call `renderData()`, processing continues in your controller (so use `r
 
 If you are manually creating a bean factory, call this from your `setupApplication()` method to tell the framework about your primary (default) bean factory. By default FW/1 will use DI/1 as the bean factory and you won't have to worry about this.
 
-h3. public void function setLayout( string action )
+### public void function setLayout( string action, boolean suppressOtherLayouts = false )
 
-Call this to tell the framework to use a new action _subsystem:section.item_ as the basis of the lookup process for the layouts for the current request. This allows you to override the default convention for choosing the layouts. Added in version 2.0.
+Call this to tell the framework to use a new action _subsystem:section.item_ as the basis of the lookup process for the layouts for the current request. This allows you to override the default convention for choosing the layouts. If you specify `suppressOtherLayouts` as `true`, then only the most specific layout will be used and the usual cascade of layouts will be turned off for this request.
 
-h3. public void function setSubsystemBeanFactory( string subsystem, any factory )
+### public void function setSubsystemBeanFactory( string subsystem, any factory )
 
-Call this to tell the framework about a subsystem-specific bean factory. Again, the bean factory must support *containsBean( name )* and *getBean( name )*. You would typically call this method from your *setupSubsystem()* method.
+Call this to tell the framework about a subsystem-specific bean factory. The bean factory must support `containsBean( name )` and `getBean( name )`. You would typically call this method from your `setupSubsystem()` method.
 
-h3. public void function setupApplication()
+### public void function setupApplication()
 
-Override this in *Application.cfc* to provide application-specific initialization. If you want the framework to use a bean factory and autowire controllers and services, this is where you should call *setBeanFactory( factory )*. You do not need to call *super.setupApplication()*.
+Override this in your `Application.cfc` to provide application-specific initialization. If you want the framework to use a non-default bean factory, this is where you should call `setBeanFactory( factory )`. You do not need to call `super.setupApplication()`.
 
-h3. public void function setupEnvironment( string env )
+## public void function setupEnvironment( string env )
 
-Override this in *Application.cfc* to provide environment-specific initialization. See *Environment Control* in the [[Developing Applications Manual]] for more detail. _Added in 2.1_
+Override this in your `Application.cfc` to provide environment-specific initialization. See **Environment Control** in the [Developing Applications Manual](/documentation/developing-applications.html) for more detail.
 
-h3. public void function setupRequest()
+### public void function setupRequest()
 
-Override this in *Application.cfc* to provide request-specific initialization. You do not need to call *super.setupRequest()*. Since you do not have access to *rc* here, you may also want to define *before()* in *Application.cfc* to act as an initialization controller, to populate the request context prior to other controllers being executed.
+Override this in your `Application.cfc` to provide request-specific initialization. You do not need to call `super.setupRequest()`. Since you do not have access to `rc` here, you may also want to define `before()` in `Application.cfc` to act as an initialization controller, to populate the request context prior to other controllers being executed.
 
-h3. public void function setupResponse( struct rc )
+### public void function setupResponse( struct rc )
 
-Override this in *Application.cfc* to provide request-specific finalization. This is called after all views and layouts have been rendered or immediately before a redirect. You do not need to call *super.setupResponse()*. Added in FW/1 2.0. The *rc* argument was added in FW/1 2.5.
+Override this in your `Application.cfc` to provide request-specific finalization. This is called after all views and layouts have been rendered or immediately before a redirect. You do not need to call `super.setupResponse()`. 
 
-h3. public void function setupSession()
+### public void function setupSession()
 
-Override this in *Application.cfc* to provide session-specific initialization. You do not need to call *super.setupSession()*.
+Override this in your `Application.cfc` to provide session-specific initialization. You do not need to call `super.setupSession()`.
 
-h3. public void function setupSubsystem( string subsystem )
+### public void function setupSubsystem( string subsystem )
 
-Override this in *Application.cfc* to provide subsystem-specific initialization. If you want the framework to use subsystem-specific bean factories and autowire controllers and services for each subsystem, this is where you should call *setSubsystemBeanFactory( subsystem, factory )*. See the example in UsingSubsystems for more details. You do not need to call *super.setupSubsystem()*.
+Override this in your `Application.cfc` to provide subsystem-specific initialization. If you want the framework to use non-default subsystem-specific bean factories for any subsystems, this is where you should call `setSubsystemBeanFactory( subsystem, factory )`. See the example in [Using Subsystems](/documentation/using-subsystems.html) for more details. You do not need to call `super.setupSubsystem()`.
 
-h3. public void function setupTraceRender()
+### public void function setupTraceRender()
 
-This is called when the framework trace is about to be rendered at the end of a request. You can override it to take control of the rendering process yourself (for whatever reason such as saving the data to a database perhaps or providing a fancier rendering?). You can call *getFrameworkTrace()* to obtain the framework's trace data (note that this will be a copy on Adobe ColdFusion but just a reference on Railo), and do whatever you want with it. It's probably a good idea to call *disableFrameworkTrace()* to prevent any further additions to the framework trace data.
+This is called when the framework trace is about to be rendered at the end of a request. You can override it to take control of the rendering process yourself (for whatever reason such as saving the data to a database perhaps or providing a fancier rendering?). You can call `getFrameworkTrace()` to obtain the framework's trace data (note that this will be a copy on Adobe ColdFusion but just a reference on Railo), and do whatever you want with it. It's probably a good idea to call `disableFrameworkTrace()` to prevent any further additions to the framework trace data.
 
-h3. public void function setupView( struct rc )
+### public void function setupView( struct rc )
 
-Override this in *Application.cfc* to provide pre-rendering logic, e.g., putting globally available data into the request context so it is available to all views. You do not need to call *super.setupView()*. Added in FW/1 2.0. The *rc* argument was added in FW/1 2.5.
+Override this in your `Application.cfc` to provide pre-rendering logic, e.g., putting globally available data into the request context so it is available to all views. You do not need to call `super.setupView()`. 
 
-h3. public void function setView( string action )
+### public void function setView( string action )
 
-Call this to tell the framework to use a new action _subsystem:section.item_ as the basis of the lookup process for the view and layouts for the current request. This allows you to override the default convention for choosing the view and layouts. A common use for this is expected to be when redisplaying a form view when errors are present.
+Call this to tell the framework to use a new action _subsystem:section.item_ as the basis of the lookup process for the view and layouts for the current request. This allows you to override the default convention for choosing the view and layouts. A possible use for this is when redisplaying a form view when errors are present (i.e., from the form processing controller method, without using a redirect).
 
-For example:
-* _user.form_ would display a form to allow a user to be created / edited
-* _user.save_ would be the submit action which does validation and can call *setView( 'user.form' )* to redisplay the user form with errors or call *redirect()* to a confirmation page if there are no errors and the user has been saved.
+### public boolean function usingSubsystems()
 
-h3. public boolean function usingSubsystems()
+Returns `true` if the application is using subsystems, i.e., `variables.framework.usingSubsystems` is `true`. Otherwise returns `false`.
 
-Returns *true* if the application is using subsystems, i.e., *variables.framework.usingSubsystems* is *true*. Otherwise returns *false*.
+### public string function view( string path, struct args = { }, any missingView = { } )
 
-h3. public string function view( string path, struct args = { }, any missingView = { } )
+This renders a view and returns the output of that view as a string. It is intended to be used primarily inside layouts to render fragments of a page such as menus and other common elements. Elements of the *args* structure are appended to the local scope accessible inside the view file. For example:
 
-This renders a view and returns the output of that view as a string. It is intended to be used primarily inside layouts to render fragments of a page such as menus and other common elements. As of 1.2, elements of the *args* structure are appended to the local scope accessible inside the view file. For example:
+    <cfoutput>
+      <div>#view( 'common:site/header' )#</div>
+      <div>#view( 'nav/menu', { selected = 'home' } )#</div>
+      <div>#body#</div>
+      <div>#view( 'common:site/footer' )#</div>
+    </cfoutput>
 
-pre. <cfoutput>
-<div>#view( 'common:site/header' )#</div>
-<div>#view( 'nav/menu', { selected = 'home' } )#</div>
-<div>#body#</div>
-<div>#view( 'common:site/footer' )#</div>
-</cfoutput>
+This renders the `header` and `footer` items (views) from the `common` subsystem's `site` section and the `menu` item (view) from the current subsystem's `nav` section. Inside `menu.cfm`, `local.selected` would be available containing the string `"home"`.
 
-This renders the *header* and *footer* items (views) from the *common* subsystem's *site* section and the *menu* item (view) from the current subsystem's *nav* section. Inside *menu*, _local.selected_ would be available containing the string 'home'.
+A controller may call `view()` which can be useful if you have email templates that need to be rendered and sent as part of a request: those email templates can be treated as views and have all the associated `rc`, `local`, etc machinery applied.
 
-_As of 2.0, a controller may call *view()* after service execution has completed (i.e., if no services are queued up or from the *end*item controller method)._
-
-_As of 2.2, *missingView* was added to the arguments and if not specified, and the specified view does not exist, *onMissingView()* will be called. If a string is passed as *missingView* and the specified view does not exist, the value of that argument will be returned. This allows for programmatically calculated views to be silently rendered as empty strings if they are not present. This can be useful for programmatic skins with optional elements._
+If the argument `missingView` is not specified, and the specified view `path` does not exist, then `onMissingView()` will be called. If a string is passed as `missingView` and the specified view does not exist, then the value of the `missingView` argument will be returned. This allows for programmatically calculated views to be silently rendered as empty strings if they are not present. This can be useful for programmatic skins with optional elements.
