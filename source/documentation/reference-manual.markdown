@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2014-09-07 14:28
+date: 2014-09-10 10:28
 comments: false
 sharing: false
 footer: true
@@ -378,11 +378,11 @@ Part of the standard CFML lifecycle, this method is called automatically by the 
 
 If you override this method, you **must** call `super.onSessionStart()`.
 
-### public any function populate( any cfc, string keys = "", boolean trustKeys = false, boolean trim = false )
+### public any function populate( any cfc, string keys = "", boolean trustKeys = false, boolean trim = false, boolean deep = false, any properties = '' )
 
-Automatically populates an object with data from the request context. For any public method `setKey()` on the object or any declared `property key;`, if `rc.key` exists, call the setter with that value. If the optional list of `keys` is provided, only attempt to call setters for the specified keys in the request context. Mainly useful for populating beans from form posts. Whitespace is permitted in the list of keys for clarity, e.g., `"firstname, lastname, email"`. This approach relies on setter methods and properties in the object. It won't detect and use `onMissingMethod()`.
+Automatically populates an object with data from the request context, or from the `properties` struct if provided. For any public method `setKey()` on the object or any declared `property key;`, if that `key` exists in the source data structure, call the setter with that value. If the optional list of `keys` is provided, only attempt to call setters for the specified keys in the request context. Mainly useful for populating beans from form posts. Whitespace is permitted in the list of keys for clarity, e.g., `"firstname, lastname, email"`. This approach relies on setter methods and properties in the object. It won't detect and use `onMissingMethod()`.
 
-You can also specify `trim = true` and FW/1 will call `trim()` on each item before calling the setter.
+You can also specify `trim = true` and FW/1 will call `trim()` on each item before calling the setter. Setting `deep = true` will allow FW/1 to populate nested properties on objects (in child objects).
 
 For `populate()` to work with `onMissingMethod()` you need to specify `trustKeys = true`. If you specify the list of `keys`, `populate()` will not test whether the setter exists, it will just call it - which means that `onMissingMethod()` and property-based setters will be invoked automatically. If you omit the `keys`, be careful because `populate()` will cycle through the entire request context and attempt to set properties on the object for everything! A `try/catch` is used to suppress any exceptions in this case but you need to be aware that this may be a little dangerous if you have a lot of data in your request context that does not match the properties of the object! If an exception is caught, `onPopulateError()` is called with the object, property name and the request context structure as its three arguments. The default behavior is to simply ignore the exception but you can override that if you want - see `onPopulateError()` above.
 
