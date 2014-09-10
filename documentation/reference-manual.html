@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Sep 7th, 2014 This page provides a description of all the APIs and components involved in a FW/1 application. Please also read &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Sep 10th, 2014 This page provides a description of all the APIs and components involved in a FW/1 application. Please also &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
   
 
 
-<time datetime="2014-09-07T14:28:00-07:00" pubdate data-updated="true">Sep 7<span>th</span>, 2014</time></p>
+<time datetime="2014-09-10T10:28:00-07:00" pubdate data-updated="true">Sep 10<span>th</span>, 2014</time></p>
   </header>
   
   <p>This page provides a description of all the APIs and components involved in a FW/1 application. Please also read the <a href="/documentation/roadmap.html">Roadmap</a> to see how things may change in the future.</p>
@@ -498,11 +498,11 @@
 
 <p>If you override this method, you <strong>must</strong> call <code>super.onSessionStart()</code>.</p>
 
-<h3>public any function populate( any cfc, string keys = &ldquo;&rdquo;, boolean trustKeys = false, boolean trim = false )</h3>
+<h3>public any function populate( any cfc, string keys = &ldquo;&rdquo;, boolean trustKeys = false, boolean trim = false, boolean deep = false, any properties = &lsquo;&rsquo; )</h3>
 
-<p>Automatically populates an object with data from the request context. For any public method <code>setKey()</code> on the object or any declared <code>property key;</code>, if <code>rc.key</code> exists, call the setter with that value. If the optional list of <code>keys</code> is provided, only attempt to call setters for the specified keys in the request context. Mainly useful for populating beans from form posts. Whitespace is permitted in the list of keys for clarity, e.g., <code>"firstname, lastname, email"</code>. This approach relies on setter methods and properties in the object. It won&rsquo;t detect and use <code>onMissingMethod()</code>.</p>
+<p>Automatically populates an object with data from the request context, or from the <code>properties</code> struct if provided. For any public method <code>setKey()</code> on the object or any declared <code>property key;</code>, if that <code>key</code> exists in the source data structure, call the setter with that value. If the optional list of <code>keys</code> is provided, only attempt to call setters for the specified keys in the request context. Mainly useful for populating beans from form posts. Whitespace is permitted in the list of keys for clarity, e.g., <code>"firstname, lastname, email"</code>. This approach relies on setter methods and properties in the object. It won&rsquo;t detect and use <code>onMissingMethod()</code>.</p>
 
-<p>You can also specify <code>trim = true</code> and FW/1 will call <code>trim()</code> on each item before calling the setter.</p>
+<p>You can also specify <code>trim = true</code> and FW/1 will call <code>trim()</code> on each item before calling the setter. Setting <code>deep = true</code> will allow FW/1 to populate nested properties on objects (in child objects).</p>
 
 <p>For <code>populate()</code> to work with <code>onMissingMethod()</code> you need to specify <code>trustKeys = true</code>. If you specify the list of <code>keys</code>, <code>populate()</code> will not test whether the setter exists, it will just call it &ndash; which means that <code>onMissingMethod()</code> and property-based setters will be invoked automatically. If you omit the <code>keys</code>, be careful because <code>populate()</code> will cycle through the entire request context and attempt to set properties on the object for everything! A <code>try/catch</code> is used to suppress any exceptions in this case but you need to be aware that this may be a little dangerous if you have a lot of data in your request context that does not match the properties of the object! If an exception is caught, <code>onPopulateError()</code> is called with the object, property name and the request context structure as its three arguments. The default behavior is to simply ignore the exception but you can override that if you want &ndash; see <code>onPopulateError()</code> above.</p>
 
@@ -663,7 +663,7 @@
   
 
 
-<time datetime="2014-09-07T14:28:00-07:00" pubdate data-updated="true">Sep 7<span>th</span>, 2014</time>
+<time datetime="2014-09-10T10:28:00-07:00" pubdate data-updated="true">Sep 10<span>th</span>, 2014</time>
         
       </p>
       
