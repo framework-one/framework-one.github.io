@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Roadmap"
-date: 2014-08-28 16:42
+date: 2015-01-21 12:42
 comments: false
 sharing: false
 footer: true
@@ -42,6 +42,6 @@ FW/1 3.0 is currently in beta and represents the direction that most users have 
 * Using DI/1 to manage services and beans
 * Explicitly calling services in the `item()` controller methods
 
-FW/1 3.0 bundles both DI/1 and AOP/1 and automatically creates bean factories following the convention of a `model` folder containing `services` and `beans` subfolders. Subsystems also follow this convention and use the main application's bean factory as a parent to enable sharing of common services across subsystems.
+FW/1 3.0 bundles DI/1 and automatically creates bean factories following the convention of a `model` folder containing `services` and `beans` subfolders. Subsystems also follow this convention and use the main application's bean factory as a parent to enable sharing of common services across subsystems.
 
 FW/1 3.0 also slims down the framework by removing all of the service queue machinery and the start/end variants of controller methods, as well as coalescing all the framework components in a single folder `framework` (with `org.corfield.framework` replaced by `framework.one`).

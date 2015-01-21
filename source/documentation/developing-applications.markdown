@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2014-08-30 16:20
+date: 2015-01-21 12:20
 comments: false
 sharing: false
 footer: true
@@ -233,6 +233,8 @@ Unless you choose `"none"`, FW/1 will use `variables.framework.diComponent` as t
 * `"wirebox"` - `"framework.WireBoxAdapter"`
 
 You can override these if you have installed FW/1's `framework` folder contents elsewhere. If you specify a `diEngine` of `"custom"`, you must supply your own value for `diComponent`.
+
+_Note: in order to use AOP/1 you need to manually download it and place it in the `framework` folder yourself._
 
 The following configuration variables are used in the construction of the bean factory component:
 
