@@ -485,9 +485,11 @@ Override this in your `Application.cfc` to provide session-specific initializati
 
 Override this in your `Application.cfc` to provide subsystem-specific initialization. If you want the framework to use non-default subsystem-specific bean factories for any subsystems, this is where you should call `setSubsystemBeanFactory( subsystem, factory )`. See the example in [Using Subsystems](/documentation/using-subsystems.html) for more details. You do not need to call `super.setupSubsystem()`.
 
-### public void function setupTraceRender()
+### public void function setupTraceRender( string output = "html" )
 
 This is called when the framework trace is about to be rendered at the end of a request. You can override it to take control of the rendering process yourself (for whatever reason such as saving the data to a database perhaps or providing a fancier rendering?). You can call `getFrameworkTrace()` to obtain the framework's trace data (note that this will be a copy on Adobe ColdFusion but just a reference on Railo), and do whatever you want with it. It's probably a good idea to call `disableFrameworkTrace()` to prevent any further additions to the framework trace data.
+
+The `output` argument will be either `"html"` or `"data"`. `"html"` indicates that a regular (HTML) view will be rendered, `"data"` indicates that `renderData()` has been called. In the latter case, your tracing code should not write to the HTTP response (but could still write to the console, for example).
 
 ### public void function setupView( struct rc )
 
