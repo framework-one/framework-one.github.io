@@ -585,7 +585,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 <li><code>cacheFileExists</code> &ndash; If you are running on a system where disk access is slow &ndash; or you simply want to avoid several calls to <code>fileExists()</code> during requests for performance &ndash; you can set this to true and FW/1 will cache all its calls to <code>fileExists()</code>. Be aware that if the result of <code>fileExists()</code> is cached and you add a new layout or a new view, it won&rsquo;t be noticed until you reload the framework.</li>
 <li><code>applicationKey</code> &ndash; A unique value for each FW/1 application that shares a common ColdFusion application name.</li>
 <li><code>noLowerCase</code> &ndash; If <code>true</code>, FW/1 will not force actions to lowercase so subsystem, section and item names will be case sensitive (in particular, filenames for controllers, views and layouts may therefore be mixed case on a case-sensitive operating system). The default is <code>false</code>. Use of this option is <em>not</em> recommended and is not considered good practice.</li>
-<li><code>trace</code> &ndash; If <code>true</code>, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature.</li>
+<li><code>trace</code> &ndash; If <code>true</code>, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature. (Note that FW/1 will not print out debugging / tracing information when the <code>renderData()</code> function is used. You can still access and output debugging / tracing information in such cases by overriding the <code>setupTraceRender()</code> function. See the <a href="/documentation/reference-manual.html">Reference Manual</a> for more details.).</li>
 <li><code>routes</code> &ndash; An array of URL path mappings. This allows you to override the conventional mapping of <code>/section/item</code> to controllers.</li>
 <li><code>resourceRouteTemplates</code> &ndash; see <strong>URL Routes</strong> below.</li>
 <li><code>diEngine</code> &ndash; the Dependency Injection framework that FW/1 should use.</li>
@@ -860,6 +860,7 @@ property framework;
     <h1>Documentation</h1>
     <a href="/documentation">Getting Started Guide</a><br />
     <a href="/documentation/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/using-di-one.html">Using DI/1</a><br />
     <a href="/documentation/using-subsystems.html">Using Subsystems</a><br />
     <a href="/documentation/reference-manual.html">Reference Manual</a><br />
     <a href="/documentation/roadmap.html">Roadmap</a><br />

@@ -613,11 +613,9 @@
 
 <p>Override this in your <code>Application.cfc</code> to provide subsystem-specific initialization. If you want the framework to use non-default subsystem-specific bean factories for any subsystems, this is where you should call <code>setSubsystemBeanFactory( subsystem, factory )</code>. See the example in <a href="/documentation/using-subsystems.html">Using Subsystems</a> for more details. You do not need to call <code>super.setupSubsystem()</code>.</p>
 
-<h3>public void function setupTraceRender( string output = &ldquo;html&rdquo; )</h3>
+<h3>public void function setupTraceRender( string output = &lsquo;html&rsquo; )</h3>
 
-<p>This is called when the framework trace is about to be rendered at the end of a request. You can override it to take control of the rendering process yourself (for whatever reason such as saving the data to a database perhaps or providing a fancier rendering?). You can call <code>getFrameworkTrace()</code> to obtain the framework&rsquo;s trace data (note that this will be a copy on Adobe ColdFusion but just a reference on Railo), and do whatever you want with it. It&rsquo;s probably a good idea to call <code>disableFrameworkTrace()</code> to prevent any further additions to the framework trace data.</p>
-
-<p>The <code>output</code> argument will be either <code>"html"</code> or <code>"data"</code>. <code>"html"</code> indicates that a regular (HTML) view will be rendered, <code>"data"</code> indicates that <code>renderData()</code> has been called. In the latter case, your tracing code should not write to the HTTP response (but could still write to the console, for example).</p>
+<p>This is called when the framework trace is about to be rendered at the end of a request. <code>output</code> will be either <code>'html'</code> or <code>'data'</code> depending on whether FW/1 has output HTML using views and layouts or rendered data in the current request. You can override it to take control of the rendering process yourself (for whatever reason such as saving the trace data to a database perhaps or providing a fancier rendering?). You can call <code>getFrameworkTrace()</code> to obtain the framework&rsquo;s trace data (note that this will be a copy on Adobe ColdFusion but just a reference on Railo), and do whatever you want with it. It&rsquo;s probably a good idea to call <code>disableFrameworkTrace()</code> to prevent any further additions to the framework trace data. Note: this method used to be called only when FW/1 was outputting HTML and not rendering data, however, it is now called whenever tracing is enabled. If you were using this method to render trace data in a custom format at the end of HTML requests, you will find your rendered trace data appended to your request data when <code>renderData()</code> is used. In order to maintain your current functionality, you can easily fix this by checking that the <code>output</code> argument is equal to <code>'html'</code> before rendering the trace data.</p>
 
 <h3>public void function setupView( struct rc )</h3>
 
@@ -686,6 +684,7 @@
     <h1>Documentation</h1>
     <a href="/documentation">Getting Started Guide</a><br />
     <a href="/documentation/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/using-di-one.html">Using DI/1</a><br />
     <a href="/documentation/using-subsystems.html">Using Subsystems</a><br />
     <a href="/documentation/reference-manual.html">Reference Manual</a><br />
     <a href="/documentation/roadmap.html">Roadmap</a><br />
