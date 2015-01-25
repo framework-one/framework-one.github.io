@@ -15,6 +15,12 @@
   </url>
   
   <url>
+    <loc>http://framework-one.github.io/blog/2015/01/23/cfmljure-0-1-0/</loc>
+    <lastmod>2015-01-23T13:30:49-08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://framework-one.github.io/blog/2014/08/18/fw1-3-0-beta-1-available/</loc>
     <lastmod>2014-08-18T11:21:49-07:00</lastmod>
     <priority>0.8</priority>
@@ -137,56 +143,56 @@
   
   <url>
     <loc>http://framework-one.github.io/documentation/developing-applications.html</loc>
-    <lastmod>2015-01-25T15:13:54-08:00</lastmod>
+    <lastmod>2015-01-25T15:51:31-08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://framework-one.github.io/blog/archives/</loc>
-    <lastmod>2015-01-25T15:13:54-08:00</lastmod>
+    <lastmod>2015-01-25T15:51:31-08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://framework-one.github.io/</loc>
-    <lastmod>2015-01-25T15:13:54-08:00</lastmod>
+    <lastmod>2015-01-25T15:51:31-08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://framework-one.github.io/documentation/</loc>
-    <lastmod>2015-01-25T15:13:54-08:00</lastmod>
+    <lastmod>2015-01-25T15:51:31-08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://framework-one.github.io/documentation/reference-manual.html</loc>
-    <lastmod>2015-01-25T15:13:54-08:00</lastmod>
+    <lastmod>2015-01-25T15:51:31-08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://framework-one.github.io/documentation/roadmap.html</loc>
-    <lastmod>2015-01-25T15:13:54-08:00</lastmod>
+    <lastmod>2015-01-25T15:51:31-08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://framework-one.github.io/documentation/using-di-one.html</loc>
-    <lastmod>2015-01-25T15:13:54-08:00</lastmod>
+    <lastmod>2015-01-25T15:51:31-08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://framework-one.github.io/documentation/using-subsystems.html</loc>
-    <lastmod>2015-01-25T15:13:54-08:00</lastmod>
+    <lastmod>2015-01-25T15:51:31-08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

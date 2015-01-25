@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Clojure | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/clojure/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-01-25T15:13:54-08:00</updated>
+  <updated>2015-01-25T15:51:31-08:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -29,6 +29,46 @@
 <p>This won&rsquo;t be part of FW/1 3.0. Instead it will stay on the <code>clojure</code> branch until release 3.0 is out (<code>develop</code> will be merged to <code>master</code> for that), but it will be part of FW/1 3.5 which will be the next release. That way it can get some field testing in production as well as some polish and some documentation love. Stay tuned!</p>
 
 <p>p.s. Right now cfmljure only runs on Railo. The CFML code itself could be made portable enough to run on ColdFusion but the real problem is interop with Java/Clojure: ColdFusion thinks 42 is a string and so you need to do a lot of string-to-number conversions to interact with Clojure through cfmljure. I haven&rsquo;t used ColdFusion for over five years &ndash; just Railo &ndash; so I don&rsquo;t have much incentive, but if you feel inclined to send a Pull Request with changes to make cfmljure ColdFusion-compatible&hellip;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Cfmljure Release 0.1.0]]></title>
+    <link href="http://framework-one.github.io/blog/2015/01/23/cfmljure-0-1-0/"/>
+    <updated>2015-01-23T13:30:49-08:00</updated>
+    <id>http://framework-one.github.io/blog/2015/01/23/cfmljure-0-1-0</id>
+    <content type="html"><![CDATA[<p>I started cfmljure back in 2010, a few months after I started to learn Clojure, as a way to run Clojure code inside a CFML application. That early version worked &ndash; we&rsquo;ve been using it in at World Singles since mid-2011 to integrate Clojure into our large ColdBox application, and updated versions of cfmljure have been in very heavy production usage since May 2012.<!-- more --> Those early versions were pretty clunky to setup though, since you needed to mess with the classpath of your CFML engine (or at least the container on which you ran it &ndash; Tomcat, in our case) and you needed to copy all your third-party library dependencies into the <code>WEB-INF/lib</code> folder (and restart your container if you changed your dependencies).</p>
+
+<p>When Clojure 1.6 came out (March 2014), it introduced a new API for embedding Clojure inside other JVM applications. I&rsquo;d been relying on an unsupported API so I wanted to move to the new API as soon as possible. I ran into problems with classpath handling so I put it on the back burner for a while. One of the things that bothered me about the earlier cfmljure was that you had to do so much configuration and manual copying of libraries. Leiningen handles all this for you in Clojure and I wanted things to be that slick for cfmljure. I experimented with some CFML code that executed Leiningen to retrieve the classpath and I had some success, but not enough to create a reliable version that could be used in our app at work.</p>
+
+<p>This past week, I decided to have another run at it, using a different approach to manipulating the classpath in my running CFML application:</p>
+
+<pre><code>// extend the classloader - not at all sketchy, honest!
+var threadProxy = createObject( "java", "java.lang.Thread" );
+var appCL = threadProxy.currentThread().getContextClassLoader();
+var urlCLProxy = createObject( "java", "java.net.URLClassLoader" );
+var addURL = urlCLProxy.getClass().getDeclaredMethod( "addURL", __classes( "URL", 1, "java.net" ) );
+addUrl.setAccessible( true ); // hack to make it callable
+for ( var newURL in urls.toArray() ) {
+    addURL.invoke( appCL, [ newURL ] );
+}
+</code></pre>
+
+<p>I gleaned the principle of this from time spent on Google and StackOverflow and several snippets of Java code that did this same thing. It uses Java Reflection to get a handle on <code>URLClassLoader.addURL()</code> and change its access to public so that it can be called by code that doesn&rsquo;t extend the <code>URLClassLoader</code> class. This got me past the previous blocking point and I was able to complete the rewrite of that earlier version of cfmljure to use the new Clojure 1.6 API and also leverage Leiningen to avoid that configuration and manual copying.</p>
+
+<p>I present: <a href="https://github.com/framework-one/cfmljure/releases/tag/v0.1.0">cfmljure Release 0.1.0</a>! An easy-to-use way to embed a Clojure project into your CFML application (running on Railo).</p>
+
+<p>The documentation is in the <a href="https://github.com/framework-one/cfmljure/blob/master/README.md">cfmljure README</a> on Github but the basic flow is as follows:</p>
+
+<ul>
+<li>Create a Clojure project with Leiningen: <code>lein new myproject</code></li>
+<li>Create an instance of cfmljure pointing at that project folder: <code>var clj = new cfmljure("/path/to/myproject");</code></li>
+<li>Install Clojure namespaces into a struct (or a scope): <code>clj.install("clojure.core,myproject.core",this);</code></li>
+<li>Call Clojure code: <code>this.clojure.core.println("Hello World!");</code></li>
+</ul>
+
+
+<p>That&rsquo;s about as simple as it gets!</p>
 ]]></content>
   </entry>
   
@@ -73,19 +113,6 @@
     <content type="html"><![CDATA[<p>Even tho' it&rsquo;s far from a 1.0 release, I&rsquo;ve updated the <a href="https://github.com/framework-one/cfmljure">cfmljure</a> project on github to contain the latest version that we&rsquo;re using at World Singles and update the examples so they work again, along with updated instructions &ndash; mainly that the Clojure code needs to be in <code>WEB-INF/classes/</code> so that it can be picked up dynamically. This is a fundamental piece of our infrastructure at World Singles, since we rely heavily on Clojure for the Model of our application, with our View-Controller in CFML. It&rsquo;s not intended to be general purpose code but if you want to play around with calling Clojure from CFML, it should get you started.</p>
 
 <p>Don&rsquo;t forget the <a href="http://groups.google.com/group/cfmljure">cfmljure</a> mailing list if you need assistance!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Cfmljure Mailing List]]></title>
-    <link href="http://framework-one.github.io/blog/2010/09/21/cfmljure-mailing-list/"/>
-    <updated>2010-09-21T13:21:49-07:00</updated>
-    <id>http://framework-one.github.io/blog/2010/09/21/cfmljure-mailing-list</id>
-    <content type="html"><![CDATA[<p>I mentioned it in passing in one of my early posts about using Clojure from CFML but, since only one person signed up, thought it was worth mentioning again: there is a <a href="http://groups.google.com/group/cfmljure">mailing list for cfmljure</a> where you can ask questions about the project and Clojure itself or, if you&rsquo;re new to CFML and coming from the Clojure world, you can ask questions about CFML!</p>
-
-<p>I&rsquo;m planning to add a couple of more involved examples to the project repo, one of which will use FW/1 and have the entire Model built in Clojure with the View-Controller portion written in CFML / cfscript &ndash; and I&rsquo;m also planning to create a simple ready-to-run Jetty-based package so folks can simply download cfmljure and try it out without needing to worry about installing anything.</p>
-
-<p>You can always get the <a href="http://cfmljure.riaforge.org/">latest version of cfmljure from RIAForge</a>!</p>
 ]]></content>
   </entry>
   
