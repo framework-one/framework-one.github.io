@@ -3,7 +3,7 @@ layout: post
 title: "FW/1 2.5 is released!"
 date: 2014-05-25 23:13:39 -0700
 comments: true
-categories: releases
+categories: [releases, fw1, di1]
 ---
 This is a migration release to pave the way for breaking changes in Release 3.0. All examples have been updated to latest best practices and now use cfcscript exclusively. Examples use DI/1 0.5.0 to manage all beans and services (as `framework.ioc`), and no longer rely on start/end actions or the `service()` method.<!-- more -->
 

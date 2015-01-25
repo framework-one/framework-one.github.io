@@ -3,7 +3,7 @@ layout: post
 title: "FW/1 Version 2.1 Released"
 date: 2013-01-05 14:23:53 -0700
 comments: true
-categories: releases
+categories: [releases, fw1]
 ---
 FW/1 2.1 is now the official master release.
 

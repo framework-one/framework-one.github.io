@@ -3,7 +3,7 @@ layout: post
 title: "FW/1 Release 1.1 Available!"
 date: 2010-06-11 19:02:00 -0700
 comments: true
-categories: releases
+categories: [releases, fw1]
 ---
 The latest stable release of Framework One is now available for [download](https://github.com/framework-one/fw1/releases/tag/v1.1) from github! The previous stable release is still available on the tags page ([download FW/1 1.0](https://github.com/framework-one/fw1/releases/tag/v1.0)).<!-- more -->
 

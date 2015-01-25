@@ -3,7 +3,7 @@ layout: post
 title: "Introducing Framework One"
 date: 2009-07-19 19:26:21 -0700
 comments: true
-categories: releases
+categories: [releases, fw1]
 ---
 The first question on everyone's mind is probably: why on earth would you create and publish yet another MVC application framework?<!-- more -->
 

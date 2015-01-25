@@ -3,6 +3,6 @@ layout: post
 title: "FW/1 2.0 Released"
 date: 2011-12-18 18:51:18 -0700
 comments: true
-categories: releases
+categories: [releases, fw1]
 ---
 After a long period of testing out in the wild FW/1 2.0 reached RC2 back in October and no further bugs have been reported. Only documentation remained and that has now been completed. FW/1 2.0 is gold and can be downloaded from [FW/1's RIAForge site](http://fw1.riaforge.org/). Happy Holidays!

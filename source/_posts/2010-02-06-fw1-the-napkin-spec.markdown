@@ -3,7 +3,7 @@ layout: post
 title: "FW/1 - The napkin spec"
 date: 2010-02-06 19:09:11 -0700
 comments: true
-categories: roadmap
+categories: [roadmap, fw1]
 ---
 A few folks have asked me to post the "napkin" on which I wrote the spec for FW/1. My "napkin" is actually Evernote because I have it on every computer and my iPhone so it's always with me and it's easy to develop notes with. I started the spec on July 17th and "finished" it on July 20th. The spec was titled "New Lightweight Framework". Here's what it said:<!-- more -->
 

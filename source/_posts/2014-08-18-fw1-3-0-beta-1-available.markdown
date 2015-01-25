@@ -3,7 +3,7 @@ layout: post
 title: "FW/1 3.0 Beta 1 available"
 date: 2014-08-18 11:21:49 -0700
 comments: true
-categories: 
+categories: [releases, fw1, di1]
 ---
 Just over four weeks ago, I released [FW/1 3.0 Alpha 1](http://framework-one.github.io/blog/2014/07/20/fw1-3-0-alpha-1-available-for-testing/) and declared it _feature complete_. There were some big changes in that release and, in particular, some long-standing features were removed (after being deprecated in FW/1 2.5) and some recently-introduced features were also deprecated. Today I am releasing the first Beta version which includes bug fixes and usability enhancements, focusing primarily on DI/1 and AOP/1.<!-- more -->
 

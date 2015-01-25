@@ -3,7 +3,7 @@ layout: post
 title: "FW/1 comes to Clojure"
 date: 2011-11-07 18:53:44 -0700
 comments: true
-categories: clojure
+categories: [clojure, fw1]
 ---
 After two years in the CFML world, FW/1 (Framework One) comes to Clojure!<!-- more -->
 

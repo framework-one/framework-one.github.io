@@ -3,7 +3,7 @@ layout: post
 title: "FW/1 2.2 Released!"
 date: 2013-12-18 23:34:03 -0700
 comments: true
-categories: releases
+categories: [releases, fw1]
 ---
 Framework One version 2.2 is now available for production use! You can download it from the [Framework One page on RIAForge](http://fw1.riaforge.org/). This includes one bug fix over RC2 (interaction between `renderData()` and trace output).<!-- more -->
 

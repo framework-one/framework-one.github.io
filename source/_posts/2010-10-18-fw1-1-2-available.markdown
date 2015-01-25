@@ -3,7 +3,7 @@ layout: post
 title: "FW/1 1.2 Available"
 date: 2010-10-18 18:59:11 -0700
 comments: true
-categories: releases
+categories: [releases, fw1]
 ---
 The official 1.2 release of Framework One - FW/1 - has just been tagged and published on github. You can [download it from RIAForge](http://fw1.riaforge.org/).
 

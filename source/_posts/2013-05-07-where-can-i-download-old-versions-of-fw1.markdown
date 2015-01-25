@@ -3,7 +3,7 @@ layout: post
 title: "Where can I download old versions of FW/1?"
 date: 2013-05-07 14:18:12 -0700
 comments: true
-categories: downloads
+categories: [downloads, fw1]
 ---
 I've been asked this several times recently so I figured it was worth a blog post. First of, why would anyone want older versions of the framework? Well, if they're running on Adobe ColdFusion 9.0.0 or earlier, they can't use the 2.x release stream: they're stuck on 1.x. Also, if they're currently using an old version and don't want a major upgrade, they might want a minor upgrade for a bug fix.<!-- more -->
 

@@ -3,7 +3,7 @@ layout: post
 title: "FW/1 Roadmap, DI/1 etc"
 date: 2011-03-19 18:56:31 -0700
 comments: true
-categories: roadmap
+categories: [roadmap, fw1, di1]
 ---
 Last year I'd talked about getting at least an alpha of FW/1 2.0 out the door by year end. It didn't happen. I was reminded of this on the [FW/1 mailing list](http://groups.google.com/group/framework-one) the other day and I provided a fairly detailed response on the plans for FW/1. I figured, since I haven't blogged about FW/1 in a while, I should post that roadmap response on my blog as well.<!-- more -->
 

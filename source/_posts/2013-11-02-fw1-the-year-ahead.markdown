@@ -3,7 +3,7 @@ layout: post
 title: "FW/1 The Year Ahead"
 date: 2013-11-02 23:42:41 -0700
 comments: true
-categories: roadmap
+categories: [roadmap, fw1, di1]
 ---
 With FW/1 Version 2.2 just around the corner - after a long time in incubation - and FW/1 itself being almost four and a half years old, it's a good time to look ahead at what's in store.<!-- more -->
 

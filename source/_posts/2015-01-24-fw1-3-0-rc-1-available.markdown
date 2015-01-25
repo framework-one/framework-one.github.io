@@ -3,11 +3,11 @@ layout: post
 title: "FW/1 3.0 RC 1 available"
 date: 2015-01-24 23:21:49 -0700
 comments: true
-categories: 
+categories: [releases, fw1, di1]
 ---
 FW/1 3.0 has been in beta testing since August 2014 and lots of people are already running in production so I figured it was time to push out the first [Release Candidate build](https://github.com/framework-one/fw1/releases/tag/v3.0-rc1).
 
-The main focus of RC 1 has been bug fixes. Only a small number of functional enhancements have been added (notably `getEnvVar()` to retrieve the value of a system environment variable which can be useful during environment control processing). Some deprecated features have been removed:
+The main focus of RC 1 has been bug fixes. Only a small number of functional enhancements have been added (notably `getEnvVar()` to retrieve the value of a system environment variable which can be useful during environment control processing).<!-- more --> Some deprecated features have been removed:
 
 * `getRC()` and `getRCValue()` have been removed, along with the configuration flag that had been enabling them. They were a hasty addition at the end of the 2.5 cycle and they were a mistake - if you're using them, you're doing something wrong!
 * `org.corfield.framework` is no longer supported - use `framework.one` instead. It was always a questionable choice of file path for the framework and I've been tempted to change it several times. The 3.0 cycle deprecated it and moved the framework CFC to the `/framework` folder, where DI/1 has lived since the 2.5 cycle. This is probably a **breaking change** unless you've been using prerelease builds of 3.0 and have already eliminated the deprecation warnings!
