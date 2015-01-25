@@ -5,7 +5,7 @@ date: 2013-04-06 13:21:49 -0700
 comments: true
 categories: [roadmap, clojure, fw1, di1]
 ---
-To make it easier to manage collaboration on FW/1-related projects in future, several projects have now moved under a new [FW/1 - Framework One](https://github.com/framework-one) - organization on Github. Your forks and watches should have been updated but if you have local clones of the old repos under my personal Github account, you'll want to update those. Here's the full list of Framework One projects:
+To make it easier to manage collaboration on FW/1-related projects in future, several projects have now moved under a new [FW/1 - Framework One](https://github.com/framework-one) - organization on Github. Your forks and watches should have been updated but if you have local clones of the old repos under my personal Github account, you'll want to update those. Here's the full list of Framework One projects:<!-- more -->
 
 * [FW/1 - Framework One](https://github.com/framework-one/fw1) - simple MVC for CFML
 * [DI/1 - Inject One](https://github.com/framework-one/di1) - simple Dependency Injection for CFML
