@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Just over four weeks ago, I released FW/1 3.0 Alpha 1 and declared it feature complete. There were some big changes in that release and, in &hellip;">
+  <meta name="description" content="FW/1 3.0 has been in beta testing since August 2014 and lots of people are already running in production so I figured it was time to push out the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,61 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/01/24/fw1-3-0-rc-1-available/">FW/1 3.0 RC 1 Available</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-24T22:21:49-08:00" pubdate data-updated="true">Jan 24<span>th</span>, 2015</time>
+        
+           | <a href="/blog/2015/01/24/fw1-3-0-rc-1-available/#disqus_thread"
+             data-disqus-identifier="http://framework-one.github.io/blog/2015/01/24/fw1-3-0-rc-1-available/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>FW/1 3.0 has been in beta testing since August 2014 and lots of people are already running in production so I figured it was time to push out the first <a href="https://github.com/framework-one/fw1/releases/tag/v3.0-rc1">Release Candidate build</a>.</p>
+
+<p>The main focus of RC 1 has been bug fixes. Only a small number of functional enhancements have been added (notably <code>getEnvVar()</code> to retrieve the value of a system environment variable which can be useful during environment control processing). Some deprecated features have been removed:</p>
+
+<ul>
+<li><code>getRC()</code> and <code>getRCValue()</code> have been removed, along with the configuration flag that had been enabling them. They were a hasty addition at the end of the 2.5 cycle and they were a mistake &ndash; if you&rsquo;re using them, you&rsquo;re doing something wrong!</li>
+<li><code>org.corfield.framework</code> is no longer supported &ndash; use <code>framework.one</code> instead. It was always a questionable choice of file path for the framework and I&rsquo;ve been tempted to change it several times. The 3.0 cycle deprecated it and moved the framework CFC to the <code>/framework</code> folder, where DI/1 has lived since the 2.5 cycle. This is probably a <strong>breaking change</strong> unless you&rsquo;ve been using prerelease builds of 3.0 and have already eliminated the deprecation warnings!</li>
+</ul>
+
+
+<p>In addition, AOP/1 is no longer bundled with FW/1. It&rsquo;s not ready for primetime yet so I didn&rsquo;t want to include it in the 3.0 release. It got a lot of work between Alpha 1 and Beta 1 but additional bugs and some hard problems came up in testing. It&rsquo;s still available on the <code>aop1</code> branch if you want to experiment with it (and help find and fix more bugs in it!).</p>
+
+<p>As part of the preparation for RC 1, all of the documentation has been reviewed and updated and DI/1&rsquo;s documentation is now <a href="http://framework-one.github.io/documentation/using-di-one.html">part of the main documentation site</a>. Big thanks go to Nando Breiter for bringing that across from the old wiki in the standalone DI/1 repo. Code contributors to RC 1 include: John Berquist, Ryan Guill, Cameron Childress. Thank you!</p>
+
+<p>At this point, only bug fixes will be considered before FW/1 3.0 goes &ldquo;gold&rdquo; and given the long period of testing so far on Beta 1, that final release shouldn&rsquo;t be too far away.</p>
+
+<p>Oh, and if you go to <a href="http://fw1.riaforge.org">FW/1&rsquo;s page on RIAForge</a>, you&rsquo;ll see that 3.0 RC 1 is the default download now, instead of 2.5.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -653,45 +708,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/01/04/fw1-1-0-released-for-2010/">FW/1 1.0 Released for 2010</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-01-04T18:23:40-08:00" pubdate data-updated="true">Jan 4<span>th</span>, 2010</time>
-        
-           | <a href="/blog/2010/01/04/fw1-1-0-released-for-2010/#disqus_thread"
-             data-disqus-identifier="http://framework-one.github.io/blog/2010/01/04/fw1-1-0-released-for-2010/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The <a href="https://github.com/framework-one/fw1/wiki/Reference-Manual">Reference Manual</a> has been completed so it&rsquo;s time to declare a 1.0 release for Framework One! Several people have already taken FW/1-powered applications to production, Javier Julio is soon to present the first user group session on FW/1! FW/1 has come of age and for companies that will only use official public releases, a 1.0 release may mean that more people will be able to try this lightweight, convention-based framework. Thank you to everyone who has contributed so far &ndash; for all the feedback, bug reports, blog posts and suggestions. Thank you in particular to Ryan Cogswell for contributing a lot of enhancements to the code and the subsystem implementation, Dutch Rapley for the Using Systems documentation, and Javier Julio for the User Manager sample applications. Thank you to AJ Mercer for submitting a talk to webDU and and Ray Camden for blogging about FW/1 and submitting a talk to cf.Objective().</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -719,6 +735,10 @@
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/01/24/fw1-3-0-rc-1-available/">FW/1 3.0 RC 1 Available</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/08/18/fw1-3-0-beta-1-available/">FW/1 3.0 Beta 1 Available</a>
@@ -754,10 +774,6 @@
     
       <li class="post">
         <a href="/blog/2011/12/18/fw1-2-0-released/">FW/1 2.0 Released</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/11/07/fw1-comes-to-clojure/">FW/1 Comes to Clojure</a>
       </li>
     
   </ul>
