@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Clojure | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/clojure/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-01-24T23:50:50-08:00</updated>
+  <updated>2015-01-25T15:13:54-08:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -14,6 +14,47 @@
 
   
   <entry>
+    <title type="html"><![CDATA[FW/1 & Clojure Sitting in Tree]]></title>
+    <link href="http://framework-one.github.io/blog/2015/01/25/fw1-clojure-sitting-in-a-tree/"/>
+    <updated>2015-01-25T13:30:49-08:00</updated>
+    <id>http://framework-one.github.io/blog/2015/01/25/fw1-clojure-sitting-in-a-tree</id>
+    <content type="html"><![CDATA[<p>Anyone following my tech trajectory will know that, after starting to learn Clojure in 2010, I&rsquo;ve moved increasingly away from CFML and toward Clojure. In 2014, my team decided that Clojure would be our official primary language and all new development would happen there instead of in CFML. We still have a lot of CFML code in production &ndash; about 90kloc &ndash; but we consider it &ldquo;legacy code&rdquo; at this point. Most of that CFML code is a large ColdBox app that we built about five years ago (technically it&rsquo;s three ColdBox apps but they share a lot of code). Our application Model has been slowly moving to Clojure so that we can reuse that code in new applications we&rsquo;re building in Clojure. We&rsquo;ve also been building new apps with FW/1 (and reusing both our CFML code and our Clojure code). We still like CFML as a templating language for views and our controllers &ndash; in our FW/1 apps at least &ndash; are often mostly just &ldquo;glue&rdquo; code that lets us call into our Clojure model code.<!-- more --></p>
+
+<p>I&rsquo;ve talked in passing on the FW/1 mailing list about the possibility of deeper integration with Clojure and I recently published <a href="https://github.com/framework-one/cfmljure/releases/tag/v0.1.0">cfmljure 0.1.0</a> &ndash; which I&rsquo;ll be blogging about shortly &ndash; and so the topic came up again on the mailing list about this integration. I&rsquo;d been thinking about how to write controllers in Clojure so that you could have a FW/1 app that used CFML for the views &ndash; where it excels as a templating language &ndash; and Clojure for the controllers and the model, leveraging the expressive power and immutable safety for all your business logic.</p>
+
+<p>Over the last few days, I created a fork of FW/1 3.0 that included cfmljure and built a proof of concept of Clojure controllers. You can take a look at the <a href="https://github.com/framework-one/fw1/tree/clojure/examples/helloclojure">FW/1 example with Clojure controllers</a> on the <code>clojure</code> branch of the FW/1 repo. I created the project using Leiningen (Clojure&rsquo;s build tool) and then added <code>Application.cfc</code>, <code>index.cfm</code>, and the <code>views/</code> tree. Then I wrote the <code>controllers/main.clj</code> file (in <code>src/hello</code>) and the <code>controllers_test.clj</code> test file (in <code>test/hello</code>). Unit testing is built in, so you can run <code>lein test</code> to see the results. Then I refactored the Clojure code (creating the separate <code>greet.clj</code> file) and added a &ldquo;service&rdquo; in Clojure just for fun. The FW/1 app uses <code>framework.ioclj</code> &ndash; a extended version of DI/1 that uses cfmljure &ndash; to auto-discover the Clojure code (and the CFML code &ndash; you can mix'n'match) and wraps the Clojure controllers in <code>framework.cljcontroller</code> (to adapt to Clojure&rsquo;s pure function calling convention, and to handle some FW/1-specific functionality). The CFML views are run as usual (and if you look in <code>views/main/default.cfm</code> you&rsquo;ll see a call to the Clojure &ldquo;service&rdquo; via the bean factory: <code>getBeanFactory().getBean("greeterService").greetings("Earthling!")</code>).</p>
+
+<p>I&rsquo;m rather excited about this because it means we&rsquo;ll have a way, at work, to further migrate our model code from CFML to Clojure, while maintaining &ldquo;legacy&rdquo; CFML code alongside, <em>right there in the same FW/1 application!</em></p>
+
+<p>This won&rsquo;t be part of FW/1 3.0. Instead it will stay on the <code>clojure</code> branch until release 3.0 is out (<code>develop</code> will be merged to <code>master</code> for that), but it will be part of FW/1 3.5 which will be the next release. That way it can get some field testing in production as well as some polish and some documentation love. Stay tuned!</p>
+
+<p>p.s. Right now cfmljure only runs on Railo. The CFML code itself could be made portable enough to run on ColdFusion but the real problem is interop with Java/Clojure: ColdFusion thinks 42 is a string and so you need to do a lot of string-to-number conversions to interact with Clojure through cfmljure. I haven&rsquo;t used ColdFusion for over five years &ndash; just Railo &ndash; so I don&rsquo;t have much incentive, but if you feel inclined to send a Pull Request with changes to make cfmljure ColdFusion-compatible&hellip;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[New W/1 - Framework One - Organization on Github]]></title>
+    <link href="http://framework-one.github.io/blog/2013/04/06/new-fw1-organization-on-github/"/>
+    <updated>2013-04-06T13:21:49-07:00</updated>
+    <id>http://framework-one.github.io/blog/2013/04/06/new-fw1-organization-on-github</id>
+    <content type="html"><![CDATA[<p>To make it easier to manage collaboration on FW/1-related projects in future, several projects have now moved under a new <a href="https://github.com/framework-one">FW/1 &ndash; Framework One</a> &ndash; organization on Github. Your forks and watches should have been updated but if you have local clones of the old repos under my personal Github account, you&rsquo;ll want to update those. Here&rsquo;s the full list of Framework One projects:<!-- more --></p>
+
+<ul>
+<li><a href="https://github.com/framework-one/fw1">FW/1 &ndash; Framework One</a> &ndash; simple MVC for CFML</li>
+<li><a href="https://github.com/framework-one/di1">DI/1 &ndash; Inject One</a> &ndash; simple Dependency Injection for CFML</li>
+<li><a href="https://github.com/framework-one/cfmljure">cfmljure</a> &ndash; the magic bridge between CFML and Clojure</li>
+<li><a href="https://github.com/framework-one/fw1-clj">FW/1 &ndash; Framework One</a> &ndash; simple MVC for Clojure</li>
+<li><a href="https://github.com/framework-one/fw1-template">Leiningen project template for FW/1</a>&ndash; Framework One &ndash; for Clojure</li>
+</ul>
+
+
+<p>If you were a collaborator on one of these projects before, you will no longer have commit access (because you were a collaborator directly on my repo). If you&rsquo;d like to become a collaborating team member on one of these projects as part of the new organization, contact me directly to discuss that. I&rsquo;d certainly like to see some of the regular contributors in the past become official &ldquo;Team Framework One&rdquo; members in the new organization!</p>
+
+<p>Thank you to all the contributors who&rsquo;ve helped get these projects to where they are now!</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[FW/1 Comes to Clojure]]></title>
     <link href="http://framework-one.github.io/blog/2011/11/07/fw1-comes-to-clojure/"/>
     <updated>2011-11-07T17:53:44-08:00</updated>
@@ -21,6 +62,30 @@
     <content type="html"><![CDATA[<p>After two years in the CFML world, FW/1 (Framework One) comes to Clojure!<!-- more --></p>
 
 <p>Intended to bring the same simple, lightweight, convention-based MVC web application development that has proved so popular in the CFML world to the world of Clojure, <a href="https://github.com/framework-one/fw1-clj">FW/1 for Clojure</a> is available on Clojars (0.1.0, as of April 2012). If you clone the github repo, you&rsquo;ll see a &ldquo;user manager&rdquo; example application which is a port of the same app from the CFML version of the framework. The documentation is, as always, a work in progress but covers the basic API and how to create a driver program for the framework in Clojure. More information on the rationale, approach and API of FW/1 can be found on the <a href="https://github.com/framework-one/fw1/wiki">FW/1 (for CFML) wiki</a>. I plan to adapt this for the Clojure version shortly&hellip;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Cfmljure Updated]]></title>
+    <link href="http://framework-one.github.io/blog/2011/08/11/cfmljure-updated/"/>
+    <updated>2011-08-11T13:21:49-07:00</updated>
+    <id>http://framework-one.github.io/blog/2011/08/11/cfmljure-updated</id>
+    <content type="html"><![CDATA[<p>Even tho' it&rsquo;s far from a 1.0 release, I&rsquo;ve updated the <a href="https://github.com/framework-one/cfmljure">cfmljure</a> project on github to contain the latest version that we&rsquo;re using at World Singles and update the examples so they work again, along with updated instructions &ndash; mainly that the Clojure code needs to be in <code>WEB-INF/classes/</code> so that it can be picked up dynamically. This is a fundamental piece of our infrastructure at World Singles, since we rely heavily on Clojure for the Model of our application, with our View-Controller in CFML. It&rsquo;s not intended to be general purpose code but if you want to play around with calling Clojure from CFML, it should get you started.</p>
+
+<p>Don&rsquo;t forget the <a href="http://groups.google.com/group/cfmljure">cfmljure</a> mailing list if you need assistance!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Cfmljure Mailing List]]></title>
+    <link href="http://framework-one.github.io/blog/2010/09/21/cfmljure-mailing-list/"/>
+    <updated>2010-09-21T13:21:49-07:00</updated>
+    <id>http://framework-one.github.io/blog/2010/09/21/cfmljure-mailing-list</id>
+    <content type="html"><![CDATA[<p>I mentioned it in passing in one of my early posts about using Clojure from CFML but, since only one person signed up, thought it was worth mentioning again: there is a <a href="http://groups.google.com/group/cfmljure">mailing list for cfmljure</a> where you can ask questions about the project and Clojure itself or, if you&rsquo;re new to CFML and coming from the Clojure world, you can ask questions about CFML!</p>
+
+<p>I&rsquo;m planning to add a couple of more involved examples to the project repo, one of which will use FW/1 and have the entire Model built in Clojure with the View-Controller portion written in CFML / cfscript &ndash; and I&rsquo;m also planning to create a simple ready-to-run Jetty-based package so folks can simply download cfmljure and try it out without needing to worry about installing anything.</p>
+
+<p>You can always get the <a href="http://cfmljure.riaforge.org/">latest version of cfmljure from RIAForge</a>!</p>
 ]]></content>
   </entry>
   

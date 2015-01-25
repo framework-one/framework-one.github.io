@@ -4,7 +4,7 @@
   <title><![CDATA[FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-01-24T23:50:50-08:00</updated>
+  <updated>2015-01-25T15:13:54-08:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,25 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 & Clojure Sitting in Tree]]></title>
+    <link href="http://framework-one.github.io/blog/2015/01/25/fw1-clojure-sitting-in-a-tree/"/>
+    <updated>2015-01-25T13:30:49-08:00</updated>
+    <id>http://framework-one.github.io/blog/2015/01/25/fw1-clojure-sitting-in-a-tree</id>
+    <content type="html"><![CDATA[<p>Anyone following my tech trajectory will know that, after starting to learn Clojure in 2010, I&rsquo;ve moved increasingly away from CFML and toward Clojure. In 2014, my team decided that Clojure would be our official primary language and all new development would happen there instead of in CFML. We still have a lot of CFML code in production &ndash; about 90kloc &ndash; but we consider it &ldquo;legacy code&rdquo; at this point. Most of that CFML code is a large ColdBox app that we built about five years ago (technically it&rsquo;s three ColdBox apps but they share a lot of code). Our application Model has been slowly moving to Clojure so that we can reuse that code in new applications we&rsquo;re building in Clojure. We&rsquo;ve also been building new apps with FW/1 (and reusing both our CFML code and our Clojure code). We still like CFML as a templating language for views and our controllers &ndash; in our FW/1 apps at least &ndash; are often mostly just &ldquo;glue&rdquo; code that lets us call into our Clojure model code.<!-- more --></p>
+
+<p>I&rsquo;ve talked in passing on the FW/1 mailing list about the possibility of deeper integration with Clojure and I recently published <a href="https://github.com/framework-one/cfmljure/releases/tag/v0.1.0">cfmljure 0.1.0</a> &ndash; which I&rsquo;ll be blogging about shortly &ndash; and so the topic came up again on the mailing list about this integration. I&rsquo;d been thinking about how to write controllers in Clojure so that you could have a FW/1 app that used CFML for the views &ndash; where it excels as a templating language &ndash; and Clojure for the controllers and the model, leveraging the expressive power and immutable safety for all your business logic.</p>
+
+<p>Over the last few days, I created a fork of FW/1 3.0 that included cfmljure and built a proof of concept of Clojure controllers. You can take a look at the <a href="https://github.com/framework-one/fw1/tree/clojure/examples/helloclojure">FW/1 example with Clojure controllers</a> on the <code>clojure</code> branch of the FW/1 repo. I created the project using Leiningen (Clojure&rsquo;s build tool) and then added <code>Application.cfc</code>, <code>index.cfm</code>, and the <code>views/</code> tree. Then I wrote the <code>controllers/main.clj</code> file (in <code>src/hello</code>) and the <code>controllers_test.clj</code> test file (in <code>test/hello</code>). Unit testing is built in, so you can run <code>lein test</code> to see the results. Then I refactored the Clojure code (creating the separate <code>greet.clj</code> file) and added a &ldquo;service&rdquo; in Clojure just for fun. The FW/1 app uses <code>framework.ioclj</code> &ndash; a extended version of DI/1 that uses cfmljure &ndash; to auto-discover the Clojure code (and the CFML code &ndash; you can mix&#8217;n&#8217;match) and wraps the Clojure controllers in <code>framework.cljcontroller</code> (to adapt to Clojure&rsquo;s pure function calling convention, and to handle some FW/1-specific functionality). The CFML views are run as usual (and if you look in <code>views/main/default.cfm</code> you&rsquo;ll see a call to the Clojure &ldquo;service&rdquo; via the bean factory: <code>getBeanFactory().getBean("greeterService").greetings("Earthling!")</code>).</p>
+
+<p>I&rsquo;m rather excited about this because it means we&rsquo;ll have a way, at work, to further migrate our model code from CFML to Clojure, while maintaining &ldquo;legacy&rdquo; CFML code alongside, <em>right there in the same FW/1 application!</em></p>
+
+<p>This won&rsquo;t be part of FW/1 3.0. Instead it will stay on the <code>clojure</code> branch until release 3.0 is out (<code>develop</code> will be merged to <code>master</code> for that), but it will be part of FW/1 3.5 which will be the next release. That way it can get some field testing in production as well as some polish and some documentation love. Stay tuned!</p>
+
+<p>p.s. Right now cfmljure only runs on Railo. The CFML code itself could be made portable enough to run on ColdFusion but the real problem is interop with Java/Clojure: ColdFusion thinks 42 is a string and so you need to do a lot of string-to-number conversions to interact with Clojure through cfmljure. I haven&rsquo;t used ColdFusion for over five years &ndash; just Railo &ndash; so I don&rsquo;t have much incentive, but if you feel inclined to send a Pull Request with changes to make cfmljure ColdFusion-compatible&hellip;</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 3.0 RC 1 Available]]></title>
@@ -310,6 +329,28 @@ suppressServiceQueue = false
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[New W/1 - Framework One - Organization on Github]]></title>
+    <link href="http://framework-one.github.io/blog/2013/04/06/new-fw1-organization-on-github/"/>
+    <updated>2013-04-06T13:21:49-07:00</updated>
+    <id>http://framework-one.github.io/blog/2013/04/06/new-fw1-organization-on-github</id>
+    <content type="html"><![CDATA[<p>To make it easier to manage collaboration on FW/1-related projects in future, several projects have now moved under a new <a href="https://github.com/framework-one">FW/1 &ndash; Framework One</a> &ndash; organization on Github. Your forks and watches should have been updated but if you have local clones of the old repos under my personal Github account, you&rsquo;ll want to update those. Here&rsquo;s the full list of Framework One projects:<!-- more --></p>
+
+<ul>
+<li><a href="https://github.com/framework-one/fw1">FW/1 &ndash; Framework One</a> &ndash; simple MVC for CFML</li>
+<li><a href="https://github.com/framework-one/di1">DI/1 &ndash; Inject One</a> &ndash; simple Dependency Injection for CFML</li>
+<li><a href="https://github.com/framework-one/cfmljure">cfmljure</a> &ndash; the magic bridge between CFML and Clojure</li>
+<li><a href="https://github.com/framework-one/fw1-clj">FW/1 &ndash; Framework One</a> &ndash; simple MVC for Clojure</li>
+<li><a href="https://github.com/framework-one/fw1-template">Leiningen project template for FW/1</a>&ndash; Framework One &ndash; for Clojure</li>
+</ul>
+
+
+<p>If you were a collaborator on one of these projects before, you will no longer have commit access (because you were a collaborator directly on my repo). If you&rsquo;d like to become a collaborating team member on one of these projects as part of the new organization, contact me directly to discuss that. I&rsquo;d certainly like to see some of the regular contributors in the past become official &ldquo;Team Framework One&rdquo; members in the new organization!</p>
+
+<p>Thank you to all the contributors who&rsquo;ve helped get these projects to where they are now!</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[FW/1 Version 2.1 Released]]></title>
     <link href="http://framework-one.github.io/blog/2013/01/05/fw1-version-2-1-released/"/>
     <updated>2013-01-05T13:23:53-08:00</updated>
@@ -364,6 +405,17 @@ suppressServiceQueue = false
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[Cfmljure Updated]]></title>
+    <link href="http://framework-one.github.io/blog/2011/08/11/cfmljure-updated/"/>
+    <updated>2011-08-11T13:21:49-07:00</updated>
+    <id>http://framework-one.github.io/blog/2011/08/11/cfmljure-updated</id>
+    <content type="html"><![CDATA[<p>Even tho&#8217; it&rsquo;s far from a 1.0 release, I&rsquo;ve updated the <a href="https://github.com/framework-one/cfmljure">cfmljure</a> project on github to contain the latest version that we&rsquo;re using at World Singles and update the examples so they work again, along with updated instructions &ndash; mainly that the Clojure code needs to be in <code>WEB-INF/classes/</code> so that it can be picked up dynamically. This is a fundamental piece of our infrastructure at World Singles, since we rely heavily on Clojure for the Model of our application, with our View-Controller in CFML. It&rsquo;s not intended to be general purpose code but if you want to play around with calling Clojure from CFML, it should get you started.</p>
+
+<p>Don&rsquo;t forget the <a href="http://groups.google.com/group/cfmljure">cfmljure</a> mailing list if you need assistance!</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[FW/1 Roadmap, DI/1 Etc]]></title>
     <link href="http://framework-one.github.io/blog/2011/03/19/fw1-roadmap/"/>
     <updated>2011-03-19T18:56:31-07:00</updated>
@@ -394,6 +446,42 @@ suppressServiceQueue = false
     <content type="html"><![CDATA[<p>The official 1.2 release of Framework One &ndash; FW/1 &ndash; has just been tagged and published on github. You can <a href="http://fw1.riaforge.org/">download it from RIAForge</a>.</p>
 
 <p>Release Candidate 2 had been out for about a month with no issues reported. A few small enhancements were made since RC2. You can see the <a href="http://github.com/seancorfield/fw1/commits/master">list of commits</a> here, on github.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Cfmljure Mailing List]]></title>
+    <link href="http://framework-one.github.io/blog/2010/09/21/cfmljure-mailing-list/"/>
+    <updated>2010-09-21T13:21:49-07:00</updated>
+    <id>http://framework-one.github.io/blog/2010/09/21/cfmljure-mailing-list</id>
+    <content type="html"><![CDATA[<p>I mentioned it in passing in one of my early posts about using Clojure from CFML but, since only one person signed up, thought it was worth mentioning again: there is a <a href="http://groups.google.com/group/cfmljure">mailing list for cfmljure</a> where you can ask questions about the project and Clojure itself or, if you&rsquo;re new to CFML and coming from the Clojure world, you can ask questions about CFML!</p>
+
+<p>I&rsquo;m planning to add a couple of more involved examples to the project repo, one of which will use FW/1 and have the entire Model built in Clojure with the View-Controller portion written in CFML / cfscript &ndash; and I&rsquo;m also planning to create a simple ready-to-run Jetty-based package so folks can simply download cfmljure and try it out without needing to worry about installing anything.</p>
+
+<p>You can always get the <a href="http://cfmljure.riaforge.org/">latest version of cfmljure from RIAForge</a>!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Open Source: RTW or Collaboration?]]></title>
+    <link href="http://framework-one.github.io/blog/2010/08/28/open-source-rtw-or-collaboration/"/>
+    <updated>2010-08-28T13:21:49-07:00</updated>
+    <id>http://framework-one.github.io/blog/2010/08/28/open-source-rtw-or-collaboration</id>
+    <content type="html"><![CDATA[<p>RTW &ndash; Reinventing The Wheel &ndash; is normally a bad thing. I&rsquo;m said several times that the main reason we have no truly great open source software in ColdFusion is because when we see an open source project that doesn&rsquo;t do what we need, we go off and build our version, which we may or may not open source, instead of collaborating on the existing project to make it better.<!-- more --></p>
+
+<p><a href="http://twitter.com/henrylearn2rock">Henry Ho</a> asked on Twitter for recommendations about dependency injection frameworks and quoted a list of several candidates. I replied that DI/1 would soon be added to that list and that led <a href="http://twitter.com/maestrofjp">Peter J. Farrell</a> to ask &ldquo;Aren&rsquo;t u reinventing the wheel? We must stop propagating if you don&rsquo;t like something, just create ur own. Contribute instead.&rdquo;</p>
+
+<p>Well, yeah, that&rsquo;s something I&rsquo;ve been saying for ages and I&rsquo;ve contributed to just about every major CFML framework out there: Fusebox, Mach-II, Model-Glue, ColdBox, Reactor, Transfer, ColdSpring. I&rsquo;ve been lead developer on two of those and I contributed enough to ColdSpring to be one of the five copyright holders (along with Dave Ross, Chris Scott, Kurt Wiersma and Peter J. Farrell). With the others I&rsquo;ve contributed a range of patches. Because these are all frameworks I&rsquo;ve used and it&rsquo;s made sense to contribute, to enhance the projects and to feed those patches back into the project.</p>
+
+<p>So why am I RTW with DI/1? I replied to Peter that I felt DI/1 was addressing different needs to ColdSpring. Peter pushed for details and I said DI/1 was convention-based &ndash; no XML. Peter asked &ldquo;couldn&rsquo;t that be accomplished in CS by just enhancing that project?&rdquo;. It&rsquo;s a reasonable question within the context of ColdSpring but my answer is no, DI/1&rsquo;s design goals are very focused and are intended to offer a very simple, single CFC that relies purely on conventions to provide a lightweight way to manage and autowire your CFCs using conventions instead of configuration. It&rsquo;s what led me to create FW/1 last year, initially as an experiment to see whether I could create my &lsquo;ideal&rsquo; simple MVC framework. FW/1 has developed an active community since then, well over 4,000 downloads, around 300 members on the mailing list, lots of production sites powered by FW/1 and, most importantly for me, a team of people committing changes to both the code and the documentation. FW/1 had similar goals to DI/1 and I&rsquo;d call FW/1 a success. I hope that DI/1 has even a fraction of that success.</p>
+
+<p>So, yes, RTW is normally a bad thing. Your first choice should always be to contribute to existing projects. Help with testing, help with documentation &ndash; those are both key to successful open source projects. If you can fix bugs by providing high quality, well-tested patches, you might become a committer and maybe even a core member of a project. Perhaps you might even end up taking it over &ndash; as happened with Mach-II for me early on and later for Matt Woodward and Peter. Model-Glue has transitioned from Joe Rinehart to a team under Dan Wilson&rsquo;s guidance. ColdSpring has transitioned from Chris Scott and his team of contributors to Mark Mandel.</p>
+
+<p>Sometimes tho&#8217;, something that looks like RTW can be a good thing. If we never RTW&rsquo;d, we&rsquo;d all still be using Fusebox, or Mach-II, or Model-Glue, or &hellip; In the ORM space, we started with ARF (Joe Rinehart) and objectBreeze (Nic Tunney) and then Reactor came along (originally Doug Hughes, now Mark Drew) and then Mark Mandel created Transfer. RTW has been a good thing there. Even in the DI space, we&rsquo;ve had a number of object factories along the way and ColdSpring became the 800lb gorilla, so to speak, but Lightwire also got some traction. Mark Mandel is currently undertaking a ground-up rewrite of ColdSpring so he can incorporate a number of good things based on Java&rsquo;s Spring framework. In some ways, he is also RTW.</p>
+
+<p>I think Peter will also be writing a blog post around this topic. His tweets covered some other issues, such as whether moving ColdSpring to git (on SourceForge) is good for the community, and I know he has some very strong opinions on open source software! I wish ColdSpring was on github instead of SourceForge but I view the move to git as a good thing. Github has really helped FW/1 get more collaboration from the community. I expect DI/1 will see similar collaboration. It&rsquo;s also why Railo has published its source code on github (although snapshots of builds will still be committed to the JBoss community SVN repo).</p>
+
+<p>I look forward to Peter&rsquo;s blog post on this topic. As I&rsquo;ve said in my Open Source Landscape talk, the CFML community is still pretty new to open source software development. We&rsquo;ve come a long way in the last five years&hellip; but we&rsquo;ve got a <strong>long</strong> way to go to be on a par with many other communities!</p>
 ]]></content>
   </entry>
   
@@ -462,36 +550,6 @@ fold URL / form into request.context</li>
 </blockquote>
 
 <p>That&rsquo;s it. I wrote the first version of FW/1 on July 19th. You can see the <a href="https://github.com/framework-one/fw1/blob/a686fd441ccd86e147f770f41b10f79a07be11f2/org/corfield/framework.cfc">original 381 line framework.cfc</a> on Github. So there you go: an insight into my design process!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 1.0 Released for 2010]]></title>
-    <link href="http://framework-one.github.io/blog/2010/01/04/fw1-1-0-released-for-2010/"/>
-    <updated>2010-01-04T18:23:40-08:00</updated>
-    <id>http://framework-one.github.io/blog/2010/01/04/fw1-1-0-released-for-2010</id>
-    <content type="html"><![CDATA[<p>The <a href="https://github.com/framework-one/fw1/wiki/Reference-Manual">Reference Manual</a> has been completed so it&rsquo;s time to declare a 1.0 release for Framework One! Several people have already taken FW/1-powered applications to production, Javier Julio is soon to present the first user group session on FW/1! FW/1 has come of age and for companies that will only use official public releases, a 1.0 release may mean that more people will be able to try this lightweight, convention-based framework. Thank you to everyone who has contributed so far &ndash; for all the feedback, bug reports, blog posts and suggestions. Thank you in particular to Ryan Cogswell for contributing a lot of enhancements to the code and the subsystem implementation, Dutch Rapley for the Using Systems documentation, and Javier Julio for the User Manager sample applications. Thank you to AJ Mercer for submitting a talk to webDU and and Ray Camden for blogging about FW/1 and submitting a talk to cf.Objective().</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Introducing Framework One]]></title>
-    <link href="http://framework-one.github.io/blog/2009/07/19/introducing-framework-one/"/>
-    <updated>2009-07-19T19:26:21-07:00</updated>
-    <id>http://framework-one.github.io/blog/2009/07/19/introducing-framework-one</id>
-    <content type="html"><![CDATA[<p>The first question on everyone&rsquo;s mind is probably: why on earth would you create and publish yet another MVC application framework?<!-- more --></p>
-
-<p>I&rsquo;ve become increasingly dissatisfied with the application frameworks out there. They&rsquo;re big, bloated, complex and, with one or two exceptions, they require XML configuration in some way or other. A discussion on the recently created <a href="http://groups.google.com/group/coldfusionoo">ColdFusion OO mailing list</a> (started in the wake of the verbal sparring match between Brian Kotek and Hal Helms), saw me admit this&hellip; ColdFusion&rsquo;s simplicity was being buried in the complexity of application frameworks and there was no simple on-ramp. Even Fusebox, the mainstay of ColdFusion application frameworks has become far too much for simple applications.</p>
-
-<p>The second question is probably: why did you choose that name?</p>
-
-<p>Years ago, I worked with a programming language called PL/1 (Programming Language One) which was intended to be the &ldquo;one language to rule them all&rdquo;, so to speak. I wanted to create a very small, simple framework. Something that involved only one core file if possible. Once I&rsquo;d built it, I needed a name for my one file framework&hellip; FW/1 seemed like a good pun.</p>
-
-<p>The third question is going to be: why should I care and why should I use it?</p>
-
-<p>If you&rsquo;re happy with an existing framework, keep using and feel free to ignore FW/1. If you haven&rsquo;t picked a framework yet because they all seem so complex, maybe FW/1 is for you. If, like me, you&rsquo;re tired of framework bloat, try FW/1 and give me your feedback.</p>
-
-<p>I&rsquo;ll be posting some examples as blog posts as well as building out the project wiki over the coming weeks. I built FW/1 in a few hours. It&rsquo;s a single CFC. It&rsquo;s 400 lines of code &ndash; including comments. It&rsquo;s entirely convention based. It supports controllers (CFCs), services (CFCs), views (.cfm) and layouts (.cfm). URL/form actions take the form section.item and FW/1 will look for section.cfc (controller and service) and section/item.cfm (view and layouts). It optionally supports your favorite bean factory (ColdSpring, Lightwire and any other IoC container that implements getBean() and containsBean() methods). If you use a bean factory, it will autowire your controllers and services &ndash; or your controllers and/or services can be managed by the bean factory.</p>
 ]]></content>
   </entry>
   

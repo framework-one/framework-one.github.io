@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Releases | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/releases/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-01-24T23:50:50-08:00</updated>
+  <updated>2015-01-25T15:13:54-08:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,107 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 3.0 RC 1 Available]]></title>
+    <link href="http://framework-one.github.io/blog/2015/01/24/fw1-3-0-rc-1-available/"/>
+    <updated>2015-01-24T22:21:49-08:00</updated>
+    <id>http://framework-one.github.io/blog/2015/01/24/fw1-3-0-rc-1-available</id>
+    <content type="html"><![CDATA[<p>FW/1 3.0 has been in beta testing since August 2014 and lots of people are already running in production so I figured it was time to push out the first <a href="https://github.com/framework-one/fw1/releases/tag/v3.0-rc1">Release Candidate build</a>.</p>
+
+<p>The main focus of RC 1 has been bug fixes. Only a small number of functional enhancements have been added (notably <code>getEnvVar()</code> to retrieve the value of a system environment variable which can be useful during environment control processing).<!-- more --> Some deprecated features have been removed:</p>
+
+<ul>
+<li><code>getRC()</code> and <code>getRCValue()</code> have been removed, along with the configuration flag that had been enabling them. They were a hasty addition at the end of the 2.5 cycle and they were a mistake &ndash; if you&rsquo;re using them, you&rsquo;re doing something wrong!</li>
+<li><code>org.corfield.framework</code> is no longer supported &ndash; use <code>framework.one</code> instead. It was always a questionable choice of file path for the framework and I&rsquo;ve been tempted to change it several times. The 3.0 cycle deprecated it and moved the framework CFC to the <code>/framework</code> folder, where DI/1 has lived since the 2.5 cycle. This is probably a <strong>breaking change</strong> unless you&rsquo;ve been using prerelease builds of 3.0 and have already eliminated the deprecation warnings!</li>
+</ul>
+
+
+<p>In addition, AOP/1 is no longer bundled with FW/1. It&rsquo;s not ready for primetime yet so I didn&rsquo;t want to include it in the 3.0 release. It got a lot of work between Alpha 1 and Beta 1 but additional bugs and some hard problems came up in testing. It&rsquo;s still available on the <code>aop1</code> branch if you want to experiment with it (and help find and fix more bugs in it!).</p>
+
+<p>As part of the preparation for RC 1, all of the documentation has been reviewed and updated and DI/1&rsquo;s documentation is now <a href="http://framework-one.github.io/documentation/using-di-one.html">part of the main documentation site</a>. Big thanks go to Nando Breiter for bringing that across from the old wiki in the standalone DI/1 repo. Code contributors to RC 1 include: John Berquist, Ryan Guill, Cameron Childress. Thank you!</p>
+
+<p>At this point, only bug fixes will be considered before FW/1 3.0 goes &ldquo;gold&rdquo; and given the long period of testing so far on Beta 1, that final release shouldn&rsquo;t be too far away.</p>
+
+<p>Oh, and if you go to <a href="http://fw1.riaforge.org">FW/1&rsquo;s page on RIAForge</a>, you&rsquo;ll see that 3.0 RC 1 is the default download now, instead of 2.5.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 3.0 Beta 1 Available]]></title>
+    <link href="http://framework-one.github.io/blog/2014/08/18/fw1-3-0-beta-1-available/"/>
+    <updated>2014-08-18T11:21:49-07:00</updated>
+    <id>http://framework-one.github.io/blog/2014/08/18/fw1-3-0-beta-1-available</id>
+    <content type="html"><![CDATA[<p>Just over four weeks ago, I released <a href="http://framework-one.github.io/blog/2014/07/20/fw1-3-0-alpha-1-available-for-testing/">FW/1 3.0 Alpha 1</a> and declared it <em>feature complete</em>. There were some big changes in that release and, in particular, some long-standing features were removed (after being deprecated in FW/1 2.5) and some recently-introduced features were also deprecated. Today I am releasing the first Beta version which includes bug fixes and usability enhancements, focusing primarily on DI/1 and AOP/1.<!-- more --></p>
+
+<p>You can <a href="https://github.com/framework-one/fw1/releases/tag/v3.0-beta1">download FW/1 3.0 Beta 1 from Github</a> and that release page has a link to <a href="https://github.com/framework-one/fw1/issues?milestone=13&amp;page=1&amp;state=closed">the complete list of closed tickets in FW/1 3.0 Beta 1</a> and <a href="https://github.com/framework-one/di1/issues?milestone=1&amp;page=1&amp;state=closed">closed tickets in DI/1 that are for FW/1 3.0</a>. Note that those issues are only fixed in the FW/1 repository, not the DI/1 repository, but they will be backported later on.</p>
+
+<h2>DI/1 and AOP/1 come of age</h2>
+
+<p>As indicated above, the focus of Beta 1 has been on cleaning up DI/1 and AOP/1 to get them to a &ldquo;1.0&rdquo; release status as part of FW/1 3.0. Going forward, the DI/1 and AOP/1 repositories will only get updated with released versions and will be stripped down to minimal examples for those who wish to use them standalone. Future development (including issues and test cases etc) will all be done in the FW/1 repository.</p>
+
+<p>DI/1 has been enhanced in this release to provide some features that will help developers migrating from ColdSpring (or who are looking for some of ColdSpring&rsquo;s more advanced features in DI/1).</p>
+
+<p>AOP/1 has been rewritten to better integrate with DI/1 and ensure that injected beans are intercepted (the <code>beanProxy.cfc</code> needed only minor tweaks and it does the heavy lifting of interception).</p>
+
+<p>Here is the full list of changes in DI/1 and AOP/1 (since Alpha 1):</p>
+
+<ul>
+<li>Dotted path deduction rewritten / improved <a href="https://github.com/framework-one/di1/issues/61">di1/#61</a>. There were a number of situations where DI/1 was unable to figure out a dotted component path for CFCs identified through relative folder paths, especially outside the primary webroot of an application. This should be addressed now!</li>
+<li>New option <code>omitDirectoryAliases</code> &ndash; default <code>false</code> <a href="https://github.com/framework-one/di1/issues/64">di1/#64</a>. Set this <code>true</code> if you want to suppress the directory-based aliases that DI/1 creates (e.g., <code>beans/user.cfc</code> => <code>userBean</code>). This will enforce uniqueness of bean names (since the suffix will no longer differentiate beans with the same name in different folders).</li>
+<li>IIS web server mapping case sensitivity <a href="https://github.com/framework-one/di1/issues/65">di1/#65</a>. A bug fix for an annoying edge case caused by IIS being case sensitive in a situation that caused hard-to-debug errors from DI/1.</li>
+<li>AOP/1 now handles intercepted methods that return null <a href="https://github.com/framework-one/fw1/issues/264">#264</a>. Self-explanatory.</li>
+<li>DI/1 now accepts a load listener as part of its configuration <a href="https://github.com/framework-one/fw1/issues/273">#273</a>. This was added to allow load listeners to be added easily via <code>diConfig</code> when using FW/1. A load listener is the recommended way to declare new beans, add aliases and additional beans and set up factory beans/methods (see next item).</li>
+</ul>
+
+
+<p>The following DI/1 setups are now equivalent:</p>
+
+<pre><code>var bf1 = new framework.ioc( "..." );
+bf1.onLoad( myListener );
+
+var bf2 = new framework.ioc( "...", { loadListener = myListener } );
+</code></pre>
+
+<ul>
+<li>DI/1 now supports factory beans / factory methods <a href="https://github.com/framework-one/fw1/issues/274">#274</a>. The new API <code>factoryBean()</code> allows you to specify that a bean should be obtained from another bean &ndash; the <em>factory bean</em> &ndash; by calling a specified method &ndash; the <em>factory method</em> &ndash; with optionally specified arguments, and optional bean value overrides (similar to the <code>declareBean()</code> API).</li>
+</ul>
+
+
+<p>Here are some examples:</p>
+
+<pre><code>bf.factoryBean( "a1Bean", "myFactory", "theMethod" );
+// a1Bean = bf.getBean("myFactory").theMethod();
+bf.factoryBean( "a2Bean", "yourFactory", "createIt", [ "dsn" ] );
+// a2Bean = bf.getBean("yourFactory").createIt( bf.getBean("dsn") );
+bf.factoryBean( "a3Bean", "warehouse", "builder", [ "dsn", "config" ],
+    { dsn = "myDB" } );
+// a3Bean = bf.getBean("warehouse").builder( "myDB", bf.getBean("config") );
+</code></pre>
+
+<ul>
+<li>DI/1 now supports a post-injection <em>init-method</em> like ColdSpring <a href="https://github.com/framework-one/fw1/issues/275">#275</a>. A new configuration option <code>initMethod</code> allows you to specify a no-argument method that DI/1 should attempt to call on all managed beans after all of their dependencies have been injected. This allows beans to perform additional configuration that requires access to their injected dependencies, which cannot be performed in a constructor. You can thank Daniel Budde II for this feature being added (and for spurring me to finally add factory beans/methods which I&rsquo;d been thinking about for a while)!</li>
+<li>AOP/1 now intercepts injected beans <a href="https://github.com/framework-one/fw1/issues/277">#277</a>. This was the rewrite of AOP/1 to hook into DI/1&rsquo;s <code>resolveBean()</code> method via a new <code>setupInitMethod()</code> extension point (which will make additional extensions to DI/1 easier). Previously AOP/1 only intercepted beans obtained directly via <code>getBean()</code>. Thank you to Daniel Budde II for identifying this issue and providing a test case to help debug and verify the new behavior.</li>
+<li>DI/1 no longer resolves beans multiple times <a href="https://github.com/framework-one/fw1/issues/279">#279</a>. This was a performance issue but previously harmless. With the enhancements to AOP/1, this introduced several bugs (hopefully all fixed now!).</li>
+</ul>
+
+
+<h2>FW/1 bug fixes and enhancements</h2>
+
+<p>Here are the changes in FW/1 itself since Alpha 1:</p>
+
+<ul>
+<li>Controllers are reloaded after the bean factory is updated <a href="https://github.com/framework-one/fw1/issues/276">#276</a>. Previously, FW/1 cached controllers and recreating the bean factory was not sufficient to pick up changes in controller files. Now, when you call <code>setBeanFactory()</code>, the controller cache is cleared so controllers will be reloaded and any changes will be picked up (regardless of whether controllers are managed by FW/1 or DI/1).</li>
+</ul>
+
+
+<h2>The road to gold</h2>
+
+<p>The next milestone should be Release Candidate 1 and only bug fixes are likely to be considered at this point, no new features or enhancements, unless they are required to make the Beta feature set fully usable. If all goes well, RC1 should be released in about 3-4 weeks, and the <em>gold</em> 3.0 release about 3-4 weeks after that (late September / early October).</p>
+
+<p>Note that <code>org.framework.corfield</code> is a deprecated path for FW/1 &ndash; it has moved to <code>framework.one</code> &ndash; and whilst it is supported during the 3.0 prerelease builds, it will be removed in the gold release. Similarly, as noted in the Alpha 1 blog post, <code>getRC()</code> and <code>getRCValue()</code> are deprecated and will also be removed in the gold release.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 3.0 Alpha 1 Available for Testing!]]></title>
@@ -125,84 +226,6 @@ suppressServiceQueue = false
 <p>The main focus of the 2.2 release is improved support for REST APIs, through the addition of <code>renderData()</code> to simplify returning JSON, XML and plain text results to the caller, as well as more sophisticated route handling via &ldquo;resource packs&rdquo; which let you define a family of related routes for a given resource type, using a shorthand notation. For more information, see this <a href="/blog/2013/11/03/fw1-releases-and-roadmap/">blog post about the latest FW/1 release and the roadmap</a>.</p>
 
 <p>As noted previously, the master branch is the current stable release (2.2), and the develop branch has become the next release (2.5). 2.5 will be released next month and will be a stepping stone toward some substantial changes coming in 3.0. For more detail, read this <a href="/blog/2013/11/02/fw1-the-year-ahead">blog post explaining the changes coming in 2.5 and 3.0</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 Releases and Roadmap]]></title>
-    <link href="http://framework-one.github.io/blog/2013/11/03/fw1-releases-and-roadmap/"/>
-    <updated>2013-11-03T11:38:30-08:00</updated>
-    <id>http://framework-one.github.io/blog/2013/11/03/fw1-releases-and-roadmap</id>
-    <content type="html"><![CDATA[<p>Today I released the first <a href="https://github.com/framework-one/fw1/releases/tag/v2.2-rc1">FW/1 Version 2.2 Release Candidate</a> for testing. See below for the list of changes in this release, compared to Version 2.1. I also released a maintenance update for the old compatibility branch: <a href="https://github.com/framework-one/fw1/releases/tag/v1.3">FW/1 Version 1.3</a> (the &ldquo;Latest Release&rdquo; label is due to Github&rsquo;s view of the world, but it is the latest 1.x release). This is the version to use if you&rsquo;re on CFMX 7, CF 8, CF 9.0.0, Railo versions prior to 3.2, or OpenBD.<!-- more --></p>
-
-<p>In addition to these two releases, I also added milestones (and dates!) for the next two FW/1 releases: 2.5 and 3.0. There are some fairly big changes coming, including some important breaking changes. I&rsquo;ll post a follow-up with more details on <strong>why</strong> these changes are coming, but you should read the <a href="https://github.com/framework-one/fw1/issues/milestones">FW/1 Roadmap</a> and start thinking about how these changes will affect you (as well as reading the next blog post, of course!).</p>
-
-<p>As always, FW/1 wouldn&rsquo;t be possible without all the contributions from the community. This version includes contributions from John Berquist (regex caching in routes, resource packs in routes), Marco Betschart, Chris Blackwell, Peter Boughton, Will Coleda, Billy Cravens, Mark Drew, and all those who have provided feedback via the mailing list and Twitter and IM and&hellip; Thank you!</p>
-
-<p>Here&rsquo;s a fairly complete change list for Version 2.2:</p>
-
-<ul>
-<li>#198 <code>renderData()</code> added for easier REST APIs</li>
-<li>#197 resource pack support added to routes for easier REST APIs</li>
-<li>#195 override <code>processRoutes()</code> to customize them (<code>addRoute()</code> is deprecated)</li>
-<li>#192 regex in routes are now cached for improved performance</li>
-<li>#181 improve null value support (Railo compatibility)</li>
-<li>#179 can use <code>onMissingMethod()</code> for <code>injectFramework()</code></li>
-<li>#176 <code>buildURL()</code> now correctly supports <code>?</code> at end of action</li>
-<li>#175 subsystems automatically enabled if you specify subsystem configuration</li>
-<li>#170 layout suppression is now correctly reset on an exception</li>
-<li>#169 ensure <code>framework.home</code> is consistent with subsystem settings</li>
-<li>#168 don&rsquo;t strip additional characters from start of path</li>
-<li>#165 <code>onMissingView()</code> correctly called when view is missing</li>
-<li>#163 trace code no longer fails if session scope is disabled</li>
-<li>#160 <code>buildURL()</code> sanity checks <code>queryString</code> as struct</li>
-</ul>
-
-
-<p>Additional changes:</p>
-
-<ul>
-<li>fixed error message for service() missing action</li>
-<li>framework initialization logic is more robust</li>
-<li>improve example that uses DI/1 to avoid confusion over what to manage</li>
-<li>improve consistency of framework injection (of itself)</li>
-<li>layout trace shows correct path</li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 Version 2.1 Released]]></title>
-    <link href="http://framework-one.github.io/blog/2013/01/05/fw1-version-2-1-released/"/>
-    <updated>2013-01-05T13:23:53-08:00</updated>
-    <id>http://framework-one.github.io/blog/2013/01/05/fw1-version-2-1-released</id>
-    <content type="html"><![CDATA[<p>FW/1 2.1 is now the official master release.</p>
-
-<p>The develop branch has been merged to master and the &lsquo;v2.1&rsquo; tag has been added. Work on version 2.2 will soon start on the develop branch.<!-- more --></p>
-
-<p>Version 2.1 has been a long time in the works. Version 2.0 was released in December 2011, just over a year ago. So what has been going on in Framework One Land since then? You can play along at home by reading <a href="https://github.com/seancorfield/fw1/commits/master">the commit list for the master branch</a>&hellip;</p>
-
-<p>January 2012 saw version 2.0.1 appear with a fix for <code>buildUrl("")</code> which was broken just before the 2.0 gold release and caught by Seb Duggan. Thank you. January also saw a patch from Daryl Banttari to improve the performance of <code>expandPath()</code> by caching, similar to how <code>fileExists()</code> was handled.</p>
-
-<p>February brought the start of FW/1&rsquo;s MXUnit-based test suite with some stellar work by Ryan Anklam. Ryan continued that work in March, June and July &ndash; thank you! March brought a pull request from John Whish to improve application startup behavior in the face of errors in user code. In June, Matt Quackenbush contributed a nice improvement to <code>redirect()</code>: support for HTTP status codes. In July, Ryan Anklam contributed to <code>populate()</code>, providing the ability to handle child objects automatically, and Giancarlo Gomez enhanced the regex support in routes. In August, I fixed a bug in autowiring bean factories when using subsystems which was identified by Marco Betschart, and then Marcin Szczepanski substantially expanded the test suite throughout August, September and October &ndash; much appreciated! In October, I fixed a bug in how <code>setView()</code> interfered with error handling, identified by Alex Purice, and then I worked on the test suite and I test-drove the development of the new &ldquo;environment control&rdquo; feature. Peter Boughton spotted that <code>setLayout()</code> did not work inside <code>onMissingView()</code> so I test-drove a fix for that. I added the <code>unhandledExceptionCaught</code> option so you can choose to rely on FW/1 for handling errors in requests that would otherwise be &lsquo;unhandled&rsquo; by the framework (thanks to &lsquo;stubotnik&rsquo; for that suggestion). Dave Ferguson identified a nasty bug in ColdFusion 10&rsquo;s WebSocket implementation that was causing him problems with FW/1 &ndash; which I fixed by copying <code>CGI</code> variables to the <code>request</code> scope. I cleaned up <code>request</code> scope usage and further improved FW/1&rsquo;s robustness in the face of errors at startup, due to user code problems. In November, Richard Herbert found a case where FW/1 failed if <code>session</code> scope was disabled (now fixed). December was then a busy month with the addition of the new tracing / debugging facility, ensuring HTTP status code 500 is set when an unhandled exception is reported, and various small bug fixes and code cleanup in the new features added. Thanx there to Nando Breiter, Marcin Szczepanski and Chris Blackwell for finding those bugs!</p>
-
-<p>Thank you everyone for your contributions to FW/1 &ndash; I really appreciate the assistance in making the framework better for its community! As can be seen above, it really is a team effort.</p>
-
-<p>In summary then, version 2.1 contains:</p>
-
-<ul>
-<li>Environment Control support.</li>
-<li>Application tracing.</li>
-<li><code>populate()</code> now handles child objects automatically.</li>
-<li>Improved regex support in routes.</li>
-<li>Addition of a nice test suite, making it easier to test-drive the development of new features, as well as ensure fewer regression bugs sneak in.</li>
-<li><code>request</code> scope cleanup (and removal of several <code>request</code> variables that had previously been marked as deprecated.</li>
-<li>Lots of small improvements to the robustness of application startup in the face of user code problems, making it easier to debug those problems, and several enhancements to error handling in general.</li>
-</ul>
-
-
-<p>You can <a href="http://fw1.riaforge.org/">download FW/1 2.1 at RIAForge</a>.</p>
 ]]></content>
   </entry>
   
