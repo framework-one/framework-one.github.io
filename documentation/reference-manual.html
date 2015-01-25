@@ -306,9 +306,17 @@
 
 <p>Disable framework tracing for this request.</p>
 
+<h3>public void function disableLayout()</h3>
+
+<p>Disable layouts for this request. Equivalent to <code>request.layout = false;</code>.</p>
+
 <h3>public void fuction enableFrameworkTrace()</h3>
 
 <p>Enable framework tracing for this request.</p>
+
+<h3>public void fuction enableLayout()</h3>
+
+<p>Enable layouts for this request. Equivalent to <code>request.layout = true;</code>.</p>
 
 <h3>public void function frameworkTrace( string message [, any value ] )</h3>
 
@@ -361,6 +369,10 @@
 <h3>public string function getEnvironment()</h3>
 
 <p>Returns an empty string by default. If you want to use the <strong>Environment Control</strong> feature, you should override this in <code>Application.cfc</code> and have it return the appropriate <em>&ldquo;tier&rdquo;</em> or <em>&ldquo;tier-server&rdquo;</em> string. See <strong>Environment Control</strong> in the <a href="/documentation/developing-applications.html">Developing Applications Manual</a> for more detail.</p>
+
+<h3>public string function getEnvVar( string name )</h3>
+
+<p>Returns the value of the specified environment variable name (i.e., from the shell environment in which your CFML server was started).</p>
 
 <h3>public array function getFrameworkTrace()</h3>
 

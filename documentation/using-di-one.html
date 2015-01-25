@@ -102,7 +102,7 @@
 
 <p>All beans are also given an alias which is the name of the CFC followed by (the singular form of) the folder name in which it was found, e.g., /model/beans/product.cfc would get the alias &ldquo;productBean&rdquo;. If no other CFC is called product.cfc in the folders that you asked DI/1 to search, you can use &ldquo;product&rdquo; or &ldquo;productBean&rdquo; to reference that bean. By default, DI/1 assumes all beans are singletons unless they are found in a folder called <em>beans</em> (in which case DI/1 assumes those are transients). A singleton has just a single instance and DI/1 will cache that instance. A transient is created afresh every time you ask DI/1 for an instance.</p>
 
-<p>If a CFC has a constructor (a method called <strong>init()</strong>), DI/1 will use the argument names to look up beans and call the constructor with those beans. If a CFC has setter methods, DI/1 will use their names to look up beans and call the setters with those beans. If a CFC has property declarations and implicit setters are enabled, DI/1 will use their names to look up beans and call the implicit setters with those beans. This is called autowiring. By the time you get a bean back from DI/1, it should be fully populated.</p>
+<p>If a CFC has a constructor (a method called <strong>init()</strong>), DI/1 will use the argument names to look up beans and call the constructor with those beans. If a CFC has setter methods, DI/1 will use their names to look up beans and call the setters with those beans. If a CFC has property declarations and implicit setters are enabled, DI/1 will use their names to look up beans and call the implicit setters with those beans. This is called autowiring. By the time you get a bean back from DI/1, it should be fully populated. You can also specify an &ldquo;init-method&rdquo; function name that DI/1 should call after a bean has had its dependencies injected &ndash; see <strong>Configuration</strong> below.</p>
 
 <p>If DI/1 cannot find a matching bean for a constructor argument, it will throw an exception. If DI/1 cannot find a matching bean for a setter method or property, it will log the failure and ignore it (by default), and the corresponding variable will not be populated. You can configure DI/1 to be strict about matching bean names &ndash; see the configuration section below &ndash; in which case it will throw an exception.</p>
 
@@ -151,6 +151,13 @@
 beanFactory.declareBean("admindata", "util.DataSource", true, { dsn = "admindb" } );
 </code></pre>
 
+<p>You can declare a factory bean &ndash; like Spring/ColdSpring &ndash; as follow:</p>
+
+<pre><code>beanFactory.factoryBean("generated", factory, "method", [ ..args.. ], { ... } );
+</code></pre>
+
+<p>This tells DI/1 that when you call <code>getBean("generated")</code>, instead of trying to create the bean itself, it should call <code>factory.method(..args..)</code> to get the bean instance. <code>args</code> can be omitted (and defaults to an empty list of arguments). The last argument provides overrides for bean values, as shown above, and is optional.</p>
+
 <p>You can add an alias for a bean:</p>
 
 <pre><code>beanFactory.addAlias("alsoKnownAs", "navigation");
@@ -163,12 +170,12 @@ beanFactory.declareBean("admindata", "util.DataSource", true, { dsn = "admindb" 
 <pre><code>beanFactory.onLoad( loadListener );
 </code></pre>
 
-<p>That will register <strong>loadListener</strong> with DI/1 to be called after bean discovery is complete.</p>
+<p>That will register <strong>loadListener</strong> with DI/1 to be called after bean discovery is complete. This is a good place to put your calls to <code>declareBean()</code> and <code>addAlias()</code> if you need those to be in effect prior to the first call to <code>getBean()</code>.</p>
 
 <ul>
 <li>If <strong>loadListener</strong> is a CFC instance, DI/1 will call <strong>loadListener.onLoad( beanFactory )</strong>, passing the DI/1 instance in as an argument.</li>
 <li>If <strong>loadListener</strong> is a bean name, DI/1 will call <strong>beanFactory.getBean( loadListener ).onLoad( beanFactory )</strong>, where <strong>beanFactory</strong> is the DI/1 instance.</li>
-<li>If <strong>loadListener</strong> is a function, DI/1 will call <strong>loadListener( beanFactory )</strong>. Note that if <strong>loadListener</strong> is a method on a CFC, it will be called out of context so it will not have access to the <strong>variables</strong> scope or <strong>this</strong> scope of that CFC instance and therefore also won&rsquo;t have access to other methods of that CFC.</li>
+<li>If <strong>loadListener</strong> is a function or closure, DI/1 will call <strong>loadListener( beanFactory )</strong>. Note that if <strong>loadListener</strong> is a method on a CFC, it will be called out of context so it will not have access to the <strong>variables</strong> scope or <strong>this</strong> scope of that CFC instance and therefore also won&rsquo;t have access to other methods of that CFC.</li>
 </ul>
 
 
@@ -195,6 +202,10 @@ beanFactory.declareBean("admindata", "util.DataSource", true, { dsn = "admindb" 
 
 
 <p>I would expect these only to be useful to framework authors. Both methods walk up into parent bean factories, if present. If you omit the bean name for <strong>getBeanInfo()</strong> you get back a struct with a key <strong>beanInfo</strong> that refers to metadata for all of the beans known in the factory. If there is a parent bean factory, its metadata is returned under a key <strong>parent</strong> in that struct.</p>
+
+<p><code>getBeanInfo()</code> can be called with a <code>beanName</code> argument &ndash; the default &ndash; or with a <code>regex</code> argument which will return metadata about all the beans in the factory whose names match the regular expression, in a struct with the single key <code>beanInfo</code>, whose value will be a struct with a key for each matching bean.</p>
+
+<p><code>getBeanInfo()</code> can also be called with no arguments, in which case it will return metadata for all the beans in the factory (in the <code>beanInfo</code> key of the result) and metadata for all the beans in the factory&rsquo;s parent, if any, in the <code>parent</code> key of the result. Optionally, you may specify an argument of <code>flatten = true</code> and the <code>parent</code> structures will be merged (recursively through the parents) into <code>beanInfo</code>, producing a flat struct.</p>
 
 <h2>Specifying Additional Transient Beans</h2>
 
@@ -254,7 +265,10 @@ beanFactory.declareBean("admindata", "util.DataSource", true, { dsn = "admindb" 
 
 <ul>
 <li><strong>constants</strong> &ndash; struct &ndash; defaults to <strong>{}</strong>. DI/1 will use any name/value pairs specified here to provide <em>beans</em> that resolve to the specified values. This can be used to provide resolution for constructor arguments that need values which are not actual beans.</li>
-<li><strong>exclude</strong> &ndash; array &ndash; defaults to <strong>[]</strong>. DI/1 will ignore any CFCs whose file path contains the strings in this array. DI/1 always excludes paths containing <strong>/WEB-INF</strong> and <strong>/Application.cfc</strong>. The strings are not case-sensitive.</li>
+<li><strong>exclude</strong> &ndash; array &ndash; defaults to <strong>[]</strong>. DI/1 will ignore any CFCs whose file path contains the strings in this array. DI/1 always excludes paths containing <strong>/WEB-INF</strong> and <strong>/Application.cfc</strong>, as well as various FW/1 and DI/1 framework files. The strings are not case-sensitive.</li>
+<li><strong>initMethod</strong> &ndash; string &ndash; If specified, identifies a method name on beans that DI/1 will attempt to call (with no arguments) on each bean after its dependencies have been injected.</li>
+<li><strong>omitDirectoryAliases</strong> &ndash; boolean &ndash; defaults to <strong>false</strong>. If <strong>true</strong>, use CFC names as bean names directly, without appending the singular directory name as a suffix. If your CFC names are not unique, you will get an exception.</li>
+<li><strong>omitTypedProperties</strong> &ndash; boolean &ndash; defaults to <strong>false</strong>. If <strong>true</strong>, property declarations that specify a type will be ignored for injection. That is useful if you are working with the ORM (since those property declarations will have types and should not be treated as dependencies).</li>
 <li><strong>recurse</strong> &ndash; boolean &ndash; defaults to <strong>true</strong>. Controls whether DI/1 searches subfolders recursively or not.</li>
 <li><strong>singletonPattern</strong> &ndash; string &ndash; no default. Specifies a regular expression that DI/1 uses to determine whether a bean is singleton or not, based on its name. The <strong>beans</strong> folder convention and the <strong>transients</strong> configuration below still apply so nothing in those folders will be considered a singleton, even if its name matches the pattern.</li>
 <li><strong>singulars</strong> &ndash; struct &ndash; defaults to <strong>{}</strong>. DI/1 will use any name/value pairs specified here to translate folder names to a singular variety, e.g., <strong>pride = &lsquo;lion&rsquo;</strong> will convert the <em>plural</em> folder <strong>pride</strong> to the <em>singular</em> name <strong>lion</strong> and therefore a <strong>simba.cfc</strong> within the <strong>pride</strong> folder will get the alias <strong>simbaLion</strong>. This also allows for other folders to behave as if they were called <strong>beans</strong> by treating their singular name as <strong>bean</strong>. One of the DI/1 unit tests maps <strong>sheep</strong> to <strong>bean</strong> for this reason. This won&rsquo;t work if the CFCs in <strong>sheep</strong> have the same name as the CFCs in <strong>beans</strong> however.</li>
@@ -273,6 +287,13 @@ beanFactory.declareBean("admindata", "util.DataSource", true, { dsn = "admindb" 
 <h2>Overriding DI/1 Behavior</h2>
 
 <p>If you want to override the methods in DI/1, such as <strong>logMissingBean()</strong>, you can create your own CFC that extends <strong>ioc.cfc</strong> and overrides the desired methods. Then use your CFC instead of <strong>ioc.cfc</strong>. If any particular use case becomes common, we can discuss incorporating it into DI/1 as a configuration option.</p>
+
+<p>A particular extension point that is provided is:</p>
+
+<pre><code>private void function setupInitMethod( string name, any bean )
+</code></pre>
+
+<p>This is called for each bean after its dependencies have been injected prior to calling <strong>initMethod</strong> (if specified).</p>
 
   
     <footer>
