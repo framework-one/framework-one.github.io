@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "New W/1 - Framework One - Organization on Github"
+title: "New FW/1 - Framework One - Organization on Github"
 date: 2013-04-06 13:21:49 -0700
 comments: true
 categories: [roadmap, clojure, fw1, di1]
