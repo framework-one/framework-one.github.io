@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Clojure | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/clojure/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-01-25T15:51:31-08:00</updated>
+  <updated>2015-01-25T16:01:56-08:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -73,7 +73,7 @@ for ( var newURL in urls.toArray() ) {
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[New W/1 - Framework One - Organization on Github]]></title>
+    <title type="html"><![CDATA[New FW/1 - Framework One - Organization on Github]]></title>
     <link href="http://framework-one.github.io/blog/2013/04/06/new-fw1-organization-on-github/"/>
     <updated>2013-04-06T13:21:49-07:00</updated>
     <id>http://framework-one.github.io/blog/2013/04/06/new-fw1-organization-on-github</id>
