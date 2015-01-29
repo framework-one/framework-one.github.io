@@ -12,7 +12,7 @@ As of release 3.0, FW/1 also includes DI/1 - a simple, convention-based Dependen
 
 Requirements & Supported Platforms
 ---
-FW/1 3.0 supports Adobe ColdFusion 9.0.1 or later (not 9.0.0) and Railo 3.2.2 or later. I recommend using [Railo 4.2](http://www.getrailo.org/index.cfm/download/) or later since it's free, open source, and fast, with a small footprint. If you're using Adobe ColdFusion, I strongly recommend upgrading to the latest version (ColdFusion 11 as of August 2014) to take advantage of the huge improvements in the core language since ColdFusion 9.0.1 (closures, member functions, full cfscript support, etc).
+FW/1 3.0 supports Adobe ColdFusion 9.0.1 or later (not 9.0.0), Lucee 4.5.0 or later, and Railo 3.2.2 or later. I recommend using [Lucee 4.5.0](http://lucee.org/downloads.html) or later since it's free, open source, and fast, with a small footprint. If you're using Adobe ColdFusion, I strongly recommend upgrading to the latest version (ColdFusion 11 as of August 2014) to take advantage of the huge improvements in the core language since ColdFusion 9.0.1 (closures, member functions, full cfscript support, etc).
 
 If you're on ColdFusion 9.0.0 or earlier, or still using Open BlueDragon, you'll need to stick with FW/1 1.3. Sorry, but supporting those versions is just too painful!
 

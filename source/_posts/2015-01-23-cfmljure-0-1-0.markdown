@@ -23,7 +23,7 @@ This past week, I decided to have another run at it, using a different approach 
 
 I gleaned the principle of this from time spent on Google and StackOverflow and several snippets of Java code that did this same thing. It uses Java Reflection to get a handle on `URLClassLoader.addURL()` and change its access to public so that it can be called by code that doesn't extend the `URLClassLoader` class. This got me past the previous blocking point and I was able to complete the rewrite of that earlier version of cfmljure to use the new Clojure 1.6 API and also leverage Leiningen to avoid that configuration and manual copying.
 
-I present: [cfmljure Release 0.1.0](https://github.com/framework-one/cfmljure/releases/tag/v0.1.0)! An easy-to-use way to embed a Clojure project into your CFML application (running on Railo).
+I present: [cfmljure Release 0.1.0](https://github.com/framework-one/cfmljure/releases/tag/v0.1.0)! An easy-to-use way to embed a Clojure project into your CFML application (running on Lucee or Railo).
 
 The documentation is in the [cfmljure README](https://github.com/framework-one/cfmljure/blob/master/README.md) on Github but the basic flow is as follows:
 

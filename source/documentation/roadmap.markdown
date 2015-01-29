@@ -14,7 +14,7 @@ This is the legacy stream. FW/1 1.3 is the most recent legacy version, provided 
 
 2.x Release Stream
 ---
-This is the current stable stream. FW/1 2.5 is the latest stable version. The 2.x versions support Adobe ColdFusion 9.0.1 and later, Railo 3.2.2 and later.
+This is the current stable stream. FW/1 2.5 is the latest stable version. The 2.x versions support Adobe ColdFusion 9.0.1 and later, Lucee 4.5.0 and later, and Railo 3.2.2 and later.
 
 Changes between 1.x and 2.x include:
 

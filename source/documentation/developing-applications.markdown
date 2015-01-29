@@ -176,7 +176,7 @@ Services should not know anything about the framework. Service methods should no
 
 ### Services, Domain Objects and Persistence
 
-There are many ways to organize how you save and load data. You could use the ORM that comes with ColdFusion or Railo, you could write your own data mapping service, you could write custom SQL for every domain object. Regardless of how you choose to handle your persistence, encapsulating it in a service CFC is probably a good idea. For convenience it is often worth injecting your persistence service into your domain object so you can have a convenient `domainObject.save()` call to use from your controller, even if it just delegates to the persistence service internally:
+There are many ways to organize how you save and load data. You could use the ORM that comes with ColdFusion, Lucee, or Railo, you could write your own data mapping service, you could write custom SQL for every domain object. Regardless of how you choose to handle your persistence, encapsulating it in a service CFC is probably a good idea. For convenience it is often worth injecting your persistence service into your domain object so you can have a convenient `domainObject.save()` call to use from your controller, even if it just delegates to the persistence service internally:
 
     component accessors=true{
         property dataService;

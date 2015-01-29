@@ -16,3 +16,5 @@ I'm rather excited about this because it means we'll have a way, at work, to fur
 This won't be part of FW/1 3.0. Instead it will stay on the `clojure` branch until release 3.0 is out (`develop` will be merged to `master` for that), but it will be part of FW/1 3.5 which will be the next release. That way it can get some field testing in production as well as some polish and some documentation love. Stay tuned!
 
 p.s. Right now cfmljure only runs on Railo. The CFML code itself could be made portable enough to run on ColdFusion but the real problem is interop with Java/Clojure: ColdFusion thinks 42 is a string and so you need to do a lot of string-to-number conversions to interact with Clojure through cfmljure. I haven't used ColdFusion for over five years - just Railo - so I don't have much incentive, but if you feel inclined to send a Pull Request with changes to make cfmljure ColdFusion-compatible...
+
+p.p.s. cfmljure now runs on Adobe ColdFusion 11, Lucee, and Railo! Thanks to Andrew Myers for tackling ColdFusion support.
