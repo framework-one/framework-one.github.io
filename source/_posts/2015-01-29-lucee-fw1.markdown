@@ -1,0 +1,18 @@
+---
+layout: post
+title: "Lucee and FW/1"
+date: 2015-01-29 14:30:49 -0700
+comments: true
+categories: [fw1, clojure, lucee, di1, releases]
+---
+Today saw the announcement of the [Lucee Association Switzerland](http://lucee.org) and the release of a new open source CFML engine: [Lucee 4.5.0](http://lucee.org/downloads.html).
+
+For background on the new engine and the association behind it, read [Adam Cameron's blog post with Q&A](http://blog.adamcameron.me/2015/01/lucee.html) about the launch.
+
+I've already migrated all my local test environments to Lucee and can report that FW/1 (and DI/1 and cfmljure) all run beautifully on it - and it will be my primary test environment for future development of the FW/1 family going forward.
+
+I've also migrated my local dev environment for World Singles over to Lucee and that went pretty smoothly too (I encountered just two issues - both minor, one already fixed in Lucee's master repository).
+
+The [Lucee wiki](https://bitbucket.org/lucee/lucee/wiki/Home) has information about downloading and installing Lucee, as well as building Lucee from source, and how to migrate from Railo to Lucee (hint: it's really easy - stop the server, remove `railo.jar`, add `lucee.jar`, start the server).
+
+Have fun with Lucee!
