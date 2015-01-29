@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Clojure | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/clojure/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-01-29T15:00:17-08:00</updated>
+  <updated>2015-01-29T15:15:00-08:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,25 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Lucee and FW/1]]></title>
+    <link href="http://framework-one.github.io/blog/2015/01/29/lucee-fw1/"/>
+    <updated>2015-01-29T13:30:49-08:00</updated>
+    <id>http://framework-one.github.io/blog/2015/01/29/lucee-fw1</id>
+    <content type="html"><![CDATA[<p>Today saw the announcement of the <a href="http://lucee.org">Lucee Association Switzerland</a> and the release of a new open source CFML engine: <a href="http://lucee.org/downloads.html">Lucee 4.5.0</a>.</p>
+
+<p>For background on the new engine and the association behind it, read <a href="http://blog.adamcameron.me/2015/01/lucee.html">Adam Cameron&rsquo;s blog post with Q&amp;A</a> about the launch.</p>
+
+<p>I&rsquo;ve already migrated all my local test environments to Lucee and can report that FW/1 (and DI/1 and cfmljure) all run beautifully on it &ndash; and it will be my primary test environment for future development of the FW/1 family going forward.</p>
+
+<p>I&rsquo;ve also migrated my local dev environment for World Singles over to Lucee and that went pretty smoothly too (I encountered just two issues &ndash; both minor, one already fixed in Lucee&rsquo;s master repository).</p>
+
+<p>The <a href="https://bitbucket.org/lucee/lucee/wiki/Home">Lucee wiki</a> has information about downloading and installing Lucee, as well as building Lucee from source, and how to migrate from Railo to Lucee (hint: it&rsquo;s really easy &ndash; stop the server, remove <code>railo.jar</code>, add <code>lucee.jar</code>, start the server).</p>
+
+<p>Have fun with Lucee!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 & Clojure Sitting in Tree]]></title>
@@ -104,17 +123,6 @@ for ( var newURL in urls.toArray() ) {
     <content type="html"><![CDATA[<p>After two years in the CFML world, FW/1 (Framework One) comes to Clojure!<!-- more --></p>
 
 <p>Intended to bring the same simple, lightweight, convention-based MVC web application development that has proved so popular in the CFML world to the world of Clojure, <a href="https://github.com/framework-one/fw1-clj">FW/1 for Clojure</a> is available on Clojars (0.1.0, as of April 2012). If you clone the github repo, you&rsquo;ll see a &ldquo;user manager&rdquo; example application which is a port of the same app from the CFML version of the framework. The documentation is, as always, a work in progress but covers the basic API and how to create a driver program for the framework in Clojure. More information on the rationale, approach and API of FW/1 can be found on the <a href="https://github.com/framework-one/fw1/wiki">FW/1 (for CFML) wiki</a>. I plan to adapt this for the Clojure version shortly&hellip;</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Cfmljure Updated]]></title>
-    <link href="http://framework-one.github.io/blog/2011/08/11/cfmljure-updated/"/>
-    <updated>2011-08-11T13:21:49-07:00</updated>
-    <id>http://framework-one.github.io/blog/2011/08/11/cfmljure-updated</id>
-    <content type="html"><![CDATA[<p>Even tho' it&rsquo;s far from a 1.0 release, I&rsquo;ve updated the <a href="https://github.com/framework-one/cfmljure">cfmljure</a> project on github to contain the latest version that we&rsquo;re using at World Singles and update the examples so they work again, along with updated instructions &ndash; mainly that the Clojure code needs to be in <code>WEB-INF/classes/</code> so that it can be picked up dynamically. This is a fundamental piece of our infrastructure at World Singles, since we rely heavily on Clojure for the Model of our application, with our View-Controller in CFML. It&rsquo;s not intended to be general purpose code but if you want to play around with calling Clojure from CFML, it should get you started.</p>
-
-<p>Don&rsquo;t forget the <a href="http://groups.google.com/group/cfmljure">cfmljure</a> mailing list if you need assistance!</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Releases | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/releases/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-01-29T15:00:17-08:00</updated>
+  <updated>2015-01-29T15:15:00-08:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,25 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Lucee and FW/1]]></title>
+    <link href="http://framework-one.github.io/blog/2015/01/29/lucee-fw1/"/>
+    <updated>2015-01-29T13:30:49-08:00</updated>
+    <id>http://framework-one.github.io/blog/2015/01/29/lucee-fw1</id>
+    <content type="html"><![CDATA[<p>Today saw the announcement of the <a href="http://lucee.org">Lucee Association Switzerland</a> and the release of a new open source CFML engine: <a href="http://lucee.org/downloads.html">Lucee 4.5.0</a>.</p>
+
+<p>For background on the new engine and the association behind it, read <a href="http://blog.adamcameron.me/2015/01/lucee.html">Adam Cameron&rsquo;s blog post with Q&amp;A</a> about the launch.</p>
+
+<p>I&rsquo;ve already migrated all my local test environments to Lucee and can report that FW/1 (and DI/1 and cfmljure) all run beautifully on it &ndash; and it will be my primary test environment for future development of the FW/1 family going forward.</p>
+
+<p>I&rsquo;ve also migrated my local dev environment for World Singles over to Lucee and that went pretty smoothly too (I encountered just two issues &ndash; both minor, one already fixed in Lucee&rsquo;s master repository).</p>
+
+<p>The <a href="https://bitbucket.org/lucee/lucee/wiki/Home">Lucee wiki</a> has information about downloading and installing Lucee, as well as building Lucee from source, and how to migrate from Railo to Lucee (hint: it&rsquo;s really easy &ndash; stop the server, remove <code>railo.jar</code>, add <code>lucee.jar</code>, start the server).</p>
+
+<p>Have fun with Lucee!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 3.0 RC 1 Available]]></title>
@@ -221,38 +240,6 @@ setBeanFactory( bf );
 <li>Both DI/1 and FW/1 now try very hard to avoid attempting to autowire FW/1 itself (or the Application.cfc based on it, which acts as a global controller in a FW/1 application).</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 2.5 Is Released!]]></title>
-    <link href="http://framework-one.github.io/blog/2014/05/25/fw1-2-5-is-released/"/>
-    <updated>2014-05-25T23:13:39-07:00</updated>
-    <id>http://framework-one.github.io/blog/2014/05/25/fw1-2-5-is-released</id>
-    <content type="html"><![CDATA[<p>This is a migration release to pave the way for breaking changes in Release 3.0. All examples have been updated to latest best practices and now use cfcscript exclusively. Examples use DI/1 0.5.0 to manage all beans and services (as <code>framework.ioc</code>), and no longer rely on start/end actions or the <code>service()</code> method.<!-- more --></p>
-
-<p>As always, FW/1 can be downloaded from the <a href="http://fw1.riaforge.org">FW/1 page on RIAForge</a>. Release 2.5 is now the latest stable release of this framework, as it approaches its fifth birthday!</p>
-
-<p>For a full list of all tickets closed in Release 2.5: <a href="https://github.com/framework-one/fw1/issues?milestone=14&amp;page=1&amp;state=closed">https://github.com/framework-one/fw1/issues?milestone=14&amp;page=1&amp;state=closed</a></p>
-
-<h2>Migration from 2.2.1</h2>
-
-<p>The <code>service()</code> call has been deprecated, as have start/end action items. Global access to <code>rc</code> in <code>Application.cfc</code> has also been deprecated. If you just drop 2.5 into your setup and you rely on these features, you&rsquo;ll get exceptions explaining how to enable these features for backward compatibility, namely add the following to your framework configuration:</p>
-
-<pre><code>enableGlobalRC = true,
-suppressServiceQueue = false
-</code></pre>
-
-<p>The ability to enable the implicit service calls is still present via:</p>
-
-<pre><code>suppressImplicitService = false
-</code></pre>
-
-<p>but, like the other two options, defaults to disallowing the deprecated feature.</p>
-
-<p>If you enable these deprecated features, you will no longer get exceptions using them, but you will see deprecation warnings in your application server&rsquo;s console log. This is to remind you to update your code in preparation for 3.0 later this year!</p>
-
-<p><em>Please note that Release 3.0 will completely remove these backward compatibility options &ndash; and the associated deprecated features. In addition, <code>org.corfield.framework</code> will move to <code>framework.one</code> in Release 3.0, alongside <code>framework.ioc</code>.</em></p>
 ]]></content>
   </entry>
   

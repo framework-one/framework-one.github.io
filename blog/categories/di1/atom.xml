@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Di1 | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/di1/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-01-29T15:00:17-08:00</updated>
+  <updated>2015-01-29T15:15:00-08:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,25 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Lucee and FW/1]]></title>
+    <link href="http://framework-one.github.io/blog/2015/01/29/lucee-fw1/"/>
+    <updated>2015-01-29T13:30:49-08:00</updated>
+    <id>http://framework-one.github.io/blog/2015/01/29/lucee-fw1</id>
+    <content type="html"><![CDATA[<p>Today saw the announcement of the <a href="http://lucee.org">Lucee Association Switzerland</a> and the release of a new open source CFML engine: <a href="http://lucee.org/downloads.html">Lucee 4.5.0</a>.</p>
+
+<p>For background on the new engine and the association behind it, read <a href="http://blog.adamcameron.me/2015/01/lucee.html">Adam Cameron&rsquo;s blog post with Q&amp;A</a> about the launch.</p>
+
+<p>I&rsquo;ve already migrated all my local test environments to Lucee and can report that FW/1 (and DI/1 and cfmljure) all run beautifully on it &ndash; and it will be my primary test environment for future development of the FW/1 family going forward.</p>
+
+<p>I&rsquo;ve also migrated my local dev environment for World Singles over to Lucee and that went pretty smoothly too (I encountered just two issues &ndash; both minor, one already fixed in Lucee&rsquo;s master repository).</p>
+
+<p>The <a href="https://bitbucket.org/lucee/lucee/wiki/Home">Lucee wiki</a> has information about downloading and installing Lucee, as well as building Lucee from source, and how to migrate from Railo to Lucee (hint: it&rsquo;s really easy &ndash; stop the server, remove <code>railo.jar</code>, add <code>lucee.jar</code>, start the server).</p>
+
+<p>Have fun with Lucee!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 3.0 RC 1 Available]]></title>
@@ -213,29 +232,6 @@ suppressServiceQueue = false
 <p>If you enable these deprecated features, you will no longer get exceptions using them, but you will see deprecation warnings in your application server&rsquo;s console log. This is to remind you to update your code in preparation for 3.0 later this year!</p>
 
 <p><em>Please note that Release 3.0 will completely remove these backward compatibility options &ndash; and the associated deprecated features. In addition, <code>org.corfield.framework</code> will move to <code>framework.one</code> in Release 3.0, alongside <code>framework.ioc</code>.</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 the Year Ahead]]></title>
-    <link href="http://framework-one.github.io/blog/2013/11/02/fw1-the-year-ahead/"/>
-    <updated>2013-11-02T23:42:41-07:00</updated>
-    <id>http://framework-one.github.io/blog/2013/11/02/fw1-the-year-ahead</id>
-    <content type="html"><![CDATA[<p>With FW/1 Version 2.2 just around the corner &ndash; after a long time in incubation &ndash; and FW/1 itself being almost four and a half years old, it&rsquo;s a good time to look ahead at what&rsquo;s in store.<!-- more --></p>
-
-<p>When FW/1 was first conceived, it was intended to be drop-dead simple and help on-board developers who were new to MVC and new to frameworks and also new to OOP. It leveraged conventions very heavily to encourage simple controller logic and delegation to a service layer for heavy lifting. That was the conceptual justification for the implicit service calls in the 1.x version and the ability to split controller methods in two &ndash; start/end-item &ndash; to wrap the automatic call to the service layer.</p>
-
-<p>While that conceptual framework served its purpose admirably, users very quickly grew out of it and needed to start managing service calls more directly. That&rsquo;s why implicit service calls were no longer the default in 2.0 (although you could turn them back on). Even with that change, many users find the queuing of service calls confusing, even tho' controller calls are also queued (although that&rsquo;s mostly invisible to users).</p>
-
-<p>In version 2.5, scheduled for early January 2014, FW/1 will begin the move away from queuing services by deprecating the <code>service()</code> call and requiring a configuration setting to enable its use in your application. In version 3.0, scheduled for release just after cf.Objective() 2014, the <code>service()</code> call will be removed. Along with that, the start/end-item calls will be deprecated in 2.5 and removed in 3.0, since they were only introduced in the first place to create the queued services workflow!</p>
-
-<p>This means that users will need to manage services themselves and of course I recommend using a Dependency Injection framework for that (or at least using some sort of object factory as a bare minimum). Accordingly, DI/1 will have a higher profile in FW/1 2.5 and the two frameworks will be officially bundled together in 3.0. FW/1 will continue to support any bean factory that provides the <code>containsBean()</code> and <code>getBean()</code> API such as ColdSpring (WireBox uses a slightly different API but I plan to provide an adapter for it in 2.5).</p>
-
-<p>Also as part of 3.0, the framework CFC itself will be renamed and the <code>/org/corfield</code> structure removed. The default path will be <code>/framework/one.cfc</code> so your <code>Application.cfc</code> will have <code>extends="framework.one"</code> by default. In 2.5, DI/1 will have adopted this pattern as <code>/framework/ioc.cfc</code>, but since 2.5 will still be backward compatible with 2.2 (after you&rsquo;ve added the compatibility setting in <code>Application.cfc</code>), I don&rsquo;t want to force renaming or reorganizing on users until 3.0.</p>
-
-<p>Finally, as part of 3.0, the entire repository will be restructured to better reflect what is considered &ldquo;best practices&rdquo; in terms of where you install things and what lives in your webroot (only web-accessible assets!). This will make it easier to get started with the FW/1 skeleton application as a &ldquo;best practice&rdquo; out-of-the-box experience.</p>
-
-<p>Note that the DI/1 and AOP/1 repositories will remain active but DI/1 versions will be in lockstep with FW/1 from 3.0 onward, and development will be conducted as part of the FW/1 repository, with releases being merged to the DI/1 repository. Once AOP/1 reaches a similar level of maturity, it will likely follow the same trajectory.</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-01-29T15:00:17-08:00</updated>
+  <updated>2015-01-29T15:15:00-08:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,25 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Lucee and FW/1]]></title>
+    <link href="http://framework-one.github.io/blog/2015/01/29/lucee-fw1/"/>
+    <updated>2015-01-29T13:30:49-08:00</updated>
+    <id>http://framework-one.github.io/blog/2015/01/29/lucee-fw1</id>
+    <content type="html"><![CDATA[<p>Today saw the announcement of the <a href="http://lucee.org">Lucee Association Switzerland</a> and the release of a new open source CFML engine: <a href="http://lucee.org/downloads.html">Lucee 4.5.0</a>.</p>
+
+<p>For background on the new engine and the association behind it, read <a href="http://blog.adamcameron.me/2015/01/lucee.html">Adam Cameron&rsquo;s blog post with Q&amp;A</a> about the launch.</p>
+
+<p>I&rsquo;ve already migrated all my local test environments to Lucee and can report that FW/1 (and DI/1 and cfmljure) all run beautifully on it &ndash; and it will be my primary test environment for future development of the FW/1 family going forward.</p>
+
+<p>I&rsquo;ve also migrated my local dev environment for World Singles over to Lucee and that went pretty smoothly too (I encountered just two issues &ndash; both minor, one already fixed in Lucee&rsquo;s master repository).</p>
+
+<p>The <a href="https://bitbucket.org/lucee/lucee/wiki/Home">Lucee wiki</a> has information about downloading and installing Lucee, as well as building Lucee from source, and how to migrate from Railo to Lucee (hint: it&rsquo;s really easy &ndash; stop the server, remove <code>railo.jar</code>, add <code>lucee.jar</code>, start the server).</p>
+
+<p>Have fun with Lucee!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 & Clojure Sitting in Tree]]></title>
@@ -524,38 +543,6 @@ suppressServiceQueue = false
 <p>I think Peter will also be writing a blog post around this topic. His tweets covered some other issues, such as whether moving ColdSpring to git (on SourceForge) is good for the community, and I know he has some very strong opinions on open source software! I wish ColdSpring was on github instead of SourceForge but I view the move to git as a good thing. Github has really helped FW/1 get more collaboration from the community. I expect DI/1 will see similar collaboration. It&rsquo;s also why Railo has published its source code on github (although snapshots of builds will still be committed to the JBoss community SVN repo).</p>
 
 <p>I look forward to Peter&rsquo;s blog post on this topic. As I&rsquo;ve said in my Open Source Landscape talk, the CFML community is still pretty new to open source software development. We&rsquo;ve come a long way in the last five years&hellip; but we&rsquo;ve got a <strong>long</strong> way to go to be on a par with many other communities!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 Release 1.1 Available!]]></title>
-    <link href="http://framework-one.github.io/blog/2010/06/11/fw1-release-1-1-available/"/>
-    <updated>2010-06-11T19:02:00-07:00</updated>
-    <id>http://framework-one.github.io/blog/2010/06/11/fw1-release-1-1-available</id>
-    <content type="html"><![CDATA[<p>The latest stable release of Framework One is now available for <a href="https://github.com/framework-one/fw1/releases/tag/v1.1">download</a> from github! The previous stable release is still available on the tags page (<a href="https://github.com/framework-one/fw1/releases/tag/v1.0">download FW/1 1.0</a>).<!-- more --></p>
-
-<p>This release features a large number of enhancements suggested by the community including:</p>
-
-<ul>
-<li>A skeleton application</li>
-<li>The list of keys in <code>populate()</code> can contain spaces for improved readability</li>
-<li>The delimiter for subsystems can be configured (the default is still <code>:</code>)</li>
-<li>You can override the behavior when a view is missing by defining your own <code>onMissingView()</code> handler</li>
-<li>The name of the application is automatically generated allowing you to omit <code>this.name</code> assignment in <code>Application.cfc</code></li>
-<li>Controller calls can be queued up in <code>setupApplication()</code>, <code>setupSession()</code> and <code>setupRequest()</code> via the <code>controller()</code> API &ndash; <code>doController()</code> is officially deprecated</li>
-<li><code>populate()</code> now works with CFCs that use generated setters or <code>onMissingMethod()</code> via the new <code>trustKeys</code> argument &ndash; and <code>onPopulateError()</code> to trap any errors that arise</li>
-<li>Sample applications now work on installations with a non-empty context root (except for a couple clearly marked as such)</li>
-<li>Skinning is possible via a new override point: <code>customizeViewOrLayoutPath()</code></li>
-<li>When you queue up <code>service()</code> calls, you can now provide a struct of additional arguments so you add arguments that are not in the request context</li>
-<li>The list of extensions and file paths that are ignored by FW/1 is now configurable (so you can easily allow certain parts of your application to operate outside the framework)</li>
-<li>A new API <code>getConfig()</code> returns a readonly copy of the framework&rsquo;s configuration structure which may be useful in controllers</li>
-<li>You can now override the view conventions easily in a controller via the new <code>setView()</code> API</li>
-<li>The action arguments is now consistently optional in all of the getters for subsystem / section / item combinations</li>
-<li>An example of security / access control with FW/1 has been added as a variant of the user manager</li>
-<li><code>buildURL()</code> and <code>redirect()</code> can generate SES URLs via new FW/1 configuration settings: <code>generateSES</code> and <code>SESOmitIndex</code></li>
-<li><code>buildURL()</code> and <code>redirect()</code> now all embedded query strings to make URL generation easier, as well as allowing control over which name/value pairs are folded into SES URLs vs regular query string format</li>
-</ul>
-
 ]]></content>
   </entry>
   
