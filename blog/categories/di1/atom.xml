@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Di1 | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/di1/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-02-06T17:25:33-08:00</updated>
+  <updated>2015-02-06T21:12:54-08:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 3.0 RC 2 Available]]></title>
+    <link href="http://framework-one.github.io/blog/2015/02/06/fw1-3-0-rc-2-available/"/>
+    <updated>2015-02-06T20:21:49-08:00</updated>
+    <id>http://framework-one.github.io/blog/2015/02/06/fw1-3-0-rc-2-available</id>
+    <content type="html"><![CDATA[<p>About two weeks ago I released <a href="http://framework-one.github.io/blog/2015/01/24/fw1-3-0-rc-1-available/">FW/1 3.0 RC 1</a> and the only real bug persisting at that point was related to <a href="https://github.com/framework-one/fw1/issues/283">DI/1 dotted path deduction</a>.</p>
+
+<p>I think that bug is finally squashed, based on early testing by some users that had encountered the bug, so the second <a href="https://github.com/framework-one/fw1/releases/tag/v3.0-rc2">Release Candidate build</a> of FW/1 3.0 is now available!<!-- more --></p>
+
+<p>In addition to fixing that DI/1 bug, the only other change since RC 1 is some cleanup of the <code>examples</code> folder. That means this RC is almost certainly going to be gold candidate for the final 3.0 release.</p>
+
+<p>Please download and test this version and report any issues you find. I&rsquo;d like to cut the final 3.0 release fairly soon, so I can merge <code>develop</code> to <code>master</code> and start planning FW/1 3.5.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Lucee and FW/1]]></title>
@@ -200,38 +215,6 @@ setBeanFactory( bf );
 <li>Both DI/1 and FW/1 now try very hard to avoid attempting to autowire FW/1 itself (or the Application.cfc based on it, which acts as a global controller in a FW/1 application).</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 2.5 Is Released!]]></title>
-    <link href="http://framework-one.github.io/blog/2014/05/25/fw1-2-5-is-released/"/>
-    <updated>2014-05-25T23:13:39-07:00</updated>
-    <id>http://framework-one.github.io/blog/2014/05/25/fw1-2-5-is-released</id>
-    <content type="html"><![CDATA[<p>This is a migration release to pave the way for breaking changes in Release 3.0. All examples have been updated to latest best practices and now use cfcscript exclusively. Examples use DI/1 0.5.0 to manage all beans and services (as <code>framework.ioc</code>), and no longer rely on start/end actions or the <code>service()</code> method.<!-- more --></p>
-
-<p>As always, FW/1 can be downloaded from the <a href="http://fw1.riaforge.org">FW/1 page on RIAForge</a>. Release 2.5 is now the latest stable release of this framework, as it approaches its fifth birthday!</p>
-
-<p>For a full list of all tickets closed in Release 2.5: <a href="https://github.com/framework-one/fw1/issues?milestone=14&amp;page=1&amp;state=closed">https://github.com/framework-one/fw1/issues?milestone=14&amp;page=1&amp;state=closed</a></p>
-
-<h2>Migration from 2.2.1</h2>
-
-<p>The <code>service()</code> call has been deprecated, as have start/end action items. Global access to <code>rc</code> in <code>Application.cfc</code> has also been deprecated. If you just drop 2.5 into your setup and you rely on these features, you&rsquo;ll get exceptions explaining how to enable these features for backward compatibility, namely add the following to your framework configuration:</p>
-
-<pre><code>enableGlobalRC = true,
-suppressServiceQueue = false
-</code></pre>
-
-<p>The ability to enable the implicit service calls is still present via:</p>
-
-<pre><code>suppressImplicitService = false
-</code></pre>
-
-<p>but, like the other two options, defaults to disallowing the deprecated feature.</p>
-
-<p>If you enable these deprecated features, you will no longer get exceptions using them, but you will see deprecation warnings in your application server&rsquo;s console log. This is to remind you to update your code in preparation for 3.0 later this year!</p>
-
-<p><em>Please note that Release 3.0 will completely remove these backward compatibility options &ndash; and the associated deprecated features. In addition, <code>org.corfield.framework</code> will move to <code>framework.one</code> in Release 3.0, alongside <code>framework.ioc</code>.</em></p>
 ]]></content>
   </entry>
   
