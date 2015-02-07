@@ -30,7 +30,7 @@ The simplest FW/1 application comprises:
 * Empty `index.cfm` (this file is required but the content is ignored)
 * `views` folder containing a `main` subfolder containing `default.cfm` - your initial application view
 
-See the `helloworld` example in the `examples` folder which is this same minimal application.
+See the `1helloworld` example in the `examples` folder which is this same minimal application.
 
 Create `Application.cfc` containing:
 
@@ -73,7 +73,7 @@ This will generate a link with an `action` of `main`, which is equivalent to `ma
 
 Reload your application in your browser: you should see a `Go away!` link after `Hello FW/1!`. Click it and you should go to a URL with `?action=main.other` which should display `Goodbye FW/1!` and a link back to your default page. Click that `Come back` link and you should see your original page. Note that FW/1 realized that the `main` action is the default and omitted it from the URL completely: this helps keep URLs unique for search engines.
 
-See the `hellolinked` example in the `examples` folder which is this simple two page application.
+See the `2hellolinked` example in the `examples` folder which is this simple two page application.
 
 ### An Aside on URL Structure
 
@@ -109,7 +109,7 @@ Note that controller CFC names must be all lowercase.
 
 When you access the application now, it should say `Hello anonymous!` but if you put `?name=Sean` on the URL, it should say `Hello Sean!` The request context passed to the controller method contains all the URL and form variables from the browser and is also made available to the view directly, as `rc`.
 
-See the `hellocontroller` example in the `examples` folder which is this simple controller example.
+See the `3hellocontroller` example in the `examples` folder which is this simple controller example.
 
 Controllers are cached. Add `?reload=true` to the URL to reload your controllers if you make changes.
 
@@ -153,7 +153,7 @@ When you access the application now, you should see a green box added around the
 
 You can see how the layouts nest (and hopefully your artistic skills with CSS and HTML can produce something that looks a lot nicer than this example!).
 
-The `hellolayout` example in the `examples` folder corrsponds to what you should have at this point.
+The `4hellolayout` example in the `examples` folder corrsponds to what you should have at this point.
 
 ### Adding a Service to Your Application
 
@@ -196,7 +196,7 @@ When you access the application, you'll see it says `Hello so-called anonymous!`
 
 If you access the application with `?name=Sean` in the URL, it should say `Hello so-called Sean!` so you can see how URL variables are passed into the controller and can be passed as arguments to service calls.
 
-Your application at this point corresponds to the `helloservice` example in the `examples` folder.
+Your application at this point corresponds to the `5helloservice` example in the `examples` folder.
 
 What's Next?
 ---
