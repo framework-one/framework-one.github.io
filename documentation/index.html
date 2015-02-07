@@ -111,7 +111,7 @@
 </ul>
 
 
-<p>See the <code>helloworld</code> example in the <code>examples</code> folder which is this same minimal application.</p>
+<p>See the <code>1helloworld</code> example in the <code>examples</code> folder which is this same minimal application.</p>
 
 <p>Create <code>Application.cfc</code> containing:</p>
 
@@ -159,7 +159,7 @@
 
 <p>Reload your application in your browser: you should see a <code>Go away!</code> link after <code>Hello FW/1!</code>. Click it and you should go to a URL with <code>?action=main.other</code> which should display <code>Goodbye FW/1!</code> and a link back to your default page. Click that <code>Come back</code> link and you should see your original page. Note that FW/1 realized that the <code>main</code> action is the default and omitted it from the URL completely: this helps keep URLs unique for search engines.</p>
 
-<p>See the <code>hellolinked</code> example in the <code>examples</code> folder which is this simple two page application.</p>
+<p>See the <code>2hellolinked</code> example in the <code>examples</code> folder which is this simple two page application.</p>
 
 <h3>An Aside on URL Structure</h3>
 
@@ -200,7 +200,7 @@
 
 <p>When you access the application now, it should say <code>Hello anonymous!</code> but if you put <code>?name=Sean</code> on the URL, it should say <code>Hello Sean!</code> The request context passed to the controller method contains all the URL and form variables from the browser and is also made available to the view directly, as <code>rc</code>.</p>
 
-<p>See the <code>hellocontroller</code> example in the <code>examples</code> folder which is this simple controller example.</p>
+<p>See the <code>3hellocontroller</code> example in the <code>examples</code> folder which is this simple controller example.</p>
 
 <p>Controllers are cached. Add <code>?reload=true</code> to the URL to reload your controllers if you make changes.</p>
 
@@ -248,7 +248,7 @@
 
 <p>You can see how the layouts nest (and hopefully your artistic skills with CSS and HTML can produce something that looks a lot nicer than this example!).</p>
 
-<p>The <code>hellolayout</code> example in the <code>examples</code> folder corrsponds to what you should have at this point.</p>
+<p>The <code>4hellolayout</code> example in the <code>examples</code> folder corrsponds to what you should have at this point.</p>
 
 <h3>Adding a Service to Your Application</h3>
 
@@ -294,7 +294,7 @@
 
 <p>If you access the application with <code>?name=Sean</code> in the URL, it should say <code>Hello so-called Sean!</code> so you can see how URL variables are passed into the controller and can be passed as arguments to service calls.</p>
 
-<p>Your application at this point corresponds to the <code>helloservice</code> example in the <code>examples</code> folder.</p>
+<p>Your application at this point corresponds to the <code>5helloservice</code> example in the <code>examples</code> folder.</p>
 
 <h2>What&rsquo;s Next?</h2>
 
