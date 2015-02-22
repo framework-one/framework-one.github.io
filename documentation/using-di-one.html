@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using DI/1 Jan 22nd, 2015 DI/1 &ndash; a.k.a Inject One &ndash; is a simple, convention-based Dependency Injection framework. DI/1 searches &hellip;">
+  <meta name="description" content="Using DI/1 Feb 22nd, 2015 DI/1 &ndash; a.k.a Inject One &ndash; is a simple, convention-based Dependency Injection framework. DI/1 searches &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
   
 
 
-<time datetime="2015-01-22T12:20:00-08:00" pubdate data-updated="true">Jan 22<span>nd</span>, 2015</time></p>
+<time datetime="2015-02-22T14:20:00-08:00" pubdate data-updated="true">Feb 22<span>nd</span>, 2015</time></p>
   </header>
   
   <p>DI/1 &ndash; a.k.a Inject One &ndash; is a simple, convention-based Dependency Injection framework.</p>
@@ -295,6 +295,15 @@ beanFactory.declareBean("admindata", "util.DataSource", true, { dsn = "admindb" 
 
 <p>This is called for each bean after its dependencies have been injected prior to calling <strong>initMethod</strong> (if specified).</p>
 
+<p>Two related extension points that can be useful as well are:</p>
+
+<pre><code>private any function construct( string dottedPath )
+
+private any function metadata( string dottedPath )
+</code></pre>
+
+<p>These can be overridden if you want to change the behavior of how beans are created and how metadata is obtained for beans. An example from Adam Tuttle is the ability to silently ignore beans that have syntax errors during development, so the rest of the beans are loaded: you would override <code>metadata()</code> and have it wrap a call to <code>super.metadata( dottedPath )</code> in <code>try/catch</code> and return an empty struct if an exception is thrown.</p>
+
   
     <footer>
       <p class="meta">
@@ -311,7 +320,7 @@ beanFactory.declareBean("admindata", "util.DataSource", true, { dsn = "admindb" 
   
 
 
-<time datetime="2015-01-22T12:20:00-08:00" pubdate data-updated="true">Jan 22<span>nd</span>, 2015</time>
+<time datetime="2015-02-22T14:20:00-08:00" pubdate data-updated="true">Feb 22<span>nd</span>, 2015</time>
         
       </p>
       
