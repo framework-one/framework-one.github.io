@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using DI/1"
-date: 2015-01-22 12:20
+date: 2015-02-22 14:20
 comments: false
 sharing: false
 footer: true
@@ -182,3 +182,10 @@ A particular extension point that is provided is:
 
 This is called for each bean after its dependencies have been injected prior to calling **initMethod** (if specified).
 
+Two related extension points that can be useful as well are:
+
+    private any function construct( string dottedPath )
+    
+    private any function metadata( string dottedPath )
+
+These can be overridden if you want to change the behavior of how beans are created and how metadata is obtained for beans. An example from Adam Tuttle is the ability to silently ignore beans that have syntax errors during development, so the rest of the beans are loaded: you would override `metadata()` and have it wrap a call to `super.metadata( dottedPath )` in `try/catch` and return an empty struct if an exception is thrown.
