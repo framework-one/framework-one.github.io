@@ -4,7 +4,7 @@
   <title><![CDATA[FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-02-22T14:58:07-08:00</updated>
+  <updated>2015-02-24T10:54:02-08:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 3.0 Released!]]></title>
+    <link href="http://framework-one.github.io/blog/2015/02/24/fw1-3-0-released/"/>
+    <updated>2015-02-24T09:30:49-08:00</updated>
+    <id>http://framework-one.github.io/blog/2015/02/24/fw1-3-0-released</id>
+    <content type="html"><![CDATA[<p>I&rsquo;m pleased to announce that after lots of user testing and almost no issues found, the Gold Release of <a href="https://github.com/framework-one/fw1/releases/tag/v3.0">FW/1 3.0</a> is now available!<!-- more --></p>
+
+<p>About two and a half weeks ago I released <a href="http://framework-one.github.io/blog/2015/02/06/fw1-3-0-rc-2-available/">FW/1 3.0 RC 2</a> and only one minor issue was reported (an inconsistency between <code>buildURL()</code> and <code>buildCustomURL()</code> regarding how <code>baseURL</code> was handled). That has been fixed, along with the addition of a new extension point for DI/1 (<code>metadata()</code>).</p>
+
+<p>You can see a <a href="https://github.com/framework-one/fw1/issues?milestone=13&amp;q=is%3Aclosed">full list of issues fixed in FW/1 for 3.0</a> and a <a href="https://github.com/framework-one/di1/issues?milestone=1&amp;q=is%3Aclosed">full list of issues fixed in DI/1 1.0</a> on GitHub. This represents the official release of DI/1 1.0 as well.</p>
+
+<p>Thank you to everyone who has contributed to the 3.0 release &ndash; it&rsquo;s been a long time in the making! Particular thanks go to Nando Breiter for migrating the DI/1 documentation from the old wiki to the new FW/1 website. Also thanks to John Berquist, Ryan Guill, Cameron Childress, and Adam Tuttle for you code contributions and everyone who tested prerelease builds of FW/1 and reported issues and made suggestions! Thank you!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 3.0 RC 2 Available]]></title>
@@ -522,19 +537,6 @@ suppressServiceQueue = false
     <content type="html"><![CDATA[<p>The official 1.2 release of Framework One &ndash; FW/1 &ndash; has just been tagged and published on github. You can <a href="http://fw1.riaforge.org/">download it from RIAForge</a>.</p>
 
 <p>Release Candidate 2 had been out for about a month with no issues reported. A few small enhancements were made since RC2. You can see the <a href="http://github.com/seancorfield/fw1/commits/master">list of commits</a> here, on github.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Cfmljure Mailing List]]></title>
-    <link href="http://framework-one.github.io/blog/2010/09/21/cfmljure-mailing-list/"/>
-    <updated>2010-09-21T13:21:49-07:00</updated>
-    <id>http://framework-one.github.io/blog/2010/09/21/cfmljure-mailing-list</id>
-    <content type="html"><![CDATA[<p>I mentioned it in passing in one of my early posts about using Clojure from CFML but, since only one person signed up, thought it was worth mentioning again: there is a <a href="http://groups.google.com/group/cfmljure">mailing list for cfmljure</a> where you can ask questions about the project and Clojure itself or, if you&rsquo;re new to CFML and coming from the Clojure world, you can ask questions about CFML!</p>
-
-<p>I&rsquo;m planning to add a couple of more involved examples to the project repo, one of which will use FW/1 and have the entire Model built in Clojure with the View-Controller portion written in CFML / cfscript &ndash; and I&rsquo;m also planning to create a simple ready-to-run Jetty-based package so folks can simply download cfmljure and try it out without needing to worry about installing anything.</p>
-
-<p>You can always get the <a href="http://cfmljure.riaforge.org/">latest version of cfmljure from RIAForge</a>!</p>
 ]]></content>
   </entry>
   
