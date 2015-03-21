@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-03-21 14:20
+date: 2015-03-21 16:00
 comments: false
 sharing: false
 footer: true
@@ -310,7 +310,7 @@ Returns whatever the framework has been told is a bean factory. This will return
 
 ### public struct function getSubsystemConfig( string subsystem )
 
-Returns the configuration for the named subsystem, as a copy of `variables.framework.subsystems[subsystem]`. If no configuration exists for the named subsystem, an empty struct is returned. FW/1 uses this to retrieve the per-subsystem `baseURL` value, if any, as part of `buildURL()` and `redirect()`.
+Returns the configuration for the named subsystem, as a copy of `variables.framework.subsystems[subsystem]`. If no configuration exists for the named subsystem, an empty struct is returned. FW/1 uses this to retrieve the per-subsystem `baseURL` value, if any, as part of `buildURL()` and `redirect()`, as well as `diConfig` if you are using DI/1 to manage subsystem bean factories automatically.
 
 ### public boolean function hasBeanFactory()
 

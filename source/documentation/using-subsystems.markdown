@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using Subsystems in FW/1"
-date: 2015-03-21 14:20
+date: 2015-03-21 16:00
 comments: false
 sharing: false
 footer: true
@@ -79,7 +79,7 @@ The location of the latter is determined by the `siteWideLayoutSubsystem` config
 
 Using Bean Factories
 ---
-The introduction of subsystems introduces the ability to have subsystem specific bean factories. If you let FW/1 use DI/1 (or AOP/1) to manage your beans, it will also do so automatically for subsystems, creating a bean factory for each subsystem (inspecting the same folders you configured for your main application, i.e., `model` and `controllers` by default), and setting the main bean factory as the parent of each subsystem bean factory. This is the recommended approach (naturally!).
+The introduction of subsystems introduces the ability to have subsystem specific bean factories. If you let FW/1 use DI/1 to manage your beans, it will also do so automatically for subsystems, creating a bean factory for each subsystem (inspecting the same folders you configured for your main application, i.e., `model` and `controllers` by default), and setting the main bean factory as the parent of each subsystem bean factory. This is the recommended approach (naturally!).
 
 The following bean factory methods are available for subsystems:
 
@@ -87,6 +87,8 @@ The following bean factory methods are available for subsystems:
 * `hasSubsystemBeanFactory( subsystem )` - returns `true` if a subsystem specific bean factory exists for the named subsystem
 * `getBeanFactory()` - returns the bean factory for the current subsystem. Alternately, it can be used to retrieve the bean factory for another subsystem by passing the name of the subsystem (e.g., `getBeanFactory( subsystem )` ).
 * `getDefaultBeanFactory()` - returns the default bean factory that was passed to `setBeanFactory()` (at the top-level)
+
+If you provide `diConfig` in the subsystem-specific configuration structure (`framework.subsystems[subsystemname]`) that will be passed to DI/1 as its configuration, otherwise the same configuration used for the default bean factory (`framework.diConfig`) will be passed.
 
 ### Auto Wiring
 

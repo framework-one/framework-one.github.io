@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-03-21 14:20
+date: 2015-03-21 16:00
 comments: false
 sharing: false
 footer: true
@@ -206,7 +206,7 @@ In general, managing dependencies is as simple as adding `accessors=true` to you
 
 This will make `variables.userService` and `variables.securityService` available, based on `model/services/user.cfc` and `model/services/security.cfc`. You could also use long form CFC names like `userservice.cfc` and `securityservice.cfc` if you wanted. See the next section for more details on configuring DI/1.
 
-If you let FW/1 use DI/1 (or AOP/1) to automatically manage your beans, and you are using subsystems, FW/1 will also use it to manage your subsystems' beans. See [Using Subsystems](/documentation/using-subsystems.html) for more details.
+If you let FW/1 use DI/1 to automatically manage your beans, and you are using subsystems, FW/1 will also use it to manage your subsystems' beans. See [Using Subsystems](/documentation/using-subsystems.html) for more details.
 
 ### Transients, Bean Factory, Framework
 
@@ -260,6 +260,8 @@ Here's how those values are used in code to construct the bean factory:
         variables.framework.diLocations,
         variables.framework.diConfig
     );
+
+If you are using subsystems and also using DI/1 as your default bean factory component, `diConfig` will be passed to subsystem bean factories when they are constructed. You can override this on a per-subsystem basis by setting `diConfig` in the specific `framework.subsystems` configuration structure.
 
 #### Migrating 2.x Applications to 3.0
 
@@ -446,7 +448,7 @@ The keys in the structure have the following meanings:
 * `defaultItem` - The default item within a section when either no action is specified at all or just the section is specified in the action.
 * `subsystemDelimiter` - When subsystems are enabled, this specifies the delimiter between the subsystem name and the action in a URL or form post.
 * `siteWideLayoutSubsystem` - When subsystems are enabled, this specifies the subsystem that is used for the (optional) site-wide default layout.
-* `subsystems` - An optional struct of structs containing per-subsystem configuration data. Each key in the top-level struct is named for a subsystem. The contents of the nested structs can be anything you want for your subsystems. Retrieved by calling `getSubsystemConfig()`. Currently the only key used by FW/1 is `baseURL` which can be used to configure per-subsystem values.
+* `subsystems` - An optional struct of structs containing per-subsystem configuration data. Each key in the top-level struct is named for a subsystem. The contents of the nested structs can be anything you want for your subsystems. Retrieved by calling `getSubsystemConfig()`. Currently the only keys used by FW/1 are `baseURL` and `diConfig` which can be used to configure per-subsystem values.
 * `home` - The default action when it is not specified in the URL or form post. By default, this is `defaultSection`.`defaultItem`. If you specify `home`, you are overriding (and hiding) `defaultSection` but not `defaultItem`. If `usingSubsystem` is `true`, the default for `home` is `"home:main.default"`, i.e., `defaultSubsystem & subsystemDelimiter & defaultSection & '.' & defaultItem`.
 * `error` - The action to use if an exception occurs. By default this is `defaultSection.error`.
 * `reload` - The URL variable used to force FW/1 to reload its application cache and re-execute `setupApplication()`.
