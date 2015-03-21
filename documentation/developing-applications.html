@@ -81,7 +81,7 @@
   
 
 
-<time datetime="2015-03-21T16:10:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time></p>
+<time datetime="2015-03-21T16:35:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time></p>
   </header>
   
   <p><em>This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/developing-applications.html">3.0 master documentation</a>.</em></p>
@@ -553,6 +553,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
     trace = false,
     routes = [ ],
     // resourceRouteTemplates - see routes documentation
+    routesCaseSensitive = true,
     noLowerCase = false,
     diEngine = "di1",
     diComponent = "framework.ioc",
@@ -593,6 +594,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 <li><code>trace</code> &ndash; If <code>true</code>, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature. (Note that FW/1 will not print out debugging / tracing information when the <code>renderData()</code> function is used. You can still access and output debugging / tracing information in such cases by overriding the <code>setupTraceRender()</code> function. See the <a href="/documentation/reference-manual.html">Reference Manual</a> for more details.).</li>
 <li><code>routes</code> &ndash; An array of URL path mappings. This allows you to override the conventional mapping of <code>/section/item</code> to controllers.</li>
 <li><code>resourceRouteTemplates</code> &ndash; see <strong>URL Routes</strong> below.</li>
+<li><code>routesCaseSensitive</code> &ndash; Default <code>true</code>. Controls whether route matches are case-sensitive or not.</li>
 <li><code>diEngine</code> &ndash; the Dependency Injection framework that FW/1 should use.</li>
 <li><code>diComponent</code> &ndash; the dotted-path to the CFC used for the bean factory (which has sensible defaults based on <code>diEngine</code>).</li>
 <li><code>diLocations</code> &ndash; the list of folders to check for CFCs to manage; defaults to <code>"model,controllers"</code>.</li>
@@ -624,6 +626,8 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 <p>Routes can also specify a redirect instead of a substitute URL by prefixing the URL with an HTTP status code and a colon, for example <code>{ "/thankyou" = "302:/main/thankyou" }</code> specifies a match for <code>/thankyou</code> which will cause a redirect to <code>/main/thankyou</code>.</p>
 
 <p>A route of <code>"*"</code> is a wildcard that will match any request and therefore must be the last route in the array. A wildcard route may be restricted to a specific method, e.g., <code>"$POST*"</code> will match a <code>POST</code> to any URL.</p>
+
+<p>Route matches are case-sensitive unless you set <code>routesCaseSensitive</code> to <code>false</code> in the FW/1 configuration.</p>
 
 <p>The keyword <code>"$RESOURCES"</code> can be used as a shorthand way of specifying resource routes: <code>{ "$RESOURCES" = "dogs,cats,hamsters,gerbils" }</code>. FW/1 will interpret this as if you had specified a standard set of routes for each of the listed resources. For example, for the resource &ldquo;dogs&rdquo;, FW/1 will parse the following routes:</p>
 
@@ -844,7 +848,7 @@ property framework;
   
 
 
-<time datetime="2015-03-21T16:10:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time>
+<time datetime="2015-03-21T16:35:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time>
         
       </p>
       
