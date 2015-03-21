@@ -37,7 +37,7 @@ FW/1 2.5 represents a large shift from 2.2.1 and deprecates a number of long-sta
 
 3.0 Integrations
 ---
-FW/1 3.0 is currently in beta and represents the direction that most users have already been going:
+FW/1 3.0 represents the direction that most users have already been going:
 
 * Using DI/1 to manage services and beans
 * Explicitly calling services in the `item()` controller methods

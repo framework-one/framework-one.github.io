@@ -64,7 +64,7 @@ It would be hard to give a comprehensive list of variables available inside a vi
 * `local` - An empty struct, created as a local scope for the view or layout.
 * `framework` - The FW/1 configuration structure (`variables.framework` in the framework CFC) which includes a number of useful values including `framework.action`, the name of the URL parameter that holds the action (if you're building links, you should use the `buildURL()` API method which knows how to handle subsystems as well as regular section and item values in the action value). You can also write SES URLs without this variable, e.g., _/index.cfm/section/item_ as long as your application server supports such URLs (better to use `buildCustomURL()` for this!).
 
-In addition, FW/1 uses a number of `request` scope variables to pass data between its various methods so it is advisable not to write to the `request` scope inside a view or layout. See the [Reference Manual](/documentation/reference-manual.html) for complete details of `request` scope variables used by FW/1.
+In addition, FW/1 uses a number of `request` scope variables to pass data between its various methods so it is advisable not to write to the `request` scope inside a view or layout. See the [Reference Manual](/documentation/3.0/reference-manual.html) for complete details of `request` scope variables used by FW/1.
 
 It is strongly recommended to use the `local` struct for any variables you need to create yourself in a view or layout!
 
@@ -142,7 +142,7 @@ This is called after all views and layouts have been rendered in a regular reque
 
 ### Short-Circuiting the Controller / Services Lifecycle
 
-If you need to immediately halt execution of a controller and prevent any further controllers or services from being called, use the `abortController()` method. See the [Reference Manual](/documentation/reference-manual.html) for more details of `abortController()`, in particular how it interacts with exception-handling code in your controllers.
+If you need to immediately halt execution of a controller and prevent any further controllers or services from being called, use the `abortController()` method. See the [Reference Manual](/documentation/3.0/reference-manual.html) for more details of `abortController()`, in particular how it interacts with exception-handling code in your controllers.
 
 ### Controllers for REST APIs
 
@@ -204,7 +204,7 @@ In general, managing dependencies is as simple as adding `accessors=true` to you
 
 This will make `variables.userService` and `variables.securityService` available, based on `model/services/user.cfc` and `model/services/security.cfc`. You could also use long form CFC names like `userservice.cfc` and `securityservice.cfc` if you wanted. See the next section for more details on configuring DI/1.
 
-If you let FW/1 use DI/1 (or AOP/1) to automatically manage your beans, and you are using subsystems, FW/1 will also use it to manage your subsystems' beans. See [Using Subsystems](/documentation/using-subsystems.html) for more details.
+If you let FW/1 use DI/1 (or AOP/1) to automatically manage your beans, and you are using subsystems, FW/1 will also use it to manage your subsystems' beans. See [Using Subsystems](/documentation/3.0/using-subsystems.html) for more details.
 
 ### Transients, Bean Factory, Framework
 
@@ -450,8 +450,8 @@ The keys in the structure have the following meanings:
 * `reload` - The URL variable used to force FW/1 to reload its application cache and re-execute `setupApplication()`.
 * `password` - The value of the reload URL variable that must be specified, e.g., `?reload=true` is the default but you could specify `reload = 'refresh', password = 'fw1'` and then specifying `?refresh=fw1` would cause a reload.
 * `reloadApplicationOnEveryRequest` - If this is set to `true` then FW/1 behaves as if you specified the `reload` URL variable on every request, i.e., at the start of each request, the controller/service cache is cleared and `setupApplication()` is executed.
-* `generateSES` - If true, causes `redirect()` and `buildURL()` to generate SES-style URLs with items separated by `/` (and the path info in the URL will begin `/section/item` rather than `?action=section.item` - see the [Reference Manual](/documentation/reference-manual.html) for more details).
-* `SESOmitIndex` - If SES URLs are enabled and this is `true`, will attempt to omit the base filename in the path when constructing URLs in `buildURL()` and `redirect()` which will generally omit `/index.cfm` from the start of the URL. Again, see the [Reference Manual](/documentation/reference-manual.html) for more details.
+* `generateSES` - If true, causes `redirect()` and `buildURL()` to generate SES-style URLs with items separated by `/` (and the path info in the URL will begin `/section/item` rather than `?action=section.item` - see the [Reference Manual](/documentation/3.0/reference-manual.html) for more details).
+* `SESOmitIndex` - If SES URLs are enabled and this is `true`, will attempt to omit the base filename in the path when constructing URLs in `buildURL()` and `redirect()` which will generally omit `/index.cfm` from the start of the URL. Again, see the [Reference Manual](/documentation/3.0/reference-manual.html) for more details.
 * `base` - Provide this if the application itself is not in the same directory as `Application.cfc` and `index.cfm`. It should be the **relative** path to the application from the `Application.cfc` file.
 * `baseURL` - Normally, `redirect()` and `buildURL()` default to using `CGI.SCRIPT_NAME` as the basis for the URL they construct. This is the right choice for most applications but there are times when the base URL used for your application could be different. You can also specify `baseURL = "useRequestURI"` and instead of `CGI.SCRIPT_NAME`, the result of `getPageContext().getRequest().getRequestURI()` will be used to construct URLs. This is the right choice for FW/1 applications embedded inside Mura.
 * `cfcbase` - Provide this if the `controllers` and `model` folders are not in the same folder as the application. It is used as the dotted-path prefix for controller and service CFCs, e.g., if `cfcbase = 'com.myapp'` then a controller would be `com.myapp.controllers.MyController`.
@@ -463,7 +463,7 @@ The keys in the structure have the following meanings:
 * `cacheFileExists` - If you are running on a system where disk access is slow - or you simply want to avoid several calls to `fileExists()` during requests for performance - you can set this to true and FW/1 will cache all its calls to `fileExists()`. Be aware that if the result of `fileExists()` is cached and you add a new layout or a new view, it won't be noticed until you reload the framework.
 * `applicationKey` - A unique value for each FW/1 application that shares a common ColdFusion application name.
 * `noLowerCase` - If `true`, FW/1 will not force actions to lowercase so subsystem, section and item names will be case sensitive (in particular, filenames for controllers, views and layouts may therefore be mixed case on a case-sensitive operating system). The default is `false`. Use of this option is _not_ recommended and is not considered good practice.
-* `trace` - If `true`, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature. (Note that FW/1 will not print out debugging / tracing information when the `renderData()` function is used. You can still access and output debugging / tracing information in such cases by overriding the `setupTraceRender()` function. See the [Reference Manual](/documentation/reference-manual.html) for more details.).
+* `trace` - If `true`, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature. (Note that FW/1 will not print out debugging / tracing information when the `renderData()` function is used. You can still access and output debugging / tracing information in such cases by overriding the `setupTraceRender()` function. See the [Reference Manual](/documentation/3.0/reference-manual.html) for more details.).
 * `routes` - An array of URL path mappings. This allows you to override the conventional mapping of `/section/item` to controllers.
 * `resourceRouteTemplates` - see **URL Routes** below.
 * `diEngine` - the Dependency Injection framework that FW/1 should use.
@@ -606,11 +606,11 @@ The easiest way to setup `request` variables (or even global variables scope) is
 
 Using Subsystems
 ===
-The subsystems feature allows you to combine existing FW/1 applications as modules of a larger FW/1 application. The subsystems feature was contributed by Ryan Cogswell and the documentation was written by Dutch Rapley. Read about [Using Subsystems](/documentation/using-subsystems.html) to combine FW/1 applications.
+The subsystems feature allows you to combine existing FW/1 applications as modules of a larger FW/1 application. The subsystems feature was contributed by Ryan Cogswell and the documentation was written by Dutch Rapley. Read about [Using Subsystems](/documentation/3.0/using-subsystems.html) to combine FW/1 applications.
 
 Accessing the FW/1 API
 ===
-FW/1 uses the `request` scope for some of its temporary data so that it can communicate between `Application.cfc` lifecycle methods without relying on `variables` scope (and potentially interfering with user data in variables scope). The [Reference Manual](/documentation/reference-manual.html) specifies which request scope variables are used and what you may and may not do with them.
+FW/1 uses the `request` scope for some of its temporary data so that it can communicate between `Application.cfc` lifecycle methods without relying on `variables` scope (and potentially interfering with user data in variables scope). The [Reference Manual](/documentation/3.0/reference-manual.html) specifies which request scope variables are used and what you may and may not do with them.
 
 In addition, the API of FW/1 is exposed to controllers, views and layouts in a particular way as documented below.
 
@@ -647,7 +647,7 @@ The other framework methods that are useful for controllers are:
 
     variables.framework.redirect( action, preserve, append, path, queryString );
 
-where `action` is the action to redirect to, `preserve` is a list of request context keys that should be preserved across the redirect (using `session` scope) and `append` is a list of request context keys that should be appended to the redirect URL. `preserve` and `append` can both be omitted and default to none, i.e., no values preserved or appended. The optional `path` argument allows you to force a new base URL to be used (instead of the default `variables.framework.baseURL` which is normally `CGI.SCRIPT_NAME`). `queryString` allows you to specify additional URL parameters and/or anchors to be added to the generated URL. See the [Reference Manual](/documentation/reference-manual.html) for more details.
+where `action` is the action to redirect to, `preserve` is a list of request context keys that should be preserved across the redirect (using `session` scope) and `append` is a list of request context keys that should be appended to the redirect URL. `preserve` and `append` can both be omitted and default to none, i.e., no values preserved or appended. The optional `path` argument allows you to force a new base URL to be used (instead of the default `variables.framework.baseURL` which is normally `CGI.SCRIPT_NAME`). `queryString` allows you to specify additional URL parameters and/or anchors to be added to the generated URL. See the [Reference Manual](/documentation/3.0/reference-manual.html) for more details.
 
 I cannot imagine other FW/1 API methods being called from controllers at this point but the option is there if you need it.
 
