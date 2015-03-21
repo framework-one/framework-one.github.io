@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-03-21 16:10
+date: 2015-03-21 16:35
 comments: false
 sharing: false
 footer: true
@@ -433,6 +433,7 @@ All of the configuration for FW/1 is done through a simple structure in `Applica
         trace = false,
         routes = [ ],
         // resourceRouteTemplates - see routes documentation
+        routesCaseSensitive = true,
         noLowerCase = false,
         diEngine = "di1",
         diComponent = "framework.ioc",
@@ -471,6 +472,7 @@ The keys in the structure have the following meanings:
 * `trace` - If `true`, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature. (Note that FW/1 will not print out debugging / tracing information when the `renderData()` function is used. You can still access and output debugging / tracing information in such cases by overriding the `setupTraceRender()` function. See the [Reference Manual](/documentation/reference-manual.html) for more details.).
 * `routes` - An array of URL path mappings. This allows you to override the conventional mapping of `/section/item` to controllers.
 * `resourceRouteTemplates` - see **URL Routes** below.
+* `routesCaseSensitive` - Default `true`. Controls whether route matches are case-sensitive or not.
 * `diEngine` - the Dependency Injection framework that FW/1 should use.
 * `diComponent` - the dotted-path to the CFC used for the bean factory (which has sensible defaults based on `diEngine`).
 * `diLocations` - the list of folders to check for CFCs to manage; defaults to `"model,controllers"`.
@@ -497,6 +499,8 @@ Routes can also be restricted to specific HTTP methods by prefixing them with `$
 Routes can also specify a redirect instead of a substitute URL by prefixing the URL with an HTTP status code and a colon, for example `{ "/thankyou" = "302:/main/thankyou" }` specifies a match for `/thankyou` which will cause a redirect to `/main/thankyou`.
 
 A route of `"*"` is a wildcard that will match any request and therefore must be the last route in the array. A wildcard route may be restricted to a specific method, e.g., `"$POST*"` will match a `POST` to any URL.
+
+Route matches are case-sensitive unless you set `routesCaseSensitive` to `false` in the FW/1 configuration.
 
 The keyword `"$RESOURCES"` can be used as a shorthand way of specifying resource routes: `{ "$RESOURCES" = "dogs,cats,hamsters,gerbils" }`. FW/1 will interpret this as if you had specified a standard set of routes for each of the listed resources. For example, for the resource "dogs", FW/1 will parse the following routes:
 

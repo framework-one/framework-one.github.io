@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-03-21 16:10
+date: 2015-03-21 16:35
 comments: false
 sharing: false
 footer: true
@@ -427,7 +427,7 @@ This would cause `populate()` to traverse the `cfc` argument like so:
 
 ### public struct function processRoutes( string path, array routes, string httpMethod = request._fw1.cgiRequestMethod )
 
-Given a `path`, and an array of `routes`, and an optional `httpMethod`, process the routes to see if any matched and return a struct with a `matched` flag and if that's `true` also `route` and `path` values.
+Given a `path`, and an array of `routes`, and an optional `httpMethod`, process the routes to see if any matched and return a struct with a `matched` flag and if that's `true` also `route` and `path` values. Route matching is case-sensitive by default but this can be overridden by setting `routesCaseSensitive` to `false` in FW/1's configuration.
 
 ### public void function redirect( string action, string preserve = "none", string append = "none", string path = _see below_, string queryString = '', string statusCode = '302' )
 
