@@ -81,7 +81,7 @@
   
 
 
-<time datetime="2015-03-21T14:20:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time></p>
+<time datetime="2015-03-21T16:00:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time></p>
   </header>
   
   <p><em>This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/reference-manual.html">3.0 master documentation</a>.</em></p>
@@ -428,7 +428,7 @@
 
 <h3>public struct function getSubsystemConfig( string subsystem )</h3>
 
-<p>Returns the configuration for the named subsystem, as a copy of <code>variables.framework.subsystems[subsystem]</code>. If no configuration exists for the named subsystem, an empty struct is returned. FW/1 uses this to retrieve the per-subsystem <code>baseURL</code> value, if any, as part of <code>buildURL()</code> and <code>redirect()</code>.</p>
+<p>Returns the configuration for the named subsystem, as a copy of <code>variables.framework.subsystems[subsystem]</code>. If no configuration exists for the named subsystem, an empty struct is returned. FW/1 uses this to retrieve the per-subsystem <code>baseURL</code> value, if any, as part of <code>buildURL()</code> and <code>redirect()</code>, as well as <code>diConfig</code> if you are using DI/1 to manage subsystem bean factories automatically.</p>
 
 <h3>public boolean function hasBeanFactory()</h3>
 
@@ -677,7 +677,7 @@
   
 
 
-<time datetime="2015-03-21T14:20:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time>
+<time datetime="2015-03-21T16:00:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time>
         
       </p>
       

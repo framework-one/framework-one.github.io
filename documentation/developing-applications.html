@@ -81,7 +81,7 @@
   
 
 
-<time datetime="2015-03-21T14:20:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time></p>
+<time datetime="2015-03-21T16:00:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time></p>
   </header>
   
   <p><em>This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/developing-applications.html">3.0 master documentation</a>.</em></p>
@@ -304,7 +304,7 @@
 
 <p>This will make <code>variables.userService</code> and <code>variables.securityService</code> available, based on <code>model/services/user.cfc</code> and <code>model/services/security.cfc</code>. You could also use long form CFC names like <code>userservice.cfc</code> and <code>securityservice.cfc</code> if you wanted. See the next section for more details on configuring DI/1.</p>
 
-<p>If you let FW/1 use DI/1 (or AOP/1) to automatically manage your beans, and you are using subsystems, FW/1 will also use it to manage your subsystems&#8217; beans. See <a href="/documentation/using-subsystems.html">Using Subsystems</a> for more details.</p>
+<p>If you let FW/1 use DI/1 to automatically manage your beans, and you are using subsystems, FW/1 will also use it to manage your subsystems&#8217; beans. See <a href="/documentation/using-subsystems.html">Using Subsystems</a> for more details.</p>
 
 <h3>Transients, Bean Factory, Framework</h3>
 
@@ -371,6 +371,8 @@ var bf = new "#variables.framework.diComponent#"(
     variables.framework.diConfig
 );
 </code></pre>
+
+<p>If you are using subsystems and also using DI/1 as your default bean factory component, <code>diConfig</code> will be passed to subsystem bean factories when they are constructed. You can override this on a per-subsystem basis by setting <code>diConfig</code> in the specific <code>framework.subsystems</code> configuration structure.</p>
 
 <h4>Migrating 2.x Applications to 3.0</h4>
 
@@ -568,7 +570,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 <li><code>defaultItem</code> &ndash; The default item within a section when either no action is specified at all or just the section is specified in the action.</li>
 <li><code>subsystemDelimiter</code> &ndash; When subsystems are enabled, this specifies the delimiter between the subsystem name and the action in a URL or form post.</li>
 <li><code>siteWideLayoutSubsystem</code> &ndash; When subsystems are enabled, this specifies the subsystem that is used for the (optional) site-wide default layout.</li>
-<li><code>subsystems</code> &ndash; An optional struct of structs containing per-subsystem configuration data. Each key in the top-level struct is named for a subsystem. The contents of the nested structs can be anything you want for your subsystems. Retrieved by calling <code>getSubsystemConfig()</code>. Currently the only key used by FW/1 is <code>baseURL</code> which can be used to configure per-subsystem values.</li>
+<li><code>subsystems</code> &ndash; An optional struct of structs containing per-subsystem configuration data. Each key in the top-level struct is named for a subsystem. The contents of the nested structs can be anything you want for your subsystems. Retrieved by calling <code>getSubsystemConfig()</code>. Currently the only keys used by FW/1 are <code>baseURL</code> and <code>diConfig</code> which can be used to configure per-subsystem values.</li>
 <li><code>home</code> &ndash; The default action when it is not specified in the URL or form post. By default, this is <code>defaultSection</code>.<code>defaultItem</code>. If you specify <code>home</code>, you are overriding (and hiding) <code>defaultSection</code> but not <code>defaultItem</code>. If <code>usingSubsystem</code> is <code>true</code>, the default for <code>home</code> is <code>"home:main.default"</code>, i.e., <code>defaultSubsystem &amp; subsystemDelimiter &amp; defaultSection &amp; '.' &amp; defaultItem</code>.</li>
 <li><code>error</code> &ndash; The action to use if an exception occurs. By default this is <code>defaultSection.error</code>.</li>
 <li><code>reload</code> &ndash; The URL variable used to force FW/1 to reload its application cache and re-execute <code>setupApplication()</code>.</li>
@@ -841,7 +843,7 @@ property framework;
   
 
 
-<time datetime="2015-03-21T14:20:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time>
+<time datetime="2015-03-21T16:00:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time>
         
       </p>
       

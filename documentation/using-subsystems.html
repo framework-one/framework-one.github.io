@@ -81,7 +81,7 @@
   
 
 
-<time datetime="2015-03-21T14:20:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time></p>
+<time datetime="2015-03-21T16:00:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time></p>
   </header>
   
   <p><em>This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/using-subsystems.html">3.0 master documentation</a>.</em></p>
@@ -170,7 +170,7 @@
 
 <h2>Using Bean Factories</h2>
 
-<p>The introduction of subsystems introduces the ability to have subsystem specific bean factories. If you let FW/1 use DI/1 (or AOP/1) to manage your beans, it will also do so automatically for subsystems, creating a bean factory for each subsystem (inspecting the same folders you configured for your main application, i.e., <code>model</code> and <code>controllers</code> by default), and setting the main bean factory as the parent of each subsystem bean factory. This is the recommended approach (naturally!).</p>
+<p>The introduction of subsystems introduces the ability to have subsystem specific bean factories. If you let FW/1 use DI/1 to manage your beans, it will also do so automatically for subsystems, creating a bean factory for each subsystem (inspecting the same folders you configured for your main application, i.e., <code>model</code> and <code>controllers</code> by default), and setting the main bean factory as the parent of each subsystem bean factory. This is the recommended approach (naturally!).</p>
 
 <p>The following bean factory methods are available for subsystems:</p>
 
@@ -181,6 +181,8 @@
 <li><code>getDefaultBeanFactory()</code> &ndash; returns the default bean factory that was passed to <code>setBeanFactory()</code> (at the top-level)</li>
 </ul>
 
+
+<p>If you provide <code>diConfig</code> in the subsystem-specific configuration structure (<code>framework.subsystems[subsystemname]</code>) that will be passed to DI/1 as its configuration, otherwise the same configuration used for the default bean factory (<code>framework.diConfig</code>) will be passed.</p>
 
 <h3>Auto Wiring</h3>
 
@@ -232,7 +234,7 @@
   
 
 
-<time datetime="2015-03-21T14:20:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time>
+<time datetime="2015-03-21T16:00:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time>
         
       </p>
       
