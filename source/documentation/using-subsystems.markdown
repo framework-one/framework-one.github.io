@@ -1,11 +1,13 @@
 ---
 layout: page
 title: "Using Subsystems in FW/1"
-date: 2014-08-30 16:18
+date: 2015-03-21 14:20
 comments: false
 sharing: false
 footer: true
 ---
+_This is the latest (3.1 - develop) documentation - for the current stable release, read the [3.0 master documentation](/documentation/3.0/using-subsystems.html)._
+
 Subsystems give you a way of dropping one or more small FW/1 applications into an existing one. Subsystems can be used to create modules that have no dependencies on the parent application or you can use subsystems to group common functionality together.
 
 Enabling Subsystems

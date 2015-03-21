@@ -1,11 +1,13 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-01-21 12:20
+date: 2015-03-21 14:20
 comments: false
 sharing: false
 footer: true
 ---
+_This is the latest (3.1 - develop) documentation - for the current stable release, read the [3.0 master documentation](/documentation/3.0/developing-applications.html)._
+
 FW/1 is intended to allow you to quickly build applications with the minimum of overhead and interference from the framework itself. The convention-based approach means that you can quickly put together an outline of your site or application merely by creating folders and files in the `views` folder. As you are ready to start adding business logic to the application, you can add controllers and/or services and domain objects as needed to implement the validation and data processing.
 
 Basic Application Structure
