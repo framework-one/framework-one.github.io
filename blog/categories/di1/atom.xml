@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Di1 | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/di1/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-03-21T14:12:35-07:00</updated>
+  <updated>2015-03-21T14:29:55-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -25,6 +25,19 @@
 <p>You can see a <a href="https://github.com/framework-one/fw1/issues?milestone=13&amp;q=is%3Aclosed">full list of issues fixed in FW/1 for 3.0</a> and a <a href="https://github.com/framework-one/di1/issues?milestone=1&amp;q=is%3Aclosed">full list of issues fixed in DI/1 1.0</a> on GitHub. This represents the official release of DI/1 1.0 as well.</p>
 
 <p>Thank you to everyone who has contributed to the 3.0 release &ndash; it&rsquo;s been a long time in the making! Particular thanks go to Nando Breiter for migrating the DI/1 documentation from the old wiki to the new FW/1 website. Also thanks to John Berquist, Ryan Guill, Cameron Childress, and Adam Tuttle for you code contributions and everyone who tested prerelease builds of FW/1 and reported issues and made suggestions! Thank you!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 3.1 Begins...]]></title>
+    <link href="http://framework-one.github.io/blog/2015/02/21/fw1-3-1-begins/"/>
+    <updated>2015-02-21T13:30:49-08:00</updated>
+    <id>http://framework-one.github.io/blog/2015/02/21/fw1-3-1-begins</id>
+    <content type="html"><![CDATA[<p>I released FW/1 3.0 about a month ago and now it&rsquo;s time to get started on the 3.1 release.<!-- more --></p>
+
+<p>FW/1 3.1 will be primarily a maintenance release. You can read the <a href="https://github.com/framework-one/fw1/milestones/3.1">current list of changes slated for FW/1 3.1</a> on the GitHub issues page. Depending on how long it takes to get 3.1 done, additional issues may be added. And, of course, some of these issues may be slipped to 3.5 (currently represented by the <a href="https://github.com/framework-one/fw1/tree/clojure">Clojure branch of FW/1</a> in the GitHub repo and the <a href="https://github.com/framework-one/fw1/milestones/3.5">short list of FW/1 3.5 issues</a>).</p>
+
+<p>Starting with release 3.0, the <a href="http://framework-one.github.io/documentation/">FW/1 documentation</a> will be versioned and the top-level page will always represent the latest version in development. You can read the <a href="http://framework-one.github.io/documentation/3.0/">FW/1 3.0 documentation</a> separately already. The sidebar will always show two releases (develop and master) fully linked &ndash; older versions will be listed in future, with just a link to the index page.</p>
 ]]></content>
   </entry>
   
@@ -84,82 +97,6 @@
 <p>At this point, only bug fixes will be considered before FW/1 3.0 goes &ldquo;gold&rdquo; and given the long period of testing so far on Beta 1, that final release shouldn&rsquo;t be too far away.</p>
 
 <p>Oh, and if you go to <a href="http://fw1.riaforge.org">FW/1&rsquo;s page on RIAForge</a>, you&rsquo;ll see that 3.0 RC 1 is the default download now, instead of 2.5.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 3.0 Beta 1 Available]]></title>
-    <link href="http://framework-one.github.io/blog/2014/08/18/fw1-3-0-beta-1-available/"/>
-    <updated>2014-08-18T11:21:49-07:00</updated>
-    <id>http://framework-one.github.io/blog/2014/08/18/fw1-3-0-beta-1-available</id>
-    <content type="html"><![CDATA[<p>Just over four weeks ago, I released <a href="http://framework-one.github.io/blog/2014/07/20/fw1-3-0-alpha-1-available-for-testing/">FW/1 3.0 Alpha 1</a> and declared it <em>feature complete</em>. There were some big changes in that release and, in particular, some long-standing features were removed (after being deprecated in FW/1 2.5) and some recently-introduced features were also deprecated. Today I am releasing the first Beta version which includes bug fixes and usability enhancements, focusing primarily on DI/1 and AOP/1.<!-- more --></p>
-
-<p>You can <a href="https://github.com/framework-one/fw1/releases/tag/v3.0-beta1">download FW/1 3.0 Beta 1 from Github</a> and that release page has a link to <a href="https://github.com/framework-one/fw1/issues?milestone=13&amp;page=1&amp;state=closed">the complete list of closed tickets in FW/1 3.0 Beta 1</a> and <a href="https://github.com/framework-one/di1/issues?milestone=1&amp;page=1&amp;state=closed">closed tickets in DI/1 that are for FW/1 3.0</a>. Note that those issues are only fixed in the FW/1 repository, not the DI/1 repository, but they will be backported later on.</p>
-
-<h2>DI/1 and AOP/1 come of age</h2>
-
-<p>As indicated above, the focus of Beta 1 has been on cleaning up DI/1 and AOP/1 to get them to a &ldquo;1.0&rdquo; release status as part of FW/1 3.0. Going forward, the DI/1 and AOP/1 repositories will only get updated with released versions and will be stripped down to minimal examples for those who wish to use them standalone. Future development (including issues and test cases etc) will all be done in the FW/1 repository.</p>
-
-<p>DI/1 has been enhanced in this release to provide some features that will help developers migrating from ColdSpring (or who are looking for some of ColdSpring&rsquo;s more advanced features in DI/1).</p>
-
-<p>AOP/1 has been rewritten to better integrate with DI/1 and ensure that injected beans are intercepted (the <code>beanProxy.cfc</code> needed only minor tweaks and it does the heavy lifting of interception).</p>
-
-<p>Here is the full list of changes in DI/1 and AOP/1 (since Alpha 1):</p>
-
-<ul>
-<li>Dotted path deduction rewritten / improved <a href="https://github.com/framework-one/di1/issues/61">di1/#61</a>. There were a number of situations where DI/1 was unable to figure out a dotted component path for CFCs identified through relative folder paths, especially outside the primary webroot of an application. This should be addressed now!</li>
-<li>New option <code>omitDirectoryAliases</code> &ndash; default <code>false</code> <a href="https://github.com/framework-one/di1/issues/64">di1/#64</a>. Set this <code>true</code> if you want to suppress the directory-based aliases that DI/1 creates (e.g., <code>beans/user.cfc</code> => <code>userBean</code>). This will enforce uniqueness of bean names (since the suffix will no longer differentiate beans with the same name in different folders).</li>
-<li>IIS web server mapping case sensitivity <a href="https://github.com/framework-one/di1/issues/65">di1/#65</a>. A bug fix for an annoying edge case caused by IIS being case sensitive in a situation that caused hard-to-debug errors from DI/1.</li>
-<li>AOP/1 now handles intercepted methods that return null <a href="https://github.com/framework-one/fw1/issues/264">#264</a>. Self-explanatory.</li>
-<li>DI/1 now accepts a load listener as part of its configuration <a href="https://github.com/framework-one/fw1/issues/273">#273</a>. This was added to allow load listeners to be added easily via <code>diConfig</code> when using FW/1. A load listener is the recommended way to declare new beans, add aliases and additional beans and set up factory beans/methods (see next item).</li>
-</ul>
-
-
-<p>The following DI/1 setups are now equivalent:</p>
-
-<pre><code>var bf1 = new framework.ioc( "..." );
-bf1.onLoad( myListener );
-
-var bf2 = new framework.ioc( "...", { loadListener = myListener } );
-</code></pre>
-
-<ul>
-<li>DI/1 now supports factory beans / factory methods <a href="https://github.com/framework-one/fw1/issues/274">#274</a>. The new API <code>factoryBean()</code> allows you to specify that a bean should be obtained from another bean &ndash; the <em>factory bean</em> &ndash; by calling a specified method &ndash; the <em>factory method</em> &ndash; with optionally specified arguments, and optional bean value overrides (similar to the <code>declareBean()</code> API).</li>
-</ul>
-
-
-<p>Here are some examples:</p>
-
-<pre><code>bf.factoryBean( "a1Bean", "myFactory", "theMethod" );
-// a1Bean = bf.getBean("myFactory").theMethod();
-bf.factoryBean( "a2Bean", "yourFactory", "createIt", [ "dsn" ] );
-// a2Bean = bf.getBean("yourFactory").createIt( bf.getBean("dsn") );
-bf.factoryBean( "a3Bean", "warehouse", "builder", [ "dsn", "config" ],
-    { dsn = "myDB" } );
-// a3Bean = bf.getBean("warehouse").builder( "myDB", bf.getBean("config") );
-</code></pre>
-
-<ul>
-<li>DI/1 now supports a post-injection <em>init-method</em> like ColdSpring <a href="https://github.com/framework-one/fw1/issues/275">#275</a>. A new configuration option <code>initMethod</code> allows you to specify a no-argument method that DI/1 should attempt to call on all managed beans after all of their dependencies have been injected. This allows beans to perform additional configuration that requires access to their injected dependencies, which cannot be performed in a constructor. You can thank Daniel Budde II for this feature being added (and for spurring me to finally add factory beans/methods which I&rsquo;d been thinking about for a while)!</li>
-<li>AOP/1 now intercepts injected beans <a href="https://github.com/framework-one/fw1/issues/277">#277</a>. This was the rewrite of AOP/1 to hook into DI/1&rsquo;s <code>resolveBean()</code> method via a new <code>setupInitMethod()</code> extension point (which will make additional extensions to DI/1 easier). Previously AOP/1 only intercepted beans obtained directly via <code>getBean()</code>. Thank you to Daniel Budde II for identifying this issue and providing a test case to help debug and verify the new behavior.</li>
-<li>DI/1 no longer resolves beans multiple times <a href="https://github.com/framework-one/fw1/issues/279">#279</a>. This was a performance issue but previously harmless. With the enhancements to AOP/1, this introduced several bugs (hopefully all fixed now!).</li>
-</ul>
-
-
-<h2>FW/1 bug fixes and enhancements</h2>
-
-<p>Here are the changes in FW/1 itself since Alpha 1:</p>
-
-<ul>
-<li>Controllers are reloaded after the bean factory is updated <a href="https://github.com/framework-one/fw1/issues/276">#276</a>. Previously, FW/1 cached controllers and recreating the bean factory was not sufficient to pick up changes in controller files. Now, when you call <code>setBeanFactory()</code>, the controller cache is cleared so controllers will be reloaded and any changes will be picked up (regardless of whether controllers are managed by FW/1 or DI/1).</li>
-</ul>
-
-
-<h2>The road to gold</h2>
-
-<p>The next milestone should be Release Candidate 1 and only bug fixes are likely to be considered at this point, no new features or enhancements, unless they are required to make the Beta feature set fully usable. If all goes well, RC1 should be released in about 3-4 weeks, and the <em>gold</em> 3.0 release about 3-4 weeks after that (late September / early October).</p>
-
-<p>Note that <code>org.framework.corfield</code> is a deprecated path for FW/1 &ndash; it has moved to <code>framework.one</code> &ndash; and whilst it is supported during the 3.0 prerelease builds, it will be removed in the gold release. Similarly, as noted in the Alpha 1 blog post, <code>getRC()</code> and <code>getRCValue()</code> are deprecated and will also be removed in the gold release.</p>
 ]]></content>
   </entry>
   
