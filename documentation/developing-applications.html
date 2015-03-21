@@ -81,7 +81,7 @@
   
 
 
-<time datetime="2015-03-21T16:00:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time></p>
+<time datetime="2015-03-21T16:10:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time></p>
   </header>
   
   <p><em>This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/developing-applications.html">3.0 master documentation</a>.</em></p>
@@ -247,16 +247,17 @@
 
 <p>Calling this function does not exit from your controller, but tells FW/1 that instead of looking for a view to render, the <code>resultData</code> value should be converted to the specified <code>contentType</code> and that should be the result of the complete HTTP request.</p>
 
-<p><code>contentType</code> may be <code>"json"</code>, <code>"xml"</code>, or <code>"text"</code>. The <code>Content-Type</code> HTTP header is automatically set to:</p>
+<p><code>contentType</code> may be <code>"json"</code>, <code>"rawjson"</code>, <code>"xml"</code>, or <code>"text"</code>. The <code>Content-Type</code> HTTP header is automatically set to:</p>
 
 <ul>
+<li><code>application/json; charset=utf-8</code></li>
 <li><code>application/json; charset=utf-8</code></li>
 <li><code>text/xml; charset=utf-8</code></li>
 <li><code>text/plain; charset=utf-8</code></li>
 </ul>
 
 
-<p>respectively. For JSON, the <code>resultData</code> value is converted to a string by calling <code>serializeJSON()</code>; for XML, the <code>resultData</code> value is expected to be either a valid XML string or an XML object (constructed via CFML&rsquo;s various <code>xml...()</code> functions); for plain text, the <code>resultData</code> value must be a string.</p>
+<p>respectively. For JSON, the <code>resultData</code> value is converted to a string by calling <code>serializeJSON()</code> (so use RAWJSON if your <code>resultData</code> value is already a valid JSON string); for XML, the <code>resultData</code> value is expected to be either a valid XML string or an XML object (constructed via CFML&rsquo;s various <code>xml...()</code> functions); for plain text, the <code>resultData</code> value must be a string.</p>
 
 <p>You can also specify an HTTP status code as a third argument. The default is 200.</p>
 
@@ -843,7 +844,7 @@ property framework;
   
 
 
-<time datetime="2015-03-21T16:00:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time>
+<time datetime="2015-03-21T16:10:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time>
         
       </p>
       
