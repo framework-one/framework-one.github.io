@@ -81,7 +81,7 @@
   
 
 
-<time datetime="2015-03-21T16:35:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time></p>
+<time datetime="2015-03-21T20:00:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time></p>
   </header>
   
   <p><em>This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/developing-applications.html">3.0 master documentation</a>.</em></p>
@@ -257,7 +257,7 @@
 </ul>
 
 
-<p>respectively. For JSON, the <code>resultData</code> value is converted to a string by calling <code>serializeJSON()</code> (so use RAWJSON if your <code>resultData</code> value is already a valid JSON string); for XML, the <code>resultData</code> value is expected to be either a valid XML string or an XML object (constructed via CFML&rsquo;s various <code>xml...()</code> functions); for plain text, the <code>resultData</code> value must be a string.</p>
+<p>respectively. For JSON, the <code>resultData</code> value is converted to a string by calling <code>serializeJSON()</code> (so use RAWJSON if your <code>resultData</code> value is already a valid JSON string); for XML, the <code>resultData</code> value is expected to be either a valid XML string or an XML object (constructed via CFML&rsquo;s various <code>xml...()</code> functions); for plain text, the <code>resultData</code> value must be a string. <em><code>"rawjson"</code> is new in 3.1.</em></p>
 
 <p>You can also specify an HTTP status code as a third argument. The default is 200.</p>
 
@@ -373,7 +373,7 @@ var bf = new "#variables.framework.diComponent#"(
 );
 </code></pre>
 
-<p>If you are using subsystems and also using DI/1 as your default bean factory component, <code>diConfig</code> will be passed to subsystem bean factories when they are constructed. You can override this on a per-subsystem basis by setting <code>diConfig</code> in the specific <code>framework.subsystems</code> configuration structure.</p>
+<p>If you are using subsystems and also using DI/1 as your default bean factory component, <code>diConfig</code> will be passed to subsystem bean factories when they are constructed. You can override this on a per-subsystem basis by setting <code>diConfig</code> in the specific <code>framework.subsystems</code> configuration structure. <em>Per-subsystem <code>diConfig</code> is new in 3.1.</em></p>
 
 <h4>Migrating 2.x Applications to 3.0</h4>
 
@@ -594,7 +594,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 <li><code>trace</code> &ndash; If <code>true</code>, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature. (Note that FW/1 will not print out debugging / tracing information when the <code>renderData()</code> function is used. You can still access and output debugging / tracing information in such cases by overriding the <code>setupTraceRender()</code> function. See the <a href="/documentation/reference-manual.html">Reference Manual</a> for more details.).</li>
 <li><code>routes</code> &ndash; An array of URL path mappings. This allows you to override the conventional mapping of <code>/section/item</code> to controllers.</li>
 <li><code>resourceRouteTemplates</code> &ndash; see <strong>URL Routes</strong> below.</li>
-<li><code>routesCaseSensitive</code> &ndash; Default <code>true</code>. Controls whether route matches are case-sensitive or not.</li>
+<li><code>routesCaseSensitive</code> &ndash; Default <code>true</code>. Controls whether route matches are case-sensitive or not. <em>New in 3.1.</em></li>
 <li><code>diEngine</code> &ndash; the Dependency Injection framework that FW/1 should use.</li>
 <li><code>diComponent</code> &ndash; the dotted-path to the CFC used for the bean factory (which has sensible defaults based on <code>diEngine</code>).</li>
 <li><code>diLocations</code> &ndash; the list of folders to check for CFCs to manage; defaults to <code>"model,controllers"</code>.</li>
@@ -701,6 +701,16 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 * <code>setupEnvironment( string env )</code> &ndash; A function that may optionally override in <code>Application.cfc</code> to provide more programmatic configuration for your application environment.</p>
 
 <p>Environment control is based on the concept of <em>tier</em> &ndash; development, staging, production etc &ndash; and optionally a <em>server</em> specifier. This two-part string determines how elements of <code>variables.framework.environments</code> are selected and merged into the base framework configuration. A string of the format <em><code>"tier"</code></em> or <em><code>"tier-server"</code></em> should be returned from <code>getEnvironment()</code>. FW/1 first looks for a group of options matching just <em>tier</em> and, if found, appends those to the base configuration. FW/1 then looks for a group of options matching <em>tier-server</em> and, if found, appends those to the configuration. After merging configuration options, FW/1 calls <code>setupEnvironment()</code> passing the tier/server string so your application may perform additional customization. This process is executed on every request (so be aware of performance considerations) which allows a single application to serve multiple domains and behave accordingly for each domain, for example.</p>
+
+<p>Note that for the most part, the <em>tier</em> or <em>tier-server</em> configuration will override any default configuration in the <code>variables.framework</code> structure. There are two exceptions to that basic rule:</p>
+
+<ul>
+<li><code>diConfig</code> is recursively merged: the <code>constants</code> and <code>singulars</code> structures are key-merged, the <code>exclude</code> and <code>transients</code> arrays are appended. <em>tier-server</em> takes precedence in the key-merging, then <em>tier</em>, then the default configuration.</li>
+<li><code>subsystems</code> is key-merged across the <em>tier</em> and <em>tier-server</em> data (with <em>tier-server</em> taking precedence, then <em>tier</em>, then then default).</li>
+</ul>
+
+
+<p>This gives the most intuitive behavior for DI/1 bean factory configuration. It also provides a convenient behavior for environment-based subsystem configuration. Be cautious when specifying subsystem-specific DI/1 configuration since that does not merge across environments. <em>Note that environment merging is new in 3.1.</em></p>
 
 <p>Your <code>getEnvironment()</code> function can use any means to determine which environment is active. Common methods are examining <code>CGI.SERVER_NAME</code> or using the server&rsquo;s actual hostname (accessible thru the new <code>getHostname()</code> API method). Here&rsquo;s an example setup:</p>
 
@@ -848,7 +858,7 @@ property framework;
   
 
 
-<time datetime="2015-03-21T16:35:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time>
+<time datetime="2015-03-21T20:00:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time>
         
       </p>
       
