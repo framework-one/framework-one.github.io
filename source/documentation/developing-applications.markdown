@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-03-21 16:35
+date: 2015-03-21 20:00
 comments: false
 sharing: false
 footer: true
@@ -569,6 +569,13 @@ FW/1 supports _environment control - the ability to automatically detect your ap
 * `setupEnvironment( string env )` - A function that may optionally override in `Application.cfc` to provide more programmatic configuration for your application environment.
 
 Environment control is based on the concept of _tier_ - development, staging, production etc - and optionally a _server_ specifier. This two-part string determines how elements of `variables.framework.environments` are selected and merged into the base framework configuration. A string of the format _`"tier"`_ or _`"tier-server"`_ should be returned from `getEnvironment()`. FW/1 first looks for a group of options matching just _tier_ and, if found, appends those to the base configuration. FW/1 then looks for a group of options matching _tier-server_ and, if found, appends those to the configuration. After merging configuration options, FW/1 calls `setupEnvironment()` passing the tier/server string so your application may perform additional customization. This process is executed on every request (so be aware of performance considerations) which allows a single application to serve multiple domains and behave accordingly for each domain, for example.
+
+Note that for the most part, the _tier_ or _tier-server_ configuration will override any default configuration in the `variables.framework` structure. There are two exceptions to that basic rule:
+
+* `diConfig` is recursively merged: the `constants` and `singulars` structures are key-merged, the `exclude` and `transients` arrays are appended. _tier-server_ takes precedence in the key-merging, then _tier_, then the default configuration.
+* `subsystems` is key-merged across the _tier_ and _tier-server_ data (with _tier-server_ taking precedence, then _tier_, then then default).
+
+This gives the most intuitive behavior for DI/1 bean factory configuration. It also provides a convenient behavior for environment-based subsystem configuration. Be cautious when specifying subsystem-specific DI/1 configuration since that does not merge across environments. _Note that environment merging is new in 3.1._
 
 Your `getEnvironment()` function can use any means to determine which environment is active. Common methods are examining `CGI.SERVER_NAME` or using the server's actual hostname (accessible thru the new `getHostname()` API method). Here's an example setup:
 
