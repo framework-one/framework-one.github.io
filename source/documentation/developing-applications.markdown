@@ -161,7 +161,7 @@ Calling this function does not exit from your controller, but tells FW/1 that in
 * `text/xml; charset=utf-8`
 * `text/plain; charset=utf-8`
 
-respectively. For JSON, the `resultData` value is converted to a string by calling `serializeJSON()` (so use RAWJSON if your `resultData` value is already a valid JSON string); for XML, the `resultData` value is expected to be either a valid XML string or an XML object (constructed via CFML's various `xml...()` functions); for plain text, the `resultData` value must be a string.
+respectively. For JSON, the `resultData` value is converted to a string by calling `serializeJSON()` (so use RAWJSON if your `resultData` value is already a valid JSON string); for XML, the `resultData` value is expected to be either a valid XML string or an XML object (constructed via CFML's various `xml...()` functions); for plain text, the `resultData` value must be a string. _`"rawjson"` is new in 3.1._
 
 You can also specify an HTTP status code as a third argument. The default is 200.
 
@@ -262,7 +262,7 @@ Here's how those values are used in code to construct the bean factory:
         variables.framework.diConfig
     );
 
-If you are using subsystems and also using DI/1 as your default bean factory component, `diConfig` will be passed to subsystem bean factories when they are constructed. You can override this on a per-subsystem basis by setting `diConfig` in the specific `framework.subsystems` configuration structure.
+If you are using subsystems and also using DI/1 as your default bean factory component, `diConfig` will be passed to subsystem bean factories when they are constructed. You can override this on a per-subsystem basis by setting `diConfig` in the specific `framework.subsystems` configuration structure. _Per-subsystem `diConfig` is new in 3.1._
 
 #### Migrating 2.x Applications to 3.0
 
@@ -472,7 +472,7 @@ The keys in the structure have the following meanings:
 * `trace` - If `true`, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature. (Note that FW/1 will not print out debugging / tracing information when the `renderData()` function is used. You can still access and output debugging / tracing information in such cases by overriding the `setupTraceRender()` function. See the [Reference Manual](/documentation/reference-manual.html) for more details.).
 * `routes` - An array of URL path mappings. This allows you to override the conventional mapping of `/section/item` to controllers.
 * `resourceRouteTemplates` - see **URL Routes** below.
-* `routesCaseSensitive` - Default `true`. Controls whether route matches are case-sensitive or not.
+* `routesCaseSensitive` - Default `true`. Controls whether route matches are case-sensitive or not. _New in 3.1._
 * `diEngine` - the Dependency Injection framework that FW/1 should use.
 * `diComponent` - the dotted-path to the CFC used for the bean factory (which has sensible defaults based on `diEngine`).
 * `diLocations` - the list of folders to check for CFCs to manage; defaults to `"model,controllers"`.

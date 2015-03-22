@@ -88,7 +88,7 @@ The following bean factory methods are available for subsystems:
 * `getBeanFactory()` - returns the bean factory for the current subsystem. Alternately, it can be used to retrieve the bean factory for another subsystem by passing the name of the subsystem (e.g., `getBeanFactory( subsystem )` ).
 * `getDefaultBeanFactory()` - returns the default bean factory that was passed to `setBeanFactory()` (at the top-level)
 
-If you provide `diConfig` in the subsystem-specific configuration structure (`framework.subsystems[subsystemname]`) that will be passed to DI/1 as its configuration, otherwise the same configuration used for the default bean factory (`framework.diConfig`) will be passed.
+If you provide `diConfig` in the subsystem-specific configuration structure (`framework.subsystems[subsystemname]`) that will be passed to DI/1 as its configuration, otherwise the same configuration used for the default bean factory (`framework.diConfig`) will be passed. _New in 3.1._
 
 ### Auto Wiring
 

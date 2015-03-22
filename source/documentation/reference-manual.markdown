@@ -310,7 +310,7 @@ Returns whatever the framework has been told is a bean factory. This will return
 
 ### public struct function getSubsystemConfig( string subsystem )
 
-Returns the configuration for the named subsystem, as a copy of `variables.framework.subsystems[subsystem]`. If no configuration exists for the named subsystem, an empty struct is returned. FW/1 uses this to retrieve the per-subsystem `baseURL` value, if any, as part of `buildURL()` and `redirect()`, as well as `diConfig` if you are using DI/1 to manage subsystem bean factories automatically.
+Returns the configuration for the named subsystem, as a copy of `variables.framework.subsystems[subsystem]`. If no configuration exists for the named subsystem, an empty struct is returned. FW/1 uses this to retrieve the per-subsystem `baseURL` value, if any, as part of `buildURL()` and `redirect()`, as well as `diConfig` if you are using DI/1 to manage subsystem bean factories automatically. _`diConfig` is new in 3.1._
 
 ### public boolean function hasBeanFactory()
 
@@ -457,7 +457,7 @@ Call this from your controller to tell FW/1 to skip views and layouts and instea
 
 For `"json"`, FW/1 calls `serializeJSON( data )` to generate the result of the HTTP request and sets the `Content-Type` header to `application/javascript; charset=utf-8`.
 
-For `"rawjson"`, the `data` value must be a string (and is assumed to be valid JSON already) and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `application/javascript; charset=utf-8`.
+For `"rawjson"`, the `data` value must be a string (and is assumed to be valid JSON already) and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `application/javascript; charset=utf-8`. _New in 3.1._
 
 For `"xml"`, the `data` value must be either a valid XML string or an XML object (constructed via CFML's various `xml...()` functions). If `data` is an XML object, FW/1 calls `toString( data )` to generate the result of the HTTP request, otherwise the XML string is used as the result of the request. In both cases, FW/1 sets the `Content-Type` header to `text/xml; charset=utf-8`.
 
