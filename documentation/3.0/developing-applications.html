@@ -92,11 +92,11 @@
 
 <p>Note: because <code>Application.cfc</code> must extend the FW/1 <code>/framework/one.cfc</code>, you need a mapping in the CFML administrator. An alternative approach is to simply copy the <code>framework</code> folder to your application&rsquo;s web root. This requires no mapping &ndash; but means that you have the framework CFCs as web-accessible resources.</p>
 
-<p>The <code>views</code> folder contains a subfolder for each section of the site, each section&rsquo;s subfolder containing individual view files (pages or page fragments) used within that section. All view folders and filenames must be all lowercase.</p>
+<p>The <code>views</code> folder contains a subfolder for each section of the site, each section&rsquo;s subfolder containing individual view files (pages or page fragments) used within that section. Note that if your operating system is case-sensitive, all view folders and filenames must be all lowercase.</p>
 
-<p>The <code>layouts</code> folder may contain general layouts for each section and/or a default layout for the entire site. The <code>layouts</code> folder may also contain subfolders for sections within the site, which in turn contain layouts for specific views. All layout folders and filenames must be all lowercase.</p>
+<p>The <code>layouts</code> folder may contain general layouts for each section and/or a default layout for the entire site. The <code>layouts</code> folder may also contain subfolders for sections within the site, which in turn contain layouts for specific views. Note that if your operating system is case-sensitive, all layout folders and filenames must be all lowercase.</p>
 
-<p>The <code>controllers</code> folder contains a CFC for each section of the site (that needs a controller!). Each CFC contains a method for each requested item in that section (where control logic is needed). Controller CFC filenames must be all lowercase.</p>
+<p>The <code>controllers</code> folder contains a CFC for each section of the site (that needs a controller!). Each CFC contains a method for each requested item in that section (where control logic is needed). Again, controller CFC filenames must be all lowercase if your operating system is case-sensitive.</p>
 
 <p>You would typically also have a <code>model</code> folder containing CFCs for your services and your domain objects &ndash; the business logic of your application. The convention is to have your domain objects in a <code>beans</code> subfolder and all your singleton service CFCs in a <code>services</code> subfolder. FW/1 and DI/1 use a convention where you typically reference model instances via a name that is the name of the CFC followed by the singular of the subfolder, e.g., <code>productService</code>, <code>userBean</code> but that behavior can be configured.</p>
 
