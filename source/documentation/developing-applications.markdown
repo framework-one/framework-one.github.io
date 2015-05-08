@@ -20,7 +20,7 @@ The `views` folder contains a subfolder for each section of the site, each secti
 
 The `layouts` folder may contain general layouts for each section and/or a default layout for the entire site. The `layouts` folder may also contain subfolders for sections within the site, which in turn contain layouts for specific views. Note that if your operating system is case-sensitive, all layout folders and filenames must be all lowercase.
 
-The `controllers` folder contains a CFC for each section of the site (that needs a controller!). Each CFC contains a method for each requested item in that section (where control logic is needed). Again, controller CFC filenames must be all lowercase.
+The `controllers` folder contains a CFC for each section of the site (that needs a controller!). Each CFC contains a method for each requested item in that section (where control logic is needed). Again, controller CFC filenames must be all lowercase if your operating system is case-sensitive.
 
 You would typically also have a `model` folder containing CFCs for your services and your domain objects - the business logic of your application. The convention is to have your domain objects in a `beans` subfolder and all your singleton service CFCs in a `services` subfolder. FW/1 and DI/1 use a convention where you typically reference model instances via a name that is the name of the CFC followed by the singular of the subfolder, e.g., `productService`, `userBean` but that behavior can be configured.
 
