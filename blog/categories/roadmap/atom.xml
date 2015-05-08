@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Roadmap | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/roadmap/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-01-21T20:59:31-08:00</updated>
+  <updated>2015-04-22T17:32:39-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -77,6 +77,28 @@
 <p>Finally, as part of 3.0, the entire repository will be restructured to better reflect what is considered &ldquo;best practices&rdquo; in terms of where you install things and what lives in your webroot (only web-accessible assets!). This will make it easier to get started with the FW/1 skeleton application as a &ldquo;best practice&rdquo; out-of-the-box experience.</p>
 
 <p>Note that the DI/1 and AOP/1 repositories will remain active but DI/1 versions will be in lockstep with FW/1 from 3.0 onward, and development will be conducted as part of the FW/1 repository, with releases being merged to the DI/1 repository. Once AOP/1 reaches a similar level of maturity, it will likely follow the same trajectory.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[New FW/1 - Framework One - Organization on Github]]></title>
+    <link href="http://framework-one.github.io/blog/2013/04/06/new-fw1-organization-on-github/"/>
+    <updated>2013-04-06T13:21:49-07:00</updated>
+    <id>http://framework-one.github.io/blog/2013/04/06/new-fw1-organization-on-github</id>
+    <content type="html"><![CDATA[<p>To make it easier to manage collaboration on FW/1-related projects in future, several projects have now moved under a new <a href="https://github.com/framework-one">FW/1 &ndash; Framework One</a> &ndash; organization on Github. Your forks and watches should have been updated but if you have local clones of the old repos under my personal Github account, you&rsquo;ll want to update those. Here&rsquo;s the full list of Framework One projects:<!-- more --></p>
+
+<ul>
+<li><a href="https://github.com/framework-one/fw1">FW/1 &ndash; Framework One</a> &ndash; simple MVC for CFML</li>
+<li><a href="https://github.com/framework-one/di1">DI/1 &ndash; Inject One</a> &ndash; simple Dependency Injection for CFML</li>
+<li><a href="https://github.com/framework-one/cfmljure">cfmljure</a> &ndash; the magic bridge between CFML and Clojure</li>
+<li><a href="https://github.com/framework-one/fw1-clj">FW/1 &ndash; Framework One</a> &ndash; simple MVC for Clojure</li>
+<li><a href="https://github.com/framework-one/fw1-template">Leiningen project template for FW/1</a>&ndash; Framework One &ndash; for Clojure</li>
+</ul>
+
+
+<p>If you were a collaborator on one of these projects before, you will no longer have commit access (because you were a collaborator directly on my repo). If you&rsquo;d like to become a collaborating team member on one of these projects as part of the new organization, contact me directly to discuss that. I&rsquo;d certainly like to see some of the regular contributors in the past become official &ldquo;Team Framework One&rdquo; members in the new organization!</p>
+
+<p>Thank you to all the contributors who&rsquo;ve helped get these projects to where they are now!</p>
 ]]></content>
   </entry>
   

@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Roadmap Jan 21st, 2015 Whilst you can read the FW/1 issues list to see what&rsquo;s on the cards for future releases, several people have asked &hellip;">
+  <meta name="description" content="FW/1 Roadmap Mar 21st, 2015 This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the 3.0 master &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,18 +81,41 @@
   
 
 
-<time datetime="2015-01-21T12:42:00-08:00" pubdate data-updated="true">Jan 21<span>st</span>, 2015</time></p>
+<time datetime="2015-03-21T14:20:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time></p>
   </header>
   
-  <p>Whilst you can read the <a href="https://github.com/framework-one/fw1/issues">FW/1 issues list</a> to see what&rsquo;s on the cards for future releases, several people have asked that I document things at a higher level so they can get a better sense of what&rsquo;s coming.</p>
+  <p><em>This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/roadmap.html">3.0 master documentation</a>.</em></p>
 
-<h2>1.x Release Stream</h2>
+<p>Whilst you can read the <a href="https://github.com/framework-one/fw1/issues">FW/1 issues list</a> to see what&rsquo;s on the cards for future releases, several people have asked that I document things at a higher level so they can get a better sense of what&rsquo;s coming.</p>
 
-<p>This is the legacy stream. FW/1 1.3 is the most recent legacy version, provided to support older CFML engines (Adobe ColdFusion 9.0.0 and earlier, Railo 3.1.x, Open BlueDragon). FW/1 2.x and 3.x will not run on these older CFML engines. Only critical fixes will be made to the 1.x release stream. Currently no new 1.x releases are planned.</p>
+<h2>3.x Integrations</h2>
 
-<h2>2.x Release Stream</h2>
+<p>FW/1 3.1 is currently in development and will be primarily a maintenance release for 3.0. It builds on core 3.0 features:</p>
 
-<p>This is the current stable stream. FW/1 2.5 is the latest stable version. The 2.x versions support Adobe ColdFusion 9.0.1 and later, Railo 3.2.2 and later.</p>
+<ul>
+<li>Using DI/1 to manage services and beans</li>
+<li>Explicitly calling services in the <code>item()</code> controller methods</li>
+</ul>
+
+
+<p>FW/1 3.0 bundles DI/1 and automatically creates bean factories following the convention of a <code>model</code> folder containing <code>services</code> and <code>beans</code> subfolders. Subsystems also follow this convention and use the main application&rsquo;s bean factory as a parent to enable sharing of common services across subsystems.</p>
+
+<p>FW/1 3.0 also slims down the framework by removing all of the service queue machinery and the start/end variants of controller methods, as well as coalescing all the framework components in a single folder <code>framework</code> (with <code>org.corfield.framework</code> replaced by <code>framework.one</code>).</p>
+
+<h2>2.5 Deprecations</h2>
+
+<p>FW/1 2.5 represented a large shift from 2.2.1 and deprecated a number of long-standing features that were removed in 3.0:</p>
+
+<ul>
+<li>Service queue &ndash; implicit service calls were disabled in 2.x but still supported for backward compatibility with 1.x, but in 2.5 the whole service queue machinery is deprecated, including the <code>service()</code> call, and will be removed in 3.0.</li>
+<li><code>startItem()</code> / <code>endItem()</code> controller methods &ndash; these were originally introduced to encourage a clean separation of controller logic from (queued) service logic. With the service queue going away, they make no sense, so they are deprecated in 2.5 and will be removed in 3.0.</li>
+<li>Global access to the <code>rc</code> variable &ndash; this was never really intended to be supported but some users found it convenient and started to rely on it. Due to edge case bugs, and the fact that there are better ways to manage the <code>rc</code> in the lifecycle, global access is deprecated in 2.5 and will be removed in 3.0. This will mostly affect users who update the <code>rc</code> in <code>setupRequest()</code> &ndash; logic which should generally be moved to <code>Application.cfc</code> in the global <code>before()</code> controller method.</li>
+</ul>
+
+
+<h2>2.&frac12;.2 Release Stream</h2>
+
+<p>This is the previous stable stream. FW/1 2.5 is the last release in that stream. The 2.x versions support Adobe ColdFusion 9.0.1 and later, Lucee 4.5.0 and later, and Railo 3.2.2 and later.</p>
 
 <p>Changes between 1.x and 2.x include:</p>
 
@@ -108,30 +131,9 @@
 </ul>
 
 
-<h2>2.5 Deprecations</h2>
+<h2>1.x Release Stream</h2>
 
-<p>FW/1 2.5 represents a large shift from 2.2.1 and deprecates a number of long-standing features that will be removed in 3.0:</p>
-
-<ul>
-<li>Service queue &ndash; implicit service calls were disabled in 2.x but still supported for backward compatibility with 1.x, but in 2.5 the whole service queue machinery is deprecated, including the <code>service()</code> call, and will be removed in 3.0.</li>
-<li><code>startItem()</code> / <code>endItem()</code> controller methods &ndash; these were originally introduced to encourage a clean separation of controller logic from (queued) service logic. With the service queue going away, they make no sense, so they are deprecated in 2.5 and will be removed in 3.0.</li>
-<li>Global access to the <code>rc</code> variable &ndash; this was never really intended to be supported but some users found it convenient and started to rely on it. Due to edge case bugs, and the fact that there are better ways to manage the <code>rc</code> in the lifecycle, global access is deprecated in 2.5 and will be removed in 3.0. This will mostly affect users who update the <code>rc</code> in <code>setupRequest()</code> &ndash; logic which should generally be moved to <code>Application.cfc</code> in the global <code>before()</code> controller method.</li>
-</ul>
-
-
-<h2>3.0 Integrations</h2>
-
-<p>FW/1 3.0 is currently in beta and represents the direction that most users have already been going:</p>
-
-<ul>
-<li>Using DI/1 to manage services and beans</li>
-<li>Explicitly calling services in the <code>item()</code> controller methods</li>
-</ul>
-
-
-<p>FW/1 3.0 bundles DI/1 and automatically creates bean factories following the convention of a <code>model</code> folder containing <code>services</code> and <code>beans</code> subfolders. Subsystems also follow this convention and use the main application&rsquo;s bean factory as a parent to enable sharing of common services across subsystems.</p>
-
-<p>FW/1 3.0 also slims down the framework by removing all of the service queue machinery and the start/end variants of controller methods, as well as coalescing all the framework components in a single folder <code>framework</code> (with <code>org.corfield.framework</code> replaced by <code>framework.one</code>).</p>
+<p>This is the legacy stream. FW/1 1.3 is the most recent legacy version, provided to support older CFML engines (Adobe ColdFusion 9.0.0 and earlier, Railo 3.1.x, Open BlueDragon). FW/1 2.x and 3.x will not run on these older CFML engines. Only critical fixes will be made to the 1.x release stream. Currently no new 1.x releases are planned.</p>
 
   
     <footer>
@@ -149,7 +151,7 @@
   
 
 
-<time datetime="2015-01-21T12:42:00-08:00" pubdate data-updated="true">Jan 21<span>st</span>, 2015</time>
+<time datetime="2015-03-21T14:20:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time>
         
       </p>
       
@@ -167,55 +169,65 @@
     <p>In addition, the family includes cfmljure, an easy way to integrate Clojure code into your CFML application, and a port of FW/1 to Clojure as well as a Leiningen template for creating FW/1 projects in Clojure.</p>
 </section>
 <section>
-    <h1>Documentation</h1>
+    <h1>3.1 Documentation (develop)</h1>
     <a href="/documentation">Getting Started Guide</a><br />
     <a href="/documentation/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/using-di-one.html">Using DI/1</a><br />
     <a href="/documentation/using-subsystems.html">Using Subsystems</a><br />
     <a href="/documentation/reference-manual.html">Reference Manual</a><br />
     <a href="/documentation/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>3.0 Documentation (stable - master)</h1>
+    <a href="/documentation/3.0">Getting Started Guide</a><br />
+    <a href="/documentation/3.0/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.0/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/3.0/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/3.0/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/04/22/fw1-2-5-1-2-2-2-important/">FW/1 2.5.1 & 2.2.2 - Important Updates!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/22/fw1-3-0-1-important/">FW/1 3.0.1 - Important Update!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/03/21/fw1-3-1-begins/">FW/1 3.1 Begins...</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/24/fw1-3-0-released/">FW/1 3.0 Released!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/06/fw1-3-0-rc-2-available/">FW/1 3.0 RC 2 Available</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/29/lucee-fw1/">Lucee and FW/1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/25/fw1-clojure-sitting-in-a-tree/">FW/1 & Clojure Sitting in Tree</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/24/fw1-3-0-rc-1-available/">FW/1 3.0 RC 1 Available</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/23/cfmljure-0-1-0/">Cfmljure Release 0.1.0</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/08/18/fw1-3-0-beta-1-available/">FW/1 3.0 Beta 1 Available</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/20/fw1-3-0-alpha-1-available-for-testing/">FW/1 3.0 Alpha 1 Available for Testing!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/25/fw1-2-5-is-released/">FW/1 2.5 Is Released!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/12/18/fw1-2-2-released/">FW/1 2.2 Released!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/03/fw1-releases-and-roadmap/">FW/1 Releases and Roadmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/02/fw1-the-year-ahead/">FW/1 the Year Ahead</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/07/where-can-i-download-old-versions-of-fw1/">Where Can I Download Old Versions of FW/1?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/01/05/fw1-version-2-1-released/">FW/1 Version 2.1 Released</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/12/18/fw1-2-0-released/">FW/1 2.0 Released</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/11/07/fw1-comes-to-clojure/">FW/1 Comes to Clojure</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Jan 21st, 2015 FW/1 is intended to allow you to quickly build applications with the minimum of overhead and &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Mar 21st, 2015 This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,10 +81,12 @@
   
 
 
-<time datetime="2015-01-21T12:20:00-08:00" pubdate data-updated="true">Jan 21<span>st</span>, 2015</time></p>
+<time datetime="2015-03-21T20:00:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time></p>
   </header>
   
-  <p>FW/1 is intended to allow you to quickly build applications with the minimum of overhead and interference from the framework itself. The convention-based approach means that you can quickly put together an outline of your site or application merely by creating folders and files in the <code>views</code> folder. As you are ready to start adding business logic to the application, you can add controllers and/or services and domain objects as needed to implement the validation and data processing.</p>
+  <p><em>This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/developing-applications.html">3.0 master documentation</a>.</em></p>
+
+<p>FW/1 is intended to allow you to quickly build applications with the minimum of overhead and interference from the framework itself. The convention-based approach means that you can quickly put together an outline of your site or application merely by creating folders and files in the <code>views</code> folder. As you are ready to start adding business logic to the application, you can add controllers and/or services and domain objects as needed to implement the validation and data processing.</p>
 
 <h2>Basic Application Structure</h2>
 
@@ -245,16 +247,17 @@
 
 <p>Calling this function does not exit from your controller, but tells FW/1 that instead of looking for a view to render, the <code>resultData</code> value should be converted to the specified <code>contentType</code> and that should be the result of the complete HTTP request.</p>
 
-<p><code>contentType</code> may be <code>"json"</code>, <code>"xml"</code>, or <code>"text"</code>. The <code>Content-Type</code> HTTP header is automatically set to:</p>
+<p><code>contentType</code> may be <code>"json"</code>, <code>"rawjson"</code>, <code>"xml"</code>, or <code>"text"</code>. The <code>Content-Type</code> HTTP header is automatically set to:</p>
 
 <ul>
+<li><code>application/json; charset=utf-8</code></li>
 <li><code>application/json; charset=utf-8</code></li>
 <li><code>text/xml; charset=utf-8</code></li>
 <li><code>text/plain; charset=utf-8</code></li>
 </ul>
 
 
-<p>respectively. For JSON, the <code>resultData</code> value is converted to a string by calling <code>serializeJSON()</code>; for XML, the <code>resultData</code> value is expected to be either a valid XML string or an XML object (constructed via CFML&rsquo;s various <code>xml...()</code> functions); for plain text, the <code>resultData</code> value must be a string.</p>
+<p>respectively. For JSON, the <code>resultData</code> value is converted to a string by calling <code>serializeJSON()</code> (so use RAWJSON if your <code>resultData</code> value is already a valid JSON string); for XML, the <code>resultData</code> value is expected to be either a valid XML string or an XML object (constructed via CFML&rsquo;s various <code>xml...()</code> functions); for plain text, the <code>resultData</code> value must be a string. <em><code>"rawjson"</code> is new in 3.1.</em></p>
 
 <p>You can also specify an HTTP status code as a third argument. The default is 200.</p>
 
@@ -272,7 +275,7 @@
 
 <h3>Services, Domain Objects and Persistence</h3>
 
-<p>There are many ways to organize how you save and load data. You could use the ORM that comes with ColdFusion or Railo, you could write your own data mapping service, you could write custom SQL for every domain object. Regardless of how you choose to handle your persistence, encapsulating it in a service CFC is probably a good idea. For convenience it is often worth injecting your persistence service into your domain object so you can have a convenient <code>domainObject.save()</code> call to use from your controller, even if it just delegates to the persistence service internally:</p>
+<p>There are many ways to organize how you save and load data. You could use the ORM that comes with ColdFusion, Lucee, or Railo, you could write your own data mapping service, you could write custom SQL for every domain object. Regardless of how you choose to handle your persistence, encapsulating it in a service CFC is probably a good idea. For convenience it is often worth injecting your persistence service into your domain object so you can have a convenient <code>domainObject.save()</code> call to use from your controller, even if it just delegates to the persistence service internally:</p>
 
 <pre><code>component accessors=true{
     property dataService;
@@ -302,7 +305,7 @@
 
 <p>This will make <code>variables.userService</code> and <code>variables.securityService</code> available, based on <code>model/services/user.cfc</code> and <code>model/services/security.cfc</code>. You could also use long form CFC names like <code>userservice.cfc</code> and <code>securityservice.cfc</code> if you wanted. See the next section for more details on configuring DI/1.</p>
 
-<p>If you let FW/1 use DI/1 (or AOP/1) to automatically manage your beans, and you are using subsystems, FW/1 will also use it to manage your subsystems&#8217; beans. See <a href="/documentation/using-subsystems.html">Using Subsystems</a> for more details.</p>
+<p>If you let FW/1 use DI/1 to automatically manage your beans, and you are using subsystems, FW/1 will also use it to manage your subsystems&#8217; beans. See <a href="/documentation/using-subsystems.html">Using Subsystems</a> for more details.</p>
 
 <h3>Transients, Bean Factory, Framework</h3>
 
@@ -369,6 +372,8 @@ var bf = new "#variables.framework.diComponent#"(
     variables.framework.diConfig
 );
 </code></pre>
+
+<p>If you are using subsystems and also using DI/1 as your default bean factory component, <code>diConfig</code> will be passed to subsystem bean factories when they are constructed. You can override this on a per-subsystem basis by setting <code>diConfig</code> in the specific <code>framework.subsystems</code> configuration structure. <em>Per-subsystem <code>diConfig</code> is new in 3.1.</em></p>
 
 <h4>Migrating 2.x Applications to 3.0</h4>
 
@@ -548,6 +553,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
     trace = false,
     routes = [ ],
     // resourceRouteTemplates - see routes documentation
+    routesCaseSensitive = true,
     noLowerCase = false,
     diEngine = "di1",
     diComponent = "framework.ioc",
@@ -566,7 +572,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 <li><code>defaultItem</code> &ndash; The default item within a section when either no action is specified at all or just the section is specified in the action.</li>
 <li><code>subsystemDelimiter</code> &ndash; When subsystems are enabled, this specifies the delimiter between the subsystem name and the action in a URL or form post.</li>
 <li><code>siteWideLayoutSubsystem</code> &ndash; When subsystems are enabled, this specifies the subsystem that is used for the (optional) site-wide default layout.</li>
-<li><code>subsystems</code> &ndash; An optional struct of structs containing per-subsystem configuration data. Each key in the top-level struct is named for a subsystem. The contents of the nested structs can be anything you want for your subsystems. Retrieved by calling <code>getSubsystemConfig()</code>. Currently the only key used by FW/1 is <code>baseURL</code> which can be used to configure per-subsystem values.</li>
+<li><code>subsystems</code> &ndash; An optional struct of structs containing per-subsystem configuration data. Each key in the top-level struct is named for a subsystem. The contents of the nested structs can be anything you want for your subsystems. Retrieved by calling <code>getSubsystemConfig()</code>. Currently the only keys used by FW/1 are <code>baseURL</code> and <code>diConfig</code> which can be used to configure per-subsystem values.</li>
 <li><code>home</code> &ndash; The default action when it is not specified in the URL or form post. By default, this is <code>defaultSection</code>.<code>defaultItem</code>. If you specify <code>home</code>, you are overriding (and hiding) <code>defaultSection</code> but not <code>defaultItem</code>. If <code>usingSubsystem</code> is <code>true</code>, the default for <code>home</code> is <code>"home:main.default"</code>, i.e., <code>defaultSubsystem &amp; subsystemDelimiter &amp; defaultSection &amp; '.' &amp; defaultItem</code>.</li>
 <li><code>error</code> &ndash; The action to use if an exception occurs. By default this is <code>defaultSection.error</code>.</li>
 <li><code>reload</code> &ndash; The URL variable used to force FW/1 to reload its application cache and re-execute <code>setupApplication()</code>.</li>
@@ -585,9 +591,10 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 <li><code>cacheFileExists</code> &ndash; If you are running on a system where disk access is slow &ndash; or you simply want to avoid several calls to <code>fileExists()</code> during requests for performance &ndash; you can set this to true and FW/1 will cache all its calls to <code>fileExists()</code>. Be aware that if the result of <code>fileExists()</code> is cached and you add a new layout or a new view, it won&rsquo;t be noticed until you reload the framework.</li>
 <li><code>applicationKey</code> &ndash; A unique value for each FW/1 application that shares a common ColdFusion application name.</li>
 <li><code>noLowerCase</code> &ndash; If <code>true</code>, FW/1 will not force actions to lowercase so subsystem, section and item names will be case sensitive (in particular, filenames for controllers, views and layouts may therefore be mixed case on a case-sensitive operating system). The default is <code>false</code>. Use of this option is <em>not</em> recommended and is not considered good practice.</li>
-<li><code>trace</code> &ndash; If <code>true</code>, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature.</li>
+<li><code>trace</code> &ndash; If <code>true</code>, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature. (Note that FW/1 will not print out debugging / tracing information when the <code>renderData()</code> function is used. You can still access and output debugging / tracing information in such cases by overriding the <code>setupTraceRender()</code> function. See the <a href="/documentation/reference-manual.html">Reference Manual</a> for more details.).</li>
 <li><code>routes</code> &ndash; An array of URL path mappings. This allows you to override the conventional mapping of <code>/section/item</code> to controllers.</li>
 <li><code>resourceRouteTemplates</code> &ndash; see <strong>URL Routes</strong> below.</li>
+<li><code>routesCaseSensitive</code> &ndash; Default <code>true</code>. Controls whether route matches are case-sensitive or not. <em>New in 3.1.</em></li>
 <li><code>diEngine</code> &ndash; the Dependency Injection framework that FW/1 should use.</li>
 <li><code>diComponent</code> &ndash; the dotted-path to the CFC used for the bean factory (which has sensible defaults based on <code>diEngine</code>).</li>
 <li><code>diLocations</code> &ndash; the list of folders to check for CFCs to manage; defaults to <code>"model,controllers"</code>.</li>
@@ -619,6 +626,8 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 <p>Routes can also specify a redirect instead of a substitute URL by prefixing the URL with an HTTP status code and a colon, for example <code>{ "/thankyou" = "302:/main/thankyou" }</code> specifies a match for <code>/thankyou</code> which will cause a redirect to <code>/main/thankyou</code>.</p>
 
 <p>A route of <code>"*"</code> is a wildcard that will match any request and therefore must be the last route in the array. A wildcard route may be restricted to a specific method, e.g., <code>"$POST*"</code> will match a <code>POST</code> to any URL.</p>
+
+<p>Route matches are case-sensitive unless you set <code>routesCaseSensitive</code> to <code>false</code> in the FW/1 configuration.</p>
 
 <p>The keyword <code>"$RESOURCES"</code> can be used as a shorthand way of specifying resource routes: <code>{ "$RESOURCES" = "dogs,cats,hamsters,gerbils" }</code>. FW/1 will interpret this as if you had specified a standard set of routes for each of the listed resources. For example, for the resource &ldquo;dogs&rdquo;, FW/1 will parse the following routes:</p>
 
@@ -692,6 +701,16 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 * <code>setupEnvironment( string env )</code> &ndash; A function that may optionally override in <code>Application.cfc</code> to provide more programmatic configuration for your application environment.</p>
 
 <p>Environment control is based on the concept of <em>tier</em> &ndash; development, staging, production etc &ndash; and optionally a <em>server</em> specifier. This two-part string determines how elements of <code>variables.framework.environments</code> are selected and merged into the base framework configuration. A string of the format <em><code>"tier"</code></em> or <em><code>"tier-server"</code></em> should be returned from <code>getEnvironment()</code>. FW/1 first looks for a group of options matching just <em>tier</em> and, if found, appends those to the base configuration. FW/1 then looks for a group of options matching <em>tier-server</em> and, if found, appends those to the configuration. After merging configuration options, FW/1 calls <code>setupEnvironment()</code> passing the tier/server string so your application may perform additional customization. This process is executed on every request (so be aware of performance considerations) which allows a single application to serve multiple domains and behave accordingly for each domain, for example.</p>
+
+<p>Note that for the most part, the <em>tier</em> or <em>tier-server</em> configuration will override any default configuration in the <code>variables.framework</code> structure. There are two exceptions to that basic rule:</p>
+
+<ul>
+<li><code>diConfig</code> is recursively merged: the <code>constants</code> and <code>singulars</code> structures are key-merged, the <code>exclude</code> and <code>transients</code> arrays are appended. <em>tier-server</em> takes precedence in the key-merging, then <em>tier</em>, then the default configuration.</li>
+<li><code>subsystems</code> is key-merged across the <em>tier</em> and <em>tier-server</em> data (with <em>tier-server</em> taking precedence, then <em>tier</em>, then then default).</li>
+</ul>
+
+
+<p>This gives the most intuitive behavior for DI/1 bean factory configuration. It also provides a convenient behavior for environment-based subsystem configuration. Be cautious when specifying subsystem-specific DI/1 configuration since that does not merge across environments. <em>Note that environment merging is new in 3.1.</em></p>
 
 <p>Your <code>getEnvironment()</code> function can use any means to determine which environment is active. Common methods are examining <code>CGI.SERVER_NAME</code> or using the server&rsquo;s actual hostname (accessible thru the new <code>getHostname()</code> API method). Here&rsquo;s an example setup:</p>
 
@@ -839,7 +858,7 @@ property framework;
   
 
 
-<time datetime="2015-01-21T12:20:00-08:00" pubdate data-updated="true">Jan 21<span>st</span>, 2015</time>
+<time datetime="2015-03-21T20:00:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time>
         
       </p>
       
@@ -857,55 +876,65 @@ property framework;
     <p>In addition, the family includes cfmljure, an easy way to integrate Clojure code into your CFML application, and a port of FW/1 to Clojure as well as a Leiningen template for creating FW/1 projects in Clojure.</p>
 </section>
 <section>
-    <h1>Documentation</h1>
+    <h1>3.1 Documentation (develop)</h1>
     <a href="/documentation">Getting Started Guide</a><br />
     <a href="/documentation/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/using-di-one.html">Using DI/1</a><br />
     <a href="/documentation/using-subsystems.html">Using Subsystems</a><br />
     <a href="/documentation/reference-manual.html">Reference Manual</a><br />
     <a href="/documentation/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>3.0 Documentation (stable - master)</h1>
+    <a href="/documentation/3.0">Getting Started Guide</a><br />
+    <a href="/documentation/3.0/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.0/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/3.0/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/3.0/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/04/22/fw1-2-5-1-2-2-2-important/">FW/1 2.5.1 & 2.2.2 - Important Updates!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/22/fw1-3-0-1-important/">FW/1 3.0.1 - Important Update!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/03/21/fw1-3-1-begins/">FW/1 3.1 Begins...</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/24/fw1-3-0-released/">FW/1 3.0 Released!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/06/fw1-3-0-rc-2-available/">FW/1 3.0 RC 2 Available</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/29/lucee-fw1/">Lucee and FW/1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/25/fw1-clojure-sitting-in-a-tree/">FW/1 & Clojure Sitting in Tree</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/24/fw1-3-0-rc-1-available/">FW/1 3.0 RC 1 Available</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/23/cfmljure-0-1-0/">Cfmljure Release 0.1.0</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/08/18/fw1-3-0-beta-1-available/">FW/1 3.0 Beta 1 Available</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/20/fw1-3-0-alpha-1-available-for-testing/">FW/1 3.0 Alpha 1 Available for Testing!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/25/fw1-2-5-is-released/">FW/1 2.5 Is Released!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/12/18/fw1-2-2-released/">FW/1 2.2 Released!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/03/fw1-releases-and-roadmap/">FW/1 Releases and Roadmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/02/fw1-the-year-ahead/">FW/1 the Year Ahead</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/07/where-can-i-download-old-versions-of-fw1/">Where Can I Download Old Versions of FW/1?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/01/05/fw1-version-2-1-released/">FW/1 Version 2.1 Released</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/12/18/fw1-2-0-released/">FW/1 2.0 Released</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/11/07/fw1-comes-to-clojure/">FW/1 Comes to Clojure</a>
       </li>
     
   </ul>

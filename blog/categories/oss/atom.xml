@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Oss | FW/1 - The Invisible Framework]]></title>
+  <link href="http://framework-one.github.io/blog/categories/oss/atom.xml" rel="self"/>
+  <link href="http://framework-one.github.io/"/>
+  <updated>2015-04-22T17:32:39-07:00</updated>
+  <id>http://framework-one.github.io/</id>
+  <author>
+    <name><![CDATA[Sean Corfield]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Open Source: RTW or Collaboration?]]></title>
+    <link href="http://framework-one.github.io/blog/2010/08/28/open-source-rtw-or-collaboration/"/>
+    <updated>2010-08-28T13:21:49-07:00</updated>
+    <id>http://framework-one.github.io/blog/2010/08/28/open-source-rtw-or-collaboration</id>
+    <content type="html"><![CDATA[<p>RTW &ndash; Reinventing The Wheel &ndash; is normally a bad thing. I&rsquo;m said several times that the main reason we have no truly great open source software in ColdFusion is because when we see an open source project that doesn&rsquo;t do what we need, we go off and build our version, which we may or may not open source, instead of collaborating on the existing project to make it better.<!-- more --></p>
+
+<p><a href="http://twitter.com/henrylearn2rock">Henry Ho</a> asked on Twitter for recommendations about dependency injection frameworks and quoted a list of several candidates. I replied that DI/1 would soon be added to that list and that led <a href="http://twitter.com/maestrofjp">Peter J. Farrell</a> to ask &ldquo;Aren&rsquo;t u reinventing the wheel? We must stop propagating if you don&rsquo;t like something, just create ur own. Contribute instead.&rdquo;</p>
+
+<p>Well, yeah, that&rsquo;s something I&rsquo;ve been saying for ages and I&rsquo;ve contributed to just about every major CFML framework out there: Fusebox, Mach-II, Model-Glue, ColdBox, Reactor, Transfer, ColdSpring. I&rsquo;ve been lead developer on two of those and I contributed enough to ColdSpring to be one of the five copyright holders (along with Dave Ross, Chris Scott, Kurt Wiersma and Peter J. Farrell). With the others I&rsquo;ve contributed a range of patches. Because these are all frameworks I&rsquo;ve used and it&rsquo;s made sense to contribute, to enhance the projects and to feed those patches back into the project.</p>
+
+<p>So why am I RTW with DI/1? I replied to Peter that I felt DI/1 was addressing different needs to ColdSpring. Peter pushed for details and I said DI/1 was convention-based &ndash; no XML. Peter asked &ldquo;couldn&rsquo;t that be accomplished in CS by just enhancing that project?&rdquo;. It&rsquo;s a reasonable question within the context of ColdSpring but my answer is no, DI/1&rsquo;s design goals are very focused and are intended to offer a very simple, single CFC that relies purely on conventions to provide a lightweight way to manage and autowire your CFCs using conventions instead of configuration. It&rsquo;s what led me to create FW/1 last year, initially as an experiment to see whether I could create my &lsquo;ideal&rsquo; simple MVC framework. FW/1 has developed an active community since then, well over 4,000 downloads, around 300 members on the mailing list, lots of production sites powered by FW/1 and, most importantly for me, a team of people committing changes to both the code and the documentation. FW/1 had similar goals to DI/1 and I&rsquo;d call FW/1 a success. I hope that DI/1 has even a fraction of that success.</p>
+
+<p>So, yes, RTW is normally a bad thing. Your first choice should always be to contribute to existing projects. Help with testing, help with documentation &ndash; those are both key to successful open source projects. If you can fix bugs by providing high quality, well-tested patches, you might become a committer and maybe even a core member of a project. Perhaps you might even end up taking it over &ndash; as happened with Mach-II for me early on and later for Matt Woodward and Peter. Model-Glue has transitioned from Joe Rinehart to a team under Dan Wilson&rsquo;s guidance. ColdSpring has transitioned from Chris Scott and his team of contributors to Mark Mandel.</p>
+
+<p>Sometimes tho', something that looks like RTW can be a good thing. If we never RTW&rsquo;d, we&rsquo;d all still be using Fusebox, or Mach-II, or Model-Glue, or &hellip; In the ORM space, we started with ARF (Joe Rinehart) and objectBreeze (Nic Tunney) and then Reactor came along (originally Doug Hughes, now Mark Drew) and then Mark Mandel created Transfer. RTW has been a good thing there. Even in the DI space, we&rsquo;ve had a number of object factories along the way and ColdSpring became the 800lb gorilla, so to speak, but Lightwire also got some traction. Mark Mandel is currently undertaking a ground-up rewrite of ColdSpring so he can incorporate a number of good things based on Java&rsquo;s Spring framework. In some ways, he is also RTW.</p>
+
+<p>I think Peter will also be writing a blog post around this topic. His tweets covered some other issues, such as whether moving ColdSpring to git (on SourceForge) is good for the community, and I know he has some very strong opinions on open source software! I wish ColdSpring was on github instead of SourceForge but I view the move to git as a good thing. Github has really helped FW/1 get more collaboration from the community. I expect DI/1 will see similar collaboration. It&rsquo;s also why Railo has published its source code on github (although snapshots of builds will still be committed to the JBoss community SVN repo).</p>
+
+<p>I look forward to Peter&rsquo;s blog post on this topic. As I&rsquo;ve said in my Open Source Landscape talk, the CFML community is still pretty new to open source software development. We&rsquo;ve come a long way in the last five years&hellip; but we&rsquo;ve got a <strong>long</strong> way to go to be on a par with many other communities!</p>
+]]></content>
+  </entry>
+  
+</feed>

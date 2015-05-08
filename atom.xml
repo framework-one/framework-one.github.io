@@ -4,7 +4,7 @@
   <title><![CDATA[FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-01-21T20:59:31-08:00</updated>
+  <updated>2015-04-22T17:32:39-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,186 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 2.5.1 & 2.2.2 - Important Updates!]]></title>
+    <link href="http://framework-one.github.io/blog/2015/04/22/fw1-2-5-1-2-2-2-important/"/>
+    <updated>2015-04-22T17:20:49-07:00</updated>
+    <id>http://framework-one.github.io/blog/2015/04/22/fw1-2-5-1-2-2-2-important</id>
+    <content type="html"><![CDATA[<p>The thread safety issue affecting SES URLs and routes in FW/1 3.0 has been backported to the 2.2.x and 2.5.x releases so if you believe you are seeing incorrectly routed requests on either of those releases, you can update to the appropriate patch release:</p>
+
+<ul>
+<li><a href="https://github.com/framework-one/fw1/releases/tag/v2.5.1">download FW/1 2.5.1</a> to replace Release 2.5</li>
+<li><a href="https://github.com/framework-one/fw1/releases/tag/v2.2.2">download FW/1 2.2.2</a> to replace Release 2.2.1 or 2.2</li>
+</ul>
+
+
+<p>If you are on an earlier release of FW/1 and believe you are seeing the issue that is fixed in this patch, please post on the FW/1 mailing list (I&rsquo;d rather not backport this patch any further &mdash; I&rsquo;d rather you upgraded!).</p>
+
+<p>Once again, thank you to David Sedeño who highlighted this critical issue!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 3.0.1 - Important Update!]]></title>
+    <link href="http://framework-one.github.io/blog/2015/04/22/fw1-3-0-1-important/"/>
+    <updated>2015-04-22T11:00:49-07:00</updated>
+    <id>http://framework-one.github.io/blog/2015/04/22/fw1-3-0-1-important</id>
+    <content type="html"><![CDATA[<p>If you are using SES URLs or routes with FW/1 3.0 you should <a href="https://github.com/framework-one/fw1/releases/tag/v3.0.1">download FW/1 3.0.1</a> and update your applications as soon as possible, to address a thread safety issue in the way that <code>CGI.PATH_INFO</code> was handled in FW/1 3.0.</p>
+
+<p>The symptoms you might see include incorrectly routed requests under load.</p>
+
+<p>Thank you to David Sedeño who highlighted this critical issue!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 3.1 Begins...]]></title>
+    <link href="http://framework-one.github.io/blog/2015/03/21/fw1-3-1-begins/"/>
+    <updated>2015-03-21T14:30:49-07:00</updated>
+    <id>http://framework-one.github.io/blog/2015/03/21/fw1-3-1-begins</id>
+    <content type="html"><![CDATA[<p>I released FW/1 3.0 about a month ago and now it&rsquo;s time to get started on the 3.1 release.<!-- more --></p>
+
+<p>FW/1 3.1 will be primarily a maintenance release. You can read the <a href="https://github.com/framework-one/fw1/milestones/3.1">current list of changes slated for FW/1 3.1</a> on the GitHub issues page. Depending on how long it takes to get 3.1 done, additional issues may be added. And, of course, some of these issues may be slipped to 3.5 (currently represented by the <a href="https://github.com/framework-one/fw1/tree/clojure">Clojure branch of FW/1</a> in the GitHub repo and the <a href="https://github.com/framework-one/fw1/milestones/3.5">short list of FW/1 3.5 issues</a>).</p>
+
+<p>Starting with release 3.0, the <a href="http://framework-one.github.io/documentation/">FW/1 documentation</a> will be versioned and the top-level page will always represent the latest version in development. You can read the <a href="http://framework-one.github.io/documentation/3.0/">FW/1 3.0 documentation</a> separately already. The sidebar will always show two releases (develop and master) fully linked &ndash; older versions will be listed in future, with just a link to the index page.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 3.0 Released!]]></title>
+    <link href="http://framework-one.github.io/blog/2015/02/24/fw1-3-0-released/"/>
+    <updated>2015-02-24T09:30:49-08:00</updated>
+    <id>http://framework-one.github.io/blog/2015/02/24/fw1-3-0-released</id>
+    <content type="html"><![CDATA[<p>I&rsquo;m pleased to announce that after lots of user testing and almost no issues found, the Gold Release of <a href="https://github.com/framework-one/fw1/releases/tag/v3.0">FW/1 3.0</a> is now available!<!-- more --></p>
+
+<p>About two and a half weeks ago I released <a href="http://framework-one.github.io/blog/2015/02/06/fw1-3-0-rc-2-available/">FW/1 3.0 RC 2</a> and only one minor issue was reported (an inconsistency between <code>buildURL()</code> and <code>buildCustomURL()</code> regarding how <code>baseURL</code> was handled). That has been fixed, along with the addition of a new extension point for DI/1 (<code>metadata()</code>).</p>
+
+<p>You can see a <a href="https://github.com/framework-one/fw1/issues?milestone=13&amp;q=is%3Aclosed">full list of issues fixed in FW/1 for 3.0</a> and a <a href="https://github.com/framework-one/di1/issues?milestone=1&amp;q=is%3Aclosed">full list of issues fixed in DI/1 1.0</a> on GitHub. This represents the official release of DI/1 1.0 as well.</p>
+
+<p>Thank you to everyone who has contributed to the 3.0 release &ndash; it&rsquo;s been a long time in the making! Particular thanks go to Nando Breiter for migrating the DI/1 documentation from the old wiki to the new FW/1 website. Also thanks to John Berquist, Ryan Guill, Cameron Childress, and Adam Tuttle for you code contributions and everyone who tested prerelease builds of FW/1 and reported issues and made suggestions! Thank you!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 3.0 RC 2 Available]]></title>
+    <link href="http://framework-one.github.io/blog/2015/02/06/fw1-3-0-rc-2-available/"/>
+    <updated>2015-02-06T20:21:49-08:00</updated>
+    <id>http://framework-one.github.io/blog/2015/02/06/fw1-3-0-rc-2-available</id>
+    <content type="html"><![CDATA[<p>About two weeks ago I released <a href="http://framework-one.github.io/blog/2015/01/24/fw1-3-0-rc-1-available/">FW/1 3.0 RC 1</a> and the only real bug persisting at that point was related to <a href="https://github.com/framework-one/fw1/issues/283">DI/1 dotted path deduction</a>.</p>
+
+<p>I think that bug is finally squashed, based on early testing by some users that had encountered the bug, so the second <a href="https://github.com/framework-one/fw1/releases/tag/v3.0-rc2">Release Candidate build</a> of FW/1 3.0 is now available!<!-- more --></p>
+
+<p>In addition to fixing that DI/1 bug, the only other change since RC 1 is some cleanup of the <code>examples</code> folder. That means this RC is almost certainly going to be gold candidate for the final 3.0 release.</p>
+
+<p>Please download and test this version and report any issues you find. I&rsquo;d like to cut the final 3.0 release fairly soon, so I can merge <code>develop</code> to <code>master</code> and start planning FW/1 3.5.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Lucee and FW/1]]></title>
+    <link href="http://framework-one.github.io/blog/2015/01/29/lucee-fw1/"/>
+    <updated>2015-01-29T13:30:49-08:00</updated>
+    <id>http://framework-one.github.io/blog/2015/01/29/lucee-fw1</id>
+    <content type="html"><![CDATA[<p>Today saw the announcement of the <a href="http://lucee.org">Lucee Association Switzerland</a> and the release of a new open source CFML engine: <a href="http://lucee.org/downloads.html">Lucee 4.5.0</a>.</p>
+
+<p>For background on the new engine and the association behind it, read <a href="http://blog.adamcameron.me/2015/01/lucee.html">Adam Cameron&rsquo;s blog post with Q&amp;A</a> about the launch.</p>
+
+<p>I&rsquo;ve already migrated all my local test environments to Lucee and can report that FW/1 (and DI/1 and cfmljure) all run beautifully on it &ndash; and it will be my primary test environment for future development of the FW/1 family going forward.</p>
+
+<p>I&rsquo;ve also migrated my local dev environment for World Singles over to Lucee and that went pretty smoothly too (I encountered just two issues &ndash; both minor, one already fixed in Lucee&rsquo;s master repository).</p>
+
+<p>The <a href="https://bitbucket.org/lucee/lucee/wiki/Home">Lucee wiki</a> has information about downloading and installing Lucee, as well as building Lucee from source, and how to migrate from Railo to Lucee (hint: it&rsquo;s really easy &ndash; stop the server, remove <code>railo.jar</code>, add <code>lucee.jar</code>, start the server).</p>
+
+<p>Have fun with Lucee!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 & Clojure Sitting in Tree]]></title>
+    <link href="http://framework-one.github.io/blog/2015/01/25/fw1-clojure-sitting-in-a-tree/"/>
+    <updated>2015-01-25T13:30:49-08:00</updated>
+    <id>http://framework-one.github.io/blog/2015/01/25/fw1-clojure-sitting-in-a-tree</id>
+    <content type="html"><![CDATA[<p>Anyone following my tech trajectory will know that, after starting to learn Clojure in 2010, I&rsquo;ve moved increasingly away from CFML and toward Clojure. In 2014, my team decided that Clojure would be our official primary language and all new development would happen there instead of in CFML. We still have a lot of CFML code in production &ndash; about 90kloc &ndash; but we consider it &ldquo;legacy code&rdquo; at this point. Most of that CFML code is a large ColdBox app that we built about five years ago (technically it&rsquo;s three ColdBox apps but they share a lot of code). Our application Model has been slowly moving to Clojure so that we can reuse that code in new applications we&rsquo;re building in Clojure. We&rsquo;ve also been building new apps with FW/1 (and reusing both our CFML code and our Clojure code). We still like CFML as a templating language for views and our controllers &ndash; in our FW/1 apps at least &ndash; are often mostly just &ldquo;glue&rdquo; code that lets us call into our Clojure model code.<!-- more --></p>
+
+<p>I&rsquo;ve talked in passing on the FW/1 mailing list about the possibility of deeper integration with Clojure and I recently published <a href="https://github.com/framework-one/cfmljure/releases/tag/v0.1.0">cfmljure 0.1.0</a> &ndash; which I&rsquo;ll be blogging about shortly &ndash; and so the topic came up again on the mailing list about this integration. I&rsquo;d been thinking about how to write controllers in Clojure so that you could have a FW/1 app that used CFML for the views &ndash; where it excels as a templating language &ndash; and Clojure for the controllers and the model, leveraging the expressive power and immutable safety for all your business logic.</p>
+
+<p>Over the last few days, I created a fork of FW/1 3.0 that included cfmljure and built a proof of concept of Clojure controllers. You can take a look at the <a href="https://github.com/framework-one/fw1/tree/clojure/examples/helloclojure">FW/1 example with Clojure controllers</a> on the <code>clojure</code> branch of the FW/1 repo. I created the project using Leiningen (Clojure&rsquo;s build tool) and then added <code>Application.cfc</code>, <code>index.cfm</code>, and the <code>views/</code> tree. Then I wrote the <code>controllers/main.clj</code> file (in <code>src/hello</code>) and the <code>controllers_test.clj</code> test file (in <code>test/hello</code>). Unit testing is built in, so you can run <code>lein test</code> to see the results. Then I refactored the Clojure code (creating the separate <code>greet.clj</code> file) and added a &ldquo;service&rdquo; in Clojure just for fun. The FW/1 app uses <code>framework.ioclj</code> &ndash; a extended version of DI/1 that uses cfmljure &ndash; to auto-discover the Clojure code (and the CFML code &ndash; you can mix&#8217;n&#8217;match) and wraps the Clojure controllers in <code>framework.cljcontroller</code> (to adapt to Clojure&rsquo;s pure function calling convention, and to handle some FW/1-specific functionality). The CFML views are run as usual (and if you look in <code>views/main/default.cfm</code> you&rsquo;ll see a call to the Clojure &ldquo;service&rdquo; via the bean factory: <code>getBeanFactory().getBean("greeterService").greetings("Earthling!")</code>).</p>
+
+<p>I&rsquo;m rather excited about this because it means we&rsquo;ll have a way, at work, to further migrate our model code from CFML to Clojure, while maintaining &ldquo;legacy&rdquo; CFML code alongside, <em>right there in the same FW/1 application!</em></p>
+
+<p>This won&rsquo;t be part of FW/1 3.0. Instead it will stay on the <code>clojure</code> branch until release 3.0 is out (<code>develop</code> will be merged to <code>master</code> for that), but it will be part of FW/1 3.5 which will be the next release. That way it can get some field testing in production as well as some polish and some documentation love. Stay tuned!</p>
+
+<p>p.s. Right now cfmljure only runs on Railo. The CFML code itself could be made portable enough to run on ColdFusion but the real problem is interop with Java/Clojure: ColdFusion thinks 42 is a string and so you need to do a lot of string-to-number conversions to interact with Clojure through cfmljure. I haven&rsquo;t used ColdFusion for over five years &ndash; just Railo &ndash; so I don&rsquo;t have much incentive, but if you feel inclined to send a Pull Request with changes to make cfmljure ColdFusion-compatible&hellip;</p>
+
+<p>p.p.s. cfmljure now runs on Adobe ColdFusion 11, Lucee, and Railo! Thanks to Andrew Myers for tackling ColdFusion support.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 3.0 RC 1 Available]]></title>
+    <link href="http://framework-one.github.io/blog/2015/01/24/fw1-3-0-rc-1-available/"/>
+    <updated>2015-01-24T22:21:49-08:00</updated>
+    <id>http://framework-one.github.io/blog/2015/01/24/fw1-3-0-rc-1-available</id>
+    <content type="html"><![CDATA[<p>FW/1 3.0 has been in beta testing since August 2014 and lots of people are already running in production so I figured it was time to push out the first <a href="https://github.com/framework-one/fw1/releases/tag/v3.0-rc1">Release Candidate build</a>.</p>
+
+<p>The main focus of RC 1 has been bug fixes. Only a small number of functional enhancements have been added (notably <code>getEnvVar()</code> to retrieve the value of a system environment variable which can be useful during environment control processing).<!-- more --> Some deprecated features have been removed:</p>
+
+<ul>
+<li><code>getRC()</code> and <code>getRCValue()</code> have been removed, along with the configuration flag that had been enabling them. They were a hasty addition at the end of the 2.5 cycle and they were a mistake &ndash; if you&rsquo;re using them, you&rsquo;re doing something wrong!</li>
+<li><code>org.corfield.framework</code> is no longer supported &ndash; use <code>framework.one</code> instead. It was always a questionable choice of file path for the framework and I&rsquo;ve been tempted to change it several times. The 3.0 cycle deprecated it and moved the framework CFC to the <code>/framework</code> folder, where DI/1 has lived since the 2.5 cycle. This is probably a <strong>breaking change</strong> unless you&rsquo;ve been using prerelease builds of 3.0 and have already eliminated the deprecation warnings!</li>
+</ul>
+
+
+<p>In addition, AOP/1 is no longer bundled with FW/1. It&rsquo;s not ready for primetime yet so I didn&rsquo;t want to include it in the 3.0 release. It got a lot of work between Alpha 1 and Beta 1 but additional bugs and some hard problems came up in testing. It&rsquo;s still available on the <code>aop1</code> branch if you want to experiment with it (and help find and fix more bugs in it!).</p>
+
+<p>As part of the preparation for RC 1, all of the documentation has been reviewed and updated and DI/1&rsquo;s documentation is now <a href="http://framework-one.github.io/documentation/using-di-one.html">part of the main documentation site</a>. Big thanks go to Nando Breiter for bringing that across from the old wiki in the standalone DI/1 repo. Code contributors to RC 1 include: John Berquist, Ryan Guill, Cameron Childress. Thank you!</p>
+
+<p>At this point, only bug fixes will be considered before FW/1 3.0 goes &ldquo;gold&rdquo; and given the long period of testing so far on Beta 1, that final release shouldn&rsquo;t be too far away.</p>
+
+<p>Oh, and if you go to <a href="http://fw1.riaforge.org">FW/1&rsquo;s page on RIAForge</a>, you&rsquo;ll see that 3.0 RC 1 is the default download now, instead of 2.5.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Cfmljure Release 0.1.0]]></title>
+    <link href="http://framework-one.github.io/blog/2015/01/23/cfmljure-0-1-0/"/>
+    <updated>2015-01-23T13:30:49-08:00</updated>
+    <id>http://framework-one.github.io/blog/2015/01/23/cfmljure-0-1-0</id>
+    <content type="html"><![CDATA[<p>I started cfmljure back in 2010, a few months after I started to learn Clojure, as a way to run Clojure code inside a CFML application. That early version worked &ndash; we&rsquo;ve been using it in at World Singles since mid-2011 to integrate Clojure into our large ColdBox application, and updated versions of cfmljure have been in very heavy production usage since May 2012.<!-- more --> Those early versions were pretty clunky to setup though, since you needed to mess with the classpath of your CFML engine (or at least the container on which you ran it &ndash; Tomcat, in our case) and you needed to copy all your third-party library dependencies into the <code>WEB-INF/lib</code> folder (and restart your container if you changed your dependencies).</p>
+
+<p>When Clojure 1.6 came out (March 2014), it introduced a new API for embedding Clojure inside other JVM applications. I&rsquo;d been relying on an unsupported API so I wanted to move to the new API as soon as possible. I ran into problems with classpath handling so I put it on the back burner for a while. One of the things that bothered me about the earlier cfmljure was that you had to do so much configuration and manual copying of libraries. Leiningen handles all this for you in Clojure and I wanted things to be that slick for cfmljure. I experimented with some CFML code that executed Leiningen to retrieve the classpath and I had some success, but not enough to create a reliable version that could be used in our app at work.</p>
+
+<p>This past week, I decided to have another run at it, using a different approach to manipulating the classpath in my running CFML application:</p>
+
+<pre><code>// extend the classloader - not at all sketchy, honest!
+var threadProxy = createObject( "java", "java.lang.Thread" );
+var appCL = threadProxy.currentThread().getContextClassLoader();
+var urlCLProxy = createObject( "java", "java.net.URLClassLoader" );
+var addURL = urlCLProxy.getClass().getDeclaredMethod( "addURL", __classes( "URL", 1, "java.net" ) );
+addUrl.setAccessible( true ); // hack to make it callable
+for ( var newURL in urls.toArray() ) {
+    addURL.invoke( appCL, [ newURL ] );
+}
+</code></pre>
+
+<p>I gleaned the principle of this from time spent on Google and StackOverflow and several snippets of Java code that did this same thing. It uses Java Reflection to get a handle on <code>URLClassLoader.addURL()</code> and change its access to public so that it can be called by code that doesn&rsquo;t extend the <code>URLClassLoader</code> class. This got me past the previous blocking point and I was able to complete the rewrite of that earlier version of cfmljure to use the new Clojure 1.6 API and also leverage Leiningen to avoid that configuration and manual copying.</p>
+
+<p>I present: <a href="https://github.com/framework-one/cfmljure/releases/tag/v0.1.0">cfmljure Release 0.1.0</a>! An easy-to-use way to embed a Clojure project into your CFML application (running on Lucee or Railo).</p>
+
+<p>The documentation is in the <a href="https://github.com/framework-one/cfmljure/blob/master/README.md">cfmljure README</a> on Github but the basic flow is as follows:</p>
+
+<ul>
+<li>Create a Clojure project with Leiningen: <code>lein new myproject</code></li>
+<li>Create an instance of cfmljure pointing at that project folder: <code>var clj = new cfmljure("/path/to/myproject");</code></li>
+<li>Install Clojure namespaces into a struct (or a scope): <code>clj.install("clojure.core,myproject.core",this);</code></li>
+<li>Call Clojure code: <code>this.clojure.core.println("Hello World!");</code></li>
+</ul>
+
+
+<p>That&rsquo;s about as simple as it gets!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 3.0 Beta 1 Available]]></title>
@@ -285,6 +465,28 @@ suppressServiceQueue = false
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[New FW/1 - Framework One - Organization on Github]]></title>
+    <link href="http://framework-one.github.io/blog/2013/04/06/new-fw1-organization-on-github/"/>
+    <updated>2013-04-06T13:21:49-07:00</updated>
+    <id>http://framework-one.github.io/blog/2013/04/06/new-fw1-organization-on-github</id>
+    <content type="html"><![CDATA[<p>To make it easier to manage collaboration on FW/1-related projects in future, several projects have now moved under a new <a href="https://github.com/framework-one">FW/1 &ndash; Framework One</a> &ndash; organization on Github. Your forks and watches should have been updated but if you have local clones of the old repos under my personal Github account, you&rsquo;ll want to update those. Here&rsquo;s the full list of Framework One projects:<!-- more --></p>
+
+<ul>
+<li><a href="https://github.com/framework-one/fw1">FW/1 &ndash; Framework One</a> &ndash; simple MVC for CFML</li>
+<li><a href="https://github.com/framework-one/di1">DI/1 &ndash; Inject One</a> &ndash; simple Dependency Injection for CFML</li>
+<li><a href="https://github.com/framework-one/cfmljure">cfmljure</a> &ndash; the magic bridge between CFML and Clojure</li>
+<li><a href="https://github.com/framework-one/fw1-clj">FW/1 &ndash; Framework One</a> &ndash; simple MVC for Clojure</li>
+<li><a href="https://github.com/framework-one/fw1-template">Leiningen project template for FW/1</a>&ndash; Framework One &ndash; for Clojure</li>
+</ul>
+
+
+<p>If you were a collaborator on one of these projects before, you will no longer have commit access (because you were a collaborator directly on my repo). If you&rsquo;d like to become a collaborating team member on one of these projects as part of the new organization, contact me directly to discuss that. I&rsquo;d certainly like to see some of the regular contributors in the past become official &ldquo;Team Framework One&rdquo; members in the new organization!</p>
+
+<p>Thank you to all the contributors who&rsquo;ve helped get these projects to where they are now!</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[FW/1 Version 2.1 Released]]></title>
     <link href="http://framework-one.github.io/blog/2013/01/05/fw1-version-2-1-released/"/>
     <updated>2013-01-05T13:23:53-08:00</updated>
@@ -335,138 +537,6 @@ suppressServiceQueue = false
     <content type="html"><![CDATA[<p>After two years in the CFML world, FW/1 (Framework One) comes to Clojure!<!-- more --></p>
 
 <p>Intended to bring the same simple, lightweight, convention-based MVC web application development that has proved so popular in the CFML world to the world of Clojure, <a href="https://github.com/framework-one/fw1-clj">FW/1 for Clojure</a> is available on Clojars (0.1.0, as of April 2012). If you clone the github repo, you&rsquo;ll see a &ldquo;user manager&rdquo; example application which is a port of the same app from the CFML version of the framework. The documentation is, as always, a work in progress but covers the basic API and how to create a driver program for the framework in Clojure. More information on the rationale, approach and API of FW/1 can be found on the <a href="https://github.com/framework-one/fw1/wiki">FW/1 (for CFML) wiki</a>. I plan to adapt this for the Clojure version shortly&hellip;</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 Roadmap, DI/1 Etc]]></title>
-    <link href="http://framework-one.github.io/blog/2011/03/19/fw1-roadmap/"/>
-    <updated>2011-03-19T18:56:31-07:00</updated>
-    <id>http://framework-one.github.io/blog/2011/03/19/fw1-roadmap</id>
-    <content type="html"><![CDATA[<p>Last year I&rsquo;d talked about getting at least an alpha of FW/1 2.0 out the door by year end. It didn&rsquo;t happen. I was reminded of this on the <a href="http://groups.google.com/group/framework-one">FW/1 mailing list</a> the other day and I provided a fairly detailed response on the plans for FW/1. I figured, since I haven&rsquo;t blogged about FW/1 in a while, I should post that roadmap response on my blog as well.<!-- more --></p>
-
-<h2>Is the 1.x version outdated?</h2>
-
-<p>No, the 1.x stream will continue to be supported. It will get bug fixes but it will not get new feature &ndash; except where I want to provide a migration path for people moving to 2.0 (for example, if I remove certain things marked deprecated in the docs, I&rsquo;ll provide the new API in a 1.x build to make it easier for folks to transition to 2.0). Expect at least a 1.3 version, possibly more. These versions will continue to support CFMX7+ as well as the older versions of Railo and OpenBD that 1.2 currently runs on.</p>
-
-<h2>Wasn&rsquo;t 2.0 imminent late last year?</h2>
-
-<p>Yes, FW/1 2.0 was very imminent at that point but work and then conference preparations overwhelmed me and it got put on the back burner for a while, along with DI/1.</p>
-
-<p>Since a respite is coming in my day job (World Singles) &ndash; we&rsquo;re launching the second phase of our new platform soon &ndash; and I have a couple of months before the next conference, I expect to get back on top of FW/1 2.0 soon and once an alpha of that is available, I&rsquo;ll work on DI/1 to get an alpha of that out as well. And then I&rsquo;ll probably focus on cfmljure for a while, as we start to add Clojure to our production code base at work. And then it&rsquo;ll be beta versions of FW/1 2.0 and DI/1 and cfmljure, round and round, until they&rsquo;re all three &ldquo;baked&rdquo; and ready for official releases.</p>
-
-<h2>So DI/1 is coming?</h2>
-
-<p>Yes, DI/1 is still on my radar &ndash; I have plans for it at work so it will definitely happen! It&rsquo;s just been delayed (ironically, by the pressures of work). Since FW/1 2.0, DI/1 1.0 and cfmljure 1.0 will all be used in my production code at work, you can expect them to receive regular updates once I actually get to the alpha releases!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 1.2 Available]]></title>
-    <link href="http://framework-one.github.io/blog/2010/10/18/fw1-1-2-available/"/>
-    <updated>2010-10-18T18:59:11-07:00</updated>
-    <id>http://framework-one.github.io/blog/2010/10/18/fw1-1-2-available</id>
-    <content type="html"><![CDATA[<p>The official 1.2 release of Framework One &ndash; FW/1 &ndash; has just been tagged and published on github. You can <a href="http://fw1.riaforge.org/">download it from RIAForge</a>.</p>
-
-<p>Release Candidate 2 had been out for about a month with no issues reported. A few small enhancements were made since RC2. You can see the <a href="http://github.com/seancorfield/fw1/commits/master">list of commits</a> here, on github.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 Release 1.1 Available!]]></title>
-    <link href="http://framework-one.github.io/blog/2010/06/11/fw1-release-1-1-available/"/>
-    <updated>2010-06-11T19:02:00-07:00</updated>
-    <id>http://framework-one.github.io/blog/2010/06/11/fw1-release-1-1-available</id>
-    <content type="html"><![CDATA[<p>The latest stable release of Framework One is now available for <a href="https://github.com/framework-one/fw1/releases/tag/v1.1">download</a> from github! The previous stable release is still available on the tags page (<a href="https://github.com/framework-one/fw1/releases/tag/v1.0">download FW/1 1.0</a>).<!-- more --></p>
-
-<p>This release features a large number of enhancements suggested by the community including:</p>
-
-<ul>
-<li>A skeleton application</li>
-<li>The list of keys in <code>populate()</code> can contain spaces for improved readability</li>
-<li>The delimiter for subsystems can be configured (the default is still <code>:</code>)</li>
-<li>You can override the behavior when a view is missing by defining your own <code>onMissingView()</code> handler</li>
-<li>The name of the application is automatically generated allowing you to omit <code>this.name</code> assignment in <code>Application.cfc</code></li>
-<li>Controller calls can be queued up in <code>setupApplication()</code>, <code>setupSession()</code> and <code>setupRequest()</code> via the <code>controller()</code> API &ndash; <code>doController()</code> is officially deprecated</li>
-<li><code>populate()</code> now works with CFCs that use generated setters or <code>onMissingMethod()</code> via the new <code>trustKeys</code> argument &ndash; and <code>onPopulateError()</code> to trap any errors that arise</li>
-<li>Sample applications now work on installations with a non-empty context root (except for a couple clearly marked as such)</li>
-<li>Skinning is possible via a new override point: <code>customizeViewOrLayoutPath()</code></li>
-<li>When you queue up <code>service()</code> calls, you can now provide a struct of additional arguments so you add arguments that are not in the request context</li>
-<li>The list of extensions and file paths that are ignored by FW/1 is now configurable (so you can easily allow certain parts of your application to operate outside the framework)</li>
-<li>A new API <code>getConfig()</code> returns a readonly copy of the framework&rsquo;s configuration structure which may be useful in controllers</li>
-<li>You can now override the view conventions easily in a controller via the new <code>setView()</code> API</li>
-<li>The action arguments is now consistently optional in all of the getters for subsystem / section / item combinations</li>
-<li>An example of security / access control with FW/1 has been added as a variant of the user manager</li>
-<li><code>buildURL()</code> and <code>redirect()</code> can generate SES URLs via new FW/1 configuration settings: <code>generateSES</code> and <code>SESOmitIndex</code></li>
-<li><code>buildURL()</code> and <code>redirect()</code> now all embedded query strings to make URL generation easier, as well as allowing control over which name/value pairs are folded into SES URLs vs regular query string format</li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 - the Napkin Spec]]></title>
-    <link href="http://framework-one.github.io/blog/2010/02/06/fw1-the-napkin-spec/"/>
-    <updated>2010-02-06T18:09:11-08:00</updated>
-    <id>http://framework-one.github.io/blog/2010/02/06/fw1-the-napkin-spec</id>
-    <content type="html"><![CDATA[<p>A few folks have asked me to post the &ldquo;napkin&rdquo; on which I wrote the spec for FW/1. My &ldquo;napkin&rdquo; is actually Evernote because I have it on every computer and my iPhone so it&rsquo;s always with me and it&rsquo;s easy to develop notes with. I started the spec on July 17th and &ldquo;finished&rdquo; it on July 20th. The spec was titled &ldquo;New Lightweight Framework&rdquo;. Here&rsquo;s what it said:<!-- more --></p>
-
-<blockquote><p>Goal: Create an extremely lightweight convention over configuration framework. Considerations:</p>
-
-<ul>
-<li>Leverage <code>Application.cfc</code> and lifecycle</li>
-<li>Automatically call controller, model, view if appropriate</li>
-<li>Autowire from bean factory?</li>
-<li><code>Application.cfc</code> extends <code>org.corfield.X</code></li>
-<li>Programmatically set everything, no XML</li>
-<li><code>variables.framework</code> struct to specify everything</li>
-<li><code>variables.framework.action</code> is URL / form variable for the, er, action, defaults to <code>'action'</code></li>
-<li><code>variables.framework.home</code> is home action, defaults to <code>main.default</code>
-fold URL / form into request.context</li>
-<li><code>?action=section.item</code> maps to <code>controllers/section.cfc:item()</code> then <code>models/section.cfc:item()</code> then <code>views/section/item.cfm</code></li>
-<li>implicit layouts based on actions</li>
-</ul>
-
-
-<p>Caveats:</p>
-
-<ul>
-<li>Should controller / model be instantiated every request or cached?</li>
-<li>How should cache be refreshed?</li>
-</ul>
-</blockquote>
-
-<p>That&rsquo;s it. I wrote the first version of FW/1 on July 19th. You can see the <a href="https://github.com/framework-one/fw1/blob/a686fd441ccd86e147f770f41b10f79a07be11f2/org/corfield/framework.cfc">original 381 line framework.cfc</a> on Github. So there you go: an insight into my design process!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 1.0 Released for 2010]]></title>
-    <link href="http://framework-one.github.io/blog/2010/01/04/fw1-1-0-released-for-2010/"/>
-    <updated>2010-01-04T18:23:40-08:00</updated>
-    <id>http://framework-one.github.io/blog/2010/01/04/fw1-1-0-released-for-2010</id>
-    <content type="html"><![CDATA[<p>The <a href="https://github.com/framework-one/fw1/wiki/Reference-Manual">Reference Manual</a> has been completed so it&rsquo;s time to declare a 1.0 release for Framework One! Several people have already taken FW/1-powered applications to production, Javier Julio is soon to present the first user group session on FW/1! FW/1 has come of age and for companies that will only use official public releases, a 1.0 release may mean that more people will be able to try this lightweight, convention-based framework. Thank you to everyone who has contributed so far &ndash; for all the feedback, bug reports, blog posts and suggestions. Thank you in particular to Ryan Cogswell for contributing a lot of enhancements to the code and the subsystem implementation, Dutch Rapley for the Using Systems documentation, and Javier Julio for the User Manager sample applications. Thank you to AJ Mercer for submitting a talk to webDU and and Ray Camden for blogging about FW/1 and submitting a talk to cf.Objective().</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Introducing Framework One]]></title>
-    <link href="http://framework-one.github.io/blog/2009/07/19/introducing-framework-one/"/>
-    <updated>2009-07-19T19:26:21-07:00</updated>
-    <id>http://framework-one.github.io/blog/2009/07/19/introducing-framework-one</id>
-    <content type="html"><![CDATA[<p>The first question on everyone&rsquo;s mind is probably: why on earth would you create and publish yet another MVC application framework?<!-- more --></p>
-
-<p>I&rsquo;ve become increasingly dissatisfied with the application frameworks out there. They&rsquo;re big, bloated, complex and, with one or two exceptions, they require XML configuration in some way or other. A discussion on the recently created <a href="http://groups.google.com/group/coldfusionoo">ColdFusion OO mailing list</a> (started in the wake of the verbal sparring match between Brian Kotek and Hal Helms), saw me admit this&hellip; ColdFusion&rsquo;s simplicity was being buried in the complexity of application frameworks and there was no simple on-ramp. Even Fusebox, the mainstay of ColdFusion application frameworks has become far too much for simple applications.</p>
-
-<p>The second question is probably: why did you choose that name?</p>
-
-<p>Years ago, I worked with a programming language called PL/1 (Programming Language One) which was intended to be the &ldquo;one language to rule them all&rdquo;, so to speak. I wanted to create a very small, simple framework. Something that involved only one core file if possible. Once I&rsquo;d built it, I needed a name for my one file framework&hellip; FW/1 seemed like a good pun.</p>
-
-<p>The third question is going to be: why should I care and why should I use it?</p>
-
-<p>If you&rsquo;re happy with an existing framework, keep using and feel free to ignore FW/1. If you haven&rsquo;t picked a framework yet because they all seem so complex, maybe FW/1 is for you. If, like me, you&rsquo;re tired of framework bloat, try FW/1 and give me your feedback.</p>
-
-<p>I&rsquo;ll be posting some examples as blog posts as well as building out the project wiki over the coming weeks. I built FW/1 in a few hours. It&rsquo;s a single CFC. It&rsquo;s 400 lines of code &ndash; including comments. It&rsquo;s entirely convention based. It supports controllers (CFCs), services (CFCs), views (.cfm) and layouts (.cfm). URL/form actions take the form section.item and FW/1 will look for section.cfc (controller and service) and section/item.cfm (view and layouts). It optionally supports your favorite bean factory (ColdSpring, Lightwire and any other IoC container that implements getBean() and containsBean() methods). If you use a bean factory, it will autowire your controllers and services &ndash; or your controllers and/or services can be managed by the bean factory.</p>
 ]]></content>
   </entry>
   
