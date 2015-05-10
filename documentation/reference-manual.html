@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Sep 10th, 2014 This page provides a description of all the APIs and components involved in a FW/1 application. Please also &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Mar 21st, 2015 This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the 3.0 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,10 +81,12 @@
   
 
 
-<time datetime="2014-09-10T10:28:00-07:00" pubdate data-updated="true">Sep 10<span>th</span>, 2014</time></p>
+<time datetime="2015-03-21T16:35:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time></p>
   </header>
   
-  <p>This page provides a description of all the APIs and components involved in a FW/1 application. Please also read the <a href="/documentation/roadmap.html">Roadmap</a> to see how things may change in the future.</p>
+  <p><em>This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/reference-manual.html">3.0 master documentation</a>.</em></p>
+
+<p>This page provides a description of all the APIs and components involved in a FW/1 application. Please also read the <a href="/documentation/roadmap.html">Roadmap</a> to see how things may change in the future.</p>
 
 <h2>FW/1 Controllers</h2>
 
@@ -306,9 +308,17 @@
 
 <p>Disable framework tracing for this request.</p>
 
+<h3>public void function disableLayout()</h3>
+
+<p>Disable layouts for this request. Equivalent to <code>request.layout = false;</code>.</p>
+
 <h3>public void fuction enableFrameworkTrace()</h3>
 
 <p>Enable framework tracing for this request.</p>
+
+<h3>public void fuction enableLayout()</h3>
+
+<p>Enable layouts for this request. Equivalent to <code>request.layout = true;</code>.</p>
 
 <h3>public void function frameworkTrace( string message [, any value ] )</h3>
 
@@ -362,6 +372,10 @@
 
 <p>Returns an empty string by default. If you want to use the <strong>Environment Control</strong> feature, you should override this in <code>Application.cfc</code> and have it return the appropriate <em>&ldquo;tier&rdquo;</em> or <em>&ldquo;tier-server&rdquo;</em> string. See <strong>Environment Control</strong> in the <a href="/documentation/developing-applications.html">Developing Applications Manual</a> for more detail.</p>
 
+<h3>public string function getEnvVar( string name )</h3>
+
+<p>Returns the value of the specified environment variable name (i.e., from the shell environment in which your CFML server was started).</p>
+
 <h3>public array function getFrameworkTrace()</h3>
 
 <p>Returns an array of the current request&rsquo;s framework trace data. See <code>setupTraceRender()</code> for one reasonable use.</p>
@@ -414,7 +428,7 @@
 
 <h3>public struct function getSubsystemConfig( string subsystem )</h3>
 
-<p>Returns the configuration for the named subsystem, as a copy of <code>variables.framework.subsystems[subsystem]</code>. If no configuration exists for the named subsystem, an empty struct is returned. FW/1 uses this to retrieve the per-subsystem <code>baseURL</code> value, if any, as part of <code>buildURL()</code> and <code>redirect()</code>.</p>
+<p>Returns the configuration for the named subsystem, as a copy of <code>variables.framework.subsystems[subsystem]</code>. If no configuration exists for the named subsystem, an empty struct is returned. FW/1 uses this to retrieve the per-subsystem <code>baseURL</code> value, if any, as part of <code>buildURL()</code> and <code>redirect()</code>, as well as <code>diConfig</code> if you are using DI/1 to manage subsystem bean factories automatically. <em><code>diConfig</code> is new in 3.1.</em></p>
 
 <h3>public boolean function hasBeanFactory()</h3>
 
@@ -537,7 +551,7 @@
 
 <h3>public struct function processRoutes( string path, array routes, string httpMethod = request._fw1.cgiRequestMethod )</h3>
 
-<p>Given a <code>path</code>, and an array of <code>routes</code>, and an optional <code>httpMethod</code>, process the routes to see if any matched and return a struct with a <code>matched</code> flag and if that&rsquo;s <code>true</code> also <code>route</code> and <code>path</code> values.</p>
+<p>Given a <code>path</code>, and an array of <code>routes</code>, and an optional <code>httpMethod</code>, process the routes to see if any matched and return a struct with a <code>matched</code> flag and if that&rsquo;s <code>true</code> also <code>route</code> and <code>path</code> values. Route matching is case-sensitive by default but this can be overridden by setting <code>routesCaseSensitive</code> to <code>false</code> in FW/1&rsquo;s configuration.</p>
 
 <h3>public void function redirect( string action, string preserve = &ldquo;none&rdquo;, string append = &ldquo;none&rdquo;, string path = <em>see below</em>, string queryString = &lsquo;&rsquo;, string statusCode = &lsquo;302&rsquo; )</h3>
 
@@ -567,9 +581,11 @@
 
 <h3>public void function renderData( string type, any data, numeric statusCode = 200 )</h3>
 
-<p>Call this from your controller to tell FW/1 to skip views and layouts and instead render <code>data</code> in the specified content <code>type</code> format. <code>type</code> may be <code>"json"</code>, <code>"xml"</code>, or <code>"text"</code>.</p>
+<p>Call this from your controller to tell FW/1 to skip views and layouts and instead render <code>data</code> in the specified content <code>type</code> format. <code>type</code> may be <code>"json"</code>, <code>"rawjson"</code>, <code>"xml"</code>, or <code>"text"</code>.</p>
 
 <p>For <code>"json"</code>, FW/1 calls <code>serializeJSON( data )</code> to generate the result of the HTTP request and sets the <code>Content-Type</code> header to <code>application/javascript; charset=utf-8</code>.</p>
+
+<p>For <code>"rawjson"</code>, the <code>data</code> value must be a string (and is assumed to be valid JSON already) and that is the result of the HTTP request. FW/1 sets the <code>Content-Type</code> header to <code>application/javascript; charset=utf-8</code>. <em>New in 3.1.</em></p>
 
 <p>For <code>"xml"</code>, the <code>data</code> value must be either a valid XML string or an XML object (constructed via CFML&rsquo;s various <code>xml...()</code> functions). If <code>data</code> is an XML object, FW/1 calls <code>toString( data )</code> to generate the result of the HTTP request, otherwise the XML string is used as the result of the request. In both cases, FW/1 sets the <code>Content-Type</code> header to <code>text/xml; charset=utf-8</code>.</p>
 
@@ -613,11 +629,9 @@
 
 <p>Override this in your <code>Application.cfc</code> to provide subsystem-specific initialization. If you want the framework to use non-default subsystem-specific bean factories for any subsystems, this is where you should call <code>setSubsystemBeanFactory( subsystem, factory )</code>. See the example in <a href="/documentation/using-subsystems.html">Using Subsystems</a> for more details. You do not need to call <code>super.setupSubsystem()</code>.</p>
 
-<h3>public void function setupTraceRender( string output = &ldquo;html&rdquo; )</h3>
+<h3>public void function setupTraceRender( string output = &lsquo;html&rsquo; )</h3>
 
-<p>This is called when the framework trace is about to be rendered at the end of a request. You can override it to take control of the rendering process yourself (for whatever reason such as saving the data to a database perhaps or providing a fancier rendering?). You can call <code>getFrameworkTrace()</code> to obtain the framework&rsquo;s trace data (note that this will be a copy on Adobe ColdFusion but just a reference on Railo), and do whatever you want with it. It&rsquo;s probably a good idea to call <code>disableFrameworkTrace()</code> to prevent any further additions to the framework trace data.</p>
-
-<p>The <code>output</code> argument will be either <code>"html"</code> or <code>"data"</code>. <code>"html"</code> indicates that a regular (HTML) view will be rendered, <code>"data"</code> indicates that <code>renderData()</code> has been called. In the latter case, your tracing code should not write to the HTTP response (but could still write to the console, for example).</p>
+<p>This is called when the framework trace is about to be rendered at the end of a request. <code>output</code> will be either <code>'html'</code> or <code>'data'</code> depending on whether FW/1 has output HTML using views and layouts or rendered data in the current request. You can override it to take control of the rendering process yourself (for whatever reason such as saving the trace data to a database perhaps or providing a fancier rendering?). You can call <code>getFrameworkTrace()</code> to obtain the framework&rsquo;s trace data (note that this will be a copy on Adobe ColdFusion but just a reference on Lucee and Railo), and do whatever you want with it. It&rsquo;s probably a good idea to call <code>disableFrameworkTrace()</code> to prevent any further additions to the framework trace data. Note: this method used to be called only when FW/1 was outputting HTML and not rendering data, however, it is now called whenever tracing is enabled. If you were using this method to render trace data in a custom format at the end of HTML requests, you will find your rendered trace data appended to your request data when <code>renderData()</code> is used. In order to maintain your current functionality, you can easily fix this by checking that the <code>output</code> argument is equal to <code>'html'</code> before rendering the trace data.</p>
 
 <h3>public void function setupView( struct rc )</h3>
 
@@ -665,7 +679,7 @@
   
 
 
-<time datetime="2014-09-10T10:28:00-07:00" pubdate data-updated="true">Sep 10<span>th</span>, 2014</time>
+<time datetime="2015-03-21T16:35:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time>
         
       </p>
       
@@ -683,55 +697,65 @@
     <p>In addition, the family includes cfmljure, an easy way to integrate Clojure code into your CFML application, and a port of FW/1 to Clojure as well as a Leiningen template for creating FW/1 projects in Clojure.</p>
 </section>
 <section>
-    <h1>Documentation</h1>
+    <h1>3.1 Documentation (develop)</h1>
     <a href="/documentation">Getting Started Guide</a><br />
     <a href="/documentation/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/using-di-one.html">Using DI/1</a><br />
     <a href="/documentation/using-subsystems.html">Using Subsystems</a><br />
     <a href="/documentation/reference-manual.html">Reference Manual</a><br />
     <a href="/documentation/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>3.0 Documentation (stable - master)</h1>
+    <a href="/documentation/3.0">Getting Started Guide</a><br />
+    <a href="/documentation/3.0/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.0/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/3.0/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/3.0/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/04/22/fw1-2-5-1-2-2-2-important/">FW/1 2.5.1 & 2.2.2 - Important Updates!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/22/fw1-3-0-1-important/">FW/1 3.0.1 - Important Update!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/03/21/fw1-3-1-begins/">FW/1 3.1 Begins...</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/24/fw1-3-0-released/">FW/1 3.0 Released!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/06/fw1-3-0-rc-2-available/">FW/1 3.0 RC 2 Available</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/29/lucee-fw1/">Lucee and FW/1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/25/fw1-clojure-sitting-in-a-tree/">FW/1 & Clojure Sitting in Tree</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/24/fw1-3-0-rc-1-available/">FW/1 3.0 RC 1 Available</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/23/cfmljure-0-1-0/">Cfmljure Release 0.1.0</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/08/18/fw1-3-0-beta-1-available/">FW/1 3.0 Beta 1 Available</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/20/fw1-3-0-alpha-1-available-for-testing/">FW/1 3.0 Alpha 1 Available for Testing!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/25/fw1-2-5-is-released/">FW/1 2.5 Is Released!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/12/18/fw1-2-2-released/">FW/1 2.2 Released!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/03/fw1-releases-and-roadmap/">FW/1 Releases and Roadmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/02/fw1-the-year-ahead/">FW/1 the Year Ahead</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/07/where-can-i-download-old-versions-of-fw1/">Where Can I Download Old Versions of FW/1?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/01/05/fw1-version-2-1-released/">FW/1 Version 2.1 Released</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/12/18/fw1-2-0-released/">FW/1 2.0 Released</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/11/07/fw1-comes-to-clojure/">FW/1 Comes to Clojure</a>
       </li>
     
   </ul>
