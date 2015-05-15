@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Mar 21st, 2015 This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 May 15th, 2015 This is the upcoming (3.5 &ndash; clojure) documentation &ndash; for the current stable release, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://framework-one.github.io/documentation/developing-applications.html">
+  <link rel="canonical" href="http://framework-one.github.io/documentation/3.5/developing-applications.html">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
@@ -81,10 +81,10 @@
   
 
 
-<time datetime="2015-03-21T20:00:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time></p>
+<time datetime="2015-05-15T16:30:00-07:00" pubdate data-updated="true">May 15<span>th</span>, 2015</time></p>
   </header>
   
-  <p><em>This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/developing-applications.html">3.0 master documentation</a>.</em></p>
+  <p><em>This is the upcoming (3.5 &ndash; clojure) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/developing-applications.html">3.0 master documentation</a>.</em></p>
 
 <p>FW/1 is intended to allow you to quickly build applications with the minimum of overhead and interference from the framework itself. The convention-based approach means that you can quickly put together an outline of your site or application merely by creating folders and files in the <code>views</code> folder. As you are ready to start adding business logic to the application, you can add controllers and/or services and domain objects as needed to implement the validation and data processing.</p>
 
@@ -151,7 +151,7 @@
 </ul>
 
 
-<p>In addition, FW/1 uses a number of <code>request</code> scope variables to pass data between its various methods so it is advisable not to write to the <code>request</code> scope inside a view or layout. See the <a href="/documentation/reference-manual.html">Reference Manual</a> for complete details of <code>request</code> scope variables used by FW/1.</p>
+<p>In addition, FW/1 uses a number of <code>request</code> scope variables to pass data between its various methods so it is advisable not to write to the <code>request</code> scope inside a view or layout. See the <a href="/documentation/3.5/reference-manual.html">Reference Manual</a> for complete details of <code>request</code> scope variables used by FW/1.</p>
 
 <p>It is strongly recommended to use the <code>local</code> struct for any variables you need to create yourself in a view or layout!</p>
 
@@ -236,7 +236,7 @@
 
 <h3>Short-Circuiting the Controller / Services Lifecycle</h3>
 
-<p>If you need to immediately halt execution of a controller and prevent any further controllers or services from being called, use the <code>abortController()</code> method. See the <a href="/documentation/reference-manual.html">Reference Manual</a> for more details of <code>abortController()</code>, in particular how it interacts with exception-handling code in your controllers.</p>
+<p>If you need to immediately halt execution of a controller and prevent any further controllers or services from being called, use the <code>abortController()</code> method. See the <a href="/documentation/3.5/reference-manual.html">Reference Manual</a> for more details of <code>abortController()</code>, in particular how it interacts with exception-handling code in your controllers.</p>
 
 <h3>Controllers for REST APIs</h3>
 
@@ -305,7 +305,7 @@
 
 <p>This will make <code>variables.userService</code> and <code>variables.securityService</code> available, based on <code>model/services/user.cfc</code> and <code>model/services/security.cfc</code>. You could also use long form CFC names like <code>userservice.cfc</code> and <code>securityservice.cfc</code> if you wanted. See the next section for more details on configuring DI/1.</p>
 
-<p>If you let FW/1 use DI/1 to automatically manage your beans, and you are using subsystems, FW/1 will also use it to manage your subsystems&#8217; beans. See <a href="/documentation/using-subsystems.html">Using Subsystems</a> for more details.</p>
+<p>If you let FW/1 use DI/1 to automatically manage your beans, and you are using subsystems, FW/1 will also use it to manage your subsystems&#8217; beans. See <a href="/documentation/3.5/using-subsystems.html">Using Subsystems</a> for more details.</p>
 
 <h3>Transients, Bean Factory, Framework</h3>
 
@@ -578,8 +578,8 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 <li><code>reload</code> &ndash; The URL variable used to force FW/1 to reload its application cache and re-execute <code>setupApplication()</code>.</li>
 <li><code>password</code> &ndash; The value of the reload URL variable that must be specified, e.g., <code>?reload=true</code> is the default but you could specify <code>reload = 'refresh', password = 'fw1'</code> and then specifying <code>?refresh=fw1</code> would cause a reload.</li>
 <li><code>reloadApplicationOnEveryRequest</code> &ndash; If this is set to <code>true</code> then FW/1 behaves as if you specified the <code>reload</code> URL variable on every request, i.e., at the start of each request, the controller/service cache is cleared and <code>setupApplication()</code> is executed.</li>
-<li><code>generateSES</code> &ndash; If true, causes <code>redirect()</code> and <code>buildURL()</code> to generate SES-style URLs with items separated by <code>/</code> (and the path info in the URL will begin <code>/section/item</code> rather than <code>?action=section.item</code> &ndash; see the <a href="/documentation/reference-manual.html">Reference Manual</a> for more details).</li>
-<li><code>SESOmitIndex</code> &ndash; If SES URLs are enabled and this is <code>true</code>, will attempt to omit the base filename in the path when constructing URLs in <code>buildURL()</code> and <code>redirect()</code> which will generally omit <code>/index.cfm</code> from the start of the URL. Again, see the <a href="/documentation/reference-manual.html">Reference Manual</a> for more details.</li>
+<li><code>generateSES</code> &ndash; If true, causes <code>redirect()</code> and <code>buildURL()</code> to generate SES-style URLs with items separated by <code>/</code> (and the path info in the URL will begin <code>/section/item</code> rather than <code>?action=section.item</code> &ndash; see the <a href="/documentation/3.5/reference-manual.html">Reference Manual</a> for more details).</li>
+<li><code>SESOmitIndex</code> &ndash; If SES URLs are enabled and this is <code>true</code>, will attempt to omit the base filename in the path when constructing URLs in <code>buildURL()</code> and <code>redirect()</code> which will generally omit <code>/index.cfm</code> from the start of the URL. Again, see the <a href="/documentation/3.5/reference-manual.html">Reference Manual</a> for more details.</li>
 <li><code>base</code> &ndash; Provide this if the application itself is not in the same directory as <code>Application.cfc</code> and <code>index.cfm</code>. It should be the <strong>relative</strong> path to the application from the <code>Application.cfc</code> file.</li>
 <li><code>baseURL</code> &ndash; Normally, <code>redirect()</code> and <code>buildURL()</code> default to using <code>CGI.SCRIPT_NAME</code> as the basis for the URL they construct. This is the right choice for most applications but there are times when the base URL used for your application could be different. You can also specify <code>baseURL = "useRequestURI"</code> and instead of <code>CGI.SCRIPT_NAME</code>, the result of <code>getPageContext().getRequest().getRequestURI()</code> will be used to construct URLs. This is the right choice for FW/1 applications embedded inside Mura.</li>
 <li><code>cfcbase</code> &ndash; Provide this if the <code>controllers</code> and <code>model</code> folders are not in the same folder as the application. It is used as the dotted-path prefix for controller and service CFCs, e.g., if <code>cfcbase = 'com.myapp'</code> then a controller would be <code>com.myapp.controllers.MyController</code>.</li>
@@ -591,7 +591,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 <li><code>cacheFileExists</code> &ndash; If you are running on a system where disk access is slow &ndash; or you simply want to avoid several calls to <code>fileExists()</code> during requests for performance &ndash; you can set this to true and FW/1 will cache all its calls to <code>fileExists()</code>. Be aware that if the result of <code>fileExists()</code> is cached and you add a new layout or a new view, it won&rsquo;t be noticed until you reload the framework.</li>
 <li><code>applicationKey</code> &ndash; A unique value for each FW/1 application that shares a common ColdFusion application name.</li>
 <li><code>noLowerCase</code> &ndash; If <code>true</code>, FW/1 will not force actions to lowercase so subsystem, section and item names will be case sensitive (in particular, filenames for controllers, views and layouts may therefore be mixed case on a case-sensitive operating system). The default is <code>false</code>. Use of this option is <em>not</em> recommended and is not considered good practice.</li>
-<li><code>trace</code> &ndash; If <code>true</code>, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature. (Note that FW/1 will not print out debugging / tracing information when the <code>renderData()</code> function is used. You can still access and output debugging / tracing information in such cases by overriding the <code>setupTraceRender()</code> function. See the <a href="/documentation/reference-manual.html">Reference Manual</a> for more details.).</li>
+<li><code>trace</code> &ndash; If <code>true</code>, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature. (Note that FW/1 will not print out debugging / tracing information when the <code>renderData()</code> function is used. You can still access and output debugging / tracing information in such cases by overriding the <code>setupTraceRender()</code> function. See the <a href="/documentation/3.5/reference-manual.html">Reference Manual</a> for more details.).</li>
 <li><code>routes</code> &ndash; An array of URL path mappings. This allows you to override the conventional mapping of <code>/section/item</code> to controllers.</li>
 <li><code>resourceRouteTemplates</code> &ndash; see <strong>URL Routes</strong> below.</li>
 <li><code>routesCaseSensitive</code> &ndash; Default <code>true</code>. Controls whether route matches are case-sensitive or not. <em>New in 3.1.</em></li>
@@ -759,11 +759,11 @@ variables.framework.environments = {
 
 <h1>Using Subsystems</h1>
 
-<p>The subsystems feature allows you to combine existing FW/1 applications as modules of a larger FW/1 application. The subsystems feature was contributed by Ryan Cogswell and the documentation was written by Dutch Rapley. Read about <a href="/documentation/using-subsystems.html">Using Subsystems</a> to combine FW/1 applications.</p>
+<p>The subsystems feature allows you to combine existing FW/1 applications as modules of a larger FW/1 application. The subsystems feature was contributed by Ryan Cogswell and the documentation was written by Dutch Rapley. Read about <a href="/documentation/3.5/using-subsystems.html">Using Subsystems</a> to combine FW/1 applications.</p>
 
 <h1>Accessing the FW/1 API</h1>
 
-<p>FW/1 uses the <code>request</code> scope for some of its temporary data so that it can communicate between <code>Application.cfc</code> lifecycle methods without relying on <code>variables</code> scope (and potentially interfering with user data in variables scope). The <a href="/documentation/reference-manual.html">Reference Manual</a> specifies which request scope variables are used and what you may and may not do with them.</p>
+<p>FW/1 uses the <code>request</code> scope for some of its temporary data so that it can communicate between <code>Application.cfc</code> lifecycle methods without relying on <code>variables</code> scope (and potentially interfering with user data in variables scope). The <a href="/documentation/3.5/reference-manual.html">Reference Manual</a> specifies which request scope variables are used and what you may and may not do with them.</p>
 
 <p>In addition, the API of FW/1 is exposed to controllers, views and layouts in a particular way as documented below.</p>
 
@@ -805,7 +805,7 @@ property framework;
 <pre><code>variables.framework.redirect( action, preserve, append, path, queryString );
 </code></pre>
 
-<p>where <code>action</code> is the action to redirect to, <code>preserve</code> is a list of request context keys that should be preserved across the redirect (using <code>session</code> scope) and <code>append</code> is a list of request context keys that should be appended to the redirect URL. <code>preserve</code> and <code>append</code> can both be omitted and default to none, i.e., no values preserved or appended. The optional <code>path</code> argument allows you to force a new base URL to be used (instead of the default <code>variables.framework.baseURL</code> which is normally <code>CGI.SCRIPT_NAME</code>). <code>queryString</code> allows you to specify additional URL parameters and/or anchors to be added to the generated URL. See the <a href="/documentation/reference-manual.html">Reference Manual</a> for more details.</p>
+<p>where <code>action</code> is the action to redirect to, <code>preserve</code> is a list of request context keys that should be preserved across the redirect (using <code>session</code> scope) and <code>append</code> is a list of request context keys that should be appended to the redirect URL. <code>preserve</code> and <code>append</code> can both be omitted and default to none, i.e., no values preserved or appended. The optional <code>path</code> argument allows you to force a new base URL to be used (instead of the default <code>variables.framework.baseURL</code> which is normally <code>CGI.SCRIPT_NAME</code>). <code>queryString</code> allows you to specify additional URL parameters and/or anchors to be added to the generated URL. See the <a href="/documentation/3.5/reference-manual.html">Reference Manual</a> for more details.</p>
 
 <p>I cannot imagine other FW/1 API methods being called from controllers at this point but the option is there if you need it.</p>
 
@@ -858,7 +858,7 @@ property framework;
   
 
 
-<time datetime="2015-03-21T20:00:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time>
+<time datetime="2015-05-15T16:30:00-07:00" pubdate data-updated="true">May 15<span>th</span>, 2015</time>
         
       </p>
       

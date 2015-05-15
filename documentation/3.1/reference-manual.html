@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://framework-one.github.io/documentation/reference-manual.html">
+  <link rel="canonical" href="http://framework-one.github.io/documentation/3.1/reference-manual.html">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
@@ -86,7 +86,7 @@
   
   <p><em>This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/reference-manual.html">3.0 master documentation</a>.</em></p>
 
-<p>This page provides a description of all the APIs and components involved in a FW/1 application. Please also read the <a href="/documentation/roadmap.html">Roadmap</a> to see how things may change in the future.</p>
+<p>This page provides a description of all the APIs and components involved in a FW/1 application. Please also read the <a href="/documentation/3.1/roadmap.html">Roadmap</a> to see how things may change in the future.</p>
 
 <h2>FW/1 Controllers</h2>
 
@@ -149,7 +149,7 @@
 
 <p>If no matching view file exists for a request, <code>onMissingView()</code> is called and whatever is returned is used as the text of the view, and layouts are applied (unless they are suppressed). The default implementation is to throw an exception but by overriding this method you can create any behavior you want for requests that have no specific view, e.g., you can return a default view or pretty much anything you want.</p>
 
-<p>As noted in the <a href="/documentation/developing-applications.html">Developing Applications Manual</a>, <code>onMissingView()</code> will be called if your application throws an exception and you have not provided a view for the default error handler (<code>main.error</code> &ndash; if <code>defaultSection</code> is <code>main</code>). This can lead to exceptions being masked and instead appearing as if you have a missing view!</p>
+<p>As noted in the <a href="/documentation/3.1/developing-applications.html">Developing Applications Manual</a>, <code>onMissingView()</code> will be called if your application throws an exception and you have not provided a view for the default error handler (<code>main.error</code> &ndash; if <code>defaultSection</code> is <code>main</code>). This can lead to exceptions being masked and instead appearing as if you have a missing view!</p>
 
 <h2>FW/1 Layouts</h2>
 
@@ -370,7 +370,7 @@
 
 <h3>public string function getEnvironment()</h3>
 
-<p>Returns an empty string by default. If you want to use the <strong>Environment Control</strong> feature, you should override this in <code>Application.cfc</code> and have it return the appropriate <em>&ldquo;tier&rdquo;</em> or <em>&ldquo;tier-server&rdquo;</em> string. See <strong>Environment Control</strong> in the <a href="/documentation/developing-applications.html">Developing Applications Manual</a> for more detail.</p>
+<p>Returns an empty string by default. If you want to use the <strong>Environment Control</strong> feature, you should override this in <code>Application.cfc</code> and have it return the appropriate <em>&ldquo;tier&rdquo;</em> or <em>&ldquo;tier-server&rdquo;</em> string. See <strong>Environment Control</strong> in the <a href="/documentation/3.1/developing-applications.html">Developing Applications Manual</a> for more detail.</p>
 
 <h3>public string function getEnvVar( string name )</h3>
 
@@ -611,7 +611,7 @@
 
 <h2>public void function setupEnvironment( string env )</h2>
 
-<p>Override this in your <code>Application.cfc</code> to provide environment-specific initialization. See <strong>Environment Control</strong> in the <a href="/documentation/developing-applications.html">Developing Applications Manual</a> for more detail.</p>
+<p>Override this in your <code>Application.cfc</code> to provide environment-specific initialization. See <strong>Environment Control</strong> in the <a href="/documentation/3.1/developing-applications.html">Developing Applications Manual</a> for more detail.</p>
 
 <h3>public void function setupRequest()</h3>
 
@@ -627,7 +627,7 @@
 
 <h3>public void function setupSubsystem( string subsystem )</h3>
 
-<p>Override this in your <code>Application.cfc</code> to provide subsystem-specific initialization. If you want the framework to use non-default subsystem-specific bean factories for any subsystems, this is where you should call <code>setSubsystemBeanFactory( subsystem, factory )</code>. See the example in <a href="/documentation/using-subsystems.html">Using Subsystems</a> for more details. You do not need to call <code>super.setupSubsystem()</code>.</p>
+<p>Override this in your <code>Application.cfc</code> to provide subsystem-specific initialization. If you want the framework to use non-default subsystem-specific bean factories for any subsystems, this is where you should call <code>setSubsystemBeanFactory( subsystem, factory )</code>. See the example in <a href="/documentation/3.1/using-subsystems.html">Using Subsystems</a> for more details. You do not need to call <code>super.setupSubsystem()</code>.</p>
 
 <h3>public void function setupTraceRender( string output = &lsquo;html&rsquo; )</h3>
 
