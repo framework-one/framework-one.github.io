@@ -4,7 +4,7 @@
   <title><![CDATA[FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-05-09T22:21:57-07:00</updated>
+  <updated>2015-05-14T21:43:58-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 3.1 Beta 1 Available!]]></title>
+    <link href="http://framework-one.github.io/blog/2015/05/14/fw1-3-1-beta-1/"/>
+    <updated>2015-05-14T22:40:49-07:00</updated>
+    <id>http://framework-one.github.io/blog/2015/05/14/fw1-3-1-beta-1</id>
+    <content type="html"><![CDATA[<p>The first beta version of FW/1 3.1 is available for testing. This is a minor bug fix and enhancement release. You can <a href="https://github.com/framework-one/fw1/releases/tag/v3.1-beta1">download FW/1 3.1 Beta 1</a> from GitHub, as well as read the full release notes there.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 2.5.2 & 2.2.3 - Important Updates!]]></title>
@@ -528,17 +537,6 @@ suppressServiceQueue = false
     <updated>2011-12-18T17:51:18-08:00</updated>
     <id>http://framework-one.github.io/blog/2011/12/18/fw1-2-0-released</id>
     <content type="html"><![CDATA[<p>After a long period of testing out in the wild FW/1 2.0 reached RC2 back in October and no further bugs have been reported. Only documentation remained and that has now been completed. FW/1 2.0 is gold and can be downloaded from <a href="http://fw1.riaforge.org/">FW/1&rsquo;s RIAForge site</a>. Happy Holidays!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 Comes to Clojure]]></title>
-    <link href="http://framework-one.github.io/blog/2011/11/07/fw1-comes-to-clojure/"/>
-    <updated>2011-11-07T17:53:44-08:00</updated>
-    <id>http://framework-one.github.io/blog/2011/11/07/fw1-comes-to-clojure</id>
-    <content type="html"><![CDATA[<p>After two years in the CFML world, FW/1 (Framework One) comes to Clojure!<!-- more --></p>
-
-<p>Intended to bring the same simple, lightweight, convention-based MVC web application development that has proved so popular in the CFML world to the world of Clojure, <a href="https://github.com/framework-one/fw1-clj">FW/1 for Clojure</a> is available on Clojars (0.1.0, as of April 2012). If you clone the github repo, you&rsquo;ll see a &ldquo;user manager&rdquo; example application which is a port of the same app from the CFML version of the framework. The documentation is, as always, a work in progress but covers the basic API and how to create a driver program for the framework in Clojure. More information on the rationale, approach and API of FW/1 can be found on the <a href="https://github.com/framework-one/fw1/wiki">FW/1 (for CFML) wiki</a>. I plan to adapt this for the Clojure version shortly&hellip;</p>
 ]]></content>
   </entry>
   
