@@ -34,11 +34,14 @@ Clojure code to be discovered and autowired into your CFML code, as well as a wa
 
 Before you get started, there are a couple of things you need to be aware of:
 
-* The Clojure integration works best on Lucee or Railo. ColdFusion 11 is supported too but interop between CFML and Clojure
+* The Clojure integration works best on **Lucee** (4.5 or later) or **Railo** (4.2). ColdFusion 11 is supported too but interop between CFML and Clojure
 can get pretty ugly (see the [ColdFusion-specific examples](https://github.com/framework-one/cfmljure/blob/master/index-acf.cfm)
 in the **cfmljure** project repo for more details). I doubt it will run on ColdFusion 10 or earlier. I developed exclusively
 on Railo from 2009 to 2015 and now I develop on Lucee. Thank [Andrew Myers](https://github.com/am2605) for the ColdFusion 11
 support!
+* You should be running **Java 8** at this point. The Clojure integration _will not work on Java 6_. It has not been tested on Java 7.
+The Java 6 EOL notice was February 2011 and public updates stopped in February 2011. The Java 7 EOL notice was March 2014 and public
+updates stopped in April 2015.
 * Clojure developers are pretty comfortable at the command line, so the build tool you'll need to install for this is a command
 line tool: be prepared to work in Terminal / Console quite a bit!
 * Clojure developers use editors that auto-close parentheses, brackets, and braces. Most of those editors also support "structural
