@@ -352,7 +352,7 @@ Here's an example of writing a wrapper CFC for ColdSpring so you could have FW/1
     bf.loadBeans( expandPath('config/coldspring.xml') );
     setBeanFactory(bf);
 
-The constructor may take two optional arguments (`defaultAttributes` and `defaultProperties`) so we need to cater for those, and the actual bean "location" is specified via a file path. This maps well to `diLocation` for the latter and `diConfig` for the former pair.
+The constructor may take two optional arguments (`defaultAttributes` and `defaultProperties`) so we need to cater for those, and the actual bean "location" is specified via a file path. This maps well to `diLocations` for the latter and `diConfig` for the former pair.
 
     // ioc.ColdSpringAdapter
     component extends=coldspring.beans.DefaultXmlBeanFactory {
