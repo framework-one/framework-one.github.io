@@ -1,0 +1,444 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Getting Started With CFML and Clojure - FW/1 - The Invisible Framework</title>
+  <meta name="author" content="Sean Corfield">
+
+  
+  <meta name="description" content="Getting Started With CFML and Clojure May 30th, 2015 This is the upcoming (3.5 &ndash; clojure) documentation &ndash; for the current stable release &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://framework-one.github.io/documentation/3.5/cfml-and-clojure.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">FW/1 - The Invisible Framework</a></h1>
+  
+    <h2>Framework One and friends...</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:framework-one.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/documentation">Documentation</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article role="article">
+  
+  <header>
+    <h1 class="entry-title">Getting Started With CFML and Clojure</h1>
+    <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-30T16:30:00-07:00" pubdate data-updated="true">May 30<span>th</span>, 2015</time></p>
+  </header>
+  
+  <p><em>This is the upcoming (3.5 &ndash; clojure) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/">3.0 master documentation</a>.</em></p>
+
+<h1>Clojure and CFML Sitting in a tree</h1>
+
+<p>Back in 2010, I started to learn Clojure. It&rsquo;s a Lisp that runs on the JVM. It&rsquo;s a mostly pure functional programming language.
+It&rsquo;s very simple &mdash; very little syntax &mdash; but very powerful and expressive. It has a thriving community and ecosystem. Being a
+functional programming language it favors immutable data structures and higher order functions (map, filter, reduce, etc) which
+makes programs easy to reason about and it also makes concurrent programming pretty easy. No more thread safety issues!</p>
+
+<p>And because I was still writing a lot of CFML back then, I figured out an easy way to allow you, as a CFML developer, to load
+and run Clojure code within your CFML application. That functionality has been available via the standalone
+<a href="https://github.com/framework-one/cfmljure">cfmljure library</a> for several years (since September 2010), and it has become core
+to how the Internet dating platform works at my company (<a href="http://worldsinglesnetworks.com">World Singles Networks</a>). We&rsquo;ve had
+<strong>cfmljure</strong> in production since Spring 2011 and, in 2014, we declared Clojure to be our primary language and nearly all new
+development happens in Clojure, hosted within three ColdBox applications and two FW/1 applications. Clojure powers all of our
+standalone processes as well.</p>
+
+<p>As we&rsquo;ve come to depend on FW/1 more and more, I&rsquo;ve wanted to streamline the integration between FW/1 and <strong>cfmljure</strong> so that
+we can write services in Clojure and have them autowired into our controllers, just like our CFML services are, as well as have
+the option to write controllers in Clojure (where all the code they call is Clojure, not CFML).</p>
+
+<p>That&rsquo;s why, in FW/1 3.5, I&rsquo;ve made <strong>cfmljure</strong> part of the standard distribution and provided an extenion to DI/1 to allow
+Clojure code to be discovered and autowired into your CFML code, as well as a way to write FW/1 controllers in pure Clojure.</p>
+
+<h2>Some Caveats</h2>
+
+<p>Before you get started, there are a couple of things you need to be aware of:</p>
+
+<ul>
+<li>The Clojure integration works best on Lucee or Railo. ColdFusion 11 is supported too but interop between CFML and Clojure
+can get pretty ugly (see the <a href="https://github.com/framework-one/cfmljure/blob/master/index-acf.cfm">ColdFusion-specific examples</a>
+in the <strong>cfmljure</strong> project repo for more details). I doubt it will run on ColdFusion 10 or earlier. I developed exclusively
+on Railo from 2009 to 2015 and now I develop on Lucee. Thank <a href="https://github.com/am2605">Andrew Myers</a> for the ColdFusion 11
+support!</li>
+<li>Clojure developers are pretty comfortable at the command line, so the build tool you&rsquo;ll need to install for this is a command
+line tool: be prepared to work in Terminal / Console quite a bit!</li>
+<li>Clojure developers use editors that auto-close parentheses, brackets, and braces. Most of those editors also support &ldquo;structural
+editing&rdquo; which means they understand expressions enclosed in matched pairs of parentheses (or brackets or braces) and let you
+easily manipulate <em>expressions</em> rather than just text. There are plugins for Eclipse, Sublime Text, IntelliJ and several others.
+Most Clojure developers use Emacs or Vim. I use Emacs for all my editing, CFML included.</li>
+<li>In order to use Clojure with CFML, you <strong>must not run your CFML server under the root account</strong> (on Mac or Linux). It&rsquo;s something
+you should never do in production anyway for security reasons, and there&rsquo;s really no reason to do it on your development machine
+either. <strong>cfmljure</strong> checks this for you and refuses to initialize (and throws a helpful exception).</li>
+<li>For ease of debugging any problems that may occur, I <em>strongly</em> recommend you always keep a Terminal / Console window open
+containing a tail of the console output from your CFML server. If you&rsquo;re using Lucee or a Railo installation based on Tomcat,
+you&rsquo;ll want to find the <code>catalina.out</code> log file and tail that. If you&rsquo;re using ColdFusion 11, even tho&#8217; it is notionally based
+on Tomcat, it&rsquo;s completely non-standard and you&rsquo;ll want to tail <code>cfusion/logs/coldfusion-out.log</code>.</li>
+<li>Finally, <strong>cfmljure</strong> uses a lock file to ensure that a couple of things it does during initialization are single-threaded
+across the whole server, no matter how your CFML server and application instances are configured. On Mac and Linux, it
+creates (and deletes) <code>/tmp/cfmljure.lock</code>. On Windows, it creates (and deletes) <code>cfmljure.lock</code> in your <code>TEMP</code> folder which
+is normally in the <code>AppData</code> folder off your local accounts home folder &mdash; check your <code>TEMP</code> environment variable for the
+exact location. <strong>cfmljure</strong> tries really hard to clean up after itself but if something goes badly wrong during initialization,
+it&rsquo;s possible the lock file will be left behind and you will need to manually delete it. <strong>cfmljure</strong> will try its best to
+let you know if it needs you to delete the lock file &mdash; but if you&rsquo;re tailing the logs, you&rsquo;ll see messages as the
+initialization proceeds.</li>
+</ul>
+
+
+<h2>Getting Started with Clojure and CFML</h2>
+
+<p>Clojure has a standard build tool called <a href="http://leiningen.org">Leiningen</a>. This manages all of your project dependencies
+(e.g., automatically downloading and installing any libraries you need) as well as providing a REPL (Read-Eval-Print-Loop) for
+interactive development, running your tests, packaging applications into JAR files, deploying them to standard repositories and so on.</p>
+
+<p><strong>cfmljure</strong> leverages <strong>Leiningen</strong> to figure out the complete classpath that your Clojure code needs &mdash; including any
+libraries you use &mdash; so that it can easily load all the JAR files (and Clojure source code) into your CFML server.</p>
+
+<h3>Leiningen</h3>
+
+<p>That means the first step to using FW/1 and Clojure together is to install <strong>Leiningen</strong> and make sure it is working.</p>
+
+<p>If you&rsquo;re on Mac or Linux, follow the <a href="http://leiningen.org/#install">Leiningen Install steps</a> for the <code>lein</code> shell script.</p>
+
+<p>If you&rsquo;re on Windows, I recommend using the <a href="http://leiningen-win-installer.djpowell.net/">Installer for Windows users</a> mentioned
+near the end of that <strong>Install</strong> section.</p>
+
+<p>Once you have it installed, open up a new Terminal / Console window and navigate to directory where you can create a project to
+test that it is working properly, then do this:</p>
+
+<pre><code>lein new app myapp
+</code></pre>
+
+<p>It will probably download a bunch of libraries the first time you run it, but it should (eventually) respond:</p>
+
+<pre><code>Generating a project called myapp based on the 'app' template.
+</code></pre>
+
+<p>Now go into that project and run it:</p>
+
+<pre><code>cd myapp
+lein run
+</code></pre>
+
+<p>It should say:</p>
+
+<pre><code>Hello, World!
+</code></pre>
+
+<p>Congratulations! <strong>Leiningen</strong> is installed and working!</p>
+
+<h3>Testing FW/1 3.5 and Clojure</h3>
+
+<p>At this point you should be able to start your CFML server (remember: not under the <strong>root</strong> account!) and, with FW/1 3.5
+installed (and possibly with a <code>/framework</code> mapping set up, or with the <code>framework</code> folder moved into your webroot), you
+should be able to run all of the FW/1 examples. Make sure examples 1-5 work, then try <code>6helloclojure</code>.</p>
+
+<p>If it doesn&rsquo;t seem to run correctly, and there&rsquo;s no obvious exception information in the browser or useful information in the
+log file, you can try to re-run the <code>6helloclojure</code> example with <code>?cfmljure=abortOnFailure</code> added to the URL. This should
+dump a whole bunch of information to the browser as well as any exception encountered.</p>
+
+<p>If that doesn&rsquo;t help, add <code>diConfig : { debug : true }</code> to the <code>variables.framework</code> configuration in <code>Application.cfc</code> for
+that example and try again. This will output more information to the CFML server&rsquo;s console log (which you&rsquo;re tailing, right?).</p>
+
+<p>If you can&rsquo;t figure out the problem from all this extra debugging information, at least you&rsquo;ll have it all available
+when you post to the FW/1 mailing list, asking for help!</p>
+
+<p>At this point, however, I hope you got the example to run and you were able to try out the various links and see what it was
+doing in the trace output in the browser, and perhaps by looking at the code, which we&rsquo;ll go over next.</p>
+
+<h2>The 6helloclojure Example Explained</h2>
+
+<h1>Building Your Own CFML / Clojure Application</h1>
+
+<h2>Creating the Clojure project</h2>
+
+<h2>Adding the initial CFML files</h2>
+
+<h2>Writing a Clojure Service</h2>
+
+<h2>Writing a Clojure Controller</h2>
+
+<h2>Accessing a Database from Clojure</h2>
+
+<h1>A Clojure Primer</h1>
+
+<h2>Some Basic Clojure Functions</h2>
+
+<ul>
+<li>Explain <code>def</code> and <code>defn</code></li>
+<li>Some useful core functions</li>
+<li>Namespaces, Require, Import</li>
+<li>That <code>project.clj</code> file</li>
+</ul>
+
+
+<h2>About Functional Programming</h2>
+
+<ul>
+<li>Immutable Data Structures</li>
+<li>Functions as Building Blocks</li>
+</ul>
+
+
+<h2>All You Know About OO Programming is Wrong</h2>
+
+<ul>
+<li>State</li>
+<li>Encapsulation</li>
+<li>Inheritance</li>
+<li>Polymorphism</li>
+</ul>
+
+
+<h2>More Stuff to Read</h2>
+
+<ul>
+<li>the tutorial for <a href="http://www.tryclj.com">http://www.tryclj.com</a></li>
+<li>the <a href="https://www.4clojure.com">https://www.4clojure.com</a> puzzles</li>
+<li>the Clojure Koans <a href="http://clojurekoans.com">http://clojurekoans.com</a></li>
+<li>some great books to read:
+
+<ul>
+<li>Clojure Programming <a href="http://www.clojurebook.com">http://www.clojurebook.com</a> followed by</li>
+<li>The Joy Of Clojure <a href="http://www.joyofclojure.com">http://www.joyofclojure.com</a> :)</li>
+</ul>
+</li>
+</ul>
+
+
+  
+    <footer>
+      <p class="meta">
+        
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-30T16:30:00-07:00" pubdate data-updated="true">May 30<span>th</span>, 2015</time>
+        
+      </p>
+      
+    </footer>
+  
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+    <h1>About FW/1</h1>
+    <p>FW/1 - Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control).</p>
+    <p>In addition, the family includes cfmljure, an easy way to integrate Clojure code into your CFML application, and a port of FW/1 to Clojure as well as a Leiningen template for creating FW/1 projects in Clojure.</p>
+</section>
+<section>
+    <h1>3.1 Documentation (develop)</h1>
+    <a href="/documentation">Getting Started Guide</a><br />
+    <a href="/documentation/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>3.0 Documentation (stable - master)</h1>
+    <a href="/documentation/3.0">Getting Started Guide</a><br />
+    <a href="/documentation/3.0/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.0/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/3.0/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/3.0/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>3.5 Documentation (upcoming - clojure)</h1>
+    <a href="/documentation/3.5">Getting Started Guide</a><br />
+    <a href="/documentation/3.5/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.5/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/3.5/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/3.5/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/3.5/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/05/14/fw1-3-1-beta-1/">FW/1 3.1 Beta 1 Available!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/09/fw1-2-5-1-2-2-2-important/">FW/1 2.5.2 & 2.2.3 - Important Updates!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/09/fw1-3-0-1-important/">FW/1 3.0.2 - Important Update!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/03/21/fw1-3-1-begins/">FW/1 3.1 Begins...</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/24/fw1-3-0-released/">FW/1 3.0 Released!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/06/fw1-3-0-rc-2-available/">FW/1 3.0 RC 2 Available</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/29/lucee-fw1/">Lucee and FW/1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/25/fw1-clojure-sitting-in-a-tree/">FW/1 & Clojure Sitting in Tree</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/24/fw1-3-0-rc-1-available/">FW/1 3.0 RC 1 Available</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/23/cfmljure-0-1-0/">Cfmljure Release 0.1.0</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/framework-one">@framework-one</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'framework-one',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+<section>
+  <a href="https://github.com/seancorfield">@seancorfield</a> on GitHub
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Sean Corfield -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
