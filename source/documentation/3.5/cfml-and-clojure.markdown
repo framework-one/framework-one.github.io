@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Getting Started with CFML and Clojure"
+title: "Using Clojure with CFML"
 date: 2015-05-30 16:30
 comments: false
 sharing: false
