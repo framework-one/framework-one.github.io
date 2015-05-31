@@ -266,7 +266,9 @@ in <code>hello/controllers/main.clj</code>.</p>
 
 <pre><code>lein test hello.controllers.main-test
 
-Ran 1 tests containing 2 assertions.
+lein test hello.services.greeter-test
+
+Ran 2 tests containing 3 assertions.
 0 failures, 0 errors.
 </code></pre>
 
@@ -298,6 +300,9 @@ depedent namespaces, just the ones that <code>ioclj</code> treats like beans. Mo
 three views here). As expected we have a <code>main.default</code> view and a <code>main.error</code> view which are basic defaults for FW/1 applications. We also have
 a <code>main.stopped</code> view. We&rsquo;ll see how each of these is used when we look at the <code>main</code> controller.</p>
 
+<p>The <code>default</code> view references <code>rc.greeting</code> which we&rsquo;ll see being set up in the <code>main.clj</code> controller below, and it also gets a <code>greeterService</code> from
+the bean factory and calls a function in that. We&rsquo;ll see where <code>greeterService</code> comes from below as well.</p>
+
 <h2>src/hello/controllers</h2>
 
 <p>In this folder we have a single Clojure file, <code>main.clj</code>. As you might guess from the file path, this is our application controller. Inside you&rsquo;ll
@@ -316,7 +321,7 @@ Clojure controllers return an updated version of the <code>rc</code> data struct
 <p>So <code>default</code> passes <code>rc.name</code> (or <code>"anonymous"</code> if <code>name</code> isn&rsquo;t present in <code>rc</code>) to the <code>greet/hello</code> function and then stores the result in
 the <code>greeting</code> element of <code>rc</code>. Note that the <code>assoc</code> function (pronounced <em>assosh</em> like the word <em>associate</em>) return a new struct with the
 key added &mdash; it does not modify the original struct. This seems very strange at first but you&rsquo;ll get used to it and it&rsquo;s very powerful (and
-very safe) since <code>rc</code> is immutable.</p>
+very safe) since <code>rc</code> is immutable. We&rsquo;ll look at where <code>greet/hello</code> comes from in a minute.</p>
 
 <p>Next we have the <code>do-redirect</code> handler. Yes, Clojure functions can have <code>-</code> in their names. The standard naming convention in Clojure is <em>words-like-this</em>
 rather than <em>wordsLikeThis</em> or <em>WordsLikeThis</em>. It&rsquo;s a long-standing Lisp tradition. Yes, it&rsquo;s strange but you&rsquo;ll get used to it and you&rsquo;ll
@@ -333,9 +338,19 @@ is equivalent to calling <code>variables.fw.abortController()</code>. Adding a k
 <p>Finally we have the <code>json</code> handler. By this point, it won&rsquo;t surprise you to learn that this tells FW/1 to render the specified data
 as JSON. The Clojure struct <code>{:a 1 :b "two" :c [3 4 5]}</code> is equivalent to the CFML struct <code>{a : 1, b : "two", c : [3, 4, 5]}</code>.</p>
 
-<h2>test/hello/controllers</h2>
+<h2>src/hello/services</h2>
 
-<p>Finally, we&rsquo;ll look at the tests for the <code>main</code> controller. We have once test function <code>default-item</code> which contains two related
+<p>In this folder we have a single Clojure file, <code>greeter.clj</code>. As with the controller convention, the file path tells FW/1 that this is
+a service (and it would be autowired into any CFML code that declared <code>property greeterService;</code> as a dependency). This can also be
+pulled from the bean factory as <code>"greeterService"</code>, as seen in the <code>main.default</code> view file.</p>
+
+<p>There&rsquo;s a single function <code>hello</code> in here that takes a string and returns it wrapped with <code>"Hello "</code> and <code>"!"</code>.</p>
+
+<h2>test/hello</h2>
+
+<p>Finally, we&rsquo;ll look at the tests, first for the <code>main</code> controller, then the <code>greeter</code> service.</p>
+
+<p>In <code>controllers/main_test.clj</code>, we have one test function <code>default-item-test</code> which contains two related
 tests. The arrow syntax means &ldquo;take this thing and pass it through these functions&rdquo; so:</p>
 
 <pre><code>(-&gt; {} default :greeting)
@@ -346,6 +361,34 @@ pass the result to the <code>:greeting</code> function &mdash; remember that <co
 this tests that if the <code>rc</code> is empty and you run <code>main.default</code> you get a new key called <code>:greeting</code> whose value is <code>"Hello anonymous!"</code>.</p>
 
 <p>The second test checks that if <code>rc</code> contains a <code>:name</code> element, you get back the appropriate greeting based on the value of that.</p>
+
+<p>The <code>(testing "label" ...)</code> expression can have multiple <code>is</code> tests in it, even tho&#8217; ours do not.</p>
+
+<p>In <code>services/greeter_test.clj</code>, we again have one test function <code>hello-test</code> that verifies the <code>hello</code> function does what we expect.</p>
+
+<h2>FW/1 Conventions with Clojure</h2>
+
+<p>The naming and file path conventions for how you structure your Clojure code for use with FW/1 should be familiar to you if you&rsquo;ve
+already used DI/1 in the past: plural folder names, containing &ldquo;components&rdquo;, become beans named for the component, with a suffix that
+is the singular of the folder name:</p>
+
+<ul>
+<li><code>src/hello/controllers/main.clj</code> &ndash;> <code>mainController</code></li>
+<li><code>src/hello/services/greeter.clj</code> &ndash;> <code>greeterService</code></li>
+</ul>
+
+
+<p>FW/1 requires that there are at least three segments in a name for this convention (so just <code>src/controllers/main.clj</code> would not
+match the convention, but <code>src/hello/admin/controllers/user.clj</code> would match and become <code>userController</code>). An additional restriction
+is that the filename + suffix must be unique across your whole application (within the Clojure code (so also having
+<code>src/hello/public/controllers/user.clj</code> would conflict with <code>src/hello/admin/controllers/user.clj</code>).</p>
+
+<p>You can have additional Clojure code that doesn&rsquo;t follow this convention, but the bean factory <code>reload()</code> function only attempts to
+reload Clojure files that it &ldquo;knows&rdquo; about via this convention. You can explicitly reload others &mdash; by passing their namespace to
+<code>reloadClojure=</code> in the URL, instead of just <code>all</code> &mdash; but there are some subtleties there which are beyond the scope of this
+documentation (if you want to learn more, read the <a href="http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/require">clojure.core/require docstring</a>
+and know that <code>reloadClojure=all</code> does <code>(require ... :reload)</code> on each namespace covered by the convention but
+<code>(require ... :reload-all)</code> for an explicitly provided namespace).</p>
 
 <h2>What is ns all about?</h2>
 
