@@ -178,7 +178,9 @@ If you run `lein test` in the `6helloclojure` folder, you'll see:
 
     lein test hello.controllers.main-test
     
-    Ran 1 tests containing 2 assertions.
+    lein test hello.services.greeter-test
+    
+    Ran 2 tests containing 3 assertions.
     0 failures, 0 errors.
 
 We'll take a look at that in a minute.
@@ -209,6 +211,9 @@ This is a regular FW/1 views folder, containing a subfolder for each section of 
 three views here). As expected we have a `main.default` view and a `main.error` view which are basic defaults for FW/1 applications. We also have
 a `main.stopped` view. We'll see how each of these is used when we look at the `main` controller.
 
+The `default` view references `rc.greeting` which we'll see being set up in the `main.clj` controller below, and it also gets a `greeterService` from
+the bean factory and calls a function in that. We'll see where `greeterService` comes from below as well.
+
 ## src/hello/controllers
 
 In this folder we have a single Clojure file, `main.clj`. As you might guess from the file path, this is our application controller. Inside you'll
@@ -226,7 +231,7 @@ In the `default` handler, we get the `:name` element of the `rc` and we return `
 So `default` passes `rc.name` (or `"anonymous"` if `name` isn't present in `rc`) to the `greet/hello` function and then stores the result in
 the `greeting` element of `rc`. Note that the `assoc` function (pronounced _assosh_ like the word _associate_) return a new struct with the
 key added -- it does not modify the original struct. This seems very strange at first but you'll get used to it and it's very powerful (and
-very safe) since `rc` is immutable.
+very safe) since `rc` is immutable. We'll look at where `greet/hello` comes from in a minute.
 
 Next we have the `do-redirect` handler. Yes, Clojure functions can have `-` in their names. The standard naming convention in Clojure is _words-like-this_
 rather than _wordsLikeThis_ or _WordsLikeThis_. It's a long-standing Lisp tradition. Yes, it's strange but you'll get used to it and you'll
@@ -243,9 +248,19 @@ is equivalent to calling `variables.fw.abortController()`. Adding a key called `
 Finally we have the `json` handler. By this point, it won't surprise you to learn that this tells FW/1 to render the specified data
 as JSON. The Clojure struct `{:a 1 :b "two" :c [3 4 5]}` is equivalent to the CFML struct `{a : 1, b : "two", c : [3, 4, 5]}`.
 
-## test/hello/controllers
+## src/hello/services
 
-Finally, we'll look at the tests for the `main` controller. We have once test function `default-item` which contains two related
+In this folder we have a single Clojure file, `greeter.clj`. As with the controller convention, the file path tells FW/1 that this is
+a service (and it would be autowired into any CFML code that declared `property greeterService;` as a dependency). This can also be
+pulled from the bean factory as `"greeterService"`, as seen in the `main.default` view file.
+
+There's a single function `hello` in here that takes a string and returns it wrapped with `"Hello "` and `"!"`.
+
+## test/hello
+
+Finally, we'll look at the tests, first for the `main` controller, then the `greeter` service.
+
+In `controllers/main_test.clj`, we have one test function `default-item-test` which contains two related
 tests. The arrow syntax means "take this thing and pass it through these functions" so:
 
     (-> {} default :greeting)
@@ -255,6 +270,31 @@ pass the result to the `:greeting` function -- remember that `(:greeting my-stru
 this tests that if the `rc` is empty and you run `main.default` you get a new key called `:greeting` whose value is `"Hello anonymous!"`.
 
 The second test checks that if `rc` contains a `:name` element, you get back the appropriate greeting based on the value of that.
+
+The `(testing "label" ...)` expression can have multiple `is` tests in it, even tho' ours do not.
+
+In `services/greeter_test.clj`, we again have one test function `hello-test` that verifies the `hello` function does what we expect.
+
+## FW/1 Conventions with Clojure
+
+The naming and file path conventions for how you structure your Clojure code for use with FW/1 should be familiar to you if you've
+already used DI/1 in the past: plural folder names, containing "components", become beans named for the component, with a suffix that
+is the singular of the folder name:
+
+* `src/hello/controllers/main.clj` -> `mainController`
+* `src/hello/services/greeter.clj` -> `greeterService`
+
+FW/1 requires that there are at least three segments in a name for this convention (so just `src/controllers/main.clj` would not
+match the convention, but `src/hello/admin/controllers/user.clj` would match and become `userController`). An additional restriction
+is that the filename + suffix must be unique across your whole application (within the Clojure code (so also having
+`src/hello/public/controllers/user.clj` would conflict with `src/hello/admin/controllers/user.clj`).
+
+You can have additional Clojure code that doesn't follow this convention, but the bean factory `reload()` function only attempts to
+reload Clojure files that it "knows" about via this convention. You can explicitly reload others -- by passing their namespace to
+`reloadClojure=` in the URL, instead of just `all` -- but there are some subtleties there which are beyond the scope of this
+documentation (if you want to learn more, read the [clojure.core/require docstring](http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/require)
+and know that `reloadClojure=all` does `(require ... :reload)` on each namespace covered by the convention but
+`(require ... :reload-all)` for an explicitly provided namespace).
 
 ## What is ns all about?
 
