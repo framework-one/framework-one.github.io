@@ -469,7 +469,7 @@ bf.loadBeans( expandPath('config/coldspring.xml') );
 setBeanFactory(bf);
 </code></pre>
 
-<p>The constructor may take two optional arguments (<code>defaultAttributes</code> and <code>defaultProperties</code>) so we need to cater for those, and the actual bean &ldquo;location&rdquo; is specified via a file path. This maps well to <code>diLocation</code> for the latter and <code>diConfig</code> for the former pair.</p>
+<p>The constructor may take two optional arguments (<code>defaultAttributes</code> and <code>defaultProperties</code>) so we need to cater for those, and the actual bean &ldquo;location&rdquo; is specified via a file path. This maps well to <code>diLocations</code> for the latter and <code>diConfig</code> for the former pair.</p>
 
 <pre><code>// ioc.ColdSpringAdapter
 component extends=coldspring.beans.DefaultXmlBeanFactory {
