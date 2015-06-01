@@ -660,6 +660,112 @@ abstraction over different data stores as well since, from Clojure's point of vi
 
 ### Functions as Building Blocks
 
+I've already emphasized that functional programming favors small, simple, pure functions but you can do that sort of
+functional decomposition in most languages. Many modern languages allow you to write anonymous functions and pass them
+around as arguments, as well as return them from functions. Even with those features available, it takes a while to
+shift from an imperative style with some functions being passed around to a functional style where functions are your
+primary abstraction.
+
+You'll hear the term "higher order functions" a lot but all this means is a function that accepts a function as one (or
+more) of its arguments or a function that returns a function as a result. You'll see the former in CFML with the new
+`map`, `filter`, and `reduce` member functions -- or perhaps you've seen it in JavaScript.
+
+Consider these two functions (in CFML):
+
+    function saveStuff( data ) {
+        if ( validStuff( data ) ) {
+            dbSave( "stuffTable", data );
+        } else {
+            writeLog( "Invalid stuff, not saved" );
+        }
+    }
+    
+    function saveThing( data ) {
+        if ( thingIsValid( "all", data ) ) {
+            dbSave( "thingTable", data );
+        } else {
+            writeLog( "Invalid thing, not saved" );
+        }
+    }
+
+Now, consider this function:
+
+    function saveValidData( validator, type, data ) {
+        if ( validator( data ) ) {
+            dbSave( type & "Table", data );
+        } else {
+            writeLog( "Invalid #type#, not saved" );
+        }
+    }
+
+This is probably not a transform you would do in CFML but it's a natural one in a functional language, because
+you would see the commonality and want to remove the duplication:
+
+    var saveStuff = function( data ) { return saveValidData( validStuff, "stuff", data ); };
+    var saveThing = function( data ) {
+        return saveValidData(
+            function( data ) { return thingIsValid( "all", data ); },
+            "thing",
+            data
+        );
+    }
+
+Now imagine you had a higher order function called
+`partial` that accepted a function and one or more of its arguments and returned a new function that accepted
+the rest of its arguments and then called it, it would be very natural to make this transform and then write:
+
+    var saveStuff = partial( saveValidData, validStuff, "stuff" );
+    var saveThing = partial( saveValidData, partial( thingIsValid, "all" ), "thing" );
+
+This is much cleaner, especially if you had quite a few of these "save data if valid" variants.
+
+Another way to write this without `partial` would be:
+
+    function thingIsAllValid( data ) { return thingIsValid( "all", data ); }
+    function saveValidData( validator, type ) {
+        // accept validator and type, return a function that accepts data
+        return function( data ) {
+            if ( validator( data ) ) {
+                dbSave( type & "Table", data );
+            } else {
+                writeLog( "Invalid #type#, not saved" );
+            }
+        }
+    }
+    
+    var saveStuff = saveValidData( validStuff, "stuff" ); // returns a function
+    var saveThing = saveValidData( thingIsAllValid, "thing" );
+
+You could also write "thing" validation like this:
+
+    function thingValidator( scope ) {
+        return function( data ) {
+            return thingIsValid( scope, data );
+        }
+    }
+    
+    var saveThing = saveValidData( thingValidator( "all" ), "thing" );
+
+By making our functions more flexible in how they accept arguments, we make it easier to reuse them. This is functional thinking!
+
+In Clojure we can define a function with multiple argument lists so this becomes even easier:
+
+    (defn thing-is-valid
+      ([scope] (fn [data] (thing-is-valid scope data)))
+      ([scope data] ... return true or false ...))
+    
+    (defn save-valid-data
+      ([validator type] (fn [data] (save-valid-data validator type data)))
+      ([validator type data]
+       (if (validator data)
+         (db-save (str type "Table") data)
+         (write-log (str "Invalid " type ", not saved")))))
+    
+    (def save-stuff (save-valid-data valid-stuff "stuff"))
+    (def save-thing (save-valid-data (thing-is-valid "all") "thing")
+
+No need for `partial` (although Clojure has that built-in), no need for helper functions.
+
 ## All You Know About OO Programming is Wrong
 
 I learned old-fashioned imperative procedural programming first. I learned BASIC, assembly language, Pascal and later
