@@ -291,11 +291,11 @@ a comma-separated list of file paths and one of them must specify the exact file
 searched (recursively) for CFCs so you can store both your Clojure code and your CFML beans in the same tree structure if you wish, or
 you can store them separately and provide both file paths in <code>diLocations</code>.</p>
 
-<p>The other code of note is that <code>setupRequest()</code> provides a way to trigger reloading the Clojure code from disk (and recompiling it). Normally, in
+<p>The other code of note is that <code>setupRequest()</code> reloads the Clojure code whenever the framework itself is reloaded.
+Normally, in
 a FW/1 app, you can specify an application reload and your bean factory is recreated. Because of the way Clojure code is compiled and loaded
 into the JVM, reloading your bean factory is not sufficient to force a reload of those parts of the JVM, so you need to do this programmatically
-somehow. You will generally pass the string <code>"all"</code> into the <code>ioclj</code> bean factory&rsquo;s <code>reload()</code> function, although this won&rsquo;t reload any
-depedent namespaces, just the ones that <code>ioclj</code> treats like beans. More on this below.</p>
+somehow. Note that this will only reload the namespaces that follow the FW/1 conventions to be discovered. See below for more on this.</p>
 
 <h2>views</h2>
 
@@ -387,10 +387,11 @@ is that the filename + suffix must be unique across your whole application (with
 <code>src/hello/public/controllers/user.clj</code> would conflict with <code>src/hello/admin/controllers/user.clj</code>).</p>
 
 <p>Aside: You can have additional Clojure code that doesn&rsquo;t follow this convention, but the bean factory <code>reload()</code> function only attempts to
-reload Clojure files that it &ldquo;knows&rdquo; about via this convention. You can explicitly reload others &mdash; by passing their namespace to
-<code>reloadClojure=</code> in the URL, instead of just <code>all</code> &mdash; but there are some subtleties there which are beyond the scope of this
+reload Clojure files that it &ldquo;knows&rdquo; about via this convention. You can explicitly reload others &mdash; if you allow for a URL variable that can
+be passed to the <code>reload()</code> method of the bean factory, identifying a single namespace &mdash;
+but there are some subtleties there which are beyond the scope of this
 documentation (if you want to learn more, read the <a href="http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/require">clojure.core/require docstring</a>
-and know that <code>reloadClojure=all</code> does <code>(require ... :reload)</code> on each namespace covered by the convention but
+and know that <code>reload("all")</code> does <code>(require ... :reload)</code> on each namespace covered by the convention but
 <code>(require ... :reload-all)</code> for an explicitly provided namespace).</p>
 
 <h2>What is ns all about?</h2>
@@ -445,6 +446,9 @@ Clojure book or the online documentation for more details about that.</p>
 <h2>Writing a Clojure Controller</h2>
 
 <h2>Accessing a Database from Clojure</h2>
+
+<p>In order to access a database (via JDBC) from Clojure, you will first need to update your <code>project.clj</code> file to include
+dependencies on Clojure&rsquo;s JDBC library and what your choice of JDBC driver is.</p>
 
 <h1>A Clojure Primer</h1>
 
