@@ -108,7 +108,7 @@ the option to write controllers in Clojure (where all the code they call is Cloj
 <p>That&rsquo;s why, in FW/1 3.5, I&rsquo;ve made <strong>cfmljure</strong> part of the standard distribution and provided an extenion to DI/1 to allow
 Clojure code to be discovered and autowired into your CFML code, as well as a way to write FW/1 controllers in pure Clojure.</p>
 
-<h2>Some Caveats</h2>
+<h2>Some Important Caveats (and System Requirements)</h2>
 
 <p>Before you get started, there are a couple of things you need to be aware of:</p>
 
@@ -386,7 +386,7 @@ match the convention, but <code>src/hello/admin/controllers/user.clj</code> woul
 is that the filename + suffix must be unique across your whole application (within the Clojure code (so also having
 <code>src/hello/public/controllers/user.clj</code> would conflict with <code>src/hello/admin/controllers/user.clj</code>).</p>
 
-<p>You can have additional Clojure code that doesn&rsquo;t follow this convention, but the bean factory <code>reload()</code> function only attempts to
+<p>Aside: You can have additional Clojure code that doesn&rsquo;t follow this convention, but the bean factory <code>reload()</code> function only attempts to
 reload Clojure files that it &ldquo;knows&rdquo; about via this convention. You can explicitly reload others &mdash; by passing their namespace to
 <code>reloadClojure=</code> in the URL, instead of just <code>all</code> &mdash; but there are some subtleties there which are beyond the scope of this
 documentation (if you want to learn more, read the <a href="http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/require">clojure.core/require docstring</a>
@@ -394,6 +394,45 @@ and know that <code>reloadClojure=all</code> does <code>(require ... :reload)</c
 <code>(require ... :reload-all)</code> for an explicitly provided namespace).</p>
 
 <h2>What is ns all about?</h2>
+
+<p>Probably the most complex and confusing aspect when you are first learning Clojure is the <code>ns</code> expression. <code>ns</code> serves two main purposes:</p>
+
+<ul>
+<li>It declares the namespace in which the code in a given file lives.</li>
+<li>It declares what additional namespaces you depend on and how you&rsquo;re going to access functions in them.</li>
+</ul>
+
+
+<p>Think of a namespace as a &ldquo;package&rdquo; or &ldquo;module&rdquo;. The default convention in Clojure is that the namespace matches the filesystem path below your <code>src</code>
+or <code>test</code> folder, except that <code>-</code> in a namespace identifier matches <code>_</code> in the file path. Technically, a namespace can be implemented across multiple
+files but it isn&rsquo;t very common to see that, so don&rsquo;t worry about it.</p>
+
+<p>In the <code>6helloclojure</code> example, you&rsquo;ll see <code>hello.controllers.main</code> for <code>src/hello/controllers/main.clj</code> and <code>hello.controllers.main-test</code> for
+<code>test/hello/controllers/main_test.clj</code>. If you follow this basic convention, you won&rsquo;t go wrong. If your <code>ns</code> declaration doesn&rsquo;t match the
+filesystem path, you can get strange errors when you attempt to access it. Think of it much like the dotted-path used to access CFCs in CFML.</p>
+
+<p>The second important part of <code>ns</code> is the list of namespaces your code <code>:require</code>s. There are two basic forms here:</p>
+
+<ul>
+<li><code>[some.namespace :as alias]</code> which lets you use <code>alias/name</code> as a way to reference any functions defined in <code>some.namespace</code>.</li>
+<li><code>[some.namespace :refer [fn1 fn2]]</code> which lets you use <code>fn1</code> and <code>fn2</code> directly from <code>some.namespace</code> without a prefix. The
+shorthand <code>:refer :all</code> brings in every function from that namespace, and is generally only used in test code.</li>
+</ul>
+
+
+<p>Prefer the first form &mdash; which you see in <code>hello.controllers.main</code> where <code>hello.services.greeter</code> is given an alias of <code>greet</code> so that
+the controller can call <code>greet/hello</code>.</p>
+
+<p>You&rsquo;ll use the <code>:require</code> expression to bring in Clojure standard libraries, 3rd party Clojure libraries, and parts of your own code. For most
+3rd party libraries, you&rsquo;ll also need to add an entry to <code>:dependencies</code> in your <code>project.clj</code> file in order to tell <strong>Leiningen</strong> that you
+need that library downloaded. We&rsquo;ll see this when we learn about database access below.</p>
+
+<p>I recommend writing your required namespaces in alphabetical order &mdash; most production Clojure code relies on quite a long list of other namespaces
+so organization is important.</p>
+
+<p>You might think this sounds a bit like <code>import</code> statements in Java and you&rsquo;d be right, except that <code>:require</code> is purely for Clojure code.
+There is another form for importing Java classes, called <code>:import</code>, but Java interop is a whole other subject and you should consult a
+Clojure book or the online documentation for more details about that.</p>
 
 <h1>Building Your Own CFML / Clojure Application</h1>
 
@@ -409,15 +448,286 @@ and know that <code>reloadClojure=all</code> does <code>(require ... :reload)</c
 
 <h1>A Clojure Primer</h1>
 
-<h2>Some Basic Clojure Functions</h2>
+<p>To learn about Clojure in any depth, I&rsquo;d recommend you go through the <strong>More Stuff to Read</strong> section at the end of this
+page, but I&rsquo;m going to give you a quick run through of some useful basics that should get you up and running more quickly.</p>
+
+<p>As I claimed earlier, Clojure is a very simple language with only a few pieces of syntax:</p>
 
 <ul>
-<li>Explain <code>def</code> and <code>defn</code></li>
-<li>Some useful core functions</li>
-<li>Namespaces, Require, Import</li>
-<li>That <code>project.clj</code> file</li>
+<li>A semicolon introduces a comment. Typically a single semicolon is used for an end of line comment and a double semicolon is used for
+a whole line produces</li>
+<li><code>(func arg1 arg2 arg3)</code> represents a function call (with three arguments). You can use commas if you want but they are
+just whitespace: <code>(func arg1, arg2, arg3)</code>. Most Clojure developers omit commas in function calls. Almost everything in Clojure is a function call.
+A few things that look like function calls are actually &ldquo;<a href="http://clojure.org/special_forms">special forms</a>&rdquo; but you can pretend they&rsquo;re really function calls
+until you get a bit more proficient (a function call evaluates all its arguments before the call, a special form may not
+evaluate its arguments until it needs them).</li>
+<li><code>a</code> is a symbol &mdash; a variable or function name &mdash; that evaluates to whatever it has been bound to. See <code>def</code>, <code>defn</code> and <code>let</code> below.</li>
+<li><code>:a</code> is a keyword &mdash; it evaluates to itself &mdash; that is a bit like a string except it is cached (so two <code>:a</code>s in different parts of
+your code and the exact same thing and can be compared for identity based on their address, not their value). Keywords are commonly
+used as the keys in a hash map (see below).</li>
+<li><code>[1 2 3 4]</code> represents a vector (array) with the specified elements. You can use commas if you want, but they are just whitespace:
+<code>[1, 2, 3, 4]</code>. Most Clojure developers omit commas in vectors.</li>
+<li><code>{:a 1, :b 2, :c 3}</code> represents a hash map (struct) with keys <code>:a</code>, <code>:b</code>, <code>:c</code> and values <code>1</code>, <code>2</code>, <code>3</code> respectively. The commas
+are just whitespace but some Clojure developers use them anyway to clearly delineate pairs.</li>
+<li><code>#{1 2 3}</code> represents a set of values. If you add <code>4</code> to that set you get <code>#{1 2 3 4}</code> but if you add <code>1</code>, <code>2</code>, or <code>3</code> to it, it remains
+unchanged because those values are already in the set. CFML doesn&rsquo;t have a set data type, but you might simulate it with a struct whose
+values are <code>true</code> (or some other arbitrary value) and the presence or absence of a key says whether it&rsquo;s in the set or not.</li>
 </ul>
 
+
+<p>That&rsquo;s about it. When you learn about macros (in one of the Clojure books), you&rsquo;ll encounter a few new pieces of syntax but you
+don&rsquo;t need that to get going.</p>
+
+<h2>Some Basic Clojure Functions</h2>
+
+<p>Functions all the way down. Some functions / special forms are very important so I&rsquo;m going to go through some of those here.</p>
+
+<h3><code>def</code>, <code>fn</code>, and <code>defn</code></h3>
+
+<p>The <code>def</code> special form creates a global (top-level) binding of a name to a value within the current namespace:</p>
+
+<pre><code>(def a 42)
+;; binds a to the value 42 -- technically a is a Var
+a
+;; produces 42
+</code></pre>
+
+<p>The <code>fn</code> special form creates an anonymous function:</p>
+
+<pre><code>(fn [a b c] (* a b c))
+;; creates a function with three arguments a, b, and c
+;; that multiplies those three values together
+</code></pre>
+
+<p>Anonymous functions are often used as arguments to other functions:</p>
+
+<pre><code>(map (fn [x] (* x 2)) [1 2 3 4 5])
+;; produces (2 4 6 8 10)
+</code></pre>
+
+<p>Strictly speaking, a function can contain more than one expression: they are all evaluated in order, but only the value of the last
+expression is returned. The others are throw away. So why have multiple expressions? You might have some operations that cause side
+effects, such as logging to file or writing to a database, and you want to evaluate those for their effects but not necessarily
+their result.</p>
+
+<p>You can bind a name to an anonymous function, to create a named function:</p>
+
+<pre><code>(def twice (fn [x] (* x 2)))
+</code></pre>
+
+<p>This is so common that <code>defn</code> exists as a shorthand for it:</p>
+
+<pre><code>(defn twice [x] (* x 2))
+</code></pre>
+
+<p>Documentation is built into Clojure and you can (and should) provide a &ldquo;docstring&rdquo; for all your functions that say what they do
+and possibly provide example usage:</p>
+
+<pre><code>(defn twice "Doubles its argument." [x] (* x 2))
+</code></pre>
+
+<p>You&rsquo;ll often see this written on multiple lines like this:</p>
+
+<pre><code>(defn sum-of-squares
+  "Given two values, return the sum of their squares."
+  [a b]
+  (+ (* a a) (* b b)))
+</code></pre>
+
+<p>It&rsquo;s common for functions to have short argument names because each function should be very short and simple, and the function names should
+be descriptive.</p>
+
+<p>The docstring &mdash; and the source code &mdash; of functions is available in the REPL (and in any Clojure editor that supports live evaluation) through
+the <code>doc</code> &mdash; and <code>source</code> &mdash; functions (in the <code>clojure.repl</code> namespace). This makes it very easy to experiment with new libraries since all
+of the documentation and source code is right there at your fingertips!</p>
+
+<h3><code>if</code>, <code>when</code>, and <code>do</code></h3>
+
+<p>In CFML we have an <code>if</code> statement. If the condition is true, the first group of statements is executed, else the second group of statements
+is executed. In functional languages like Clojure, <code>if</code> is an expression (a special form) and it takes a condition and two expressions.
+If the condition is true, the first expression is evaluated, else the second expression is evaluated. It&rsquo;s more like the tertiary operator
+<code>? :</code> in CFML.</p>
+
+<p>Also, it&rsquo;s important to note that Clojure has strong views on what is true and false. You&rsquo;ll hear of &ldquo;truthy&rdquo; and &ldquo;falsey&rdquo; in the Clojure
+world because Clojure treats everything as true except for <code>false</code> and <code>nil</code>. In particular, that means that <code>0</code> is true, unlike in CFML.
+The reason for this is an idiom called &ldquo;nil punning&rdquo;: it&rsquo;s common for Clojure functions to return <code>nil</code> for &ldquo;no such value&rdquo; instead of
+throwing an exception, and allowing <code>nil</code> to mean false makes it easy to test for such things:</p>
+
+<pre><code>(if (:name rc) (str "Hello " (:name rc) "!") "Who?")
+</code></pre>
+
+<p>In CFML, if you did <code>rc.name</code> and it wasn&rsquo;t present, you&rsquo;d get an exception. In Clojure, <code>(:name rc)</code> simple returns <code>nil</code> if there&rsquo;s no
+such key and you just test for that. You can prevent repetition of <code>(:name rc)</code> with <code>if-let</code> &mdash; see below.</p>
+
+<p>If you don&rsquo;t have an &ldquo;else&rdquo; expression (and want to return <code>nil</code> instead), use <code>when</code> instead of <code>if</code>:</p>
+
+<pre><code>(when (:name rc) (str "Hello " (:name rc) "!"))
+</code></pre>
+
+<p>If the condition is &ldquo;falsey&rdquo;, you get <code>nil</code> back. Be aware that <code>when</code> allows multiple expressions, just like <code>fn</code> above and <code>let</code> below, and it evaluates
+all of them but only returns the value of the last expression.</p>
+
+<p>If you want to evaluate multiple expressions in an <code>if</code>, you need <code>do</code>:</p>
+
+<pre><code>(if some-condition
+  (do
+    (log-something)
+    (update-the-database)
+    "Result!")
+  "Failure!")
+</code></pre>
+
+<p><code>do</code> can be used where any single expression is accepted and behaves like the body of <code>fn</code>.</p>
+
+<p>It might not surprise you to learn that <code>when</code> is really defined in terms of <code>if</code> and <code>do</code> something like this:</p>
+
+<pre><code>(when condition expr1 expr2 expr3)
+;; is treated like
+(if condition (do expr1 expr2 expr3) nil)
+</code></pre>
+
+<h3><code>let</code> and its cousins</h3>
+
+<p>Global bindings are fine for functions that you want exposed to the world, but you often want local bindings inside a function. That&rsquo;s what the
+<code>let</code> special form is for:</p>
+
+<pre><code>(defn sum-of-squares
+  "Given two values, return the sum of their squares."
+  [a b]
+  (let [a-squared (* a a)
+        b-squared (* b b)]
+    (+ a-squared b-squared)))
+</code></pre>
+
+<p><code>let</code> is following by a vector of bindings &mdash; pairs of symbol and expression &mdash; and then one or more expressions. It creates a local binding
+for each pair by evaluating the expression and binding it to the name (symbol), and then it evaluates the expressions in its body and returns
+the last expression&rsquo;s value (in the same way function bodies are evaluated).</p>
+
+<p>There are several variants of <code>let</code> that are useful. The most common is probably <code>if-let</code>:</p>
+
+<pre><code>(if-let [name (:name rc)]
+  (str "Hello " name "!")
+  "Who?")
+</code></pre>
+
+<p>Unlike <code>let</code>, <code>if-let</code> only allows one binding pair followed by two expressions. If the binding is &ldquo;truthy&rdquo;, the first expression will be evaluated,
+else the second expression will be evaluated. Note that the bound symbol is only available in the <em>first</em> expression!</p>
+
+<h3><code>loop</code> and <code>recur</code></h3>
+
+<p>Since I often tell people that functional programming means no mutable variables and therefore no loops, it might surprise you to learn that
+Clojure has a <code>loop</code> construct. It isn&rsquo;t quite what it seems!</p>
+
+<p>First, let&rsquo;s look at a recursive function:</p>
+
+<pre><code>(defn fact [n] (if (zero? n) 1 (* n (fact (dec n)))))
+;; (fact 1) =&gt; 1
+;; (fact 3) =&gt; 6
+;; (fact 5) =&gt; 120
+</code></pre>
+
+<p>Because it is recursive, it creates a new stack frame for every call to itself. You can still call it with some big numbers but eventually you will get
+a stack overflow:</p>
+
+<pre><code>(fact 1000N) =&gt; 402387260077093773543702433923003985719374...
+(fact 10000N) =&gt; StackOverflowError   java.math.BigInteger.valueOf (BigInteger.java:1098)
+</code></pre>
+
+<p>There&rsquo;s a technique called tail recursion that allows some languages to evaluate recursive functions without needing stack frames. You
+have to rewrite the function to ensure the recursive call is in the tail position (the <code>fact</code> call above is nested inside multiplcation).
+Often, you need to create a helper function:</p>
+
+<pre><code>(defn fact-helper [n prod] (if (zero? n) prod (fact-helper (dec n) (* n prod))))
+(defn fact [n] (fact-helper n 1))
+</code></pre>
+
+<p>This produces the same results as <code>fact</code> above, but now the recursive call to <code>fact-helper</code> is in the tail position. Clojure doesn&rsquo;t optimize this
+directly but provides <code>recur</code> for you to tell the compiler you want it optimized &mdash; and to verify you really are using tail recursion:</p>
+
+<pre><code>(defn fact [n] (if (zero? n) 1 (* n (recur (dec n)))))
+;; CompilerException: Can only recur from tail position
+</code></pre>
+
+<p>But:</p>
+
+<pre><code>(defn fact-helper [n prod] (if (zero? n) prod (recur (dec n) (* n prod))))
+(defn fact [n] (fact-helper n 1))
+(fact 10000N) =&gt; 28462596809170545189064132121198688901480514...
+</code></pre>
+
+<p>You can see that <code>recur</code> replaces the recursive call, but what it&rsquo;s really doing behind the scenes is rebinding the function arguments
+and &ldquo;jumping&rdquo; back to the beginning of the function, to avoid a function call altogether. Since this is really a loop-with-rebinding,
+Clojure provides a <code>loop</code> construct that lets you do this directly:</p>
+
+<pre><code>(defn fact [n] (loop [n n, prod 1] (if (zero? n) prod (recur (dec n) (* n prod)))))
+</code></pre>
+
+<p>This single function is identical in behavior to the <code>fact</code> / <code>fact-helper</code> pair shown immediately above. You can see how the <code>loop</code>
+binding behaves just like the initial call to <code>fact-helper</code>, binding <code>fact</code>s argument <code>n</code> to the local symbol <code>n</code> and <code>1</code> to the local
+symbol <code>prod</code>.</p>
+
+<h3>Useful core Functions</h3>
+
+<p>Since Clojure is all about data structures, there is a rich selection of functions that operate on them. Some of the valuable ones to know are:</p>
+
+<ul>
+<li><code>(first [1 2 3 4])</code> returns the first element of a sequence: <code>1</code></li>
+<li><code>(rest [1 2 3 4])</code> returns the rest of a sequence: <code>(2 3 4)</code></li>
+</ul>
+
+
+<p>The <code>rest</code> of a single element sequence is an empty sequence &mdash; <code>()</code> &mdash; and the <code>rest</code> of an empty sequence is <em>also</em> an empty sequence!</p>
+
+<ul>
+<li><code>(seq some-collection)</code> returns a sequence of <code>some-collection</code>s elements if it is non-empty, else returns <code>nil</code></li>
+</ul>
+
+
+<p>It is common to test for empty sequences with <code>if (seq some-collection)</code>.</p>
+
+<ul>
+<li><code>(cons 1 [2 3 4])</code> returns a new sequence with that element added: <code>(1 2 3 4)</code></li>
+<li><code>(assoc {:a 1} :b 2)</code> returns a new hash map with the key associated to the value: <code>{:a 1, :b 2}</code></li>
+<li><code>(dissoc {:a 1, :b 2} :a)</code> returns a new hash map with the key removed (dissociated): <code>{:b 2}</code></li>
+<li><code>(map inc [1 2 3 4])</code> returns a new sequence with the function applied to each element: <code>(2 3 4 5]</code></li>
+<li><code>(filter even? [1 2 3 4])</code> returns a new sequence containing just the elements for which the predicate is &ldquo;truthy&rdquo;: <code>(2 4)</code></li>
+<li><code>(reduce + 0 [1 2 3 4])</code> returns the value computed by repeatedly applying the function to the initial value and each element of the sequence: <code>10</code></li>
+</ul>
+
+
+<p>If the initial value is omitted, the first element of the sequence is used so:</p>
+
+<pre><code>(reduce func some-collection)
+;; is the same as
+(reduce func (first some-collection) (rest some-collection))
+</code></pre>
+
+<h3>The <code>project.clj</code> File</h3>
+
+<p>The piece of <code>project.clj</code> you&rsquo;ll touch most often is the <code>:dependencies</code> entry. This is a list of all the libraries your
+program needs and the versions of each you want to use:</p>
+
+<pre><code>:dependencies [[org.clojure/clojure "1.6.0"]
+               [clj-time "0.9.0"]]
+</code></pre>
+
+<p>Libraries come from two locations by default: <a href="http://search.maven.org">Maven Central</a> and <a href="https://clojars.org">Clojars</a>.</p>
+
+<p>Most Clojure libraries tell you what to put in <code>project.clj</code> to pull them in so you mostly won&rsquo;t need to care which location
+they actually come from but it&rsquo;s instructive to at least know how to read this stuff and how to search for libraries yourself.</p>
+
+<p>Each entry is called a &ldquo;coordinate&rdquo; and contains a &ldquo;group ID&rdquo; and an &ldquo;artifact ID&rdquo;. A single name just means that the group ID
+and artifact ID are the same thing (so <code>clj-time</code> is shorthand for <code>clj-time/clj-time</code>).</p>
+
+<p>To search Maven Central for <code>org.clojure/clojure</code> you would use the query <code>g:"org.clojure" AND a:"clojure"</code> which asks for
+group ID <code>org.clojure</code> and artifact ID <code>clojure</code>. Right now there are 74 versions of that library on Maven Central and the
+latest is <code>1.7.0-RC1</code> but if you click the <code>All (74)</code> link, you&rsquo;ll see the most recent non-prerelease version is <code>1.6.0</code>
+which is what <strong>Leiningen</strong> puts in <code>project.clj</code> by default.</p>
+
+<p>On the other hand, <code>clj-time</code> comes from Clojars because it is a community project. If you search for <code>clj-time</code> you&rsquo;ll
+get a lot of results but most of them are not canonical versions. The most recent canonical version is <a href="https://clojars.org/clj-time">https://clojars.org/clj-time</a> but
+there are other, earlier canonical versions, such as <a href="https://clojars.org/backtype/clj-time">https://clojars.org/backtype/clj-time</a> so you need to be a bit careful. If in doubt,
+get on IRC, Slack, or the mailing list and ask!</p>
 
 <h2>About Functional Programming</h2>
 
