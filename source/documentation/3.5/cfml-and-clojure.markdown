@@ -30,7 +30,7 @@ the option to write controllers in Clojure (where all the code they call is Cloj
 That's why, in FW/1 3.5, I've made **cfmljure** part of the standard distribution and provided an extenion to DI/1 to allow
 Clojure code to be discovered and autowired into your CFML code, as well as a way to write FW/1 controllers in pure Clojure.
 
-## Some Caveats
+## Some Important Caveats (and System Requirements)
 
 Before you get started, there are a couple of things you need to be aware of:
 
@@ -292,7 +292,7 @@ match the convention, but `src/hello/admin/controllers/user.clj` would match and
 is that the filename + suffix must be unique across your whole application (within the Clojure code (so also having
 `src/hello/public/controllers/user.clj` would conflict with `src/hello/admin/controllers/user.clj`).
 
-You can have additional Clojure code that doesn't follow this convention, but the bean factory `reload()` function only attempts to
+Aside: You can have additional Clojure code that doesn't follow this convention, but the bean factory `reload()` function only attempts to
 reload Clojure files that it "knows" about via this convention. You can explicitly reload others -- by passing their namespace to
 `reloadClojure=` in the URL, instead of just `all` -- but there are some subtleties there which are beyond the scope of this
 documentation (if you want to learn more, read the [clojure.core/require docstring](http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/require)
@@ -301,7 +301,42 @@ and know that `reloadClojure=all` does `(require ... :reload)` on each namespace
 
 ## What is ns all about?
 
+Probably the most complex and confusing aspect when you are first learning Clojure is the `ns` expression. `ns` serves two main purposes:
+
+* It declares the namespace in which the code in a given file lives.
+* It declares what additional namespaces you depend on and how you're going to access functions in them.
+
+Think of a namespace as a "package" or "module". The default convention in Clojure is that the namespace matches the filesystem path below your `src`
+or `test` folder, except that `-` in a namespace identifier matches `_` in the file path. Technically, a namespace can be implemented across multiple
+files but it isn't very common to see that, so don't worry about it.
+
+In the `6helloclojure` example, you'll see `hello.controllers.main` for `src/hello/controllers/main.clj` and `hello.controllers.main-test` for
+`test/hello/controllers/main_test.clj`. If you follow this basic convention, you won't go wrong. If your `ns` declaration doesn't match the 
+filesystem path, you can get strange errors when you attempt to access it. Think of it much like the dotted-path used to access CFCs in CFML.
+
+The second important part of `ns` is the list of namespaces your code `:require`s. There are two basic forms here:
+
+* `[some.namespace :as alias]` which lets you use `alias/name` as a way to reference any functions defined in `some.namespace`.
+* `[some.namespace :refer [fn1 fn2]]` which lets you use `fn1` and `fn2` directly from `some.namespace` without a prefix. The
+shorthand `:refer :all` brings in every function from that namespace, and is generally only used in test code.
+
+Prefer the first form -- which you see in `hello.controllers.main` where `hello.services.greeter` is given an alias of `greet` so that
+the controller can call `greet/hello`.
+
+You'll use the `:require` expression to bring in Clojure standard libraries, 3rd party Clojure libraries, and parts of your own code. For most
+3rd party libraries, you'll also need to add an entry to `:dependencies` in your `project.clj` file in order to tell **Leiningen** that you
+need that library downloaded. We'll see this when we learn about database access below.
+
+I recommend writing your required namespaces in alphabetical order -- most production Clojure code relies on quite a long list of other namespaces
+so organization is important.
+
+You might think this sounds a bit like `import` statements in Java and you'd be right, except that `:require` is purely for Clojure code.
+There is another form for importing Java classes, called `:import`, but Java interop is a whole other subject and you should consult a
+Clojure book or the online documentation for more details about that.
+
 # Building Your Own CFML / Clojure Application
+
+
 
 ## Creating the Clojure project
 
@@ -315,12 +350,253 @@ and know that `reloadClojure=all` does `(require ... :reload)` on each namespace
 
 # A Clojure Primer
 
+To learn about Clojure in any depth, I'd recommend you go through the **More Stuff to Read** section at the end of this
+page, but I'm going to give you a quick run through of some useful basics that should get you up and running more quickly.
+
+As I claimed earlier, Clojure is a very simple language with only a few pieces of syntax:
+
+* A semicolon introduces a comment. Typically a single semicolon is used for an end of line comment and a double semicolon is used for
+a whole line produces
+* `(func arg1 arg2 arg3)` represents a function call (with three arguments). You can use commas if you want but they are
+just whitespace: `(func arg1, arg2, arg3)`. Most Clojure developers omit commas in function calls. Almost everything in Clojure is a function call.
+A few things that look like function calls are actually "[special forms](http://clojure.org/special_forms)" but you can pretend they're really function calls
+until you get a bit more proficient (a function call evaluates all its arguments before the call, a special form may not
+evaluate its arguments until it needs them).
+* `a` is a symbol -- a variable or function name -- that evaluates to whatever it has been bound to. See `def`, `defn` and `let` below.
+* `:a` is a keyword -- it evaluates to itself -- that is a bit like a string except it is cached (so two `:a`s in different parts of
+your code and the exact same thing and can be compared for identity based on their address, not their value). Keywords are commonly
+used as the keys in a hash map (see below).
+* `[1 2 3 4]` represents a vector (array) with the specified elements. You can use commas if you want, but they are just whitespace:
+`[1, 2, 3, 4]`. Most Clojure developers omit commas in vectors.
+* `{:a 1, :b 2, :c 3}` represents a hash map (struct) with keys `:a`, `:b`, `:c` and values `1`, `2`, `3` respectively. The commas
+are just whitespace but some Clojure developers use them anyway to clearly delineate pairs.
+* `#{1 2 3}` represents a set of values. If you add `4` to that set you get `#{1 2 3 4}` but if you add `1`, `2`, or `3` to it, it remains
+unchanged because those values are already in the set. CFML doesn't have a set data type, but you might simulate it with a struct whose
+values are `true` (or some other arbitrary value) and the presence or absence of a key says whether it's in the set or not.
+
+That's about it. When you learn about macros (in one of the Clojure books), you'll encounter a few new pieces of syntax but you
+don't need that to get going.
+
 ## Some Basic Clojure Functions
 
-* Explain `def` and `defn`
-* Some useful core functions
-* Namespaces, Require, Import
-* That `project.clj` file
+Functions all the way down. Some functions / special forms are very important so I'm going to go through some of those here.
+
+### `def`, `fn`, and `defn`
+
+The `def` special form creates a global (top-level) binding of a name to a value within the current namespace:
+
+    (def a 42)
+    ;; binds a to the value 42 -- technically a is a Var
+    a
+    ;; produces 42
+
+The `fn` special form creates an anonymous function:
+
+    (fn [a b c] (* a b c))
+    ;; creates a function with three arguments a, b, and c
+    ;; that multiplies those three values together
+
+Anonymous functions are often used as arguments to other functions:
+
+    (map (fn [x] (* x 2)) [1 2 3 4 5])
+    ;; produces (2 4 6 8 10)
+
+Strictly speaking, a function can contain more than one expression: they are all evaluated in order, but only the value of the last
+expression is returned. The others are throw away. So why have multiple expressions? You might have some operations that cause side
+effects, such as logging to file or writing to a database, and you want to evaluate those for their effects but not necessarily
+their result.
+
+You can bind a name to an anonymous function, to create a named function:
+
+    (def twice (fn [x] (* x 2)))
+
+This is so common that `defn` exists as a shorthand for it:
+
+    (defn twice [x] (* x 2))
+
+Documentation is built into Clojure and you can (and should) provide a "docstring" for all your functions that say what they do
+and possibly provide example usage:
+
+    (defn twice "Doubles its argument." [x] (* x 2))
+
+You'll often see this written on multiple lines like this:
+
+    (defn sum-of-squares
+      "Given two values, return the sum of their squares."
+      [a b]
+      (+ (* a a) (* b b)))
+
+It's common for functions to have short argument names because each function should be very short and simple, and the function names should
+be descriptive.
+
+The docstring -- and the source code -- of functions is available in the REPL (and in any Clojure editor that supports live evaluation) through
+the `doc` -- and `source` -- functions (in the `clojure.repl` namespace). This makes it very easy to experiment with new libraries since all
+of the documentation and source code is right there at your fingertips!
+
+### `if`, `when`, and `do`
+
+In CFML we have an `if` statement. If the condition is true, the first group of statements is executed, else the second group of statements
+is executed. In functional languages like Clojure, `if` is an expression (a special form) and it takes a condition and two expressions.
+If the condition is true, the first expression is evaluated, else the second expression is evaluated. It's more like the tertiary operator
+`? :` in CFML.
+
+Also, it's important to note that Clojure has strong views on what is true and false. You'll hear of "truthy" and "falsey" in the Clojure
+world because Clojure treats everything as true except for `false` and `nil`. In particular, that means that `0` is true, unlike in CFML.
+The reason for this is an idiom called "nil punning": it's common for Clojure functions to return `nil` for "no such value" instead of
+throwing an exception, and allowing `nil` to mean false makes it easy to test for such things:
+
+    (if (:name rc) (str "Hello " (:name rc) "!") "Who?")
+
+In CFML, if you did `rc.name` and it wasn't present, you'd get an exception. In Clojure, `(:name rc)` simple returns `nil` if there's no
+such key and you just test for that. You can prevent repetition of `(:name rc)` with `if-let` -- see below.
+
+If you don't have an "else" expression (and want to return `nil` instead), use `when` instead of `if`:
+
+    (when (:name rc) (str "Hello " (:name rc) "!"))
+
+If the condition is "falsey", you get `nil` back. Be aware that `when` allows multiple expressions, just like `fn` above and `let` below, and it evaluates
+all of them but only returns the value of the last expression.
+
+If you want to evaluate multiple expressions in an `if`, you need `do`:
+
+    (if some-condition
+      (do
+        (log-something)
+        (update-the-database)
+        "Result!")
+      "Failure!")
+
+`do` can be used where any single expression is accepted and behaves like the body of `fn`.
+
+It might not surprise you to learn that `when` is really defined in terms of `if` and `do` something like this:
+
+    (when condition expr1 expr2 expr3)
+    ;; is treated like
+    (if condition (do expr1 expr2 expr3) nil)
+
+### `let` and its cousins
+
+Global bindings are fine for functions that you want exposed to the world, but you often want local bindings inside a function. That's what the
+`let` special form is for:
+
+    (defn sum-of-squares
+      "Given two values, return the sum of their squares."
+      [a b]
+      (let [a-squared (* a a)
+            b-squared (* b b)]
+        (+ a-squared b-squared)))
+
+`let` is following by a vector of bindings -- pairs of symbol and expression -- and then one or more expressions. It creates a local binding
+for each pair by evaluating the expression and binding it to the name (symbol), and then it evaluates the expressions in its body and returns
+the last expression's value (in the same way function bodies are evaluated).
+
+There are several variants of `let` that are useful. The most common is probably `if-let`:
+
+    (if-let [name (:name rc)]
+      (str "Hello " name "!")
+      "Who?")
+
+Unlike `let`, `if-let` only allows one binding pair followed by two expressions. If the binding is "truthy", the first expression will be evaluated,
+else the second expression will be evaluated. Note that the bound symbol is only available in the _first_ expression!
+
+### `loop` and `recur`
+
+Since I often tell people that functional programming means no mutable variables and therefore no loops, it might surprise you to learn that
+Clojure has a `loop` construct. It isn't quite what it seems!
+
+First, let's look at a recursive function:
+
+    (defn fact [n] (if (zero? n) 1 (* n (fact (dec n)))))
+    ;; (fact 1) => 1
+    ;; (fact 3) => 6
+    ;; (fact 5) => 120
+
+Because it is recursive, it creates a new stack frame for every call to itself. You can still call it with some big numbers but eventually you will get
+a stack overflow:
+
+    (fact 1000N) => 402387260077093773543702433923003985719374...
+    (fact 10000N) => StackOverflowError   java.math.BigInteger.valueOf (BigInteger.java:1098)
+
+There's a technique called tail recursion that allows some languages to evaluate recursive functions without needing stack frames. You
+have to rewrite the function to ensure the recursive call is in the tail position (the `fact` call above is nested inside multiplcation).
+Often, you need to create a helper function:
+
+    (defn fact-helper [n prod] (if (zero? n) prod (fact-helper (dec n) (* n prod))))
+    (defn fact [n] (fact-helper n 1))
+
+This produces the same results as `fact` above, but now the recursive call to `fact-helper` is in the tail position. Clojure doesn't optimize this
+directly but provides `recur` for you to tell the compiler you want it optimized -- and to verify you really are using tail recursion:
+
+    (defn fact [n] (if (zero? n) 1 (* n (recur (dec n)))))
+    ;; CompilerException: Can only recur from tail position
+
+But:
+
+    (defn fact-helper [n prod] (if (zero? n) prod (recur (dec n) (* n prod))))
+    (defn fact [n] (fact-helper n 1))
+    (fact 10000N) => 28462596809170545189064132121198688901480514...
+
+You can see that `recur` replaces the recursive call, but what it's really doing behind the scenes is rebinding the function arguments
+and "jumping" back to the beginning of the function, to avoid a function call altogether. Since this is really a loop-with-rebinding,
+Clojure provides a `loop` construct that lets you do this directly:
+
+    (defn fact [n] (loop [n n, prod 1] (if (zero? n) prod (recur (dec n) (* n prod)))))
+
+This single function is identical in behavior to the `fact` / `fact-helper` pair shown immediately above. You can see how the `loop`
+binding behaves just like the initial call to `fact-helper`, binding `fact`s argument `n` to the local symbol `n` and `1` to the local
+symbol `prod`.
+
+### Useful core Functions
+
+Since Clojure is all about data structures, there is a rich selection of functions that operate on them. Some of the valuable ones to know are:
+
+* `(first [1 2 3 4])` returns the first element of a sequence: `1`
+* `(rest [1 2 3 4])` returns the rest of a sequence: `(2 3 4)`
+
+The `rest` of a single element sequence is an empty sequence -- `()` -- and the `rest` of an empty sequence is _also_ an empty sequence!
+
+* `(seq some-collection)` returns a sequence of `some-collection`s elements if it is non-empty, else returns `nil`
+
+It is common to test for empty sequences with `if (seq some-collection)`.
+
+* `(cons 1 [2 3 4])` returns a new sequence with that element added: `(1 2 3 4)`
+* `(assoc {:a 1} :b 2)` returns a new hash map with the key associated to the value: `{:a 1, :b 2}`
+* `(dissoc {:a 1, :b 2} :a)` returns a new hash map with the key removed (dissociated): `{:b 2}`
+* `(map inc [1 2 3 4])` returns a new sequence with the function applied to each element: `(2 3 4 5]`
+* `(filter even? [1 2 3 4])` returns a new sequence containing just the elements for which the predicate is "truthy": `(2 4)`
+* `(reduce + 0 [1 2 3 4])` returns the value computed by repeatedly applying the function to the initial value and each element of the sequence: `10`
+
+If the initial value is omitted, the first element of the sequence is used so:
+
+    (reduce func some-collection)
+    ;; is the same as
+    (reduce func (first some-collection) (rest some-collection))
+
+### The `project.clj` File
+
+The piece of `project.clj` you'll touch most often is the `:dependencies` entry. This is a list of all the libraries your
+program needs and the versions of each you want to use:
+
+    :dependencies [[org.clojure/clojure "1.6.0"]
+                   [clj-time "0.9.0"]]
+
+Libraries come from two locations by default: [Maven Central](http://search.maven.org) and [Clojars](https://clojars.org).
+
+Most Clojure libraries tell you what to put in `project.clj` to pull them in so you mostly won't need to care which location
+they actually come from but it's instructive to at least know how to read this stuff and how to search for libraries yourself.
+
+Each entry is called a "coordinate" and contains a "group ID" and an "artifact ID". A single name just means that the group ID
+and artifact ID are the same thing (so `clj-time` is shorthand for `clj-time/clj-time`).
+
+To search Maven Central for `org.clojure/clojure` you would use the query `g:"org.clojure" AND a:"clojure"` which asks for
+group ID `org.clojure` and artifact ID `clojure`. Right now there are 74 versions of that library on Maven Central and the 
+latest is `1.7.0-RC1` but if you click the `All (74)` link, you'll see the most recent non-prerelease version is `1.6.0`
+which is what **Leiningen** puts in `project.clj` by default.
+
+On the other hand, `clj-time` comes from Clojars because it is a community project. If you search for `clj-time` you'll 
+get a lot of results but most of them are not canonical versions. The most recent canonical version is https://clojars.org/clj-time but
+there are other, earlier canonical versions, such as https://clojars.org/backtype/clj-time so you need to be a bit careful. If in doubt,
+get on IRC, Slack, or the mailing list and ask!
 
 ## About Functional Programming
 
