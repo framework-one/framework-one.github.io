@@ -733,16 +733,16 @@ get on IRC, Slack, or the mailing list and ask!</p>
 
 <h2>About Functional Programming</h2>
 
-<p>Functional programming isn&rsquo;t new. It&rsquo;s origins lie in Lisp which was created in the 1950&rsquo;s and is the second-oldest computer langauge
+<p>Functional programming isn&rsquo;t new. It&rsquo;s origins lie in Lisp which was created in the 1950&rsquo;s and is the second-oldest computer language
 (second only to FORTRAN). Throughout the 70&rsquo;s and 80&rsquo;s a lot of functional languages were created, mostly in academia, to study the
 benefits of the functional style, as well look at levels of expressiveness in programming languages. Classic functional languages
 include Standard ML, Miranda, and Haskell. Haskell was a result of the proliferation of similar functional languages being created
 by each university in England (and elsewhere). It was decided that a single, committee-designed functional language should exist
-that included the best ideas of all of the diverse variants out there. Haskell is probably the most widely used langauge today from
+that included the best ideas of all of the diverse variants out there. Haskell is probably the most widely used language today from
 that era. It has an extremely powerful type system and a very strong view of purity &mdash; lack of side effects &mdash; but it has been
 used extensively over the last 25 years in industry as well as academia.</p>
 
-<p>The recent resurgence of functional programming has shown itself in languages like F# from Microsoft, Scala, and Clojure, as well
+<p>The recent resurgence of functional programming has shown itself in languages like F# from Microsoft, Scala, and Clojure, even Rust, as well
 as some compile-to-JS languages like Elm and PureScript. The reason behind this resurgence is that immutable data structures and
 pure functions offer the ability to write concurrent code a lot more easily and lot more safely than the mainstream OOP approach.
 And we need concurrency in order to take advantage of multi-core machines, now that we&rsquo;re no longer seeing continued speed increases
@@ -807,7 +807,7 @@ interacting with other objects, to modify its state, and then you query the obje
 <p>A common idiom in the OOP world for collections is an iterator. In CFML this shows up in query objects. As you loop
 over the iterator, it changes its state to refer to successive elements of the underlying collection. A CFML query
 refers to successive rows of the result set as you loop over it and the <code>currentrow</code> element is updated at each
-iteration. Instead of a result set looking like a sequence of rows, we&rsquo;re using to looking at a snapshot of the &ldquo;current
+iteration. Instead of a result set looking like a sequence of rows, we&rsquo;re used to looking at a snapshot of the &ldquo;current
 row&rdquo; &mdash; and that&rsquo;s what iterators do to us for collections as well.</p>
 
 <p>In addition, instead of processing collections holistically to produce either new collections or specific results,
@@ -837,22 +837,22 @@ choose to have relationships between data types as you need them, without being 
 between data representations. In Clojure, in particular, you can create hierarchies of types independent of
 any data and use those to guide function call dispatching.</p>
 
-<p>Which brings us nicely to polymorhism! Polymorphism is great. It&rsquo;s very useful. Unfortunately, in OOP it is
+<p>Which brings us nicely to polymorphism! Polymorphism is great. It&rsquo;s very useful. Unfortunately, in OOP it is
 tied to inheritance which, as we&rsquo;ve just seen, is all about coupling when you&rsquo;re dealing with classes. If you
 only ever use interfaces and pure implementations, you can free yourself from some of the problems of coupling
 forced on you by OOP, but you still get stuck if you have a class (implementation) that isn&rsquo;t declared to
 implement an interface that you need to use, even though it has the right methods. Nor can you easily take
 an arbitrary existing class and make it implement your interface (you can extend the class and implement your
-interface, only if the class is not final in Java, for example). In addition to all that, polymorhism in OOP
+interface, only if the class is not final in Java, for example). In addition to all that, polymorphism in OOP
 is only effective on the first argument &mdash; the object type itself &mdash; which means that when faced with more
 complex problems, you have to resort to design patterns like Visitor and implement double dispatch. But then
 you are forced to modify the &ldquo;visited&rdquo; class every time you want to visit it with a new class. What you really
-need there is polymorhism based on multiple arguments. Fortunately, you can have that in functional programming.</p>
+need there is polymorphism based on multiple arguments. Fortunately, you can have that in functional programming.</p>
 
 <p>So what have we learned?</p>
 
 <p>Polymorphism is very limited in OOP but can be very powerful in FP once we remove the restriction of single
-dispatch and the coupling to a static inheritance hierarchy: this gives you ad hoc or a la carte polymorhism.</p>
+dispatch and the coupling to a static inheritance hierarchy: this gives you ad hoc or a la carte polymorphism.</p>
 
 <p>Inheritance as seen in OOP is essentially an implementation detail. You can have ad hoc inheritance in FP,
 which provides expressiveness where you want it and avoids boilerplate and coupling where you don&rsquo;t.</p>
@@ -861,7 +861,7 @@ which provides expressiveness where you want it and avoids boilerplate and coupl
 implementation. In other words, encapsulation is also essentially an implementation detail. FP solves this
 by making data immutable and making functions easily composable.</p>
 
-<p>Mutable state is just bad. It prevents refactoring to leverage concurrent, it leads to hard to find bugs
+<p>Mutable state is just bad. It prevents refactoring to leverage concurrency, it leads to hard to find bugs
 in complex programs, and it also erases any notion of time in your program (because you have only the
 current version of the state, rather than the series of values that were transformed to get to that point).
 FP solves that by removing mutability.</p>
