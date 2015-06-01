@@ -602,16 +602,16 @@ For an overview of all the possible settings in `project.clj`, take a look at th
 
 ## About Functional Programming
 
-Functional programming isn't new. It's origins lie in Lisp which was created in the 1950's and is the second-oldest computer langauge
+Functional programming isn't new. It's origins lie in Lisp which was created in the 1950's and is the second-oldest computer language
 (second only to FORTRAN). Throughout the 70's and 80's a lot of functional languages were created, mostly in academia, to study the 
 benefits of the functional style, as well look at levels of expressiveness in programming languages. Classic functional languages
 include Standard ML, Miranda, and Haskell. Haskell was a result of the proliferation of similar functional languages being created
 by each university in England (and elsewhere). It was decided that a single, committee-designed functional language should exist 
-that included the best ideas of all of the diverse variants out there. Haskell is probably the most widely used langauge today from
+that included the best ideas of all of the diverse variants out there. Haskell is probably the most widely used language today from
 that era. It has an extremely powerful type system and a very strong view of purity -- lack of side effects -- but it has been
 used extensively over the last 25 years in industry as well as academia.
 
-The recent resurgence of functional programming has shown itself in languages like F# from Microsoft, Scala, and Clojure, as well
+The recent resurgence of functional programming has shown itself in languages like F# from Microsoft, Scala, and Clojure, even Rust, as well
 as some compile-to-JS languages like Elm and PureScript. The reason behind this resurgence is that immutable data structures and
 pure functions offer the ability to write concurrent code a lot more easily and lot more safely than the mainstream OOP approach.
 And we need concurrency in order to take advantage of multi-core machines, now that we're no longer seeing continued speed increases
@@ -676,7 +676,7 @@ interacting with other objects, to modify its state, and then you query the obje
 A common idiom in the OOP world for collections is an iterator. In CFML this shows up in query objects. As you loop
 over the iterator, it changes its state to refer to successive elements of the underlying collection. A CFML query
 refers to successive rows of the result set as you loop over it and the `currentrow` element is updated at each
-iteration. Instead of a result set looking like a sequence of rows, we're using to looking at a snapshot of the "current
+iteration. Instead of a result set looking like a sequence of rows, we're used to looking at a snapshot of the "current
 row" -- and that's what iterators do to us for collections as well.
 
 In addition, instead of processing collections holistically to produce either new collections or specific results,
@@ -706,22 +706,22 @@ choose to have relationships between data types as you need them, without being 
 between data representations. In Clojure, in particular, you can create hierarchies of types independent of
 any data and use those to guide function call dispatching.
 
-Which brings us nicely to polymorhism! Polymorphism is great. It's very useful. Unfortunately, in OOP it is
+Which brings us nicely to polymorphism! Polymorphism is great. It's very useful. Unfortunately, in OOP it is
 tied to inheritance which, as we've just seen, is all about coupling when you're dealing with classes. If you
 only ever use interfaces and pure implementations, you can free yourself from some of the problems of coupling
 forced on you by OOP, but you still get stuck if you have a class (implementation) that isn't declared to
 implement an interface that you need to use, even though it has the right methods. Nor can you easily take
 an arbitrary existing class and make it implement your interface (you can extend the class and implement your
-interface, only if the class is not final in Java, for example). In addition to all that, polymorhism in OOP
+interface, only if the class is not final in Java, for example). In addition to all that, polymorphism in OOP
 is only effective on the first argument -- the object type itself -- which means that when faced with more
 complex problems, you have to resort to design patterns like Visitor and implement double dispatch. But then
 you are forced to modify the "visited" class every time you want to visit it with a new class. What you really
-need there is polymorhism based on multiple arguments. Fortunately, you can have that in functional programming.
+need there is polymorphism based on multiple arguments. Fortunately, you can have that in functional programming.
 
 So what have we learned?
 
 Polymorphism is very limited in OOP but can be very powerful in FP once we remove the restriction of single
-dispatch and the coupling to a static inheritance hierarchy: this gives you ad hoc or a la carte polymorhism.
+dispatch and the coupling to a static inheritance hierarchy: this gives you ad hoc or a la carte polymorphism.
 
 Inheritance as seen in OOP is essentially an implementation detail. You can have ad hoc inheritance in FP,
 which provides expressiveness where you want it and avoids boilerplate and coupling where you don't.
@@ -730,7 +730,7 @@ Encapsulation is required in OOP when you have mutatable state and is also neede
 implementation. In other words, encapsulation is also essentially an implementation detail. FP solves this
 by making data immutable and making functions easily composable.
 
-Mutable state is just bad. It prevents refactoring to leverage concurrent, it leads to hard to find bugs
+Mutable state is just bad. It prevents refactoring to leverage concurrency, it leads to hard to find bugs
 in complex programs, and it also erases any notion of time in your program (because you have only the
 current version of the state, rather than the series of values that were transformed to get to that point).
 FP solves that by removing mutability.
