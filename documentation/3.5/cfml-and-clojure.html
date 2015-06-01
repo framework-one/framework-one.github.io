@@ -93,6 +93,11 @@ It&rsquo;s very simple &mdash; very little syntax &mdash; but very powerful and 
 functional programming language it favors immutable data structures and higher order functions (map, filter, reduce, etc) which
 makes programs easy to reason about and it also makes concurrent programming pretty easy. No more thread safety issues!</p>
 
+<p>Although Clojure can be compiled to JVM bytecode and deployed as a JAR or WAR file, it can also be treated like
+a dynamic scripting language and compiled on-the-fly to JVM bytecode, just like CFML, giving you that very fast edit-reload-test
+cycle that you&rsquo;re used to with CFML. In fact, if you use the REPL (Read-Eval-Print-Loop) you can pretty much reduce that to
+just edit-test since Clojure code is compiled as you type it in and can be evaluated immediately.</p>
+
 <p>And because I was still writing a lot of CFML back then, I figured out an easy way to allow you, as a CFML developer, to load
 and run Clojure code within your CFML application. That functionality has been available via the standalone
 <a href="https://github.com/framework-one/cfmljure">cfmljure library</a> for several years (since September 2010), and it has become core
@@ -148,7 +153,7 @@ initialization proceeds.</li>
 <h2>Getting Started with Clojure and CFML</h2>
 
 <p>Clojure has a standard build tool called <a href="http://leiningen.org">Leiningen</a>. This manages all of your project dependencies
-(e.g., automatically downloading and installing any libraries you need) as well as providing a REPL (Read-Eval-Print-Loop) for
+(e.g., automatically downloading and installing any libraries you need) as well as providing a REPL for
 interactive development, running your tests, packaging applications into JAR files, deploying them to standard repositories and so on.</p>
 
 <p><strong>cfmljure</strong> leverages <strong>Leiningen</strong> to figure out the complete classpath that your Clojure code needs &mdash; including any
