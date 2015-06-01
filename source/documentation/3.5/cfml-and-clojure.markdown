@@ -598,24 +598,169 @@ get a lot of results but most of them are not canonical versions. The most recen
 there are other, earlier canonical versions, such as https://clojars.org/backtype/clj-time so you need to be a bit careful. If in doubt,
 get on IRC, Slack, or the mailing list and ask!
 
+For an overview of all the possible settings in `project.clj`, take a look at the [Sample project.clj File on GitHub](https://github.com/technomancy/leiningen/blob/master/sample.project.clj).
+
 ## About Functional Programming
 
-* Immutable Data Structures
-* Functions as Building Blocks
+Functional programming isn't new. It's origins lie in Lisp which was created in the 1950's and is the second-oldest computer langauge
+(second only to FORTRAN). Throughout the 70's and 80's a lot of functional languages were created, mostly in academia, to study the 
+benefits of the functional style, as well look at levels of expressiveness in programming languages. Classic functional languages
+include Standard ML, Miranda, and Haskell. Haskell was a result of the proliferation of similar functional languages being created
+by each university in England (and elsewhere). It was decided that a single, committee-designed functional language should exist 
+that included the best ideas of all of the diverse variants out there. Haskell is probably the most widely used langauge today from
+that era. It has an extremely powerful type system and a very strong view of purity -- lack of side effects -- but it has been
+used extensively over the last 25 years in industry as well as academia.
+
+The recent resurgence of functional programming has shown itself in languages like F# from Microsoft, Scala, and Clojure, as well
+as some compile-to-JS languages like Elm and PureScript. The reason behind this resurgence is that immutable data structures and
+pure functions offer the ability to write concurrent code a lot more easily and lot more safely than the mainstream OOP approach.
+And we need concurrency in order to take advantage of multi-core machines, now that we're no longer seeing continued speed increases
+in individual cores like we have for the last several decades.
+
+While it may seem obvious that functional programming leans heavily on functions as building blocks, the real core values of
+functional programming are avoiding mutable data and avoiding side effects in functions. The more that you can push side effects
+to the edges of your program, the more of your code becomes pure functions that can be easily reasoned about, easily tested, and
+often easily reused. Functional programming focuses on small, pure functions that can be composed to create larger pieces of
+functionality. If you have a function `inc` that adds one to its argument and a function `twice` that doubles its argument, then
+`(comp twice inc)` is a function that adds one to its argument and then doubles it: functions are like Legos that you can easily
+assemble to build products.
+
+### Immutable or Persistent Data Structures
+
+In the context of functional programming, you'll hear a lot of talk of immutable data structures and persistent data structures.
+In OOP languages, you typically perform operations on a data structure to modify it in place. That means you can't safely share
+it with other pieces of code, especially across multiple threads. By constrast, in a functional language, when you perform an
+operation on a data structure, you get a new data structure back, that shares as much structure as possible with the original
+data structure -- and that leaves the original data structure unchanged.
+
+While they are designed for efficiency, it is usually at scale, rather than for small examples. In Clojure, many data structures
+are "chunked" internally into groups of 32 elements. A vector of 100 elements is going to be four chunks and is optimized for
+adding elements to the end of the vector. A list is optimized for adding elements at the start of it. A hash map is also chunked
+and optimized for adding elements in random locations. They are also optimized for different patterns of access: a list is optimized
+for purely sequential access, a vector for indexed (random) access, and a hash map for keyed (random) access.
+
+Clojure and Scala share a lot of heavily optimized implementation details in their persistent data structures.
+
+Despite all this efficiency, you still need to think about how to use data structures, and there are going to be some algorithms
+where bashing a data structure in place is just going to be faster. It won't be as safe, just faster. Clojure is fine with the 
+idea of localized mutation and has versions of vectors and hash maps that are optimized for that purpose (known as transients).
+
+The most important aspect of these data structures in Clojure is the set of abstractions over them, including "sequence"
+and "associative". These are uniform ways to think
+about data structures as just sequences of data (accessed in order, or randomly by keys),
+no matter what their actual implementation is, so that you can apply all of
+Clojure's core functions to arbitrary data structures in standardized ways. The lack of unique types for each data structure
+you use means that you don't need unique functions to operate on them all. A function that operates on a sequence can accept
+any data structure that supports the sequence abstraction. A function that operates on an associative collection can accept
+any data structure that supports the associative abstraction.
+
+For example, a result set from a database query is simply a sequence of associative collections. It can be mapped, filtered,
+reduced using standard functions and its rows transformed using any of the standard associative functions. This allows
+abstraction over different data stores as well since, from Clojure's point of view, MySQL and MongoDB look very similar.
+
+### Functions as Building Blocks
 
 ## All You Know About OO Programming is Wrong
 
-* State
-* Encapsulation
-* Inheritance
-* Polymorphism
+I learned old-fashioned imperative procedural programming first. I learned BASIC, assembly language, Pascal and later
+COBOL and FORTRAN. Although OOP has its roots back in the 50's and 60's (ironically, with Lisp, just like FP has its
+roots in Lisp), it didn't really go mainstream until the mid-to-late 80's with the arrival of Eiffel and C++. I
+learned a lot of FP during the 80's but since it wasn't going mainstream and OOP was, I switched horses to stay
+employable. By the time Java appeared, OOP had become the default "standard" way to build software, even though
+C++ and Java were not at all what Alan Kay had in mind when he coined the phrase "object-oriented".
+
+What most developers know as modern OOP focuses on polymorhism, inheritance, encapsulation and objects that have both
+state and behavior bundled together. You construct an object with its initial state. You run a bunch of methods on it,
+interacting with other objects, to modify its state, and then you query the object to get that state back out.
+
+A common idiom in the OOP world for collections is an iterator. In CFML this shows up in query objects. As you loop
+over the iterator, it changes its state to refer to successive elements of the underlying collection. A CFML query
+refers to successive rows of the result set as you loop over it and the `currentrow` element is updated at each
+iteration. Instead of a result set looking like a sequence of rows, we're using to looking at a snapshot of the "current
+row" -- and that's what iterators do to us for collections as well.
+
+In addition, instead of processing collections holistically to produce either new collections or specific results,
+we're using to iterating through the elements and either modifying them in place or performing side effecting operations
+along the way.
+
+What makes this problematic is that you can't then easily run this code concurrently to take advantage of multiple cores:
+code that mutates collections in places or generates side effects is rarely thread safe.
+
+In other words, mutable state is bad.
+
+What about OOP's other basic tenets?
+
+Why do you encapsulate data? The primary reason is so that you can control mutation of that data. If your data is
+immutable, encapsulation is no longer needed for that. The other argument for encapsulation is so that you can
+change the representation of the state without affecting your clients. In a functional world, if you change your
+representation, you can always provide a function that transforms it to the original structure and then simply
+compose that transformation with any client function that needs to access it. That composed client + transform
+can be refactored away over time as the client transitions to the new API. In other words, your data is your API
+and there's no need to encapsulate it (at least, not for the traditional OOP reasons).
+
+Inheritance? Inheritance exists in OOP because the notion of data types is inherently tied to classes and objects.
+Inheritance represents a strong coupling between an implementation and an interface or between one implementation
+and another related implementation. It exists because there's no way to separate out the notion of data types and
+their relationships from the class implementation relationships. Needless to say, in a functional world, you can
+choose to have relationships between data types as you need them, without being forced to create relationships
+between data representations. In Clojure, in particular, you can create hierarchies of types independent of
+any data and use those to guide function call dispatching.
+
+Which brings us nicely to polymorhism! Polymorphism is great. It's very useful. Unfortunately, in OOP it is
+tied to inheritance which, as we've just seen, is all about coupling when you're dealing with classes. If you
+only ever use interfaces and pure implementations, you can free yourself from some of the problems of coupling
+forced on you by OOP, but you still get stuck if you have a class (implementation) that isn't declared to
+implement an interface that you need to use, even though it has the right methods. Nor can you easily take
+an arbitrary existing class and make it implement your interface (you can extend the class and implement your
+interface, only if the class is not final in Java, for example). In addition to all that, polymorhism in OOP
+is only effective on the first argument -- the object type itself -- which means that when faced with more
+complex problems, you have to resort to design patterns like Visitor and implement double dispatch. But then
+you are forced to modify the "visited" class every time you want to visit it with a new class. What you really
+need there is polymorhism based on multiple arguments. Fortunately, you can have that in functional programming.
+
+So what have we learned?
+
+Polymorphism is very limited in OOP but can be very powerful in FP once we remove the restriction of single
+dispatch and the coupling to a static inheritance hierarchy: this gives you ad hoc or a la carte polymorhism.
+
+Inheritance as seen in OOP is essentially an implementation detail. You can have ad hoc inheritance in FP,
+which provides expressiveness where you want it and avoids boilerplate and coupling where you don't.
+
+Encapsulation is required in OOP when you have mutatable state and is also needed in order to allow changes in
+implementation. In other words, encapsulation is also essentially an implementation detail. FP solves this
+by making data immutable and making functions easily composable.
+
+Mutable state is just bad. It prevents refactoring to leverage concurrent, it leads to hard to find bugs
+in complex programs, and it also erases any notion of time in your program (because you have only the
+current version of the state, rather than the series of values that were transformed to get to that point).
+FP solves that by removing mutability.
+
+If FP is so great, why aren't we all using it already?
+
+Good question. The OOP industry is vast. Design Patterns, training and consulting, higher education based on
+teaching OOP (ironically after supplanting a lot of courses that taught FP!), testing, tooling, IDEs. The
+momentum behind OOP is huge and the inertia of industry to keep doing things the way they know is almost 
+overwhelming. Yet we see functional features in nearly every new language being designed, we see functional
+features being added to nearly every existing language over time, we see the functional style of programming
+being advocated even in traditional languages -- with less reliance on mutable state. Most of that pressure
+is coming from the need to do more concurrency and to avoid the bugs that arise from side-effecting code.
+In other words, a lot of people already know that FP is a better way to solve a lot of problems.
+
+Remember that modern OOP -- as enshrined in Java and C# particularly -- is not what the originators of OOP had
+in mind. They imagined objects as proxies for real world elements such as displays and control devices, that
+objects would be coarse-grained and communicate by sending messages between themselves.
 
 ## More Stuff to Read
 
-* the tutorial for http://www.tryclj.com
-* the https://www.4clojure.com puzzles
-* the Clojure Koans http://clojurekoans.com
-* some great books to read:
+Once you've got a taste for Clojure, there are lots of online resources and a host of great books you can read.
+Here's a small sample, roughly in order of approachability:
+
+* The online tutorial for learning Clojure, no installation required: http://www.tryclj.com
+* The "4Clojure" puzzles online: https://www.4clojure.com 
+  * These quickly get hard enough that you'll want a REPL open locally to play with!
+* The Clojure Koans: http://clojurekoans.com
+  * You need at least Java, Leiningen, and Git installed for these.
+* Some great books to read:
   * Clojure Programming http://www.clojurebook.com followed by
   * The Joy Of Clojure http://www.joyofclojure.com :)
 
