@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-05-15 16:30
+date: 2015-06-04 13:45
 comments: false
 sharing: false
 footer: true
@@ -314,6 +314,8 @@ The recommended migration is to set the `di*` configuration variables appropriat
         ...
     };
 
+As of FW/1 3.5, `diLocations` can now be either an array of paths or a list of paths.
+
 If you use a load listener and call `bf.onLoad( myListener )`, you use `diConfig` and add `loadListener = myListener` to it instead.
 
 If you perform more complex configuration of DI/1 (adding bean declarations etc), add a new function to your `Application.cfc` that accepts the bean factory as an argument, and then specify that as the `loadListener`:
@@ -437,7 +439,7 @@ All of the configuration for FW/1 is done through a simple structure in `Applica
         noLowerCase = false,
         diEngine = "di1",
         diComponent = "framework.ioc",
-        diLocations = "model,controllers",
+        diLocations = [ "model", "controllers" ],
         diConfig = { }
     };
 
@@ -475,7 +477,7 @@ The keys in the structure have the following meanings:
 * `routesCaseSensitive` - Default `true`. Controls whether route matches are case-sensitive or not. _New in 3.1._
 * `diEngine` - the Dependency Injection framework that FW/1 should use.
 * `diComponent` - the dotted-path to the CFC used for the bean factory (which has sensible defaults based on `diEngine`).
-* `diLocations` - the list of folders to check for CFCs to manage; defaults to `"model,controllers"`.
+* `diLocations` - the list of folders to check for CFCs to manage; defaults to `[ "model", "controllers" ]`.
 * `diConfig` - any additional configuration needed for the Dependency Injection engine; defaults to `{ }`.
 
 At runtime, this structure also contains the following key (from release 0.4 onward):

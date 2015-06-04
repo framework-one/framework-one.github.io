@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using DI/1"
-date: 2015-05-15 16:30
+date: 2015-06-04 13:45
 comments: false
 sharing: false
 footer: true
@@ -17,6 +17,10 @@ DI/1 searches specified directories for CFCs and treats them as singletons or no
 Create an instance of the DI/1 bean factory and specify the folder(s) you want it to search for beans (CFCs):
 
     var beanFactory = new ioc("/model");
+    // or multiple folders:
+    var beanFactory = new ioc("/model,/common/model");
+    // or an array:
+    var beanFactory = new ioc(["/model","/common/model"]);
 
 CFCs found in a folder called *beans* are assumed to be transients; otherwise CFCs are assumed to be singletons. If CFC names are unique, you can use that name to get the bean out of the factory:
 

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using Clojure with CFML"
-date: 2015-05-30 16:30
+date: 2015-06-04 13:45
 comments: false
 sharing: false
 footer: true
@@ -20,9 +20,9 @@ a dynamic scripting language and compiled on-the-fly to JVM bytecode, just like 
 cycle that you're used to with CFML. In fact, if you use the REPL (Read-Eval-Print-Loop) you can pretty much reduce that to
 just edit-test since Clojure code is compiled as you type it in and can be evaluated immediately.
 
-And because I was still writing a lot of CFML back then, I figured out an easy way to allow you, as a CFML developer, to load
+Because I was still writing a lot of CFML back in 2010, I figured out an easy way to allow you, as a CFML developer, to load
 and run Clojure code within your CFML application. That functionality has been available via the standalone
-[cfmljure library](https://github.com/framework-one/cfmljure) for several years (since September 2010), and it has become core
+[cfmljure library](https://github.com/framework-one/cfmljure) for several years, and it has become core
 to how the Internet dating platform works at my company ([World Singles Networks](http://worldsinglesnetworks.com)). We've had
 **cfmljure** in production since Spring 2011 and, in 2014, we declared Clojure to be our primary language and nearly all new
 development happens in Clojure, hosted within three ColdBox applications and two FW/1 applications. Clojure powers all of our
@@ -203,7 +203,7 @@ provides the Clojure-specific magic.
 
 Next we specify `diLocations` as the full filesystem path of the current folder. In a CFML / Clojure application, you need to tell the bean factory
 about two things: where to find your `project.clj` file and where to look for your CFML beans (if any). Locations are specified as
-a comma-separated list of file paths and one of them must specify the exact file path to where `project.clj` lives. That will also be
+either a comma-separated list of file paths, or an array of paths, and one of them must specify the exact file path to where `project.clj` lives. That will also be
 searched (recursively) for CFCs so you can store both your Clojure code and your CFML beans in the same tree structure if you wish, or
 you can store them separately and provide both file paths in `diLocations`.
 
