@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 May 15th, 2015 This is the upcoming (3.5 &ndash; clojure) documentation &ndash; for the current stable release, &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Jun 4th, 2015 This is the upcoming (3.5 &ndash; clojure) documentation &ndash; for the current stable release, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
   
 
 
-<time datetime="2015-05-15T16:30:00-07:00" pubdate data-updated="true">May 15<span>th</span>, 2015</time></p>
+<time datetime="2015-06-04T13:45:00-07:00" pubdate data-updated="true">Jun 4<span>th</span>, 2015</time></p>
   </header>
   
   <p><em>This is the upcoming (3.5 &ndash; clojure) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/developing-applications.html">3.0 master documentation</a>.</em></p>
@@ -426,6 +426,8 @@ variables.framework = {
 };
 </code></pre>
 
+<p>As of FW/1 3.5, <code>diLocations</code> can now be either an array of paths or a list of paths.</p>
+
 <p>If you use a load listener and call <code>bf.onLoad( myListener )</code>, you use <code>diConfig</code> and add <code>loadListener = myListener</code> to it instead.</p>
 
 <p>If you perform more complex configuration of DI/1 (adding bean declarations etc), add a new function to your <code>Application.cfc</code> that accepts the bean factory as an argument, and then specify that as the <code>loadListener</code>:</p>
@@ -557,7 +559,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
     noLowerCase = false,
     diEngine = "di1",
     diComponent = "framework.ioc",
-    diLocations = "model,controllers",
+    diLocations = [ "model", "controllers" ],
     diConfig = { }
 };
 </code></pre>
@@ -597,7 +599,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 <li><code>routesCaseSensitive</code> &ndash; Default <code>true</code>. Controls whether route matches are case-sensitive or not. <em>New in 3.1.</em></li>
 <li><code>diEngine</code> &ndash; the Dependency Injection framework that FW/1 should use.</li>
 <li><code>diComponent</code> &ndash; the dotted-path to the CFC used for the bean factory (which has sensible defaults based on <code>diEngine</code>).</li>
-<li><code>diLocations</code> &ndash; the list of folders to check for CFCs to manage; defaults to <code>"model,controllers"</code>.</li>
+<li><code>diLocations</code> &ndash; the list of folders to check for CFCs to manage; defaults to <code>[ "model", "controllers" ]</code>.</li>
 <li><code>diConfig</code> &ndash; any additional configuration needed for the Dependency Injection engine; defaults to <code>{ }</code>.</li>
 </ul>
 
@@ -858,7 +860,7 @@ property framework;
   
 
 
-<time datetime="2015-05-15T16:30:00-07:00" pubdate data-updated="true">May 15<span>th</span>, 2015</time>
+<time datetime="2015-06-04T13:45:00-07:00" pubdate data-updated="true">Jun 4<span>th</span>, 2015</time>
         
       </p>
       

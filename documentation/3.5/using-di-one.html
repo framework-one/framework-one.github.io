@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using DI/1 May 15th, 2015 This is the upcoming (3.5 &ndash; clojure) documentation &ndash; for the current stable release, read the 3.0 master &hellip;">
+  <meta name="description" content="Using DI/1 Jun 4th, 2015 This is the upcoming (3.5 &ndash; clojure) documentation &ndash; for the current stable release, read the 3.0 master &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
   
 
 
-<time datetime="2015-05-15T16:30:00-07:00" pubdate data-updated="true">May 15<span>th</span>, 2015</time></p>
+<time datetime="2015-06-04T13:45:00-07:00" pubdate data-updated="true">Jun 4<span>th</span>, 2015</time></p>
   </header>
   
   <p><em>This is the upcoming (3.5 &ndash; clojure) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/using-di-one.html">3.0 master documentation</a>.</em></p>
@@ -95,6 +95,10 @@
 <p>Create an instance of the DI/1 bean factory and specify the folder(s) you want it to search for beans (CFCs):</p>
 
 <pre><code>var beanFactory = new ioc("/model");
+// or multiple folders:
+var beanFactory = new ioc("/model,/common/model");
+// or an array:
+var beanFactory = new ioc(["/model","/common/model"]);
 </code></pre>
 
 <p>CFCs found in a folder called <em>beans</em> are assumed to be transients; otherwise CFCs are assumed to be singletons. If CFC names are unique, you can use that name to get the bean out of the factory:</p>
@@ -322,7 +326,7 @@ private any function metadata( string dottedPath )
   
 
 
-<time datetime="2015-05-15T16:30:00-07:00" pubdate data-updated="true">May 15<span>th</span>, 2015</time>
+<time datetime="2015-06-04T13:45:00-07:00" pubdate data-updated="true">Jun 4<span>th</span>, 2015</time>
         
       </p>
       
