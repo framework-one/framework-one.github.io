@@ -342,20 +342,91 @@ Clojure book or the online documentation for more details about that.
 
 # Building Your Own CFML / Clojure Application
 
+Since we want to focus on the Clojure aspect of a combined CFML / Clojure project, we'll
+start out by creating a Clojure project, and adding the necessary FW/1 CFML files to it
+in order to create a web application.
 
+We will build a very simple task manager, backed by a database. We will initially create
+a CFML controller and write a Clojure service to interact with the database, then we'll
+replace the CFML controller with a Clojure controller to wrap things up.
 
 ## Creating the Clojure project
+
+Our Clojure code doesn't need to be in our CFML webroot so just pick a folder and we'll create a new Clojure application, in which we'll write our task manager code:
+
+    lein new app taskmanager
+
+This will create a folder called `taskmanager` containing a bare bones Clojure project. It'll have a `-main` function so we can use it to run specific operations from the command line, and it'll have tests we can run to validate our code.
+
+## Accessing a Database from Clojure
+
+In order to access a database (via JDBC) from Clojure, you will first need to update your `project.clj` file to include
+dependencies on Clojure's JDBC library and what your choice of JDBC driver is. For now we'll use Apache Derby but if you
+look at the [java.jdbc](https://github.com/clojure/java.jdbc) page on GitHub, you'll see links to several other common
+database drivers (if you use SQL Server, you'll find it easiest to use the jTDS driver to get started!).
+
+Edit `project.clj` and update the `:dependencies` section to include:
+
+    [org.apache.derby/derby "10.11.1.1"]
+    [org.clojure/java.jdbc "0.3.7"]
+
+You'll now have a vector with three vectors inside it like this:
+
+    :dependencies [[org.apache.derby/derby "10.11.1.1"]
+                   [org.clojure/java.jdbc "0.3.7"]
+                   [org.clojure/clojure "1.6.0"]]
+
+Now run `lein repl` and we can try this out. As the REPL starts up, it will download the new
+libraries and then you'll get the prompt. Let's create test database and write and read some 
+data with it:
+
+    user> (require '[clojure.java.jdbc :as sql])
+    nil ;; now we have the JDBC library loaded with an alias
+    user> (def db {:subprotocol "derby" :subname "cfmltest" :create true})
+    #'user/db ;; this is our database spec
+    user=> (sql/execute! db [(str "CREATE TABLE task ("
+      "id INT GENERATED ALWAYS AS IDENTITY,"
+      "task VARCHAR(32),"
+      "done BOOLEAN DEFAULT false"
+      ")"])
+    [0] ;; success! we created the task table 
+    user> (sql/insert! db :task {:task "Test database"})
+    ((:1 1M)) ;; the sequence of inserted keys:
+    ;; there is just one key, labeled :1, with the value 1
+    ;; the M indicates a BigDecimal value
+    user> (sql/insert! db :task {:task "Read some data"})
+    ((:1 2M)) ;; generated key is 2 this time
+    user> (sql/query db ["SELECT * FROM task WHERE NOT done"])
+    ({:done false, :task "Test database", :id 1} {:done false, :task "Read some data", :id 2})
+    ;; our two records came back, let's update one
+    user> (sql/update! db :task {:done true} ["id = ?" 1])
+    (1) ;; one row was updated
+    user> (sql/query db ["SELECT * FROM task WHERE NOT done"])
+    ({:done false, :task "Read some data", :id 2})
+    ;; yup, that's our only task not done now
+    user> (sql/update! db :task {:done true} ["id = ?" 1])
+    (1) ;; one row was updated
+    ;; let's delete our table to clean up
+    user> (sql/execute! db [ "DROP TABLE task"])
+    [0] ;; success! we dropped the table
+
+Some notes on the syntax:
+
+* Functions that modify the database end in `!` to indicate they have side effects
+* SQL and any parameters are specified together in a vector:
+  * `["a SQL string" param1 param2 param3]`
+  * Use `?` in the SQL string to indicate a parameter
+  * A `PreparedStatement` is used for all operations
+* `execute!` can be used for arbitrary SQL or DDL
+* `query` is intended for `SELECT` only and returns a result set
+* `insert!` inserts a new row from a hash map (struct)
+* `update!` sets the column values shown in the hash map for all rows that match the `WHERE` clause provided in the vector, so it is shorthand for `["UPDATE table SET column values WHERE clause" param1 param2 param3]`
 
 ## Adding the initial CFML files
 
 ## Writing a Clojure Service
 
 ## Writing a Clojure Controller
-
-## Accessing a Database from Clojure
-
-In order to access a database (via JDBC) from Clojure, you will first need to update your `project.clj` file to include
-dependencies on Clojure's JDBC library and what your choice of JDBC driver is.
 
 # A Clojure Primer
 
