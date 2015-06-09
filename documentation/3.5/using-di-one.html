@@ -213,6 +213,8 @@ beanFactory.declareBean("admindata", "util.DataSource", true, { dsn = "admindb" 
 
 <p><code>getBeanInfo()</code> can also be called with no arguments, in which case it will return metadata for all the beans in the factory (in the <code>beanInfo</code> key of the result) and metadata for all the beans in the factory&rsquo;s parent, if any, in the <code>parent</code> key of the result. Optionally, you may specify an argument of <code>flatten = true</code> and the <code>parent</code> structures will be merged (recursively through the parents) into <code>beanInfo</code>, producing a flat struct.</p>
 
+<p><code>getConfig()</code> can be called to get a copy of the bean factory&rsquo;s configuration, in case you need to have conditional behavior in your load listeners.</p>
+
 <h2>Specifying Additional Transient Beans</h2>
 
 <p>By default, any CFC in the <strong>beans</strong> folder is considered a transient and everything else is considered a singleton. There are three ways to specify other CFCs should be considered transient:</p>
