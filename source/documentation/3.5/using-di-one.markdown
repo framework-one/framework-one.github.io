@@ -114,6 +114,8 @@ I would expect these only to be useful to framework authors. Both methods walk u
 
 `getBeanInfo()` can also be called with no arguments, in which case it will return metadata for all the beans in the factory (in the `beanInfo` key of the result) and metadata for all the beans in the factory's parent, if any, in the `parent` key of the result. Optionally, you may specify an argument of `flatten = true` and the `parent` structures will be merged (recursively through the parents) into `beanInfo`, producing a flat struct.
 
+`getConfig()` can be called to get a copy of the bean factory's configuration, in case you need to have conditional behavior in your load listeners.
+
 ## Specifying Additional Transient Beans
 
 By default, any CFC in the **beans** folder is considered a transient and everything else is considered a singleton. There are three ways to specify other CFCs should be considered transient:
