@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-03-21 16:35
+date: 2015-06-11 18:35
 comments: false
 sharing: false
 footer: true
@@ -429,7 +429,7 @@ This would cause `populate()` to traverse the `cfc` argument like so:
 
 Given a `path`, and an array of `routes`, and an optional `httpMethod`, process the routes to see if any matched and return a struct with a `matched` flag and if that's `true` also `route` and `path` values. Route matching is case-sensitive by default but this can be overridden by setting `routesCaseSensitive` to `false` in FW/1's configuration.
 
-### public void function redirect( string action, string preserve = "none", string append = "none", string path = _see below_, string queryString = '', string statusCode = '302' )
+### public void function redirect( string action, string preserve = "none", string append = "none", string path = _see below_, string queryString = '', string statusCode = '302', string header = '' )
 
 This constructs a URL based on the `action` and optional `path` and redirects to it. If `preserve` is `"all"`, the entire contents of the request context are saved to `session` scope across the redirect (and restored back to the request context automatically after the redirect). If `preserve` is a list of keys, just those elements of the request context are preserved. If `append` is `"all"`, all simple values in the request context are appended to the constructed URL as a query string before the redirect. If `append` is a list of keys, just those elements of the request context are appended (if they are simple values). The `statusCode` argument lets you specify the HTTP status code for the redirect so you can override the default value of `302`.
 
@@ -447,7 +447,9 @@ Will generate:
 * `/index.cfm/blog/entry/id/{rc.id}#comment` - in "SES" mode
 * `/blog/entry/id/{rc.id}#comment` - in "SES" mode with `SESOmitIndex` set to `true`
 
-### public void function redirectCustomURL( string uri, string preserve = 'none', string statusCode = '302' )
+If `header` is provided (as a non-empty string), instead of performing an actual redirect, FW/1 will set the named HTTP header to the target URL and then abort the controller lifecycle. This allows custom handling of "redirects" in AJAX-based applications.
+
+### Public void function redirectCustomURL( string uri, string preserve = 'none', string statusCode = '302', string header = '' )
 
 This is to `redirect()` as `buildCustomURL()` is to `buildURL()`.
 
