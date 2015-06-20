@@ -1,0 +1,8 @@
+---
+layout: post
+title: "FW/1 3.1 Beta 2 Available!"
+date: 2015-06-19 23:59:49 -0800
+comments: true
+categories: [releases, fw1, di1]
+---
+The second beta version of FW/1 3.1 is available for testing. Whilst this is a minor bug fix and enhancement release, it now includes the first major rewrite of AOP/1. Documentation will follow shortly. Massive thanks to Daniel Budde for the rewrite! You can [download FW/1 3.1 Beta 2](https://github.com/framework-one/fw1/releases/tag/v3.1-beta2) from GitHub, as well as read the full release notes there.
