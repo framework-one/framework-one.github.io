@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Mar 21st, 2015 This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the 3.0 &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Jun 11th, 2015 This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the 3.0 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
   
 
 
-<time datetime="2015-03-21T16:35:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time></p>
+<time datetime="2015-06-11T18:35:00-07:00" pubdate data-updated="true">Jun 11<span>th</span>, 2015</time></p>
   </header>
   
   <p><em>This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/reference-manual.html">3.0 master documentation</a>.</em></p>
@@ -553,7 +553,7 @@
 
 <p>Given a <code>path</code>, and an array of <code>routes</code>, and an optional <code>httpMethod</code>, process the routes to see if any matched and return a struct with a <code>matched</code> flag and if that&rsquo;s <code>true</code> also <code>route</code> and <code>path</code> values. Route matching is case-sensitive by default but this can be overridden by setting <code>routesCaseSensitive</code> to <code>false</code> in FW/1&rsquo;s configuration.</p>
 
-<h3>public void function redirect( string action, string preserve = &ldquo;none&rdquo;, string append = &ldquo;none&rdquo;, string path = <em>see below</em>, string queryString = &lsquo;&rsquo;, string statusCode = &lsquo;302&rsquo; )</h3>
+<h3>public void function redirect( string action, string preserve = &ldquo;none&rdquo;, string append = &ldquo;none&rdquo;, string path = <em>see below</em>, string queryString = &lsquo;&rsquo;, string statusCode = &lsquo;302&rsquo;, string header = &lsquo;&rsquo; )</h3>
 
 <p>This constructs a URL based on the <code>action</code> and optional <code>path</code> and redirects to it. If <code>preserve</code> is <code>"all"</code>, the entire contents of the request context are saved to <code>session</code> scope across the redirect (and restored back to the request context automatically after the redirect). If <code>preserve</code> is a list of keys, just those elements of the request context are preserved. If <code>append</code> is <code>"all"</code>, all simple values in the request context are appended to the constructed URL as a query string before the redirect. If <code>append</code> is a list of keys, just those elements of the request context are appended (if they are simple values). The <code>statusCode</code> argument lets you specify the HTTP status code for the redirect so you can override the default value of <code>302</code>.</p>
 
@@ -575,7 +575,9 @@
 </ul>
 
 
-<h3>public void function redirectCustomURL( string uri, string preserve = &lsquo;none&rsquo;, string statusCode = &lsquo;302&rsquo; )</h3>
+<p>If <code>header</code> is provided (as a non-empty string), instead of performing an actual redirect, FW/1 will set the named HTTP header to the target URL and then abort the controller lifecycle. This allows custom handling of &ldquo;redirects&rdquo; in AJAX-based applications.</p>
+
+<h3>public void function redirectCustomURL( string uri, string preserve = &lsquo;none&rsquo;, string statusCode = &lsquo;302&rsquo;, string header = &lsquo;&rsquo; )</h3>
 
 <p>This is to <code>redirect()</code> as <code>buildCustomURL()</code> is to <code>buildURL()</code>.</p>
 
@@ -679,7 +681,7 @@
   
 
 
-<time datetime="2015-03-21T16:35:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time>
+<time datetime="2015-06-11T18:35:00-07:00" pubdate data-updated="true">Jun 11<span>th</span>, 2015</time>
         
       </p>
       
@@ -715,15 +717,28 @@
     <a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
 </section>
 <section>
+    <h1>3.5 Documentation (upcoming - clojure)</h1>
+    <a href="/documentation/3.5">Getting Started Guide</a><br />
+    <a href="/documentation/3.5/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.5/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/3.5/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/3.5/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/3.5/roadmap.html">Roadmap</a><br />
+</section>
+<section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/04/22/fw1-2-5-1-2-2-2-important/">FW/1 2.5.1 & 2.2.2 - Important Updates!</a>
+        <a href="/blog/2015/05/14/fw1-3-1-beta-1/">FW/1 3.1 Beta 1 Available!</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2015/04/22/fw1-3-0-1-important/">FW/1 3.0.1 - Important Update!</a>
+        <a href="/blog/2015/05/09/fw1-2-5-1-2-2-2-important/">FW/1 2.5.2 & 2.2.3 - Important Updates!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/09/fw1-3-0-1-important/">FW/1 3.0.2 - Important Update!</a>
       </li>
     
       <li class="post">
@@ -752,10 +767,6 @@
     
       <li class="post">
         <a href="/blog/2015/01/23/cfmljure-0-1-0/">Cfmljure Release 0.1.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/08/18/fw1-3-0-beta-1-available/">FW/1 3.0 Beta 1 Available</a>
       </li>
     
   </ul>

@@ -99,7 +99,7 @@
 
 <p>I&rsquo;ve talked in passing on the FW/1 mailing list about the possibility of deeper integration with Clojure and I recently published <a href="https://github.com/framework-one/cfmljure/releases/tag/v0.1.0">cfmljure 0.1.0</a> &ndash; which I&rsquo;ll be blogging about shortly &ndash; and so the topic came up again on the mailing list about this integration. I&rsquo;d been thinking about how to write controllers in Clojure so that you could have a FW/1 app that used CFML for the views &ndash; where it excels as a templating language &ndash; and Clojure for the controllers and the model, leveraging the expressive power and immutable safety for all your business logic.</p>
 
-<p>Over the last few days, I created a fork of FW/1 3.0 that included cfmljure and built a proof of concept of Clojure controllers. You can take a look at the <a href="https://github.com/framework-one/fw1/tree/clojure/examples/helloclojure">FW/1 example with Clojure controllers</a> on the <code>clojure</code> branch of the FW/1 repo. I created the project using Leiningen (Clojure&rsquo;s build tool) and then added <code>Application.cfc</code>, <code>index.cfm</code>, and the <code>views/</code> tree. Then I wrote the <code>controllers/main.clj</code> file (in <code>src/hello</code>) and the <code>controllers_test.clj</code> test file (in <code>test/hello</code>). Unit testing is built in, so you can run <code>lein test</code> to see the results. Then I refactored the Clojure code (creating the separate <code>greet.clj</code> file) and added a &ldquo;service&rdquo; in Clojure just for fun. The FW/1 app uses <code>framework.ioclj</code> &ndash; a extended version of DI/1 that uses cfmljure &ndash; to auto-discover the Clojure code (and the CFML code &ndash; you can mix&#8217;n&#8217;match) and wraps the Clojure controllers in <code>framework.cljcontroller</code> (to adapt to Clojure&rsquo;s pure function calling convention, and to handle some FW/1-specific functionality). The CFML views are run as usual (and if you look in <code>views/main/default.cfm</code> you&rsquo;ll see a call to the Clojure &ldquo;service&rdquo; via the bean factory: <code>getBeanFactory().getBean("greeterService").greetings("Earthling!")</code>).</p>
+<p>Over the last few days, I created a fork of FW/1 3.0 that included cfmljure and built a proof of concept of Clojure controllers. You can take a look at the <a href="https://github.com/framework-one/fw1/tree/clojure/examples/6helloclojure">FW/1 example with Clojure controllers</a> on the <code>clojure</code> branch of the FW/1 repo. I created the project using Leiningen (Clojure&rsquo;s build tool) and then added <code>Application.cfc</code>, <code>index.cfm</code>, and the <code>views/</code> tree. Then I wrote the <code>controllers/main.clj</code> file (in <code>src/hello</code>) and the <code>controllers_test.clj</code> test file (in <code>test/hello</code>). Unit testing is built in, so you can run <code>lein test</code> to see the results. Then I refactored the Clojure code (creating the separate <code>greet.clj</code> file) and added a &ldquo;service&rdquo; in Clojure just for fun. The FW/1 app uses <code>framework.ioclj</code> &ndash; a extended version of DI/1 that uses cfmljure &ndash; to auto-discover the Clojure code (and the CFML code &ndash; you can mix&#8217;n&#8217;match) and wraps the Clojure controllers in <code>framework.cljcontroller</code> (to adapt to Clojure&rsquo;s pure function calling convention, and to handle some FW/1-specific functionality). The CFML views are run as usual (and if you look in <code>views/main/default.cfm</code> you&rsquo;ll see a call to the Clojure &ldquo;service&rdquo; via the bean factory: <code>getBeanFactory().getBean("greeterService").greetings("Earthling!")</code>).</p>
 
 <p>I&rsquo;m rather excited about this because it means we&rsquo;ll have a way, at work, to further migrate our model code from CFML to Clojure, while maintaining &ldquo;legacy&rdquo; CFML code alongside, <em>right there in the same FW/1 application!</em></p>
 
@@ -196,15 +196,28 @@
     <a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
 </section>
 <section>
+    <h1>3.5 Documentation (upcoming - clojure)</h1>
+    <a href="/documentation/3.5">Getting Started Guide</a><br />
+    <a href="/documentation/3.5/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.5/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/3.5/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/3.5/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/3.5/roadmap.html">Roadmap</a><br />
+</section>
+<section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/04/22/fw1-2-5-1-2-2-2-important/">FW/1 2.5.1 & 2.2.2 - Important Updates!</a>
+        <a href="/blog/2015/05/14/fw1-3-1-beta-1/">FW/1 3.1 Beta 1 Available!</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2015/04/22/fw1-3-0-1-important/">FW/1 3.0.1 - Important Update!</a>
+        <a href="/blog/2015/05/09/fw1-2-5-1-2-2-2-important/">FW/1 2.5.2 & 2.2.3 - Important Updates!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/09/fw1-3-0-1-important/">FW/1 3.0.2 - Important Update!</a>
       </li>
     
       <li class="post">
@@ -233,10 +246,6 @@
     
       <li class="post">
         <a href="/blog/2015/01/23/cfmljure-0-1-0/">Cfmljure Release 0.1.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/08/18/fw1-3-0-beta-1-available/">FW/1 3.0 Beta 1 Available</a>
       </li>
     
   </ul>
