@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-06-11 18:35
+date: 2015-06-22 14:00
 comments: false
 sharing: false
 footer: true
@@ -453,11 +453,18 @@ If `header` is provided (as a non-empty string), instead of performing an actual
 
 This is to `redirect()` as `buildCustomURL()` is to `buildURL()`.
 
-### public void function renderData( string type, any data, numeric statusCode = 200 )
+### public void function renderData( string type, any data, numeric statusCode = 200, jsonpCallback = "" )
 
-Call this from your controller to tell FW/1 to skip views and layouts and instead render `data` in the specified content `type` format. `type` may be `"json"`, `"rawjson"`, `"xml"`, or `"text"`.
+Call this from your controller to tell FW/1 to skip views and layouts
+and instead render `data` in the specified content `type` format. `type`
+may be `"json"`, `"jsonp"`, `"rawjson"`, `"xml"`, or `"text"`.
 
-For `"json"`, FW/1 calls `serializeJSON( data )` to generate the result of the HTTP request and sets the `Content-Type` header to `application/javascript; charset=utf-8`.
+For `"json"` and `"jsonp"`, FW/1 calls `serializeJSON( data )` to
+generate the result of the HTTP request and sets the `Content-Type`
+header to `application/javascript; charset=utf-8`.
+
+For `"jsonp"`, you must provide a non-empty value for the
+`jsonpCallback` argument. _New in 3.1._
 
 For `"rawjson"`, the `data` value must be a string (and is assumed to be valid JSON already) and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `application/javascript; charset=utf-8`. _New in 3.1._
 

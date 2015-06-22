@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-06-04 13:45
+date: 2015-06-22 14:00
 comments: false
 sharing: false
 footer: true
@@ -154,14 +154,28 @@ You can return data directly to the caller, bypassing views and layouts, using t
 
 Calling this function does not exit from your controller, but tells FW/1 that instead of looking for a view to render, the `resultData` value should be converted to the specified `contentType` and that should be the result of the complete HTTP request.
 
-`contentType` may be `"json"`, `"rawjson"`, `"xml"`, or `"text"`. The `Content-Type` HTTP header is automatically set to:
+`contentType` may be `"json"`, `"jsonp"`, `"rawjson"`, `"xml"`, or `"text"`. The `Content-Type` HTTP header is automatically set to:
 
 * `application/json; charset=utf-8`
+* `application/javascript; charset=utf-8`
 * `application/json; charset=utf-8`
 * `text/xml; charset=utf-8`
 * `text/plain; charset=utf-8`
 
-respectively. For JSON, the `resultData` value is converted to a string by calling `serializeJSON()` (so use RAWJSON if your `resultData` value is already a valid JSON string); for XML, the `resultData` value is expected to be either a valid XML string or an XML object (constructed via CFML's various `xml...()` functions); for plain text, the `resultData` value must be a string. _`"rawjson"` is new in 3.1._
+respectively. For JSON and JSONP, the `resultData` value is converted to
+a string by calling `serializeJSON()` (so use RAWJSON if your
+`resultData` value is already a valid JSON string); for XML, the
+`resultData` value is expected to be either a valid XML string or an XML
+object (constructed via CFML's various `xml...()` functions); for plain
+text, the `resultData` value must be a string. _`"jsonp"` and `"rawjson"` are new in 3.1._
+
+For JSONP, you must also specify the `jsonpCallback` argument:
+
+    variables.fw.renderData( contentType, resultData, statusCode, callback );
+    // or:
+    variables.fw.renderData(
+        type = contentType, data = resultData, jsonpCallback = callback
+    );
 
 You can also specify an HTTP status code as a third argument. The default is 200.
 
