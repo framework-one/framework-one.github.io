@@ -100,21 +100,31 @@ stable release, read the
 
 <p>Create an instance of the AOP/1 extended DI/1 bean factory and specify the folder(s) you want it to search for beans.</p>
 
-<pre><code>var beanFactory = new framework.aop("/model");
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var beanFactory = new framework.aop("/model");</span></code></pre></td></tr></table></div></figure>
+
 
 <p>So far nothing difficult since this is what we would typically see from <a href="/documentation/using-di-one.html">DI/1</a>.  Now, if we want to intercept method calls to an object, we need to declare the interceptors and the objects that should be intercepted.</p>
 
-<pre><code>var beanFactory = new framework.aop("/model");
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var beanFactory = new framework.aop("/model");
+</span><span class='line'>
+</span><span class='line'>beanFactory.intercept("pdfService", "beforeInterceptor");
+</span><span class='line'>beanFactory.intercept("pdfService", "afterInterceptor", "createDocument");
+</span><span class='line'>
+</span><span class='line'>var ps = beanFactory.getBean("pdfService");
+</span><span class='line'>
+</span><span class='line'>var document = ps.createDocument("http://seancorfield.github.io");
+</span><span class='line'>var pages = ps.splitPages(document);</span></code></pre></td></tr></table></div></figure>
 
-beanFactory.intercept("pdfService", "beforeInterceptor");
-beanFactory.intercept("pdfService", "afterInterceptor", "createDocument");
-
-var ps = beanFactory.getBean("pdfService");
-
-var document = ps.createDocument("http://seancorfield.github.io");
-var pages = ps.splitPages(document);
-</code></pre>
 
 <p>In this example the <em>beforeInterceptor</em> will intercept every call to the <em>pdfService</em>, but the <em>afterInterceptor</em> will only intercept calls to the <em>createDocument</em> method. Due to AOP/1 creating intercept points on the bean being intercepted, it is generally recommended to list the methods to be intercepted when declaring the interceptors so there are not unnecessary calls made on other methods.</p>
 
@@ -123,15 +133,15 @@ var pages = ps.splitPages(document);
 <p>A common practice for DI/1 is to place beans and services within a model folder like so:</p>
 
 <ul>
-<li><code>/model/beans/</code></li>
-<li><code>/model/services/</code></li>
+<li>/model/beans/</li>
+<li>/model/services/</li>
 </ul>
 
 
 <p>Interceptors can follow this pattern in order to make it simple for the factory to locate the interceptors with the rest of the model.</p>
 
 <ul>
-<li><code>/model/interceptors/</code></li>
+<li>/model/interceptors/</li>
 </ul>
 
 
@@ -139,62 +149,97 @@ var pages = ps.splitPages(document);
 
 <p>Before interceptors will intercept method calls <strong>before</strong> they are executed.  They cannot affect the result of a method call, but they can be used to alter the arguments going to the method call and they can perform operation that you wish to be performed before the method call.  In order for an interceptor to operate as a before interceptor, it only needs the <em>before</em> method to be defined.</p>
 
-<pre><code>component {
-    function before(targetBean, methodName, args) {
-        arguments.args.input = "before" &amp; arguments.args.input;
-    }
-}
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>component {
+</span><span class='line'>    function before(targetBean, methodName, args) {
+</span><span class='line'>        arguments.args.input = "before" & arguments.args.input;
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Because the interceptor is like any other bean handled by DI/1, dependencies can be intjected into the interceptor and used by the interceptor.</p>
 
-<pre><code>component {
-    property logService;
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>component {
+</span><span class='line'>  property logService;
+</span><span class='line'>
+</span><span class='line'>    function before(targetBean, methodName, args) {
+</span><span class='line'>        getLogService().logMethodCall(arguments.methodName, arguments.args);
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
-    function before(targetBean, methodName, args) {
-        getLogService().logMethodCall(arguments.methodName, arguments.args);
-    }
-}
-</code></pre>
 
 <h3>After Interceptors</h3>
 
 <p>Just like the name implies, after interceptors will intercept method calls <strong>after</strong> they are executed.  They cannot affect the arguments going to the method call, but they can monitor or alter the result of the method call.  In order for an interceptor to operate as an after interceptor, it only needs the <em>after</em> method to be defined.</p>
 
-<pre><code>component {
-    property logService;
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>component {
+</span><span class='line'>    property logService;
+</span><span class='line'>
+</span><span class='line'>    function after(targetBean, methodName, args, result) {
+</span><span class='line'>        if (structKeyExists(arguments, "result) && !isNull(arguments.result) {
+</span><span class='line'>            getLogService().logMethodCallResult(arguments.methodName, arguments.args, arguments.result);
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
-    function after(targetBean, methodName, args, result) {
-        if (structKeyExists(arguments, "result) &amp;&amp; !isNull(arguments.result) {
-            getLogService().logMethodCallResult(arguments.methodName, arguments.args, arguments.result);
-        }
-    }
-}
-</code></pre>
 
 <p>Should you wish to alter the result being returned, all that is needed is to return something from the <em>after</em> method.</p>
 
-<pre><code>component {
-    function after(targetBean, methodName, args, result) {
-        if (structKeyExists(arguments, "result) &amp;&amp; !isNull(arguments.result) {
-            return arguments.result &amp; "After";
-        }
-    }
-}
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>component {
+</span><span class='line'>    function after(targetBean, methodName, args, result) {
+</span><span class='line'>        if (structKeyExists(arguments, "result) && !isNull(arguments.result) {
+</span><span class='line'>            return arguments.result & "After";
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
 
 <h3>onError Interceptors</h3>
 
 <p>onError interceptors allow errors that occur during the execution of intercepted method calls to be handled outside the normal flow of model execution.  This can be used for situations where the normal error handling of your application will not produce the desired result.</p>
 
-<pre><code>component {
-    property logService;
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>component {
+</span><span class='line'>    property logService;
+</span><span class='line'>
+</span><span class='line'>    function onError(targetBean, methodName, args, exception) {
+</span><span class='line'>        getLogService().logException(arguments.methodName, arguments.args, arguments.exception);
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
-    function onError(targetBean, methodName, args, exception) {
-        getLogService().logException(arguments.methodName, arguments.args, arguments.exception);
-    }
-}
-</code></pre>
 
 <h3>Around Interceptors</h3>
 
@@ -202,27 +247,47 @@ var pages = ps.splitPages(document);
 
 <p>Calling the next interceptor in the stack for around interceptors is accomplished by calling the <em>proceed()</em> method.  The <em>proceed</em> method is automatically added to any interceptor that has an <em>around</em> method.  An around interceptor can stop the execution chain by simply not calling the <em>proceed</em> method.  The around interceptors can preform the actions of both before and after interceptors as well.</p>
 
-<pre><code>component {
-    property logService;
-    property userService;
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>component {
+</span><span class='line'>    property logService;
+</span><span class='line'>    property userService;
+</span><span class='line'>
+</span><span class='line'>    function around(targetBean, methodName, args) {
+</span><span class='line'>        // Perform 'before' arguments manipulation.
+</span><span class='line'>        arguments.args.name = getUserService().getCurrentUser().getName();
+</span><span class='line'>
+</span><span class='line'>        if (getUserService().getCurrentUser().hasPermission("administrator")) {
+</span><span class='line'>            var result = proceed(arguments.targetBean, arguments.methodName, arguments.args);
+</span><span class='line'>
+</span><span class='line'>            if (!isNull(result))
+</span><span class='line'>            {
+</span><span class='line'>                getLogService().logMethodCallResult(arguments.methodName, arguments.args, result);
+</span><span class='line'>
+</span><span class='line'>                  return result;
+</span><span class='line'>              }
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
-    function around(targetBean, methodName, args) {
-        // Perform 'before' arguments manipulation.
-        arguments.args.name = getUserService().getCurrentUser().getName();
-
-        if (getUserService().getCurrentUser().hasPermission("administrator")) {
-            var result = proceed(arguments.targetBean, arguments.methodName, arguments.args);
-
-            if (!isNull(result))
-            {
-                getLogService().logMethodCallResult(arguments.methodName, arguments.args, result);
-
-                return result;
-            }
-        }
-    }
-}
-</code></pre>
 
 <p>Since an around interceptor may intercept multiple methods, the method must be able to handle any type of result being returned (including void/null).  The example above demonstrates handling when a result is present and demonstrates how the execution chain can be stopped by not calling the <em>proceed</em> method if the current user is not an &lsquo;administrator&rsquo;.</p>
 
@@ -234,20 +299,31 @@ var pages = ps.splitPages(document);
 
 <p>AOP/1 extends DI/1 so it has access to the <em>config</em> parameter of the constructor.</p>
 
-<pre><code>var interceptors = [{beanName = "stringUtilityService", interceptorName = "afterInterceptor"}];
-var factory = new framework.aop(folders, {interceptors = interceptors});
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var interceptors = [{beanName = "stringUtilityService", interceptorName = "afterInterceptor"}];
+</span><span class='line'>var factory = new framework.aop(folders, {interceptors = interceptors});</span></code></pre></td></tr></table></div></figure>
+
 
 <p>The <em>interceptors</em> configuration is just an array of structures that define the interceptors to be loaded like so:</p>
 
-<pre><code>var interceptors = [
-    { beanName = "stringUtilityService", interceptorName = "beforeInterceptor", methods = "forward,reverse,split" },
-    { beanName = "stringUtilityService", interceptorName = "afterInterceptor" },
-    { beanName = "stringUtilityService", interceptorName = "afterInterceptor2", methods = "" },
-    { beanName = "stringUtilityService", interceptorName = "afterInterceptor3", methods = "*" },
-    { beanName = "stringUtilityService", interceptorName = "aroundInterceptor", methods = "reverse" }
-];
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var interceptors =
+</span><span class='line'>[
+</span><span class='line'>    {beanName = "stringUtilityService", interceptorName = "beforeInterceptor", methods = "forward,reverse,split"},
+</span><span class='line'>    {beanName = "stringUtilityService", interceptorName = "afterInterceptor"},
+</span><span class='line'>    {beanName = "stringUtilityService", interceptorName = "afterInterceptor2", methods = ""},
+</span><span class='line'>    {beanName = "stringUtilityService", interceptorName = "afterInterceptor3", methods = "*"},
+</span><span class='line'>    {beanName = "stringUtilityService", interceptorName = "aroundInterceptor", methods = "reverse"}
+</span><span class='line'>];</span></code></pre></td></tr></table></div></figure>
+
 
 <p>When the <em>methods</em> key is missing from the interceptor definition or it contains an empty value or asterisk, then AOP/1 assumes that all methods on the bean should be intercepted.</p>
 
