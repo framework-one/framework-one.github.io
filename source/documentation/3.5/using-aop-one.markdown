@@ -1,4 +1,4 @@
-﻿---
+---
 layout: page
 title: "Using AOP/1"
 date: 2015-06-19 12:00
