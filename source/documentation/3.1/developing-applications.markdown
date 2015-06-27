@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-06-22 14:00
+date: 2015-06-26 20:30
 comments: false
 sharing: false
 footer: true
@@ -154,8 +154,9 @@ You can return data directly to the caller, bypassing views and layouts, using t
 
 Calling this function does not exit from your controller, but tells FW/1 that instead of looking for a view to render, the `resultData` value should be converted to the specified `contentType` and that should be the result of the complete HTTP request.
 
-`contentType` may be `"json"`, `"jsonp"`, `"rawjson"`, `"xml"`, or `"text"`. The `Content-Type` HTTP header is automatically set to:
+`contentType` may be `"html"`, `"json"`, `"jsonp"`, `"rawjson"`, `"xml"`, or `"text"`. The `Content-Type` HTTP header is automatically set to:
 
+* `text/html; charset=utf-8`
 * `application/json; charset=utf-8`
 * `application/javascript; charset=utf-8`
 * `application/json; charset=utf-8`
@@ -167,7 +168,7 @@ a string by calling `serializeJSON()` (so use RAWJSON if your
 `resultData` value is already a valid JSON string); for XML, the
 `resultData` value is expected to be either a valid XML string or an XML
 object (constructed via CFML's various `xml...()` functions); for plain
-text, the `resultData` value must be a string. _`"jsonp"` and `"rawjson"` are new in 3.1._
+text and HTML, the `resultData` value must be a string. _`"html"`, `"jsonp"` and `"rawjson"` are new in 3.1._
 
 For JSONP, you must also specify the `jsonpCallback` argument:
 
@@ -483,7 +484,7 @@ The keys in the structure have the following meanings:
 * `cacheFileExists` - If you are running on a system where disk access is slow - or you simply want to avoid several calls to `fileExists()` during requests for performance - you can set this to true and FW/1 will cache all its calls to `fileExists()`. Be aware that if the result of `fileExists()` is cached and you add a new layout or a new view, it won't be noticed until you reload the framework.
 * `applicationKey` - A unique value for each FW/1 application that shares a common ColdFusion application name.
 * `noLowerCase` - If `true`, FW/1 will not force actions to lowercase so subsystem, section and item names will be case sensitive (in particular, filenames for controllers, views and layouts may therefore be mixed case on a case-sensitive operating system). The default is `false`. Use of this option is _not_ recommended and is not considered good practice.
-* `trace` - If `true`, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature. (Note that FW/1 will not print out debugging / tracing information when the `renderData()` function is used. You can still access and output debugging / tracing information in such cases by overriding the `setupTraceRender()` function. See the [Reference Manual](/documentation/3.1/reference-manual.html) for more details.).
+* `trace` - If `true`, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature. (Note that FW/1 will not print out debugging / tracing information when the `renderData()` function is used, unless the content type is `"html"`. You can still access and output debugging / tracing information in such cases by overriding the `setupTraceRender()` function. See the [Reference Manual](/documentation/3.1/reference-manual.html) for more details.).
 * `routes` - An array of URL path mappings. This allows you to override the conventional mapping of `/section/item` to controllers.
 * `resourceRouteTemplates` - see **URL Routes** below.
 * `routesCaseSensitive` - Default `true`. Controls whether route matches are case-sensitive or not. _New in 3.1._

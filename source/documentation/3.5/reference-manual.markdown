@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-06-22 14:00
+date: 2015-06-26 20:30
 comments: false
 sharing: false
 footer: true
@@ -457,7 +457,9 @@ This is to `redirect()` as `buildCustomURL()` is to `buildURL()`.
 
 Call this from your controller to tell FW/1 to skip views and layouts
 and instead render `data` in the specified content `type` format. `type`
-may be `"json"`, `"jsonp"`, `"rawjson"`, `"xml"`, or `"text"`.
+may be `"html"`, `"json"`, `"jsonp"`, `"rawjson"`, `"xml"`, or `"text"`.
+
+For `"html"`, the `data` value must be a string and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `text/html; charset=utf-8`.
 
 For `"json"` and `"jsonp"`, FW/1 calls `serializeJSON( data )` to
 generate the result of the HTTP request and sets the `Content-Type`
