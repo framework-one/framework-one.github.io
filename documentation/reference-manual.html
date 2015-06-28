@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Jun 22nd, 2015 This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the 3.0 &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Jun 26th, 2015 This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the 3.0 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
   
 
 
-<time datetime="2015-06-22T14:00:00-07:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2015</time></p>
+<time datetime="2015-06-26T20:30:00-07:00" pubdate data-updated="true">Jun 26<span>th</span>, 2015</time></p>
   </header>
   
   <p><em>This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/reference-manual.html">3.0 master documentation</a>.</em></p>
@@ -585,7 +585,9 @@
 
 <p>Call this from your controller to tell FW/1 to skip views and layouts
 and instead render <code>data</code> in the specified content <code>type</code> format. <code>type</code>
-may be <code>"json"</code>, <code>"jsonp"</code>, <code>"rawjson"</code>, <code>"xml"</code>, or <code>"text"</code>.</p>
+may be <code>"html"</code>, <code>"json"</code>, <code>"jsonp"</code>, <code>"rawjson"</code>, <code>"xml"</code>, or <code>"text"</code>.</p>
+
+<p>For <code>"html"</code>, the <code>data</code> value must be a string and that is the result of the HTTP request. FW/1 sets the <code>Content-Type</code> header to <code>text/html; charset=utf-8</code>.</p>
 
 <p>For <code>"json"</code> and <code>"jsonp"</code>, FW/1 calls <code>serializeJSON( data )</code> to
 generate the result of the HTTP request and sets the <code>Content-Type</code>
@@ -688,7 +690,7 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
   
 
 
-<time datetime="2015-06-22T14:00:00-07:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2015</time>
+<time datetime="2015-06-26T20:30:00-07:00" pubdate data-updated="true">Jun 26<span>th</span>, 2015</time>
         
       </p>
       

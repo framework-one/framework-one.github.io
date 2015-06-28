@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Jun 22nd, 2015 This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Jun 26th, 2015 This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
   
 
 
-<time datetime="2015-06-22T14:00:00-07:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2015</time></p>
+<time datetime="2015-06-26T20:30:00-07:00" pubdate data-updated="true">Jun 26<span>th</span>, 2015</time></p>
   </header>
   
   <p><em>This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/developing-applications.html">3.0 master documentation</a>.</em></p>
@@ -247,9 +247,10 @@
 
 <p>Calling this function does not exit from your controller, but tells FW/1 that instead of looking for a view to render, the <code>resultData</code> value should be converted to the specified <code>contentType</code> and that should be the result of the complete HTTP request.</p>
 
-<p><code>contentType</code> may be <code>"json"</code>, <code>"jsonp"</code>, <code>"rawjson"</code>, <code>"xml"</code>, or <code>"text"</code>. The <code>Content-Type</code> HTTP header is automatically set to:</p>
+<p><code>contentType</code> may be <code>"html"</code>, <code>"json"</code>, <code>"jsonp"</code>, <code>"rawjson"</code>, <code>"xml"</code>, or <code>"text"</code>. The <code>Content-Type</code> HTTP header is automatically set to:</p>
 
 <ul>
+<li><code>text/html; charset=utf-8</code></li>
 <li><code>application/json; charset=utf-8</code></li>
 <li><code>application/javascript; charset=utf-8</code></li>
 <li><code>application/json; charset=utf-8</code></li>
@@ -263,7 +264,7 @@ a string by calling <code>serializeJSON()</code> (so use RAWJSON if your
 <code>resultData</code> value is already a valid JSON string); for XML, the
 <code>resultData</code> value is expected to be either a valid XML string or an XML
 object (constructed via CFML&rsquo;s various <code>xml...()</code> functions); for plain
-text, the <code>resultData</code> value must be a string. <em><code>"jsonp"</code> and <code>"rawjson"</code> are new in 3.1.</em></p>
+text and HTML, the <code>resultData</code> value must be a string. <em><code>"html"</code>, <code>"jsonp"</code> and <code>"rawjson"</code> are new in 3.1.</em></p>
 
 <p>For JSONP, you must also specify the <code>jsonpCallback</code> argument:</p>
 
@@ -606,7 +607,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 <li><code>cacheFileExists</code> &ndash; If you are running on a system where disk access is slow &ndash; or you simply want to avoid several calls to <code>fileExists()</code> during requests for performance &ndash; you can set this to true and FW/1 will cache all its calls to <code>fileExists()</code>. Be aware that if the result of <code>fileExists()</code> is cached and you add a new layout or a new view, it won&rsquo;t be noticed until you reload the framework.</li>
 <li><code>applicationKey</code> &ndash; A unique value for each FW/1 application that shares a common ColdFusion application name.</li>
 <li><code>noLowerCase</code> &ndash; If <code>true</code>, FW/1 will not force actions to lowercase so subsystem, section and item names will be case sensitive (in particular, filenames for controllers, views and layouts may therefore be mixed case on a case-sensitive operating system). The default is <code>false</code>. Use of this option is <em>not</em> recommended and is not considered good practice.</li>
-<li><code>trace</code> &ndash; If <code>true</code>, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature. (Note that FW/1 will not print out debugging / tracing information when the <code>renderData()</code> function is used. You can still access and output debugging / tracing information in such cases by overriding the <code>setupTraceRender()</code> function. See the <a href="/documentation/reference-manual.html">Reference Manual</a> for more details.).</li>
+<li><code>trace</code> &ndash; If <code>true</code>, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature. (Note that FW/1 will not print out debugging / tracing information when the <code>renderData()</code> function is used, unless the content type is <code>"html"</code>. You can still access and output debugging / tracing information in such cases by overriding the <code>setupTraceRender()</code> function. See the <a href="/documentation/3.1/reference-manual.html">Reference Manual</a> for more details.).</li>
 <li><code>routes</code> &ndash; An array of URL path mappings. This allows you to override the conventional mapping of <code>/section/item</code> to controllers.</li>
 <li><code>resourceRouteTemplates</code> &ndash; see <strong>URL Routes</strong> below.</li>
 <li><code>routesCaseSensitive</code> &ndash; Default <code>true</code>. Controls whether route matches are case-sensitive or not. <em>New in 3.1.</em></li>
@@ -873,7 +874,7 @@ property framework;
   
 
 
-<time datetime="2015-06-22T14:00:00-07:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2015</time>
+<time datetime="2015-06-26T20:30:00-07:00" pubdate data-updated="true">Jun 26<span>th</span>, 2015</time>
         
       </p>
       
