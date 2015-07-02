@@ -10,7 +10,7 @@ _This is the latest (3.1 - develop) documentation - for the current stable relea
 
 FW/1 was created in July 2009 as a reaction against complexity and bloat in other frameworks in the CFML community. FW/1 itself is a single file, and provides a simple, convention-based approach to MVC (Model-View-Controller) applications. Whilst it has become more sophisticated over time, it has remained a single file, focused on getting out of your way and providing the intuitive plumbing you need. For historical background, you can read the [introductory blog post](http://framework-one.github.io/blog/2009/07/19/introducing-framework-one/) from July 2009.
 
-As of release 3.0, FW/1 also includes DI/1 - a simple, convention-based Dependency Injection framework. If those phrases don't mean anything to you, don't worry, you won't need to know anything about them to get started.
+As of release 3.1, FW/1 also includes DI/1 - a simple, convention-based Dependency Injection framework - and AOP/1 - a simple, convention-based Aspect-Oriented Programming framework. If those phrases don't mean anything to you, don't worry, you won't need to know anything about them to get started.
 
 Requirements & Supported Platforms
 ---
@@ -206,4 +206,6 @@ What's Next?
 ---
 Once you've read this Getting Started guide, you'll want to move on to the [Developing Applications Manual](/documentation/3.1/developing-applications.html) and when you need to look things up, use the [Reference Manual](/documentation/3.1/reference-manual.html). You may also want to learn about [Using Subsystems](/documentation/3.1/using-subsystems.html) which allows FW/1 applications to be combined as modules of a larger FW/1 application, or [DI/1](/documentation/3.1/using-di-one.html), a simple, convention-based dependency injection framework.
 
-You probably also want to [join the FW/1 mailing list](http://groups.google.com/group/framework-one/) on Google Groups or [follow the #FW1 twitter stream](http://twitter.com/search/%23FW1); you may also find help and inspiration in the [FW/1 Site Showcase](https://github.com/framework-one/fw1/wiki/FW-1-Site-Showcase), a directory of sites created with FW/1. To read about what's coming in the future, take a look at the [Roadmap](/documentation/3.1/roadmap.html).
+You probably also want to [join the FW/1 mailing list](http://groups.google.com/group/framework-one/) on Google Groups,
+[join the CFML Slack team](http://cfml-slack.herokuapp.com) for the [#fw1 channel on Slack](https://cfml.slack.com/messages/fw1/),
+ or [follow the #FW1 twitter stream](http://twitter.com/search/%23FW1); you may also find help and inspiration in the [FW/1 Site Showcase](https://github.com/framework-one/fw1/wiki/FW-1-Site-Showcase), a directory of sites created with FW/1. To read about what's coming in the future, take a look at the [Roadmap](/documentation/3.1/roadmap.html).
