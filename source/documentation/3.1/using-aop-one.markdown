@@ -135,43 +135,62 @@ Since an around interceptor may intercept multiple methods, the method must be a
 
 The following section explains additional features and concepts that may prove useful when implementing AOP/1.
 
-## Loading Interceptors Via Configuration
-
-AOP/1 extends DI/1 so it has access to the _config_ parameter of the constructor.
-```
-var interceptors = [{beanName = "stringUtilityService", interceptorName = "afterInterceptor"}];
-var factory = new framework.aop(folders, {interceptors = interceptors});
-```
-The _interceptors_ configuration is just an array of structures that define the interceptors to be loaded like so:
-```
-var interceptors =
-[
-    {beanName = "stringUtilityService", interceptorName = "beforeInterceptor", methods = "forward,reverse,split"},
-    {beanName = "stringUtilityService", interceptorName = "afterInterceptor"},
-    {beanName = "stringUtilityService", interceptorName = "afterInterceptor2", methods = ""},
-    {beanName = "stringUtilityService", interceptorName = "afterInterceptor3", methods = "*"},
-    {beanName = "stringUtilityService", interceptorName = "aroundInterceptor", methods = "reverse"}
-];
-```
-When the _methods_ key is missing from the interceptor definition or it contains an empty value or asterisk, then AOP/1 assumes that all methods on the bean should be intercepted.
-
-## Helper Methods
-
-**isLast()**
-This method is automatically added to any **around** interceptor and will tell you if the interceptor is the last in the execution chain.
-
-**translateArgs(any targetBean, string methodName, struct args, boolean replace)**
-This method is automatically added to any interceptor and will attempt translate position based arguments into name based arguments.  This method has a _replace_ argument that when set to **true** will replace the _args_ with a copy of named arguments.
-
 ## Intercepting Cross Object Calls & Private Methods
 
-Unlike some other AOP frameworks, AOP/1 has the ability to intercept cross object calls.  What this means is, if you are intercepting methods (_method1, method2, method3_) on _myService_ and _method2_ actually makes a call to _method3_, then AOP/1 will intercept the call from _method2_ to _method3_ in addition to original call to _method2_.
+Unlike some other AOP frameworks, AOP/1 has the ability to intercept cross object calls.  What this means is, if you are intercepting methods (_addComment, getComments, & tagComment_) on _commentService_ and a call is made to  _addComment_, then AOP/1 will intercept the call from _addComment_ to _tagComment_ in addition to original call to _addComment_.   This also demonstrates that AOP/1 can intercept calls to private methods.
+```
+component displayName="commentService" {
+    variables.comments = [];
 
-In addition to intercepting cross object method calls, AOP/1 can also intercept calls to private methods.
+    public numeric function addComment(string comment) {
+        arrayAppend(variables.comments, tagComment(arguments.comment));
+        return arrayLen(variables.comments);
+    }
+
+    public string function getComment(numeric position)
+    {
+        var comment = "";
+
+        if (arguments.position <= arrayLen(getComments()))
+        {
+            comment = getComments()[arguments.position];
+        }
+
+        return comment;
+    }
+
+    public array function getComments()
+    {
+        return variables.comments;
+    }
+
+    private string function tagComment(string comment)
+    {
+        var commentNumber = arrayLen(variables.comments) + 1;
+
+        return commentNumber & ": " & arguments.comment;
+    }
+}
+```
 
 ## Multiple Interceptor
 
 You may find yourself creating an interceptor that performs multiple of similar tasks and it is logical to group multiple different interceptor types together.  This can be accomplished by simply creating the correct methods in the same component.  For instance, if you have an interceptor that you want to perform both before and after interceptions, then you simply add both the _before_ and _after_ methods to the component.  AOP/1 will place an interceptor in multiple execution stacks if it has more than one interceptor type method present.
+```
+component {
+    property logService;
+
+    function before(targetBean, methodName, args) {
+        getLogService().logMethodCall(arguments.methodName, arguments.args);
+    }
+
+    function after(targetBean, methodName, args, result) {
+        if (structKeyExists(arguments, "result) && !isNull(arguments.result) {
+            getLogService().logMethodCallResult(arguments.methodName, arguments.args, arguments.result);
+        }
+    }
+}
+```
 
 ## Stack Execution
 
@@ -184,4 +203,64 @@ Stacks are executed in the following order.
 
 All the stacks will only execute if there is an interceptor of their type present.  If the stack is emtpy, nothing is executed.  The **onError** stack only executes if there is an error in the execution of the other stacks.  The **before** and **after** stacks execute like a queue and will execute from start to finish regardless of changes to the arguments or result, skipping any interceptors that do not match the currently intercepted bean method.  The **around** stack executes more like a chain.  The chain execution can be stopped by not calling the _proceed()_ method.
 
+## Reference
+Below is an explanation of the additional available configurations options that come with AOP/1 and what methods are available through AOP/1 and the interceptors.
 
+### Configuration
+
+AOP/1 extends DI/1 so it has access to the _config_ argument of the constructor.  AOP/1 accepts an additional configuration option named **interceptors**.
+```
+var interceptors = [{beanName = "stringUtilityService", interceptorName = "afterInterceptor"}];
+var factory = new framework.aop(folders, {interceptors = interceptors});
+```
+The **interceptors** configuration is just an array of structures that define the interceptors to be loaded like so:
+```
+var interceptors =
+[
+    {type = "utilityService", interceptorName = "beforeInterceptor"},
+    {beanName = "stringUtilityService", interceptorName = "beforeInterceptor", methods = "forward,reverse,split"},
+    {beanName = "stringUtilityService", interceptorName = "afterInterceptor"},
+    {beanName = "stringUtilityService", interceptorName = "afterInterceptor2", methods = ""},
+    {beanName = "stringUtilityService", interceptorName = "afterInterceptor3", methods = "*"},
+    {beanName = "stringUtilityService", interceptorName = "aroundInterceptor", methods = "reverse"}
+];
+```
+When the _methods_ key is missing from an interceptor definition or it contains an empty value or asterisk, then AOP/1 assumes that all methods (except **init()**, property setters and getters, and the **initMethod** listed in the config) on the bean should be intercepted.  If you wish to intercept the **init()**, property setter and getters, or the **initMethod** from the config, then they must be explicitly set in the _methods_ of the interceptor definition.
+
+You may notice that the first interceptor definition in the array has a **type** rather than a **beanName**.  AOP/1 also has the ability to intercept beans by type.  This is explained further below in the **interceptByType()** method reference.
+
+### AOP/1 Methods
+
+**public any function intercept(string beanName, string interceptorName, string methods = "")**
+Adds an interceptor for a bean with a specific bean name or takes a regular expression for **beanName** and will match any bean name found by or declared to the factory.  The matches are not case sensitive.
+```
+var beanFactory = new framework.aop("/model");
+
+beanFactory.intercept("pdfService", "afterInterceptor", "createDocument");
+beanFactory.intercept("/.*service$/", "beforeInterceptor");
+```
+
+**public any function interceptByType(string type, string interceptorName, string methods = "")**
+Adds an interceptor definition to AOP/1 that will examine a bean to see if it is of a particular type of bean.  If a bean matches a type based interceptor definition, then the bean will have the interceptor added to it.  The example below demonstrates how beans can be intercepted by type.
+```
+component displayName="utilityService" {...}
+
+component displayName="queryUtilService" extends="utilityService" {...}
+
+component displayName="stringUtilService" extends="utilityService" {...}
+```
+```
+var beanFactory = new framework.aop("/model");
+
+beanFactory.interceptByType("model.services.utilityService", "beforeInterceptor");
+```
+In the example, the **interceptByType()** call would wind up adding the _beforeInterceptor_ to both the _queryUtilService_ and the _stringUtilService_ because they both extend the _utilityService_.  The **type** argument in the **interceptByType()** method can be either the dotted path to the CFC or the CFC name (not an alias).  Just remember if you intercept by type on the CFC name and there is more than one bean with the same CFC name (_ex:  model.beans.user  &  model.services.user_), then the interceptor will be attached to the beans and the beans that extend them.
+
+
+### Interceptor Methods
+
+**isLast()**
+This method is automatically added to any **around** interceptor and will tell you if the interceptor is the last in the execution chain.
+
+**translateArgs(any targetBean, string methodName, struct args, boolean replace)**
+This method is automatically added to any interceptor and will attempt translate position based arguments into name based arguments.  This method has a _replace_ argument that when set to **true** will replace the _args_ with a copy of named arguments.
