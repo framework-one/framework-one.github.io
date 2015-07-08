@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Getting Started With FW/1 Mar 21st, 2015 This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the 3.0 &hellip;">
+  <meta name="description" content="Getting Started With FW/1 Jun 30th, 2015 This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the 3.0 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,18 +81,20 @@
   
 
 
-<time datetime="2015-03-21T14:20:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time></p>
+<time datetime="2015-06-30T15:00:00-07:00" pubdate data-updated="true">Jun 30<span>th</span>, 2015</time></p>
   </header>
   
   <p><em>This is the latest (3.1 &ndash; develop) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/">3.0 master documentation</a>.</em></p>
 
 <p>FW/1 was created in July 2009 as a reaction against complexity and bloat in other frameworks in the CFML community. FW/1 itself is a single file, and provides a simple, convention-based approach to MVC (Model-View-Controller) applications. Whilst it has become more sophisticated over time, it has remained a single file, focused on getting out of your way and providing the intuitive plumbing you need. For historical background, you can read the <a href="http://framework-one.github.io/blog/2009/07/19/introducing-framework-one/">introductory blog post</a> from July 2009.</p>
 
-<p>As of release 3.0, FW/1 also includes DI/1 &ndash; a simple, convention-based Dependency Injection framework. If those phrases don&rsquo;t mean anything to you, don&rsquo;t worry, you won&rsquo;t need to know anything about them to get started.</p>
+<p>As of release 3.1, FW/1 also includes DI/1 &ndash; a simple, convention-based Dependency Injection framework &ndash; and AOP/1 &ndash; a simple, convention-based Aspect-Oriented Programming framework. If those phrases don&rsquo;t mean anything to you, don&rsquo;t worry, you won&rsquo;t need to know anything about them to get started.</p>
 
 <h2>Requirements &amp; Supported Platforms</h2>
 
-<p>FW/1 3.0 supports Adobe ColdFusion 9.0.1 or later (not 9.0.0), Lucee 4.5.0 or later, and Railo 3.2.2 or later. I recommend using <a href="http://lucee.org/downloads.html">Lucee 4.5.0</a> or later since it&rsquo;s free, open source, and fast, with a small footprint. If you&rsquo;re using Adobe ColdFusion, I strongly recommend upgrading to the latest version (ColdFusion 11 as of August 2014) to take advantage of the huge improvements in the core language since ColdFusion 9.0.1 (closures, member functions, full cfscript support, etc).</p>
+<p>FW/1 3.1 supports Adobe ColdFusion 9.0.2 or later (not 9.0.0 or 9.0.1), Lucee 4.5.0 or later, and Railo 4.1 or later. I recommend using <a href="http://lucee.org/downloads.html">Lucee 4.5.0</a> or later since it&rsquo;s free, open source, and fast, with a small footprint. If you&rsquo;re using Adobe ColdFusion, I recommend upgrading to the latest version (ColdFusion 11 as of August 2014) to take advantage of the huge improvements in the core language since ColdFusion 9.0.2 (closures, member functions, full cfscript support, etc) &mdash; although there are quite a few bugs in several areas of ColdFusion 11 (even as of June 2015).</p>
+
+<p>If you&rsquo;re on ColdFusion 9.0.1, FW/1 3.1 should work but there may be some edge cases in <code>Application.cfc</code> lifecycle behavior that may trip you up.</p>
 
 <p>If you&rsquo;re on ColdFusion 9.0.0 or earlier, or still using Open BlueDragon, you&rsquo;ll need to stick with FW/1 1.3. Sorry, but supporting those versions is just too painful!</p>
 
@@ -302,7 +304,9 @@
 
 <p>Once you&rsquo;ve read this Getting Started guide, you&rsquo;ll want to move on to the <a href="/documentation/developing-applications.html">Developing Applications Manual</a> and when you need to look things up, use the <a href="/documentation/reference-manual.html">Reference Manual</a>. You may also want to learn about <a href="/documentation/using-subsystems.html">Using Subsystems</a> which allows FW/1 applications to be combined as modules of a larger FW/1 application, or <a href="/documentation/using-di-one.html">DI/1</a>, a simple, convention-based dependency injection framework.</p>
 
-<p>You probably also want to <a href="http://groups.google.com/group/framework-one/">join the FW/1 mailing list</a> on Google Groups or <a href="http://twitter.com/search/%23FW1">follow the #FW1 twitter stream</a>; you may also find help and inspiration in the <a href="https://github.com/framework-one/fw1/wiki/FW-1-Site-Showcase">FW/1 Site Showcase</a>, a directory of sites created with FW/1. To read about what&rsquo;s coming in the future, take a look at the <a href="/documentation/roadmap.html">Roadmap</a>.</p>
+<p>You probably also want to <a href="http://groups.google.com/group/framework-one/">join the FW/1 mailing list</a> on Google Groups,
+<a href="http://cfml-slack.herokuapp.com">join the CFML Slack team</a> for the <a href="https://cfml.slack.com/messages/fw1/">#fw1 channel on Slack</a>,
+ or <a href="http://twitter.com/search/%23FW1">follow the #FW1 twitter stream</a>; you may also find help and inspiration in the <a href="https://github.com/framework-one/fw1/wiki/FW-1-Site-Showcase">FW/1 Site Showcase</a>, a directory of sites created with FW/1. To read about what&rsquo;s coming in the future, take a look at the <a href="/documentation/roadmap.html">Roadmap</a>.</p>
 
   
     <footer>
@@ -320,7 +324,7 @@
   
 
 
-<time datetime="2015-03-21T14:20:00-07:00" pubdate data-updated="true">Mar 21<span>st</span>, 2015</time>
+<time datetime="2015-06-30T15:00:00-07:00" pubdate data-updated="true">Jun 30<span>th</span>, 2015</time>
         
       </p>
       
@@ -334,13 +338,14 @@
   
     <section>
     <h1>About FW/1</h1>
-    <p>FW/1 - Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control).</p>
+    <p>FW/1 - Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.</p>
     <p>In addition, the family includes cfmljure, an easy way to integrate Clojure code into your CFML application, and a port of FW/1 to Clojure as well as a Leiningen template for creating FW/1 projects in Clojure.</p>
 </section>
 <section>
     <h1>3.1 Documentation (develop)</h1>
     <a href="/documentation">Getting Started Guide</a><br />
     <a href="/documentation/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/using-aop-one.html">Using AOP/1</a><br />
     <a href="/documentation/using-di-one.html">Using DI/1</a><br />
     <a href="/documentation/using-subsystems.html">Using Subsystems</a><br />
     <a href="/documentation/reference-manual.html">Reference Manual</a><br />
@@ -359,6 +364,7 @@
     <h1>3.5 Documentation (upcoming - clojure)</h1>
     <a href="/documentation/3.5">Getting Started Guide</a><br />
     <a href="/documentation/3.5/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.5/using-aop-one.html">Using AOP/1</a><br />
     <a href="/documentation/3.5/using-di-one.html">Using DI/1</a><br />
     <a href="/documentation/3.5/using-subsystems.html">Using Subsystems</a><br />
     <a href="/documentation/3.5/reference-manual.html">Reference Manual</a><br />
@@ -367,6 +373,18 @@
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/07/07/fw1-3-1-rc-2/">FW/1 3.1 Release Candidate 2 Available!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/28/fw1-3-1-rc-1/">FW/1 3.1 Release Candidate 1 Available!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/20/fw1-3-1-beta-2/">FW/1 3.1 Beta 2 Available!</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/05/14/fw1-3-1-beta-1/">FW/1 3.1 Beta 1 Available!</a>
@@ -394,18 +412,6 @@
     
       <li class="post">
         <a href="/blog/2015/01/29/lucee-fw1/">Lucee and FW/1</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/01/25/fw1-clojure-sitting-in-a-tree/">FW/1 & Clojure Sitting in Tree</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/01/24/fw1-3-0-rc-1-available/">FW/1 3.0 RC 1 Available</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/01/23/cfmljure-0-1-0/">Cfmljure Release 0.1.0</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Jun 11th, 2015 This is the upcoming (3.5 &ndash; clojure) documentation &ndash; for the current stable release, read the 3.0 &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Jun 26th, 2015 This is the upcoming (3.5 &ndash; clojure) documentation &ndash; for the current stable release, read the 3.0 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
   
 
 
-<time datetime="2015-06-11T18:35:00-07:00" pubdate data-updated="true">Jun 11<span>th</span>, 2015</time></p>
+<time datetime="2015-06-26T20:30:00-07:00" pubdate data-updated="true">Jun 26<span>th</span>, 2015</time></p>
   </header>
   
   <p><em>This is the upcoming (3.5 &ndash; clojure) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/reference-manual.html">3.0 master documentation</a>.</em></p>
@@ -577,15 +577,24 @@
 
 <p>If <code>header</code> is provided (as a non-empty string), instead of performing an actual redirect, FW/1 will set the named HTTP header to the target URL and then abort the controller lifecycle. This allows custom handling of &ldquo;redirects&rdquo; in AJAX-based applications.</p>
 
-<h3>public void function redirectCustomURL( string uri, string preserve = &lsquo;none&rsquo;, string statusCode = &lsquo;302&rsquo;, string header = &lsquo;&rsquo; )</h3>
+<h3>Public void function redirectCustomURL( string uri, string preserve = &lsquo;none&rsquo;, string statusCode = &lsquo;302&rsquo;, string header = &lsquo;&rsquo; )</h3>
 
 <p>This is to <code>redirect()</code> as <code>buildCustomURL()</code> is to <code>buildURL()</code>.</p>
 
-<h3>public void function renderData( string type, any data, numeric statusCode = 200 )</h3>
+<h3>public void function renderData( string type, any data, numeric statusCode = 200, jsonpCallback = &ldquo;&rdquo; )</h3>
 
-<p>Call this from your controller to tell FW/1 to skip views and layouts and instead render <code>data</code> in the specified content <code>type</code> format. <code>type</code> may be <code>"json"</code>, <code>"rawjson"</code>, <code>"xml"</code>, or <code>"text"</code>.</p>
+<p>Call this from your controller to tell FW/1 to skip views and layouts
+and instead render <code>data</code> in the specified content <code>type</code> format. <code>type</code>
+may be <code>"html"</code>, <code>"json"</code>, <code>"jsonp"</code>, <code>"rawjson"</code>, <code>"xml"</code>, or <code>"text"</code>.</p>
 
-<p>For <code>"json"</code>, FW/1 calls <code>serializeJSON( data )</code> to generate the result of the HTTP request and sets the <code>Content-Type</code> header to <code>application/javascript; charset=utf-8</code>.</p>
+<p>For <code>"html"</code>, the <code>data</code> value must be a string and that is the result of the HTTP request. FW/1 sets the <code>Content-Type</code> header to <code>text/html; charset=utf-8</code>.</p>
+
+<p>For <code>"json"</code> and <code>"jsonp"</code>, FW/1 calls <code>serializeJSON( data )</code> to
+generate the result of the HTTP request and sets the <code>Content-Type</code>
+header to <code>application/javascript; charset=utf-8</code>.</p>
+
+<p>For <code>"jsonp"</code>, you must provide a non-empty value for the
+<code>jsonpCallback</code> argument. <em>New in 3.1.</em></p>
 
 <p>For <code>"rawjson"</code>, the <code>data</code> value must be a string (and is assumed to be valid JSON already) and that is the result of the HTTP request. FW/1 sets the <code>Content-Type</code> header to <code>application/javascript; charset=utf-8</code>. <em>New in 3.1.</em></p>
 
@@ -681,7 +690,7 @@
   
 
 
-<time datetime="2015-06-11T18:35:00-07:00" pubdate data-updated="true">Jun 11<span>th</span>, 2015</time>
+<time datetime="2015-06-26T20:30:00-07:00" pubdate data-updated="true">Jun 26<span>th</span>, 2015</time>
         
       </p>
       
@@ -695,13 +704,14 @@
   
     <section>
     <h1>About FW/1</h1>
-    <p>FW/1 - Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control).</p>
+    <p>FW/1 - Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.</p>
     <p>In addition, the family includes cfmljure, an easy way to integrate Clojure code into your CFML application, and a port of FW/1 to Clojure as well as a Leiningen template for creating FW/1 projects in Clojure.</p>
 </section>
 <section>
     <h1>3.1 Documentation (develop)</h1>
     <a href="/documentation">Getting Started Guide</a><br />
     <a href="/documentation/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/using-aop-one.html">Using AOP/1</a><br />
     <a href="/documentation/using-di-one.html">Using DI/1</a><br />
     <a href="/documentation/using-subsystems.html">Using Subsystems</a><br />
     <a href="/documentation/reference-manual.html">Reference Manual</a><br />
@@ -720,6 +730,7 @@
     <h1>3.5 Documentation (upcoming - clojure)</h1>
     <a href="/documentation/3.5">Getting Started Guide</a><br />
     <a href="/documentation/3.5/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.5/using-aop-one.html">Using AOP/1</a><br />
     <a href="/documentation/3.5/using-di-one.html">Using DI/1</a><br />
     <a href="/documentation/3.5/using-subsystems.html">Using Subsystems</a><br />
     <a href="/documentation/3.5/reference-manual.html">Reference Manual</a><br />
@@ -728,6 +739,18 @@
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/07/07/fw1-3-1-rc-2/">FW/1 3.1 Release Candidate 2 Available!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/28/fw1-3-1-rc-1/">FW/1 3.1 Release Candidate 1 Available!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/20/fw1-3-1-beta-2/">FW/1 3.1 Beta 2 Available!</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/05/14/fw1-3-1-beta-1/">FW/1 3.1 Beta 1 Available!</a>
@@ -755,18 +778,6 @@
     
       <li class="post">
         <a href="/blog/2015/01/29/lucee-fw1/">Lucee and FW/1</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/01/25/fw1-clojure-sitting-in-a-tree/">FW/1 & Clojure Sitting in Tree</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/01/24/fw1-3-0-rc-1-available/">FW/1 3.0 RC 1 Available</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/01/23/cfmljure-0-1-0/">Cfmljure Release 0.1.0</a>
       </li>
     
   </ul>
