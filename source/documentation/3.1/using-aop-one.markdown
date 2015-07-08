@@ -123,8 +123,8 @@ component {
             {
                 getLogService().logMethodCallResult(arguments.methodName, arguments.args, result);
 
-				    return result;
-				}
+                return result;
+            }
         }
     }
 }
