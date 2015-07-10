@@ -1,14 +1,14 @@
 ---
 layout: page
 title: "Using AOP/1"
-date: 2015-07-08 16:00
+date: 2015-07-09 19:30
 comments: false
 sharing: false
 footer: true
 ---
-_This is the latest (3.1 - develop) documentation - for the current
+_This is the latest (3.1 - master) documentation - for the current
 stable release, read the
-[3.0 master documentation](/documentation/3.0/). AOP/1 is new in 3.1._
+[3.0 documentation](/documentation/3.0/). AOP/1 is new in 3.1._
 
 AOP/1 is a simple Aspect Oriented Programming extension for [DI/1 (a.k.a Inject One)](/documentation/using-di-one.html) which allows you to define interceptors for your beans.
 
