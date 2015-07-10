@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Getting Started with FW/1"
-date: 2015-06-30 15:00
+date: 2015-07-09 19:00
 comments: false
 sharing: false
 footer: true
@@ -93,30 +93,6 @@ To use _name/value_ pairs in SES URLs, you must specify both the _section_ and _
 
 You can tell FW/1 to generate URLs like this from `buildURL()` through a configuration setting we'll look at later. You can also tell FW/1 to omit `index.cfm/` from the generated URL (although you'll need web server URL rewrites in place to add `index.cfm/` back in so the requests are processed correctly by your CFML application server).
 
-### Adding a Controller to Your Application
-
-When you ask for `action=section.item` FW/1 also looks for `section.cfc` in a `controllers` folder and, if present, invokes the `item()` method on it (and then displays the matching view). We're going to change our view to display a variable and add a controller to set that variable.
-
-Change `views/main/default.cfm` to contain:
-
-    <cfoutput>Hello #rc.name#!</cfoutput>
-
-Add `controllers/main.cfc` with a method, `default()`, that takes a single struct argument called `rc` (for request context) like this:
-
-    component {
-        function default( struct rc ) {
-            param name="rc.name" default="anonymous";
-        }
-    }
-
-Note that controller CFC names must be all lowercase.
-
-When you access the application now, it should say `Hello anonymous!` but if you put `?name=Sean` on the URL, it should say `Hello Sean!` The request context passed to the controller method contains all the URL and form variables from the browser and is also made available to the view directly, as `rc`.
-
-See the `3hellocontroller` example in the `examples` folder which is this simple controller example.
-
-Controllers are cached. Add `?reload=true` to the URL to reload your controllers if you make changes.
-
 ### Adding a Layout to Your Application
 
 When you ask for `action=section.item` FW/1 looks for `layouts/section/item.cfm` to find a specific layout (it also knows how to look for default layouts for sections and for an application-wide layout - we'll cover that next). The basic view is passed in as a variable called `body`. Let's try this for our default action, `main.default`:
@@ -136,7 +112,7 @@ Create `layouts/main.cfm` containing:
 
     <cfoutput><div style="border: solid blue 1px;">#body#</div></cfoutput>
 
-When you access the application, you should see a blue box around the output you had before. Note that if you ask for `action=main.other` you'll get the blue box but you won't get `Welcome to FW/1!` because that came from a layout specific to the `main.default` action.
+When you access the application, you should see a blue box around the output you had before. Note that if you click the `Go away!` link or ask for `action=main.other` in the URL you'll get the blue box but you won't get `Welcome to FW/1!` because that came from a layout specific to the `main.default` action.
 
 Now create `layouts/default.cfm` containing:
 
@@ -151,13 +127,50 @@ When you access the application now, you should see a green box added around the
 <div style="border: solid green 2px; padding: 20px;">
   <div style="border: solid blue 1px;">
     <h1>Welcome to FW/1!</h1>
-    <p>Hello anonymous!</p>
+    <p>Hello FW/1</p>
+    <p><a href="#">Go away</a>!</p>
   </div>
 </div>
 
 You can see how the layouts nest (and hopefully your artistic skills with CSS and HTML can produce something that looks a lot nicer than this example!).
 
-The `4hellolayout` example in the `examples` folder corrsponds to what you should have at this point.
+The `3hellolayout` example in the `examples` folder corrsponds to what you should have at this point.
+
+### Adding a Controller to Your Application
+
+When you ask for `action=section.item` FW/1 also looks for `section.cfc` in a `controllers` folder and, if present, invokes the `item()` method on it (and then displays the matching view). We're going to change our view to display a variable and add a controller to set that variable.
+
+Change `views/main/default.cfm` to contain:
+
+    <cfoutput>
+      <p>Hello #rc.name#</p>
+      <p><a href="#buildURL('main.other&name=#rc.name#')#">Go away</a>!</p>
+    </cfoutput>
+
+We're changing both the `Hello` line to include the `rc.name` variable and the link's URL to pass it to the other page. We'll also change `views/main/other.cfm` to display the name and pass it in the link:
+
+    <cfoutput>
+      <p>Goodbye #rc.name#!</p>
+      <p><a href="#buildURL( action = 'main', queryString = 'name=#rc.name#' )#">Come back</a>!</p>
+    </cfoutput>
+
+We used a different type of call to `buildURL()` here where we specified the `action` and the `queryString` separately. Which you chose is mostly a matter of personal taste but the second form is more explicit in intent.
+
+Now add `controllers/main.cfc` with a method, `default()`, that takes a single struct argument called `rc` (for request context) like this:
+
+    component {
+        function default( struct rc ) {
+            param name="rc.name" default="anonymous";
+        }
+    }
+
+Note that controller CFC names must be all lowercase.
+
+When you access the application now, it should say `Hello anonymous!` but if you put `?name=Sean` on the URL, it should say `Hello Sean!` The request context passed to the controller method contains all the URL and form variables from the browser and is also made available to the view directly, as `rc`.
+
+See the `4hellocontroller` example in the `examples` folder which is this simple controller example.
+
+Controllers are cached. Add `?reload=true` to the URL to reload your controllers if you make changes.
 
 ### Adding a Service to Your Application
 
