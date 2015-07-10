@@ -1,12 +1,12 @@
 ---
 layout: page
 title: "FW/1 Roadmap"
-date: 2015-03-21 14:20
+date: 2015-07-09 19:30
 comments: false
 sharing: false
 footer: true
 ---
-_This is the latest (3.1 - develop) documentation - for the current stable release, read the [3.0 master documentation](/documentation/3.0/roadmap.html)._
+_This is the latest (3.1 - master) documentation - for the current stable release, read the [3.0 documentation](/documentation/3.0/roadmap.html)._
 
 Whilst you can read the [FW/1 issues list](https://github.com/framework-one/fw1/issues) to see what's on the cards for future releases, several people have asked that I document things at a higher level so they can get a better sense of what's coming.
 

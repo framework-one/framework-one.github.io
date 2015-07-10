@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using AOP/1"
-date: 2015-07-08 16:00
+date: 2015-07-09 19:30
 comments: false
 sharing: false
 footer: true
