@@ -1,12 +1,12 @@
 ---
 layout: page
 title: "Using Subsystems in FW/1"
-date: 2015-05-15 16:30
+date: 2015-07-09 19:30
 comments: false
 sharing: false
 footer: true
 ---
-_This is the upcoming (3.5 - clojure) documentation - for the current stable release, read the [3.0 master documentation](/documentation/3.0/using-subsystems.html)._
+_This is the upcoming (3.5 - develop) documentation - for the current stable release, read the [3.0 documentation](/documentation/3.0/using-subsystems.html)._
 
 Subsystems give you a way of dropping one or more small FW/1 applications into an existing one. Subsystems can be used to create modules that have no dependencies on the parent application or you can use subsystems to group common functionality together.
 
