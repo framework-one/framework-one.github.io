@@ -1,12 +1,12 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-07-09 19:30
+date: 2015-07-12 21:40
 comments: false
 sharing: false
 footer: true
 ---
-_This is the upcoming (3.5 - develop) documentation - for the current stable release, read the [3.0 documentation](/documentation/3.0/reference-manual.html)._
+_This is the upcoming (3.5 - clojure) documentation - for the current stable release, read the [3.1 master stable documentation](/documentation/3.1/reference-manual.html)._
 
 This page provides a description of all the APIs and components involved in a FW/1 application. Please also read the [Roadmap](/documentation/3.5/roadmap.html) to see how things may change in the future.
 

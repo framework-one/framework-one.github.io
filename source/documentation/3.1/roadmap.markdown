@@ -1,25 +1,23 @@
 ---
 layout: page
 title: "FW/1 Roadmap"
-date: 2015-07-09 19:30
+date: 2015-07-12 21:40
 comments: false
 sharing: false
 footer: true
 ---
-_This is the latest (3.1 - master) documentation - for the current stable release, read the [3.0 documentation](/documentation/3.0/roadmap.html)._
-
 Whilst you can read the [FW/1 issues list](https://github.com/framework-one/fw1/issues) to see what's on the cards for future releases, several people have asked that I document things at a higher level so they can get a better sense of what's coming.
 
 3.x Integrations
 ---
-FW/1 3.1 is currently in development and will be primarily a maintenance release for 3.0. It builds on core 3.0 features:
+FW/1 3.5 is in development and focuses on multiple language integration. It will bundle cfmljure so you can mix CFML and Clojure and write Controllers and your Model in Clojure. In addition, you will be able to mix CFML and Lucee Language and write Controllers, your Model, and/or your Views in Lucee Language.
+
+FW/1 3.1 is the current stable release and is primarily a maintenance release for 3.0. In addition to a number of enhancements and bug fixes, FW/1 3.1 adds AOP/1, bringing Aspect-Oriented Programming on top of the core 3.0 features:
 
 * Using DI/1 to manage services and beans
 * Explicitly calling services in the `item()` controller methods
 
-FW/1 3.0 bundles DI/1 and automatically creates bean factories following the convention of a `model` folder containing `services` and `beans` subfolders. Subsystems also follow this convention and use the main application's bean factory as a parent to enable sharing of common services across subsystems.
-
-FW/1 3.0 also slims down the framework by removing all of the service queue machinery and the start/end variants of controller methods, as well as coalescing all the framework components in a single folder `framework` (with `org.corfield.framework` replaced by `framework.one`).
+FW/1 3.0 bundled DI/1 and automatically creates bean factories following the convention of a `model` folder containing `services` and `beans` subfolders. Subsystems also follow this convention and use the main application's bean factory as a parent to enable sharing of common services across subsystems. FW/1 3.0 also slimmed down the framework by removing all of the service queue machinery and the start/end variants of controller methods, as well as coalescing all the framework components in a single folder `framework` (with `org.corfield.framework` replaced by `framework.one`).
 
 2.5 Deprecations
 ---
