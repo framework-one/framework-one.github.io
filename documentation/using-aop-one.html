@@ -9,9 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using AOP/1 Jul 9th, 2015 This is the latest (3.1 &ndash; master) documentation &ndash; for the current
-stable release, read the
-3.0 documentation. &hellip;">
+  <meta name="description" content="Using AOP/1 Jul 12th, 2015 AOP/1 is a simple Aspect Oriented Programming extension for DI/1 (a.k.a Inject One) which allows you to define &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,14 +81,10 @@ stable release, read the
   
 
 
-<time datetime="2015-07-09T19:30:00-07:00" pubdate data-updated="true">Jul 9<span>th</span>, 2015</time></p>
+<time datetime="2015-07-12T21:40:00-07:00" pubdate data-updated="true">Jul 12<span>th</span>, 2015</time></p>
   </header>
   
-  <p><em>This is the latest (3.1 &ndash; master) documentation &ndash; for the current
-stable release, read the
-<a href="/documentation/3.0/">3.0 documentation</a>. AOP/1 is new in 3.1.</em></p>
-
-<p>AOP/1 is a simple Aspect Oriented Programming extension for <a href="/documentation/using-di-one.html">DI/1 (a.k.a Inject One)</a> which allows you to define interceptors for your beans.</p>
+  <p>AOP/1 is a simple Aspect Oriented Programming extension for <a href="/documentation/using-di-one.html">DI/1 (a.k.a Inject One)</a> which allows you to define interceptors for your beans.</p>
 
 <p>These interceptors can run code before or after a method is called on a bean without the need for you to alter the code in your bean.  This allows you to create generic services (such as a logger service) that is coded and configured to operate completely separate from your other services and beans.  What this means is you no longer need to mix unrelated service code together by using dedicated interceptors.</p>
 
@@ -282,8 +276,8 @@ stable release, read the
 </span><span class='line'>            {
 </span><span class='line'>                getLogService().logMethodCallResult(arguments.methodName, arguments.args, result);
 </span><span class='line'>
-</span><span class='line'>                return result;
-</span><span class='line'>            }
+</span><span class='line'>                  return result;
+</span><span class='line'>              }
 </span><span class='line'>        }
 </span><span class='line'>    }
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
@@ -295,9 +289,17 @@ stable release, read the
 
 <p>The following section explains additional features and concepts that may prove useful when implementing AOP/1.</p>
 
-<h2>Intercepting Cross Object Calls &amp; Private Methods</h2>
+<h2>Loading Interceptors Via Configuration</h2>
 
-<p>Unlike some other AOP frameworks, AOP/1 has the ability to intercept cross object calls.  What this means is, if you are intercepting methods (<em>addComment, getComments, &amp; tagComment</em>) on <em>commentService</em> and a call is made to  <em>addComment</em>, then AOP/1 will intercept the call from <em>addComment</em> to <em>tagComment</em> in addition to original call to <em>addComment</em>.   This also demonstrates that AOP/1 can intercept calls to private methods.</p>
+<p>AOP/1 extends DI/1 so it has access to the <em>config</em> parameter of the constructor.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var interceptors = [{beanName = "stringUtilityService", interceptorName = "afterInterceptor"}];
+</span><span class='line'>var factory = new framework.aop(folders, {interceptors = interceptors});</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <em>interceptors</em> configuration is just an array of structures that define the interceptors to be loaded like so:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -307,95 +309,35 @@ stable release, read the
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>component displayName="commentService" {
-</span><span class='line'>    variables.comments = [];
-</span><span class='line'>
-</span><span class='line'>    public numeric function addComment(string comment) {
-</span><span class='line'>        arrayAppend(variables.comments, tagComment(arguments.comment));
-</span><span class='line'>        return arrayLen(variables.comments);
-</span><span class='line'>    }
-</span><span class='line'>
-</span><span class='line'>    public string function getComment(numeric position)
-</span><span class='line'>    {
-</span><span class='line'>        var comment = "";
-</span><span class='line'>
-</span><span class='line'>        if (arguments.position &lt;= arrayLen(getComments()))
-</span><span class='line'>        {
-</span><span class='line'>            comment = getComments()[arguments.position];
-</span><span class='line'>        }
-</span><span class='line'>
-</span><span class='line'>        return comment;
-</span><span class='line'>    }
-</span><span class='line'>
-</span><span class='line'>    public array function getComments()
-</span><span class='line'>    {
-</span><span class='line'>        return variables.comments;
-</span><span class='line'>    }
-</span><span class='line'>
-</span><span class='line'>    private string function tagComment(string comment)
-</span><span class='line'>    {
-</span><span class='line'>        var commentNumber = arrayLen(variables.comments) + 1;
-</span><span class='line'>
-</span><span class='line'>        return commentNumber & ": " & arguments.comment;
-</span><span class='line'>    }
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var interceptors =
+</span><span class='line'>[
+</span><span class='line'>    {beanName = "stringUtilityService", interceptorName = "beforeInterceptor", methods = "forward,reverse,split"},
+</span><span class='line'>    {beanName = "stringUtilityService", interceptorName = "afterInterceptor"},
+</span><span class='line'>    {beanName = "stringUtilityService", interceptorName = "afterInterceptor2", methods = ""},
+</span><span class='line'>    {beanName = "stringUtilityService", interceptorName = "afterInterceptor3", methods = "*"},
+</span><span class='line'>    {beanName = "stringUtilityService", interceptorName = "aroundInterceptor", methods = "reverse"}
+</span><span class='line'>];</span></code></pre></td></tr></table></div></figure>
 
+
+<p>When the <em>methods</em> key is missing from the interceptor definition or it contains an empty value or asterisk, then AOP/1 assumes that all methods on the bean should be intercepted.</p>
+
+<h2>Helper Methods</h2>
+
+<p><strong>isLast()</strong>
+This method is automatically added to any <strong>around</strong> interceptor and will tell you if the interceptor is the last in the execution chain.</p>
+
+<p><strong>translateArgs(any targetBean, string methodName, struct args, boolean replace)</strong>
+This method is automatically added to any interceptor and will attempt translate position based arguments into name based arguments.  This method has a <em>replace</em> argument that when set to <strong>true</strong> will replace the <em>args</em> with a copy of named arguments.</p>
+
+<h2>Intercepting Cross Object Calls &amp; Private Methods</h2>
+
+<p>Unlike some other AOP frameworks, AOP/1 has the ability to intercept cross object calls.  What this means is, if you are intercepting methods (<em>method1, method2, method3</em>) on <em>myService</em> and <em>method2</em> actually makes a call to <em>method3</em>, then AOP/1 will intercept the call from <em>method2</em> to <em>method3</em> in addition to original call to <em>method2</em>.</p>
+
+<p>In addition to intercepting cross object method calls, AOP/1 can also intercept calls to private methods.</p>
 
 <h2>Multiple Interceptor</h2>
 
 <p>You may find yourself creating an interceptor that performs multiple of similar tasks and it is logical to group multiple different interceptor types together.  This can be accomplished by simply creating the correct methods in the same component.  For instance, if you have an interceptor that you want to perform both before and after interceptions, then you simply add both the <em>before</em> and <em>after</em> methods to the component.  AOP/1 will place an interceptor in multiple execution stacks if it has more than one interceptor type method present.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>component {
-</span><span class='line'>    property logService;
-</span><span class='line'>
-</span><span class='line'>    function before(targetBean, methodName, args) {
-</span><span class='line'>        getLogService().logMethodCall(arguments.methodName, arguments.args);
-</span><span class='line'>    }
-</span><span class='line'>
-</span><span class='line'>    function after(targetBean, methodName, args, result) {
-</span><span class='line'>        if (structKeyExists(arguments, "result) && !isNull(arguments.result) {
-</span><span class='line'>            getLogService().logMethodCallResult(arguments.methodName, arguments.args, arguments.result);
-</span><span class='line'>        }
-</span><span class='line'>    }
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>Stack Execution</h2>
 
@@ -410,94 +352,6 @@ stable release, read the
 
 
 <p>All the stacks will only execute if there is an interceptor of their type present.  If the stack is emtpy, nothing is executed.  The <strong>onError</strong> stack only executes if there is an error in the execution of the other stacks.  The <strong>before</strong> and <strong>after</strong> stacks execute like a queue and will execute from start to finish regardless of changes to the arguments or result, skipping any interceptors that do not match the currently intercepted bean method.  The <strong>around</strong> stack executes more like a chain.  The chain execution can be stopped by not calling the <em>proceed()</em> method.</p>
-
-<h2>Reference</h2>
-
-<p>Below is an explanation of the additional available configurations options that come with AOP/1 and what methods are available through AOP/1 and the interceptors.</p>
-
-<h3>Configuration</h3>
-
-<p>AOP/1 extends DI/1 so it has access to the <em>config</em> argument of the constructor.  AOP/1 accepts an additional configuration option named <strong>interceptors</strong>.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>var interceptors = [{beanName = "stringUtilityService", interceptorName = "afterInterceptor"}];
-</span><span class='line'>var factory = new framework.aop(folders, {interceptors = interceptors});</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The <strong>interceptors</strong> configuration is just an array of structures that define the interceptors to be loaded like so:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>var interceptors =
-</span><span class='line'>[
-</span><span class='line'>    {type = "utilityService", interceptorName = "beforeInterceptor"},
-</span><span class='line'>    {beanName = "stringUtilityService", interceptorName = "beforeInterceptor", methods = "forward,reverse,split"},
-</span><span class='line'>    {beanName = "stringUtilityService", interceptorName = "afterInterceptor"},
-</span><span class='line'>    {beanName = "stringUtilityService", interceptorName = "afterInterceptor2", methods = ""},
-</span><span class='line'>    {beanName = "stringUtilityService", interceptorName = "afterInterceptor3", methods = "*"},
-</span><span class='line'>    {beanName = "stringUtilityService", interceptorName = "aroundInterceptor", methods = "reverse"}
-</span><span class='line'>];</span></code></pre></td></tr></table></div></figure>
-
-
-<p>When the <em>methods</em> key is missing from an interceptor definition or it contains an empty value or asterisk, then AOP/1 assumes that all methods (except <strong>init()</strong>, property setters and getters, and the <strong>initMethod</strong> listed in the config) on the bean should be intercepted.  If you wish to intercept the <strong>init()</strong>, property setter and getters, or the <strong>initMethod</strong> from the config, then they must be explicitly set in the <em>methods</em> of the interceptor definition.</p>
-
-<p>You may notice that the first interceptor definition in the array has a <strong>type</strong> rather than a <strong>beanName</strong>.  AOP/1 also has the ability to intercept beans by type.  This is explained further below in the <strong>interceptByType()</strong> method reference.</p>
-
-<h3>AOP/1 Methods</h3>
-
-<p><strong>public any function intercept(string beanName, string interceptorName, string methods = &ldquo;&rdquo;)</strong>
-Adds an interceptor for a bean with a specific bean name or takes a regular expression for <strong>beanName</strong> and will match any bean name found by or declared to the factory.  The matches are not case sensitive.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>var beanFactory = new framework.aop("/model");
-</span><span class='line'>
-</span><span class='line'>beanFactory.intercept("pdfService", "afterInterceptor", "createDocument");
-</span><span class='line'>beanFactory.intercept("/.*service$/", "beforeInterceptor");</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>public any function interceptByType(string type, string interceptorName, string methods = &ldquo;&rdquo;)</strong>
-Adds an interceptor definition to AOP/1 that will examine a bean to see if it is of a particular type of bean.  If a bean matches a type based interceptor definition, then the bean will have the interceptor added to it.  The example below demonstrates how beans can be intercepted by type.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>component displayName="utilityService" {...}
-</span><span class='line'>
-</span><span class='line'>component displayName="queryUtilService" extends="utilityService" {...}
-</span><span class='line'>
-</span><span class='line'>component displayName="stringUtilService" extends="utilityService" {...}</span></code></pre></td></tr></table></div></figure>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>var beanFactory = new framework.aop("/model");
-</span><span class='line'>
-</span><span class='line'>beanFactory.interceptByType("model.services.utilityService", "beforeInterceptor");</span></code></pre></td></tr></table></div></figure>
-
-
-<p>In the example, the <strong>interceptByType()</strong> call would wind up adding the <em>beforeInterceptor</em> to both the <em>queryUtilService</em> and the <em>stringUtilService</em> because they both extend the <em>utilityService</em>.  The <strong>type</strong> argument in the <strong>interceptByType()</strong> method can be either the dotted path to the CFC or the CFC name (not an alias).  Just remember if you intercept by type on the CFC name and there is more than one bean with the same CFC name (<em>ex:  model.beans.user  &amp;  model.services.user</em>), then the interceptor will be attached to the beans and the beans that extend them.</p>
-
-<h3>Interceptor Methods</h3>
-
-<p><strong>isLast()</strong>
-This method is automatically added to any <strong>around</strong> interceptor and will tell you if the interceptor is the last in the execution chain.</p>
-
-<p><strong>translateArgs(any targetBean, string methodName, struct args, boolean replace)</strong>
-This method is automatically added to any interceptor and will attempt translate position based arguments into name based arguments.  This method has a <em>replace</em> argument that when set to <strong>true</strong> will replace the <em>args</em> with a copy of named arguments.</p>
 
   
     <footer>
@@ -515,7 +369,7 @@ This method is automatically added to any interceptor and will attempt translate
   
 
 
-<time datetime="2015-07-09T19:30:00-07:00" pubdate data-updated="true">Jul 9<span>th</span>, 2015</time>
+<time datetime="2015-07-12T21:40:00-07:00" pubdate data-updated="true">Jul 12<span>th</span>, 2015</time>
         
       </p>
       

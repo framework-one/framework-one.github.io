@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Getting Started With FW/1 Jul 9th, 2015 This is the upcoming (3.5 &ndash; develop) documentation &ndash; for the current stable release, read the 3. &hellip;">
+  <meta name="description" content="Getting Started With FW/1 Jul 12th, 2015 This is the upcoming (3.5 &ndash; clojure) documentation &ndash; for the current stable release, read the 3 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,10 +81,10 @@
   
 
 
-<time datetime="2015-07-09T19:30:00-07:00" pubdate data-updated="true">Jul 9<span>th</span>, 2015</time></p>
+<time datetime="2015-07-12T21:40:00-07:00" pubdate data-updated="true">Jul 12<span>th</span>, 2015</time></p>
   </header>
   
-  <p><em>This is the upcoming (3.5 &ndash; develop) documentation &ndash; for the current stable release, read the <a href="/documentation/3.0/">3.0 documentation</a>.</em></p>
+  <p><em>This is the upcoming (3.5 &ndash; clojure) documentation &ndash; for the current stable release, read the <a href="/documentation/3.1/">3.1 master stable documentation</a>.</em></p>
 
 <p>FW/1 was created in July 2009 as a reaction against complexity and bloat in other frameworks in the CFML community. FW/1 itself is a single file, and provides a simple, convention-based approach to MVC (Model-View-Controller) applications. Whilst it has become more sophisticated over time, it has remained a single file, focused on getting out of your way and providing the intuitive plumbing you need. For historical background, you can read the <a href="http://framework-one.github.io/blog/2009/07/19/introducing-framework-one/">introductory blog post</a> from July 2009.</p>
 
@@ -184,6 +184,32 @@
 
 <p>You can tell FW/1 to generate URLs like this from <code>buildURL()</code> through a configuration setting we&rsquo;ll look at later. You can also tell FW/1 to omit <code>index.cfm/</code> from the generated URL (although you&rsquo;ll need web server URL rewrites in place to add <code>index.cfm/</code> back in so the requests are processed correctly by your CFML application server).</p>
 
+<h3>Adding a Controller to Your Application</h3>
+
+<p>When you ask for <code>action=section.item</code> FW/1 also looks for <code>section.cfc</code> in a <code>controllers</code> folder and, if present, invokes the <code>item()</code> method on it (and then displays the matching view). We&rsquo;re going to change our view to display a variable and add a controller to set that variable.</p>
+
+<p>Change <code>views/main/default.cfm</code> to contain:</p>
+
+<pre><code>&lt;cfoutput&gt;Hello #rc.name#!&lt;/cfoutput&gt;
+</code></pre>
+
+<p>Add <code>controllers/main.cfc</code> with a method, <code>default()</code>, that takes a single struct argument called <code>rc</code> (for request context) like this:</p>
+
+<pre><code>component {
+    function default( struct rc ) {
+        param name="rc.name" default="anonymous";
+    }
+}
+</code></pre>
+
+<p>Note that controller CFC names must be all lowercase.</p>
+
+<p>When you access the application now, it should say <code>Hello anonymous!</code> but if you put <code>?name=Sean</code> on the URL, it should say <code>Hello Sean!</code> The request context passed to the controller method contains all the URL and form variables from the browser and is also made available to the view directly, as <code>rc</code>.</p>
+
+<p>See the <code>3hellocontroller</code> example in the <code>examples</code> folder which is this simple controller example.</p>
+
+<p>Controllers are cached. Add <code>?reload=true</code> to the URL to reload your controllers if you make changes.</p>
+
 <h3>Adding a Layout to Your Application</h3>
 
 <p>When you ask for <code>action=section.item</code> FW/1 looks for <code>layouts/section/item.cfm</code> to find a specific layout (it also knows how to look for default layouts for sections and for an application-wide layout &ndash; we&rsquo;ll cover that next). The basic view is passed in as a variable called <code>body</code>. Let&rsquo;s try this for our default action, <code>main.default</code>:</p>
@@ -205,7 +231,7 @@
 <pre><code>&lt;cfoutput&gt;&lt;div style="border: solid blue 1px;"&gt;#body#&lt;/div&gt;&lt;/cfoutput&gt;
 </code></pre>
 
-<p>When you access the application, you should see a blue box around the output you had before. Note that if you click the <code>Go away!</code> link or ask for <code>action=main.other</code> in the URL you&rsquo;ll get the blue box but you won&rsquo;t get <code>Welcome to FW/1!</code> because that came from a layout specific to the <code>main.default</code> action.</p>
+<p>When you access the application, you should see a blue box around the output you had before. Note that if you ask for <code>action=main.other</code> you&rsquo;ll get the blue box but you won&rsquo;t get <code>Welcome to FW/1!</code> because that came from a layout specific to the <code>main.default</code> action.</p>
 
 <p>Now create <code>layouts/default.cfm</code> containing:</p>
 
@@ -221,54 +247,14 @@
 <div style="border: solid green 2px; padding: 20px;">
   <div style="border: solid blue 1px;">
     <h1>Welcome to FW/1!</h1>
-    <p>Hello FW/1</p>
-    <p><a href="#">Go away</a>!</p>
+    <p>Hello anonymous!</p>
   </div>
 </div>
 
 
 <p>You can see how the layouts nest (and hopefully your artistic skills with CSS and HTML can produce something that looks a lot nicer than this example!).</p>
 
-<p>The <code>3hellolayout</code> example in the <code>examples</code> folder corrsponds to what you should have at this point.</p>
-
-<h3>Adding a Controller to Your Application</h3>
-
-<p>When you ask for <code>action=section.item</code> FW/1 also looks for <code>section.cfc</code> in a <code>controllers</code> folder and, if present, invokes the <code>item()</code> method on it (and then displays the matching view). We&rsquo;re going to change our view to display a variable and add a controller to set that variable.</p>
-
-<p>Change <code>views/main/default.cfm</code> to contain:</p>
-
-<pre><code>&lt;cfoutput&gt;
-  &lt;p&gt;Hello #rc.name#&lt;/p&gt;
-  &lt;p&gt;&lt;a href="#buildURL('main.other&amp;name=#rc.name#')#"&gt;Go away&lt;/a&gt;!&lt;/p&gt;
-&lt;/cfoutput&gt;
-</code></pre>
-
-<p>We&rsquo;re changing both the <code>Hello</code> line to include the <code>rc.name</code> variable and the link&rsquo;s URL to pass it to the other page. We&rsquo;ll also change <code>views/main/other.cfm</code> to display the name and pass it in the link:</p>
-
-<pre><code>&lt;cfoutput&gt;
-  &lt;p&gt;Goodbye #rc.name#!&lt;/p&gt;
-  &lt;p&gt;&lt;a href="#buildURL( action = 'main', queryString = 'name=#rc.name#' )#"&gt;Come back&lt;/a&gt;!&lt;/p&gt;
-&lt;/cfoutput&gt;
-</code></pre>
-
-<p>We used a different type of call to <code>buildURL()</code> here where we specified the <code>action</code> and the <code>queryString</code> separately. Which you chose is mostly a matter of personal taste but the second form is more explicit in intent.</p>
-
-<p>Now add <code>controllers/main.cfc</code> with a method, <code>default()</code>, that takes a single struct argument called <code>rc</code> (for request context) like this:</p>
-
-<pre><code>component {
-    function default( struct rc ) {
-        param name="rc.name" default="anonymous";
-    }
-}
-</code></pre>
-
-<p>Note that controller CFC names must be all lowercase.</p>
-
-<p>When you access the application now, it should say <code>Hello anonymous!</code> but if you put <code>?name=Sean</code> on the URL, it should say <code>Hello Sean!</code> The request context passed to the controller method contains all the URL and form variables from the browser and is also made available to the view directly, as <code>rc</code>.</p>
-
-<p>See the <code>4hellocontroller</code> example in the <code>examples</code> folder which is this simple controller example.</p>
-
-<p>Controllers are cached. Add <code>?reload=true</code> to the URL to reload your controllers if you make changes.</p>
+<p>The <code>4hellolayout</code> example in the <code>examples</code> folder corrsponds to what you should have at this point.</p>
 
 <h3>Adding a Service to Your Application</h3>
 
@@ -340,7 +326,7 @@
   
 
 
-<time datetime="2015-07-09T19:30:00-07:00" pubdate data-updated="true">Jul 9<span>th</span>, 2015</time>
+<time datetime="2015-07-12T21:40:00-07:00" pubdate data-updated="true">Jul 12<span>th</span>, 2015</time>
         
       </p>
       
