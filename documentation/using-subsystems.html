@@ -97,6 +97,7 @@
 <ol>
 <li>Your site&rsquo;s default application must also be implemented as a subsystem. By default, the framework will look in the sub-directory <code>home</code>. Setting <code>defaultSubsystem</code> overrides this default, letting you specify another folder as the default application module.</li>
 <li>A sitewide layout can be specified at <code>common/layouts/default.cfm</code> (by default). If this file exists, it will be applied. Setting <code>siteWideLayoutSubsystem</code> overrides this default, letting you specify another folder to look in for <code>layouts/default.cfm</code>.</li>
+<li>Any models (beans and service) you would like accessible by all subsystems should remain in the base &lsquo;model&rsquo; directory.</li>
 </ol>
 
 
@@ -250,7 +251,7 @@
     <p>In addition, the family includes cfmljure, an easy way to integrate Clojure code into your CFML application, and a port of FW/1 to Clojure as well as a Leiningen template for creating FW/1 projects in Clojure.</p>
 </section>
 <section>
-    <h1>3.1 Documentation (stable)</h1>
+    <h1>3.1 Documentation (master)</h1>
     <a href="/documentation">Getting Started Guide</a><br />
     <a href="/documentation/developing-applications.html">Developing Applications Guide</a><br />
     <a href="/documentation/using-aop-one.html">Using AOP/1</a><br />
@@ -260,7 +261,7 @@
     <a href="/documentation/roadmap.html">Roadmap</a><br />
 </section>
 <section>
-    <h1>3.0 Documentation (previous)</h1>
+    <h1>3.0 Documentation (stable)</h1>
     <a href="/documentation/3.0">Getting Started Guide</a><br />
     <a href="/documentation/3.0/developing-applications.html">Developing Applications Guide</a><br />
     <a href="/documentation/3.0/using-di-one.html">Using DI/1</a><br />
