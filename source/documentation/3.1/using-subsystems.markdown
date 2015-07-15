@@ -17,7 +17,8 @@ Otherwise, if you omit all of those to pick up their default values (of `"home"`
 Once you enable subsystems, you'll need to follow a couple of additional conventions:
 
 1. Your site's default application must also be implemented as a subsystem. By default, the framework will look in the sub-directory `home`. Setting `defaultSubsystem` overrides this default, letting you specify another folder as the default application module.
-1. A sitewide layout can be specified at `common/layouts/default.cfm` (by default). If this file exists, it will be applied. Setting `siteWideLayoutSubsystem` overrides this default, letting you specify another folder to look in for `layouts/default.cfm`.
+2. A sitewide layout can be specified at `common/layouts/default.cfm` (by default). If this file exists, it will be applied. Setting `siteWideLayoutSubsystem` overrides this default, letting you specify another folder to look in for `layouts/default.cfm`.
+3. Any models (beans and service) you would like accessible by all subsystems should remain in the base 'model' directory.
 
 Accessing Subsystems
 ---
