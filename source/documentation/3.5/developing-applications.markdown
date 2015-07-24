@@ -12,9 +12,9 @@ FW/1 is intended to allow you to quickly build applications with the minimum of 
 
 Basic Application Structure
 ---
-FW/1 applications must have an `Application.cfc` that extends `framework.one` and an empty `index.cfm` as well as at least one view (under the `views` folder). Typical applications will also have folders for `controllers`, a `model`, containing subfolders for `services` and `beans`, and `layouts`. The folders may be in the same directory as `Application.cfc` / `index.cfm` or may be in a directory accessible via a mapping (or some other path under the webroot). If the folders are not in the same directory as `Application.cfc` / `index.cfm`, then `variables.framework.base` must be set in `Application.cfc` to identify the location of those folders.
+FW/1 applications generally have an `Application.cfc` that extends `framework.one` and an empty `index.cfm` as well as at least one view (under the `views` folder). Typical applications will also have folders for `controllers`, a `model` -- itself containing subfolders for `services` and `beans` -- and `layouts`. The folders may be in the same directory as `Application.cfc` / `index.cfm` or may be in a directory accessible via a mapping (or some other path under the webroot). If the folders are not in the same directory as `Application.cfc` / `index.cfm`, then `variables.framework.base` must be set in `Application.cfc` to identify the location of those folders.
 
-Note: because `Application.cfc` must extend the FW/1 `/framework/one.cfc`, you need a mapping in the CFML administrator. An alternative approach is to simply copy the `framework` folder to your application's web root. This requires no mapping - but means that you have the framework CFCs as web-accessible resources.
+Note: because `Application.cfc` generally extends the FW/1 `/framework/one.cfc`, you need a mapping in the CFML administrator. An alternative approach is to simply copy the `framework` folder to your application's web root. This requires no mapping - but means that you have the framework CFCs as web-accessible resources. See **Alternative Applicatoin Structure** below for another option.
 
 The `views` folder contains a subfolder for each section of the site, each section's subfolder containing individual view files (pages or page fragments) used within that section. Note that if your operating system is case-sensitive, all view folders and filenames must be all lowercase.
 
@@ -25,6 +25,44 @@ The `controllers` folder contains a CFC for each section of the site (that needs
 You would typically also have a `model` folder containing CFCs for your services and your domain objects - the business logic of your application. The convention is to have your domain objects in a `beans` subfolder and all your singleton service CFCs in a `services` subfolder. FW/1 and DI/1 use a convention where you typically reference model instances via a name that is the name of the CFC followed by the singular of the subfolder, e.g., `productService`, `userBean` but that behavior can be configured.
 
 An application may have additional web-accessible assets such as CSS, images and so on.
+
+### Alternative Application Structure
+
+Instead of having your `Application.cfc` extend `framework.one`, you can use the `/framework/Application.cfc` as a template for your `Application.cfc` and it creates the FW/1 instance explicitly on each request and delegates the variant lifecycle methods to FW/1. The framework configuration structure must be passed to the FW/1 constructor, instead of being set in `variables` scope. This allows you to use a per-application mapping for FW/1:
+
+    // Application.cfc
+    component { // does not extend anything
+        this.name = 'MyWonderfulApp';
+        this.mappings[ '/framework' ] = expandPath( '/libs/fw1/framework' );
+        request._framework_one = new framework.one( {
+            trace : true
+        } );
+        // lifecycle methods, per /framework/Application.cfc
+        ...
+    }
+
+This works well when you cannot set a mapping in the CFML admin and you don't need to override any of FW/1's behavior. If you do need to override any of those extension points, you can create an intermediate CFC that extends `framework.one` and put the methods in there, and then create an instance of that in your `Application.cfc`:
+
+    // FW1Extensions.cfc
+    component extends=framework.one {
+        function setupRequest() {
+            controller( 'security.checkAuthorization' );
+        }
+    }
+
+    // Application.cfc
+    component { // does not extend anything
+        this.name = 'MyWonderfulApp';
+        this.mappings[ '/framework' ] = expandPath( '/libs/fw1/framework' );
+        // create my extended version of FW/1:
+        request._framework_one = new FW1Extensions( {
+            trace : true
+        } );
+        // lifecycle methods, per /framework/Application.cfc
+        ...
+    }
+
+This documentation assumes the **Basic Application Structure** but some of the examples provided in the FW/1 download use the **Alternative Application Structure** to show you how.
 
 Views and Layouts
 ---
