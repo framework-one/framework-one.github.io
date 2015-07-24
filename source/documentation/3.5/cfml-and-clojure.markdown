@@ -1,12 +1,12 @@
 ---
 layout: page
 title: "Using Clojure with CFML"
-date: 2015-07-12 21:40
+date: 2015-07-23 19:40
 comments: false
 sharing: false
 footer: true
 ---
-_This is the upcoming (3.5 - clojure) documentation - for the current stable release, read the [3.1 master stable documentation](/documentation/3.1/)._
+_This is the upcoming (3.5 - develop) documentation - for the current stable release, read the [3.1 master stable documentation](/documentation/3.1/)._
 
 # Clojure and CFML Sitting in a tree
 

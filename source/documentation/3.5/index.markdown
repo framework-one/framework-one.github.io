@@ -1,12 +1,12 @@
 ---
 layout: page
 title: "Getting Started with FW/1"
-date: 2015-07-12 21:40
+date: 2015-07-23 19:40
 comments: false
 sharing: false
 footer: true
 ---
-_This is the upcoming (3.5 - clojure) documentation - for the current stable release, read the [3.1 master stable documentation](/documentation/3.1/)._
+_This is the upcoming (3.5 - develop) documentation - for the current stable release, read the [3.1 master stable documentation](/documentation/3.1/)._
 
 FW/1 was created in July 2009 as a reaction against complexity and bloat in other frameworks in the CFML community. FW/1 itself is a single file, and provides a simple, convention-based approach to MVC (Model-View-Controller) applications. Whilst it has become more sophisticated over time, it has remained a single file, focused on getting out of your way and providing the intuitive plumbing you need. For historical background, you can read the [introductory blog post](http://framework-one.github.io/blog/2009/07/19/introducing-framework-one/) from July 2009.
 
