@@ -391,11 +391,11 @@ data with it:
       ")")])
     [0] ;; success! we created the task table 
     taskmanager.core> (sql/insert! db :task {:task "Test database"})
-    ((:1 1M)) ;; the sequence of inserted keys:
+    ({:1 1M}) ;; the sequence of inserted keys:
     ;; there is just one key, labeled :1, with the value 1
     ;; the M indicates a BigDecimal value
     taskmanager.core> (sql/insert! db :task {:task "Read some data"})
-    ((:1 2M)) ;; generated key is 2 this time
+    ({:1 2M}) ;; generated key is 2 this time
     taskmanager.core> (sql/query db ["SELECT * FROM task WHERE NOT done"])
     ({:done false, :task "Test database", :id 1} {:done false, :task "Read some data", :id 2})
     ;; our two records came back, let's update one
