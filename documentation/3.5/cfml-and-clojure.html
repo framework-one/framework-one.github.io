@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using Clojure With CFML Jul 23rd, 2015 This is the upcoming (3.5 &ndash; develop) documentation &ndash; for the current stable release, read the 3.1 &hellip;">
+  <meta name="description" content="Using Clojure With CFML Jul 27th, 2015 This is the upcoming (3.5 &ndash; develop) documentation &ndash; for the current stable release, read the 3.1 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
   
 
 
-<time datetime="2015-07-23T19:40:00-07:00" pubdate data-updated="true">Jul 23<span>rd</span>, 2015</time></p>
+<time datetime="2015-07-27T18:30:00-07:00" pubdate data-updated="true">Jul 27<span>th</span>, 2015</time></p>
   </header>
   
   <p><em>This is the upcoming (3.5 &ndash; develop) documentation &ndash; for the current stable release, read the <a href="/documentation/3.1/">3.1 master stable documentation</a>.</em></p>
@@ -327,7 +327,7 @@ Clojure controllers return an updated version of the <code>rc</code> data struct
 </code></pre>
 
 <p>So <code>default</code> passes <code>rc.name</code> (or <code>"anonymous"</code> if <code>name</code> isn&rsquo;t present in <code>rc</code>) to the <code>greet/hello</code> function and then stores the result in
-the <code>greeting</code> element of <code>rc</code>. Note that the <code>assoc</code> function (pronounced <em>assosh</em> like the word <em>associate</em>) return a new struct with the
+the <code>greeting</code> element of <code>rc</code>. Note that the <code>assoc</code> function (pronounced <em>assosh</em> like the word <em>associate</em>) returns a new struct with the
 key added &mdash; it does not modify the original struct. This seems very strange at first but you&rsquo;ll get used to it and it&rsquo;s very powerful (and
 very safe) since <code>rc</code> is immutable. We&rsquo;ll look at where <code>greet/hello</code> comes from in a minute.</p>
 
@@ -388,7 +388,7 @@ is the singular of the folder name:</p>
 
 <p>FW/1 requires that there are at least three segments in a name for this convention (so just <code>src/controllers/main.clj</code> would not
 match the convention, but <code>src/hello/admin/controllers/user.clj</code> would match and become <code>userController</code>). An additional restriction
-is that the filename + suffix must be unique across your whole application (within the Clojure code (so also having
+is that the filename + suffix must be unique across your whole application within the Clojure code (so also having
 <code>src/hello/public/controllers/user.clj</code> would conflict with <code>src/hello/admin/controllers/user.clj</code>).</p>
 
 <p>Aside: You can have additional Clojure code that doesn&rsquo;t follow this convention, but the bean factory <code>reload()</code> function only attempts to
@@ -469,13 +469,13 @@ database drivers (if you use SQL Server, you&rsquo;ll find it easiest to use the
 <p>Edit <code>project.clj</code> and update the <code>:dependencies</code> section to include:</p>
 
 <pre><code>[org.apache.derby/derby "10.11.1.1"]
-[org.clojure/java.jdbc "0.3.7"]
+[org.clojure/java.jdbc "0.4.1"]
 </code></pre>
 
 <p>You&rsquo;ll now have a vector with three vectors inside it like this:</p>
 
 <pre><code>:dependencies [[org.apache.derby/derby "10.11.1.1"]
-               [org.clojure/java.jdbc "0.3.7"]
+               [org.clojure/java.jdbc "0.4.1"]
                [org.clojure/clojure "1.6.0"]]
 </code></pre>
 
@@ -483,36 +483,38 @@ database drivers (if you use SQL Server, you&rsquo;ll find it easiest to use the
 libraries and then you&rsquo;ll get the prompt. Let&rsquo;s create test database and write and read some
 data with it:</p>
 
-<pre><code>user&gt; (require '[clojure.java.jdbc :as sql])
+<pre><code>taskmanager.core&gt; (require '[clojure.java.jdbc :as sql])
 nil ;; now we have the JDBC library loaded with an alias
-user&gt; (def db {:subprotocol "derby" :subname "cfmltest" :create true})
+taskmanager.core&gt; (def db {:dbtype "derby" :dbname "cfmltest" :create true})
 #'user/db ;; this is our database spec
 user=&gt; (sql/execute! db [(str "CREATE TABLE task ("
   "id INT GENERATED ALWAYS AS IDENTITY,"
   "task VARCHAR(32),"
   "done BOOLEAN DEFAULT false"
-  ")"])
+  ")")])
 [0] ;; success! we created the task table 
-user&gt; (sql/insert! db :task {:task "Test database"})
+taskmanager.core&gt; (sql/insert! db :task {:task "Test database"})
 ((:1 1M)) ;; the sequence of inserted keys:
 ;; there is just one key, labeled :1, with the value 1
 ;; the M indicates a BigDecimal value
-user&gt; (sql/insert! db :task {:task "Read some data"})
+taskmanager.core&gt; (sql/insert! db :task {:task "Read some data"})
 ((:1 2M)) ;; generated key is 2 this time
-user&gt; (sql/query db ["SELECT * FROM task WHERE NOT done"])
+taskmanager.core&gt; (sql/query db ["SELECT * FROM task WHERE NOT done"])
 ({:done false, :task "Test database", :id 1} {:done false, :task "Read some data", :id 2})
 ;; our two records came back, let's update one
-user&gt; (sql/update! db :task {:done true} ["id = ?" 1])
+taskmanager.core&gt; (sql/update! db :task {:done true} ["id = ?" 1])
 (1) ;; one row was updated
-user&gt; (sql/query db ["SELECT * FROM task WHERE NOT done"])
+taskmanager.core&gt; (sql/query db ["SELECT * FROM task WHERE NOT done"])
 ({:done false, :task "Read some data", :id 2})
 ;; yup, that's our only task not done now
-user&gt; (sql/update! db :task {:done true} ["id = ?" 1])
+taskmanager.core&gt; (sql/update! db :task {:done true} ["id = ?" 1])
 (1) ;; one row was updated
 ;; let's delete our table to clean up
-user&gt; (sql/execute! db [ "DROP TABLE task"])
+taskmanager.core&gt; (sql/execute! db [ "DROP TABLE task"])
 [0] ;; success! we dropped the table
 </code></pre>
+
+<p>Press control-d to exit the REPL.</p>
 
 <p>Some notes on the syntax:</p>
 
@@ -535,7 +537,49 @@ user&gt; (sql/execute! db [ "DROP TABLE task"])
 
 <h2>Adding the initial CFML files</h2>
 
+<p>We&rsquo;re going to put our CFML files in a folder somewhere in our webroot, e.g., a <code>taskmanager</code> folder. We&rsquo;ll need <code>Application.cfc</code> and an empty <code>index.cfm</code>.
+Here&rsquo;s what needs to be in our <code>Application.cfc</code> file:</p>
+
+<pre><code>component extends=framework.one {
+    variables.framework = {
+        diComponent : "framework.ioclj",
+        diLocations : "/path/to/clojure/taskmanager"
+    };
+}
+</code></pre>
+
+<p>We need to tell FW/1 to use the <code>ioclj</code> extension to DI/1, and we need to tell it the full path to the Clojure code (the folder where our <code>project.clj</code> lives).</p>
+
+<p>Then we need a default <code>main.default</code> view so we can test the app:</p>
+
+<pre><code>&lt;!--- views/main/default.cfm ---&gt;
+Hello, World!
+</code></pre>
+
+<p>If this loads without error, FW/1 has successfully located your Clojure project and loaded it.</p>
+
 <h2>Writing a Clojure Service</h2>
+
+<p>We&rsquo;ll start by writing a simple service containing just a single function so we can check that FW/1 finds and loads it correctly and that we can access it from our view.
+In your <code>taskmanager</code> Clojure folder, create a <code>services</code> subfolder under <code>src/taskmanager</code> and then create this <code>greeting.clj</code> file:</p>
+
+<pre><code>;; src/taskmanager/services/greeting.clj
+(ns taskmanager.services.greeting)
+
+(defn hello [name] (str "Hello, " name "!"))
+</code></pre>
+
+<p>Now we&rsquo;ll update our <code>main.default</code> view to look like this:</p>
+
+<pre><code>&lt;cfoutput&gt;
+  #getBeanFactory().getBean("greetingService").hello( "Clojure" )#
+&lt;/cfoutput&gt;
+</code></pre>
+
+<p>If you just try to hit the taskmanager app in your browser, you&rsquo;ll get an error that <code>greetingService</code> does not exist. You need to reload FW/1 (via adding <code>?reload=true</code> to the URL)
+so that it will reload the bean factory and find our newly created Clojure service. If you do that, you should see <code>Hello, Clojure!</code> in your browser.</p>
+
+<p>Now we can get to work writing our simple task manager service!</p>
 
 <h2>Writing a Clojure Controller</h2>
 
@@ -548,7 +592,7 @@ page, but I&rsquo;m going to give you a quick run through of some useful basics 
 
 <ul>
 <li>A semicolon introduces a comment. Typically a single semicolon is used for an end of line comment and a double semicolon is used for
-a whole line produces</li>
+a whole line comment.</li>
 <li><code>(func arg1 arg2 arg3)</code> represents a function call (with three arguments). You can use commas if you want but they are
 just whitespace: <code>(func arg1, arg2, arg3)</code>. Most Clojure developers omit commas in function calls. Almost everything in Clojure is a function call.
 A few things that look like function calls are actually &ldquo;<a href="http://clojure.org/special_forms">special forms</a>&rdquo; but you can pretend they&rsquo;re really function calls
@@ -556,7 +600,7 @@ until you get a bit more proficient (a function call evaluates all its arguments
 evaluate its arguments until it needs them).</li>
 <li><code>a</code> is a symbol &mdash; a variable or function name &mdash; that evaluates to whatever it has been bound to. See <code>def</code>, <code>defn</code> and <code>let</code> below.</li>
 <li><code>:a</code> is a keyword &mdash; it evaluates to itself &mdash; that is a bit like a string except it is cached (so two <code>:a</code>s in different parts of
-your code and the exact same thing and can be compared for identity based on their address, not their value). Keywords are commonly
+your code are the exact same thing and can be compared for identity based on their address, not their value). Keywords are commonly
 used as the keys in a hash map (see below).</li>
 <li><code>[1 2 3 4]</code> represents a vector (array) with the specified elements. You can use commas if you want, but they are just whitespace:
 <code>[1, 2, 3, 4]</code>. Most Clojure developers omit commas in vectors.</li>
@@ -1134,7 +1178,7 @@ Here&rsquo;s a small sample, roughly in order of approachability:</p>
   
 
 
-<time datetime="2015-07-23T19:40:00-07:00" pubdate data-updated="true">Jul 23<span>rd</span>, 2015</time>
+<time datetime="2015-07-27T18:30:00-07:00" pubdate data-updated="true">Jul 27<span>th</span>, 2015</time>
         
       </p>
       
