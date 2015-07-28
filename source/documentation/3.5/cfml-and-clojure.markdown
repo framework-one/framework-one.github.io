@@ -466,6 +466,41 @@ so that it will reload the bean factory and find our newly created Clojure servi
 
 Now we can get to work writing our simple task manager service!
 
+We already wrote most of the code we need, as part of our REPL session above, and if you look in that `taskmanager` folder, you'll find a (hidden) file called `.lein-repl-history` which contains the code you typed in.
+We're going to use that as the basis of our service. Let's create `task.clj` in our `services` folder like this:
+
+    ;; src/taskmanager/services/task.clj
+    (ns taskmanager.services.task
+      (:require [clojure.java.jdbc :as sql]))
+    
+    ;; for now we'll just hard-code one database spec but
+    ;; we could pass it in from our controller as needed
+    (def db {:dbtype "derby" :dbname "cfmltest" :create true})
+    
+    (defn create-task-table []
+      (sql/execute! db [(str "CREATE TABLE task ("
+                             "id INT GENERATED ALWAYS AS IDENTITY,"
+                             "task VARCHAR(32),"
+                             "done BOOLEAN DEFAULT false"
+                             ")")]))
+    
+    (defn add-task
+      "Given a task name, add it to our database and return the new row's ID."
+      [task]
+      (-> (sql/insert! db :task {:task task}) first :1))
+    
+    (defn complete-task
+      "Given a task ID, mark it as done and return the number of rows updated."
+      [id]
+      (-> (sql/update! db :task {:done true} ["id = ?" id]) first))
+    
+    (defn task-list
+      "Return the tasks.
+      If all is true, return all tasks, else just the incomplete ones."
+      [all]
+      (sql/query db [(str "SELECT * FROM task"
+                          (when-not all " WHERE NOT done"))]))
+
 ## Writing a Clojure Controller
 
 # A Clojure Primer
