@@ -501,6 +501,9 @@ We're going to use that as the basis of our service. Let's create `task.clj` in 
       (sql/query db [(str "SELECT * FROM task"
                           (when-not all " WHERE NOT done"))]))
 
+You can try out each function in the REPL or you can write unit tests, but they're all fairly simple and we "tested" them when we were exploring how
+to work with a database in the REPL earlier.
+
 ## Writing a Clojure Controller
 
 # A Clojure Primer
