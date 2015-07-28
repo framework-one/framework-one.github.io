@@ -494,11 +494,11 @@ user=&gt; (sql/execute! db [(str "CREATE TABLE task ("
   ")")])
 [0] ;; success! we created the task table 
 taskmanager.core&gt; (sql/insert! db :task {:task "Test database"})
-((:1 1M)) ;; the sequence of inserted keys:
+({:1 1M}) ;; the sequence of inserted keys:
 ;; there is just one key, labeled :1, with the value 1
 ;; the M indicates a BigDecimal value
 taskmanager.core&gt; (sql/insert! db :task {:task "Read some data"})
-((:1 2M)) ;; generated key is 2 this time
+({:1 2M}) ;; generated key is 2 this time
 taskmanager.core&gt; (sql/query db ["SELECT * FROM task WHERE NOT done"])
 ({:done false, :task "Test database", :id 1} {:done false, :task "Read some data", :id 2})
 ;; our two records came back, let's update one
@@ -580,6 +580,45 @@ In your <code>taskmanager</code> Clojure folder, create a <code>services</code> 
 so that it will reload the bean factory and find our newly created Clojure service. If you do that, you should see <code>Hello, Clojure!</code> in your browser.</p>
 
 <p>Now we can get to work writing our simple task manager service!</p>
+
+<p>We already wrote most of the code we need, as part of our REPL session above, and if you look in that <code>taskmanager</code> folder, you&rsquo;ll find a (hidden) file called <code>.lein-repl-history</code> which contains the code you typed in.
+We&rsquo;re going to use that as the basis of our service. Let&rsquo;s create <code>task.clj</code> in our <code>services</code> folder like this:</p>
+
+<pre><code>;; src/taskmanager/services/task.clj
+(ns taskmanager.services.task
+  (:require [clojure.java.jdbc :as sql]))
+
+;; for now we'll just hard-code one database spec but
+;; we could pass it in from our controller as needed
+(def db {:dbtype "derby" :dbname "cfmltest" :create true})
+
+(defn create-task-table []
+  (sql/execute! db [(str "CREATE TABLE task ("
+                         "id INT GENERATED ALWAYS AS IDENTITY,"
+                         "task VARCHAR(32),"
+                         "done BOOLEAN DEFAULT false"
+                         ")")]))
+
+(defn add-task
+  "Given a task name, add it to our database and return the new row's ID."
+  [task]
+  (-&gt; (sql/insert! db :task {:task task}) first :1))
+
+(defn complete-task
+  "Given a task ID, mark it as done and return the number of rows updated."
+  [id]
+  (-&gt; (sql/update! db :task {:done true} ["id = ?" id]) first))
+
+(defn task-list
+  "Return the tasks.
+  If all is true, return all tasks, else just the incomplete ones."
+  [all]
+  (sql/query db [(str "SELECT * FROM task"
+                      (when-not all " WHERE NOT done"))]))
+</code></pre>
+
+<p>You can try out each function in the REPL or you can write unit tests, but they&rsquo;re all fairly simple and we &ldquo;tested&rdquo; them when we were exploring how
+to work with a database in the REPL earlier.</p>
 
 <h2>Writing a Clojure Controller</h2>
 
