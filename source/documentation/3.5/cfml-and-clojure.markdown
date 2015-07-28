@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using Clojure with CFML"
-date: 2015-07-23 19:40
+date: 2015-07-27 18:30
 comments: false
 sharing: false
 footer: true
@@ -237,7 +237,7 @@ In the `default` handler, we get the `:name` element of the `rc` and we return `
     structKeyExists( bar, "foo" ) ? bar.foo : "baz"
 
 So `default` passes `rc.name` (or `"anonymous"` if `name` isn't present in `rc`) to the `greet/hello` function and then stores the result in
-the `greeting` element of `rc`. Note that the `assoc` function (pronounced _assosh_ like the word _associate_) return a new struct with the
+the `greeting` element of `rc`. Note that the `assoc` function (pronounced _assosh_ like the word _associate_) returns a new struct with the
 key added -- it does not modify the original struct. This seems very strange at first but you'll get used to it and it's very powerful (and
 very safe) since `rc` is immutable. We'll look at where `greet/hello` comes from in a minute.
 
@@ -294,7 +294,7 @@ is the singular of the folder name:
 
 FW/1 requires that there are at least three segments in a name for this convention (so just `src/controllers/main.clj` would not
 match the convention, but `src/hello/admin/controllers/user.clj` would match and become `userController`). An additional restriction
-is that the filename + suffix must be unique across your whole application (within the Clojure code (so also having
+is that the filename + suffix must be unique across your whole application within the Clojure code (so also having
 `src/hello/public/controllers/user.clj` would conflict with `src/hello/admin/controllers/user.clj`).
 
 Aside: You can have additional Clojure code that doesn't follow this convention, but the bean factory `reload()` function only attempts to
@@ -368,47 +368,49 @@ database drivers (if you use SQL Server, you'll find it easiest to use the jTDS 
 Edit `project.clj` and update the `:dependencies` section to include:
 
     [org.apache.derby/derby "10.11.1.1"]
-    [org.clojure/java.jdbc "0.3.7"]
+    [org.clojure/java.jdbc "0.4.1"]
 
 You'll now have a vector with three vectors inside it like this:
 
     :dependencies [[org.apache.derby/derby "10.11.1.1"]
-                   [org.clojure/java.jdbc "0.3.7"]
+                   [org.clojure/java.jdbc "0.4.1"]
                    [org.clojure/clojure "1.6.0"]]
 
 Now run `lein repl` and we can try this out. As the REPL starts up, it will download the new
 libraries and then you'll get the prompt. Let's create test database and write and read some 
 data with it:
 
-    user> (require '[clojure.java.jdbc :as sql])
+    taskmanager.core> (require '[clojure.java.jdbc :as sql])
     nil ;; now we have the JDBC library loaded with an alias
-    user> (def db {:subprotocol "derby" :subname "cfmltest" :create true})
+    taskmanager.core> (def db {:dbtype "derby" :dbname "cfmltest" :create true})
     #'user/db ;; this is our database spec
     user=> (sql/execute! db [(str "CREATE TABLE task ("
       "id INT GENERATED ALWAYS AS IDENTITY,"
       "task VARCHAR(32),"
       "done BOOLEAN DEFAULT false"
-      ")"])
+      ")")])
     [0] ;; success! we created the task table 
-    user> (sql/insert! db :task {:task "Test database"})
+    taskmanager.core> (sql/insert! db :task {:task "Test database"})
     ((:1 1M)) ;; the sequence of inserted keys:
     ;; there is just one key, labeled :1, with the value 1
     ;; the M indicates a BigDecimal value
-    user> (sql/insert! db :task {:task "Read some data"})
+    taskmanager.core> (sql/insert! db :task {:task "Read some data"})
     ((:1 2M)) ;; generated key is 2 this time
-    user> (sql/query db ["SELECT * FROM task WHERE NOT done"])
+    taskmanager.core> (sql/query db ["SELECT * FROM task WHERE NOT done"])
     ({:done false, :task "Test database", :id 1} {:done false, :task "Read some data", :id 2})
     ;; our two records came back, let's update one
-    user> (sql/update! db :task {:done true} ["id = ?" 1])
+    taskmanager.core> (sql/update! db :task {:done true} ["id = ?" 1])
     (1) ;; one row was updated
-    user> (sql/query db ["SELECT * FROM task WHERE NOT done"])
+    taskmanager.core> (sql/query db ["SELECT * FROM task WHERE NOT done"])
     ({:done false, :task "Read some data", :id 2})
     ;; yup, that's our only task not done now
-    user> (sql/update! db :task {:done true} ["id = ?" 1])
+    taskmanager.core> (sql/update! db :task {:done true} ["id = ?" 1])
     (1) ;; one row was updated
     ;; let's delete our table to clean up
-    user> (sql/execute! db [ "DROP TABLE task"])
+    taskmanager.core> (sql/execute! db [ "DROP TABLE task"])
     [0] ;; success! we dropped the table
+
+Press control-d to exit the REPL.
 
 Some notes on the syntax:
 
@@ -424,7 +426,45 @@ Some notes on the syntax:
 
 ## Adding the initial CFML files
 
+We're going to put our CFML files in a folder somewhere in our webroot, e.g., a `taskmanager` folder. We'll need `Application.cfc` and an empty `index.cfm`.
+Here's what needs to be in our `Application.cfc` file:
+
+    component extends=framework.one {
+        variables.framework = {
+            diComponent : "framework.ioclj",
+            diLocations : "/path/to/clojure/taskmanager"
+        };
+    }
+
+We need to tell FW/1 to use the `ioclj` extension to DI/1, and we need to tell it the full path to the Clojure code (the folder where our `project.clj` lives).
+
+Then we need a default `main.default` view so we can test the app:
+
+    <!--- views/main/default.cfm --->
+    Hello, World!
+
+If this loads without error, FW/1 has successfully located your Clojure project and loaded it.
+
 ## Writing a Clojure Service
+
+We'll start by writing a simple service containing just a single function so we can check that FW/1 finds and loads it correctly and that we can access it from our view.
+In your `taskmanager` Clojure folder, create a `services` subfolder under `src/taskmanager` and then create this `greeting.clj` file:
+
+    ;; src/taskmanager/services/greeting.clj
+    (ns taskmanager.services.greeting)
+    
+    (defn hello [name] (str "Hello, " name "!"))
+
+Now we'll update our `main.default` view to look like this:
+
+    <cfoutput>
+      #getBeanFactory().getBean("greetingService").hello( "Clojure" )#
+    </cfoutput>
+
+If you just try to hit the taskmanager app in your browser, you'll get an error that `greetingService` does not exist. You need to reload FW/1 (via adding `?reload=true` to the URL)
+so that it will reload the bean factory and find our newly created Clojure service. If you do that, you should see `Hello, Clojure!` in your browser.
+
+Now we can get to work writing our simple task manager service!
 
 ## Writing a Clojure Controller
 
@@ -436,7 +476,7 @@ page, but I'm going to give you a quick run through of some useful basics that s
 As I claimed earlier, Clojure is a very simple language with only a few pieces of syntax:
 
 * A semicolon introduces a comment. Typically a single semicolon is used for an end of line comment and a double semicolon is used for
-a whole line produces
+a whole line comment.
 * `(func arg1 arg2 arg3)` represents a function call (with three arguments). You can use commas if you want but they are
 just whitespace: `(func arg1, arg2, arg3)`. Most Clojure developers omit commas in function calls. Almost everything in Clojure is a function call.
 A few things that look like function calls are actually "[special forms](http://clojure.org/special_forms)" but you can pretend they're really function calls
@@ -444,7 +484,7 @@ until you get a bit more proficient (a function call evaluates all its arguments
 evaluate its arguments until it needs them).
 * `a` is a symbol -- a variable or function name -- that evaluates to whatever it has been bound to. See `def`, `defn` and `let` below.
 * `:a` is a keyword -- it evaluates to itself -- that is a bit like a string except it is cached (so two `:a`s in different parts of
-your code and the exact same thing and can be compared for identity based on their address, not their value). Keywords are commonly
+your code are the exact same thing and can be compared for identity based on their address, not their value). Keywords are commonly
 used as the keys in a hash map (see below).
 * `[1 2 3 4]` represents a vector (array) with the specified elements. You can use commas if you want, but they are just whitespace:
 `[1, 2, 3, 4]`. Most Clojure developers omit commas in vectors.
