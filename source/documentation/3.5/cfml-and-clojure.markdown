@@ -30,7 +30,7 @@ standalone processes as well.
 
 As we've come to depend on FW/1 more and more, I've wanted to streamline the integration between FW/1 and **cfmljure** so that
 we can write services in Clojure and have them autowired into our controllers, just like our CFML services are, as well as have
-the option to write controllers in Clojure (where all the code they call is Clojure, not CFML).
+the option to write controllers in Clojure (if all the code they need to call is Clojure, not some mix of CFML and Clojure).
 
 That's why, in FW/1 3.5, I've made **cfmljure** part of the standard distribution and provided an extenion to DI/1 to allow
 Clojure code to be discovered and autowired into your CFML code, as well as a way to write FW/1 controllers in pure Clojure.
@@ -292,10 +292,18 @@ is the singular of the folder name:
 * `src/hello/controllers/main.clj` -> `mainController`
 * `src/hello/services/greeter.clj` -> `greeterService`
 
-FW/1 requires that there are at least three segments in a name for this convention (so just `src/controllers/main.clj` would not
-match the convention, but `src/hello/admin/controllers/user.clj` would match and become `userController`). An additional restriction
-is that the filename + suffix must be unique across your whole application within the Clojure code (so also having
-`src/hello/public/controllers/user.clj` would conflict with `src/hello/admin/controllers/user.clj`).
+In a typical Clojure application, you have `src/` and `test/` folders containing your source code and your test code. Then you have
+the top-level name of your application -- `hello` in the paths above -- and then below that you have all your Clojure "components".
+
+Therefore, FW/1 requires that there are at least three "segments" in a file path and name for this convention:
+
+* `src/myapp/controllers/main.clj` has `myapp.controllers.main` as the namespace -- three segments
+* `src/hello/admin/services/user.clj` has `hello.admin.services.user` as the namespace -- four segments
+
+That means that just `src/controllers/main.clj` would not match the convention as its namespace would be `controllers.main` (only two
+segments -- no top-level application name). An additional restriction for FW/1 to automatically manage injection of Clojure namespaces
+into your CFCs is that the filename + suffix must be unique across your whole application within the Clojure code (so also having
+`src/hello/public/services/user.clj` would conflict with `src/hello/admin/services/user.clj`).
 
 Aside: You can have additional Clojure code that doesn't follow this convention, but the bean factory `reload()` function only attempts to
 reload Clojure files that it "knows" about via this convention. You can explicitly reload others -- if you allow for a URL variable that can
@@ -615,6 +623,12 @@ We'll change our controller to look like this:
         }
     }
 
+_Note: because URL and form values come into CFML as strings that it will automatically coerce to numeric, boolean, etc, we need to explicitly pass either `true`
+or `false` to `taskService.task_list()` which is why we write `rc.all ? true : false`. Most languages do not have CFML's flexibility when interpreting data, but
+they also provide a lot more type safety! You might wonder why we don't convert `rc.id` to numeric in the call to `taskService.complete_task()`? We can get away
+with it there because it's passed directly to the JDBC driver and that knows that the `id` field is numeric and it will parse the string for you. In general,
+you probably shouldn't rely on that and should explicitly convert your inbound string data from `rc` to the type your Clojure code is expecting._
+
 If we run this (with `?reload=true` in the URL), we'll probably get a SQL exception because our table doesn't exist. We dropped the table at the end
 of our REPL session (unless you recreated it again while testing the `task.clj` service?).
 
@@ -684,6 +698,56 @@ _Coming soon!_
 
 In this final section of **Building Your Own CFML / Clojure Application**, we're going to replace our CFML Controller with an equivalent Clojure
 Controller (and it will become evident why we chose to convert the data structure in the view instead of the `main.cfc` controller!).
+
+### RC Value Conversion
+
+Since all values come into the `rc` (from URL and form scope) as strings, you'll usually need to convert them to the appropriate numeric, boolean,
+or other data type in order to use them in your Clojure code. We saw above that you can get away with some things, but in the pure Clojure world,
+you need to be much more specific about types.
+
+Here are some useful functions for converting from string to various types - the `->type` naming is just a convention in Clojure for conversion
+functions:
+
+    (defn ->long [v]
+      (try
+        (if (number? v)
+          (long v)
+          (Long/parseLong v))
+        (catch Exception _
+          0)))
+
+    (defn ->double [v]
+      (try
+        (if (number? v)
+          (double v)
+          (Double/parseDouble v))
+        (catch Exception _
+          0.0)))
+
+These behave like `val()` in CFML by silently returning zero if they cannot parse the number. They are also safe to use with both numeric
+input and string input so you don't have to keep track of whether you've already converted the data.
+
+    (defn ->boolean [v]
+      (try
+        (cond
+          (instance? Boolean v) v
+          (number? v) (not (zero? v))
+          (not (zero? (->long v))) true
+          :else
+          (boolean (#{"true" "yes"} (clojure.string/lower-case (str v)))))
+        (catch Exception _
+          false)))
+
+This looks a lot more complicated but it fairly closely mimics CFML's ideas about booleans:
+
+* If `v` is already a boolean, just return it
+* Else if `v` is a number, return `true` if it is not zero (and `false` if it is zero)
+* Else if `v` can be converted to a non-zero number (using `->long` defined above), return `true`
+* Else convert `v` to a string, lowercase it, and return true if it is a member of the set `"true", "yes"`.
+
+That last line warrants more explanation! The `#{..}` syntax creates a set of values. The expression `(mySet aValue)`
+looks up `aValue` in `mySet` and returns `aValue` if it is present or `nil` if it isn't. The expression `(boolean someVal)`
+will return `true` if `someVal` is anything other than `false` or `nil` (else it will return `false`).
 
 # A Clojure Primer
 
