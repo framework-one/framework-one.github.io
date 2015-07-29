@@ -504,6 +504,179 @@ We're going to use that as the basis of our service. Let's create `task.clj` in 
 You can try out each function in the REPL or you can write unit tests, but they're all fairly simple and we "tested" them when we were exploring how
 to work with a database in the REPL earlier.
 
+## Fleshing out the Views
+
+Next we'll create the views we need for our simple task manager. The default view will show a list of tasks with options to:
+
+* List all / outstanding tasks
+* Add a new task
+* Next to each task, the status, and the ability to mark a task as complete
+
+We'll reuse `main.default` as our list view and add `main.newtask` for adding new tasks. We'll additionally have actions for `main.addtask` and `main.completetask` which will both
+redirect to `main.default`. We'll have an optional boolean argument to `main.default` which will specify showing all tasks or just outstanding tasks.
+
+Here's our `main.default` view:
+
+    <!--- views/main/default.cfm --->
+    <cfparam name="rc.all" default="false"/>
+    <cfoutput>
+        <p>
+            <cfif rc.all>
+                <a href="#buildURL( 'main.default?all=false' )#">List To-Do</a>
+            <cfelse>
+                <a href="#buildURL( 'main.default?all=true' )#">List All</a>
+            </cfif>
+            |
+            <a href="#buildURL( 'main.newtask' )#">Add New Task</a>
+        </p>
+        <cfif arrayLen( rc.tasks )>
+            <ul>
+                <cfloop index="task" array="#rc.tasks#">
+                    <li>
+                        <form action="#buildURL( 'main.completetask' )#" method="post">
+                            #task.task#
+                            <cfif !task.done>
+                                <input type="hidden" name="id" value="#task.id#"/>
+                                <input type="submit" value="Done!"/>
+                            </cfif>
+                        </form>
+                    </li>
+                </cfloop>
+            </ul>
+        <cfelse>
+            <p>You have nothing to do!</p>
+        </cfif>
+    </cfoutput>
+
+Here's our `main.newtask` view:
+
+    <!--- views/main/newtask.cfm --->
+    <cfoutput>
+        <form action="#buildURL( 'main.addtask' )#" method="post">
+            <p>
+                Task:
+                <input name="task" type="text"/>
+                <input type="submit" value="Add!"/>
+            </p>
+        </form>
+        <p><a href="#buildURL( 'main.default' )#">Cancel</a></p>
+    </cfoutput>
+
+## Testing with a CFML Controller
+
+We'll add a dummy controller so we can test this:
+
+    // controllers/main.cfc
+    component accessors=true {
+        property framework;
+        function default( rc ) {
+            rc.tasks = [ ];
+        }
+        function addtask( rc ) {
+            framework.redirect( 'main.default' );
+        }
+        function completetask( rc ) {
+            framework.redirect( 'main.default' );
+        }
+    }
+
+If we hit the app in our browser with `?reload=true` in the URL, you should see:
+
+    List All | Add New Task
+    
+    You have nothing to do!
+
+If you click `Add New Task` and fill in the form and click `Add!`, you'll end up back on this page with no tasks listed.
+
+### Using the Clojure Service
+
+Now we'll wire in our Clojure service that we wrote above and make something useful happen!
+
+We'll change our controller to look like this:
+
+    // controllers/main.cfc
+    component accessors=true {
+        property framework;
+        property taskService; // add this
+        function default( rc ) {
+            // default rc.all and pass boolean to Clojure:
+            param name="rc.all" default="false";
+            rc.tasks = taskService.task_list( rc.all ? true : false );
+        }
+        function addtask( rc ) {
+            // call Clojure
+            taskService.add_task( rc.task );
+            framework.redirect( 'main.default' );
+        }
+        function completetask( rc ) {
+            // call Clojure
+            taskService.complete_task( rc.id );
+            framework.redirect( 'main.default' );
+        }
+    }
+
+If we run this (with `?reload=true` in the URL), we'll probably get a SQL exception because out table doesn't exist. We dropped the table at the end
+of our REPL session (unless you recreated it again while testing the `task.clj` service?).
+
+Let's make our controller automatically create the table if the task list fails:
+
+        function default( rc ) {
+            // default rc.all and pass boolean to Clojure:
+            param name="rc.all" default="false";
+            try {
+                rc.tasks = taskService.task_list( rc.all ? true : false );
+            } catch ( any e ) {
+                taskService.create_task_table();
+                rc.tasks = taskService.task_list( rc.all ? true : false );
+            }
+        }
+
+Run it again (with `?reload=true`) and you should see an empty list of tasks. Add a new task and... oh dear! We got an exception:
+
+    Key [TASK] doesn't exist in Map (clojure.lang.PersistentArrayMap)
+
+The reason for this is that raw Clojure structs (hashmaps) are not quite compatible with CFML structs (because they tend to use keywords as keys,
+whereas CFML uses case-insensitive strings). The Clojure integration provides a way to convert back and forth with one caveat: it expects and produces
+CFML structs that have **lowercase** case-sensitive strings. So there are two parts to solving our problem: first, we'll need our
+controller to depend on `cfmljure` and then we use `toCFML()` to convert the Clojure data structure to a CFML data structure:
+
+    // controllers/main.cfc
+    component accessors=true {
+        property framework;
+        property taskService;
+        property cfmljure; // add this
+        function default( rc ) {
+            param name="rc.all" default="false";
+            var tasks = [ ]; // use a local variable now
+            try {
+                tasks = taskService.task_list( rc.all ? true : false );
+            } catch ( any e ) {
+                taskService.create_task_table();
+                tasks = taskService.task_list( rc.all ? true : false );
+            }
+            // convert local Clojure tasks to CFML tasks in rc
+            rc.tasks = cfmljure.toCFML( tasks );
+        }
+        ...
+    }
+
+Then we'll need to update our `main.default` view to use bracket notation instead of dot notation to access the elements of our `task` struct:
+
+                    <li>
+                        <form action="#buildURL( 'main.completetask' )#" method="post">
+                            #task['task']#
+                            <cfif !task['done']>
+                                <input type="hidden" name="id" value="#task['id']#"/>
+                                <input type="submit" value="Done!"/>
+                            </cfif>
+                        </form>
+                    </li>
+
+At World Singles, we've tackled the CFML/Clojure interop in more depth by creating a new Clojure data structure that behaves like a CFML
+struct with case insensitive keys, as well as providing more comprehensive data structure support. I hope to turn this into an open source
+library shortly and make it available so using CFML and Clojure together becomes much easier (it's something we've developed over several
+iterations as we've done more and more CFML/Clojure interop!).
+
 ## Writing a Clojure Controller
 
 # A Clojure Primer
