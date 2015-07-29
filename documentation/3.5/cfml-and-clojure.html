@@ -108,7 +108,7 @@ standalone processes as well.</p>
 
 <p>As we&rsquo;ve come to depend on FW/1 more and more, I&rsquo;ve wanted to streamline the integration between FW/1 and <strong>cfmljure</strong> so that
 we can write services in Clojure and have them autowired into our controllers, just like our CFML services are, as well as have
-the option to write controllers in Clojure (where all the code they call is Clojure, not CFML).</p>
+the option to write controllers in Clojure (if all the code they need to call is Clojure, not some mix of CFML and Clojure).</p>
 
 <p>That&rsquo;s why, in FW/1 3.5, I&rsquo;ve made <strong>cfmljure</strong> part of the standard distribution and provided an extenion to DI/1 to allow
 Clojure code to be discovered and autowired into your CFML code, as well as a way to write FW/1 controllers in pure Clojure.</p>
@@ -386,10 +386,21 @@ is the singular of the folder name:</p>
 </ul>
 
 
-<p>FW/1 requires that there are at least three segments in a name for this convention (so just <code>src/controllers/main.clj</code> would not
-match the convention, but <code>src/hello/admin/controllers/user.clj</code> would match and become <code>userController</code>). An additional restriction
-is that the filename + suffix must be unique across your whole application within the Clojure code (so also having
-<code>src/hello/public/controllers/user.clj</code> would conflict with <code>src/hello/admin/controllers/user.clj</code>).</p>
+<p>In a typical Clojure application, you have <code>src/</code> and <code>test/</code> folders containing your source code and your test code. Then you have
+the top-level name of your application &mdash; <code>hello</code> in the paths above &mdash; and then below that you have all your Clojure &ldquo;components&rdquo;.</p>
+
+<p>Therefore, FW/1 requires that there are at least three &ldquo;segments&rdquo; in a file path and name for this convention:</p>
+
+<ul>
+<li><code>src/myapp/controllers/main.clj</code> has <code>myapp.controllers.main</code> as the namespace &mdash; three segments</li>
+<li><code>src/hello/admin/services/user.clj</code> has <code>hello.admin.services.user</code> as the namespace &mdash; four segments</li>
+</ul>
+
+
+<p>That means that just <code>src/controllers/main.clj</code> would not match the convention as its namespace would be <code>controllers.main</code> (only two
+segments &mdash; no top-level application name). An additional restriction for FW/1 to automatically manage injection of Clojure namespaces
+into your CFCs is that the filename + suffix must be unique across your whole application within the Clojure code (so also having
+<code>src/hello/public/services/user.clj</code> would conflict with <code>src/hello/admin/services/user.clj</code>).</p>
 
 <p>Aside: You can have additional Clojure code that doesn&rsquo;t follow this convention, but the bean factory <code>reload()</code> function only attempts to
 reload Clojure files that it &ldquo;knows&rdquo; about via this convention. You can explicitly reload others &mdash; if you allow for a URL variable that can
@@ -739,6 +750,12 @@ component accessors=true {
 }
 </code></pre>
 
+<p><em>Note: because URL and form values come into CFML as strings that it will automatically coerce to numeric, boolean, etc, we need to explicitly pass either <code>true</code>
+or <code>false</code> to <code>taskService.task_list()</code> which is why we write <code>rc.all ? true : false</code>. Most languages do not have CFML&rsquo;s flexibility when interpreting data, but
+they also provide a lot more type safety! You might wonder why we don&rsquo;t convert <code>rc.id</code> to numeric in the call to <code>taskService.complete_task()</code>? We can get away
+with it there because it&rsquo;s passed directly to the JDBC driver and that knows that the <code>id</code> field is numeric and it will parse the string for you. In general,
+you probably shouldn&rsquo;t rely on that and should explicitly convert your inbound string data from <code>rc</code> to the type your Clojure code is expecting.</em></p>
+
 <p>If we run this (with <code>?reload=true</code> in the URL), we&rsquo;ll probably get a SQL exception because our table doesn&rsquo;t exist. We dropped the table at the end
 of our REPL session (unless you recreated it again while testing the <code>task.clj</code> service?).</p>
 
@@ -812,6 +829,61 @@ iterations as we&rsquo;ve done more and more CFML/Clojure interop!).</p>
 
 <p>In this final section of <strong>Building Your Own CFML / Clojure Application</strong>, we&rsquo;re going to replace our CFML Controller with an equivalent Clojure
 Controller (and it will become evident why we chose to convert the data structure in the view instead of the <code>main.cfc</code> controller!).</p>
+
+<h3>RC Value Conversion</h3>
+
+<p>Since all values come into the <code>rc</code> (from URL and form scope) as strings, you&rsquo;ll usually need to convert them to the appropriate numeric, boolean,
+or other data type in order to use them in your Clojure code. We saw above that you can get away with some things, but in the pure Clojure world,
+you need to be much more specific about types.</p>
+
+<p>Here are some useful functions for converting from string to various types &ndash; the <code>-&gt;type</code> naming is just a convention in Clojure for conversion
+functions:</p>
+
+<pre><code>(defn -&gt;long [v]
+  (try
+    (if (number? v)
+      (long v)
+      (Long/parseLong v))
+    (catch Exception _
+      0)))
+
+(defn -&gt;double [v]
+  (try
+    (if (number? v)
+      (double v)
+      (Double/parseDouble v))
+    (catch Exception _
+      0.0)))
+</code></pre>
+
+<p>These behave like <code>val()</code> in CFML by silently returning zero if they cannot parse the number. They are also safe to use with both numeric
+input and string input so you don&rsquo;t have to keep track of whether you&rsquo;ve already converted the data.</p>
+
+<pre><code>(defn -&gt;boolean [v]
+  (try
+    (cond
+      (instance? Boolean v) v
+      (number? v) (not (zero? v))
+      (not (zero? (-&gt;long v))) true
+      :else
+      (boolean (#{"true" "yes"} (clojure.string/lower-case (str v)))))
+    (catch Exception _
+      false)))
+</code></pre>
+
+<p>This looks a lot more complicated but it fairly closely mimics CFML&rsquo;s ideas about booleans:</p>
+
+<ul>
+<li>If <code>v</code> is already a boolean, just return it</li>
+<li>Else if <code>v</code> is a number, return <code>true</code> if it is not zero (and <code>false</code> if it is zero)</li>
+<li>Else if <code>v</code> can be converted to a non-zero number (using <code>-&gt;long</code> defined above), return <code>true</code></li>
+<li>Else convert <code>v</code> to a string, lowercase it, and return true if it is a member of the set <code>"true", "yes"</code>.</li>
+</ul>
+
+
+<p>That last line warrants more explanation! The <code>#{..}</code> syntax creates a set of values. The expression <code>(mySet aValue)</code>
+looks up <code>aValue</code> in <code>mySet</code> and returns <code>aValue</code> if it is present or <code>nil</code> if it isn&rsquo;t. The expression <code>(boolean someVal)</code>
+will return <code>true</code> if <code>someVal</code> is anything other than <code>false</code> or <code>nil</code> (else it will return <code>false</code>).</p>
 
 <h1>A Clojure Primer</h1>
 
