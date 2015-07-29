@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using Clojure with CFML"
-date: 2015-07-27 18:30
+date: 2015-07-29 14:30
 comments: false
 sharing: false
 footer: true
@@ -10,7 +10,7 @@ _This is the upcoming (3.5 - develop) documentation - for the current stable rel
 
 # Clojure and CFML Sitting in a tree
 
-Back in 2010, I started to learn Clojure. It's a Lisp that runs on the JVM. It's a mostly pure functional programming language.
+Back in 2010, I started to learn Clojure. It's a version of the Lisp programming language that runs on the JVM. It's a mostly pure functional programming language.
 It's very simple -- very little syntax -- but very powerful and expressive. It has a thriving community and ecosystem. Being a
 functional programming language it favors immutable data structures and higher order functions (map, filter, reduce, etc) which
 makes programs easy to reason about and it also makes concurrent programming pretty easy. No more thread safety issues!
