@@ -615,7 +615,7 @@ We'll change our controller to look like this:
         }
     }
 
-If we run this (with `?reload=true` in the URL), we'll probably get a SQL exception because out table doesn't exist. We dropped the table at the end
+If we run this (with `?reload=true` in the URL), we'll probably get a SQL exception because our table doesn't exist. We dropped the table at the end
 of our REPL session (unless you recreated it again while testing the `task.clj` service?).
 
 Let's make our controller automatically create the table if the task list fails:
@@ -635,10 +635,11 @@ Run it again (with `?reload=true`) and you should see an empty list of tasks. Ad
 
     Key [TASK] doesn't exist in Map (clojure.lang.PersistentArrayMap)
 
-The reason for this is that raw Clojure structs (hashmaps) are not quite compatible with CFML structs (because they tend to use keywords as keys,
+The reason for this is that raw Clojure structs (hashmaps) are not quite compatible with CFML structs (because they use keywords as keys,
 whereas CFML uses case-insensitive strings). The Clojure integration provides a way to convert back and forth with one caveat: it expects and produces
 CFML structs that have **lowercase** case-sensitive strings. So there are two parts to solving our problem: first, we'll need our
-controller to depend on `cfmljure` and then we use `toCFML()` to convert the Clojure data structure to a CFML data structure:
+controller to depend on `cfmljure` and make it available to our view, and then we'll use `toCFML()` in our view to convert the Clojure data structure
+to a CFML data structure so we can display it:
 
     // controllers/main.cfc
     component accessors=true {
@@ -647,21 +648,20 @@ controller to depend on `cfmljure` and then we use `toCFML()` to convert the Clo
         property cfmljure; // add this
         function default( rc ) {
             param name="rc.all" default="false";
-            var tasks = [ ]; // use a local variable now
             try {
-                tasks = taskService.task_list( rc.all ? true : false );
+                rc.tasks = taskService.task_list( rc.all ? true : false );
             } catch ( any e ) {
                 taskService.create_task_table();
-                tasks = taskService.task_list( rc.all ? true : false );
+                rc.tasks = taskService.task_list( rc.all ? true : false );
             }
-            // convert local Clojure tasks to CFML tasks in rc
-            rc.tasks = cfmljure.toCFML( tasks );
+            rc.cfmljure = cfmljure; // make it available to our view
         }
         ...
     }
 
-Then we'll need to update our `main.default` view to use bracket notation instead of dot notation to access the elements of our `task` struct:
+Then we'll need to update our `main.default` view to convert the data structure and use bracket notation instead of dot notation to access the elements of our `task` struct:
 
+                <cfloop index="task" array="#rc.cfmljure.toCFML( rc.tasks )#">
                     <li>
                         <form action="#buildURL( 'main.completetask' )#" method="post">
                             #task['task']#
@@ -671,6 +671,7 @@ Then we'll need to update our `main.default` view to use bracket notation instea
                             </cfif>
                         </form>
                     </li>
+                </cfloop>
 
 At World Singles, we've tackled the CFML/Clojure interop in more depth by creating a new Clojure data structure that behaves like a CFML
 struct with case insensitive keys, as well as providing more comprehensive data structure support. I hope to turn this into an open source
@@ -678,6 +679,11 @@ library shortly and make it available so using CFML and Clojure together becomes
 iterations as we've done more and more CFML/Clojure interop!).
 
 ## Writing a Clojure Controller
+
+_Coming soon!_
+
+In this final section of **Building Your Own CFML / Clojure Application**, we're going to replace our CFML Controller with an equivalent Clojure
+Controller (and it will become evident why we chose to convert the data structure in the view instead of the `main.cfc` controller!).
 
 # A Clojure Primer
 
