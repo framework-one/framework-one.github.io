@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-07-23 19:40
+date: 2015-08-30 18:40
 comments: false
 sharing: false
 footer: true
@@ -290,6 +290,8 @@ Unless you choose `"none"`, FW/1 will use `variables.framework.diComponent` as t
 
 You can override these if you have installed FW/1's `framework` folder contents elsewhere. If you specify a `diEngine` of `"custom"`, you must supply your own value for `diComponent`.
 
+As of FW/1 3.5, if you try to manage your own bean factory via `setBeanFactory()` and forget to set `diEngine` to `"none"`, you will get an exception. You can suppress the exception using the `diOverrideAllowed` setting but you will still get a warning printed to the console, informing you that you really should set `diEngine` to `"none"` instead!
+
 _Note: in order to use AOP/1 you need to manually download it and place it in the `framework` folder yourself._
 
 The following configuration variables are used in the construction of the bean factory component:
@@ -532,6 +534,7 @@ The keys in the structure have the following meanings:
 * `diComponent` - the dotted-path to the CFC used for the bean factory (which has sensible defaults based on `diEngine`).
 * `diLocations` - the list of folders to check for CFCs to manage; defaults to `[ "model", "controllers" ]`.
 * `diConfig` - any additional configuration needed for the Dependency Injection engine; defaults to `{ }`.
+* `diOverrideAllowed` - If `true`, FW/1 will throw an exception if you attempt to call `setBeanFactory()` twice. If `false`, FW/1 will allow you to call `setBeanFactory()` twice and override the previous Dependency Injection setting, but it will log a warning to the console. If you want FW/1 to manage your bean factory, use the `di*` settings above to configure it -- and do not call `setBeanFactory()` yourself. If you want to manage your bean factory directly, set `diEngine` to `"none"` so FW/1 doesn't also attempt to do this. _New in 3.5._
 
 At runtime, this structure also contains the following key (from release 0.4 onward):
 
