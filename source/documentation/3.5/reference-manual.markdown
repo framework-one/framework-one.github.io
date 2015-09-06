@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-09-05 14:30
+date: 2015-09-05 20:00
 comments: false
 sharing: false
 footer: true
@@ -482,6 +482,8 @@ When you call `renderData()`, processing continues in your controller (so use `r
 ### public void function setBeanFactory( any factory )
 
 If you are manually creating a bean factory, call this from your `setupApplication()` method to tell the framework about your primary (default) bean factory. By default FW/1 will use DI/1 as the bean factory and you won't have to worry about this.
+
+As of release 3.5, if you call this without telling FW/1 `diEngine = "none"` to disable automatic bean factory management, you will get an exception. If, for some reason, you want to do this anyway, you can set `diOverrideAllowed = true` in the framework configuration but it would almost certainly be better to set `diEngine = true`!
 
 ### public void function setLayout( string action, boolean suppressOtherLayouts = false )
 
