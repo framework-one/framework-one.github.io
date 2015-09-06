@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using Clojure with CFML"
-date: 2015-07-29 14:30
+date: 2015-09-05 14:30
 comments: false
 sharing: false
 footer: true
@@ -9,6 +9,7 @@ footer: true
 _This is the upcoming (3.5 - develop) documentation - for the current stable release, read the [3.1 master stable documentation](/documentation/3.1/)._
 
 # Clojure and CFML Sitting in a tree
+{:.no_toc}
 
 Back in 2010, I started to learn Clojure. It's a version of the Lisp programming language that runs on the JVM. It's a mostly pure functional programming language.
 It's very simple -- very little syntax -- but very powerful and expressive. It has a thriving community and ecosystem. Being a
@@ -34,6 +35,9 @@ the option to write controllers in Clojure (if all the code they need to call is
 
 That's why, in FW/1 3.5, I've made **cfmljure** part of the standard distribution and provided an extenion to DI/1 to allow
 Clojure code to be discovered and autowired into your CFML code, as well as a way to write FW/1 controllers in pure Clojure.
+
+* Table of Contents
+{:toc}
 
 ## Some Important Caveats (and System Requirements)
 

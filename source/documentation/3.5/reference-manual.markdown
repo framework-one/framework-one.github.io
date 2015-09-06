@@ -1,14 +1,17 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-07-23 19:40
+date: 2015-09-05 14:30
 comments: false
 sharing: false
 footer: true
 ---
 _This is the upcoming (3.5 - develop) documentation - for the current stable release, read the [3.1 master stable documentation](/documentation/3.1/reference-manual.html)._
 
-This page provides a description of all the APIs and components involved in a FW/1 application. Please also read the [Roadmap](/documentation/3.5/roadmap.html) to see how things may change in the future.
+This page provides a description of all the APIs and components involved in a FW/1 application. Please also read the [Roadmap](roadmap.html) to see how things may change in the future.
+
+* TOC
+{:toc}
 
 FW/1 Controllers
 ---
@@ -61,7 +64,7 @@ Any other variables assigned to by a view (without a scope qualifier - or explic
 
 If no matching view file exists for a request, `onMissingView()` is called and whatever is returned is used as the text of the view, and layouts are applied (unless they are suppressed). The default implementation is to throw an exception but by overriding this method you can create any behavior you want for requests that have no specific view, e.g., you can return a default view or pretty much anything you want.
 
-As noted in the [Developing Applications Manual](/documentation/3.5/developing-applications.html), `onMissingView()` will be called if your application throws an exception and you have not provided a view for the default error handler (`main.error` - if `defaultSection` is `main`). This can lead to exceptions being masked and instead appearing as if you have a missing view!
+As noted in the [Developing Applications Manual](developing-applications.html), `onMissingView()` will be called if your application throws an exception and you have not provided a view for the default error handler (`main.error` - if `defaultSection` is `main`). This can lead to exceptions being masked and instead appearing as if you have a missing view!
 
 FW/1 Layouts
 ---
@@ -104,7 +107,7 @@ These methods are callable from outside the framework and are intended to be use
 
 ### public void function abortController()
 
-Attempts to immediately abort execution of the current controller by throwing an exception (which is caught by the framework). If your controller catches this exception, execution will continue until your controller returns. No further controller or service methods will be called. Execution will continue with the `setupView()` lifecycle method and views and layouts will then be rendered.
+Attempts to immediately abort execution of the current controller by throwing an exception (which is caught by the framework). If your controller catches this exception, even by accident (such as `catch ( any e )`), execution will continue inside your controller until it returns. No further controller methods will be called. Execution will continue with the `setupView()` lifecycle method and views and layouts will then be rendered.
 
 ### public boolean function actionSpecifiesSubsystem( string action )
 
@@ -252,7 +255,7 @@ If the application is using subsystems and the current request's action does not
 
 ### public string function getEnvironment()
 
-Returns an empty string by default. If you want to use the **Environment Control** feature, you should override this in `Application.cfc` and have it return the appropriate _"tier"_ or _"tier-server"_ string. See **Environment Control** in the [Developing Applications Manual](/documentation/3.5/developing-applications.html) for more detail.
+Returns an empty string by default. If you want to use the **Environment Control** feature, you should override this in `Application.cfc` and have it return the appropriate _"tier"_ or _"tier-server"_ string. See **Environment Control** in the [Developing Applications Manual](developing-applications.html#environment-control) for more detail.
 
 ### public string function getEnvVar( string name )
 
@@ -266,7 +269,7 @@ Returns an array of the current request's framework trace data. See `setupTraceR
 
 If the application is not using subsystems, this behaves the same as `getSectionAndItem( action )`.
 
-If the application is using subsystems, this returns the specified action formatted as _subsystem:section.item_.
+If the application is using subsystems, this returns the specified action formatted as _module:section.item_.
 
 ### public string function getHostname()
 
@@ -482,7 +485,7 @@ If you are manually creating a bean factory, call this from your `setupApplicati
 
 ### public void function setLayout( string action, boolean suppressOtherLayouts = false )
 
-Call this to tell the framework to use a new action _subsystem:section.item_ as the basis of the lookup process for the layouts for the current request. This allows you to override the default convention for choosing the layouts. If you specify `suppressOtherLayouts` as `true`, then only the most specific layout will be used and the usual cascade of layouts will be turned off for this request.
+Call this to tell the framework to use a new action _module:section.item_ as the basis of the lookup process for the layouts for the current request. This allows you to override the default convention for choosing the layouts. If you specify `suppressOtherLayouts` as `true`, then only the most specific layout will be used and the usual cascade of layouts will be turned off for this request.
 
 ### public void function setSubsystemBeanFactory( string subsystem, any factory )
 
@@ -494,41 +497,41 @@ Override this in your `Application.cfc` to provide application-specific initiali
 
 ## public void function setupEnvironment( string env )
 
-Override this in your `Application.cfc` to provide environment-specific initialization. See **Environment Control** in the [Developing Applications Manual](/documentation/3.5/developing-applications.html) for more detail.
+Override this in your `Application.cfc` to provide environment-specific initialization. See **Environment Control** in the [Developing Applications Manual](developing-applications.html#environment-control) for more detail.
 
-### public void function setupRequest()
+## public void function setupRequest()
 
 Override this in your `Application.cfc` to provide request-specific initialization. You do not need to call `super.setupRequest()`. Since you do not have access to `rc` here, you may also want to define `before()` in `Application.cfc` to act as an initialization controller, to populate the request context prior to other controllers being executed.
 
-### public void function setupResponse( struct rc )
+## public void function setupResponse( struct rc )
 
 Override this in your `Application.cfc` to provide request-specific finalization. This is called after all views and layouts have been rendered or immediately before a redirect. You do not need to call `super.setupResponse()`. 
 
-### public void function setupSession()
+## public void function setupSession()
 
 Override this in your `Application.cfc` to provide session-specific initialization. You do not need to call `super.setupSession()`.
 
-### public void function setupSubsystem( string subsystem )
+## public void function setupSubsystem( string subsystem )
 
-Override this in your `Application.cfc` to provide subsystem-specific initialization. If you want the framework to use non-default subsystem-specific bean factories for any subsystems, this is where you should call `setSubsystemBeanFactory( subsystem, factory )`. See the example in [Using Subsystems](/documentation/3.5/using-subsystems.html) for more details. You do not need to call `super.setupSubsystem()`.
+Override this in your `Application.cfc` to provide subsystem-specific initialization. If you want the framework to use non-default subsystem-specific bean factories for any subsystems, this is where you should call `setSubsystemBeanFactory( subsystem, factory )`. See the example in [Using Subsystems](using-subsystems.html) for more details. You do not need to call `super.setupSubsystem()`.
 
-### public void function setupTraceRender( string output = 'html' )
+## public void function setupTraceRender( string output = 'html' )
 
 This is called when the framework trace is about to be rendered at the end of a request. `output` will be either `'html'` or `'data'` depending on whether FW/1 has output HTML using views and layouts or rendered data in the current request. You can override it to take control of the rendering process yourself (for whatever reason such as saving the trace data to a database perhaps or providing a fancier rendering?). You can call `getFrameworkTrace()` to obtain the framework's trace data (note that this will be a copy on Adobe ColdFusion but just a reference on Lucee and Railo), and do whatever you want with it. It's probably a good idea to call `disableFrameworkTrace()` to prevent any further additions to the framework trace data. Note: this method used to be called only when FW/1 was outputting HTML and not rendering data, however, it is now called whenever tracing is enabled. If you were using this method to render trace data in a custom format at the end of HTML requests, you will find your rendered trace data appended to your request data when `renderData()` is used. In order to maintain your current functionality, you can easily fix this by checking that the `output` argument is equal to `'html'` before rendering the trace data.
 
-### public void function setupView( struct rc )
+## public void function setupView( struct rc )
 
 Override this in your `Application.cfc` to provide pre-rendering logic, e.g., putting globally available data into the request context so it is available to all views. You do not need to call `super.setupView()`. 
 
-### public void function setView( string action )
+## public void function setView( string action )
 
-Call this to tell the framework to use a new action _subsystem:section.item_ as the basis of the lookup process for the view and layouts for the current request. This allows you to override the default convention for choosing the view and layouts. A possible use for this is when redisplaying a form view when errors are present (i.e., from the form processing controller method, without using a redirect).
+Call this to tell the framework to use a new action _module:section.item_ as the basis of the lookup process for the view and layouts for the current request. This allows you to override the default convention for choosing the view and layouts. A possible use for this is when redisplaying a form view when errors are present (i.e., from the form processing controller method, without using a redirect).
 
-### public boolean function usingSubsystems()
+## public boolean function usingSubsystems()
 
 Returns `true` if the application is using subsystems, i.e., `variables.framework.usingSubsystems` is `true`. Otherwise returns `false`.
 
-### public string function view( string path, struct args = { }, any missingView = { } )
+## public string function view( string path, struct args = { }, any missingView = { } )
 
 This renders a view and returns the output of that view as a string. It is intended to be used primarily inside layouts to render fragments of a page such as menus and other common elements. Elements of the *args* structure are appended to the local scope accessible inside the view file. For example:
 

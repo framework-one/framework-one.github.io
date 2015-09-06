@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using DI/1"
-date: 2015-07-23 19:40
+date: 2015-09-05 14:30
 comments: false
 sharing: false
 footer: true
@@ -11,6 +11,9 @@ _This is the upcoming (3.5 - develop) documentation - for the current stable rel
 DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework. 
 
 DI/1 searches specified directories for CFCs and treats them as singletons or non-singletons (transients) based on naming conventions for the CFCs themselves, or the folders in which they are found. You can override the conventions by configuration if needed.
+
+* TOC
+{:toc}
 
 # Getting Started with DI/1
 
@@ -28,7 +31,7 @@ CFCs found in a folder called *beans* are assumed to be transients; otherwise CF
 
 All beans are also given an alias which is the name of the CFC followed by (the singular form of) the folder name in which it was found, e.g., /model/beans/product.cfc would get the alias "productBean". If no other CFC is called product.cfc in the folders that you asked DI/1 to search, you can use "product" or "productBean" to reference that bean. By default, DI/1 assumes all beans are singletons unless they are found in a folder called *beans* (in which case DI/1 assumes those are transients). A singleton has just a single instance and DI/1 will cache that instance. A transient is created afresh every time you ask DI/1 for an instance.
 
-If a CFC has a constructor (a method called **init()**), DI/1 will use the argument names to look up beans and call the constructor with those beans. If a CFC has setter methods, DI/1 will use their names to look up beans and call the setters with those beans. If a CFC has property declarations and implicit setters are enabled, DI/1 will use their names to look up beans and call the implicit setters with those beans. This is called autowiring. By the time you get a bean back from DI/1, it should be fully populated. You can also specify an "init-method" function name that DI/1 should call after a bean has had its dependencies injected - see **Configuration** below.
+If a CFC has a constructor (a method called **init()**), DI/1 will use the argument names to look up beans and call the constructor with those beans. If a CFC has setter methods, DI/1 will use their names to look up beans and call the setters with those beans. If a CFC has property declarations and implicit setters are enabled, DI/1 will use their names to look up beans and call the implicit setters with those beans. This is called autowiring. By the time you get a bean back from DI/1, it should be fully populated. You can also specify an "init-method" function name that DI/1 should call after a bean has had its dependencies injected - see **[Configuration](#configuration)** below.
 
 If DI/1 cannot find a matching bean for a constructor argument, it will throw an exception. If DI/1 cannot find a matching bean for a setter method or property, it will log the failure and ignore it (by default), and the corresponding variable will not be populated. You can configure DI/1 to be strict about matching bean names - see the configuration section below - in which case it will throw an exception.
 
