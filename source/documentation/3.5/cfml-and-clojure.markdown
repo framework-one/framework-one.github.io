@@ -396,7 +396,7 @@ Edit `project.clj` and update the `:dependencies` section to include:
 
 You'll now have a vector with four vectors inside it like this:
 
-    :dependencies [[cfml-interop "0.1.1"]
+    :dependencies [[cfml-interop "0.1.2"]
                    [org.apache.derby/derby "10.11.1.1"]
                    [org.clojure/java.jdbc "0.4.1"]
                    [org.clojure/clojure "1.7.0"]]
@@ -714,10 +714,11 @@ Controller. In your Clojure `taskmanager` project, create a `src/taskmanager/con
 
     ;; src/taskmanager/controllers/main.clj
     (ns taskmanager.controllers.main
-      (:require [taskmanager.services.task :as task]))
+      (:require [cfml.interop :refer [->boolean]
+                [taskmanager.services.task :as task]))
 
     (defn default [rc]
-      (let [all? (= "true" (:all rc))
+      (let [all? (->boolean (:all rc))
             tasks (try
                     (task/task-list all?)
                     (catch Exception _
@@ -737,7 +738,7 @@ This is the equivalent of our CFML controller above so let's walk through each p
 
 1. `(ns ...)` specifies `taskmanager.controllers.main` as our namespace and makes our service available with the `task` alias.
 1. `default` does the following:
-    1. binds `all?` to `true` or `false` based on whether `rc.all` is the string `"true"` or not. This shows the issue of all `rc` data coming in as strings -- see the next section for some functions that would make life easier!
+    1. binds `all?` to the boolean value of `rc.all` (which comes in as the string `"true"` or `"false"`!).
     1. binds `tasks` to the result of calling `task-list` in our service (including catching any exception, attempting to create the task table, and calling `task-list` again -- `try`/`catch` is an expression in Clojure that returns a value, just like any other expression).
     1. returns `rc` with the task list added (as `rc.tasks`).
 1. `addtask` calls `add-task` in our service and returns `rc` with a redirect added to it.
@@ -760,49 +761,12 @@ Since all values come into the `rc` (from URL and form scope) as strings, you'll
 or other data type in order to use them in your Clojure code. We saw above that you can get away with some things, but in the pure Clojure world,
 you need to be much more specific about types.
 
-Here are some useful functions for converting from string to various types - the `->type` naming is just a convention in Clojure for conversion
+The [`cfml-interop` library](https://github.com/seancorfield/cfml-interop), containing the `cfml.interop` namespace, contains some useful functions for converting from string to various types - the `->type` naming is just a convention in Clojure for conversion
 functions:
 
-    (defn ->long [v]
-      (try
-        (if (number? v)
-          (long v)
-          (Long/parseLong v))
-        (catch Exception _
-          0)))
-
-    (defn ->double [v]
-      (try
-        (if (number? v)
-          (double v)
-          (Double/parseDouble v))
-        (catch Exception _
-          0.0)))
-
-These behave like `val()` in CFML by silently returning zero if they cannot parse the number. They are also safe to use with both numeric
-input and string input so you don't have to keep track of whether you've already converted the data.
-
-    (defn ->boolean [v]
-      (try
-        (cond
-          (instance? Boolean v) v
-          (number? v) (not (zero? v))
-          (not (zero? (->long v))) true
-          :else
-          (boolean (#{"true" "yes"} (clojure.string/lower-case (str v)))))
-        (catch Exception _
-          false)))
-
-This looks a lot more complicated but it fairly closely mimics CFML's ideas about booleans:
-
-* If `v` is already a boolean, just return it
-* Else if `v` is a number, return `true` if it is not zero (and `false` if it is zero)
-* Else if `v` can be converted to a non-zero number (using `->long` defined above), return `true`
-* Else convert `v` to a string, lowercase it, and return true if it is a member of the set `"true", "yes"`.
-
-That last line warrants more explanation! The `#{..}` syntax creates a set of values. The expression `(mySet aValue)`
-looks up `aValue` in `mySet` and returns `aValue` if it is present or `nil` if it isn't. The expression `(boolean someVal)`
-will return `true` if `someVal` is anything other than `false` or `nil` (else it will return `false`).
+* `->long` -- Accepts any value, string or numeric, and tries to convert it to a `Long` value. You can provide a second argument which specifies the default to return if conversion fails (otherwise it will return `0`).
+* `->double` -- Accepts any value, string or numeric, and tries to convert it to a `Double` value. You can provide a second argument which specifies the default to return if conversion fails (otherwise it will return `0.0`).
+* `->boolean` -- Accepts any value, boolean, string or numeric, and tries to convert it to a `Boolean` value. You can provide a second argument which specifies the default to return if conversion fails (otherwise it will return `false`). This treats the strings `"true"` and `"yes"` as `true` (not case sensitive), as well as treating non-zero numeric values as `true` (and zero as `false`), just like CFML.
 
 # A Clojure Primer
 
