@@ -253,6 +253,8 @@ component { // does not extend anything
 
 <p>If you have data that is needed by all of your views, it may be convenient to set that up in your <code>setupView()</code> method in <code>Application.cfc</code> - see <strong><a href="#taking-actions-on-every-request">Taking Actions on Every Request</a></strong> below.</p>
 
+<p>As of release 3.5, FW/1 also recognizes view and layout files with <code>.lc</code> and <code>.lucee</code> file extensions to support Lucee’s new dialect.</p>
+
 <h3 id="rendering-data-to-the-caller">Rendering Data to the Caller</h3>
 
 <p>If you want to return plain text, XML, or JSON from a request instead of rendering an HTML view, you can use the <code>renderData()</code> API to bypass views and layouts completely and automatically return data rendered as JSON, XML, or plain text to your caller, with the correct content type automatically set. See <strong><a href="#controllers-for-rest-apis">Controllers for REST APIs</a></strong> below for more details.</p>
@@ -417,6 +419,8 @@ variables.fw.renderData(
 <p>This will make <code>variables.userService</code> and <code>variables.securityService</code> available, based on <code>model/services/user.cfc</code> and <code>model/services/security.cfc</code>. You could also use long form CFC names like <code>userservice.cfc</code> and <code>securityservice.cfc</code> if you wanted. See the next section for more details on configuring DI/1.</p>
 
 <p>If you let FW/1 use DI/1 to automatically manage your beans, and you are using subsystems, FW/1 will also use it to manage your subsystems’ beans. See <a href="using-subsystems.html">Using Subsystems</a> for more details.</p>
+
+<p>As of release 3.5, DI/1 will also recognize component files with a <code>.lc</code> or <code>.lucee</code> file extension, to support Lucee 5’s new dialect.</p>
 
 <h3 id="transients-bean-factory-framework">Transients, Bean Factory, Framework</h3>
 

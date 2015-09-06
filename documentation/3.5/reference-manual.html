@@ -81,7 +81,7 @@
   
 
 
-<time datetime="2015-09-05T14:30:00-07:00" pubdate data-updated="true">Sep 5<span>th</span>, 2015</time></p>
+<time datetime="2015-09-05T20:00:00-07:00" pubdate data-updated="true">Sep 5<span>th</span>, 2015</time></p>
   </header>
   
   <p><em>This is the upcoming (3.5 - develop) documentation - for the current stable release, read the <a href="/documentation/3.1/reference-manual.html">3.1 master stable documentation</a>.</em></p>
@@ -675,6 +675,8 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
 
 <p>If you are manually creating a bean factory, call this from your <code>setupApplication()</code> method to tell the framework about your primary (default) bean factory. By default FW/1 will use DI/1 as the bean factory and you won’t have to worry about this.</p>
 
+<p>As of release 3.5, if you call this without telling FW/1 <code>diEngine = "none"</code> to disable automatic bean factory management, you will get an exception. If, for some reason, you want to do this anyway, you can set <code>diOverrideAllowed = true</code> in the framework configuration but it would almost certainly be better to set <code>diEngine = true</code>!</p>
+
 <h3 id="public-void-function-setlayout-string-action-boolean-suppressotherlayouts--false-">public void function setLayout( string action, boolean suppressOtherLayouts = false )</h3>
 
 <p>Call this to tell the framework to use a new action <em>module:section.item</em> as the basis of the lookup process for the layouts for the current request. This allows you to override the default convention for choosing the layouts. If you specify <code>suppressOtherLayouts</code> as <code>true</code>, then only the most specific layout will be used and the usual cascade of layouts will be turned off for this request.</p>
@@ -757,7 +759,7 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
   
 
 
-<time datetime="2015-09-05T14:30:00-07:00" pubdate data-updated="true">Sep 5<span>th</span>, 2015</time>
+<time datetime="2015-09-05T20:00:00-07:00" pubdate data-updated="true">Sep 5<span>th</span>, 2015</time>
         
       </p>
       
