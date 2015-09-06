@@ -1191,7 +1191,7 @@ learned a lot of FP during the 80's but since it wasn't going mainstream and OOP
 employable. By the time Java appeared, OOP had become the default "standard" way to build software, even though
 C++ and Java were not at all what Alan Kay had in mind when he coined the phrase "object-oriented".
 
-What most developers know as modern OOP focuses on polymorhism, inheritance, encapsulation and objects that have both
+What most developers know as modern OOP focuses on polymorphism, inheritance, encapsulation and objects that have both
 state and behavior bundled together. You construct an object with its initial state. You run a bunch of methods on it,
 interacting with other objects, to modify its state, and then you query the object to get that state back out.
 
@@ -1270,7 +1270,8 @@ In other words, a lot of people already know that FP is a better way to solve a 
 
 Remember that modern OOP -- as enshrined in Java and C# particularly -- is not what the originators of OOP had
 in mind. They imagined objects as proxies for real world elements such as displays and control devices, that
-objects would be coarse-grained and communicate by sending messages between themselves.
+objects would be coarse-grained and communicate by sending messages between themselves. _In other words, they
+would be more like "actors"... which you have in both Clojure and Scala!_
 
 # More Stuff to Read
 
@@ -1288,3 +1289,4 @@ Here's a small sample, roughly in order of approachability:
 
 # Digging Into Reloading
 
+_More to come on this, eventually!_
