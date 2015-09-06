@@ -885,10 +885,53 @@ notation to access them instead of just <code>myStruct.key</code>.</em></p>
 
 <h2 id="writing-a-clojure-controller">Writing a Clojure Controller</h2>
 
-<p><em>Coming soon!</em></p>
-
 <p>In this final section of <strong>Building Your Own CFML / Clojure Application</strong>, we’re going to replace our CFML Controller with an equivalent Clojure
-Controller (and it will become evident why we chose to convert the data structure in the view instead of the <code>main.cfc</code> controller!).</p>
+Controller. In your Clojure <code>taskmanager</code> project, create a <code>src/taskmanager/controllers/</code> folder and inside it create <code>main.clj</code> containing:</p>
+
+<pre><code>;; src/taskmanager/controllers/main.clj
+(ns taskmanager.controllers.main
+  (:require [taskmanager.services.task :as task]))
+
+(defn default [rc]
+  (let [all? (= "true" (:all rc))
+        tasks (try
+                (task/task-list all?)
+                (catch Exception _
+                  (task/create-task-table)
+                  (task/task-list all?)))]
+    (assoc rc :tasks tasks)))
+
+(defn addtask [rc]
+  (task/add-task (:task rc))
+  (assoc rc :redirect {:action "main.default"}))
+
+(defn completetask [rc]
+  (task/complete-task (:id rc))
+  (assoc rc :redirect {:action "main.default"}))
+</code></pre>
+
+<p>This is the equivalent of our CFML controller above so let’s walk through each piece of it:</p>
+
+<ol>
+  <li><code>(ns ...)</code> specifies <code>taskmanager.controllers.main</code> as our namespace and makes our service available with the <code>task</code> alias.</li>
+  <li><code>default</code> does the following:
+    <ol>
+      <li>binds <code>all?</code> to <code>true</code> or <code>false</code> based on whether <code>rc.all</code> is the string <code>"true"</code> or not. This shows the issue of all <code>rc</code> data coming in as strings – see the next section for some functions that would make life easier!</li>
+      <li>binds <code>tasks</code> to the result of calling <code>task-list</code> in our service (including catching any exception, attempting to create the task table, and calling <code>task-list</code> again – <code>try</code>/<code>catch</code> is an expression in Clojure that returns a value, just like any other expression).</li>
+      <li>returns <code>rc</code> with the task list added (as <code>rc.tasks</code>).</li>
+    </ol>
+  </li>
+  <li><code>addtask</code> calls <code>add-task</code> in our service and returns <code>rc</code> with a redirect added to it.</li>
+  <li><code>completetask</code> calls <code>complete-task</code> in our service and returns <code>rc</code> with a redirect added to it.</li>
+</ol>
+
+<p>Now run this with <code>?reload=true</code> in the URL and it should work just as it did before, except now it’s using the Clojure controller instead of the CFML controller!
+How do you know it’s using the Clojure version? Because <code>framework.ioclj</code> adds the Clojure namespaces it finds after any CFCs it finds, overwriting any beans
+with the same alias. If you want to convince yourself, remove <code>controllers/main.cfc</code> from your <code>taskmanager</code> folder in the webroot, and reload the application again.</p>
+
+<p>So why would we write our controllers in Clojure instead of CFML? As simple functions (that take <code>rc</code> as input and produce an updated <code>rc</code> as output), they’re easy
+to write unit tests for. With your services and controllers in Clojure, you’re one step away from building all-Clojure web applications using
+<a href="https://github.com/framework-one/fw1-clj">FW/1 for Clojure</a>. We get the full power of Clojure’s data abstractions, concurrency, and immutability working for us.</p>
 
 <h3 id="rc-value-conversion">RC Value Conversion</h3>
 
@@ -1407,7 +1450,7 @@ learned a lot of FP during the 80’s but since it wasn’t going mainstream and
 employable. By the time Java appeared, OOP had become the default “standard” way to build software, even though
 C++ and Java were not at all what Alan Kay had in mind when he coined the phrase “object-oriented”.</p>
 
-<p>What most developers know as modern OOP focuses on polymorhism, inheritance, encapsulation and objects that have both
+<p>What most developers know as modern OOP focuses on polymorphism, inheritance, encapsulation and objects that have both
 state and behavior bundled together. You construct an object with its initial state. You run a bunch of methods on it,
 interacting with other objects, to modify its state, and then you query the object to get that state back out.</p>
 
@@ -1486,7 +1529,8 @@ In other words, a lot of people already know that FP is a better way to solve a 
 
 <p>Remember that modern OOP – as enshrined in Java and C# particularly – is not what the originators of OOP had
 in mind. They imagined objects as proxies for real world elements such as displays and control devices, that
-objects would be coarse-grained and communicate by sending messages between themselves.</p>
+objects would be coarse-grained and communicate by sending messages between themselves. <em>In other words, they
+would be more like “actors”… which you have in both Clojure and Scala!</em></p>
 
 <h1 id="more-stuff-to-read">More Stuff to Read</h1>
 
@@ -1515,6 +1559,7 @@ Here’s a small sample, roughly in order of approachability:</p>
 
 <h1 id="digging-into-reloading">Digging Into Reloading</h1>
 
+<p><em>More to come on this, eventually!</em></p>
 
   
     <footer>
