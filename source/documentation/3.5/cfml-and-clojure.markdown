@@ -1186,7 +1186,7 @@ In Clojure we can define a function with multiple argument lists so this becomes
 
 No need for `partial` (although Clojure has that built-in), no need for helper functions.
 
-# All You Know About OO Programming is Wrong
+## All You Know About OO Programming is Wrong
 
 I learned old-fashioned imperative procedural programming first. I learned BASIC, assembly language, Pascal and later
 COBOL and FORTRAN. Although OOP has its roots back in the 50's and 60's (ironically, with Lisp, just like FP has its
