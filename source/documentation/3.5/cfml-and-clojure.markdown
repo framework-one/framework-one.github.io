@@ -227,7 +227,7 @@ a FW/1 app, you can specify an application reload and your bean factory is recre
 into the JVM, reloading your bean factory is not sufficient to force a reload of those parts of the JVM, so you need to do this programmatically
 somehow. Note that this will only reload the namespaces that follow the FW/1 conventions to be discovered. See below for more on this.
 
-## views
+### views
 
 This is a regular FW/1 views folder, containing a subfolder for each section of the app (just `main` in this case) and a file for each item (there are
 three views here). As expected we have a `main.default` view and a `main.error` view which are basic defaults for FW/1 applications. We also have
@@ -236,7 +236,7 @@ a `main.stopped` view. We'll see how each of these is used when we look at the `
 The `default` view references `rc.greeting` which we'll see being set up in the `main.clj` controller below, and it also gets a `greeterService` from
 the bean factory and calls a function in that. We'll see where `greeterService` comes from below as well.
 
-## src/hello/controllers
+### src/hello/controllers
 
 In this folder we have a single Clojure file, `main.clj`. As you might guess from the file path, this is our application controller. Inside you'll
 see a namespace declaration (the `ns` expression) and four functions which represent our handlers.
@@ -271,7 +271,7 @@ Finally we have the `json` handler. By this point, it won't surprise you to lear
 as JSON. The Clojure struct `{:a 1 :b "two" :c [3 4 5]}` is equivalent to the CFML struct `{a : 1, b : "two", c : [3, 4, 5]}`.
 The **[Clojure Primer](#a-clojure-primer)** below explains basic symbols and data structures, when you're ready to read more about this.
 
-## src/hello/services
+### src/hello/services
 
 In this folder we have a single Clojure file, `greeter.clj`. As with the controller convention, the file path tells FW/1 that this is
 a service (and it would be autowired into any CFML code that declared `property greeterService;` as a dependency). This can also be
@@ -279,7 +279,7 @@ pulled from the bean factory as `"greeterService"`, as seen in the `main.default
 
 There's a single function `hello` in here that takes a string and returns it wrapped with `"Hello "` and `"!"`.
 
-## test/hello
+### test/hello
 
 Finally, we'll look at the tests, first for the `main` controller, then the `greeter` service.
 
@@ -766,12 +766,12 @@ will return `true` if `someVal` is anything other than `false` or `nil` (else it
 
 # A Clojure Primer
 
-To learn about Clojure in any depth, I'd recommend you go through the **More Stuff to Read** section at the end of this
+To learn about Clojure in any depth, I'd recommend you go through the **[More Stuff to Read](#more-stuff-to-read)** section at the end of this
 page, but I'm going to give you a quick run through of some useful basics that should get you up and running more quickly.
 
 As I claimed earlier, Clojure is a very simple language with only a few pieces of syntax:
 
-* A semicolon introduces a comment. Typically a single semicolon is used for an end of line comment and a double semicolon is used for
+* A semicolon introduces a comment. Typically a single semicolon `;` is used for an end of line comment and a double semicolon `;;` is used for
 a whole line comment.
 * `(func arg1 arg2 arg3)` represents a function call (with three arguments). You can use commas if you want but they are
 just whitespace: `(func arg1, arg2, arg3)`. Most Clojure developers omit commas in function calls. Almost everything in Clojure is a function call.
@@ -818,7 +818,7 @@ Anonymous functions are often used as arguments to other functions:
     ;; produces (2 4 6 8 10)
 
 Strictly speaking, a function can contain more than one expression: they are all evaluated in order, but only the value of the last
-expression is returned. The others are throw away. So why have multiple expressions? You might have some operations that cause side
+expression is returned. The others are thrown away. So why have multiple expressions? You might have some operations that cause side
 effects, such as logging to file or writing to a database, and you want to evaluate those for their effects but not necessarily
 their result.
 
@@ -853,7 +853,7 @@ of the documentation and source code is right there at your fingertips!
 
 In CFML we have an `if` statement. If the condition is true, the first group of statements is executed, else the second group of statements
 is executed. In functional languages like Clojure, `if` is an expression (a special form) and it takes a condition and two expressions.
-If the condition is true, the first expression is evaluated, else the second expression is evaluated. It's more like the tertiary operator
+If the condition is true, the first expression is evaluated, else the second expression is evaluated. It's more like the ternary operator
 `? :` in CFML.
 
 Also, it's important to note that Clojure has strong views on what is true and false. You'll hear of "truthy" and "falsey" in the Clojure
@@ -902,7 +902,7 @@ Global bindings are fine for functions that you want exposed to the world, but y
             b-squared (* b b)]
         (+ a-squared b-squared)))
 
-`let` is following by a vector of bindings -- pairs of symbol and expression -- and then one or more expressions. It creates a local binding
+`let` is followed by a vector of bindings -- pairs of symbol and expression -- and then one or more expressions. It creates a local binding
 for each pair by evaluating the expression and binding it to the name (symbol), and then it evaluates the expressions in its body and returns
 the last expression's value (in the same way function bodies are evaluated).
 
@@ -969,7 +969,7 @@ Since Clojure is all about data structures, there is a rich selection of functio
 * `(first [1 2 3 4])` returns the first element of a sequence: `1`
 * `(rest [1 2 3 4])` returns the rest of a sequence: `(2 3 4)`
 
-The `rest` of a single element sequence is an empty sequence -- `()` -- and the `rest` of an empty sequence is _also_ an empty sequence!
+The `rest` of a single element sequence is an empty sequence -- `()` -- and the `rest` of an empty sequence is _also_ an empty sequence, as is `rest` of `nil`!
 
 * `(seq some-collection)` returns a sequence of `some-collection`s elements if it is non-empty, else returns `nil`
 
@@ -988,13 +988,13 @@ If the initial value is omitted, the first element of the sequence is used so:
     ;; is the same as
     (reduce func (first some-collection) (rest some-collection))
 
-### The `project.clj` File
+## The project.clj File
 
 The piece of `project.clj` you'll touch most often is the `:dependencies` entry. This is a list of all the libraries your
 program needs and the versions of each you want to use:
 
-    :dependencies [[org.clojure/clojure "1.6.0"]
-                   [clj-time "0.9.0"]]
+    :dependencies [[clj-time "0.9.0"]
+                   [org.clojure/clojure "1.7.0"]]
 
 Libraries come from two locations by default: [Maven Central](http://search.maven.org) and [Clojars](https://clojars.org).
 
@@ -1005,9 +1005,9 @@ Each entry is called a "coordinate" and contains a "group ID" and an "artifact I
 and artifact ID are the same thing (so `clj-time` is shorthand for `clj-time/clj-time`).
 
 To search Maven Central for `org.clojure/clojure` you would use the query `g:"org.clojure" AND a:"clojure"` which asks for
-group ID `org.clojure` and artifact ID `clojure`. Right now there are 74 versions of that library on Maven Central and the 
-latest is `1.7.0-RC1` but if you click the `All (74)` link, you'll see the most recent non-prerelease version is `1.6.0`
-which is what **Leiningen** puts in `project.clj` by default.
+group ID `org.clojure` and artifact ID `clojure`. Right now there are 80 versions of that library on Maven Central and the 
+latest is `1.8.0-alpha4` but if you click the `All (80)` link, you'll see the most recent non-prerelease version is `1.7.0`
+which is what **Leiningen** puts in `project.clj` by default (in Leiningen 2.5.2 and later).
 
 On the other hand, `clj-time` comes from Clojars because it is a community project. If you search for `clj-time` you'll 
 get a lot of results but most of them are not canonical versions. The most recent canonical version is https://clojars.org/clj-time but
@@ -1016,7 +1016,7 @@ get on IRC, Slack, or the mailing list and ask!
 
 For an overview of all the possible settings in `project.clj`, take a look at the [Sample project.clj File on GitHub](https://github.com/technomancy/leiningen/blob/master/sample.project.clj).
 
-## About Functional Programming
+# About Functional Programming
 
 Functional programming isn't new. It's origins lie in Lisp which was created in the 1950's and is the second-oldest computer language
 (second only to FORTRAN). Throughout the 70's and 80's a lot of functional languages were created, mostly in academia, to study the 
@@ -1031,7 +1031,7 @@ The recent resurgence of functional programming has shown itself in languages li
 as some compile-to-JS languages like Elm and PureScript. The reason behind this resurgence is that immutable data structures and
 pure functions offer the ability to write concurrent code a lot more easily and lot more safely than the mainstream OOP approach.
 And we need concurrency in order to take advantage of multi-core machines, now that we're no longer seeing continued speed increases
-in individual cores like we have for the last several decades.
+in individual cores like we had for the previous several decades.
 
 While it may seem obvious that functional programming leans heavily on functions as building blocks, the real core values of
 functional programming are avoiding mutable data and avoiding side effects in functions. The more that you can push side effects
@@ -1041,13 +1041,13 @@ functionality. If you have a function `inc` that adds one to its argument and a 
 `(comp twice inc)` is a function that adds one to its argument and then doubles it: functions are like Legos that you can easily
 assemble to build products.
 
-### Immutable or Persistent Data Structures
+## Immutable or Persistent Data Structures
 
 In the context of functional programming, you'll hear a lot of talk of immutable data structures and persistent data structures.
 In OOP languages, you typically perform operations on a data structure to modify it in place. That means you can't safely share
-it with other pieces of code, especially across multiple threads. By constrast, in a functional language, when you perform an
-operation on a data structure, you get a new data structure back, that shares as much structure as possible with the original
-data structure -- and that leaves the original data structure unchanged.
+it with other pieces of code, especially across multiple threads. By contrast, in a functional language, when you perform an
+operation on a data structure, you get back a new data structure that shares as much structure as possible with the original
+data structure -- and yet leaves the original data structure unchanged.
 
 While they are designed for efficiency, it is usually at scale, rather than for small examples. In Clojure, many data structures
 are "chunked" internally into groups of 32 elements. A vector of 100 elements is going to be four chunks and is optimized for
@@ -1074,7 +1074,7 @@ For example, a result set from a database query is simply a sequence of associat
 reduced using standard functions and its rows transformed using any of the standard associative functions. This allows
 abstraction over different data stores as well since, from Clojure's point of view, MySQL and MongoDB look very similar.
 
-### Functions as Building Blocks
+## Functions as Building Blocks
 
 I've already emphasized that functional programming favors small, simple, pure functions but you can do that sort of
 functional decomposition in most languages. Many modern languages allow you to write anonymous functions and pass them
@@ -1182,7 +1182,7 @@ In Clojure we can define a function with multiple argument lists so this becomes
 
 No need for `partial` (although Clojure has that built-in), no need for helper functions.
 
-## All You Know About OO Programming is Wrong
+# All You Know About OO Programming is Wrong
 
 I learned old-fashioned imperative procedural programming first. I learned BASIC, assembly language, Pascal and later
 COBOL and FORTRAN. Although OOP has its roots back in the 50's and 60's (ironically, with Lisp, just like FP has its
@@ -1272,7 +1272,7 @@ Remember that modern OOP -- as enshrined in Java and C# particularly -- is not w
 in mind. They imagined objects as proxies for real world elements such as displays and control devices, that
 objects would be coarse-grained and communicate by sending messages between themselves.
 
-## More Stuff to Read
+# More Stuff to Read
 
 Once you've got a taste for Clojure, there are lots of online resources and a host of great books you can read.
 Here's a small sample, roughly in order of approachability:
