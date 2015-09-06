@@ -23,11 +23,11 @@ A controller communicates data to other parts of a FW/1 application by adding da
 
 The following public methods are significant in a controller (and are all optional):
 
-* `void before(struct rc)` - called at the start of each request to this `section`
-* `void item(struct rc)` - called next, for `section.item`
-* `void after(struct rc)` - called at the end of each request to this `section` before views are rendered.
+* `void before(struct rc)` - called at the start of each request to this _section_
+* `void item(struct rc)` - called next, an _item()_ method for each _section.item_ action request
+* `void after(struct rc)` - called at the end of each request to this _section_ before views are rendered.
 
-If the controller needs to invoke FW/1 API methods (see **framework.one** below), the controller must either depend on `property framework;` (and have `accessors=true` on the `component` tag) or have a constructor (a method called `init()`) that accepts an instance of the FW/1 CFC and saves it for use in other methods. The following is the recommended way to write your controller's constructor:
+If the controller needs to invoke FW/1 API methods (see **[framework.one](#frameworkone)** below), the controller must either depend on `property framework;` (and have `accessors=true` on the `component` tag) or have a constructor (a method called `init()`) that accepts an instance of the FW/1 CFC, as the `fw` argument, and saves it for use in other methods. The following is the recommended way to write your controller's constructor:
 
     function init(fw) {
         variables.fw = fw;
@@ -36,24 +36,24 @@ If the controller needs to invoke FW/1 API methods (see **framework.one** below)
 
 Within other controller methods, you can then invoke FW/1 API methods using `variables.fw.apimethod(args)` if you use this constructor approach, or `variables.framework.apimethod(args)` if you use the `property framework;` approach.
 
-Your `Application.cfc` is also considered a controller and if it defines `before()` or `after()` methods, those will be called at the start and end of the controller lifecycle. Unlike other controllers, it does not need an `init()` method and instead of referring to the FW/1 API methods via `variables.fw...` you can just use the API methods directly - unqualified - since `Application.cfc` extends the framework and all those methods are available implicitly.
+Your `Application.cfc` is also considered a controller and if it defines `before()` or `after()` methods, those will be called at the start and end of the controller lifecycle. Unlike other controllers, it does not need an `init()` method and instead of referring to the FW/1 API methods via `variables.fw...` you can just use the API methods directly - unqualified - since `Application.cfc` extends the framework and all those methods are available implicitly. _Note: if you use the **[Alternative Application Structure](developing-applications.html#alternative-application-structure)** where `Application.cfc` does not extend `framework.one`, then these methods would go in your equivalent to `MyApplication.cfc` (whatever you've called it).
 
 A controller is instantiated on the first request to an _item_ in that _section_ and is cached in `application` scope. You can ask FW/1 to reload the cache at any point (by default, you add `?reload=true` to the URL).
 
-You can abort processing of controllers and services by calling `variables.fw.abortController()` which throws an exception that is caught by the framework. Execution of the current controller is immediately aborted and execution continues with `setupView()`. If your controller code catches and swallows the exception, execution of your controller code will proceed from your catch statement until it returns but at that point the framework will not execute any further controllers and execution continues with `setupView()`.
+You can abort processing of controllers and services by calling `variables.fw.abortController()` which throws an exception that is caught by the framework. Execution of the current controller is immediately aborted and execution continues with `setupView()`. If your controller code catches and swallows the exception (e.g., by `catch ( any e )`), execution of your controller code will proceed through your catch statement and on until it returns but at that point the framework will not execute any further controllers and execution continues with `setupView()`.
 
 FW/1 Views
 ---
-All views execute as included files within the context of a FW/1 request, i.e., inside the current request's instance of `Application.cfc`. That means that all methods inside FW/1 and inside your `Application.cfc` are available directly inside your views. See the public API documentation below for what you can and should use of those methods! This means that you can have view helper methods in your `Application.cfc`, either directly or via an include of a library file.
+All views execute as included files within the context of a FW/1 request, i.e., inside the current request's instance of `Application.cfc`. That means that all methods inside FW/1 and inside your `Application.cfc` are available directly inside your views. See the public API documentation below for what you can and should use of those methods! This means that you can have view helper methods in your `Application.cfc`, either directly or via an include of a library file. _Or your equivalent of `MyApplication.cfc` if you are using the **Alternative Application Structure**)._
 
-This process also means that you are _mostly_ free of thread safety issues (because each request automatically has its own context). That said, you need to cognizant of two things when storing data in the `variables` scope of a view:
+This process also means that you are _mostly_ free of thread safety issues (because each request automatically has its own context). That said, you need to be cognizant of two things when storing data in the `variables` scope of a view:
 
 * The `variables` scope of a view is the `variables` scope of FW/1 / `Application.cfc` - so don't overwrite anything the framework might need!
 * Data stored in `variables` scope by one view is accessible to other views _executed in the same request_ such as those views rendered by calls to `view()` in layouts.
 
 You can avoid those concerns by using `local` scope for any new variables introduced inside the view. In addition to `local` scope, each view also has a local `rc` variable which is the request context struct. This is the recommended way for views to communicate if they have a need to do so (e.g., setting a page title in a view so that a layout or later view can render it). `rc` contains whatever data the controller(s) have provided, as well as what was originally in the URL and/or form scopes.
 
-The following variables are also available but `should not be relied upon` as they are implementation details that may change in the future:
+The following variables are also available but **should not be relied upon** as they are implementation details that may change in the future:
 
 * `viewPath` / `layoutPath` - The path to the view or layout file.
 * `$` - An integration point with Mura (only relevant if you're writing Mura plugins with FW/1).
@@ -64,7 +64,7 @@ Any other variables assigned to by a view (without a scope qualifier - or explic
 
 If no matching view file exists for a request, `onMissingView()` is called and whatever is returned is used as the text of the view, and layouts are applied (unless they are suppressed). The default implementation is to throw an exception but by overriding this method you can create any behavior you want for requests that have no specific view, e.g., you can return a default view or pretty much anything you want.
 
-As noted in the [Developing Applications Manual](developing-applications.html), `onMissingView()` will be called if your application throws an exception and you have not provided a view for the default error handler (`main.error` - if `defaultSection` is `main`). This can lead to exceptions being masked and instead appearing as if you have a missing view!
+As noted in the [Developing Applications Manual](developing-applications.html#using-onmissingview-to-handle-missing-views), `onMissingView()` will be called if your application throws an exception and you have not provided a view for the default error handler (`main.error` - if `defaultSection` is `main`). This can lead to exceptions being masked and instead appearing as if you have a missing view!
 
 FW/1 Layouts
 ---
@@ -80,8 +80,9 @@ FW/1 uses the `request` scope fairly extensively to pass data between parts of t
 
 Request variables:
 
+* `request._framework_one` - In the **Alternative Application Structure**, this contains an instance of the framework or your equivalent of `MyApplication.cfc`.
 * `request._fw1` - An opaque structure intended to hide most of the internal request scope variables that FW/1 uses.
-* `request.action` - The action specified in the URL or form (after expansion to the fully qualified form). This can be obtained by calling `getFullyQualifiedAction()`.
+* `request.action` - The action specified in the URL or form (after expansion to the fully qualified form). This can be obtained by calling `getFullyQualifiedAction()` or `getSubsystemSectionAndItem()`, depending on the format you want.
 * `request.base` - The canonical path to the application directory (where the `views/` and `layouts/` folders are). There is no API method to access this.
 * `request.cfcbase` - If your controllers are not managed by a bean factory, this is the dot-separated path prefix for controller CFCs. There is no API method to access this.
 * `request.context` - The request context, the main "data bus" through the application. This is available in controller methods as the argument `rc` and in the views and layouts as the (local) variable `rc`.
@@ -91,10 +92,10 @@ Request variables:
 * `request.failedCfcName` - If an exception occurs during execution of a controller, this holds the name of the failed controller CFC. This can be accessed in the error action to provide more details of where the exception occurred. An API method may be added in the future to access this.
 * `request.failedMethod` - If an exception occurs during execution of a controller, this holds the name of the failed method (on the controller CFC). This can be accessed in the error action to provide more details of where the exception occurred. An API method may be added in the future to access this.
 * `request.item` - The item portion of the action. This can be obtained by calling `getItem()` (with no argument).
-* `request.layout` - This is a boolean that indicates whether layouts should be rendered. It can be set in a view or layout to prevent any further layouts from being processed. **This is the only `request` scope variable which a developer should be updating directly.** An API method may be added in future for this.
+* `request.layout` - This is a boolean that indicates whether layouts should be rendered. It can be set in a view or layout to prevent any further layouts from being processed. Use `disableLayout()` and `enableLayout()` to manipulate this flag.
 * `request.missingView` - When `onMissingView()` is triggered, this hold the name of the view that was not found. An API method may be added in future to access this.
 * `request.section` - The section portion of the action. This can be obtained by calling `getSection()` (with no argument).
-* `request.subsystem` - The subsystem portion of the action, if appropriate. This can be obtained by calling `getSubsystem()` (with no argument).
+* `request.subsystem` - The subsystem portion of the action. This can be obtained by calling `getSubsystem()` (with no argument).
 * `request.subsystembase` - The path from the main application directory to the current subsystem's directory (where the `views/` and `layouts/` folders are). This can be obtained by calling `getSubsystemBase()`.
 
 Where there is no API method, there is generally an underlying assumption that a developer should not need access to that data. If it turns out that developers are commonly referring to the underlying `request` scope variables due to various needs, the addition of API methods might be considered.
@@ -103,7 +104,7 @@ framework.one
 ===
 This section documents every public method in FW/1's core file.
 
-These methods are callable from outside the framework and are intended to be used with controllers, layouts and views or may be intended to be overridden in you `Application.cfc`. Technically, methods in FW/1 do not need to be `public` to be called from within layouts, views or `Application.cfc` but for the most part, the convention is: if it's `public`, it's documented and guaranteed to remain part of the API; if it's `private`, whilst it may be called within layouts, views and `Application.cfc` it is not recommended.
+These methods are callable from outside the framework and are intended to be used with controllers, layouts and views or may be intended to be overridden in your `Application.cfc`. Technically, methods in FW/1 do not need to be `public` to be called from within layouts, views or `Application.cfc` but for the most part, the convention is: if it's `public`, it's documented and guaranteed to remain part of the API; if it's `private`, whilst it may be called within layouts, views and `Application.cfc` it is not recommended.
 
 ### public void function abortController()
 
@@ -111,9 +112,9 @@ Attempts to immediately abort execution of the current controller by throwing an
 
 ### public boolean function actionSpecifiesSubsystem( string action )
 
-Returns `true` if the application is using subsystems and the action contains a colon `:` (default - `framework.subsystemDelimiter`). Returns `false` if the application is not using subsystems or the action does not contain a colon `:` (default - `framework.subsystemDelimiter`).
+Returns `true` if the action contains a colon `:` (default - `framework.subsystemDelimiter`). Returns `false` if the action does not contain a colon `:` (default - `framework.subsystemDelimiter`).
 
-### addRoute( any routes, string target, any methods = [ ], string statusCode = '' )
+### public void addRoute( any routes, string target, any methods = [ ], string statusCode = '' )
 
 Allows you to programmatically add a new route to FW/1's known route mappings. `routes` can be either an array of route patterns or a single route pattern. `target` is the URL to map those routes to. `methods` is optional and can be either an array of HTTP methods or a single HTTP method for which those routes should be mapped. `statusCode` is optional and if present is prefixed to the target URL (and represents the HTTP status returned when the routes are processed.
 
@@ -225,17 +226,7 @@ Returns the configured `variables.framework.baseURL` value. Can be overridden in
 
 ### public any function getBeanFactory( string subsystem = "" )
 
-Returns whatever the framework has been told is a bean factory (which will be an instance of DI/1 by default). If you are using subsystems, this will return a subsystem-specific bean factory if one exists for the specified subsystem, or for the subsystem of the current request if no subsystem is specified in the call. Otherwise it will return the default bean factory.
-
-More specifically, if you are not using subsystems:
-
-* `getBeanFactory()` - returns the bean factory for the application.
-* `getBeanFactory(subsystem)` - `subsystem` is ignored and this returns the bean factory for the application.
-
-If you are using subsystems:
-
-* `getBeanFactory()` - returns the subsystem bean factory for the subsystem of the current request if one exists, otherwise the default bean factory for the application.
-* `getBeanFactory(subsystem)` - returns the subsystem bean factory for the named `subsystem` if one exists, otherwise the default bean factory for the application.
+Returns whatever the framework has been told is a bean factory (which will be an instance of DI/1 by default). This will return a subsystem-specific bean factory if one exists for the specified subsystem, or for the subsystem of the current request if no subsystem is specified in the call. Otherwise it will return the default bean factory.
 
 If no application bean factory can be found, this will throw an exception. Use `hasBeanFactory()` and/or `hasSubsystemBeanFactory( subsystem )` to determine whether this call will successfully return a bean factory.
 
@@ -249,9 +240,9 @@ Returns whatever the framework has been told is a bean factory. This will return
 
 ### public string function getDefaultSubsystem()
 
-If the application is not using subsystems, this returns an empty string. If the current request's action specifies a subsystem, return that. Otherwise return the default subsystem configured for the application.
+If the application is using legacy subsystems, then if the current request's action specifies a subsystem return that else return the default subsystem configured for the application.
 
-If the application is using subsystems and the current request's action does not specify a subsystem and there is no default subsystem configured, this will throw an exception.
+If the application is not using legacy subsystems, return an empty string (since there is no concept of a default subsystem in new style subsystems).
 
 ### public string function getEnvironment()
 
@@ -267,9 +258,7 @@ Returns an array of the current request's framework trace data. See `setupTraceR
 
 ### public string function getFullyQualifiedAction( string action = request.action )
 
-If the application is not using subsystems, this behaves the same as `getSectionAndItem( action )`.
-
-If the application is using subsystems, this returns the specified action formatted as _module:section.item_.
+Returns the specified action formatted as _module:section.item_. If the _module_ name is empty, the subsystem delimiter is also omitted (so then it behaves the same as `getSectionAndItem( action )`.). See also **getSubsystemSectionAndItem()** below.
 
 ### public string function getHostname()
 
@@ -301,7 +290,7 @@ Returns the specified `action` - or the current request's action if no action is
 
 ### public string function getSubsystem( string action = request.action )
 
-Returns the subsystem portion of the specified `action` - or of the current request's action if no action is specified. Returns the default subsystem if no subsystem is present in the specified action. If the application is not using subsystems, this returns the default subsystem name (which is an empty string by default).
+Returns the subsystem portion of the specified `action` - or of the current request's action if no action is specified. If no subsystem is present in the specified action, then if the application is using legacy subsystems returns the default subsystem name else return an empty string.
 
 ### public string function getSubsystemBase()
 
@@ -313,11 +302,15 @@ Returns whatever the framework has been told is a bean factory. This will return
 
 ### public struct function getSubsystemConfig( string subsystem )
 
-Returns the configuration for the named subsystem, as a copy of `variables.framework.subsystems[subsystem]`. If no configuration exists for the named subsystem, an empty struct is returned. FW/1 uses this to retrieve the per-subsystem `baseURL` value, if any, as part of `buildURL()` and `redirect()`, as well as `diConfig` if you are using DI/1 to manage subsystem bean factories automatically. _`diConfig` is new in 3.1._
+Returns the configuration for the named subsystem, as a copy of `variables.framework.subsystems[subsystem]`. If no configuration exists for the named subsystem, an empty struct is returned. FW/1 uses this to retrieve the per-subsystem `baseURL` value, if any, as part of `buildURL()` and `redirect()`, as well as `diConfig` if you are using DI/1 to manage subsystem bean factories automatically. _Including `diConfig` is new in 3.1._
+
+### public string function getSubsystemSectionAndItem( string action = request.action )
+
+This returns the specified action formatted as _module:section.item_. Unlike `getFullyQualifiedAction()` above, this always includes the subsystem delimiter even when the _module_ name is empty.
 
 ### public boolean function hasBeanFactory()
 
-Returns `true` if a default, top-level bean factory exists. If using subsystems, returns `true` if a bean factory exists for the subsystem of the current request. Otherwise returns `false`. If `hasBeanFactory()` returns `true`, calling `getBeanFactory()` will return a bean factory.
+Returns `true` if a default, top-level bean factory exists. Otherwise returns `true` if a bean factory exists for the subsystem of the current request, if appropriate. Otherwise returns `false`. If `hasBeanFactory()` returns `true`, calling `getBeanFactory()` will return a bean factory.
 
 ### public boolean function hasDefaultBeanFactory()
 
@@ -345,7 +338,7 @@ Rendering views, using the `view()` method, is supported, documented and the rec
 
 ### public function onApplicationStart()
 
-Part of the standard CFML lifecycle, this method is called automatically by the CFML engine at application startup. You should not override this (even tho' it is `public`). Use `setupApplication()` to perform application-specific initialization.
+Part of the standard CFML lifecycle, this method is called automatically by the CFML engine at application startup. You should not override this nor call it (even tho' it is `public`). Use `setupApplication()` to perform application-specific initialization.
 
 If you override this method, you **must** call `super.onApplicationStart()` or FW/1 will fail to work correctly.
 
@@ -373,25 +366,25 @@ If you intend to call `populate()` with no keys specified and you tell it to tru
 
 ### public function onRequest( string targetPage )
 
-Part of the standard CFML lifecycle, this method is called automatically by the CFML engine to handle each request. You should not override this (even tho' it is `public`).
+Part of the standard CFML lifecycle, this method is called automatically by the CFML engine to handle each request. You should not override this nor call it (even tho' it is `public`).
 
 If you override this method, you **must** call `super.onRequest( targetPage )`.
 
 ### public function onRequestEnd( string targetPage )
 
-Part of the standard CFML lifecycle, this method is called automatically by the CFML engine at the end of each request. You should not override this (even tho' it is `public`). Use `setupResponse()` to perform request-specific finalization.
+Part of the standard CFML lifecycle, this method is called automatically by the CFML engine at the end of each request. You should not override this not call it (even tho' it is `public`). Use `setupResponse()` to perform request-specific finalization.
 
 If you override this method, you **must** call `super.onRequestEnd( targetPage )`.
 
 ### public function onRequestStart( string targetPage )
 
-Part of the standard CFML lifecycle, this method is called automatically by the CFML engine at the beginning of each request. You should not override this (even tho' it is `public`). Use `setupRequest()` to perform request-specific initialization.
+Part of the standard CFML lifecycle, this method is called automatically by the CFML engine at the beginning of each request. You should not override this nor call it (even tho' it is `public`). Use `setupRequest()` to perform request-specific initialization.
 
 If you override this method, you **must** call `super.onRequestStart( targetPage )`.
 
 ### public function onSessionStart()
 
-Part of the standard CFML lifecycle, this method is called automatically by the CFML engine when each new session is created. You should not override this (even tho' it is `public`). Use `setupSession()` to perform session-specific initialization.
+Part of the standard CFML lifecycle, this method is called automatically by the CFML engine when each new session is created. You should not override this nor call it (even tho' it is `public`). Use `setupSession()` to perform session-specific initialization.
 
 If you override this method, you **must** call `super.onSessionStart()`.
 
@@ -491,7 +484,7 @@ Call this to tell the framework to use a new action _module:section.item_ as the
 
 ### public void function setSubsystemBeanFactory( string subsystem, any factory )
 
-Call this to tell the framework about a subsystem-specific bean factory. The bean factory must support `containsBean( name )` and `getBean( name )`. You would typically call this method from your `setupSubsystem()` method.
+Call this to tell the framework about a subsystem-specific bean factory. The bean factory must support `containsBean( name )` and `getBean( name )`. You would typically call this method from your `setupSubsystem()` method unless you are using DI/1 and allowing FW/1 to manage all your bean factories for you (the default behavior).
 
 ### public void function setupApplication()
 
@@ -515,7 +508,7 @@ Override this in your `Application.cfc` to provide session-specific initializati
 
 ## public void function setupSubsystem( string subsystem )
 
-Override this in your `Application.cfc` to provide subsystem-specific initialization. If you want the framework to use non-default subsystem-specific bean factories for any subsystems, this is where you should call `setSubsystemBeanFactory( subsystem, factory )`. See the example in [Using Subsystems](using-subsystems.html) for more details. You do not need to call `super.setupSubsystem()`.
+Override this in your `Application.cfc` to provide subsystem-specific initialization. If you want the framework to use non-default subsystem-specific bean factories for any subsystems, this is where you should call `setSubsystemBeanFactory( subsystem, factory )`. See the example in [Using Subsystems](using-subsystems.html#setting-bean-factories-with-setupsubsystem) for more details. You do not need to call `super.setupSubsystem()`.
 
 ## public void function setupTraceRender( string output = 'html' )
 
@@ -531,7 +524,7 @@ Call this to tell the framework to use a new action _module:section.item_ as the
 
 ## public boolean function usingSubsystems()
 
-Returns `true` if the application is using subsystems, i.e., `variables.framework.usingSubsystems` is `true`. Otherwise returns `false`.
+Returns `true` if the application is using legacy subsystems, i.e., `variables.framework.usingSubsystems` is `true`. Otherwise returns `false`. Not relevant to new style subsystems.
 
 ## public string function view( string path, struct args = { }, any missingView = { } )
 
