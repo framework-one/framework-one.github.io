@@ -747,9 +747,12 @@ Now run this with `?reload=true` in the URL and it should work just as it did be
 How do you know it's using the Clojure version? Because `framework.ioclj` adds the Clojure namespaces it finds after any CFCs it finds, overwriting any beans
 with the same alias. If you want to convince yourself, remove `controllers/main.cfc` from your `taskmanager` folder in the webroot, and reload the application again.
 
-So why would we write our controllers in Clojure instead of CFML? As simple functions (that take `rc` as input and produce an updated `rc` as output), they're easy
-to write unit tests for. With your services and controllers in Clojure, you're one step away from building all-Clojure web applications using
-[FW/1 for Clojure](https://github.com/framework-one/fw1-clj). We get the full power of Clojure's data abstractions, concurrency, and immutability working for us.
+So why would we write our controllers in Clojure instead of CFML? 
+
+* As simple functions (that take `rc` as input and produce an updated `rc` as output), they're easy to write unit tests for. 
+* You can work in the REPL building and testing your entire application's functionality (and then work on the views with a browser).
+* We get the full power of Clojure's data abstractions, concurrency, and immutability working for us.
+* With your services and controllers in Clojure, you're one step away from building all-Clojure web applications using [FW/1 for Clojure](https://github.com/framework-one/fw1-clj). 
 
 ### RC Value Conversion
 
