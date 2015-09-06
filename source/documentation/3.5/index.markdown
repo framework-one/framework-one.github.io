@@ -29,7 +29,7 @@ If you're on ColdFusion 9.0.0 or earlier, or still using Open BlueDragon, you'll
 
 FW/1 itself consists of a single CFC: `framework.one`, i.e., `framework/one.cfc`. Your `Application.cfc` will extend that and your application's "pages" will live under a `views` folder inside a subfolder for each _section_ of your application.
 
-When you download FW/1 (or check it out from Github), it's a complete web application. **The `framework` folder should either be copied to your webroot (the simplest way to get started) or else made accessible via a mapping for `/framework`.** Since `Application.cfc` extends `framework.one`, you have to add that mapping in your CFML admin - you cannot use a per-application mapping. _In release 3.5 there is a way to avoid the mapping and extending `framework.one` which we'll cover in the [Developing Applications Guide](developing-applications.html)._
+When you download FW/1 (or check it out from Github), it's a complete web application. **The `framework` folder should either be copied to your webroot (the simplest way to get started) or else made accessible via a mapping for `/framework`.** Since `Application.cfc` extends `framework.one`, you have to add that mapping in your CFML admin - you cannot use a per-application mapping. _In release 3.5 there is a way to avoid the mapping and extending `framework.one` which we'll cover in the [Developing Applications Guide](developing-applications.html#alternative-application-structure)._
 
 _**Note: do not install FW/1 into a subfolder that contains . in the name as this may prevent CFC resolution from working!**_
 
