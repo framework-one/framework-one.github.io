@@ -709,10 +709,47 @@ notation to access them instead of just `myStruct.key`._
 
 ## Writing a Clojure Controller
 
-_Coming soon!_
-
 In this final section of **Building Your Own CFML / Clojure Application**, we're going to replace our CFML Controller with an equivalent Clojure
-Controller (and it will become evident why we chose to convert the data structure in the view instead of the `main.cfc` controller!).
+Controller. In your Clojure `taskmanager` project, create a `src/taskmanager/controllers/` folder and inside it create `main.clj` containing:
+
+    ;; src/taskmanager/controllers/main.clj
+    (ns taskmanager.controllers.main
+      (:require [taskmanager.services.task :as task]))
+
+    (defn default [rc]
+      (let [all? (= "true" (:all rc))
+            tasks (try
+                    (task/task-list all?)
+                    (catch Exception _
+                      (task/create-task-table)
+                      (task/task-list all?)))]
+        (assoc rc :tasks tasks)))
+
+    (defn addtask [rc]
+      (task/add-task (:task rc))
+      (assoc rc :redirect {:action "main.default"}))
+
+    (defn completetask [rc]
+      (task/complete-task (:id rc))
+      (assoc rc :redirect {:action "main.default"}))
+
+This is the equivalent of our CFML controller above so let's walk through each piece of it:
+
+1. `(ns ...)` specifies `taskmanager.controllers.main` as our namespace and makes our service available with the `task` alias.
+1. `default` does the following:
+    1. binds `all?` to `true` or `false` based on whether `rc.all` is the string `"true"` or not. This shows the issue of all `rc` data coming in as strings -- see the next section for some functions that would make life easier!
+    1. binds `tasks` to the result of calling `task-list` in our service (including catching any exception, attempting to create the task table, and calling `task-list` again -- `try`/`catch` is an expression in Clojure that returns a value, just like any other expression).
+    1. returns `rc` with the task list added (as `rc.tasks`).
+1. `addtask` calls `add-task` in our service and returns `rc` with a redirect added to it.
+1. `completetask` calls `complete-task` in our service and returns `rc` with a redirect added to it.
+
+Now run this with `?reload=true` in the URL and it should work just as it did before, except now it's using the Clojure controller instead of the CFML controller!
+How do you know it's using the Clojure version? Because `framework.ioclj` adds the Clojure namespaces it finds after any CFCs it finds, overwriting any beans
+with the same alias. If you want to convince yourself, remove `controllers/main.cfc` from your `taskmanager` folder in the webroot, and reload the application again.
+
+So why would we write our controllers in Clojure instead of CFML? As simple functions (that take `rc` as input and produce an updated `rc` as output), they're easy
+to write unit tests for. With your services and controllers in Clojure, you're one step away from building all-Clojure web applications using
+[FW/1 for Clojure](https://github.com/framework-one/fw1-clj). We get the full power of Clojure's data abstractions, concurrency, and immutability working for us.
 
 ### RC Value Conversion
 
