@@ -550,7 +550,7 @@ database drivers (if you use SQL Server, you’ll find it easiest to use the jTD
 
 <p>You’ll now have a vector with four vectors inside it like this:</p>
 
-<pre><code>:dependencies [[cfml-interop "0.1.1"]
+<pre><code>:dependencies [[cfml-interop "0.1.2"]
                [org.apache.derby/derby "10.11.1.1"]
                [org.clojure/java.jdbc "0.4.1"]
                [org.clojure/clojure "1.7.0"]]
@@ -890,10 +890,11 @@ Controller. In your Clojure <code>taskmanager</code> project, create a <code>src
 
 <pre><code>;; src/taskmanager/controllers/main.clj
 (ns taskmanager.controllers.main
-  (:require [taskmanager.services.task :as task]))
+  (:require [cfml.interop :refer [-&gt;boolean]
+            [taskmanager.services.task :as task]))
 
 (defn default [rc]
-  (let [all? (= "true" (:all rc))
+  (let [all? (-&gt;boolean (:all rc))
         tasks (try
                 (task/task-list all?)
                 (catch Exception _
@@ -916,7 +917,7 @@ Controller. In your Clojure <code>taskmanager</code> project, create a <code>src
   <li><code>(ns ...)</code> specifies <code>taskmanager.controllers.main</code> as our namespace and makes our service available with the <code>task</code> alias.</li>
   <li><code>default</code> does the following:
     <ol>
-      <li>binds <code>all?</code> to <code>true</code> or <code>false</code> based on whether <code>rc.all</code> is the string <code>"true"</code> or not. This shows the issue of all <code>rc</code> data coming in as strings – see the next section for some functions that would make life easier!</li>
+      <li>binds <code>all?</code> to the boolean value of <code>rc.all</code> (which comes in as the string <code>"true"</code> or <code>"false"</code>!).</li>
       <li>binds <code>tasks</code> to the result of calling <code>task-list</code> in our service (including catching any exception, attempting to create the task table, and calling <code>task-list</code> again – <code>try</code>/<code>catch</code> is an expression in Clojure that returns a value, just like any other expression).</li>
       <li>returns <code>rc</code> with the task list added (as <code>rc.tasks</code>).</li>
     </ol>
@@ -944,53 +945,14 @@ with the same alias. If you want to convince yourself, remove <code>controllers/
 or other data type in order to use them in your Clojure code. We saw above that you can get away with some things, but in the pure Clojure world,
 you need to be much more specific about types.</p>
 
-<p>Here are some useful functions for converting from string to various types - the <code>-&gt;type</code> naming is just a convention in Clojure for conversion
+<p>The <a href="https://github.com/seancorfield/cfml-interop"><code>cfml-interop</code> library</a>, containing the <code>cfml.interop</code> namespace, contains some useful functions for converting from string to various types - the <code>-&gt;type</code> naming is just a convention in Clojure for conversion
 functions:</p>
 
-<pre><code>(defn -&gt;long [v]
-  (try
-    (if (number? v)
-      (long v)
-      (Long/parseLong v))
-    (catch Exception _
-      0)))
-
-(defn -&gt;double [v]
-  (try
-    (if (number? v)
-      (double v)
-      (Double/parseDouble v))
-    (catch Exception _
-      0.0)))
-</code></pre>
-
-<p>These behave like <code>val()</code> in CFML by silently returning zero if they cannot parse the number. They are also safe to use with both numeric
-input and string input so you don’t have to keep track of whether you’ve already converted the data.</p>
-
-<pre><code>(defn -&gt;boolean [v]
-  (try
-    (cond
-      (instance? Boolean v) v
-      (number? v) (not (zero? v))
-      (not (zero? (-&gt;long v))) true
-      :else
-      (boolean (#{"true" "yes"} (clojure.string/lower-case (str v)))))
-    (catch Exception _
-      false)))
-</code></pre>
-
-<p>This looks a lot more complicated but it fairly closely mimics CFML’s ideas about booleans:</p>
-
 <ul>
-  <li>If <code>v</code> is already a boolean, just return it</li>
-  <li>Else if <code>v</code> is a number, return <code>true</code> if it is not zero (and <code>false</code> if it is zero)</li>
-  <li>Else if <code>v</code> can be converted to a non-zero number (using <code>-&gt;long</code> defined above), return <code>true</code></li>
-  <li>Else convert <code>v</code> to a string, lowercase it, and return true if it is a member of the set <code>"true", "yes"</code>.</li>
+  <li><code>-&gt;long</code> – Accepts any value, string or numeric, and tries to convert it to a <code>Long</code> value. You can provide a second argument which specifies the default to return if conversion fails (otherwise it will return <code>0</code>).</li>
+  <li><code>-&gt;double</code> – Accepts any value, string or numeric, and tries to convert it to a <code>Double</code> value. You can provide a second argument which specifies the default to return if conversion fails (otherwise it will return <code>0.0</code>).</li>
+  <li><code>-&gt;boolean</code> – Accepts any value, boolean, string or numeric, and tries to convert it to a <code>Boolean</code> value. You can provide a second argument which specifies the default to return if conversion fails (otherwise it will return <code>false</code>). This treats the strings <code>"true"</code> and <code>"yes"</code> as <code>true</code> (not case sensitive), as well as treating non-zero numeric values as <code>true</code> (and zero as <code>false</code>), just like CFML.</li>
 </ul>
-
-<p>That last line warrants more explanation! The <code>#{..}</code> syntax creates a set of values. The expression <code>(mySet aValue)</code>
-looks up <code>aValue</code> in <code>mySet</code> and returns <code>aValue</code> if it is present or <code>nil</code> if it isn’t. The expression <code>(boolean someVal)</code>
-will return <code>true</code> if <code>someVal</code> is anything other than <code>false</code> or <code>nil</code> (else it will return <code>false</code>).</p>
 
 <h1 id="a-clojure-primer">A Clojure Primer</h1>
 
