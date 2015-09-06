@@ -929,9 +929,14 @@ Controller. In your Clojure <code>taskmanager</code> project, create a <code>src
 How do you know it’s using the Clojure version? Because <code>framework.ioclj</code> adds the Clojure namespaces it finds after any CFCs it finds, overwriting any beans
 with the same alias. If you want to convince yourself, remove <code>controllers/main.cfc</code> from your <code>taskmanager</code> folder in the webroot, and reload the application again.</p>
 
-<p>So why would we write our controllers in Clojure instead of CFML? As simple functions (that take <code>rc</code> as input and produce an updated <code>rc</code> as output), they’re easy
-to write unit tests for. With your services and controllers in Clojure, you’re one step away from building all-Clojure web applications using
-<a href="https://github.com/framework-one/fw1-clj">FW/1 for Clojure</a>. We get the full power of Clojure’s data abstractions, concurrency, and immutability working for us.</p>
+<p>So why would we write our controllers in Clojure instead of CFML? </p>
+
+<ul>
+  <li>As simple functions (that take <code>rc</code> as input and produce an updated <code>rc</code> as output), they’re easy to write unit tests for. </li>
+  <li>You can work in the REPL building and testing your entire application’s functionality (and then work on the views with a browser).</li>
+  <li>We get the full power of Clojure’s data abstractions, concurrency, and immutability working for us.</li>
+  <li>With your services and controllers in Clojure, you’re one step away from building all-Clojure web applications using <a href="https://github.com/framework-one/fw1-clj">FW/1 for Clojure</a>. </li>
+</ul>
 
 <h3 id="rc-value-conversion">RC Value Conversion</h3>
 
