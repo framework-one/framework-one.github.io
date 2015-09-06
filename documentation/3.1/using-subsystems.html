@@ -86,31 +86,28 @@
   
   <p>Subsystems give you a way of dropping one or more small FW/1 applications into an existing one. Subsystems can be used to create modules that have no dependencies on the parent application or you can use subsystems to group common functionality together.</p>
 
-<h2>Enabling Subsystems</h2>
-
+<h2 id="enabling-subsystems">Enabling Subsystems</h2>
 <p>If you set either <code>defaultSubsystem</code>, <code>siteWideLayoutSubsystem</code>, <code>subsystemDelimiter</code>, or <code>subsystems</code> in the framework configuration, then subsystems will be automatically enabled.</p>
 
 <p>Otherwise, if you omit all of those to pick up their default values (of <code>"home"</code>, <code>"common"</code>, <code>":"</code>, and <code>{ }</code> respectively), you will need to explicitly set <code>usingSubsystems</code> to <code>true</code> in the framework configuration.</p>
 
-<p>Once you enable subsystems, you&rsquo;ll need to follow a couple of additional conventions:</p>
+<p>Once you enable subsystems, you’ll need to follow a couple of additional conventions:</p>
 
 <ol>
-<li>Your site&rsquo;s default application must also be implemented as a subsystem. By default, the framework will look in the sub-directory <code>home</code>. Setting <code>defaultSubsystem</code> overrides this default, letting you specify another folder as the default application module.</li>
-<li>A sitewide layout can be specified at <code>common/layouts/default.cfm</code> (by default). If this file exists, it will be applied. Setting <code>siteWideLayoutSubsystem</code> overrides this default, letting you specify another folder to look in for <code>layouts/default.cfm</code>.</li>
-<li>Any models (beans and services) you would like accessible by all subsystems should remain in the base (webroot) <code>model</code> directory.</li>
+  <li>Your site’s default application must also be implemented as a subsystem. By default, the framework will look in the sub-directory <code>home</code>. Setting <code>defaultSubsystem</code> overrides this default, letting you specify another folder as the default application module.</li>
+  <li>A sitewide layout can be specified at <code>common/layouts/default.cfm</code> (by default). If this file exists, it will be applied. Setting <code>siteWideLayoutSubsystem</code> overrides this default, letting you specify another folder to look in for <code>layouts/default.cfm</code>.</li>
+  <li>Any models (beans and services) you would like accessible by all subsystems should remain in the base (webroot) <code>model</code> directory.</li>
 </ol>
 
-
-<h2>Accessing Subsystems</h2>
-
-<p>To access a subsystem in the browser, you&rsquo;ll have to specify it in the action:</p>
+<h2 id="accessing-subsystems">Accessing Subsystems</h2>
+<p>To access a subsystem in the browser, you’ll have to specify it in the action:</p>
 
 <pre><code>index.cfm?action=subsystem:section.item
 </code></pre>
 
 <p>If you leave off the subsystem in the url, the section and item will reference the default subsystem (by default <code>home:section.item</code>).</p>
 
-<p>When creating links in your views and layouts, it&rsquo;s recommended that you use <code>buildUrl()</code>. You do not have to specify the current subsystem inside <code>buildUrl()</code>, it will automatically be prepended. This method is preferred. If you change the name of a subsystem, all of your links inside the subsystem will correctly reflect the change.</p>
+<p>When creating links in your views and layouts, it’s recommended that you use <code>buildUrl()</code>. You do not have to specify the current subsystem inside <code>buildUrl()</code>, it will automatically be prepended. This method is preferred. If you change the name of a subsystem, all of your links inside the subsystem will correctly reflect the change.</p>
 
 <pre><code>buildUrl('section.item') - action=currentSubsystem:section.item
 </code></pre>
@@ -120,8 +117,7 @@
 <pre><code>buildUrl('otherSubsystem:section.item') - action=otherSubsystem:section.item
 </code></pre>
 
-<h2>Configuring Subsystems</h2>
-
+<h2 id="configuring-subsystems">Configuring Subsystems</h2>
 <p>There is an optional method that can be declared in <code>Application.cfc</code> for configuring subsystems:</p>
 
 <pre><code>function setupSubsystem(subsystem) {}
@@ -129,61 +125,53 @@
 
 <p><code>setupSubsystem()</code> is called once for each subsystem, when a subsystem is initialized. When an application is reloaded, the initialized subsystems are cleared and <code>setupSubsystem()</code> will be called on the next request to a subsystem.</p>
 
-<h3>Framework Configuration</h3>
+<h3 id="framework-configuration">Framework Configuration</h3>
 
 <p>The following options relate to subsystems:</p>
 
 <ul>
-<li><code>usingSubsystems</code> &ndash; This will be <code>true</code> if you are using subsystems. You only need to set this explicitly if you don&rsquo;t specify any of the other subsystem configuration options below.</li>
-<li><code>defaultSubsystem</code> &ndash; This is the default subsystem when none is specified in the URL or form post.</li>
-<li><code>subsystemDelimiter</code> &ndash; This specifies the delimiter between the subsystem name and the action in a URL or form post. It cannot be <code>"."</code> since section and item would no longer be parsed correctly. It must be a legal URL character.</li>
-<li><code>siteWideLayoutSubsystem</code> &ndash; This specifies the subsystem that is used for the (optional) site-wide default layout.</li>
+  <li><code>usingSubsystems</code> - This will be <code>true</code> if you are using subsystems. You only need to set this explicitly if you don’t specify any of the other subsystem configuration options below.</li>
+  <li><code>defaultSubsystem</code> - This is the default subsystem when none is specified in the URL or form post.</li>
+  <li><code>subsystemDelimiter</code> - This specifies the delimiter between the subsystem name and the action in a URL or form post. It cannot be <code>"."</code> since section and item would no longer be parsed correctly. It must be a legal URL character.</li>
+  <li><code>siteWideLayoutSubsystem</code> - This specifies the subsystem that is used for the (optional) site-wide default layout.</li>
 </ul>
 
-
-<h2>Controllers</h2>
-
+<h2 id="controllers">Controllers</h2>
 <p>Subsystem controllers are located in <code>subsystem/controllers</code> (e.g., <code>admin/controllers/login.cfc</code>, <code>home/controllers/main.cfc</code>).</p>
 
-<h2>Model (Services and Domain Objects)</h2>
-
+<h2 id="model-services-and-domain-objects">Model (Services and Domain Objects)</h2>
 <p>Subsystem services are located in <code>subsystem/model/services</code> and domain objects in <code>subsystem/model/beans</code> (e.g., <code>admin/model/services/security.cfc</code> and <code>home/model/beans/user.cfc</code>).</p>
 
-<h2>Views</h2>
+<h2 id="views">Views</h2>
+<p>Subsystem views are located in <code>subsystem/views</code> (e.g., <code>admin/views/login/default.cfm</code> and <code>home/views/main/error.cfm</code>). </p>
 
-<p>Subsystem views are located in <code>subsystem/views</code> (e.g., <code>admin/views/login/default.cfm</code> and <code>home/views/main/error.cfm</code>).</p>
-
-<h2>Layouts</h2>
-
+<h2 id="layouts">Layouts</h2>
 <p>Subsystem layouts are looked up in the same order as before, but with the additional inclusion of a sitewide layout, if it exists. The default sitewide layout folder is <code>common</code>. Subsystem specific layouts are located in <code>subsystem/layouts</code> (e.g., <code>admin/layouts/login.cfm</code>).</p>
 
 <ul>
-<li><code>subsystem/layouts/section/item.cfm</code></li>
-<li><code>subsystem/layouts/section.cfm</code></li>
-<li><code>subsystem/layouts/default.cfm</code></li>
-<li><code>common/layouts/default.cfm</code></li>
+  <li><code>subsystem/layouts/section/item.cfm</code></li>
+  <li><code>subsystem/layouts/section.cfm</code></li>
+  <li><code>subsystem/layouts/default.cfm</code></li>
+  <li><code>common/layouts/default.cfm</code></li>
 </ul>
-
 
 <p>The location of the latter is determined by the <code>siteWideLayoutSubsystem</code> configuration variable.</p>
 
-<h2>Using Bean Factories</h2>
-
+<h2 id="using-bean-factories">Using Bean Factories</h2>
 <p>The introduction of subsystems introduces the ability to have subsystem specific bean factories. If you let FW/1 use DI/1 to manage your beans, it will also do so automatically for subsystems, creating a bean factory for each subsystem (inspecting the same folders you configured for your main application, i.e., <code>model</code> and <code>controllers</code> by default), and setting the main bean factory as the parent of each subsystem bean factory. This is the recommended approach (naturally!).</p>
 
 <p>The following bean factory methods are available for subsystems:</p>
 
 <ul>
-<li><code>setSubsystemBeanFactory( subsystem, beanFactory )</code> &ndash; sets up a subsystem specific bean factory</li>
-<li><code>hasSubsystemBeanFactory( subsystem )</code> &ndash; returns <code>true</code> if a subsystem specific bean factory exists for the named subsystem</li>
-<li><code>getBeanFactory()</code> &ndash; returns the bean factory for the current subsystem. Alternately, it can be used to retrieve the bean factory for another subsystem by passing the name of the subsystem (e.g., <code>getBeanFactory( subsystem )</code> ).</li>
-<li><code>getDefaultBeanFactory()</code> &ndash; returns the default bean factory that was passed to <code>setBeanFactory()</code> (at the top-level)</li>
+  <li><code>setSubsystemBeanFactory( subsystem, beanFactory )</code> - sets up a subsystem specific bean factory </li>
+  <li><code>hasSubsystemBeanFactory( subsystem )</code> - returns <code>true</code> if a subsystem specific bean factory exists for the named subsystem</li>
+  <li><code>getBeanFactory()</code> - returns the bean factory for the current subsystem. Alternately, it can be used to retrieve the bean factory for another subsystem by passing the name of the subsystem (e.g., <code>getBeanFactory( subsystem )</code> ).</li>
+  <li><code>getDefaultBeanFactory()</code> - returns the default bean factory that was passed to <code>setBeanFactory()</code> (at the top-level)</li>
 </ul>
-
 
 <p>If you provide <code>diConfig</code> in the subsystem-specific configuration structure (<code>framework.subsystems[subsystemname]</code>) that will be passed to DI/1 as its configuration, otherwise the same configuration used for the default bean factory (<code>framework.diConfig</code>) will be passed. <em>New in 3.1.</em></p>
 
-<h3>Auto Wiring</h3>
+<h3 id="auto-wiring">Auto Wiring</h3>
 
 <p>If you did not declare a subsystem specific bean factory, the framework will attempt to auto wire beans from the default bean factory into subsystem specific controllers and model components.</p>
 
@@ -191,9 +179,9 @@
 
 <p>If you declare a dependency of <code>property beanFactory;</code>, the bean factory that is autowired will be the bean factory in which that managed bean exists.</p>
 
-<h3>Setting Bean Factories With setupSubsystem()</h3>
+<h3 id="setting-bean-factories-with-setupsubsystem">Setting Bean Factories With setupSubsystem()</h3>
 
-<p>With <code>setupSubsystem()</code>, it&rsquo;s possible to use your own convention to load subsystem specific bean factories, instead of either relying on FW/1&rsquo;s conventions or explicitly declaring each one in <code>setupApplication()</code> for the main application. The following example uses ColdSpring and makes the assumption that each subsystem has a bean factory config file in a common subsystem specific folder. If the config file is found, it then loads the subsystem bean factory.</p>
+<p>With <code>setupSubsystem()</code>, it’s possible to use your own convention to load subsystem specific bean factories, instead of either relying on FW/1’s conventions or explicitly declaring each one in <code>setupApplication()</code> for the main application. The following example uses ColdSpring and makes the assumption that each subsystem has a bean factory config file in a common subsystem specific folder. If the config file is found, it then loads the subsystem bean factory.</p>
 
 <pre><code>function setupSubsystem( subsystem ) {
     var bfConfigFilePath = subsystem &amp; '/config/coldspring.xml.cfm';
@@ -211,11 +199,11 @@
 }
 </code></pre>
 
-<h3>Accessing Other Bean Factories From A Subsystem</h3>
+<h3 id="accessing-other-bean-factories-from-a-subsystem">Accessing Other Bean Factories From A Subsystem</h3>
 
 <p>If you have a default bean factory, you can access it in your controllers and views from any subsystem with <code>getDefaultBeanFactory()</code>.</p>
 
-<p>While it&rsquo;s not considered a best practice, there may be a chance when you will need to access a bean factory from another subsystem. You can do this by calling <code>getBeanFactory(subsystem)</code> (e.g., <code>getBeanFactory('user')</code>).</p>
+<p>While it’s not considered a best practice, there may be a chance when you will need to access a bean factory from another subsystem. You can do this by calling <code>getBeanFactory(subsystem)</code> (e.g., <code>getBeanFactory('user')</code>).</p>
 
   
     <footer>

@@ -99,11 +99,10 @@
 
 <p>As always, FW/1 can be downloaded from the <a href="http://fw1.riaforge.org">FW/1 page on RIAForge</a>. Release 2.5 is now the latest stable release of this framework, as it approaches its fifth birthday!</p>
 
-<p>For a full list of all tickets closed in Release 2.5: <a href="https://github.com/framework-one/fw1/issues?milestone=14&amp;page=1&amp;state=closed">https://github.com/framework-one/fw1/issues?milestone=14&amp;page=1&amp;state=closed</a></p>
+<p>For a full list of all tickets closed in Release 2.5: https://github.com/framework-one/fw1/issues?milestone=14&amp;page=1&amp;state=closed</p>
 
-<h2>Migration from 2.2.1</h2>
-
-<p>The <code>service()</code> call has been deprecated, as have start/end action items. Global access to <code>rc</code> in <code>Application.cfc</code> has also been deprecated. If you just drop 2.5 into your setup and you rely on these features, you&rsquo;ll get exceptions explaining how to enable these features for backward compatibility, namely add the following to your framework configuration:</p>
+<h2 id="migration-from-221">Migration from 2.2.1</h2>
+<p>The <code>service()</code> call has been deprecated, as have start/end action items. Global access to <code>rc</code> in <code>Application.cfc</code> has also been deprecated. If you just drop 2.5 into your setup and you rely on these features, you’ll get exceptions explaining how to enable these features for backward compatibility, namely add the following to your framework configuration:</p>
 
 <pre><code>enableGlobalRC = true,
 suppressServiceQueue = false
@@ -116,9 +115,10 @@ suppressServiceQueue = false
 
 <p>but, like the other two options, defaults to disallowing the deprecated feature.</p>
 
-<p>If you enable these deprecated features, you will no longer get exceptions using them, but you will see deprecation warnings in your application server&rsquo;s console log. This is to remind you to update your code in preparation for 3.0 later this year!</p>
+<p>If you enable these deprecated features, you will no longer get exceptions using them, but you will see deprecation warnings in your application server’s console log. This is to remind you to update your code in preparation for 3.0 later this year!</p>
 
-<p><em>Please note that Release 3.0 will completely remove these backward compatibility options &ndash; and the associated deprecated features. In addition, <code>org.corfield.framework</code> will move to <code>framework.one</code> in Release 3.0, alongside <code>framework.ioc</code>.</em></p>
+<p><em>Please note that Release 3.0 will completely remove these backward compatibility options - and the associated deprecated features. In addition, <code>org.corfield.framework</code> will move to <code>framework.one</code> in Release 3.0, alongside <code>framework.ioc</code>.</em></p>
+
 </div>
 
 

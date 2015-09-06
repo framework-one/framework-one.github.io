@@ -100,23 +100,23 @@
 <p>This release features a large number of enhancements suggested by the community including:</p>
 
 <ul>
-<li>A skeleton application</li>
-<li>The list of keys in <code>populate()</code> can contain spaces for improved readability</li>
-<li>The delimiter for subsystems can be configured (the default is still <code>:</code>)</li>
-<li>You can override the behavior when a view is missing by defining your own <code>onMissingView()</code> handler</li>
-<li>The name of the application is automatically generated allowing you to omit <code>this.name</code> assignment in <code>Application.cfc</code></li>
-<li>Controller calls can be queued up in <code>setupApplication()</code>, <code>setupSession()</code> and <code>setupRequest()</code> via the <code>controller()</code> API &ndash; <code>doController()</code> is officially deprecated</li>
-<li><code>populate()</code> now works with CFCs that use generated setters or <code>onMissingMethod()</code> via the new <code>trustKeys</code> argument &ndash; and <code>onPopulateError()</code> to trap any errors that arise</li>
-<li>Sample applications now work on installations with a non-empty context root (except for a couple clearly marked as such)</li>
-<li>Skinning is possible via a new override point: <code>customizeViewOrLayoutPath()</code></li>
-<li>When you queue up <code>service()</code> calls, you can now provide a struct of additional arguments so you add arguments that are not in the request context</li>
-<li>The list of extensions and file paths that are ignored by FW/1 is now configurable (so you can easily allow certain parts of your application to operate outside the framework)</li>
-<li>A new API <code>getConfig()</code> returns a readonly copy of the framework&rsquo;s configuration structure which may be useful in controllers</li>
-<li>You can now override the view conventions easily in a controller via the new <code>setView()</code> API</li>
-<li>The action arguments is now consistently optional in all of the getters for subsystem / section / item combinations</li>
-<li>An example of security / access control with FW/1 has been added as a variant of the user manager</li>
-<li><code>buildURL()</code> and <code>redirect()</code> can generate SES URLs via new FW/1 configuration settings: <code>generateSES</code> and <code>SESOmitIndex</code></li>
-<li><code>buildURL()</code> and <code>redirect()</code> now all embedded query strings to make URL generation easier, as well as allowing control over which name/value pairs are folded into SES URLs vs regular query string format</li>
+  <li>A skeleton application</li>
+  <li>The list of keys in <code>populate()</code> can contain spaces for improved readability</li>
+  <li>The delimiter for subsystems can be configured (the default is still <code>:</code>)</li>
+  <li>You can override the behavior when a view is missing by defining your own <code>onMissingView()</code> handler</li>
+  <li>The name of the application is automatically generated allowing you to omit <code>this.name</code> assignment in <code>Application.cfc</code></li>
+  <li>Controller calls can be queued up in <code>setupApplication()</code>, <code>setupSession()</code> and <code>setupRequest()</code> via the <code>controller()</code> API - <code>doController()</code> is officially deprecated</li>
+  <li><code>populate()</code> now works with CFCs that use generated setters or <code>onMissingMethod()</code> via the new <code>trustKeys</code> argument - and <code>onPopulateError()</code> to trap any errors that arise</li>
+  <li>Sample applications now work on installations with a non-empty context root (except for a couple clearly marked as such)</li>
+  <li>Skinning is possible via a new override point: <code>customizeViewOrLayoutPath()</code></li>
+  <li>When you queue up <code>service()</code> calls, you can now provide a struct of additional arguments so you add arguments that are not in the request context</li>
+  <li>The list of extensions and file paths that are ignored by FW/1 is now configurable (so you can easily allow certain parts of your application to operate outside the framework)</li>
+  <li>A new API <code>getConfig()</code> returns a readonly copy of the framework’s configuration structure which may be useful in controllers</li>
+  <li>You can now override the view conventions easily in a controller via the new <code>setView()</code> API</li>
+  <li>The action arguments is now consistently optional in all of the getters for subsystem / section / item combinations</li>
+  <li>An example of security / access control with FW/1 has been added as a variant of the user manager</li>
+  <li><code>buildURL()</code> and <code>redirect()</code> can generate SES URLs via new FW/1 configuration settings: <code>generateSES</code> and <code>SESOmitIndex</code></li>
+  <li><code>buildURL()</code> and <code>redirect()</code> now all embedded query strings to make URL generation easier, as well as allowing control over which name/value pairs are folded into SES URLs vs regular query string format</li>
 </ul>
 
 </div>

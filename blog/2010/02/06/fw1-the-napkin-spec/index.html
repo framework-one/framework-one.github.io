@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="A few folks have asked me to post the &ldquo;napkin&rdquo; on which I wrote the spec for FW/1. My &ldquo;napkin&rdquo; is actually Evernote because I &hellip;">
+  <meta name="description" content="A few folks have asked me to post the “napkin” on which I wrote the spec for FW/1. My “napkin” is actually Evernote because I have it on every &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -95,34 +95,34 @@
   </header>
 
 
-<div class="entry-content"><p>A few folks have asked me to post the &ldquo;napkin&rdquo; on which I wrote the spec for FW/1. My &ldquo;napkin&rdquo; is actually Evernote because I have it on every computer and my iPhone so it&rsquo;s always with me and it&rsquo;s easy to develop notes with. I started the spec on July 17th and &ldquo;finished&rdquo; it on July 20th. The spec was titled &ldquo;New Lightweight Framework&rdquo;. Here&rsquo;s what it said:<!-- more --></p>
+<div class="entry-content"><p>A few folks have asked me to post the “napkin” on which I wrote the spec for FW/1. My “napkin” is actually Evernote because I have it on every computer and my iPhone so it’s always with me and it’s easy to develop notes with. I started the spec on July 17th and “finished” it on July 20th. The spec was titled “New Lightweight Framework”. Here’s what it said:<!-- more --></p>
 
-<blockquote><p>Goal: Create an extremely lightweight convention over configuration framework. Considerations:</p>
+<blockquote>
+  <p>Goal: Create an extremely lightweight convention over configuration framework. Considerations:</p>
 
-<ul>
-<li>Leverage <code>Application.cfc</code> and lifecycle</li>
-<li>Automatically call controller, model, view if appropriate</li>
-<li>Autowire from bean factory?</li>
-<li><code>Application.cfc</code> extends <code>org.corfield.X</code></li>
-<li>Programmatically set everything, no XML</li>
-<li><code>variables.framework</code> struct to specify everything</li>
-<li><code>variables.framework.action</code> is URL / form variable for the, er, action, defaults to <code>'action'</code></li>
-<li><code>variables.framework.home</code> is home action, defaults to <code>main.default</code>
+  <ul>
+    <li>Leverage <code>Application.cfc</code> and lifecycle</li>
+    <li>Automatically call controller, model, view if appropriate</li>
+    <li>Autowire from bean factory?</li>
+    <li><code>Application.cfc</code> extends <code>org.corfield.X</code></li>
+    <li>Programmatically set everything, no XML</li>
+    <li><code>variables.framework</code> struct to specify everything</li>
+    <li><code>variables.framework.action</code> is URL / form variable for the, er, action, defaults to <code>'action'</code></li>
+    <li><code>variables.framework.home</code> is home action, defaults to <code>main.default</code>
 fold URL / form into request.context</li>
-<li><code>?action=section.item</code> maps to <code>controllers/section.cfc:item()</code> then <code>models/section.cfc:item()</code> then <code>views/section/item.cfm</code></li>
-<li>implicit layouts based on actions</li>
-</ul>
+    <li><code>?action=section.item</code> maps to <code>controllers/section.cfc:item()</code> then <code>models/section.cfc:item()</code> then <code>views/section/item.cfm</code></li>
+    <li>implicit layouts based on actions</li>
+  </ul>
 
+  <p>Caveats:</p>
 
-<p>Caveats:</p>
-
-<ul>
-<li>Should controller / model be instantiated every request or cached?</li>
-<li>How should cache be refreshed?</li>
-</ul>
+  <ul>
+    <li>Should controller / model be instantiated every request or cached?</li>
+    <li>How should cache be refreshed?</li>
+  </ul>
 </blockquote>
 
-<p>That&rsquo;s it. I wrote the first version of FW/1 on July 19th. You can see the <a href="https://github.com/framework-one/fw1/blob/a686fd441ccd86e147f770f41b10f79a07be11f2/org/corfield/framework.cfc">original 381 line framework.cfc</a> on Github. So there you go: an insight into my design process!</p>
+<p>That’s it. I wrote the first version of FW/1 on July 19th. You can see the <a href="https://github.com/framework-one/fw1/blob/a686fd441ccd86e147f770f41b10f79a07be11f2/org/corfield/framework.cfc">original 381 line framework.cfc</a> on Github. So there you go: an insight into my design process!</p>
 </div>
 
 

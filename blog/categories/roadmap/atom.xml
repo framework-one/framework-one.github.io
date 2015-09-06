@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Roadmap | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/roadmap/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-08-30T18:41:46-07:00</updated>
+  <updated>2015-09-05T17:39:54-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -18,42 +18,40 @@
     <link href="http://framework-one.github.io/blog/2013/11/03/fw1-releases-and-roadmap/"/>
     <updated>2013-11-03T11:38:30-08:00</updated>
     <id>http://framework-one.github.io/blog/2013/11/03/fw1-releases-and-roadmap</id>
-    <content type="html"><![CDATA[<p>Today I released the first <a href="https://github.com/framework-one/fw1/releases/tag/v2.2-rc1">FW/1 Version 2.2 Release Candidate</a> for testing. See below for the list of changes in this release, compared to Version 2.1. I also released a maintenance update for the old compatibility branch: <a href="https://github.com/framework-one/fw1/releases/tag/v1.3">FW/1 Version 1.3</a> (the &ldquo;Latest Release&rdquo; label is due to Github&rsquo;s view of the world, but it is the latest 1.x release). This is the version to use if you&rsquo;re on CFMX 7, CF 8, CF 9.0.0, Railo versions prior to 3.2, or OpenBD.<!-- more --></p>
+    <content type="html"><![CDATA[<p>Today I released the first <a href="https://github.com/framework-one/fw1/releases/tag/v2.2-rc1">FW/1 Version 2.2 Release Candidate</a> for testing. See below for the list of changes in this release, compared to Version 2.1. I also released a maintenance update for the old compatibility branch: <a href="https://github.com/framework-one/fw1/releases/tag/v1.3">FW/1 Version 1.3</a> (the “Latest Release” label is due to Github’s view of the world, but it is the latest 1.x release). This is the version to use if you’re on CFMX 7, CF 8, CF 9.0.0, Railo versions prior to 3.2, or OpenBD.<!-- more --></p>
 
-<p>In addition to these two releases, I also added milestones (and dates!) for the next two FW/1 releases: 2.5 and 3.0. There are some fairly big changes coming, including some important breaking changes. I&rsquo;ll post a follow-up with more details on <strong>why</strong> these changes are coming, but you should read the <a href="https://github.com/framework-one/fw1/issues/milestones">FW/1 Roadmap</a> and start thinking about how these changes will affect you (as well as reading the next blog post, of course!).</p>
+<p>In addition to these two releases, I also added milestones (and dates!) for the next two FW/1 releases: 2.5 and 3.0. There are some fairly big changes coming, including some important breaking changes. I’ll post a follow-up with more details on <strong>why</strong> these changes are coming, but you should read the <a href="https://github.com/framework-one/fw1/issues/milestones">FW/1 Roadmap</a> and start thinking about how these changes will affect you (as well as reading the next blog post, of course!).</p>
 
-<p>As always, FW/1 wouldn&rsquo;t be possible without all the contributions from the community. This version includes contributions from John Berquist (regex caching in routes, resource packs in routes), Marco Betschart, Chris Blackwell, Peter Boughton, Will Coleda, Billy Cravens, Mark Drew, and all those who have provided feedback via the mailing list and Twitter and IM and&hellip; Thank you!</p>
+<p>As always, FW/1 wouldn’t be possible without all the contributions from the community. This version includes contributions from John Berquist (regex caching in routes, resource packs in routes), Marco Betschart, Chris Blackwell, Peter Boughton, Will Coleda, Billy Cravens, Mark Drew, and all those who have provided feedback via the mailing list and Twitter and IM and… Thank you!</p>
 
-<p>Here&rsquo;s a fairly complete change list for Version 2.2:</p>
+<p>Here’s a fairly complete change list for Version 2.2:</p>
 
 <ul>
-<li>#198 <code>renderData()</code> added for easier REST APIs</li>
-<li>#197 resource pack support added to routes for easier REST APIs</li>
-<li>#195 override <code>processRoutes()</code> to customize them (<code>addRoute()</code> is deprecated)</li>
-<li>#192 regex in routes are now cached for improved performance</li>
-<li>#181 improve null value support (Railo compatibility)</li>
-<li>#179 can use <code>onMissingMethod()</code> for <code>injectFramework()</code></li>
-<li>#176 <code>buildURL()</code> now correctly supports <code>?</code> at end of action</li>
-<li>#175 subsystems automatically enabled if you specify subsystem configuration</li>
-<li>#170 layout suppression is now correctly reset on an exception</li>
-<li>#169 ensure <code>framework.home</code> is consistent with subsystem settings</li>
-<li>#168 don&rsquo;t strip additional characters from start of path</li>
-<li>#165 <code>onMissingView()</code> correctly called when view is missing</li>
-<li>#163 trace code no longer fails if session scope is disabled</li>
-<li>#160 <code>buildURL()</code> sanity checks <code>queryString</code> as struct</li>
+  <li>#198 <code>renderData()</code> added for easier REST APIs</li>
+  <li>#197 resource pack support added to routes for easier REST APIs</li>
+  <li>#195 override <code>processRoutes()</code> to customize them (<code>addRoute()</code> is deprecated)</li>
+  <li>#192 regex in routes are now cached for improved performance</li>
+  <li>#181 improve null value support (Railo compatibility)</li>
+  <li>#179 can use <code>onMissingMethod()</code> for <code>injectFramework()</code></li>
+  <li>#176 <code>buildURL()</code> now correctly supports <code>?</code> at end of action</li>
+  <li>#175 subsystems automatically enabled if you specify subsystem configuration</li>
+  <li>#170 layout suppression is now correctly reset on an exception</li>
+  <li>#169 ensure <code>framework.home</code> is consistent with subsystem settings</li>
+  <li>#168 don’t strip additional characters from start of path</li>
+  <li>#165 <code>onMissingView()</code> correctly called when view is missing</li>
+  <li>#163 trace code no longer fails if session scope is disabled</li>
+  <li>#160 <code>buildURL()</code> sanity checks <code>queryString</code> as struct</li>
 </ul>
-
 
 <p>Additional changes:</p>
 
 <ul>
-<li>fixed error message for service() missing action</li>
-<li>framework initialization logic is more robust</li>
-<li>improve example that uses DI/1 to avoid confusion over what to manage</li>
-<li>improve consistency of framework injection (of itself)</li>
-<li>layout trace shows correct path</li>
+  <li>fixed error message for service() missing action</li>
+  <li>framework initialization logic is more robust</li>
+  <li>improve example that uses DI/1 to avoid confusion over what to manage</li>
+  <li>improve consistency of framework injection (of itself)</li>
+  <li>layout trace shows correct path</li>
 </ul>
-
 ]]></content>
   </entry>
   
@@ -62,19 +60,19 @@
     <link href="http://framework-one.github.io/blog/2013/11/02/fw1-the-year-ahead/"/>
     <updated>2013-11-02T23:42:41-07:00</updated>
     <id>http://framework-one.github.io/blog/2013/11/02/fw1-the-year-ahead</id>
-    <content type="html"><![CDATA[<p>With FW/1 Version 2.2 just around the corner &ndash; after a long time in incubation &ndash; and FW/1 itself being almost four and a half years old, it&rsquo;s a good time to look ahead at what&rsquo;s in store.<!-- more --></p>
+    <content type="html"><![CDATA[<p>With FW/1 Version 2.2 just around the corner - after a long time in incubation - and FW/1 itself being almost four and a half years old, it’s a good time to look ahead at what’s in store.<!-- more --></p>
 
-<p>When FW/1 was first conceived, it was intended to be drop-dead simple and help on-board developers who were new to MVC and new to frameworks and also new to OOP. It leveraged conventions very heavily to encourage simple controller logic and delegation to a service layer for heavy lifting. That was the conceptual justification for the implicit service calls in the 1.x version and the ability to split controller methods in two &ndash; start/end-item &ndash; to wrap the automatic call to the service layer.</p>
+<p>When FW/1 was first conceived, it was intended to be drop-dead simple and help on-board developers who were new to MVC and new to frameworks and also new to OOP. It leveraged conventions very heavily to encourage simple controller logic and delegation to a service layer for heavy lifting. That was the conceptual justification for the implicit service calls in the 1.x version and the ability to split controller methods in two - start/end-item - to wrap the automatic call to the service layer.</p>
 
-<p>While that conceptual framework served its purpose admirably, users very quickly grew out of it and needed to start managing service calls more directly. That&rsquo;s why implicit service calls were no longer the default in 2.0 (although you could turn them back on). Even with that change, many users find the queuing of service calls confusing, even tho' controller calls are also queued (although that&rsquo;s mostly invisible to users).</p>
+<p>While that conceptual framework served its purpose admirably, users very quickly grew out of it and needed to start managing service calls more directly. That’s why implicit service calls were no longer the default in 2.0 (although you could turn them back on). Even with that change, many users find the queuing of service calls confusing, even tho’ controller calls are also queued (although that’s mostly invisible to users).</p>
 
 <p>In version 2.5, scheduled for early January 2014, FW/1 will begin the move away from queuing services by deprecating the <code>service()</code> call and requiring a configuration setting to enable its use in your application. In version 3.0, scheduled for release just after cf.Objective() 2014, the <code>service()</code> call will be removed. Along with that, the start/end-item calls will be deprecated in 2.5 and removed in 3.0, since they were only introduced in the first place to create the queued services workflow!</p>
 
 <p>This means that users will need to manage services themselves and of course I recommend using a Dependency Injection framework for that (or at least using some sort of object factory as a bare minimum). Accordingly, DI/1 will have a higher profile in FW/1 2.5 and the two frameworks will be officially bundled together in 3.0. FW/1 will continue to support any bean factory that provides the <code>containsBean()</code> and <code>getBean()</code> API such as ColdSpring (WireBox uses a slightly different API but I plan to provide an adapter for it in 2.5).</p>
 
-<p>Also as part of 3.0, the framework CFC itself will be renamed and the <code>/org/corfield</code> structure removed. The default path will be <code>/framework/one.cfc</code> so your <code>Application.cfc</code> will have <code>extends="framework.one"</code> by default. In 2.5, DI/1 will have adopted this pattern as <code>/framework/ioc.cfc</code>, but since 2.5 will still be backward compatible with 2.2 (after you&rsquo;ve added the compatibility setting in <code>Application.cfc</code>), I don&rsquo;t want to force renaming or reorganizing on users until 3.0.</p>
+<p>Also as part of 3.0, the framework CFC itself will be renamed and the <code>/org/corfield</code> structure removed. The default path will be <code>/framework/one.cfc</code> so your <code>Application.cfc</code> will have <code>extends="framework.one"</code> by default. In 2.5, DI/1 will have adopted this pattern as <code>/framework/ioc.cfc</code>, but since 2.5 will still be backward compatible with 2.2 (after you’ve added the compatibility setting in <code>Application.cfc</code>), I don’t want to force renaming or reorganizing on users until 3.0.</p>
 
-<p>Finally, as part of 3.0, the entire repository will be restructured to better reflect what is considered &ldquo;best practices&rdquo; in terms of where you install things and what lives in your webroot (only web-accessible assets!). This will make it easier to get started with the FW/1 skeleton application as a &ldquo;best practice&rdquo; out-of-the-box experience.</p>
+<p>Finally, as part of 3.0, the entire repository will be restructured to better reflect what is considered “best practices” in terms of where you install things and what lives in your webroot (only web-accessible assets!). This will make it easier to get started with the FW/1 skeleton application as a “best practice” out-of-the-box experience.</p>
 
 <p>Note that the DI/1 and AOP/1 repositories will remain active but DI/1 versions will be in lockstep with FW/1 from 3.0 onward, and development will be conducted as part of the FW/1 repository, with releases being merged to the DI/1 repository. Once AOP/1 reaches a similar level of maturity, it will likely follow the same trajectory.</p>
 ]]></content>
@@ -85,20 +83,20 @@
     <link href="http://framework-one.github.io/blog/2013/04/06/new-fw1-organization-on-github/"/>
     <updated>2013-04-06T13:21:49-07:00</updated>
     <id>http://framework-one.github.io/blog/2013/04/06/new-fw1-organization-on-github</id>
-    <content type="html"><![CDATA[<p>To make it easier to manage collaboration on FW/1-related projects in future, several projects have now moved under a new <a href="https://github.com/framework-one">FW/1 &ndash; Framework One</a> &ndash; organization on Github. Your forks and watches should have been updated but if you have local clones of the old repos under my personal Github account, you&rsquo;ll want to update those. Here&rsquo;s the full list of Framework One projects:<!-- more --></p>
+    <content type="html"><![CDATA[<p>To make it easier to manage collaboration on FW/1-related projects in future, several projects have now moved under a new <a href="https://github.com/framework-one">FW/1 - Framework One</a> - organization on Github. Your forks and watches should have been updated but if you have local clones of the old repos under my personal Github account, you’ll want to update those. Here’s the full list of Framework One projects:<!-- more --></p>
 
 <ul>
-<li><a href="https://github.com/framework-one/fw1">FW/1 &ndash; Framework One</a> &ndash; simple MVC for CFML</li>
-<li><a href="https://github.com/framework-one/di1">DI/1 &ndash; Inject One</a> &ndash; simple Dependency Injection for CFML</li>
-<li><a href="https://github.com/framework-one/cfmljure">cfmljure</a> &ndash; the magic bridge between CFML and Clojure</li>
-<li><a href="https://github.com/framework-one/fw1-clj">FW/1 &ndash; Framework One</a> &ndash; simple MVC for Clojure</li>
-<li><a href="https://github.com/framework-one/fw1-template">Leiningen project template for FW/1</a>&ndash; Framework One &ndash; for Clojure</li>
+  <li><a href="https://github.com/framework-one/fw1">FW/1 - Framework One</a> - simple MVC for CFML</li>
+  <li><a href="https://github.com/framework-one/di1">DI/1 - Inject One</a> - simple Dependency Injection for CFML</li>
+  <li><a href="https://github.com/framework-one/cfmljure">cfmljure</a> - the magic bridge between CFML and Clojure</li>
+  <li><a href="https://github.com/framework-one/fw1-clj">FW/1 - Framework One</a> - simple MVC for Clojure</li>
+  <li><a href="https://github.com/framework-one/fw1-template">Leiningen project template for FW/1</a>- Framework One - for Clojure</li>
 </ul>
 
+<p>If you were a collaborator on one of these projects before, you will no longer have commit access (because you were a collaborator directly on my repo). If you’d like to become a collaborating team member on one of these projects as part of the new organization, contact me directly to discuss that. I’d certainly like to see some of the regular contributors in the past become official “Team Framework One” members in the new organization!</p>
 
-<p>If you were a collaborator on one of these projects before, you will no longer have commit access (because you were a collaborator directly on my repo). If you&rsquo;d like to become a collaborating team member on one of these projects as part of the new organization, contact me directly to discuss that. I&rsquo;d certainly like to see some of the regular contributors in the past become official &ldquo;Team Framework One&rdquo; members in the new organization!</p>
+<p>Thank you to all the contributors who’ve helped get these projects to where they are now!</p>
 
-<p>Thank you to all the contributors who&rsquo;ve helped get these projects to where they are now!</p>
 ]]></content>
   </entry>
   
@@ -107,21 +105,19 @@
     <link href="http://framework-one.github.io/blog/2011/03/19/fw1-roadmap/"/>
     <updated>2011-03-19T18:56:31-07:00</updated>
     <id>http://framework-one.github.io/blog/2011/03/19/fw1-roadmap</id>
-    <content type="html"><![CDATA[<p>Last year I&rsquo;d talked about getting at least an alpha of FW/1 2.0 out the door by year end. It didn&rsquo;t happen. I was reminded of this on the <a href="http://groups.google.com/group/framework-one">FW/1 mailing list</a> the other day and I provided a fairly detailed response on the plans for FW/1. I figured, since I haven&rsquo;t blogged about FW/1 in a while, I should post that roadmap response on my blog as well.<!-- more --></p>
+    <content type="html"><![CDATA[<p>Last year I’d talked about getting at least an alpha of FW/1 2.0 out the door by year end. It didn’t happen. I was reminded of this on the <a href="http://groups.google.com/group/framework-one">FW/1 mailing list</a> the other day and I provided a fairly detailed response on the plans for FW/1. I figured, since I haven’t blogged about FW/1 in a while, I should post that roadmap response on my blog as well.<!-- more --></p>
 
-<h2>Is the 1.x version outdated?</h2>
+<h2 id="is-the-1x-version-outdated">Is the 1.x version outdated?</h2>
+<p>No, the 1.x stream will continue to be supported. It will get bug fixes but it will not get new feature - except where I want to provide a migration path for people moving to 2.0 (for example, if I remove certain things marked deprecated in the docs, I’ll provide the new API in a 1.x build to make it easier for folks to transition to 2.0). Expect at least a 1.3 version, possibly more. These versions will continue to support CFMX7+ as well as the older versions of Railo and OpenBD that 1.2 currently runs on.</p>
 
-<p>No, the 1.x stream will continue to be supported. It will get bug fixes but it will not get new feature &ndash; except where I want to provide a migration path for people moving to 2.0 (for example, if I remove certain things marked deprecated in the docs, I&rsquo;ll provide the new API in a 1.x build to make it easier for folks to transition to 2.0). Expect at least a 1.3 version, possibly more. These versions will continue to support CFMX7+ as well as the older versions of Railo and OpenBD that 1.2 currently runs on.</p>
-
-<h2>Wasn&rsquo;t 2.0 imminent late last year?</h2>
-
+<h2 id="wasnt-20-imminent-late-last-year">Wasn’t 2.0 imminent late last year?</h2>
 <p>Yes, FW/1 2.0 was very imminent at that point but work and then conference preparations overwhelmed me and it got put on the back burner for a while, along with DI/1.</p>
 
-<p>Since a respite is coming in my day job (World Singles) &ndash; we&rsquo;re launching the second phase of our new platform soon &ndash; and I have a couple of months before the next conference, I expect to get back on top of FW/1 2.0 soon and once an alpha of that is available, I&rsquo;ll work on DI/1 to get an alpha of that out as well. And then I&rsquo;ll probably focus on cfmljure for a while, as we start to add Clojure to our production code base at work. And then it&rsquo;ll be beta versions of FW/1 2.0 and DI/1 and cfmljure, round and round, until they&rsquo;re all three &ldquo;baked&rdquo; and ready for official releases.</p>
+<p>Since a respite is coming in my day job (World Singles) - we’re launching the second phase of our new platform soon - and I have a couple of months before the next conference, I expect to get back on top of FW/1 2.0 soon and once an alpha of that is available, I’ll work on DI/1 to get an alpha of that out as well. And then I’ll probably focus on cfmljure for a while, as we start to add Clojure to our production code base at work. And then it’ll be beta versions of FW/1 2.0 and DI/1 and cfmljure, round and round, until they’re all three “baked” and ready for official releases.</p>
 
-<h2>So DI/1 is coming?</h2>
+<h2 id="so-di1-is-coming">So DI/1 is coming?</h2>
+<p>Yes, DI/1 is still on my radar - I have plans for it at work so it will definitely happen! It’s just been delayed (ironically, by the pressures of work). Since FW/1 2.0, DI/1 1.0 and cfmljure 1.0 will all be used in my production code at work, you can expect them to receive regular updates once I actually get to the alpha releases!</p>
 
-<p>Yes, DI/1 is still on my radar &ndash; I have plans for it at work so it will definitely happen! It&rsquo;s just been delayed (ironically, by the pressures of work). Since FW/1 2.0, DI/1 1.0 and cfmljure 1.0 will all be used in my production code at work, you can expect them to receive regular updates once I actually get to the alpha releases!</p>
 ]]></content>
   </entry>
   
@@ -130,34 +126,34 @@
     <link href="http://framework-one.github.io/blog/2010/02/06/fw1-the-napkin-spec/"/>
     <updated>2010-02-06T18:09:11-08:00</updated>
     <id>http://framework-one.github.io/blog/2010/02/06/fw1-the-napkin-spec</id>
-    <content type="html"><![CDATA[<p>A few folks have asked me to post the &ldquo;napkin&rdquo; on which I wrote the spec for FW/1. My &ldquo;napkin&rdquo; is actually Evernote because I have it on every computer and my iPhone so it&rsquo;s always with me and it&rsquo;s easy to develop notes with. I started the spec on July 17th and &ldquo;finished&rdquo; it on July 20th. The spec was titled &ldquo;New Lightweight Framework&rdquo;. Here&rsquo;s what it said:<!-- more --></p>
+    <content type="html"><![CDATA[<p>A few folks have asked me to post the “napkin” on which I wrote the spec for FW/1. My “napkin” is actually Evernote because I have it on every computer and my iPhone so it’s always with me and it’s easy to develop notes with. I started the spec on July 17th and “finished” it on July 20th. The spec was titled “New Lightweight Framework”. Here’s what it said:<!-- more --></p>
 
-<blockquote><p>Goal: Create an extremely lightweight convention over configuration framework. Considerations:</p>
+<blockquote>
+  <p>Goal: Create an extremely lightweight convention over configuration framework. Considerations:</p>
 
-<ul>
-<li>Leverage <code>Application.cfc</code> and lifecycle</li>
-<li>Automatically call controller, model, view if appropriate</li>
-<li>Autowire from bean factory?</li>
-<li><code>Application.cfc</code> extends <code>org.corfield.X</code></li>
-<li>Programmatically set everything, no XML</li>
-<li><code>variables.framework</code> struct to specify everything</li>
-<li><code>variables.framework.action</code> is URL / form variable for the, er, action, defaults to <code>'action'</code></li>
-<li><code>variables.framework.home</code> is home action, defaults to <code>main.default</code>
+  <ul>
+    <li>Leverage <code>Application.cfc</code> and lifecycle</li>
+    <li>Automatically call controller, model, view if appropriate</li>
+    <li>Autowire from bean factory?</li>
+    <li><code>Application.cfc</code> extends <code>org.corfield.X</code></li>
+    <li>Programmatically set everything, no XML</li>
+    <li><code>variables.framework</code> struct to specify everything</li>
+    <li><code>variables.framework.action</code> is URL / form variable for the, er, action, defaults to <code>'action'</code></li>
+    <li><code>variables.framework.home</code> is home action, defaults to <code>main.default</code>
 fold URL / form into request.context</li>
-<li><code>?action=section.item</code> maps to <code>controllers/section.cfc:item()</code> then <code>models/section.cfc:item()</code> then <code>views/section/item.cfm</code></li>
-<li>implicit layouts based on actions</li>
-</ul>
+    <li><code>?action=section.item</code> maps to <code>controllers/section.cfc:item()</code> then <code>models/section.cfc:item()</code> then <code>views/section/item.cfm</code></li>
+    <li>implicit layouts based on actions</li>
+  </ul>
 
+  <p>Caveats:</p>
 
-<p>Caveats:</p>
-
-<ul>
-<li>Should controller / model be instantiated every request or cached?</li>
-<li>How should cache be refreshed?</li>
-</ul>
+  <ul>
+    <li>Should controller / model be instantiated every request or cached?</li>
+    <li>How should cache be refreshed?</li>
+  </ul>
 </blockquote>
 
-<p>That&rsquo;s it. I wrote the first version of FW/1 on July 19th. You can see the <a href="https://github.com/framework-one/fw1/blob/a686fd441ccd86e147f770f41b10f79a07be11f2/org/corfield/framework.cfc">original 381 line framework.cfc</a> on Github. So there you go: an insight into my design process!</p>
+<p>That’s it. I wrote the first version of FW/1 on July 19th. You can see the <a href="https://github.com/framework-one/fw1/blob/a686fd441ccd86e147f770f41b10f79a07be11f2/org/corfield/framework.cfc">original 381 line framework.cfc</a> on Github. So there you go: an insight into my design process!</p>
 ]]></content>
   </entry>
   
