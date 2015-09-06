@@ -33,7 +33,13 @@ destination: public
 plugins: plugins
 code_dir: downloads/code
 category_dir: blog/categories
-markdown: rdiscount
+markdown: kramdown
+kramdown:
+  auto_ids:      true
+  footnote_nr:   1
+  entity_output: as_char
+  toc_levels:    1..6
+  smartquotes:   lsquo,rsquo,ldquo,rdquo
 rdiscount:
   extensions:
     - autolink
