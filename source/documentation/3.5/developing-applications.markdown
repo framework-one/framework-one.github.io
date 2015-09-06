@@ -126,6 +126,8 @@ It is strongly recommended to use the `local` struct for any variables you need 
 
 If you have data that is needed by all of your views, it may be convenient to set that up in your `setupView()` method in `Application.cfc` - see **[Taking Actions on Every Request](#taking-actions-on-every-request)** below.
 
+As of release 3.5, FW/1 also recognizes view and layout files with `.lc` and `.lucee` file extensions to support Lucee's new dialect.
+
 ### Rendering Data to the Caller
 
 If you want to return plain text, XML, or JSON from a request instead of rendering an HTML view, you can use the `renderData()` API to bypass views and layouts completely and automatically return data rendered as JSON, XML, or plain text to your caller, with the correct content type automatically set. See **[Controllers for REST APIs](#controllers-for-rest-apis)** below for more details.
@@ -281,6 +283,8 @@ In general, managing dependencies is as simple as adding `accessors=true` to you
 This will make `variables.userService` and `variables.securityService` available, based on `model/services/user.cfc` and `model/services/security.cfc`. You could also use long form CFC names like `userservice.cfc` and `securityservice.cfc` if you wanted. See the next section for more details on configuring DI/1.
 
 If you let FW/1 use DI/1 to automatically manage your beans, and you are using subsystems, FW/1 will also use it to manage your subsystems' beans. See [Using Subsystems](using-subsystems.html) for more details.
+
+As of release 3.5, DI/1 will also recognize component files with a `.lc` or `.lucee` file extension, to support Lucee 5's new dialect.
 
 ### Transients, Bean Factory, Framework
 
