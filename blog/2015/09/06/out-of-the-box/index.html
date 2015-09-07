@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: Downloads - FW/1 - The Invisible Framework</title>
+  <title>FW/1 Out of the Box - FW/1 - The Invisible Framework</title>
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Category: downloads">
+  <meta name="description" content="FW/1 is up on ForgeBox. ForgeBox is the npm / Maven of the CFML world. If you haven’t heard about it – or you think it’s only for “Box” products – &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://framework-one.github.io/blog/categories/downloads">
+  <link rel="canonical" href="http://framework-one.github.io/blog/2015/09/06/out-of-the-box">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
@@ -65,36 +65,126 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Downloads</h1>
+    
+      <h1 class="entry-title">FW/1 Out of the Box</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-09-06T23:00:00-07:00" pubdate data-updated="true">Sep 6<span>th</span>, 2015</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://framework-one.github.io">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>FW/1 is up on <a href="http://www.coldbox.org/forgebox">ForgeBox</a>. ForgeBox is the npm / Maven of the CFML world. If you haven’t heard about it – or you think it’s only for “Box” products – you need to check it out! It’s a repository for CFML projects that can be easily installed via <a href="https://www.ortussolutions.com/products/commandbox">Command Box</a>. Wait! You haven’t heard of that either? Gosh, you’ve got some reading to do! It’ll change the way you do development!</p>
 
-  
-  <h2>2013</h2>
+<p>Go get it installed, then read on!<!--more--></p>
 
-<article>
-  
-<h1><a href="/blog/2013/05/07/where-can-i-download-old-versions-of-fw1/">Where Can I Download Old Versions of FW/1?</a></h1>
-<time datetime="2013-05-07T14:18:12-07:00" pubdate><span class='month'>May</span> <span class='day'>07</span> <span class='year'>2013</span></time>
+<p>Now you have <code>box</code> installed, here’s how to get up and running with FW/1 easily:</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/downloads/'>downloads</a>, <a class='category' href='/blog/categories/fw1/'>fw1</a></span>
-</footer>
+<pre><code>&gt; box
+CommandBox:mydir&gt; install fw1-commands
+... you only need to do this once ...
+CommandBox:mydir&gt; mkdir example
+CommandBox:mydir&gt; cd example
+CommandBox:example&gt; fw1 create app example basic
+CommandBox:example&gt; install fw1
+... installs stable 3.1.2 version ...
+CommandBox:example&gt; start
+</code></pre>
 
+<p>At this point it’ll open a browser running your new skeleton FW/1 app. Happy coding!</p>
 
-</article>
+<p>Note that you don’t need to have installed a CFML server, or set up a webroot - <code>box</code> can start a CFML server in any directory so you can get up and running quickly!</p>
+
+<p>You can check out the various <a href="https://github.com/framework-one/fw1-commands">FW/1 commands</a> available inside <code>box</code> but, like Ruby on Rails, they let you quickly add new controllers, views, subsystems and so on to your application. Huge kudos to Tony Junkes for contributing this to the FW/1 family of projects!</p>
+
+<p>Going forward, my plan is that <code>install fw1</code> will always install the current stable (master) version — I just need to remember to keep it up to date! — and you can also install specific versions (currently <code>fw1-3.1.2</code> and <code>fw1-3.5.0</code>). The latter installs from the develop branch. Support for true multiple version installs is planned for <code>box</code>, possibly next month.</p>
+
+<p>One of the things that is really nice about this is you can switch FW/1 versions as easily as:</p>
+
+<pre><code>CommandBox:example&gt; uninstall fw1
+CommandBox:example&gt; install fw1-3.5.0
+</code></pre>
+
+<p>Now your app is running 3.5.0 (Alpha 2) instead of the stable release!</p>
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Sean Corfield</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-09-06T23:00:00-07:00" pubdate data-updated="true">Sep 6<span>th</span>, 2015</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/commandbox/'>commandbox</a>, <a class='category' href='/blog/categories/fw1/'>fw1</a>, <a class='category' href='/blog/categories/releases/'>releases</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://framework-one.github.io/blog/2015/09/06/out-of-the-box/" data-via="" data-counturl="http://framework-one.github.io/blog/2015/09/06/out-of-the-box/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/09/06/fw1-news/" title="Previous Post: FW/1 New Releases etc">&laquo; FW/1 New Releases etc</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -236,7 +326,10 @@
       var disqus_shortname = 'framework-one';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://framework-one.github.io/blog/2015/09/06/out-of-the-box/';
+        var disqus_url = 'http://framework-one.github.io/blog/2015/09/06/out-of-the-box/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

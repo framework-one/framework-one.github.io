@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Fw1 | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/fw1/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-09-06T22:58:57-07:00</updated>
+  <updated>2015-09-06T23:35:51-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,47 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 Out of the Box]]></title>
+    <link href="http://framework-one.github.io/blog/2015/09/06/out-of-the-box/"/>
+    <updated>2015-09-06T23:00:00-07:00</updated>
+    <id>http://framework-one.github.io/blog/2015/09/06/out-of-the-box</id>
+    <content type="html"><![CDATA[<p>FW/1 is up on <a href="http://www.coldbox.org/forgebox">ForgeBox</a>. ForgeBox is the npm / Maven of the CFML world. If you haven’t heard about it – or you think it’s only for “Box” products – you need to check it out! It’s a repository for CFML projects that can be easily installed via <a href="https://www.ortussolutions.com/products/commandbox">Command Box</a>. Wait! You haven’t heard of that either? Gosh, you’ve got some reading to do! It’ll change the way you do development!</p>
+
+<p>Go get it installed, then read on!<!--more--></p>
+
+<p>Now you have <code>box</code> installed, here’s how to get up and running with FW/1 easily:</p>
+
+<pre><code>&gt; box
+CommandBox:mydir&gt; install fw1-commands
+... you only need to do this once ...
+CommandBox:mydir&gt; mkdir example
+CommandBox:mydir&gt; cd example
+CommandBox:example&gt; fw1 create app example basic
+CommandBox:example&gt; install fw1
+... installs stable 3.1.2 version ...
+CommandBox:example&gt; start
+</code></pre>
+
+<p>At this point it’ll open a browser running your new skeleton FW/1 app. Happy coding!</p>
+
+<p>Note that you don’t need to have installed a CFML server, or set up a webroot - <code>box</code> can start a CFML server in any directory so you can get up and running quickly!</p>
+
+<p>You can check out the various <a href="https://github.com/framework-one/fw1-commands">FW/1 commands</a> available inside <code>box</code> but, like Ruby on Rails, they let you quickly add new controllers, views, subsystems and so on to your application. Huge kudos to Tony Junkes for contributing this to the FW/1 family of projects!</p>
+
+<p>Going forward, my plan is that <code>install fw1</code> will always install the current stable (master) version — I just need to remember to keep it up to date! — and you can also install specific versions (currently <code>fw1-3.1.2</code> and <code>fw1-3.5.0</code>). The latter installs from the develop branch. Support for true multiple version installs is planned for <code>box</code>, possibly next month.</p>
+
+<p>One of the things that is really nice about this is you can switch FW/1 versions as easily as:</p>
+
+<pre><code>CommandBox:example&gt; uninstall fw1
+CommandBox:example&gt; install fw1-3.5.0
+</code></pre>
+
+<p>Now your app is running 3.5.0 (Alpha 2) instead of the stable release!</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 New Releases Etc]]></title>
@@ -171,15 +212,6 @@ automatic support for Clojure code in the Model and Controllers, as well as firs
 
 <p>At this point, release 3.1 is “feature complete” and only bug fixes will be included between now and the “gold” release. Release 3.5 will follow fairly quickly after that, with a focus on language integration, bringing
 automatic support for Clojure code in the Model and Controllers, as well as first class support for the Lucee Language in the Model, the Views, and the Controllers.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 3.1 Beta 2 Available!]]></title>
-    <link href="http://framework-one.github.io/blog/2015/06/20/fw1-3-1-beta-2/"/>
-    <updated>2015-06-20T00:59:49-07:00</updated>
-    <id>http://framework-one.github.io/blog/2015/06/20/fw1-3-1-beta-2</id>
-    <content type="html"><![CDATA[<p>The second beta version of FW/1 3.1 is available for testing. Whilst this is a minor bug fix and enhancement release, it now includes the first major rewrite of AOP/1. Documentation will follow shortly. Massive thanks to Daniel Budde for the rewrite! You can <a href="https://github.com/framework-one/fw1/releases/tag/v3.1-beta2">download FW/1 3.1 Beta 2</a> from GitHub, as well as read the full release notes there.</p>
 ]]></content>
   </entry>
   
