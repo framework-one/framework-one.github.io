@@ -543,14 +543,14 @@ database drivers (if you use SQL Server, you’ll find it easiest to use the jTD
 
 <p>Edit <code>project.clj</code> and update the <code>:dependencies</code> section to include:</p>
 
-<pre><code>[cfml-interop "0.1.1"]
+<pre><code>[cfml-interop "0.2.0"]
 [org.apache.derby/derby "10.11.1.1"]
 [org.clojure/java.jdbc "0.4.1"]
 </code></pre>
 
 <p>You’ll now have a vector with four vectors inside it like this:</p>
 
-<pre><code>:dependencies [[cfml-interop "0.1.2"]
+<pre><code>:dependencies [[cfml-interop "0.2.0"]
                [org.apache.derby/derby "10.11.1.1"]
                [org.clojure/java.jdbc "0.4.1"]
                [org.clojure/clojure "1.7.0"]]
@@ -890,7 +890,7 @@ Controller. In your Clojure <code>taskmanager</code> project, create a <code>src
 
 <pre><code>;; src/taskmanager/controllers/main.clj
 (ns taskmanager.controllers.main
-  (:require [cfml.interop :refer [-&gt;boolean]
+  (:require [cfml.coerce :refer [-&gt;boolean]
             [taskmanager.services.task :as task]))
 
 (defn default [rc]
@@ -934,6 +934,7 @@ with the same alias. If you want to convince yourself, remove <code>controllers/
 
 <ul>
   <li>As simple functions (that take <code>rc</code> as input and produce an updated <code>rc</code> as output), they’re easy to write unit tests for. </li>
+  <li>You don’t need to convert <code>rc</code> data structures back and forth between CFML and Clojure since that’s taken care of automatically in FW/1 (technically in <code>cljcontroller.cfc</code>).</li>
   <li>You can work in the REPL building and testing your entire application’s functionality (and then work on the views with a browser).</li>
   <li>We get the full power of Clojure’s data abstractions, concurrency, and immutability working for us.</li>
   <li>With your services and controllers in Clojure, you’re one step away from building all-Clojure web applications using <a href="https://github.com/framework-one/fw1-clj">FW/1 for Clojure</a>. </li>
