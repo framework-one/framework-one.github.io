@@ -390,13 +390,13 @@ database drivers (if you use SQL Server, you'll find it easiest to use the jTDS 
 
 Edit `project.clj` and update the `:dependencies` section to include:
 
-    [cfml-interop "0.1.1"]
+    [cfml-interop "0.2.0"]
     [org.apache.derby/derby "10.11.1.1"]
     [org.clojure/java.jdbc "0.4.1"]
 
 You'll now have a vector with four vectors inside it like this:
 
-    :dependencies [[cfml-interop "0.1.2"]
+    :dependencies [[cfml-interop "0.2.0"]
                    [org.apache.derby/derby "10.11.1.1"]
                    [org.clojure/java.jdbc "0.4.1"]
                    [org.clojure/clojure "1.7.0"]]
@@ -714,7 +714,7 @@ Controller. In your Clojure `taskmanager` project, create a `src/taskmanager/con
 
     ;; src/taskmanager/controllers/main.clj
     (ns taskmanager.controllers.main
-      (:require [cfml.interop :refer [->boolean]
+      (:require [cfml.coerce :refer [->boolean]
                 [taskmanager.services.task :as task]))
 
     (defn default [rc]
@@ -751,6 +751,7 @@ with the same alias. If you want to convince yourself, remove `controllers/main.
 So why would we write our controllers in Clojure instead of CFML? 
 
 * As simple functions (that take `rc` as input and produce an updated `rc` as output), they're easy to write unit tests for. 
+* You don't need to convert `rc` data structures back and forth between CFML and Clojure since that's taken care of automatically in FW/1 (technically in `cljcontroller.cfc`).
 * You can work in the REPL building and testing your entire application's functionality (and then work on the views with a browser).
 * We get the full power of Clojure's data abstractions, concurrency, and immutability working for us.
 * With your services and controllers in Clojure, you're one step away from building all-Clojure web applications using [FW/1 for Clojure](https://github.com/framework-one/fw1-clj). 
