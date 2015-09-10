@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Sep 5th, 2015 This is the upcoming (3.5 - develop) documentation - for the current stable release, read the 3.1 master stable &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Sep 5th, 2015 8:00 pm This is the upcoming (3.5 - develop) documentation - for the current stable release, read the 3.1 master &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,14 +74,7 @@
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2015-09-05T20:00:00-07:00" pubdate data-updated="true">Sep 5<span>th</span>, 2015</time></p>
+<time class='entry-date' datetime='2015-09-05T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>8:00 pm</span></time></p>
   </header>
   
   <p><em>This is the upcoming (3.5 - develop) documentation - for the current stable release, read the <a href="/documentation/3.1/reference-manual.html">3.1 master stable documentation</a>.</em></p>
@@ -89,81 +82,81 @@
 <p>This page provides a description of all the APIs and components involved in a FW/1 application. Please also read the <a href="roadmap.html">Roadmap</a> to see how things may change in the future.</p>
 
 <ul id="markdown-toc">
-  <li><a href="#fw1-controllers">FW/1 Controllers</a></li>
-  <li><a href="#fw1-views">FW/1 Views</a></li>
-  <li><a href="#fw1-layouts">FW/1 Layouts</a></li>
-  <li><a href="#request-scope">Request Scope</a></li>
-  <li><a href="#frameworkone">framework.one</a>    <ul>
-      <li><a href="#public-void-function-abortcontroller">public void function abortController()</a></li>
-      <li><a href="#public-boolean-function-actionspecifiessubsystem-string-action-">public boolean function actionSpecifiesSubsystem( string action )</a></li>
-      <li><a href="#public-void-addroute-any-routes-string-target-any-methods----string-statuscode---">public void addRoute( any routes, string target, any methods = [ ], string statusCode = ‘’ )</a></li>
-      <li><a href="#public-string-function-buildcustomurl-string-uri-">public string function buildCustomURL( string uri )</a></li>
-      <li><a href="#public-string-function-buildurl-string-action---string-path--see-below-any-querystring---">public string function buildURL( string action = ‘.’, string path = <em>see below</em>, any queryString = ‘’ )</a></li>
-      <li><a href="#public-void-function-controller-string-action-">public void function controller( string action )</a></li>
-      <li><a href="#public-string-customizevieworlayoutpath-struct-pathinfo-string-type-string-fullpath-">public string customizeViewOrLayoutPath( struct pathInfo, string type, string fullPath )</a></li>
-      <li><a href="#public-void-function-disableframeworktrace">public void function disableFrameworkTrace()</a></li>
-      <li><a href="#public-void-function-disablelayout">public void function disableLayout()</a></li>
-      <li><a href="#public-void-fuction-enableframeworktrace">public void fuction enableFrameworkTrace()</a></li>
-      <li><a href="#public-void-fuction-enablelayout">public void fuction enableLayout()</a></li>
-      <li><a href="#public-void-function-frameworktrace-string-message--any-value--">public void function frameworkTrace( string message [, any value ] )</a></li>
-      <li><a href="#public-string-function-getaction">public string function getAction()</a></li>
-      <li><a href="#public-string-function-getbaseurl">public string function getBaseURL()</a></li>
-      <li><a href="#public-any-function-getbeanfactory-string-subsystem---">public any function getBeanFactory( string subsystem = “” )</a></li>
-      <li><a href="#public-struct-function-getconfig">public struct function getConfig()</a></li>
-      <li><a href="#public-any-function-getdefaultbeanfactory">public any function getDefaultBeanFactory()</a></li>
-      <li><a href="#public-string-function-getdefaultsubsystem">public string function getDefaultSubsystem()</a></li>
-      <li><a href="#public-string-function-getenvironment">public string function getEnvironment()</a></li>
-      <li><a href="#public-string-function-getenvvar-string-name-">public string function getEnvVar( string name )</a></li>
-      <li><a href="#public-array-function-getframeworktrace">public array function getFrameworkTrace()</a></li>
-      <li><a href="#public-string-function-getfullyqualifiedaction-string-action--requestaction-">public string function getFullyQualifiedAction( string action = request.action )</a></li>
-      <li><a href="#public-string-function-gethostname">public string function getHostname()</a></li>
-      <li><a href="#public-string-function-getitem-string-action--requestaction-">public string function getItem( string action = request.action )</a></li>
-      <li><a href="#public-string-function-getroute">public string function getRoute()</a></li>
-      <li><a href="#public-array-function-getroutes">public array function getRoutes()</a></li>
-      <li><a href="#public-array-function-getresourceroutetemplates">public array function getResourceRouteTemplates()</a></li>
-      <li><a href="#public-string-function-getsection-string-action--requestaction-">public string function getSection( string action = request.action )</a></li>
-      <li><a href="#public-string-function-getsectionanditem-string-action--requestaction-">public string function getSectionAndItem( string action = request.action )</a></li>
-      <li><a href="#public-string-function-getsubsystem-string-action--requestaction-">public string function getSubsystem( string action = request.action )</a></li>
-      <li><a href="#public-string-function-getsubsystembase">public string function getSubsystemBase()</a></li>
-      <li><a href="#public-any-function-getsubsystembeanfactory-string-subsystem-">public any function getSubsystemBeanFactory( string subsystem )</a></li>
-      <li><a href="#public-struct-function-getsubsystemconfig-string-subsystem-">public struct function getSubsystemConfig( string subsystem )</a></li>
-      <li><a href="#public-string-function-getsubsystemsectionanditem-string-action--requestaction-">public string function getSubsystemSectionAndItem( string action = request.action )</a></li>
-      <li><a href="#public-boolean-function-hasbeanfactory">public boolean function hasBeanFactory()</a></li>
-      <li><a href="#public-boolean-function-hasdefaultbeanfactory">public boolean function hasDefaultBeanFactory()</a></li>
-      <li><a href="#public-boolean-function-hassubsystembeanfactory-string-subsystem-">public boolean function hasSubsystemBeanFactory( string subsystem )</a></li>
-      <li><a href="#public-boolean-function-iscurrentaction-string-action-">public boolean function isCurrentAction( string action )</a></li>
-      <li><a href="#public-boolean-isunhandledrequest-string-targetpath-">public boolean isUnhandledRequest( string targetPath )</a></li>
-      <li><a href="#public-string-function-layout-string-path-string-body-">public string function layout( string path, string body )</a></li>
-      <li><a href="#public-function-onapplicationstart">public function onApplicationStart()</a></li>
-      <li><a href="#public-function-onerror-any-exception-string-event-">public function onError( any exception, string event )</a></li>
-      <li><a href="#public-string-function-onmissingview-struct-rc-">public string function onMissingView( struct rc )</a></li>
-      <li><a href="#public-void-function-onpopulateerror-any-cfc-string-property-struct-rc-">public void function onPopulateError( any cfc, string property, struct rc )</a></li>
-      <li><a href="#public-function-onrequest-string-targetpage-">public function onRequest( string targetPage )</a></li>
-      <li><a href="#public-function-onrequestend-string-targetpage-">public function onRequestEnd( string targetPage )</a></li>
-      <li><a href="#public-function-onrequeststart-string-targetpage-">public function onRequestStart( string targetPage )</a></li>
-      <li><a href="#public-function-onsessionstart">public function onSessionStart()</a></li>
-      <li><a href="#public-any-function-populate-any-cfc-string-keys---boolean-trustkeys--false-boolean-trim--false-boolean-deep--false-any-properties---">public any function populate( any cfc, string keys = “”, boolean trustKeys = false, boolean trim = false, boolean deep = false, any properties = ‘’ )</a>        <ul>
-          <li><a href="#populating-child-objects">Populating Child Objects</a></li>
+  <li><a href="#fw1-controllers" id="markdown-toc-fw1-controllers">FW/1 Controllers</a></li>
+  <li><a href="#fw1-views" id="markdown-toc-fw1-views">FW/1 Views</a></li>
+  <li><a href="#fw1-layouts" id="markdown-toc-fw1-layouts">FW/1 Layouts</a></li>
+  <li><a href="#request-scope" id="markdown-toc-request-scope">Request Scope</a></li>
+  <li><a href="#frameworkone" id="markdown-toc-frameworkone">framework.one</a>    <ul>
+      <li><a href="#public-void-function-abortcontroller" id="markdown-toc-public-void-function-abortcontroller">public void function abortController()</a></li>
+      <li><a href="#public-boolean-function-actionspecifiessubsystem-string-action-" id="markdown-toc-public-boolean-function-actionspecifiessubsystem-string-action-">public boolean function actionSpecifiesSubsystem( string action )</a></li>
+      <li><a href="#public-void-addroute-any-routes-string-target-any-methods----string-statuscode---" id="markdown-toc-public-void-addroute-any-routes-string-target-any-methods----string-statuscode---">public void addRoute( any routes, string target, any methods = [ ], string statusCode = ‘’ )</a></li>
+      <li><a href="#public-string-function-buildcustomurl-string-uri-" id="markdown-toc-public-string-function-buildcustomurl-string-uri-">public string function buildCustomURL( string uri )</a></li>
+      <li><a href="#public-string-function-buildurl-string-action---string-path--see-below-any-querystring---" id="markdown-toc-public-string-function-buildurl-string-action---string-path--see-below-any-querystring---">public string function buildURL( string action = ‘.’, string path = <em>see below</em>, any queryString = ‘’ )</a></li>
+      <li><a href="#public-void-function-controller-string-action-" id="markdown-toc-public-void-function-controller-string-action-">public void function controller( string action )</a></li>
+      <li><a href="#public-string-customizevieworlayoutpath-struct-pathinfo-string-type-string-fullpath-" id="markdown-toc-public-string-customizevieworlayoutpath-struct-pathinfo-string-type-string-fullpath-">public string customizeViewOrLayoutPath( struct pathInfo, string type, string fullPath )</a></li>
+      <li><a href="#public-void-function-disableframeworktrace" id="markdown-toc-public-void-function-disableframeworktrace">public void function disableFrameworkTrace()</a></li>
+      <li><a href="#public-void-function-disablelayout" id="markdown-toc-public-void-function-disablelayout">public void function disableLayout()</a></li>
+      <li><a href="#public-void-fuction-enableframeworktrace" id="markdown-toc-public-void-fuction-enableframeworktrace">public void fuction enableFrameworkTrace()</a></li>
+      <li><a href="#public-void-fuction-enablelayout" id="markdown-toc-public-void-fuction-enablelayout">public void fuction enableLayout()</a></li>
+      <li><a href="#public-void-function-frameworktrace-string-message--any-value--" id="markdown-toc-public-void-function-frameworktrace-string-message--any-value--">public void function frameworkTrace( string message [, any value ] )</a></li>
+      <li><a href="#public-string-function-getaction" id="markdown-toc-public-string-function-getaction">public string function getAction()</a></li>
+      <li><a href="#public-string-function-getbaseurl" id="markdown-toc-public-string-function-getbaseurl">public string function getBaseURL()</a></li>
+      <li><a href="#public-any-function-getbeanfactory-string-subsystem---" id="markdown-toc-public-any-function-getbeanfactory-string-subsystem---">public any function getBeanFactory( string subsystem = “” )</a></li>
+      <li><a href="#public-struct-function-getconfig" id="markdown-toc-public-struct-function-getconfig">public struct function getConfig()</a></li>
+      <li><a href="#public-any-function-getdefaultbeanfactory" id="markdown-toc-public-any-function-getdefaultbeanfactory">public any function getDefaultBeanFactory()</a></li>
+      <li><a href="#public-string-function-getdefaultsubsystem" id="markdown-toc-public-string-function-getdefaultsubsystem">public string function getDefaultSubsystem()</a></li>
+      <li><a href="#public-string-function-getenvironment" id="markdown-toc-public-string-function-getenvironment">public string function getEnvironment()</a></li>
+      <li><a href="#public-string-function-getenvvar-string-name-" id="markdown-toc-public-string-function-getenvvar-string-name-">public string function getEnvVar( string name )</a></li>
+      <li><a href="#public-array-function-getframeworktrace" id="markdown-toc-public-array-function-getframeworktrace">public array function getFrameworkTrace()</a></li>
+      <li><a href="#public-string-function-getfullyqualifiedaction-string-action--requestaction-" id="markdown-toc-public-string-function-getfullyqualifiedaction-string-action--requestaction-">public string function getFullyQualifiedAction( string action = request.action )</a></li>
+      <li><a href="#public-string-function-gethostname" id="markdown-toc-public-string-function-gethostname">public string function getHostname()</a></li>
+      <li><a href="#public-string-function-getitem-string-action--requestaction-" id="markdown-toc-public-string-function-getitem-string-action--requestaction-">public string function getItem( string action = request.action )</a></li>
+      <li><a href="#public-string-function-getroute" id="markdown-toc-public-string-function-getroute">public string function getRoute()</a></li>
+      <li><a href="#public-array-function-getroutes" id="markdown-toc-public-array-function-getroutes">public array function getRoutes()</a></li>
+      <li><a href="#public-array-function-getresourceroutetemplates" id="markdown-toc-public-array-function-getresourceroutetemplates">public array function getResourceRouteTemplates()</a></li>
+      <li><a href="#public-string-function-getsection-string-action--requestaction-" id="markdown-toc-public-string-function-getsection-string-action--requestaction-">public string function getSection( string action = request.action )</a></li>
+      <li><a href="#public-string-function-getsectionanditem-string-action--requestaction-" id="markdown-toc-public-string-function-getsectionanditem-string-action--requestaction-">public string function getSectionAndItem( string action = request.action )</a></li>
+      <li><a href="#public-string-function-getsubsystem-string-action--requestaction-" id="markdown-toc-public-string-function-getsubsystem-string-action--requestaction-">public string function getSubsystem( string action = request.action )</a></li>
+      <li><a href="#public-string-function-getsubsystembase" id="markdown-toc-public-string-function-getsubsystembase">public string function getSubsystemBase()</a></li>
+      <li><a href="#public-any-function-getsubsystembeanfactory-string-subsystem-" id="markdown-toc-public-any-function-getsubsystembeanfactory-string-subsystem-">public any function getSubsystemBeanFactory( string subsystem )</a></li>
+      <li><a href="#public-struct-function-getsubsystemconfig-string-subsystem-" id="markdown-toc-public-struct-function-getsubsystemconfig-string-subsystem-">public struct function getSubsystemConfig( string subsystem )</a></li>
+      <li><a href="#public-string-function-getsubsystemsectionanditem-string-action--requestaction-" id="markdown-toc-public-string-function-getsubsystemsectionanditem-string-action--requestaction-">public string function getSubsystemSectionAndItem( string action = request.action )</a></li>
+      <li><a href="#public-boolean-function-hasbeanfactory" id="markdown-toc-public-boolean-function-hasbeanfactory">public boolean function hasBeanFactory()</a></li>
+      <li><a href="#public-boolean-function-hasdefaultbeanfactory" id="markdown-toc-public-boolean-function-hasdefaultbeanfactory">public boolean function hasDefaultBeanFactory()</a></li>
+      <li><a href="#public-boolean-function-hassubsystembeanfactory-string-subsystem-" id="markdown-toc-public-boolean-function-hassubsystembeanfactory-string-subsystem-">public boolean function hasSubsystemBeanFactory( string subsystem )</a></li>
+      <li><a href="#public-boolean-function-iscurrentaction-string-action-" id="markdown-toc-public-boolean-function-iscurrentaction-string-action-">public boolean function isCurrentAction( string action )</a></li>
+      <li><a href="#public-boolean-isunhandledrequest-string-targetpath-" id="markdown-toc-public-boolean-isunhandledrequest-string-targetpath-">public boolean isUnhandledRequest( string targetPath )</a></li>
+      <li><a href="#public-string-function-layout-string-path-string-body-" id="markdown-toc-public-string-function-layout-string-path-string-body-">public string function layout( string path, string body )</a></li>
+      <li><a href="#public-function-onapplicationstart" id="markdown-toc-public-function-onapplicationstart">public function onApplicationStart()</a></li>
+      <li><a href="#public-function-onerror-any-exception-string-event-" id="markdown-toc-public-function-onerror-any-exception-string-event-">public function onError( any exception, string event )</a></li>
+      <li><a href="#public-string-function-onmissingview-struct-rc-" id="markdown-toc-public-string-function-onmissingview-struct-rc-">public string function onMissingView( struct rc )</a></li>
+      <li><a href="#public-void-function-onpopulateerror-any-cfc-string-property-struct-rc-" id="markdown-toc-public-void-function-onpopulateerror-any-cfc-string-property-struct-rc-">public void function onPopulateError( any cfc, string property, struct rc )</a></li>
+      <li><a href="#public-function-onrequest-string-targetpage-" id="markdown-toc-public-function-onrequest-string-targetpage-">public function onRequest( string targetPage )</a></li>
+      <li><a href="#public-function-onrequestend-string-targetpage-" id="markdown-toc-public-function-onrequestend-string-targetpage-">public function onRequestEnd( string targetPage )</a></li>
+      <li><a href="#public-function-onrequeststart-string-targetpage-" id="markdown-toc-public-function-onrequeststart-string-targetpage-">public function onRequestStart( string targetPage )</a></li>
+      <li><a href="#public-function-onsessionstart" id="markdown-toc-public-function-onsessionstart">public function onSessionStart()</a></li>
+      <li><a href="#public-any-function-populate-any-cfc-string-keys---boolean-trustkeys--false-boolean-trim--false-boolean-deep--false-any-properties---" id="markdown-toc-public-any-function-populate-any-cfc-string-keys---boolean-trustkeys--false-boolean-trim--false-boolean-deep--false-any-properties---">public any function populate( any cfc, string keys = “”, boolean trustKeys = false, boolean trim = false, boolean deep = false, any properties = ‘’ )</a>        <ul>
+          <li><a href="#populating-child-objects" id="markdown-toc-populating-child-objects">Populating Child Objects</a></li>
         </ul>
       </li>
-      <li><a href="#public-struct-function-processroutes-string-path-array-routes-string-httpmethod--requestfw1cgirequestmethod-">public struct function processRoutes( string path, array routes, string httpMethod = request._fw1.cgiRequestMethod )</a></li>
-      <li><a href="#public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-string-querystring---string-statuscode--302-string-header---">public void function redirect( string action, string preserve = “none”, string append = “none”, string path = <em>see below</em>, string queryString = ‘’, string statusCode = ‘302’, string header = ‘’ )</a></li>
-      <li><a href="#public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---">Public void function redirectCustomURL( string uri, string preserve = ‘none’, string statusCode = ‘302’, string header = ‘’ )</a></li>
-      <li><a href="#public-void-function-renderdata-string-type-any-data-numeric-statuscode--200-jsonpcallback---">public void function renderData( string type, any data, numeric statusCode = 200, jsonpCallback = “” )</a></li>
-      <li><a href="#public-void-function-setbeanfactory-any-factory-">public void function setBeanFactory( any factory )</a></li>
-      <li><a href="#public-void-function-setlayout-string-action-boolean-suppressotherlayouts--false-">public void function setLayout( string action, boolean suppressOtherLayouts = false )</a></li>
-      <li><a href="#public-void-function-setsubsystembeanfactory-string-subsystem-any-factory-">public void function setSubsystemBeanFactory( string subsystem, any factory )</a></li>
-      <li><a href="#public-void-function-setupapplication">public void function setupApplication()</a></li>
-      <li><a href="#public-void-function-setupenvironment-string-env-">public void function setupEnvironment( string env )</a></li>
-      <li><a href="#public-void-function-setuprequest">public void function setupRequest()</a></li>
-      <li><a href="#public-void-function-setupresponse-struct-rc-">public void function setupResponse( struct rc )</a></li>
-      <li><a href="#public-void-function-setupsession">public void function setupSession()</a></li>
-      <li><a href="#public-void-function-setupsubsystem-string-subsystem-">public void function setupSubsystem( string subsystem )</a></li>
-      <li><a href="#public-void-function-setuptracerender-string-output--html-">public void function setupTraceRender( string output = ‘html’ )</a></li>
-      <li><a href="#public-void-function-setupview-struct-rc-">public void function setupView( struct rc )</a></li>
-      <li><a href="#public-void-function-setview-string-action-">public void function setView( string action )</a></li>
-      <li><a href="#public-boolean-function-usingsubsystems">public boolean function usingSubsystems()</a></li>
-      <li><a href="#public-string-function-view-string-path-struct-args----any-missingview----">public string function view( string path, struct args = { }, any missingView = { } )</a></li>
+      <li><a href="#public-struct-function-processroutes-string-path-array-routes-string-httpmethod--requestfw1cgirequestmethod-" id="markdown-toc-public-struct-function-processroutes-string-path-array-routes-string-httpmethod--requestfw1cgirequestmethod-">public struct function processRoutes( string path, array routes, string httpMethod = request._fw1.cgiRequestMethod )</a></li>
+      <li><a href="#public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-string-querystring---string-statuscode--302-string-header---" id="markdown-toc-public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-string-querystring---string-statuscode--302-string-header---">public void function redirect( string action, string preserve = “none”, string append = “none”, string path = <em>see below</em>, string queryString = ‘’, string statusCode = ‘302’, string header = ‘’ )</a></li>
+      <li><a href="#public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---" id="markdown-toc-public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---">Public void function redirectCustomURL( string uri, string preserve = ‘none’, string statusCode = ‘302’, string header = ‘’ )</a></li>
+      <li><a href="#public-void-function-renderdata-string-type-any-data-numeric-statuscode--200-jsonpcallback---" id="markdown-toc-public-void-function-renderdata-string-type-any-data-numeric-statuscode--200-jsonpcallback---">public void function renderData( string type, any data, numeric statusCode = 200, jsonpCallback = “” )</a></li>
+      <li><a href="#public-void-function-setbeanfactory-any-factory-" id="markdown-toc-public-void-function-setbeanfactory-any-factory-">public void function setBeanFactory( any factory )</a></li>
+      <li><a href="#public-void-function-setlayout-string-action-boolean-suppressotherlayouts--false-" id="markdown-toc-public-void-function-setlayout-string-action-boolean-suppressotherlayouts--false-">public void function setLayout( string action, boolean suppressOtherLayouts = false )</a></li>
+      <li><a href="#public-void-function-setsubsystembeanfactory-string-subsystem-any-factory-" id="markdown-toc-public-void-function-setsubsystembeanfactory-string-subsystem-any-factory-">public void function setSubsystemBeanFactory( string subsystem, any factory )</a></li>
+      <li><a href="#public-void-function-setupapplication" id="markdown-toc-public-void-function-setupapplication">public void function setupApplication()</a></li>
+      <li><a href="#public-void-function-setupenvironment-string-env-" id="markdown-toc-public-void-function-setupenvironment-string-env-">public void function setupEnvironment( string env )</a></li>
+      <li><a href="#public-void-function-setuprequest" id="markdown-toc-public-void-function-setuprequest">public void function setupRequest()</a></li>
+      <li><a href="#public-void-function-setupresponse-struct-rc-" id="markdown-toc-public-void-function-setupresponse-struct-rc-">public void function setupResponse( struct rc )</a></li>
+      <li><a href="#public-void-function-setupsession" id="markdown-toc-public-void-function-setupsession">public void function setupSession()</a></li>
+      <li><a href="#public-void-function-setupsubsystem-string-subsystem-" id="markdown-toc-public-void-function-setupsubsystem-string-subsystem-">public void function setupSubsystem( string subsystem )</a></li>
+      <li><a href="#public-void-function-setuptracerender-string-output--html-" id="markdown-toc-public-void-function-setuptracerender-string-output--html-">public void function setupTraceRender( string output = ‘html’ )</a></li>
+      <li><a href="#public-void-function-setupview-struct-rc-" id="markdown-toc-public-void-function-setupview-struct-rc-">public void function setupView( struct rc )</a></li>
+      <li><a href="#public-void-function-setview-string-action-" id="markdown-toc-public-void-function-setview-string-action-">public void function setView( string action )</a></li>
+      <li><a href="#public-boolean-function-usingsubsystems" id="markdown-toc-public-boolean-function-usingsubsystems">public boolean function usingSubsystems()</a></li>
+      <li><a href="#public-string-function-view-string-path-struct-args----any-missingview----" id="markdown-toc-public-string-function-view-string-path-struct-args----any-missingview----">public string function view( string path, struct args = { }, any missingView = { } )</a></li>
     </ul>
   </li>
 </ul>
@@ -689,7 +682,7 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
 
 <h2 id="public-void-function-setupresponse-struct-rc-">public void function setupResponse( struct rc )</h2>
 
-<p>Override this in your <code>Application.cfc</code> to provide request-specific finalization. This is called after all views and layouts have been rendered or immediately before a redirect. You do not need to call <code>super.setupResponse()</code>. </p>
+<p>Override this in your <code>Application.cfc</code> to provide request-specific finalization. This is called after all views and layouts have been rendered or immediately before a redirect. You do not need to call <code>super.setupResponse()</code>.</p>
 
 <h2 id="public-void-function-setupsession">public void function setupSession()</h2>
 
@@ -705,7 +698,7 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
 
 <h2 id="public-void-function-setupview-struct-rc-">public void function setupView( struct rc )</h2>
 
-<p>Override this in your <code>Application.cfc</code> to provide pre-rendering logic, e.g., putting globally available data into the request context so it is available to all views. You do not need to call <code>super.setupView()</code>. </p>
+<p>Override this in your <code>Application.cfc</code> to provide pre-rendering logic, e.g., putting globally available data into the request context so it is available to all views. You do not need to call <code>super.setupView()</code>.</p>
 
 <h2 id="public-void-function-setview-string-action-">public void function setView( string action )</h2>
 
@@ -742,14 +735,7 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2015-09-05T20:00:00-07:00" pubdate data-updated="true">Sep 5<span>th</span>, 2015</time>
+<time class='entry-date' datetime='2015-09-05T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>8:00 pm</span></time>
         
       </p>
       
@@ -801,6 +787,10 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/09/10/fw1-3-5-0-beta-1/">FW/1 3.5.0 Beta 1 Available!</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/09/06/out-of-the-box/">FW/1 Out of the Box</a>
       </li>
     
@@ -834,10 +824,6 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
     
       <li class="post">
         <a href="/blog/2015/05/09/fw1-3-0-1-important/">FW/1 3.0.2 - Important Update!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/21/fw1-3-1-begins/">FW/1 3.1 Begins...</a>
       </li>
     
   </ul>

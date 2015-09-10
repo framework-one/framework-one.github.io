@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using Subsystems in FW/1 Sep 5th, 2015 This is the upcoming (3.5 - develop) documentation - for the current stable release, read the 3.1 master &hellip;">
+  <meta name="description" content="Using Subsystems in FW/1 Sep 5th, 2015 6:00 pm This is the upcoming (3.5 - develop) documentation - for the current stable release, read the 3.1 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,14 +74,7 @@
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2015-09-05T18:00:00-07:00" pubdate data-updated="true">Sep 5<span>th</span>, 2015</time></p>
+<time class='entry-date' datetime='2015-09-05T18:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>6:00 pm</span></time></p>
   </header>
   
   <p><em>This is the upcoming (3.5 - develop) documentation - for the current stable release, read the <a href="/documentation/3.1/using-subsystems.html">3.1 master stable documentation</a>.</em></p>
@@ -89,21 +82,21 @@
 <p>Subsystems give you a way of modularizing your FW/1 application as it grows. They also provide a way to incorporate other FW/1 applications directly into an existing one. Subsystems can be used to create modules that have no dependencies on the parent application or you can use subsystems to group common functionality together.</p>
 
 <ul id="markdown-toc">
-  <li><a href="#subsystems-10-vs-20">Subsystems 1.0 vs 2.0</a></li>
-  <li><a href="#enabling-subsystems">Enabling Subsystems</a></li>
-  <li><a href="#accessing-subsystems">Accessing Subsystems</a></li>
-  <li><a href="#configuring-subsystems">Configuring Subsystems</a>    <ul>
-      <li><a href="#framework-configuration">Framework Configuration</a></li>
+  <li><a href="#subsystems-10-vs-20" id="markdown-toc-subsystems-10-vs-20">Subsystems 1.0 vs 2.0</a></li>
+  <li><a href="#enabling-subsystems" id="markdown-toc-enabling-subsystems">Enabling Subsystems</a></li>
+  <li><a href="#accessing-subsystems" id="markdown-toc-accessing-subsystems">Accessing Subsystems</a></li>
+  <li><a href="#configuring-subsystems" id="markdown-toc-configuring-subsystems">Configuring Subsystems</a>    <ul>
+      <li><a href="#framework-configuration" id="markdown-toc-framework-configuration">Framework Configuration</a></li>
     </ul>
   </li>
-  <li><a href="#controllers">Controllers</a></li>
-  <li><a href="#model-services-and-domain-objects">Model (Services and Domain Objects)</a></li>
-  <li><a href="#views">Views</a></li>
-  <li><a href="#layouts">Layouts</a></li>
-  <li><a href="#using-bean-factories">Using Bean Factories</a>    <ul>
-      <li><a href="#auto-wiring">Auto Wiring</a></li>
-      <li><a href="#setting-bean-factories-with-setupsubsystem">Setting Bean Factories With setupSubsystem()</a></li>
-      <li><a href="#accessing-other-bean-factories-from-a-subsystem">Accessing Other Bean Factories From A Subsystem</a></li>
+  <li><a href="#controllers" id="markdown-toc-controllers">Controllers</a></li>
+  <li><a href="#model-services-and-domain-objects" id="markdown-toc-model-services-and-domain-objects">Model (Services and Domain Objects)</a></li>
+  <li><a href="#views" id="markdown-toc-views">Views</a></li>
+  <li><a href="#layouts" id="markdown-toc-layouts">Layouts</a></li>
+  <li><a href="#using-bean-factories" id="markdown-toc-using-bean-factories">Using Bean Factories</a>    <ul>
+      <li><a href="#auto-wiring" id="markdown-toc-auto-wiring">Auto Wiring</a></li>
+      <li><a href="#setting-bean-factories-with-setupsubsystem" id="markdown-toc-setting-bean-factories-with-setupsubsystem">Setting Bean Factories With setupSubsystem()</a></li>
+      <li><a href="#accessing-other-bean-factories-from-a-subsystem" id="markdown-toc-accessing-other-bean-factories-from-a-subsystem">Accessing Other Bean Factories From A Subsystem</a></li>
     </ul>
   </li>
 </ul>
@@ -209,7 +202,7 @@ buildURL(':section.item') - action=section.item
 <p>Legacy subsystems do not have the <code>subsystems/</code> prefix.</p>
 
 <h2 id="views">Views</h2>
-<p>Subsystem views are located in <code>subsystems/module/views</code> (e.g., <code>subsystems/admin/views/login/default.cfm</code> and <code>subsystems/home/views/main/error.cfm</code>). </p>
+<p>Subsystem views are located in <code>subsystems/module/views</code> (e.g., <code>subsystems/admin/views/login/default.cfm</code> and <code>subsystems/home/views/main/error.cfm</code>).</p>
 
 <p>Legacy subsystems do not have the <code>subsystems/</code> prefix.</p>
 
@@ -231,7 +224,7 @@ buildURL(':section.item') - action=section.item
 <p>The following bean factory methods are available for subsystems:</p>
 
 <ul>
-  <li><code>setSubsystemBeanFactory( subsystem, beanFactory )</code> - sets up a subsystem specific bean factory </li>
+  <li><code>setSubsystemBeanFactory( subsystem, beanFactory )</code> - sets up a subsystem specific bean factory</li>
   <li><code>hasSubsystemBeanFactory( subsystem )</code> - returns <code>true</code> if a subsystem specific bean factory exists for the named subsystem</li>
   <li><code>getBeanFactory()</code> - returns the bean factory for the current subsystem. Alternately, it can be used to retrieve the bean factory for another subsystem by passing the name of the subsystem (e.g., <code>getBeanFactory( subsystem )</code> ).</li>
   <li><code>getDefaultBeanFactory()</code> - returns the default bean factory that was passed to <code>setBeanFactory()</code> (at the top-level)</li>
@@ -282,14 +275,7 @@ buildURL(':section.item') - action=section.item
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2015-09-05T18:00:00-07:00" pubdate data-updated="true">Sep 5<span>th</span>, 2015</time>
+<time class='entry-date' datetime='2015-09-05T18:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>6:00 pm</span></time>
         
       </p>
       
@@ -341,6 +327,10 @@ buildURL(':section.item') - action=section.item
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/09/10/fw1-3-5-0-beta-1/">FW/1 3.5.0 Beta 1 Available!</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/09/06/out-of-the-box/">FW/1 Out of the Box</a>
       </li>
     
@@ -374,10 +364,6 @@ buildURL(':section.item') - action=section.item
     
       <li class="post">
         <a href="/blog/2015/05/09/fw1-3-0-1-important/">FW/1 3.0.2 - Important Update!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/21/fw1-3-1-begins/">FW/1 3.1 Begins...</a>
       </li>
     
   </ul>

@@ -1,433 +1,271 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
-  
+  <url>
+    <loc>http://framework-one.github.io/blog/2015/09/10/fw1-3-5-0-beta-1/</loc>
+    <lastmod>2015-09-10T13:35:00-07:00</lastmod>
+  </url>
   <url>
     <loc>http://framework-one.github.io/blog/2015/09/06/out-of-the-box/</loc>
     <lastmod>2015-09-06T23:00:00-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2015/09/06/fw1-news/</loc>
     <lastmod>2015-09-06T22:25:00-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2015/07/12/fw1-3-1-released/</loc>
     <lastmod>2015-07-12T20:00:00-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2015/07/07/fw1-3-1-rc-2/</loc>
     <lastmod>2015-07-07T16:40:00-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2015/06/28/fw1-3-1-rc-1/</loc>
     <lastmod>2015-06-28T17:00:00-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2015/06/20/fw1-3-1-beta-2/</loc>
     <lastmod>2015-06-20T00:59:49-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2015/05/14/fw1-3-1-beta-1/</loc>
     <lastmod>2015-05-14T22:40:49-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2015/05/09/fw1-2-5-1-2-2-2-important/</loc>
     <lastmod>2015-05-09T22:20:49-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2015/05/09/fw1-3-0-1-important/</loc>
     <lastmod>2015-05-09T22:00:49-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2015/03/21/fw1-3-1-begins/</loc>
     <lastmod>2015-03-21T14:30:49-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2015/02/24/fw1-3-0-released/</loc>
     <lastmod>2015-02-24T09:30:49-08:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2015/02/06/fw1-3-0-rc-2-available/</loc>
     <lastmod>2015-02-06T20:21:49-08:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2015/01/29/lucee-fw1/</loc>
     <lastmod>2015-01-29T13:30:49-08:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2015/01/25/fw1-clojure-sitting-in-a-tree/</loc>
     <lastmod>2015-01-25T13:30:49-08:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2015/01/24/fw1-3-0-rc-1-available/</loc>
     <lastmod>2015-01-24T22:21:49-08:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2015/01/23/cfmljure-0-1-0/</loc>
     <lastmod>2015-01-23T13:30:49-08:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2014/08/18/fw1-3-0-beta-1-available/</loc>
     <lastmod>2014-08-18T11:21:49-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2014/07/20/fw1-3-0-alpha-1-available-for-testing/</loc>
     <lastmod>2014-07-20T18:14:24-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2014/05/25/fw1-2-5-is-released/</loc>
     <lastmod>2014-05-25T23:13:39-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2013/12/18/fw1-2-2-released/</loc>
     <lastmod>2013-12-18T22:34:03-08:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2013/11/03/fw1-releases-and-roadmap/</loc>
     <lastmod>2013-11-03T11:38:30-08:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2013/11/02/fw1-the-year-ahead/</loc>
     <lastmod>2013-11-02T23:42:41-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2013/05/07/where-can-i-download-old-versions-of-fw1/</loc>
     <lastmod>2013-05-07T14:18:12-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2013/04/06/new-fw1-organization-on-github/</loc>
     <lastmod>2013-04-06T13:21:49-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2013/01/05/fw1-version-2-1-released/</loc>
     <lastmod>2013-01-05T13:23:53-08:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2011/12/18/fw1-2-0-released/</loc>
     <lastmod>2011-12-18T17:51:18-08:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2011/11/07/fw1-comes-to-clojure/</loc>
     <lastmod>2011-11-07T17:53:44-08:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2011/08/11/cfmljure-updated/</loc>
     <lastmod>2011-08-11T13:21:49-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2011/03/19/fw1-roadmap/</loc>
     <lastmod>2011-03-19T18:56:31-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2010/10/18/fw1-1-2-available/</loc>
     <lastmod>2010-10-18T18:59:11-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2010/09/21/cfmljure-mailing-list/</loc>
     <lastmod>2010-09-21T13:21:49-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2010/08/28/open-source-rtw-or-collaboration/</loc>
     <lastmod>2010-08-28T13:21:49-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2010/06/11/fw1-release-1-1-available/</loc>
     <lastmod>2010-06-11T19:02:00-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2010/02/06/fw1-the-napkin-spec/</loc>
     <lastmod>2010-02-06T18:09:11-08:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2010/01/04/fw1-1-0-released-for-2010/</loc>
     <lastmod>2010-01-04T18:23:40-08:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/2009/07/19/introducing-framework-one/</loc>
     <lastmod>2009-07-19T19:26:21-07:00</lastmod>
-    <priority>0.8</priority>
   </url>
-  
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.5/cfml-and-clojure.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.0/developing-applications.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.1/developing-applications.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.5/developing-applications.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/developing-applications.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/blog/archives/</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.5/</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.1/</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.0/</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.5/reference-manual.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/reference-manual.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.1/reference-manual.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.0/reference-manual.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.1/roadmap.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.0/roadmap.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.5/roadmap.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/roadmap.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/using-aop-one.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.5/using-aop-one.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.1/using-aop-one.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.1/using-di-one.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.0/using-di-one.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/using-di-one.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.5/using-di-one.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.5/using-subsystems.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/using-subsystems.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.1/using-subsystems.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
   <url>
     <loc>http://framework-one.github.io/documentation/3.0/using-subsystems.html</loc>
-    <lastmod>2015-09-07T13:58:36-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  
-  
+  <url>
+    <loc>http://framework-one.github.io/blog/categories/releases/</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/blog/categories/fw1/</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/blog/categories/roadmap/</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/blog/categories/di1/</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/blog/categories/oss/</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/blog/categories/clojure/</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/blog/categories/downloads/</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/blog/categories/lucee/</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/blog/categories/aop1/</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/blog/categories/commandbox/</loc>
+  </url>
 </urlset>

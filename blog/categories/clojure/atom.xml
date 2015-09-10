@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Clojure | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/clojure/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-09-07T13:58:36-07:00</updated>
+  <updated>2015-09-10T13:39:53-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,36 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 3.5.0 Beta 1 Available!]]></title>
+    <link href="http://framework-one.github.io/blog/2015/09/10/fw1-3-5-0-beta-1/"/>
+    <updated>2015-09-10T13:35:00-07:00</updated>
+    <id>http://framework-one.github.io/blog/2015/09/10/fw1-3-5-0-beta-1</id>
+    <content type="html"><![CDATA[<p>The <a href="https://github.com/framework-one/fw1/releases/tag/v3.5.0-beta1">first Beta release of FW/1 3.5.0</a> is available for testing.</p>
+
+<p>The focus of this release is integration:<!--more--></p>
+
+<ul>
+  <li>Support for controllers and services to be written in CFML (<code>.cfc</code>), Clojure (<code>.clj</code>), or Lucee (<code>.lucee</code>)</li>
+  <li>Support for views and layouts to be written in CFML (<code>.cfm</code>) or Lucee (<code>.lucee</code>)</li>
+  <li>Configurable folder names to set your own conventions (for <em>controllers</em>, <em>layouts</em>, <em>subsystems</em>, and <em>views</em>)</li>
+  <li>Support for <code>Application.cfc</code> to use FW/1 without extending <code>framework.one</code></li>
+  <li>A new, cleaner, more consistent set of conventions for adding subsystems to an existing application</li>
+</ul>
+
+<p>You can read the <a href="https://github.com/framework-one/fw1/issues?q=is%3Aissue+milestone%3A3.5+is%3Aclosed">full list of changes since 3.0</a> on GitHub.</p>
+
+<p>The <a href="/documentation/3.5/">documentation for 3.5</a> has been completely overhauled with complete descriptions of all the new features, as well as many
+clarifications and expansions of existing features. In particular, you’ll want to check out:</p>
+
+<ul>
+  <li><a href="/documentation/3.5/developing-applications.html#alternative-application-structure">Alternative Application Structure</a></li>
+  <li><a href="/documentation/3.5/using-subsystems.html#subsystems-10-vs-20">Subsystems 1.0 vs 2.0</a></li>
+  <li><a href="/documentation/3.5/cfml-and-clojure.html">Using Clojure with CFML</a></li>
+</ul>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 New Releases Etc]]></title>
@@ -111,28 +141,6 @@ for ( var newURL in urls.toArray() ) {
 </ul>
 
 <p>That’s about as simple as it gets!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[New FW/1 - Framework One - Organization on Github]]></title>
-    <link href="http://framework-one.github.io/blog/2013/04/06/new-fw1-organization-on-github/"/>
-    <updated>2013-04-06T13:21:49-07:00</updated>
-    <id>http://framework-one.github.io/blog/2013/04/06/new-fw1-organization-on-github</id>
-    <content type="html"><![CDATA[<p>To make it easier to manage collaboration on FW/1-related projects in future, several projects have now moved under a new <a href="https://github.com/framework-one">FW/1 - Framework One</a> - organization on Github. Your forks and watches should have been updated but if you have local clones of the old repos under my personal Github account, you’ll want to update those. Here’s the full list of Framework One projects:<!-- more --></p>
-
-<ul>
-  <li><a href="https://github.com/framework-one/fw1">FW/1 - Framework One</a> - simple MVC for CFML</li>
-  <li><a href="https://github.com/framework-one/di1">DI/1 - Inject One</a> - simple Dependency Injection for CFML</li>
-  <li><a href="https://github.com/framework-one/cfmljure">cfmljure</a> - the magic bridge between CFML and Clojure</li>
-  <li><a href="https://github.com/framework-one/fw1-clj">FW/1 - Framework One</a> - simple MVC for Clojure</li>
-  <li><a href="https://github.com/framework-one/fw1-template">Leiningen project template for FW/1</a>- Framework One - for Clojure</li>
-</ul>
-
-<p>If you were a collaborator on one of these projects before, you will no longer have commit access (because you were a collaborator directly on my repo). If you’d like to become a collaborating team member on one of these projects as part of the new organization, contact me directly to discuss that. I’d certainly like to see some of the regular contributors in the past become official “Team Framework One” members in the new organization!</p>
-
-<p>Thank you to all the contributors who’ve helped get these projects to where they are now!</p>
-
 ]]></content>
   </entry>
   

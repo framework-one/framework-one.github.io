@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using Clojure With CFML Sep 5th, 2015 This is the upcoming (3.5 - develop) documentation - for the current stable release, read the 3.1 master &hellip;">
+  <meta name="description" content="Using Clojure With CFML Sep 5th, 2015 2:30 pm This is the upcoming (3.5 - develop) documentation - for the current stable release, read the 3.1 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,14 +74,7 @@
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2015-09-05T14:30:00-07:00" pubdate data-updated="true">Sep 5<span>th</span>, 2015</time></p>
+<time class='entry-date' datetime='2015-09-05T14:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>2:30 pm</span></time></p>
   </header>
   
   <p><em>This is the upcoming (3.5 - develop) documentation - for the current stable release, read the <a href="/documentation/3.1/">3.1 master stable documentation</a>.</em></p>
@@ -114,59 +107,59 @@ the option to write controllers in Clojure (if all the code they need to call is
 Clojure code to be discovered and autowired into your CFML code, as well as a way to write FW/1 controllers in pure Clojure.</p>
 
 <ul id="markdown-toc">
-  <li><a href="#some-important-caveats-and-system-requirements">Some Important Caveats (and System Requirements)</a></li>
-  <li><a href="#getting-started-with-clojure-and-cfml">Getting Started with Clojure and CFML</a>    <ul>
-      <li><a href="#leiningen">Leiningen</a></li>
-      <li><a href="#testing-fw1-35-and-clojure">Testing FW/1 3.5 and Clojure</a></li>
+  <li><a href="#some-important-caveats-and-system-requirements" id="markdown-toc-some-important-caveats-and-system-requirements">Some Important Caveats (and System Requirements)</a></li>
+  <li><a href="#getting-started-with-clojure-and-cfml" id="markdown-toc-getting-started-with-clojure-and-cfml">Getting Started with Clojure and CFML</a>    <ul>
+      <li><a href="#leiningen" id="markdown-toc-leiningen">Leiningen</a></li>
+      <li><a href="#testing-fw1-35-and-clojure" id="markdown-toc-testing-fw1-35-and-clojure">Testing FW/1 3.5 and Clojure</a></li>
     </ul>
   </li>
-  <li><a href="#the-6helloclojure-example-explained">The 6helloclojure Example Explained</a>    <ul>
-      <li><a href="#applicationcfc">Application.cfc</a></li>
-      <li><a href="#myapplicationcfc">MyApplication.cfc</a></li>
-      <li><a href="#views">views</a></li>
-      <li><a href="#srchellocontrollers">src/hello/controllers</a></li>
-      <li><a href="#srchelloservices">src/hello/services</a></li>
-      <li><a href="#testhello">test/hello</a></li>
+  <li><a href="#the-6helloclojure-example-explained" id="markdown-toc-the-6helloclojure-example-explained">The 6helloclojure Example Explained</a>    <ul>
+      <li><a href="#applicationcfc" id="markdown-toc-applicationcfc">Application.cfc</a></li>
+      <li><a href="#myapplicationcfc" id="markdown-toc-myapplicationcfc">MyApplication.cfc</a></li>
+      <li><a href="#views" id="markdown-toc-views">views</a></li>
+      <li><a href="#srchellocontrollers" id="markdown-toc-srchellocontrollers">src/hello/controllers</a></li>
+      <li><a href="#srchelloservices" id="markdown-toc-srchelloservices">src/hello/services</a></li>
+      <li><a href="#testhello" id="markdown-toc-testhello">test/hello</a></li>
     </ul>
   </li>
-  <li><a href="#fw1-conventions-with-clojure">FW/1 Conventions with Clojure</a></li>
-  <li><a href="#what-is-ns-all-about">What is ns all about?</a></li>
-  <li><a href="#building-your-own-cfml--clojure-application">Building Your Own CFML / Clojure Application</a>    <ul>
-      <li><a href="#creating-the-clojure-project">Creating the Clojure project</a></li>
-      <li><a href="#accessing-a-database-from-clojure">Accessing a Database from Clojure</a></li>
-      <li><a href="#adding-the-initial-cfml-files">Adding the initial CFML files</a></li>
-      <li><a href="#writing-a-clojure-service">Writing a Clojure Service</a></li>
-      <li><a href="#fleshing-out-the-views">Fleshing out the Views</a></li>
-      <li><a href="#testing-with-a-cfml-controller">Testing with a CFML Controller</a>        <ul>
-          <li><a href="#using-the-clojure-service">Using the Clojure Service</a></li>
+  <li><a href="#fw1-conventions-with-clojure" id="markdown-toc-fw1-conventions-with-clojure">FW/1 Conventions with Clojure</a></li>
+  <li><a href="#what-is-ns-all-about" id="markdown-toc-what-is-ns-all-about">What is ns all about?</a></li>
+  <li><a href="#building-your-own-cfml--clojure-application" id="markdown-toc-building-your-own-cfml--clojure-application">Building Your Own CFML / Clojure Application</a>    <ul>
+      <li><a href="#creating-the-clojure-project" id="markdown-toc-creating-the-clojure-project">Creating the Clojure project</a></li>
+      <li><a href="#accessing-a-database-from-clojure" id="markdown-toc-accessing-a-database-from-clojure">Accessing a Database from Clojure</a></li>
+      <li><a href="#adding-the-initial-cfml-files" id="markdown-toc-adding-the-initial-cfml-files">Adding the initial CFML files</a></li>
+      <li><a href="#writing-a-clojure-service" id="markdown-toc-writing-a-clojure-service">Writing a Clojure Service</a></li>
+      <li><a href="#fleshing-out-the-views" id="markdown-toc-fleshing-out-the-views">Fleshing out the Views</a></li>
+      <li><a href="#testing-with-a-cfml-controller" id="markdown-toc-testing-with-a-cfml-controller">Testing with a CFML Controller</a>        <ul>
+          <li><a href="#using-the-clojure-service" id="markdown-toc-using-the-clojure-service">Using the Clojure Service</a></li>
         </ul>
       </li>
-      <li><a href="#writing-a-clojure-controller">Writing a Clojure Controller</a>        <ul>
-          <li><a href="#rc-value-conversion">RC Value Conversion</a></li>
+      <li><a href="#writing-a-clojure-controller" id="markdown-toc-writing-a-clojure-controller">Writing a Clojure Controller</a>        <ul>
+          <li><a href="#rc-value-conversion" id="markdown-toc-rc-value-conversion">RC Value Conversion</a></li>
         </ul>
       </li>
     </ul>
   </li>
-  <li><a href="#a-clojure-primer">A Clojure Primer</a>    <ul>
-      <li><a href="#some-basic-clojure-functions">Some Basic Clojure Functions</a>        <ul>
-          <li><a href="#def-fn-and-defn"><code>def</code>, <code>fn</code>, and <code>defn</code></a></li>
-          <li><a href="#if-when-and-do"><code>if</code>, <code>when</code>, and <code>do</code></a></li>
-          <li><a href="#let-and-its-cousins"><code>let</code> and its cousins</a></li>
-          <li><a href="#loop-and-recur"><code>loop</code> and <code>recur</code></a></li>
-          <li><a href="#useful-core-functions">Useful core Functions</a></li>
+  <li><a href="#a-clojure-primer" id="markdown-toc-a-clojure-primer">A Clojure Primer</a>    <ul>
+      <li><a href="#some-basic-clojure-functions" id="markdown-toc-some-basic-clojure-functions">Some Basic Clojure Functions</a>        <ul>
+          <li><a href="#def-fn-and-defn" id="markdown-toc-def-fn-and-defn"><code>def</code>, <code>fn</code>, and <code>defn</code></a></li>
+          <li><a href="#if-when-and-do" id="markdown-toc-if-when-and-do"><code>if</code>, <code>when</code>, and <code>do</code></a></li>
+          <li><a href="#let-and-its-cousins" id="markdown-toc-let-and-its-cousins"><code>let</code> and its cousins</a></li>
+          <li><a href="#loop-and-recur" id="markdown-toc-loop-and-recur"><code>loop</code> and <code>recur</code></a></li>
+          <li><a href="#useful-core-functions" id="markdown-toc-useful-core-functions">Useful core Functions</a></li>
         </ul>
       </li>
-      <li><a href="#the-projectclj-file">The project.clj File</a></li>
+      <li><a href="#the-projectclj-file" id="markdown-toc-the-projectclj-file">The project.clj File</a></li>
     </ul>
   </li>
-  <li><a href="#about-functional-programming">About Functional Programming</a>    <ul>
-      <li><a href="#immutable-or-persistent-data-structures">Immutable or Persistent Data Structures</a></li>
-      <li><a href="#functions-as-building-blocks">Functions as Building Blocks</a></li>
-      <li><a href="#all-you-know-about-oo-programming-is-wrong">All You Know About OO Programming is Wrong</a></li>
+  <li><a href="#about-functional-programming" id="markdown-toc-about-functional-programming">About Functional Programming</a>    <ul>
+      <li><a href="#immutable-or-persistent-data-structures" id="markdown-toc-immutable-or-persistent-data-structures">Immutable or Persistent Data Structures</a></li>
+      <li><a href="#functions-as-building-blocks" id="markdown-toc-functions-as-building-blocks">Functions as Building Blocks</a></li>
+      <li><a href="#all-you-know-about-oo-programming-is-wrong" id="markdown-toc-all-you-know-about-oo-programming-is-wrong">All You Know About OO Programming is Wrong</a></li>
     </ul>
   </li>
-  <li><a href="#more-stuff-to-read">More Stuff to Read</a></li>
-  <li><a href="#digging-into-reloading">Digging Into Reloading</a></li>
+  <li><a href="#more-stuff-to-read" id="markdown-toc-more-stuff-to-read">More Stuff to Read</a></li>
+  <li><a href="#digging-into-reloading" id="markdown-toc-digging-into-reloading">Digging Into Reloading</a></li>
 </ul>
 
 <h2 id="some-important-caveats-and-system-requirements">Some Important Caveats (and System Requirements)</h2>
@@ -930,14 +923,14 @@ Controller. In your Clojure <code>taskmanager</code> project, create a <code>src
 How do you know it’s using the Clojure version? Because <code>framework.ioclj</code> adds the Clojure namespaces it finds after any CFCs it finds, overwriting any beans
 with the same alias. If you want to convince yourself, remove <code>controllers/main.cfc</code> from your <code>taskmanager</code> folder in the webroot, and reload the application again.</p>
 
-<p>So why would we write our controllers in Clojure instead of CFML? </p>
+<p>So why would we write our controllers in Clojure instead of CFML?</p>
 
 <ul>
-  <li>As simple functions (that take <code>rc</code> as input and produce an updated <code>rc</code> as output), they’re easy to write unit tests for. </li>
+  <li>As simple functions (that take <code>rc</code> as input and produce an updated <code>rc</code> as output), they’re easy to write unit tests for.</li>
   <li>You don’t need to convert <code>rc</code> data structures back and forth between CFML and Clojure since that’s taken care of automatically in FW/1 (technically in <code>cljcontroller.cfc</code>).</li>
   <li>You can work in the REPL building and testing your entire application’s functionality (and then work on the views with a browser).</li>
   <li>We get the full power of Clojure’s data abstractions, concurrency, and immutability working for us.</li>
-  <li>With your services and controllers in Clojure, you’re one step away from building all-Clojure web applications using <a href="https://github.com/framework-one/fw1-clj">FW/1 for Clojure</a>. </li>
+  <li>With your services and controllers in Clojure, you’re one step away from building all-Clojure web applications using <a href="https://github.com/framework-one/fw1-clj">FW/1 for Clojure</a>.</li>
 </ul>
 
 <h3 id="rc-value-conversion">RC Value Conversion</h3>
@@ -1507,7 +1500,7 @@ Here’s a small sample, roughly in order of approachability:</p>
 
 <ul>
   <li>The online tutorial for learning Clojure, no installation required: http://www.tryclj.com</li>
-  <li>The “4Clojure” puzzles online: https://www.4clojure.com 
+  <li>The “4Clojure” puzzles online: https://www.4clojure.com
     <ul>
       <li>These quickly get hard enough that you’ll want a REPL open locally to play with!</li>
     </ul>
@@ -1538,14 +1531,7 @@ Here’s a small sample, roughly in order of approachability:</p>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2015-09-05T14:30:00-07:00" pubdate data-updated="true">Sep 5<span>th</span>, 2015</time>
+<time class='entry-date' datetime='2015-09-05T14:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>2:30 pm</span></time>
         
       </p>
       
@@ -1597,6 +1583,10 @@ Here’s a small sample, roughly in order of approachability:</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/09/10/fw1-3-5-0-beta-1/">FW/1 3.5.0 Beta 1 Available!</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/09/06/out-of-the-box/">FW/1 Out of the Box</a>
       </li>
     
@@ -1630,10 +1620,6 @@ Here’s a small sample, roughly in order of approachability:</p>
     
       <li class="post">
         <a href="/blog/2015/05/09/fw1-3-0-1-important/">FW/1 3.0.2 - Important Update!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/21/fw1-3-1-begins/">FW/1 3.1 Begins...</a>
       </li>
     
   </ul>
