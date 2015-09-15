@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using Subsystems in FW/1 Sep 5th, 2015 6:00 pm This is the upcoming (3.5 - develop) documentation - for the current stable release, read the 3.1 &hellip;">
+  <meta name="description" content="Using Subsystems in FW/1 Sep 15th, 2015 4:00 pm This is the upcoming (3.5 - develop) documentation - for the current stable release, read the 3.1 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-09-05T18:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>6:00 pm</span></time></p>
+<time class='entry-date' datetime='2015-09-15T16:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:00 pm</span></time></p>
   </header>
   
   <p><em>This is the upcoming (3.5 - develop) documentation - for the current stable release, read the <a href="/documentation/3.1/using-subsystems.html">3.1 master stable documentation</a>.</em></p>
@@ -219,7 +219,7 @@ buildURL(':section.item') - action=section.item
 <p>Legacy subsystems do not have the <code>subsystems/</code> prefix and the sitewide layout is <code>common/layouts/default.cfm</code> by default. That location can be overridden by the (legacy) <code>siteWideLayoutSubsystem</code> configuration variable.</p>
 
 <h2 id="using-bean-factories">Using Bean Factories</h2>
-<p>In addition to your top-level bean factory, you can have subsystem-specific bean factories as well. If you let FW/1 use DI/1 to manage your beans, it will also do so automatically for subsystems, creating a bean factory for each subsystem (inspecting the same folders you configured for your main application, i.e., <code>model</code> and <code>controllers</code> by default), and setting the main bean factory as the parent of each subsystem bean factory. This is the recommended approach (naturally!).</p>
+<p>In addition to your top-level bean factory, you can have subsystem-specific bean factories as well. If you let FW/1 use DI/1 to manage your beans, it will also do so automatically for subsystems, creating a bean factory for each subsystem (inspecting the same relative folder paths you configured for your main application, i.e., <code>model</code> and <code>controllers</code> by default), and setting the main bean factory as the parent of each subsystem bean factory. This is the recommended approach (naturally!). Note that absolute and root-relative paths are ignored (i.e., those that begin with <code>/</code>) since that could cause conflicts with the parent bean factory <em>(that restriction is new in 3.5)</em>.</p>
 
 <p>The following bean factory methods are available for subsystems:</p>
 
@@ -275,7 +275,7 @@ buildURL(':section.item') - action=section.item
 
 
 
-<time class='entry-date' datetime='2015-09-05T18:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>6:00 pm</span></time>
+<time class='entry-date' datetime='2015-09-15T16:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:00 pm</span></time>
         
       </p>
       

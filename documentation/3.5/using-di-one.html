@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using DI/1 Sep 5th, 2015 7:30 pm This is the upcoming (3.5 - develop) documentation - for the current stable release, read the 3.1 master stable &hellip;">
+  <meta name="description" content="Using DI/1 Sep 15th, 2015 4:00 pm This is the upcoming (3.5 - develop) documentation - for the current stable release, read the 3.1 master stable &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-09-05T19:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>7:30 pm</span></time></p>
+<time class='entry-date' datetime='2015-09-15T16:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:00 pm</span></time></p>
   </header>
   
   <p><em>This is the upcoming (3.5 - develop) documentation - for the current stable release, read the <a href="/documentation/3.1/using-di-one.html">3.1 master stable documentation</a>.</em></p>
@@ -227,13 +227,13 @@ info = beanFactory.getBeanInfo("someBean");
 <p>By default, any CFC in the <code>beans</code> folder is considered a transient and everything else is considered a singleton. There are three ways to specify other CFCs should be considered transient:</p>
 
 <ul>
-  <li><code>config.singulars</code> allows you to specify additional folders that resolve to <code>bean</code></li>
-  <li><code>config.transients</code> allows you to specify additional folders whose contents are transient</li>
+  <li><code>config.singulars</code> allows you to specify irregular plural folder names and their singular mappings, e.g., <code>geese : "goose"</code></li>
+  <li><code>config.transients</code> allows you to specify additional folders whose contents are transient (i.e., in addition to the <code>beans</code> folder convention)</li>
   <li><code>config.singletonPattern</code> allows you to specify a regular expression which limits which beans are considered singletons</li>
   <li><code>config.transientPattern</code> allows you to specify a regular expression which limits which beans are considered transients</li>
 </ul>
 
-<p>In the first case, any folder name whose singular name is <code>bean</code> will cause CFCs to get an alias that ends in <code>Bean</code> and will be considered transients. In the second case, the singular transformation will still be applied to create the alias, but the CFCs will be considered transients anyway. See below for additional uses of <code>config.singulars</code>. In the third case, CFCs will also be considered transients if their name does not match the regular expression pattern supplied. In the fourth case, CFCs will also be considered transients if their name matches the regular expression pattern supplied. You cannot specify both <code>config.singletonPattern</code> and <code>config.transientPattern</code>.</p>
+<p>For <code>config.singulars</code>, any folder name whose singular name is <code>bean</code> will cause CFCs to get an alias that ends in <code>Bean</code> and will be considered transients (see below for examples). For <code>config.transients</code>, the singular transformation will still be applied to create the alias, but the CFCs will be considered transients anyway. For <code>config.singletonPattern</code>, CFCs will also be considered transients if their name <strong>does not match</strong> the regular expression pattern supplied. For <code>config.transientPattern</code>, CFCs will also be considered transients if their name <strong>does match</strong> the regular expression pattern supplied. You cannot specify both <code>config.singletonPattern</code> and <code>config.transientPattern</code>.</p>
 
 <p>For example:</p>
 
@@ -279,6 +279,7 @@ moduleBeanFactory.setParent( mainBeanFactory );
   <li><code>constants</code> - struct - defaults to <code>{}</code>. DI/1 will use any name/value pairs specified here to provide <em>beans</em> that resolve to the specified values. This can be used to provide resolution for constructor arguments that need values which are not actual beans.</li>
   <li><code>exclude</code> - array - defaults to <code>[]</code>. DI/1 will ignore any CFCs whose file path contains the strings in this array. DI/1 always excludes paths containing <code>/WEB-INF</code> and <code>/Application.cfc</code>, as well as various FW/1 and DI/1 framework files. The strings are not case-sensitive.</li>
   <li><code>initMethod</code> - string - If specified, identifies a method name on beans that DI/1 will attempt to call (with no arguments) on each bean after its dependencies have been injected.</li>
+  <li><code>liberal</code> - boolean - default to <code>false</code>. If <code>true</code>, treat folder names ending in <code>ies</code> as plurals (of names ending in <code>y</code>, e.g., <code>libraries</code> would be treated as the plural of <code>librarie</code> by default, but with <code>liberal : true</code>, it would be treated as the plural of <code>library</code>).</li>
   <li><code>omitDirectoryAliases</code> - boolean - defaults to <code>false</code>. If <code>true</code>, use CFC names as bean names directly, without appending the singular directory name as a suffix. If your CFC names are not unique, you will get an exception.</li>
   <li><code>omitTypedProperties</code> - boolean - defaults to <code>false</code>. If <code>true</code>, property declarations that specify a type will be ignored for injection. That is useful if you are working with the ORM (since those property declarations will have types and should not be treated as dependencies).</li>
   <li><code>recurse</code> - boolean - defaults to <code>true</code>. Controls whether DI/1 searches subfolders recursively or not.</li>
@@ -324,7 +325,7 @@ private any function metadata( string dottedPath )
 
 
 
-<time class='entry-date' datetime='2015-09-05T19:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>7:30 pm</span></time>
+<time class='entry-date' datetime='2015-09-15T16:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:00 pm</span></time>
         
       </p>
       

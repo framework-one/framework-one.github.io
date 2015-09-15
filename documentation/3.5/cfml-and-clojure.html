@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using Clojure With CFML Sep 5th, 2015 2:30 pm This is the upcoming (3.5 - develop) documentation - for the current stable release, read the 3.1 &hellip;">
+  <meta name="description" content="Using Clojure With CFML Sep 15th, 2015 4:00 pm This is the upcoming (3.5 - develop) documentation - for the current stable release, read the 3.1 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-09-05T14:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>2:30 pm</span></time></p>
+<time class='entry-date' datetime='2015-09-15T16:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:00 pm</span></time></p>
   </header>
   
   <p><em>This is the upcoming (3.5 - develop) documentation - for the current stable release, read the <a href="/documentation/3.1/">3.1 master stable documentation</a>.</em></p>
@@ -122,7 +122,12 @@ Clojure code to be discovered and autowired into your CFML code, as well as a wa
       <li><a href="#testhello" id="markdown-toc-testhello">test/hello</a></li>
     </ul>
   </li>
-  <li><a href="#fw1-conventions-with-clojure" id="markdown-toc-fw1-conventions-with-clojure">FW/1 Conventions with Clojure</a></li>
+  <li><a href="#fw1-conventions-with-clojure" id="markdown-toc-fw1-conventions-with-clojure">FW/1 Conventions with Clojure</a>    <ul>
+      <li><a href="#uniqueness-of-namespace-to-bean-mappings" id="markdown-toc-uniqueness-of-namespace-to-bean-mappings">Uniqueness of Namespace to Bean Mappings</a></li>
+      <li><a href="#additional-clojure-code" id="markdown-toc-additional-clojure-code">Additional Clojure Code</a></li>
+      <li><a href="#configuring-frameworkioclj" id="markdown-toc-configuring-frameworkioclj">Configuring <code>framework.ioclj</code></a></li>
+    </ul>
+  </li>
   <li><a href="#what-is-ns-all-about" id="markdown-toc-what-is-ns-all-about">What is ns all about?</a></li>
   <li><a href="#building-your-own-cfml--clojure-application" id="markdown-toc-building-your-own-cfml--clojure-application">Building Your Own CFML / Clojure Application</a>    <ul>
       <li><a href="#creating-the-clojure-project" id="markdown-toc-creating-the-clojure-project">Creating the Clojure project</a></li>
@@ -338,7 +343,7 @@ Ran 2 tests containing 3 assertions.
 <h3 id="applicationcfc">Application.cfc</h3>
 
 <p>This is based on <code>/framework/Application.cfc</code> and allows us to use FW/1 without a global mapping. It creates a per-application mapping for
-<code>/framework</code> via a relative path using <code>expandPath( '../../framework' )</code>, and then it creates an instance of <code>MyApplication.cfc</code>, passing in the
+<code>/framework</code> via a relative path using <code>expandPath( '../../../framework' )</code>, and then it creates an instance of <code>MyApplication.cfc</code>, passing in the
 FW/1 configuration structure.</p>
 
 <p>There are a few items of note here, and the first is that we specify <code>diComponent</code> as <code>"framework.ioclj"</code> to tell FW/1 that we want to use <code>ioclj.cfc</code>
@@ -452,14 +457,35 @@ the top-level name of your application – <code>hello</code> in the paths above
 <p>Therefore, FW/1 requires that there are at least three “segments” in a file path and name for this convention:</p>
 
 <ul>
-  <li><code>src/myapp/controllers/main.clj</code> has <code>myapp.controllers.main</code> as the namespace – three segments</li>
-  <li><code>src/hello/admin/services/user.clj</code> has <code>hello.admin.services.user</code> as the namespace – four segments</li>
+  <li><code>src/myapp/controllers/main.clj</code> has <code>myapp.controllers.main</code> as the namespace – three segments – becomes <code>mainController</code></li>
+  <li><code>src/hello/admin/services/user.clj</code> has <code>hello.admin.services.user</code> as the namespace – four segments – becomes <code>userService</code></li>
 </ul>
 
 <p>That means that just <code>src/controllers/main.clj</code> would not match the convention as its namespace would be <code>controllers.main</code> (only two
-segments – no top-level application name). An additional restriction for FW/1 to automatically manage injection of Clojure namespaces
+segments – no top-level application name).</p>
+
+<p>FW/1 looks for the first plural segment that follows the top-level application name, and if there are multiple segments after that first
+plural segment, they are concatenated to form the bean name:</p>
+
+<ul>
+  <li><code>src/myapp/common/libraries/security/checker.clj</code> has <code>myapp.common.libraries.security.checker</code> as the namespace and, assuming <code>liberal : true</code>
+is specified in the configuration, <code>libraries</code> will be seen as the first plural and mapped to <code>library</code>, and then the bean name will be
+<code>securityChecker</code>, so the full bean name will be <code>securityCheckerLibrary</code>.</li>
+  <li><code>src/myapp/jobs/mail/alerts.clj</code> has <code>myapp.jobs.mail.alerts</code> as the namespace and the first plural is <code>jobs</code>, so the full bean name
+will be <code>mailAlertsJob</code>.</li>
+</ul>
+
+<p>Note: without <code>liberal : true</code> in the <code>diConfig</code> structure, <code>libraries</code> would still be treated as plural but the singular would
+be assumed to be <code>librarie</code>!</p>
+
+<h3 id="uniqueness-of-namespace-to-bean-mappings">Uniqueness of Namespace to Bean Mappings</h3>
+
+<p>One additional restriction for FW/1 to automatically manage injection of Clojure namespaces
 into your CFCs is that the filename + suffix must be unique across your whole application within the Clojure code (so also having
-<code>src/hello/public/services/user.clj</code> would conflict with <code>src/hello/admin/services/user.clj</code>).</p>
+<code>src/hello/public/services/user.clj</code> would conflict with <code>src/hello/admin/services/user.clj</code>, but not <code>src/hello/services/admin/user.clj</code>
+which would be mapped to <code>adminUserService</code>).</p>
+
+<h3 id="additional-clojure-code">Additional Clojure Code</h3>
 
 <p>Aside: You can have additional Clojure code that doesn’t follow this convention, but the bean factory <code>reload()</code> function only attempts to
 reload Clojure files that it “knows” about via this convention. You can explicitly reload others – if you allow for a URL variable that can
@@ -468,6 +494,29 @@ but there are some subtleties there which are beyond the scope of this
 documentation (if you want to learn more, read the <a href="http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/require">clojure.core/require docstring</a>
 and know that <code>reload("all")</code> does <code>(require ... :reload)</code> on each namespace covered by the convention but <code>reload("some.namespace")</code> does
 <code>(require 'some.namespace :reload-all)</code> for an explicitly provided namespace).</p>
+
+<h3 id="configuring-frameworkioclj">Configuring <code>framework.ioclj</code></h3>
+
+<p>Since <code>ioclj.cfc</code> is a extension of <code>ioc.cfc</code> (DI/1), all of the <a href="using-di-one.html#configuration">same configuration options apply</a> as well as the following:</p>
+
+<ul>
+  <li><code>debug</code> - boolean - default <code>false</code>. If <code>true</code>, the CFML/Clojure bridge will write a lot of additional information to the server console (e.g., <code>catalina.out</code>),
+which will help you check where FW/1 is looking for your Clojure files and which ones it may be ignoring (due to naming conventions not matching). Another
+useful form of debugging is <code>&lt;cfdump var=#getBeanFactory().getBeanInfo()#"/&gt;</code> in a view so you can see all of the beans / namespaces that were found.</li>
+  <li><code>lein</code> - string - default <code>"lein"</code>. Use this to specify the full file system path to your Leiningen shell/batch script if just the <code>lein</code> command on its
+own won’t be found on the path used by your CFML server. At World Singles, we actually keep the Leiningen shell script under version control so we can
+manage which version is used our applications, and we specify the path to that script, which is part of our application deployment, using the <code>lein</code>
+configuration setting.</li>
+  <li><code>server</code> - boolean - default <code>false</code>. By default, a new instance of the CFML/Clojure bridge CFC (<code>cfmljure.cfc</code>) is created every time the bean factory
+(<code>ioclj.cfc</code>) is created. However, since this bridge <em>modifies the classpath of your server on the fly</em> – not just your application (because JVM settings
+are per server instance, not per application instance) – it is a reasonable optimization to cache the bridge instance in <code>server</code> scope (since running
+<code>lein classpath</code> can be slow). Specifying
+<code>server : true</code> will tell <code>framework.ioclj</code> to perform that optimization for you. This will create <code>server.__cfmljure</code>, which will be reused each time
+the bean factory is recreated, until the server is restarted, or you explicitly delete that variable. If you change the dependencies in <code>project.clj</code>,
+you will need to force the bridge instance to be recreated in order for those new dependencies to be picked up.</li>
+  <li><code>timeout</code> - numeric - default <code>300</code>. This is the number of seconds that FW/1 will wait for the <code>lein classpath</code> command to execute at startup. This
+should be sufficient even if you have a large number of dependencies in your <code>project.clj</code>.</li>
+</ul>
 
 <h2 id="what-is-ns-all-about">What is ns all about?</h2>
 
@@ -1531,7 +1580,7 @@ Here’s a small sample, roughly in order of approachability:</p>
 
 
 
-<time class='entry-date' datetime='2015-09-05T14:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>2:30 pm</span></time>
+<time class='entry-date' datetime='2015-09-15T16:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:00 pm</span></time>
         
       </p>
       
