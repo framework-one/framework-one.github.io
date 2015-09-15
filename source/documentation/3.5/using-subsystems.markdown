@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using Subsystems in FW/1"
-date: 2015-09-05 18:00
+date: 2015-09-15 16:00
 comments: false
 sharing: false
 footer: true
@@ -124,7 +124,7 @@ Legacy subsystems do not have the `subsystems/` prefix and the sitewide layout i
 
 Using Bean Factories
 ---
-In addition to your top-level bean factory, you can have subsystem-specific bean factories as well. If you let FW/1 use DI/1 to manage your beans, it will also do so automatically for subsystems, creating a bean factory for each subsystem (inspecting the same folders you configured for your main application, i.e., `model` and `controllers` by default), and setting the main bean factory as the parent of each subsystem bean factory. This is the recommended approach (naturally!).
+In addition to your top-level bean factory, you can have subsystem-specific bean factories as well. If you let FW/1 use DI/1 to manage your beans, it will also do so automatically for subsystems, creating a bean factory for each subsystem (inspecting the same relative folder paths you configured for your main application, i.e., `model` and `controllers` by default), and setting the main bean factory as the parent of each subsystem bean factory. This is the recommended approach (naturally!). Note that absolute and root-relative paths are ignored (i.e., those that begin with `/`) since that could cause conflicts with the parent bean factory _(that restriction is new in 3.5)_.
 
 The following bean factory methods are available for subsystems:
 

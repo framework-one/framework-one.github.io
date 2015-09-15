@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using DI/1"
-date: 2015-09-05 19:30
+date: 2015-09-15 16:00
 comments: false
 sharing: false
 footer: true
@@ -125,12 +125,12 @@ I would expect these only to be useful to framework authors. Both methods walk u
 
 By default, any CFC in the `beans` folder is considered a transient and everything else is considered a singleton. There are three ways to specify other CFCs should be considered transient:
 
-* `config.singulars` allows you to specify additional folders that resolve to `bean`
-* `config.transients` allows you to specify additional folders whose contents are transient
+* `config.singulars` allows you to specify irregular plural folder names and their singular mappings, e.g., `geese : "goose"`
+* `config.transients` allows you to specify additional folders whose contents are transient (i.e., in addition to the `beans` folder convention)
 * `config.singletonPattern` allows you to specify a regular expression which limits which beans are considered singletons
 * `config.transientPattern` allows you to specify a regular expression which limits which beans are considered transients
 
-In the first case, any folder name whose singular name is `bean` will cause CFCs to get an alias that ends in `Bean` and will be considered transients. In the second case, the singular transformation will still be applied to create the alias, but the CFCs will be considered transients anyway. See below for additional uses of `config.singulars`. In the third case, CFCs will also be considered transients if their name does not match the regular expression pattern supplied. In the fourth case, CFCs will also be considered transients if their name matches the regular expression pattern supplied. You cannot specify both `config.singletonPattern` and `config.transientPattern`.
+For `config.singulars`, any folder name whose singular name is `bean` will cause CFCs to get an alias that ends in `Bean` and will be considered transients (see below for examples). For `config.transients`, the singular transformation will still be applied to create the alias, but the CFCs will be considered transients anyway. For `config.singletonPattern`, CFCs will also be considered transients if their name **does not match** the regular expression pattern supplied. For `config.transientPattern`, CFCs will also be considered transients if their name **does match** the regular expression pattern supplied. You cannot specify both `config.singletonPattern` and `config.transientPattern`.
 
 For example:
 
@@ -170,6 +170,7 @@ When you create the bean factory, you can optionally supply a second argument th
 * `constants` - struct - defaults to `{}`. DI/1 will use any name/value pairs specified here to provide _beans_ that resolve to the specified values. This can be used to provide resolution for constructor arguments that need values which are not actual beans.
 * `exclude` - array - defaults to `[]`. DI/1 will ignore any CFCs whose file path contains the strings in this array. DI/1 always excludes paths containing `/WEB-INF` and `/Application.cfc`, as well as various FW/1 and DI/1 framework files. The strings are not case-sensitive.
 * `initMethod` - string - If specified, identifies a method name on beans that DI/1 will attempt to call (with no arguments) on each bean after its dependencies have been injected.
+* `liberal` - boolean - default to `false`. If `true`, treat folder names ending in `ies` as plurals (of names ending in `y`, e.g., `libraries` would be treated as the plural of `librarie` by default, but with `liberal : true`, it would be treated as the plural of `library`).
 * `omitDirectoryAliases` - boolean - defaults to `false`. If `true`, use CFC names as bean names directly, without appending the singular directory name as a suffix. If your CFC names are not unique, you will get an exception.
 * `omitTypedProperties` - boolean - defaults to `false`. If `true`, property declarations that specify a type will be ignored for injection. That is useful if you are working with the ORM (since those property declarations will have types and should not be treated as dependencies).
 * `recurse` - boolean - defaults to `true`. Controls whether DI/1 searches subfolders recursively or not.

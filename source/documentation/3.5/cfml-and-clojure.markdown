@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using Clojure with CFML"
-date: 2015-09-05 14:30
+date: 2015-09-15 16:00
 comments: false
 sharing: false
 footer: true
@@ -203,7 +203,7 @@ Let's start with the CFML files and look at `Application.cfc` first, then the `v
 ### Application.cfc
 
 This is based on `/framework/Application.cfc` and allows us to use FW/1 without a global mapping. It creates a per-application mapping for
-`/framework` via a relative path using `expandPath( '../../framework' )`, and then it creates an instance of `MyApplication.cfc`, passing in the
+`/framework` via a relative path using `expandPath( '../../../framework' )`, and then it creates an instance of `MyApplication.cfc`, passing in the
 FW/1 configuration structure.
 
 There are a few items of note here, and the first is that we specify `diComponent` as `"framework.ioclj"` to tell FW/1 that we want to use `ioclj.cfc`
@@ -312,13 +312,32 @@ the top-level name of your application -- `hello` in the paths above -- and then
 
 Therefore, FW/1 requires that there are at least three "segments" in a file path and name for this convention:
 
-* `src/myapp/controllers/main.clj` has `myapp.controllers.main` as the namespace -- three segments
-* `src/hello/admin/services/user.clj` has `hello.admin.services.user` as the namespace -- four segments
+* `src/myapp/controllers/main.clj` has `myapp.controllers.main` as the namespace -- three segments -- becomes `mainController`
+* `src/hello/admin/services/user.clj` has `hello.admin.services.user` as the namespace -- four segments -- becomes `userService`
 
 That means that just `src/controllers/main.clj` would not match the convention as its namespace would be `controllers.main` (only two
-segments -- no top-level application name). An additional restriction for FW/1 to automatically manage injection of Clojure namespaces
+segments -- no top-level application name).
+
+FW/1 looks for the first plural segment that follows the top-level application name, and if there are multiple segments after that first
+plural segment, they are concatenated to form the bean name:
+
+* `src/myapp/common/libraries/security/checker.clj` has `myapp.common.libraries.security.checker` as the namespace and, assuming `liberal : true`
+is specified in the configuration, `libraries` will be seen as the first plural and mapped to `library`, and then the bean name will be
+`securityChecker`, so the full bean name will be `securityCheckerLibrary`.
+* `src/myapp/jobs/mail/alerts.clj` has `myapp.jobs.mail.alerts` as the namespace and the first plural is `jobs`, so the full bean name
+will be `mailAlertsJob`.
+
+Note: without `liberal : true` in the `diConfig` structure, `libraries` would still be treated as plural but the singular would
+be assumed to be `librarie`!
+
+### Uniqueness of Namespace to Bean Mappings
+
+One additional restriction for FW/1 to automatically manage injection of Clojure namespaces
 into your CFCs is that the filename + suffix must be unique across your whole application within the Clojure code (so also having
-`src/hello/public/services/user.clj` would conflict with `src/hello/admin/services/user.clj`).
+`src/hello/public/services/user.clj` would conflict with `src/hello/admin/services/user.clj`, but not `src/hello/services/admin/user.clj`
+which would be mapped to `adminUserService`).
+
+### Additional Clojure Code
 
 Aside: You can have additional Clojure code that doesn't follow this convention, but the bean factory `reload()` function only attempts to
 reload Clojure files that it "knows" about via this convention. You can explicitly reload others -- if you allow for a URL variable that can
@@ -327,6 +346,27 @@ but there are some subtleties there which are beyond the scope of this
 documentation (if you want to learn more, read the [clojure.core/require docstring](http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/require)
 and know that `reload("all")` does `(require ... :reload)` on each namespace covered by the convention but `reload("some.namespace")` does
 `(require 'some.namespace :reload-all)` for an explicitly provided namespace).
+
+### Configuring `framework.ioclj`
+
+Since `ioclj.cfc` is a extension of `ioc.cfc` (DI/1), all of the [same configuration options apply](using-di-one.html#configuration) as well as the following:
+
+* `debug` - boolean - default `false`. If `true`, the CFML/Clojure bridge will write a lot of additional information to the server console (e.g., `catalina.out`),
+which will help you check where FW/1 is looking for your Clojure files and which ones it may be ignoring (due to naming conventions not matching). Another
+useful form of debugging is `<cfdump var=#getBeanFactory().getBeanInfo()#"/>` in a view so you can see all of the beans / namespaces that were found.
+* `lein` - string - default `"lein"`. Use this to specify the full file system path to your Leiningen shell/batch script if just the `lein` command on its
+own won't be found on the path used by your CFML server. At World Singles, we actually keep the Leiningen shell script under version control so we can
+manage which version is used our applications, and we specify the path to that script, which is part of our application deployment, using the `lein`
+configuration setting.
+* `server` - boolean - default `false`. By default, a new instance of the CFML/Clojure bridge CFC (`cfmljure.cfc`) is created every time the bean factory
+(`ioclj.cfc`) is created. However, since this bridge _modifies the classpath of your server on the fly_ -- not just your application (because JVM settings
+are per server instance, not per application instance) -- it is a reasonable optimization to cache the bridge instance in `server` scope (since running
+`lein classpath` can be slow). Specifying
+`server : true` will tell `framework.ioclj` to perform that optimization for you. This will create `server.__cfmljure`, which will be reused each time
+the bean factory is recreated, until the server is restarted, or you explicitly delete that variable. If you change the dependencies in `project.clj`,
+you will need to force the bridge instance to be recreated in order for those new dependencies to be picked up.
+* `timeout` - numeric - default `300`. This is the number of seconds that FW/1 will wait for the `lein classpath` command to execute at startup. This
+should be sufficient even if you have a large number of dependencies in your `project.clj`.
 
 ## What is ns all about?
 
