@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Sep 5th, 2015 2:30 pm This is the upcoming (3.5 - develop) documentation - for the current stable release, read &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Sep 15th, 2015 6:30 pm This is the upcoming (3.5 - develop) documentation - for the current stable release, read &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-09-05T14:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>2:30 pm</span></time></p>
+<time class='entry-date' datetime='2015-09-15T18:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>6:30 pm</span></time></p>
   </header>
   
   <p><em>This is the upcoming (3.5 - develop) documentation - for the current stable release, read the <a href="/documentation/3.1/developing-applications.html">3.1 master stable documentation</a>.</em></p>
@@ -153,9 +153,16 @@
 component { // does not extend anything
     this.name = 'MyWonderfulApp';
     this.mappings[ '/framework' ] = expandPath( '/libs/fw1/framework' );
-    request._framework_one = new framework.one( {
-        trace : true
-    } );
+    function _get_framework_one() {
+        if ( !structKeyExists( request, '_framework_one' ) ) {
+            // create your FW/1 application:
+            request._framework_one = new framework.one( {
+                trace : true
+            } );
+        }
+        return request._framework_one;
+    }
+    
     // lifecycle methods, per /framework/Application.cfc
     ...
 }
@@ -174,10 +181,46 @@ component extends=framework.one {
 component { // does not extend anything
     this.name = 'MyWonderfulApp';
     this.mappings[ '/framework' ] = expandPath( '/libs/fw1/framework' );
-    // create my extended version of FW/1:
-    request._framework_one = new MyApplication( {
-        trace : true
-    } );
+    function _get_framework_one() {
+        if ( !structKeyExists( request, '_framework_one' ) ) {
+            // create my extended version of FW/1:
+            request._framework_one = new MyApplication( {
+                trace : true
+            } );
+        }
+        return request._framework_one;
+    }
+    
+    // lifecycle methods, per /framework/Application.cfc
+    ...
+}
+</code></pre>
+
+<p>Note that you can put your version of <code>MyApplication.cfc</code> anywhere and call it anything you want, as long as CFML can create an instance of it. A good strategy is to create a per-application mapping for your application’s base folder and use that:</p>
+
+<pre><code>// /path/to/app/CustomApp.cfc
+component extends=framework.one {
+    function setupRequest() {
+        controller( 'security.checkAuthorization' );
+    }
+}
+
+// Application.cfc
+component { // does not extend anything
+    this.name = 'MyWonderfulApp';
+    this.mappings[ '/app' ] = expandPath( '/path/to/app' );
+    this.mappings[ '/framework' ] = expandPath( '/libs/fw1/framework' );
+    function _get_framework_one() {
+        if ( !structKeyExists( request, '_framework_one' ) ) {
+            // create my extended version of FW/1:
+            request._framework_one = new app.CustomApp( {
+                base : '/app',
+                trace : true
+            } );
+        }
+        return request._framework_one;
+    }
+    
     // lifecycle methods, per /framework/Application.cfc
     ...
 }
@@ -979,7 +1022,7 @@ property framework;   // make your controller framework aware
 
 
 
-<time class='entry-date' datetime='2015-09-05T14:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>2:30 pm</span></time>
+<time class='entry-date' datetime='2015-09-15T18:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>6:30 pm</span></time>
         
       </p>
       
