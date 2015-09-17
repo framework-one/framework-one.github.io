@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-09-05 14:30
+date: 2015-09-15 18:30
 comments: false
 sharing: false
 footer: true
@@ -41,9 +41,16 @@ Instead of having your `Application.cfc` extend `framework.one`, you can use `/f
     component { // does not extend anything
         this.name = 'MyWonderfulApp';
         this.mappings[ '/framework' ] = expandPath( '/libs/fw1/framework' );
-        request._framework_one = new framework.one( {
-            trace : true
-        } );
+        function _get_framework_one() {
+            if ( !structKeyExists( request, '_framework_one' ) ) {
+                // create your FW/1 application:
+                request._framework_one = new framework.one( {
+                    trace : true
+                } );
+            }
+            return request._framework_one;
+        }
+        
         // lifecycle methods, per /framework/Application.cfc
         ...
     }
@@ -61,10 +68,45 @@ This works well when you cannot set a mapping in the CFML admin and you don't ne
     component { // does not extend anything
         this.name = 'MyWonderfulApp';
         this.mappings[ '/framework' ] = expandPath( '/libs/fw1/framework' );
-        // create my extended version of FW/1:
-        request._framework_one = new MyApplication( {
-            trace : true
-        } );
+        function _get_framework_one() {
+            if ( !structKeyExists( request, '_framework_one' ) ) {
+                // create my extended version of FW/1:
+                request._framework_one = new MyApplication( {
+                    trace : true
+                } );
+            }
+            return request._framework_one;
+        }
+        
+        // lifecycle methods, per /framework/Application.cfc
+        ...
+    }
+
+Note that you can put your version of `MyApplication.cfc` anywhere and call it anything you want, as long as CFML can create an instance of it. A good strategy is to create a per-application mapping for your application's base folder and use that:
+
+    // /path/to/app/CustomApp.cfc
+    component extends=framework.one {
+        function setupRequest() {
+            controller( 'security.checkAuthorization' );
+        }
+    }
+
+    // Application.cfc
+    component { // does not extend anything
+        this.name = 'MyWonderfulApp';
+        this.mappings[ '/app' ] = expandPath( '/path/to/app' );
+        this.mappings[ '/framework' ] = expandPath( '/libs/fw1/framework' );
+        function _get_framework_one() {
+            if ( !structKeyExists( request, '_framework_one' ) ) {
+                // create my extended version of FW/1:
+                request._framework_one = new app.CustomApp( {
+                    base : '/app',
+                    trace : true
+                } );
+            }
+            return request._framework_one;
+        }
+        
         // lifecycle methods, per /framework/Application.cfc
         ...
     }
