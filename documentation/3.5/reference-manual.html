@@ -89,15 +89,15 @@
   <li><a href="#frameworkone" id="markdown-toc-frameworkone">framework.one</a>    <ul>
       <li><a href="#public-void-function-abortcontroller" id="markdown-toc-public-void-function-abortcontroller">public void function abortController()</a></li>
       <li><a href="#public-boolean-function-actionspecifiessubsystem-string-action-" id="markdown-toc-public-boolean-function-actionspecifiessubsystem-string-action-">public boolean function actionSpecifiesSubsystem( string action )</a></li>
-      <li><a href="#public-void-addroute-any-routes-string-target-any-methods----string-statuscode---" id="markdown-toc-public-void-addroute-any-routes-string-target-any-methods----string-statuscode---">public void addRoute( any routes, string target, any methods = [ ], string statusCode = ‘’ )</a></li>
+      <li><a href="#public-void-function-addroute-any-routes-string-target-any-methods----string-statuscode---" id="markdown-toc-public-void-function-addroute-any-routes-string-target-any-methods----string-statuscode---">public void function addRoute( any routes, string target, any methods = [ ], string statusCode = ‘’ )</a></li>
       <li><a href="#public-string-function-buildcustomurl-string-uri-" id="markdown-toc-public-string-function-buildcustomurl-string-uri-">public string function buildCustomURL( string uri )</a></li>
       <li><a href="#public-string-function-buildurl-string-action---string-path--see-below-any-querystring---" id="markdown-toc-public-string-function-buildurl-string-action---string-path--see-below-any-querystring---">public string function buildURL( string action = ‘.’, string path = <em>see below</em>, any queryString = ‘’ )</a></li>
       <li><a href="#public-void-function-controller-string-action-" id="markdown-toc-public-void-function-controller-string-action-">public void function controller( string action )</a></li>
-      <li><a href="#public-string-customizevieworlayoutpath-struct-pathinfo-string-type-string-fullpath-" id="markdown-toc-public-string-customizevieworlayoutpath-struct-pathinfo-string-type-string-fullpath-">public string customizeViewOrLayoutPath( struct pathInfo, string type, string fullPath )</a></li>
+      <li><a href="#public-string-function-customizevieworlayoutpath-struct-pathinfo-string-type-string-fullpath-" id="markdown-toc-public-string-function-customizevieworlayoutpath-struct-pathinfo-string-type-string-fullpath-">public string function customizeViewOrLayoutPath( struct pathInfo, string type, string fullPath )</a></li>
       <li><a href="#public-void-function-disableframeworktrace" id="markdown-toc-public-void-function-disableframeworktrace">public void function disableFrameworkTrace()</a></li>
       <li><a href="#public-void-function-disablelayout" id="markdown-toc-public-void-function-disablelayout">public void function disableLayout()</a></li>
-      <li><a href="#public-void-fuction-enableframeworktrace" id="markdown-toc-public-void-fuction-enableframeworktrace">public void fuction enableFrameworkTrace()</a></li>
-      <li><a href="#public-void-fuction-enablelayout" id="markdown-toc-public-void-fuction-enablelayout">public void fuction enableLayout()</a></li>
+      <li><a href="#public-void-function-enableframeworktrace" id="markdown-toc-public-void-function-enableframeworktrace">public void function enableFrameworkTrace()</a></li>
+      <li><a href="#public-void-function-enablelayout" id="markdown-toc-public-void-function-enablelayout">public void function enableLayout()</a></li>
       <li><a href="#public-void-function-frameworktrace-string-message--any-value--" id="markdown-toc-public-void-function-frameworktrace-string-message--any-value--">public void function frameworkTrace( string message [, any value ] )</a></li>
       <li><a href="#public-string-function-getaction" id="markdown-toc-public-string-function-getaction">public string function getAction()</a></li>
       <li><a href="#public-string-function-getbaseurl" id="markdown-toc-public-string-function-getbaseurl">public string function getBaseURL()</a></li>
@@ -269,7 +269,7 @@
 
 <p>Returns <code>true</code> if the action contains a colon <code>:</code> (default - <code>framework.subsystemDelimiter</code>). Returns <code>false</code> if the action does not contain a colon <code>:</code> (default - <code>framework.subsystemDelimiter</code>).</p>
 
-<h3 id="public-void-addroute-any-routes-string-target-any-methods----string-statuscode---">public void addRoute( any routes, string target, any methods = [ ], string statusCode = ‘’ )</h3>
+<h3 id="public-void-function-addroute-any-routes-string-target-any-methods----string-statuscode---">public void function addRoute( any routes, string target, any methods = [ ], string statusCode = ‘’ )</h3>
 
 <p>Allows you to programmatically add a new route to FW/1’s known route mappings. <code>routes</code> can be either an array of route patterns or a single route pattern. <code>target</code> is the URL to map those routes to. <code>methods</code> is optional and can be either an array of HTTP methods or a single HTTP method for which those routes should be mapped. <code>statusCode</code> is optional and if present is prefixed to the target URL (and represents the HTTP status returned when the routes are processed.</p>
 
@@ -354,7 +354,7 @@
 
 <p>Just like the implicit controller invocation, <code>before()</code>, <code>item()</code>, and <code>after()</code> are all invoked appropriately if present. If multiple methods are queued up from a single controller, <code>before()</code> and <code>after()</code> are executed just once (for each controller).</p>
 
-<h3 id="public-string-customizevieworlayoutpath-struct-pathinfo-string-type-string-fullpath-">public string customizeViewOrLayoutPath( struct pathInfo, string type, string fullPath )</h3>
+<h3 id="public-string-function-customizevieworlayoutpath-struct-pathinfo-string-type-string-fullpath-">public string function customizeViewOrLayoutPath( struct pathInfo, string type, string fullPath )</h3>
 
 <p>By default, this simply returns <code>fullPath</code>.</p>
 
@@ -378,11 +378,11 @@
 
 <p>Disable layouts for this request. Equivalent to <code>request.layout = false;</code>.</p>
 
-<h3 id="public-void-fuction-enableframeworktrace">public void fuction enableFrameworkTrace()</h3>
+<h3 id="public-void-function-enableframeworktrace">public void function enableFrameworkTrace()</h3>
 
 <p>Enable framework tracing for this request.</p>
 
-<h3 id="public-void-fuction-enablelayout">public void fuction enableLayout()</h3>
+<h3 id="public-void-function-enablelayout">public void function enableLayout()</h3>
 
 <p>Enable layouts for this request. Equivalent to <code>request.layout = true;</code>.</p>
 
