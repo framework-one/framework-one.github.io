@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Sep 5th, 2015 8:00 pm This is the upcoming (3.5 - develop) documentation - for the current stable release, read the 3.1 master &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Sep 17th, 2015 7:20 pm This is the upcoming (3.5 - develop) documentation - for the current stable release, read the 3.1 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-09-05T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>8:00 pm</span></time></p>
+<time class='entry-date' datetime='2015-09-17T19:20:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>7:20 pm</span></time></p>
   </header>
   
   <p><em>This is the upcoming (3.5 - develop) documentation - for the current stable release, read the <a href="/documentation/3.1/reference-manual.html">3.1 master stable documentation</a>.</em></p>
@@ -125,7 +125,8 @@
       <li><a href="#public-boolean-function-hasdefaultbeanfactory" id="markdown-toc-public-boolean-function-hasdefaultbeanfactory">public boolean function hasDefaultBeanFactory()</a></li>
       <li><a href="#public-boolean-function-hassubsystembeanfactory-string-subsystem-" id="markdown-toc-public-boolean-function-hassubsystembeanfactory-string-subsystem-">public boolean function hasSubsystemBeanFactory( string subsystem )</a></li>
       <li><a href="#public-boolean-function-iscurrentaction-string-action-" id="markdown-toc-public-boolean-function-iscurrentaction-string-action-">public boolean function isCurrentAction( string action )</a></li>
-      <li><a href="#public-boolean-isunhandledrequest-string-targetpath-" id="markdown-toc-public-boolean-isunhandledrequest-string-targetpath-">public boolean isUnhandledRequest( string targetPath )</a></li>
+      <li><a href="#public-boolean-function-isframeworkreloadrequest" id="markdown-toc-public-boolean-function-isframeworkreloadrequest">public boolean function isFrameworkReloadRequest()</a></li>
+      <li><a href="#public-boolean-function-isunhandledrequest-string-targetpath-" id="markdown-toc-public-boolean-function-isunhandledrequest-string-targetpath-">public boolean function isUnhandledRequest( string targetPath )</a></li>
       <li><a href="#public-string-function-layout-string-path-string-body-" id="markdown-toc-public-string-function-layout-string-path-string-body-">public string function layout( string path, string body )</a></li>
       <li><a href="#public-function-onapplicationstart" id="markdown-toc-public-function-onapplicationstart">public function onApplicationStart()</a></li>
       <li><a href="#public-function-onerror-any-exception-string-event-" id="markdown-toc-public-function-onerror-any-exception-string-event-">public function onError( any exception, string event )</a></li>
@@ -497,7 +498,11 @@
 
 <p>Returns <code>true</code> if the <code>action</code> passed in matches the currently executing action. This can be useful to figure out which tab to highlight in navigation or make other choices based on actions.</p>
 
-<h3 id="public-boolean-isunhandledrequest-string-targetpath-">public boolean isUnhandledRequest( string targetPath )</h3>
+<h3 id="public-boolean-function-isframeworkreloadrequest">public boolean function isFrameworkReloadRequest()</h3>
+
+<p>Returns <code>true</code> if the current request has a valid URL parameter to trigger an application reload or <code>reloadApplicationOnEveryRequest</code> is <code>true</code>.</p>
+
+<h3 id="public-boolean-function-isunhandledrequest-string-targetpath-">public boolean function isUnhandledRequest( string targetPath )</h3>
 
 <p>By default, returns <code>true</code> if the specified <code>targetPath</code> (as in <code>onRequest()</code>) has an unhandled extension (from <code>variables.framework.unhandledExtensions</code>) or matches an unhandled path (from <code>variables.framework.unhandledPaths</code>). You can override this to dynamically tell FW/1 not to handle specific requests. If you want to still apply the default checks as well as your own custom checks, don’t forget to call <code>super.isUnhandledRequest(targetPath)</code>.</p>
 
@@ -735,7 +740,7 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
 
 
 
-<time class='entry-date' datetime='2015-09-05T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>8:00 pm</span></time>
+<time class='entry-date' datetime='2015-09-17T19:20:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>7:20 pm</span></time>
         
       </p>
       
