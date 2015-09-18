@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-09-05 20:00
+date: 2015-09-17 19:20
 comments: false
 sharing: false
 footer: true
@@ -324,7 +324,11 @@ Returns `true` if a bean factory exists for the named subsystem. Otherwise retur
 
 Returns `true` if the `action` passed in matches the currently executing action. This can be useful to figure out which tab to highlight in navigation or make other choices based on actions.
 
-### public boolean isUnhandledRequest( string targetPath )
+### public boolean function isFrameworkReloadRequest()
+
+Returns `true` if the current request has a valid URL parameter to trigger an application reload or `reloadApplicationOnEveryRequest` is `true`.
+
+### public boolean function isUnhandledRequest( string targetPath )
 
 By default, returns `true` if the specified `targetPath` (as in `onRequest()`) has an unhandled extension (from `variables.framework.unhandledExtensions`) or matches an unhandled path (from `variables.framework.unhandledPaths`). You can override this to dynamically tell FW/1 not to handle specific requests. If you want to still apply the default checks as well as your own custom checks, don't forget to call `super.isUnhandledRequest(targetPath)`.
 
