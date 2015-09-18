@@ -114,7 +114,7 @@ Attempts to immediately abort execution of the current controller by throwing an
 
 Returns `true` if the action contains a colon `:` (default - `framework.subsystemDelimiter`). Returns `false` if the action does not contain a colon `:` (default - `framework.subsystemDelimiter`).
 
-### public void addRoute( any routes, string target, any methods = [ ], string statusCode = '' )
+### public void function addRoute( any routes, string target, any methods = [ ], string statusCode = '' )
 
 Allows you to programmatically add a new route to FW/1's known route mappings. `routes` can be either an array of route patterns or a single route pattern. `target` is the URL to map those routes to. `methods` is optional and can be either an array of HTTP methods or a single HTTP method for which those routes should be mapped. `statusCode` is optional and if present is prefixed to the target URL (and represents the HTTP status returned when the routes are processed.
 
@@ -182,7 +182,7 @@ You may only queue up additional controllers prior to the start of controller ex
 
 Just like the implicit controller invocation, `before()`, `item()`, and `after()` are all invoked appropriately if present. If multiple methods are queued up from a single controller, `before()` and `after()` are executed just once (for each controller).
 
-### public string customizeViewOrLayoutPath( struct pathInfo, string type, string fullPath )
+### public string function customizeViewOrLayoutPath( struct pathInfo, string type, string fullPath )
 
 By default, this simply returns `fullPath`.
 
@@ -204,11 +204,11 @@ Disable framework tracing for this request.
 
 Disable layouts for this request. Equivalent to `request.layout = false;`.
 
-### public void fuction enableFrameworkTrace()
+### public void function enableFrameworkTrace()
 
 Enable framework tracing for this request.
 
-### public void fuction enableLayout()
+### public void function enableLayout()
 
 Enable layouts for this request. Equivalent to `request.layout = true;`.
 
