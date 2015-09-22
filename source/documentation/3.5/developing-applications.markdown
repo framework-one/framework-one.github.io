@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-09-15 18:30
+date: 2015-09-22 12:30
 comments: false
 sharing: false
 footer: true
@@ -847,6 +847,6 @@ FW/1 provides a number of convenience methods for manipulating the action value 
 * `getSection( action )` - Returns the _section_ portion of the action. If no section is specified, returns the default section.
 * `getItem( action )` - Returns the _item_ portion of the action. If no item is specified, returns the default item.
 * `getSectionAndItem( action )` - Returns the _section.item_ portion of the action, including default values if either part is not specified.
-* `getFullyQualifiedAction( action )` - Returns the fully qualified _module:section.item_ version of the action, including defaults where appropriate. If the module name is empty, returns `getSectionAndItem( action )`, without the subsystem delimiter.
+* `getFullyQualifiedAction( action )` - Returns the fully qualified _module:section.item_ version of the action, including defaults where appropriate. If the module name is empty, returns `getSectionAndItem( action )`, without the subsystem delimiter. Be careful that _section.item_ is a subsystem-relative action so if you use it inside a subsystem, it will be treated as part of the current subsystem, which is not the same as _:section.item_ (which is treated as part of the main application). This is provided mostly for backward-compatibility and use with Subsystems 1.0 applications.
 * `getSubsystemSectionAndItem( action )` - Returns the fully qualified _module:section.item_ version of the action, including defaults where appropriate. If the module name is empty, the subsystem delimiter is still present (so you get _:section.item_) unlike `getFullyQualifiedAction()` above.
 

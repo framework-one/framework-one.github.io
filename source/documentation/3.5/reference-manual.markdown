@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-09-17 19:20
+date: 2015-09-22 12:30
 comments: false
 sharing: false
 footer: true
@@ -82,7 +82,7 @@ Request variables:
 
 * `request._framework_one` - In the **Alternative Application Structure**, this contains an instance of the framework or your equivalent of `MyApplication.cfc`.
 * `request._fw1` - An opaque structure intended to hide most of the internal request scope variables that FW/1 uses.
-* `request.action` - The action specified in the URL or form (after expansion to the fully qualified form). This can be obtained by calling `getFullyQualifiedAction()` or `getSubsystemSectionAndItem()`, depending on the format you want.
+* `request.action` - The action specified in the URL or form (after expansion to the fully qualified form). This can be obtained by calling `getSubsystemSectionAndItem()`. Depending on the format you want, you may want to call `getFullyQualifiedAction()` instead, which will only contain the subsystem delimiter if the subsystem name is non-empty. That is the legacy format (for Subsystems 1.0 applications or applications containing no subsystems).
 * `request.base` - The canonical path to the application directory (where the `views/` and `layouts/` folders are). There is no API method to access this.
 * `request.cfcbase` - If your controllers are not managed by a bean factory, this is the dot-separated path prefix for controller CFCs. There is no API method to access this.
 * `request.context` - The request context, the main "data bus" through the application. This is available in controller methods as the argument `rc` and in the views and layouts as the (local) variable `rc`.
