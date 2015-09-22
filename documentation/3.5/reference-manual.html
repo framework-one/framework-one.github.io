@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Sep 17th, 2015 7:20 pm This is the upcoming (3.5 - develop) documentation - for the current stable release, read the 3.1 &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Sep 22nd, 2015 12:30 pm This is the upcoming (3.5 - develop) documentation - for the current stable release, read the 3.1 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-09-17T19:20:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>7:20 pm</span></time></p>
+<time class='entry-date' datetime='2015-09-22T12:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>12:30 pm</span></time></p>
   </header>
   
   <p><em>This is the upcoming (3.5 - develop) documentation - for the current stable release, read the <a href="/documentation/3.1/reference-manual.html">3.1 master stable documentation</a>.</em></p>
@@ -237,7 +237,7 @@
 <ul>
   <li><code>request._framework_one</code> - In the <strong>Alternative Application Structure</strong>, this contains an instance of the framework or your equivalent of <code>MyApplication.cfc</code>.</li>
   <li><code>request._fw1</code> - An opaque structure intended to hide most of the internal request scope variables that FW/1 uses.</li>
-  <li><code>request.action</code> - The action specified in the URL or form (after expansion to the fully qualified form). This can be obtained by calling <code>getFullyQualifiedAction()</code> or <code>getSubsystemSectionAndItem()</code>, depending on the format you want.</li>
+  <li><code>request.action</code> - The action specified in the URL or form (after expansion to the fully qualified form). This can be obtained by calling <code>getSubsystemSectionAndItem()</code>. Depending on the format you want, you may want to call <code>getFullyQualifiedAction()</code> instead, which will only contain the subsystem delimiter if the subsystem name is non-empty. That is the legacy format (for Subsystems 1.0 applications or applications containing no subsystems).</li>
   <li><code>request.base</code> - The canonical path to the application directory (where the <code>views/</code> and <code>layouts/</code> folders are). There is no API method to access this.</li>
   <li><code>request.cfcbase</code> - If your controllers are not managed by a bean factory, this is the dot-separated path prefix for controller CFCs. There is no API method to access this.</li>
   <li><code>request.context</code> - The request context, the main “data bus” through the application. This is available in controller methods as the argument <code>rc</code> and in the views and layouts as the (local) variable <code>rc</code>.</li>
@@ -740,7 +740,7 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
 
 
 
-<time class='entry-date' datetime='2015-09-17T19:20:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>7:20 pm</span></time>
+<time class='entry-date' datetime='2015-09-22T12:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>12:30 pm</span></time>
         
       </p>
       

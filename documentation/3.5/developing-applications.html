@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Sep 15th, 2015 6:30 pm This is the upcoming (3.5 - develop) documentation - for the current stable release, read &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Sep 22nd, 2015 12:30 pm This is the upcoming (3.5 - develop) documentation - for the current stable release, read &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-09-15T18:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>6:30 pm</span></time></p>
+<time class='entry-date' datetime='2015-09-22T12:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>12:30 pm</span></time></p>
   </header>
   
   <p><em>This is the upcoming (3.5 - develop) documentation - for the current stable release, read the <a href="/documentation/3.1/developing-applications.html">3.1 master stable documentation</a>.</em></p>
@@ -1008,7 +1008,7 @@ property framework;   // make your controller framework aware
   <li><code>getSection( action )</code> - Returns the <em>section</em> portion of the action. If no section is specified, returns the default section.</li>
   <li><code>getItem( action )</code> - Returns the <em>item</em> portion of the action. If no item is specified, returns the default item.</li>
   <li><code>getSectionAndItem( action )</code> - Returns the <em>section.item</em> portion of the action, including default values if either part is not specified.</li>
-  <li><code>getFullyQualifiedAction( action )</code> - Returns the fully qualified <em>module:section.item</em> version of the action, including defaults where appropriate. If the module name is empty, returns <code>getSectionAndItem( action )</code>, without the subsystem delimiter.</li>
+  <li><code>getFullyQualifiedAction( action )</code> - Returns the fully qualified <em>module:section.item</em> version of the action, including defaults where appropriate. If the module name is empty, returns <code>getSectionAndItem( action )</code>, without the subsystem delimiter. Be careful that <em>section.item</em> is a subsystem-relative action so if you use it inside a subsystem, it will be treated as part of the current subsystem, which is not the same as <em>:section.item</em> (which is treated as part of the main application). This is provided mostly for backward-compatibility and use with Subsystems 1.0 applications.</li>
   <li><code>getSubsystemSectionAndItem( action )</code> - Returns the fully qualified <em>module:section.item</em> version of the action, including defaults where appropriate. If the module name is empty, the subsystem delimiter is still present (so you get <em>:section.item</em>) unlike <code>getFullyQualifiedAction()</code> above.</li>
 </ul>
 
@@ -1022,7 +1022,7 @@ property framework;   // make your controller framework aware
 
 
 
-<time class='entry-date' datetime='2015-09-15T18:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>6:30 pm</span></time>
+<time class='entry-date' datetime='2015-09-22T12:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>12:30 pm</span></time>
         
       </p>
       
