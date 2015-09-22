@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Di1 | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/di1/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-09-22T12:39:00-07:00</updated>
+  <updated>2015-09-22T12:56:01-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 3.5.0 Release Candidate 1 Available!]]></title>
+    <link href="http://framework-one.github.io/blog/2015/09/22/fw1-3-5-0-rc-1/"/>
+    <updated>2015-09-22T12:35:00-07:00</updated>
+    <id>http://framework-one.github.io/blog/2015/09/22/fw1-3-5-0-rc-1</id>
+    <content type="html"><![CDATA[<p>The <a href="https://github.com/framework-one/fw1/releases/tag/v3.5.0-rc1">first Release Candidate of FW/1 3.5.0</a> is available for testing.</p>
+
+<p>This Release Candidate contains just bug fixes since Beta 2. Beta 2 contained mostly bug fixes since Beta 1, with one small enhancement to DI/1 (<code>liberal</code> plural support, e.g., <code>libraries</code> becomes <code>library</code>).</p>
+
+<p>You can read the <a href="https://github.com/framework-one/fw1/issues?q=is%3Aissue+milestone%3A3.5+is%3Aclosed">full list of changes since 3.1</a> on GitHub.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 3.5.0 Beta 1 Available!]]></title>
@@ -172,34 +185,6 @@ automatic support for Clojure code in the Model and Controllers, as well as firs
 <p>At this point, release 3.1 should be considered “production ready” and only critical bug fixes will be included between now and the “gold” release. It is the default download on RIAForge and will be merged to master tomorrow in preparation for the final release at the weekend.</p>
 
 <p>As noted before, release 3.5 will follow fairly quickly after that, with a focus on language integration, bringing
-automatic support for Clojure code in the Model and Controllers, as well as first class support for the Lucee Language in the Model, the Views, and the Controllers.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 3.1 Release Candidate 1 Available!]]></title>
-    <link href="http://framework-one.github.io/blog/2015/06/28/fw1-3-1-rc-1/"/>
-    <updated>2015-06-28T17:00:00-07:00</updated>
-    <id>http://framework-one.github.io/blog/2015/06/28/fw1-3-1-rc-1</id>
-    <content type="html"><![CDATA[<p>The first Release Candidate of FW/1 3.1 is now available for testing. You <a href="https://github.com/framework-one/fw1/releases/tag/v3.1-rc1">download FW/1 3.1 RC 1 from GitHub</a>.</p>
-
-<p>These are the changes since Beta 2:</p>
-
-<ul>
-  <li><code>renderData()</code> supports <code>"jsonp"</code> (Giancarlo Gomez) and <code>"html"</code>.</li>
-  <li><code>renderData()</code> now causes a content reset before rendering the data (Giancarlo Gomez).</li>
-  <li>Subsystem-specific configuration can now override <code>diEngine</code>, <code>diLocations</code>, and <code>diComponent</code>. Previously it could only override <code>diConfig</code>.</li>
-  <li><code>setupApplication()</code> no longer runs twice when first request is also a reload request.</li>
-</ul>
-
-<p>For a complete list of changes since 3.0:</p>
-
-<ul>
-  <li><a href="https://github.com/framework-one/fw1/issues?q=is%3Aissue+is%3Aclosed+milestone%3A3.1">Issues Closed</a></li>
-  <li><a href="https://github.com/framework-one/fw1/pulls?q=is%3Apr+is%3Aclosed+milestone%3A3.1">Pull Requests Merged</a></li>
-</ul>
-
-<p>At this point, release 3.1 is “feature complete” and only bug fixes will be included between now and the “gold” release. Release 3.5 will follow fairly quickly after that, with a focus on language integration, bringing
 automatic support for Clojure code in the Model and Controllers, as well as first class support for the Lucee Language in the Model, the Views, and the Controllers.</p>
 ]]></content>
   </entry>
