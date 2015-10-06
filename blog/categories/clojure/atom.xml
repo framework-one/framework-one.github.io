@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Clojure | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/clojure/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-09-22T12:56:01-07:00</updated>
+  <updated>2015-10-06T15:47:42-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 3.5.0 Release Candidate 2 Available!]]></title>
+    <link href="http://framework-one.github.io/blog/2015/10/06/fw1-3-5-0-rc-2/"/>
+    <updated>2015-10-06T15:40:00-07:00</updated>
+    <id>http://framework-one.github.io/blog/2015/10/06/fw1-3-5-0-rc-2</id>
+    <content type="html"><![CDATA[<p>The <a href="https://github.com/framework-one/fw1/releases/tag/v3.5.0-rc2">second Release Candidate of FW/1 3.5.0</a> is available for testing.</p>
+
+<p>This Release Candidate contains a few bug fixes discovered since Release Candidate 1 and is now the <a href="http://fw1.riaforge.org">default download from FW/1’s RIAForge page</a>.
+I consider this stable enough to evaluate for production usage at this point – I expect this RC to be the Gold Release unless end user testing uncovers a showstopping issue in the next week or two!</p>
+
+<p>You can read the <a href="https://github.com/framework-one/fw1/issues?q=is%3Aissue+milestone%3A3.5+is%3Aclosed">full list of changes since 3.1</a> on GitHub, along with
+<a href="https://github.com/framework-one/fw1/pulls?q=is%3Apr+is%3Aclosed+milestone%3A3.5">accepted pull requests since 3.1</a>..</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 3.5.0 Release Candidate 1 Available!]]></title>
@@ -94,27 +109,6 @@ but it includes <code>box.json</code> for compatibility with ForgeBox / CommandB
 <p>The <a href="https://bitbucket.org/lucee/lucee/wiki/Home">Lucee wiki</a> has information about downloading and installing Lucee, as well as building Lucee from source, and how to migrate from Railo to Lucee (hint: it’s really easy - stop the server, remove <code>railo.jar</code>, add <code>lucee.jar</code>, start the server).</p>
 
 <p>Have fun with Lucee!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 & Clojure Sitting in Tree]]></title>
-    <link href="http://framework-one.github.io/blog/2015/01/25/fw1-clojure-sitting-in-a-tree/"/>
-    <updated>2015-01-25T13:30:49-08:00</updated>
-    <id>http://framework-one.github.io/blog/2015/01/25/fw1-clojure-sitting-in-a-tree</id>
-    <content type="html"><![CDATA[<p>Anyone following my tech trajectory will know that, after starting to learn Clojure in 2010, I’ve moved increasingly away from CFML and toward Clojure. In 2014, my team decided that Clojure would be our official primary language and all new development would happen there instead of in CFML. We still have a lot of CFML code in production - about 90kloc - but we consider it “legacy code” at this point. Most of that CFML code is a large ColdBox app that we built about five years ago (technically it’s three ColdBox apps but they share a lot of code). Our application Model has been slowly moving to Clojure so that we can reuse that code in new applications we’re building in Clojure. We’ve also been building new apps with FW/1 (and reusing both our CFML code and our Clojure code). We still like CFML as a templating language for views and our controllers - in our FW/1 apps at least - are often mostly just “glue” code that lets us call into our Clojure model code.<!-- more --></p>
-
-<p>I’ve talked in passing on the FW/1 mailing list about the possibility of deeper integration with Clojure and I recently published <a href="https://github.com/framework-one/cfmljure/releases/tag/v0.1.0">cfmljure 0.1.0</a> - which I’ll be blogging about shortly - and so the topic came up again on the mailing list about this integration. I’d been thinking about how to write controllers in Clojure so that you could have a FW/1 app that used CFML for the views - where it excels as a templating language - and Clojure for the controllers and the model, leveraging the expressive power and immutable safety for all your business logic.</p>
-
-<p>Over the last few days, I created a fork of FW/1 3.0 that included cfmljure and built a proof of concept of Clojure controllers. You can take a look at the <a href="https://github.com/framework-one/fw1/tree/clojure/examples/6helloclojure">FW/1 example with Clojure controllers</a> on the <code>clojure</code> branch of the FW/1 repo. I created the project using Leiningen (Clojure’s build tool) and then added <code>Application.cfc</code>, <code>index.cfm</code>, and the <code>views/</code> tree. Then I wrote the <code>controllers/main.clj</code> file (in <code>src/hello</code>) and the <code>controllers_test.clj</code> test file (in <code>test/hello</code>). Unit testing is built in, so you can run <code>lein test</code> to see the results. Then I refactored the Clojure code (creating the separate <code>greet.clj</code> file) and added a “service” in Clojure just for fun. The FW/1 app uses <code>framework.ioclj</code> - a extended version of DI/1 that uses cfmljure - to auto-discover the Clojure code (and the CFML code - you can mix’n’match) and wraps the Clojure controllers in <code>framework.cljcontroller</code> (to adapt to Clojure’s pure function calling convention, and to handle some FW/1-specific functionality). The CFML views are run as usual (and if you look in <code>views/main/default.cfm</code> you’ll see a call to the Clojure “service” via the bean factory: <code>getBeanFactory().getBean("greeterService").greetings("Earthling!")</code>).</p>
-
-<p>I’m rather excited about this because it means we’ll have a way, at work, to further migrate our model code from CFML to Clojure, while maintaining “legacy” CFML code alongside, <em>right there in the same FW/1 application!</em></p>
-
-<p>This won’t be part of FW/1 3.0. Instead it will stay on the <code>clojure</code> branch until release 3.0 is out (<code>develop</code> will be merged to <code>master</code> for that), but it will be part of FW/1 3.5 which will be the next release. That way it can get some field testing in production as well as some polish and some documentation love. Stay tuned!</p>
-
-<p>p.s. Right now cfmljure only runs on Railo. The CFML code itself could be made portable enough to run on ColdFusion but the real problem is interop with Java/Clojure: ColdFusion thinks 42 is a string and so you need to do a lot of string-to-number conversions to interact with Clojure through cfmljure. I haven’t used ColdFusion for over five years - just Railo - so I don’t have much incentive, but if you feel inclined to send a Pull Request with changes to make cfmljure ColdFusion-compatible…</p>
-
-<p>p.p.s. cfmljure now runs on Adobe ColdFusion 11, Lucee, and Railo! Thanks to Andrew Myers for tackling ColdFusion support.</p>
 ]]></content>
   </entry>
   
