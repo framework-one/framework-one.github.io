@@ -449,11 +449,11 @@ Will generate:
 
 If `header` is provided (as a non-empty string), instead of performing an actual redirect, FW/1 will set the named HTTP header to the target URL and then abort the controller lifecycle. This allows custom handling of "redirects" in AJAX-based applications.
 
-### Public void function redirectCustomURL( string uri, string preserve = 'none', string statusCode = '302', string header = '' )
+### public void function redirectCustomURL( string uri, string preserve = 'none', string statusCode = '302', string header = '' )
 
 This is to `redirect()` as `buildCustomURL()` is to `buildURL()`.
 
-### public void function renderData( string type, any data, numeric statusCode = 200, jsonpCallback = "" )
+### public void function renderData( string type, any data, numeric statusCode = 200, string jsonpCallback = "" )
 
 Call this from your controller to tell FW/1 to skip views and layouts
 and instead render `data` in the specified content `type` format. `type`

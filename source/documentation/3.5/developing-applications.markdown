@@ -628,7 +628,7 @@ The keys in the structure have the following meanings:
 * `controllersFolder` - The name used for the controllers folder. Must be plural. Defaults to `"controllers"` but could be `"handlers"` for example. _New in 3.5._
 * `layoutsFolder` - The name used for the layouts folder. Must be plural. Defaults to `"layouts"` but could be `"wrappers"` for example. _New in 3.5._
 * `subsystemsFolder` - The name used for the subsystems folder. Must be plural. Defaults to `"subsystems"` but could be `"plugins"` for example. _New in 3.5._
-* `viewssFolder` - The name used for the views folder. Must be plural. Defaults to `"views"` but could be `"pages"` for example. _New in 3.5._
+* `viewsFolder` - The name used for the views folder. Must be plural. Defaults to `"views"` but could be `"pages"` for example. _New in 3.5._
 * `diOverrideAllowed` - If `true`, FW/1 will throw an exception if you attempt to call `setBeanFactory()` twice. If `false`, FW/1 will allow you to call `setBeanFactory()` twice and override the previous Dependency Injection setting, but it will log a warning to the console. If you want FW/1 to manage your bean factory, use the `di*` settings above to configure it -- and do not call `setBeanFactory()` yourself. If you want to manage your bean factory directly, set `diEngine` to `"none"` so FW/1 doesn't also attempt to do this. _New in 3.5._
 * `diEngine` - The Dependency Injection framework that FW/1 should use.
 * `diLocations` - The list of folders to check for CFCs to manage; defaults to `[ "model", "controllers" ]`.
