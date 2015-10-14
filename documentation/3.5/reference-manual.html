@@ -142,8 +142,8 @@
       </li>
       <li><a href="#public-struct-function-processroutes-string-path-array-routes-string-httpmethod--requestfw1cgirequestmethod-" id="markdown-toc-public-struct-function-processroutes-string-path-array-routes-string-httpmethod--requestfw1cgirequestmethod-">public struct function processRoutes( string path, array routes, string httpMethod = request._fw1.cgiRequestMethod )</a></li>
       <li><a href="#public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-string-querystring---string-statuscode--302-string-header---" id="markdown-toc-public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-string-querystring---string-statuscode--302-string-header---">public void function redirect( string action, string preserve = “none”, string append = “none”, string path = <em>see below</em>, string queryString = ‘’, string statusCode = ‘302’, string header = ‘’ )</a></li>
-      <li><a href="#public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---" id="markdown-toc-public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---">Public void function redirectCustomURL( string uri, string preserve = ‘none’, string statusCode = ‘302’, string header = ‘’ )</a></li>
-      <li><a href="#public-void-function-renderdata-string-type-any-data-numeric-statuscode--200-jsonpcallback---" id="markdown-toc-public-void-function-renderdata-string-type-any-data-numeric-statuscode--200-jsonpcallback---">public void function renderData( string type, any data, numeric statusCode = 200, jsonpCallback = “” )</a></li>
+      <li><a href="#public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---" id="markdown-toc-public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---">public void function redirectCustomURL( string uri, string preserve = ‘none’, string statusCode = ‘302’, string header = ‘’ )</a></li>
+      <li><a href="#public-void-function-renderdata-string-type-any-data-numeric-statuscode--200-string-jsonpcallback---" id="markdown-toc-public-void-function-renderdata-string-type-any-data-numeric-statuscode--200-string-jsonpcallback---">public void function renderData( string type, any data, numeric statusCode = 200, string jsonpCallback = “” )</a></li>
       <li><a href="#public-void-function-setbeanfactory-any-factory-" id="markdown-toc-public-void-function-setbeanfactory-any-factory-">public void function setBeanFactory( any factory )</a></li>
       <li><a href="#public-void-function-setlayout-string-action-boolean-suppressotherlayouts--false-" id="markdown-toc-public-void-function-setlayout-string-action-boolean-suppressotherlayouts--false-">public void function setLayout( string action, boolean suppressOtherLayouts = false )</a></li>
       <li><a href="#public-void-function-setsubsystembeanfactory-string-subsystem-any-factory-" id="markdown-toc-public-void-function-setsubsystembeanfactory-string-subsystem-any-factory-">public void function setSubsystemBeanFactory( string subsystem, any factory )</a></li>
@@ -632,11 +632,11 @@
 
 <p>If <code>header</code> is provided (as a non-empty string), instead of performing an actual redirect, FW/1 will set the named HTTP header to the target URL and then abort the controller lifecycle. This allows custom handling of “redirects” in AJAX-based applications.</p>
 
-<h3 id="public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---">Public void function redirectCustomURL( string uri, string preserve = ‘none’, string statusCode = ‘302’, string header = ‘’ )</h3>
+<h3 id="public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---">public void function redirectCustomURL( string uri, string preserve = ‘none’, string statusCode = ‘302’, string header = ‘’ )</h3>
 
 <p>This is to <code>redirect()</code> as <code>buildCustomURL()</code> is to <code>buildURL()</code>.</p>
 
-<h3 id="public-void-function-renderdata-string-type-any-data-numeric-statuscode--200-jsonpcallback---">public void function renderData( string type, any data, numeric statusCode = 200, jsonpCallback = “” )</h3>
+<h3 id="public-void-function-renderdata-string-type-any-data-numeric-statuscode--200-string-jsonpcallback---">public void function renderData( string type, any data, numeric statusCode = 200, string jsonpCallback = “” )</h3>
 
 <p>Call this from your controller to tell FW/1 to skip views and layouts
 and instead render <code>data</code> in the specified content <code>type</code> format. <code>type</code>
