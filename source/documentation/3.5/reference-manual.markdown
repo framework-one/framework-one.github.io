@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-09-22 12:30
+date: 2015-10-16 02:40
 comments: false
 sharing: false
 footer: true
@@ -431,7 +431,7 @@ Given a `path`, and an array of `routes`, and an optional `httpMethod`, process 
 
 ### public void function redirect( string action, string preserve = "none", string append = "none", string path = _see below_, string queryString = '', string statusCode = '302', string header = '' )
 
-This constructs a URL based on the `action` and optional `path` and redirects to it. If `preserve` is `"all"`, the entire contents of the request context are saved to `session` scope across the redirect (and restored back to the request context automatically after the redirect). If `preserve` is a list of keys, just those elements of the request context are preserved. If `append` is `"all"`, all simple values in the request context are appended to the constructed URL as a query string before the redirect. If `append` is a list of keys, just those elements of the request context are appended (if they are simple values). The `statusCode` argument lets you specify the HTTP status code for the redirect so you can override the default value of `302`.
+This constructs a URL based on the `action` and optional `path` and redirects to it. If `preserve` is `"all"`, the entire contents of the request context are saved to `session` scope across the redirect (and restored back to the request context automatically after the redirect). If `preserve` is a list of keys, just those elements of the request context are preserved. If `append` is `"all"`, all simple values in the request context are appended to the constructed URL as a query string before the redirect. If `append` is a list of keys, just those elements of the request context are appended (if they are simple values). The `statusCode` argument lets you specify the HTTP status code for the redirect so you can override the default value of `302`. As of release 3.5 `queryString` also accepts a structure, which is converted to an HTML escaped query string.
 
 If `path` is specified, that base URL is used instead of the default, as per `buildURL()` above.
 
