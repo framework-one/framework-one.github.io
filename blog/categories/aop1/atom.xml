@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Aop1 | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/aop1/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-10-16T14:40:45-07:00</updated>
+  <updated>2015-10-21T12:52:34-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,47 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 3.5.0 Released!]]></title>
+    <link href="http://framework-one.github.io/blog/2015/10/21/fw1-3-5-0-released/"/>
+    <updated>2015-10-21T12:00:00-07:00</updated>
+    <id>http://framework-one.github.io/blog/2015/10/21/fw1-3-5-0-released</id>
+    <content type="html"><![CDATA[<p>The <a href="https://github.com/framework-one/fw1/releases/tag/v3.5.0">Gold Release of FW/1 3.5.0</a> is available for general release and production use. The focus of this release is integration, bringing an improved way to add subsystems to an existing application, an easier way to add FW/1 to a legacy application, support for mixed CFML / Clojure applications, better support for WireBox, and full support for ForgeBox and CommandBox!<!-- more --></p>
+
+<p>The major new features in FW/1 3.5.0 are:</p>
+
+<ul>
+  <li>Subsystems 2.0. A new, more streamlined way to add subsystems to an existing FW/1 application has been added. Thank you to <a href="https://github.com/sneiland">Steven Neiland</a> for the inspiration and guiding principles! Read about <a href="http://framework-one.github.io/documentation/using-subsystems.html">Subsystems 2.0</a> and how they differ from the older approach (which is still supported). The examples have been reworked to use Subsystems 2.0 so you can see how it works in practice.</li>
+  <li>An <strong>Alternative Application Structure</strong> is now supported that allows you to create FW/1 applications that do not require <code>Application.cfc</code> extends the FW/1 component. Read about <a href="http://framework-one.github.io/documentation/developing-applications.html#alternative-application-structure">the Alternative Application Structure</a>. Some of the examples have been updated to use this approach so you can see how it works in practice.</li>
+  <li>Clojure integration. If you have Leiningen installed (Clojure’s build tool) then it is very easy to write services and/or controllers in Clojure and have FW/1 automatically integrate those into your CFML application. Read about <a href="http://framework-one.github.io/documentation/cfml-and-clojure.html">mixing CFML &amp; Clojure</a> for more details. An example of Clojure integration is provided in the repository (you’ll need <a href="http://leiningen.org">Leiningen</a> installed for that example to run).</li>
+  <li>ForgeBox / CommandBox support. FW/1 now has a <code>box.json</code> file and is hosted on ForgeBox so it can be easily installed via CommandBox.</li>
+</ul>
+
+<p>In addition to the major features, the following enhancements have been added:</p>
+
+<ul>
+  <li><code>redirect()</code> allows <code>queryString</code> to be a struct, like <code>buildURL()</code>.</li>
+  <li><code>isFrameworkReloadRequest()</code> is now public in case an application needs to take action when the framework is reloaded.</li>
+  <li><code>getSubsystemSectionAndItem()</code> added to supplement <code>getFullyQualifiedAction()</code> (the latter omits the subsystem if it is empty).</li>
+  <li>The WireBox adapter now supports custom binders.</li>
+  <li>The conventions used for various folder names can now be overridden in the framework configuration.</li>
+</ul>
+
+<p>And the following bugs have been fixed:</p>
+
+<ul>
+  <li><a href="https://github.com/framework-one/fw1/issues/377">377</a> - AOP/1 now allows a single interceptor to be applied to multiple objects.</li>
+  <li><a href="https://github.com/framework-one/fw1/issues/361">361</a> - <code>renderData()</code> could kill sessions (this was backported to 3.1.1).</li>
+  <li><a href="https://github.com/framework-one/fw1/issues/336">336</a> - account for <code>expandPath()</code> returning the wrong directory on ACF11 when the path has a trailing <code>/</code>.</li>
+</ul>
+
+<p>Finally, FW/1 includes experimental support for Lucee Language, so if you are running a prerelease build of Lucee Server that has Lucee Language support enabled, you can write controllers and views etc in <code>.lc</code> or <code>.lucee</code> files and FW/1 will use them.</p>
+
+<p>You can read the <a href="https://github.com/framework-one/fw1/issues?q=is%3Aissue+milestone%3A3.5+is%3Aclosed">full list of changes since 3.1</a> on GitHub, along with
+<a href="https://github.com/framework-one/fw1/pulls?q=is%3Apr+is%3Aclosed+milestone%3A3.5">accepted pull requests since 3.1</a>..</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 3.5.0 Release Candidate 2 Available!]]></title>
@@ -90,89 +131,6 @@ The 3.5 documentation now includes a table of contents on each page, making it e
 
 <p>Finally, if you’re a <a href="https://www.ortussolutions.com/products/commandbox">CommandBox</a> fan, we have good news: you can now easily install FW/1 3.1.2 and 3.5.0 (prerelease) via <code>box</code>. I’ll be blogging about this shortly. The 3.1.2 release is exactly the same as 3.1.1 (including the version number!)
 but it includes <code>box.json</code> for compatibility with ForgeBox / CommandBox. In addition, Tony Junkes has contributed an <a href="https://github.com/framework-one/fw1-commands">initial set of <code>box</code> commands for FW/1</a> that let you get up and running quickly. This will be covered in the next blog post.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 3.1 Released!]]></title>
-    <link href="http://framework-one.github.io/blog/2015/07/12/fw1-3-1-released/"/>
-    <updated>2015-07-12T20:00:00-07:00</updated>
-    <id>http://framework-one.github.io/blog/2015/07/12/fw1-3-1-released</id>
-    <content type="html"><![CDATA[<p>The “gold” release of FW/1 3.1 (3.1.0) is now available for production use! You can <a href="https://github.com/framework-one/fw1/releases/tag/v3.1.0">download FW/1 3.1.0 from GitHub</a>.</p>
-
-<p>FW 3.1 is a maintenance release of the 3.x series, containing a number of bug fixes and enhancements. The main new feature of release 3.1 is the addition of AOP/1, thanks to the tireless work of <a href="https://github.com/dbudde">Daniel Budde</a>.<!--more--></p>
-
-<h2 id="aop1">AOP/1</h2>
-<p>AOP/1 brings Aspect-Oriented Programming to FW/1 applications by extending the capabilities of DI/1 with “interceptors” that can be automatically woven into your beans to allow you to call additional methods before, after, or instead of (“around”) the native methods on your beans.
-Please read <a href="http://framework-one.github.io/documentation/using-aop-one.html">the all new AOP/1 documentation</a> provided by Daniel Budde for more details on how to use this powerful new feature.</p>
-
-<h2 id="enhancements">Enhancements</h2>
-
-<ul>
-  <li><code>renderData()</code> now supports both <code>html</code>, <code>rawjson</code> and <code>jsonp</code> data types.</li>
-  <li><code>redirect()</code> now supports a <code>header</code> argument to allow for custom redirect-like behavior such as might be needed in a Single-Page-Application or heavy ajax usage.</li>
-  <li>Routes:
-    <ul>
-      <li>Regex support for <code>^</code> to anchor the match to the start of the request string.</li>
-      <li>Placeholders can now have matches restricted by regex patterns (e.g., to match numeric-only portions of the request string).</li>
-      <li>Regex matching can now be made case-sensitive via the new <code>routesCaseSensitive</code> option.</li>
-    </ul>
-  </li>
-  <li>Per-subsystem configuration now supports <code>diEngine</code>, <code>diComponent</code>, <code>diLocations</code>, and <code>diConfig</code>.</li>
-  <li>Per-environment configuration is now merged recursively, including appropriate parts of <code>diConfig</code>.</li>
-</ul>
-
-<h2 id="bug-fixes">Bug Fixes</h2>
-
-<ul>
-  <li>Route matching for placeholders was too eager. Placeholder names are now restricted to alphanumeric plus <code>_</code> and <code>-</code> characters only. <em>This is potentially a breaking change if you have used unusual characters in placeholder variable names that are legal in CFML identifiers!</em></li>
-  <li>If the first request to an application was also a reload request, initialization was sometimes attempted twice if an exception was thrown during initialization.</li>
-  <li>Framework reloads were not always thread safe and could produce strange behavior if an application was reloaded under load.</li>
-  <li>DI/1’s <code>isConstant()</code> method could fail for manually created and managed beans.</li>
-  <li><code>Application.cfc</code> was not always correctly autowired as a Controller.</li>
-  <li>If content had been produced in a request that used <code>renderData()</code>, that content could corrupt the result. A content reset is now performed in such cases.</li>
-  <li>DI/1 no longer attempts to instantiate interfaces that it discovers in the model.</li>
-</ul>
-
-<h2 id="platform-support">Platform Support</h2>
-
-<ul>
-  <li>ColdFusion 9.0.1 and Railo 4.0 are no longer officially supported by FW/1. FW/1 3.1 applications will probably still run on them but there are some bugs in both engine versions that can impact some of the new functionality in this release.
-FW/1 3.1 officially supports ColdFusion 9.0.2 or later, Railo 4.1 or later, and Lucee 4.5.1.000 or later.</li>
-</ul>
-
-<h2 id="code-of-conduct">Code of Conduct</h2>
-<p>As part of my commitment to diversity in IT, Framework One now has a <a href="https://github.com/framework-one/fw1/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a> that encompasses all aspects of interaction with the project: on GitHub, on the mailing list, and in presentations given by community members to promote the framework.
-This brings Framework in line with a number of progressive open source projects that have adopted a Code of Conduct as a way to make the open source software community more welcoming and more inclusive.</p>
-
-<h2 id="contributors">Contributors</h2>
-<p>The star contributor for this release is <a href="https://github.com/dbudde">Daniel Budde</a> for rewriting AOP/1 (twice!) so it is ready for inclusion with FW/1! Thank you!</p>
-
-<p>Other contributors, in alphabetical order of GitHub name:</p>
-
-<ul>
-  <li>atuttle - Adam Tuttle</li>
-  <li>cybersonic - Mark Drew</li>
-  <li>GiancarloGomez - Giancarlo Gomez</li>
-  <li>guillaume-boivin - Guillaume Boivin</li>
-  <li>jcberquist - John Berquist</li>
-  <li>jochemd - Jochem van Dieten</li>
-  <li>Ronner</li>
-  <li>ryanguill - Ryan Guill</li>
-</ul>
-
-<p>And, yeah, I did a bit too, but FW/1 wouldn’t be where it is today without contributions from the open source CFML community - thank you everyone!</p>
-
-<h2 id="additional-information">Additional Information</h2>
-<p>For a complete list of changes since 3.0:</p>
-
-<ul>
-  <li><a href="https://github.com/framework-one/fw1/issues?q=is%3Aissue+is%3Aclosed+milestone%3A3.1">Issues Closed</a></li>
-  <li><a href="https://github.com/framework-one/fw1/pulls?q=is%3Apr+is%3Aclosed+milestone%3A3.1">Pull Requests Merged</a></li>
-</ul>
-
-<p>Release 3.5 Alpha 1 will follow shortly, with a focus on language integration, bringing
-automatic support for Clojure code in the Model and Controllers, as well as first class support for the Lucee Language in the Model, the Views, and the Controllers.</p>
 ]]></content>
   </entry>
   

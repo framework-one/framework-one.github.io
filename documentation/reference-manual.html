@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Jul 12th, 2015 9:40 pm This page provides a description of all the APIs and components involved in a FW/1 application. Please &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Oct 21st, 2015 12:00 pm This page provides a description of all the APIs and components involved in a FW/1 application. Please &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,10 +74,91 @@
 
 
 
-<time class='entry-date' datetime='2015-07-12T21:40:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:40 pm</span></time></p>
+<time class='entry-date' datetime='2015-10-21T12:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:00 pm</span></time></p>
   </header>
   
-  <p>This page provides a description of all the APIs and components involved in a FW/1 application. Please also read the <a href="/documentation/roadmap.html">Roadmap</a> to see how things may change in the future.</p>
+  <p>This page provides a description of all the APIs and components involved in a FW/1 application. Please also read the <a href="roadmap.html">Roadmap</a> to see how things may change in the future.</p>
+
+<ul id="markdown-toc">
+  <li><a href="#fw1-controllers" id="markdown-toc-fw1-controllers">FW/1 Controllers</a></li>
+  <li><a href="#fw1-views" id="markdown-toc-fw1-views">FW/1 Views</a></li>
+  <li><a href="#fw1-layouts" id="markdown-toc-fw1-layouts">FW/1 Layouts</a></li>
+  <li><a href="#request-scope" id="markdown-toc-request-scope">Request Scope</a></li>
+  <li><a href="#frameworkone" id="markdown-toc-frameworkone">framework.one</a>    <ul>
+      <li><a href="#public-void-function-abortcontroller" id="markdown-toc-public-void-function-abortcontroller">public void function abortController()</a></li>
+      <li><a href="#public-boolean-function-actionspecifiessubsystem-string-action-" id="markdown-toc-public-boolean-function-actionspecifiessubsystem-string-action-">public boolean function actionSpecifiesSubsystem( string action )</a></li>
+      <li><a href="#public-void-function-addroute-any-routes-string-target-any-methods----string-statuscode---" id="markdown-toc-public-void-function-addroute-any-routes-string-target-any-methods----string-statuscode---">public void function addRoute( any routes, string target, any methods = [ ], string statusCode = ‘’ )</a></li>
+      <li><a href="#public-string-function-buildcustomurl-string-uri-" id="markdown-toc-public-string-function-buildcustomurl-string-uri-">public string function buildCustomURL( string uri )</a></li>
+      <li><a href="#public-string-function-buildurl-string-action---string-path--see-below-any-querystring---" id="markdown-toc-public-string-function-buildurl-string-action---string-path--see-below-any-querystring---">public string function buildURL( string action = ‘.’, string path = <em>see below</em>, any queryString = ‘’ )</a></li>
+      <li><a href="#public-void-function-controller-string-action-" id="markdown-toc-public-void-function-controller-string-action-">public void function controller( string action )</a></li>
+      <li><a href="#public-string-function-customizevieworlayoutpath-struct-pathinfo-string-type-string-fullpath-" id="markdown-toc-public-string-function-customizevieworlayoutpath-struct-pathinfo-string-type-string-fullpath-">public string function customizeViewOrLayoutPath( struct pathInfo, string type, string fullPath )</a></li>
+      <li><a href="#public-void-function-disableframeworktrace" id="markdown-toc-public-void-function-disableframeworktrace">public void function disableFrameworkTrace()</a></li>
+      <li><a href="#public-void-function-disablelayout" id="markdown-toc-public-void-function-disablelayout">public void function disableLayout()</a></li>
+      <li><a href="#public-void-function-enableframeworktrace" id="markdown-toc-public-void-function-enableframeworktrace">public void function enableFrameworkTrace()</a></li>
+      <li><a href="#public-void-function-enablelayout" id="markdown-toc-public-void-function-enablelayout">public void function enableLayout()</a></li>
+      <li><a href="#public-void-function-frameworktrace-string-message--any-value--" id="markdown-toc-public-void-function-frameworktrace-string-message--any-value--">public void function frameworkTrace( string message [, any value ] )</a></li>
+      <li><a href="#public-string-function-getaction" id="markdown-toc-public-string-function-getaction">public string function getAction()</a></li>
+      <li><a href="#public-string-function-getbaseurl" id="markdown-toc-public-string-function-getbaseurl">public string function getBaseURL()</a></li>
+      <li><a href="#public-any-function-getbeanfactory-string-subsystem---" id="markdown-toc-public-any-function-getbeanfactory-string-subsystem---">public any function getBeanFactory( string subsystem = “” )</a></li>
+      <li><a href="#public-struct-function-getconfig" id="markdown-toc-public-struct-function-getconfig">public struct function getConfig()</a></li>
+      <li><a href="#public-any-function-getdefaultbeanfactory" id="markdown-toc-public-any-function-getdefaultbeanfactory">public any function getDefaultBeanFactory()</a></li>
+      <li><a href="#public-string-function-getdefaultsubsystem" id="markdown-toc-public-string-function-getdefaultsubsystem">public string function getDefaultSubsystem()</a></li>
+      <li><a href="#public-string-function-getenvironment" id="markdown-toc-public-string-function-getenvironment">public string function getEnvironment()</a></li>
+      <li><a href="#public-string-function-getenvvar-string-name-" id="markdown-toc-public-string-function-getenvvar-string-name-">public string function getEnvVar( string name )</a></li>
+      <li><a href="#public-array-function-getframeworktrace" id="markdown-toc-public-array-function-getframeworktrace">public array function getFrameworkTrace()</a></li>
+      <li><a href="#public-string-function-getfullyqualifiedaction-string-action--requestaction-" id="markdown-toc-public-string-function-getfullyqualifiedaction-string-action--requestaction-">public string function getFullyQualifiedAction( string action = request.action )</a></li>
+      <li><a href="#public-string-function-gethostname" id="markdown-toc-public-string-function-gethostname">public string function getHostname()</a></li>
+      <li><a href="#public-string-function-getitem-string-action--requestaction-" id="markdown-toc-public-string-function-getitem-string-action--requestaction-">public string function getItem( string action = request.action )</a></li>
+      <li><a href="#public-string-function-getroute" id="markdown-toc-public-string-function-getroute">public string function getRoute()</a></li>
+      <li><a href="#public-array-function-getroutes" id="markdown-toc-public-array-function-getroutes">public array function getRoutes()</a></li>
+      <li><a href="#public-array-function-getresourceroutetemplates" id="markdown-toc-public-array-function-getresourceroutetemplates">public array function getResourceRouteTemplates()</a></li>
+      <li><a href="#public-string-function-getsection-string-action--requestaction-" id="markdown-toc-public-string-function-getsection-string-action--requestaction-">public string function getSection( string action = request.action )</a></li>
+      <li><a href="#public-string-function-getsectionanditem-string-action--requestaction-" id="markdown-toc-public-string-function-getsectionanditem-string-action--requestaction-">public string function getSectionAndItem( string action = request.action )</a></li>
+      <li><a href="#public-string-function-getsubsystem-string-action--requestaction-" id="markdown-toc-public-string-function-getsubsystem-string-action--requestaction-">public string function getSubsystem( string action = request.action )</a></li>
+      <li><a href="#public-string-function-getsubsystembase" id="markdown-toc-public-string-function-getsubsystembase">public string function getSubsystemBase()</a></li>
+      <li><a href="#public-any-function-getsubsystembeanfactory-string-subsystem-" id="markdown-toc-public-any-function-getsubsystembeanfactory-string-subsystem-">public any function getSubsystemBeanFactory( string subsystem )</a></li>
+      <li><a href="#public-struct-function-getsubsystemconfig-string-subsystem-" id="markdown-toc-public-struct-function-getsubsystemconfig-string-subsystem-">public struct function getSubsystemConfig( string subsystem )</a></li>
+      <li><a href="#public-string-function-getsubsystemsectionanditem-string-action--requestaction-" id="markdown-toc-public-string-function-getsubsystemsectionanditem-string-action--requestaction-">public string function getSubsystemSectionAndItem( string action = request.action )</a></li>
+      <li><a href="#public-boolean-function-hasbeanfactory" id="markdown-toc-public-boolean-function-hasbeanfactory">public boolean function hasBeanFactory()</a></li>
+      <li><a href="#public-boolean-function-hasdefaultbeanfactory" id="markdown-toc-public-boolean-function-hasdefaultbeanfactory">public boolean function hasDefaultBeanFactory()</a></li>
+      <li><a href="#public-boolean-function-hassubsystembeanfactory-string-subsystem-" id="markdown-toc-public-boolean-function-hassubsystembeanfactory-string-subsystem-">public boolean function hasSubsystemBeanFactory( string subsystem )</a></li>
+      <li><a href="#public-boolean-function-iscurrentaction-string-action-" id="markdown-toc-public-boolean-function-iscurrentaction-string-action-">public boolean function isCurrentAction( string action )</a></li>
+      <li><a href="#public-boolean-function-isframeworkreloadrequest" id="markdown-toc-public-boolean-function-isframeworkreloadrequest">public boolean function isFrameworkReloadRequest()</a></li>
+      <li><a href="#public-boolean-function-isunhandledrequest-string-targetpath-" id="markdown-toc-public-boolean-function-isunhandledrequest-string-targetpath-">public boolean function isUnhandledRequest( string targetPath )</a></li>
+      <li><a href="#public-string-function-layout-string-path-string-body-" id="markdown-toc-public-string-function-layout-string-path-string-body-">public string function layout( string path, string body )</a></li>
+      <li><a href="#public-function-onapplicationstart" id="markdown-toc-public-function-onapplicationstart">public function onApplicationStart()</a></li>
+      <li><a href="#public-function-onerror-any-exception-string-event-" id="markdown-toc-public-function-onerror-any-exception-string-event-">public function onError( any exception, string event )</a></li>
+      <li><a href="#public-string-function-onmissingview-struct-rc-" id="markdown-toc-public-string-function-onmissingview-struct-rc-">public string function onMissingView( struct rc )</a></li>
+      <li><a href="#public-void-function-onpopulateerror-any-cfc-string-property-struct-rc-" id="markdown-toc-public-void-function-onpopulateerror-any-cfc-string-property-struct-rc-">public void function onPopulateError( any cfc, string property, struct rc )</a></li>
+      <li><a href="#public-function-onrequest-string-targetpage-" id="markdown-toc-public-function-onrequest-string-targetpage-">public function onRequest( string targetPage )</a></li>
+      <li><a href="#public-function-onrequestend-string-targetpage-" id="markdown-toc-public-function-onrequestend-string-targetpage-">public function onRequestEnd( string targetPage )</a></li>
+      <li><a href="#public-function-onrequeststart-string-targetpage-" id="markdown-toc-public-function-onrequeststart-string-targetpage-">public function onRequestStart( string targetPage )</a></li>
+      <li><a href="#public-function-onsessionstart" id="markdown-toc-public-function-onsessionstart">public function onSessionStart()</a></li>
+      <li><a href="#public-any-function-populate-any-cfc-string-keys---boolean-trustkeys--false-boolean-trim--false-boolean-deep--false-any-properties---" id="markdown-toc-public-any-function-populate-any-cfc-string-keys---boolean-trustkeys--false-boolean-trim--false-boolean-deep--false-any-properties---">public any function populate( any cfc, string keys = “”, boolean trustKeys = false, boolean trim = false, boolean deep = false, any properties = ‘’ )</a>        <ul>
+          <li><a href="#populating-child-objects" id="markdown-toc-populating-child-objects">Populating Child Objects</a></li>
+        </ul>
+      </li>
+      <li><a href="#public-struct-function-processroutes-string-path-array-routes-string-httpmethod--requestfw1cgirequestmethod-" id="markdown-toc-public-struct-function-processroutes-string-path-array-routes-string-httpmethod--requestfw1cgirequestmethod-">public struct function processRoutes( string path, array routes, string httpMethod = request._fw1.cgiRequestMethod )</a></li>
+      <li><a href="#public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-any-querystring---string-statuscode--302-string-header---" id="markdown-toc-public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-any-querystring---string-statuscode--302-string-header---">public void function redirect( string action, string preserve = “none”, string append = “none”, string path = <em>see below</em>, any queryString = ‘’, string statusCode = ‘302’, string header = ‘’ )</a></li>
+      <li><a href="#public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---" id="markdown-toc-public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---">public void function redirectCustomURL( string uri, string preserve = ‘none’, string statusCode = ‘302’, string header = ‘’ )</a></li>
+      <li><a href="#public-void-function-renderdata-string-type-any-data-numeric-statuscode--200-string-jsonpcallback---" id="markdown-toc-public-void-function-renderdata-string-type-any-data-numeric-statuscode--200-string-jsonpcallback---">public void function renderData( string type, any data, numeric statusCode = 200, string jsonpCallback = “” )</a></li>
+      <li><a href="#public-void-function-setbeanfactory-any-factory-" id="markdown-toc-public-void-function-setbeanfactory-any-factory-">public void function setBeanFactory( any factory )</a></li>
+      <li><a href="#public-void-function-setlayout-string-action-boolean-suppressotherlayouts--false-" id="markdown-toc-public-void-function-setlayout-string-action-boolean-suppressotherlayouts--false-">public void function setLayout( string action, boolean suppressOtherLayouts = false )</a></li>
+      <li><a href="#public-void-function-setsubsystembeanfactory-string-subsystem-any-factory-" id="markdown-toc-public-void-function-setsubsystembeanfactory-string-subsystem-any-factory-">public void function setSubsystemBeanFactory( string subsystem, any factory )</a></li>
+      <li><a href="#public-void-function-setupapplication" id="markdown-toc-public-void-function-setupapplication">public void function setupApplication()</a></li>
+      <li><a href="#public-void-function-setupenvironment-string-env-" id="markdown-toc-public-void-function-setupenvironment-string-env-">public void function setupEnvironment( string env )</a></li>
+      <li><a href="#public-void-function-setuprequest" id="markdown-toc-public-void-function-setuprequest">public void function setupRequest()</a></li>
+      <li><a href="#public-void-function-setupresponse-struct-rc-" id="markdown-toc-public-void-function-setupresponse-struct-rc-">public void function setupResponse( struct rc )</a></li>
+      <li><a href="#public-void-function-setupsession" id="markdown-toc-public-void-function-setupsession">public void function setupSession()</a></li>
+      <li><a href="#public-void-function-setupsubsystem-string-subsystem-" id="markdown-toc-public-void-function-setupsubsystem-string-subsystem-">public void function setupSubsystem( string subsystem )</a></li>
+      <li><a href="#public-void-function-setuptracerender-string-output--html-" id="markdown-toc-public-void-function-setuptracerender-string-output--html-">public void function setupTraceRender( string output = ‘html’ )</a></li>
+      <li><a href="#public-void-function-setupview-struct-rc-" id="markdown-toc-public-void-function-setupview-struct-rc-">public void function setupView( struct rc )</a></li>
+      <li><a href="#public-void-function-setview-string-action-" id="markdown-toc-public-void-function-setview-string-action-">public void function setView( string action )</a></li>
+      <li><a href="#public-boolean-function-usingsubsystems" id="markdown-toc-public-boolean-function-usingsubsystems">public boolean function usingSubsystems()</a></li>
+      <li><a href="#public-string-function-view-string-path-struct-args----any-missingview----" id="markdown-toc-public-string-function-view-string-path-struct-args----any-missingview----">public string function view( string path, struct args = { }, any missingView = { } )</a></li>
+    </ul>
+  </li>
+</ul>
 
 <h2 id="fw1-controllers">FW/1 Controllers</h2>
 <p>A controller in a FW/1 application does not need to extend any base component.</p>
@@ -89,12 +170,12 @@
 <p>The following public methods are significant in a controller (and are all optional):</p>
 
 <ul>
-  <li><code>void before(struct rc)</code> - called at the start of each request to this <code>section</code></li>
-  <li><code>void item(struct rc)</code> - called next, for <code>section.item</code></li>
-  <li><code>void after(struct rc)</code> - called at the end of each request to this <code>section</code> before views are rendered.</li>
+  <li><code>void before(struct rc)</code> - called at the start of each request to this <em>section</em></li>
+  <li><code>void item(struct rc)</code> - called next, an <em>item()</em> method for each <em>section.item</em> action request</li>
+  <li><code>void after(struct rc)</code> - called at the end of each request to this <em>section</em> before views are rendered.</li>
 </ul>
 
-<p>If the controller needs to invoke FW/1 API methods (see <strong>framework.one</strong> below), the controller must either depend on <code>property framework;</code> (and have <code>accessors=true</code> on the <code>component</code> tag) or have a constructor (a method called <code>init()</code>) that accepts an instance of the FW/1 CFC and saves it for use in other methods. The following is the recommended way to write your controller’s constructor:</p>
+<p>If the controller needs to invoke FW/1 API methods (see <strong><a href="#frameworkone">framework.one</a></strong> below), the controller must either depend on <code>property framework;</code> (and have <code>accessors=true</code> on the <code>component</code> tag) or have a constructor (a method called <code>init()</code>) that accepts an instance of the FW/1 CFC, as the <code>fw</code> argument, and saves it for use in other methods. The following is the recommended way to write your controller’s constructor:</p>
 
 <pre><code>function init(fw) {
     variables.fw = fw;
@@ -104,16 +185,16 @@
 
 <p>Within other controller methods, you can then invoke FW/1 API methods using <code>variables.fw.apimethod(args)</code> if you use this constructor approach, or <code>variables.framework.apimethod(args)</code> if you use the <code>property framework;</code> approach.</p>
 
-<p>Your <code>Application.cfc</code> is also considered a controller and if it defines <code>before()</code> or <code>after()</code> methods, those will be called at the start and end of the controller lifecycle. Unlike other controllers, it does not need an <code>init()</code> method and instead of referring to the FW/1 API methods via <code>variables.fw...</code> you can just use the API methods directly - unqualified - since <code>Application.cfc</code> extends the framework and all those methods are available implicitly.</p>
+<p>Your <code>Application.cfc</code> is also considered a controller and if it defines <code>before()</code> or <code>after()</code> methods, those will be called at the start and end of the controller lifecycle. Unlike other controllers, it does not need an <code>init()</code> method and instead of referring to the FW/1 API methods via <code>variables.fw...</code> you can just use the API methods directly - unqualified - since <code>Application.cfc</code> extends the framework and all those methods are available implicitly. _Note: if you use the <strong><a href="developing-applications.html#alternative-application-structure">Alternative Application Structure</a></strong> where <code>Application.cfc</code> does not extend <code>framework.one</code>, then these methods would go in your equivalent to <code>MyApplication.cfc</code> (whatever you’ve called it).</p>
 
 <p>A controller is instantiated on the first request to an <em>item</em> in that <em>section</em> and is cached in <code>application</code> scope. You can ask FW/1 to reload the cache at any point (by default, you add <code>?reload=true</code> to the URL).</p>
 
-<p>You can abort processing of controllers and services by calling <code>variables.fw.abortController()</code> which throws an exception that is caught by the framework. Execution of the current controller is immediately aborted and execution continues with <code>setupView()</code>. If your controller code catches and swallows the exception, execution of your controller code will proceed from your catch statement until it returns but at that point the framework will not execute any further controllers and execution continues with <code>setupView()</code>.</p>
+<p>You can abort processing of controllers and services by calling <code>variables.fw.abortController()</code> which throws an exception that is caught by the framework. Execution of the current controller is immediately aborted and execution continues with <code>setupView()</code>. If your controller code catches and swallows the exception (e.g., by <code>catch ( any e )</code>), execution of your controller code will proceed through your catch statement and on until it returns but at that point the framework will not execute any further controllers and execution continues with <code>setupView()</code>.</p>
 
 <h2 id="fw1-views">FW/1 Views</h2>
-<p>All views execute as included files within the context of a FW/1 request, i.e., inside the current request’s instance of <code>Application.cfc</code>. That means that all methods inside FW/1 and inside your <code>Application.cfc</code> are available directly inside your views. See the public API documentation below for what you can and should use of those methods! This means that you can have view helper methods in your <code>Application.cfc</code>, either directly or via an include of a library file.</p>
+<p>All views execute as included files within the context of a FW/1 request, i.e., inside the current request’s instance of <code>Application.cfc</code>. That means that all methods inside FW/1 and inside your <code>Application.cfc</code> are available directly inside your views. See the public API documentation below for what you can and should use of those methods! This means that you can have view helper methods in your <code>Application.cfc</code>, either directly or via an include of a library file. <em>Or your equivalent of <code>MyApplication.cfc</code> if you are using the <strong>Alternative Application Structure</strong>).</em></p>
 
-<p>This process also means that you are <em>mostly</em> free of thread safety issues (because each request automatically has its own context). That said, you need to cognizant of two things when storing data in the <code>variables</code> scope of a view:</p>
+<p>This process also means that you are <em>mostly</em> free of thread safety issues (because each request automatically has its own context). That said, you need to be cognizant of two things when storing data in the <code>variables</code> scope of a view:</p>
 
 <ul>
   <li>The <code>variables</code> scope of a view is the <code>variables</code> scope of FW/1 / <code>Application.cfc</code> - so don’t overwrite anything the framework might need!</li>
@@ -122,7 +203,7 @@
 
 <p>You can avoid those concerns by using <code>local</code> scope for any new variables introduced inside the view. In addition to <code>local</code> scope, each view also has a local <code>rc</code> variable which is the request context struct. This is the recommended way for views to communicate if they have a need to do so (e.g., setting a page title in a view so that a layout or later view can render it). <code>rc</code> contains whatever data the controller(s) have provided, as well as what was originally in the URL and/or form scopes.</p>
 
-<p>The following variables are also available but <code>should not be relied upon</code> as they are implementation details that may change in the future:</p>
+<p>The following variables are also available but <strong>should not be relied upon</strong> as they are implementation details that may change in the future:</p>
 
 <ul>
   <li><code>viewPath</code> / <code>layoutPath</code> - The path to the view or layout file.</li>
@@ -135,7 +216,7 @@
 
 <p>If no matching view file exists for a request, <code>onMissingView()</code> is called and whatever is returned is used as the text of the view, and layouts are applied (unless they are suppressed). The default implementation is to throw an exception but by overriding this method you can create any behavior you want for requests that have no specific view, e.g., you can return a default view or pretty much anything you want.</p>
 
-<p>As noted in the <a href="/documentation/developing-applications.html">Developing Applications Manual</a>, <code>onMissingView()</code> will be called if your application throws an exception and you have not provided a view for the default error handler (<code>main.error</code> - if <code>defaultSection</code> is <code>main</code>). This can lead to exceptions being masked and instead appearing as if you have a missing view!</p>
+<p>As noted in the <a href="developing-applications.html#using-onmissingview-to-handle-missing-views">Developing Applications Manual</a>, <code>onMissingView()</code> will be called if your application throws an exception and you have not provided a view for the default error handler (<code>main.error</code> - if <code>defaultSection</code> is <code>main</code>). This can lead to exceptions being masked and instead appearing as if you have a missing view!</p>
 
 <h2 id="fw1-layouts">FW/1 Layouts</h2>
 <p>Everything that applies to views above also applies to layouts. The variables that are available to layouts are the same as for views without <code>args</code> and with just one addition:</p>
@@ -152,8 +233,9 @@
 <p>Request variables:</p>
 
 <ul>
+  <li><code>request._framework_one</code> - In the <strong>Alternative Application Structure</strong>, this contains an instance of the framework or your equivalent of <code>MyApplication.cfc</code>.</li>
   <li><code>request._fw1</code> - An opaque structure intended to hide most of the internal request scope variables that FW/1 uses.</li>
-  <li><code>request.action</code> - The action specified in the URL or form (after expansion to the fully qualified form). This can be obtained by calling <code>getFullyQualifiedAction()</code>.</li>
+  <li><code>request.action</code> - The action specified in the URL or form (after expansion to the fully qualified form). This can be obtained by calling <code>getSubsystemSectionAndItem()</code>. Depending on the format you want, you may want to call <code>getFullyQualifiedAction()</code> instead, which will only contain the subsystem delimiter if the subsystem name is non-empty. That is the legacy format (for Subsystems 1.0 applications or applications containing no subsystems).</li>
   <li><code>request.base</code> - The canonical path to the application directory (where the <code>views/</code> and <code>layouts/</code> folders are). There is no API method to access this.</li>
   <li><code>request.cfcbase</code> - If your controllers are not managed by a bean factory, this is the dot-separated path prefix for controller CFCs. There is no API method to access this.</li>
   <li><code>request.context</code> - The request context, the main “data bus” through the application. This is available in controller methods as the argument <code>rc</code> and in the views and layouts as the (local) variable <code>rc</code>.</li>
@@ -163,10 +245,10 @@
   <li><code>request.failedCfcName</code> - If an exception occurs during execution of a controller, this holds the name of the failed controller CFC. This can be accessed in the error action to provide more details of where the exception occurred. An API method may be added in the future to access this.</li>
   <li><code>request.failedMethod</code> - If an exception occurs during execution of a controller, this holds the name of the failed method (on the controller CFC). This can be accessed in the error action to provide more details of where the exception occurred. An API method may be added in the future to access this.</li>
   <li><code>request.item</code> - The item portion of the action. This can be obtained by calling <code>getItem()</code> (with no argument).</li>
-  <li><code>request.layout</code> - This is a boolean that indicates whether layouts should be rendered. It can be set in a view or layout to prevent any further layouts from being processed. <strong>This is the only <code>request</code> scope variable which a developer should be updating directly.</strong> An API method may be added in future for this.</li>
+  <li><code>request.layout</code> - This is a boolean that indicates whether layouts should be rendered. It can be set in a view or layout to prevent any further layouts from being processed. Use <code>disableLayout()</code> and <code>enableLayout()</code> to manipulate this flag.</li>
   <li><code>request.missingView</code> - When <code>onMissingView()</code> is triggered, this hold the name of the view that was not found. An API method may be added in future to access this.</li>
   <li><code>request.section</code> - The section portion of the action. This can be obtained by calling <code>getSection()</code> (with no argument).</li>
-  <li><code>request.subsystem</code> - The subsystem portion of the action, if appropriate. This can be obtained by calling <code>getSubsystem()</code> (with no argument).</li>
+  <li><code>request.subsystem</code> - The subsystem portion of the action. This can be obtained by calling <code>getSubsystem()</code> (with no argument).</li>
   <li><code>request.subsystembase</code> - The path from the main application directory to the current subsystem’s directory (where the <code>views/</code> and <code>layouts/</code> folders are). This can be obtained by calling <code>getSubsystemBase()</code>.</li>
 </ul>
 
@@ -175,17 +257,17 @@
 <h1 id="frameworkone">framework.one</h1>
 <p>This section documents every public method in FW/1’s core file.</p>
 
-<p>These methods are callable from outside the framework and are intended to be used with controllers, layouts and views or may be intended to be overridden in you <code>Application.cfc</code>. Technically, methods in FW/1 do not need to be <code>public</code> to be called from within layouts, views or <code>Application.cfc</code> but for the most part, the convention is: if it’s <code>public</code>, it’s documented and guaranteed to remain part of the API; if it’s <code>private</code>, whilst it may be called within layouts, views and <code>Application.cfc</code> it is not recommended.</p>
+<p>These methods are callable from outside the framework and are intended to be used with controllers, layouts and views or may be intended to be overridden in your <code>Application.cfc</code>. Technically, methods in FW/1 do not need to be <code>public</code> to be called from within layouts, views or <code>Application.cfc</code> but for the most part, the convention is: if it’s <code>public</code>, it’s documented and guaranteed to remain part of the API; if it’s <code>private</code>, whilst it may be called within layouts, views and <code>Application.cfc</code> it is not recommended.</p>
 
 <h3 id="public-void-function-abortcontroller">public void function abortController()</h3>
 
-<p>Attempts to immediately abort execution of the current controller by throwing an exception (which is caught by the framework). If your controller catches this exception, execution will continue until your controller returns. No further controller or service methods will be called. Execution will continue with the <code>setupView()</code> lifecycle method and views and layouts will then be rendered.</p>
+<p>Attempts to immediately abort execution of the current controller by throwing an exception (which is caught by the framework). If your controller catches this exception, even by accident (such as <code>catch ( any e )</code>), execution will continue inside your controller until it returns. No further controller methods will be called. Execution will continue with the <code>setupView()</code> lifecycle method and views and layouts will then be rendered.</p>
 
 <h3 id="public-boolean-function-actionspecifiessubsystem-string-action-">public boolean function actionSpecifiesSubsystem( string action )</h3>
 
-<p>Returns <code>true</code> if the application is using subsystems and the action contains a colon <code>:</code> (default - <code>framework.subsystemDelimiter</code>). Returns <code>false</code> if the application is not using subsystems or the action does not contain a colon <code>:</code> (default - <code>framework.subsystemDelimiter</code>).</p>
+<p>Returns <code>true</code> if the action contains a colon <code>:</code> (default - <code>framework.subsystemDelimiter</code>). Returns <code>false</code> if the action does not contain a colon <code>:</code> (default - <code>framework.subsystemDelimiter</code>).</p>
 
-<h3 id="addroute-any-routes-string-target-any-methods----string-statuscode---">addRoute( any routes, string target, any methods = [ ], string statusCode = ‘’ )</h3>
+<h3 id="public-void-function-addroute-any-routes-string-target-any-methods----string-statuscode---">public void function addRoute( any routes, string target, any methods = [ ], string statusCode = ‘’ )</h3>
 
 <p>Allows you to programmatically add a new route to FW/1’s known route mappings. <code>routes</code> can be either an array of route patterns or a single route pattern. <code>target</code> is the URL to map those routes to. <code>methods</code> is optional and can be either an array of HTTP methods or a single HTTP method for which those routes should be mapped. <code>statusCode</code> is optional and if present is prefixed to the target URL (and represents the HTTP status returned when the routes are processed.</p>
 
@@ -270,7 +352,7 @@
 
 <p>Just like the implicit controller invocation, <code>before()</code>, <code>item()</code>, and <code>after()</code> are all invoked appropriately if present. If multiple methods are queued up from a single controller, <code>before()</code> and <code>after()</code> are executed just once (for each controller).</p>
 
-<h3 id="public-string-customizevieworlayoutpath-struct-pathinfo-string-type-string-fullpath-">public string customizeViewOrLayoutPath( struct pathInfo, string type, string fullPath )</h3>
+<h3 id="public-string-function-customizevieworlayoutpath-struct-pathinfo-string-type-string-fullpath-">public string function customizeViewOrLayoutPath( struct pathInfo, string type, string fullPath )</h3>
 
 <p>By default, this simply returns <code>fullPath</code>.</p>
 
@@ -294,11 +376,11 @@
 
 <p>Disable layouts for this request. Equivalent to <code>request.layout = false;</code>.</p>
 
-<h3 id="public-void-fuction-enableframeworktrace">public void fuction enableFrameworkTrace()</h3>
+<h3 id="public-void-function-enableframeworktrace">public void function enableFrameworkTrace()</h3>
 
 <p>Enable framework tracing for this request.</p>
 
-<h3 id="public-void-fuction-enablelayout">public void fuction enableLayout()</h3>
+<h3 id="public-void-function-enablelayout">public void function enableLayout()</h3>
 
 <p>Enable layouts for this request. Equivalent to <code>request.layout = true;</code>.</p>
 
@@ -316,21 +398,7 @@
 
 <h3 id="public-any-function-getbeanfactory-string-subsystem---">public any function getBeanFactory( string subsystem = “” )</h3>
 
-<p>Returns whatever the framework has been told is a bean factory (which will be an instance of DI/1 by default). If you are using subsystems, this will return a subsystem-specific bean factory if one exists for the specified subsystem, or for the subsystem of the current request if no subsystem is specified in the call. Otherwise it will return the default bean factory.</p>
-
-<p>More specifically, if you are not using subsystems:</p>
-
-<ul>
-  <li><code>getBeanFactory()</code> - returns the bean factory for the application.</li>
-  <li><code>getBeanFactory(subsystem)</code> - <code>subsystem</code> is ignored and this returns the bean factory for the application.</li>
-</ul>
-
-<p>If you are using subsystems:</p>
-
-<ul>
-  <li><code>getBeanFactory()</code> - returns the subsystem bean factory for the subsystem of the current request if one exists, otherwise the default bean factory for the application.</li>
-  <li><code>getBeanFactory(subsystem)</code> - returns the subsystem bean factory for the named <code>subsystem</code> if one exists, otherwise the default bean factory for the application.</li>
-</ul>
+<p>Returns whatever the framework has been told is a bean factory (which will be an instance of DI/1 by default). This will return a subsystem-specific bean factory if one exists for the specified subsystem, or for the subsystem of the current request if no subsystem is specified in the call. Otherwise it will return the default bean factory.</p>
 
 <p>If no application bean factory can be found, this will throw an exception. Use <code>hasBeanFactory()</code> and/or <code>hasSubsystemBeanFactory( subsystem )</code> to determine whether this call will successfully return a bean factory.</p>
 
@@ -344,13 +412,13 @@
 
 <h3 id="public-string-function-getdefaultsubsystem">public string function getDefaultSubsystem()</h3>
 
-<p>If the application is not using subsystems, this returns an empty string. If the current request’s action specifies a subsystem, return that. Otherwise return the default subsystem configured for the application.</p>
+<p>If the application is using legacy subsystems, then if the current request’s action specifies a subsystem return that else return the default subsystem configured for the application.</p>
 
-<p>If the application is using subsystems and the current request’s action does not specify a subsystem and there is no default subsystem configured, this will throw an exception.</p>
+<p>If the application is not using legacy subsystems, return an empty string (since there is no concept of a default subsystem in new style subsystems).</p>
 
 <h3 id="public-string-function-getenvironment">public string function getEnvironment()</h3>
 
-<p>Returns an empty string by default. If you want to use the <strong>Environment Control</strong> feature, you should override this in <code>Application.cfc</code> and have it return the appropriate <em>“tier”</em> or <em>“tier-server”</em> string. See <strong>Environment Control</strong> in the <a href="/documentation/developing-applications.html">Developing Applications Manual</a> for more detail.</p>
+<p>Returns an empty string by default. If you want to use the <strong>Environment Control</strong> feature, you should override this in <code>Application.cfc</code> and have it return the appropriate <em>“tier”</em> or <em>“tier-server”</em> string. See <strong>Environment Control</strong> in the <a href="developing-applications.html#environment-control">Developing Applications Manual</a> for more detail.</p>
 
 <h3 id="public-string-function-getenvvar-string-name-">public string function getEnvVar( string name )</h3>
 
@@ -362,9 +430,7 @@
 
 <h3 id="public-string-function-getfullyqualifiedaction-string-action--requestaction-">public string function getFullyQualifiedAction( string action = request.action )</h3>
 
-<p>If the application is not using subsystems, this behaves the same as <code>getSectionAndItem( action )</code>.</p>
-
-<p>If the application is using subsystems, this returns the specified action formatted as <em>subsystem:section.item</em>.</p>
+<p>Returns the specified action formatted as <em>module:section.item</em>. If the <em>module</em> name is empty, the subsystem delimiter is also omitted (so then it behaves the same as <code>getSectionAndItem( action )</code>.). See also <strong>getSubsystemSectionAndItem()</strong> below.</p>
 
 <h3 id="public-string-function-gethostname">public string function getHostname()</h3>
 
@@ -396,7 +462,7 @@
 
 <h3 id="public-string-function-getsubsystem-string-action--requestaction-">public string function getSubsystem( string action = request.action )</h3>
 
-<p>Returns the subsystem portion of the specified <code>action</code> - or of the current request’s action if no action is specified. Returns the default subsystem if no subsystem is present in the specified action. If the application is not using subsystems, this returns the default subsystem name (which is an empty string by default).</p>
+<p>Returns the subsystem portion of the specified <code>action</code> - or of the current request’s action if no action is specified. If no subsystem is present in the specified action, then if the application is using legacy subsystems returns the default subsystem name else return an empty string.</p>
 
 <h3 id="public-string-function-getsubsystembase">public string function getSubsystemBase()</h3>
 
@@ -408,11 +474,15 @@
 
 <h3 id="public-struct-function-getsubsystemconfig-string-subsystem-">public struct function getSubsystemConfig( string subsystem )</h3>
 
-<p>Returns the configuration for the named subsystem, as a copy of <code>variables.framework.subsystems[subsystem]</code>. If no configuration exists for the named subsystem, an empty struct is returned. FW/1 uses this to retrieve the per-subsystem <code>baseURL</code> value, if any, as part of <code>buildURL()</code> and <code>redirect()</code>, as well as <code>diConfig</code> if you are using DI/1 to manage subsystem bean factories automatically. <em><code>diConfig</code> is new in 3.1.</em></p>
+<p>Returns the configuration for the named subsystem, as a copy of <code>variables.framework.subsystems[subsystem]</code>. If no configuration exists for the named subsystem, an empty struct is returned. FW/1 uses this to retrieve the per-subsystem <code>baseURL</code> value, if any, as part of <code>buildURL()</code> and <code>redirect()</code>, as well as <code>diConfig</code> if you are using DI/1 to manage subsystem bean factories automatically. <em>Including <code>diConfig</code> is new in 3.1.</em></p>
+
+<h3 id="public-string-function-getsubsystemsectionanditem-string-action--requestaction-">public string function getSubsystemSectionAndItem( string action = request.action )</h3>
+
+<p>This returns the specified action formatted as <em>module:section.item</em>. Unlike <code>getFullyQualifiedAction()</code> above, this always includes the subsystem delimiter even when the <em>module</em> name is empty.</p>
 
 <h3 id="public-boolean-function-hasbeanfactory">public boolean function hasBeanFactory()</h3>
 
-<p>Returns <code>true</code> if a default, top-level bean factory exists. If using subsystems, returns <code>true</code> if a bean factory exists for the subsystem of the current request. Otherwise returns <code>false</code>. If <code>hasBeanFactory()</code> returns <code>true</code>, calling <code>getBeanFactory()</code> will return a bean factory.</p>
+<p>Returns <code>true</code> if a default, top-level bean factory exists. Otherwise returns <code>true</code> if a bean factory exists for the subsystem of the current request, if appropriate. Otherwise returns <code>false</code>. If <code>hasBeanFactory()</code> returns <code>true</code>, calling <code>getBeanFactory()</code> will return a bean factory.</p>
 
 <h3 id="public-boolean-function-hasdefaultbeanfactory">public boolean function hasDefaultBeanFactory()</h3>
 
@@ -426,7 +496,11 @@
 
 <p>Returns <code>true</code> if the <code>action</code> passed in matches the currently executing action. This can be useful to figure out which tab to highlight in navigation or make other choices based on actions.</p>
 
-<h3 id="public-boolean-isunhandledrequest-string-targetpath-">public boolean isUnhandledRequest( string targetPath )</h3>
+<h3 id="public-boolean-function-isframeworkreloadrequest">public boolean function isFrameworkReloadRequest()</h3>
+
+<p>Returns <code>true</code> if the current request has a valid URL parameter to trigger an application reload or <code>reloadApplicationOnEveryRequest</code> is <code>true</code>.</p>
+
+<h3 id="public-boolean-function-isunhandledrequest-string-targetpath-">public boolean function isUnhandledRequest( string targetPath )</h3>
 
 <p>By default, returns <code>true</code> if the specified <code>targetPath</code> (as in <code>onRequest()</code>) has an unhandled extension (from <code>variables.framework.unhandledExtensions</code>) or matches an unhandled path (from <code>variables.framework.unhandledPaths</code>). You can override this to dynamically tell FW/1 not to handle specific requests. If you want to still apply the default checks as well as your own custom checks, don’t forget to call <code>super.isUnhandledRequest(targetPath)</code>.</p>
 
@@ -441,7 +515,7 @@
 
 <h3 id="public-function-onapplicationstart">public function onApplicationStart()</h3>
 
-<p>Part of the standard CFML lifecycle, this method is called automatically by the CFML engine at application startup. You should not override this (even tho’ it is <code>public</code>). Use <code>setupApplication()</code> to perform application-specific initialization.</p>
+<p>Part of the standard CFML lifecycle, this method is called automatically by the CFML engine at application startup. You should not override this nor call it (even tho’ it is <code>public</code>). Use <code>setupApplication()</code> to perform application-specific initialization.</p>
 
 <p>If you override this method, you <strong>must</strong> call <code>super.onApplicationStart()</code> or FW/1 will fail to work correctly.</p>
 
@@ -470,25 +544,25 @@
 
 <h3 id="public-function-onrequest-string-targetpage-">public function onRequest( string targetPage )</h3>
 
-<p>Part of the standard CFML lifecycle, this method is called automatically by the CFML engine to handle each request. You should not override this (even tho’ it is <code>public</code>).</p>
+<p>Part of the standard CFML lifecycle, this method is called automatically by the CFML engine to handle each request. You should not override this nor call it (even tho’ it is <code>public</code>).</p>
 
 <p>If you override this method, you <strong>must</strong> call <code>super.onRequest( targetPage )</code>.</p>
 
 <h3 id="public-function-onrequestend-string-targetpage-">public function onRequestEnd( string targetPage )</h3>
 
-<p>Part of the standard CFML lifecycle, this method is called automatically by the CFML engine at the end of each request. You should not override this (even tho’ it is <code>public</code>). Use <code>setupResponse()</code> to perform request-specific finalization.</p>
+<p>Part of the standard CFML lifecycle, this method is called automatically by the CFML engine at the end of each request. You should not override this not call it (even tho’ it is <code>public</code>). Use <code>setupResponse()</code> to perform request-specific finalization.</p>
 
 <p>If you override this method, you <strong>must</strong> call <code>super.onRequestEnd( targetPage )</code>.</p>
 
 <h3 id="public-function-onrequeststart-string-targetpage-">public function onRequestStart( string targetPage )</h3>
 
-<p>Part of the standard CFML lifecycle, this method is called automatically by the CFML engine at the beginning of each request. You should not override this (even tho’ it is <code>public</code>). Use <code>setupRequest()</code> to perform request-specific initialization.</p>
+<p>Part of the standard CFML lifecycle, this method is called automatically by the CFML engine at the beginning of each request. You should not override this nor call it (even tho’ it is <code>public</code>). Use <code>setupRequest()</code> to perform request-specific initialization.</p>
 
 <p>If you override this method, you <strong>must</strong> call <code>super.onRequestStart( targetPage )</code>.</p>
 
 <h3 id="public-function-onsessionstart">public function onSessionStart()</h3>
 
-<p>Part of the standard CFML lifecycle, this method is called automatically by the CFML engine when each new session is created. You should not override this (even tho’ it is <code>public</code>). Use <code>setupSession()</code> to perform session-specific initialization.</p>
+<p>Part of the standard CFML lifecycle, this method is called automatically by the CFML engine when each new session is created. You should not override this nor call it (even tho’ it is <code>public</code>). Use <code>setupSession()</code> to perform session-specific initialization.</p>
 
 <p>If you override this method, you <strong>must</strong> call <code>super.onSessionStart()</code>.</p>
 
@@ -533,9 +607,9 @@
 
 <p>Given a <code>path</code>, and an array of <code>routes</code>, and an optional <code>httpMethod</code>, process the routes to see if any matched and return a struct with a <code>matched</code> flag and if that’s <code>true</code> also <code>route</code> and <code>path</code> values. Route matching is case-sensitive by default but this can be overridden by setting <code>routesCaseSensitive</code> to <code>false</code> in FW/1’s configuration.</p>
 
-<h3 id="public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-string-querystring---string-statuscode--302-string-header---">public void function redirect( string action, string preserve = “none”, string append = “none”, string path = <em>see below</em>, string queryString = ‘’, string statusCode = ‘302’, string header = ‘’ )</h3>
+<h3 id="public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-any-querystring---string-statuscode--302-string-header---">public void function redirect( string action, string preserve = “none”, string append = “none”, string path = <em>see below</em>, any queryString = ‘’, string statusCode = ‘302’, string header = ‘’ )</h3>
 
-<p>This constructs a URL based on the <code>action</code> and optional <code>path</code> and redirects to it. If <code>preserve</code> is <code>"all"</code>, the entire contents of the request context are saved to <code>session</code> scope across the redirect (and restored back to the request context automatically after the redirect). If <code>preserve</code> is a list of keys, just those elements of the request context are preserved. If <code>append</code> is <code>"all"</code>, all simple values in the request context are appended to the constructed URL as a query string before the redirect. If <code>append</code> is a list of keys, just those elements of the request context are appended (if they are simple values). The <code>statusCode</code> argument lets you specify the HTTP status code for the redirect so you can override the default value of <code>302</code>.</p>
+<p>This constructs a URL based on the <code>action</code> and optional <code>path</code> and redirects to it. If <code>preserve</code> is <code>"all"</code>, the entire contents of the request context are saved to <code>session</code> scope across the redirect (and restored back to the request context automatically after the redirect). If <code>preserve</code> is a list of keys, just those elements of the request context are preserved. If <code>append</code> is <code>"all"</code>, all simple values in the request context are appended to the constructed URL as a query string before the redirect. If <code>append</code> is a list of keys, just those elements of the request context are appended (if they are simple values). The <code>statusCode</code> argument lets you specify the HTTP status code for the redirect so you can override the default value of <code>302</code>. As of release 3.5 <code>queryString</code> also accepts a structure, which is converted to an HTML escaped query string.</p>
 
 <p>If <code>path</code> is specified, that base URL is used instead of the default, as per <code>buildURL()</code> above.</p>
 
@@ -556,11 +630,11 @@
 
 <p>If <code>header</code> is provided (as a non-empty string), instead of performing an actual redirect, FW/1 will set the named HTTP header to the target URL and then abort the controller lifecycle. This allows custom handling of “redirects” in AJAX-based applications.</p>
 
-<h3 id="public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---">Public void function redirectCustomURL( string uri, string preserve = ‘none’, string statusCode = ‘302’, string header = ‘’ )</h3>
+<h3 id="public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---">public void function redirectCustomURL( string uri, string preserve = ‘none’, string statusCode = ‘302’, string header = ‘’ )</h3>
 
 <p>This is to <code>redirect()</code> as <code>buildCustomURL()</code> is to <code>buildURL()</code>.</p>
 
-<h3 id="public-void-function-renderdata-string-type-any-data-numeric-statuscode--200-jsonpcallback---">public void function renderData( string type, any data, numeric statusCode = 200, jsonpCallback = “” )</h3>
+<h3 id="public-void-function-renderdata-string-type-any-data-numeric-statuscode--200-string-jsonpcallback---">public void function renderData( string type, any data, numeric statusCode = 200, string jsonpCallback = “” )</h3>
 
 <p>Call this from your controller to tell FW/1 to skip views and layouts
 and instead render <code>data</code> in the specified content <code>type</code> format. <code>type</code>
@@ -587,13 +661,15 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
 
 <p>If you are manually creating a bean factory, call this from your <code>setupApplication()</code> method to tell the framework about your primary (default) bean factory. By default FW/1 will use DI/1 as the bean factory and you won’t have to worry about this.</p>
 
+<p>As of release 3.5, if you call this without telling FW/1 <code>diEngine = "none"</code> to disable automatic bean factory management, you will get an exception. If, for some reason, you want to do this anyway, you can set <code>diOverrideAllowed = true</code> in the framework configuration but it would almost certainly be better to set <code>diEngine = true</code>!</p>
+
 <h3 id="public-void-function-setlayout-string-action-boolean-suppressotherlayouts--false-">public void function setLayout( string action, boolean suppressOtherLayouts = false )</h3>
 
-<p>Call this to tell the framework to use a new action <em>subsystem:section.item</em> as the basis of the lookup process for the layouts for the current request. This allows you to override the default convention for choosing the layouts. If you specify <code>suppressOtherLayouts</code> as <code>true</code>, then only the most specific layout will be used and the usual cascade of layouts will be turned off for this request.</p>
+<p>Call this to tell the framework to use a new action <em>module:section.item</em> as the basis of the lookup process for the layouts for the current request. This allows you to override the default convention for choosing the layouts. If you specify <code>suppressOtherLayouts</code> as <code>true</code>, then only the most specific layout will be used and the usual cascade of layouts will be turned off for this request.</p>
 
 <h3 id="public-void-function-setsubsystembeanfactory-string-subsystem-any-factory-">public void function setSubsystemBeanFactory( string subsystem, any factory )</h3>
 
-<p>Call this to tell the framework about a subsystem-specific bean factory. The bean factory must support <code>containsBean( name )</code> and <code>getBean( name )</code>. You would typically call this method from your <code>setupSubsystem()</code> method.</p>
+<p>Call this to tell the framework about a subsystem-specific bean factory. The bean factory must support <code>containsBean( name )</code> and <code>getBean( name )</code>. You would typically call this method from your <code>setupSubsystem()</code> method unless you are using DI/1 and allowing FW/1 to manage all your bean factories for you (the default behavior).</p>
 
 <h3 id="public-void-function-setupapplication">public void function setupApplication()</h3>
 
@@ -601,41 +677,41 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
 
 <h2 id="public-void-function-setupenvironment-string-env-">public void function setupEnvironment( string env )</h2>
 
-<p>Override this in your <code>Application.cfc</code> to provide environment-specific initialization. See <strong>Environment Control</strong> in the <a href="/documentation/developing-applications.html">Developing Applications Manual</a> for more detail.</p>
+<p>Override this in your <code>Application.cfc</code> to provide environment-specific initialization. See <strong>Environment Control</strong> in the <a href="developing-applications.html#environment-control">Developing Applications Manual</a> for more detail.</p>
 
-<h3 id="public-void-function-setuprequest">public void function setupRequest()</h3>
+<h2 id="public-void-function-setuprequest">public void function setupRequest()</h2>
 
 <p>Override this in your <code>Application.cfc</code> to provide request-specific initialization. You do not need to call <code>super.setupRequest()</code>. Since you do not have access to <code>rc</code> here, you may also want to define <code>before()</code> in <code>Application.cfc</code> to act as an initialization controller, to populate the request context prior to other controllers being executed.</p>
 
-<h3 id="public-void-function-setupresponse-struct-rc-">public void function setupResponse( struct rc )</h3>
+<h2 id="public-void-function-setupresponse-struct-rc-">public void function setupResponse( struct rc )</h2>
 
 <p>Override this in your <code>Application.cfc</code> to provide request-specific finalization. This is called after all views and layouts have been rendered or immediately before a redirect. You do not need to call <code>super.setupResponse()</code>.</p>
 
-<h3 id="public-void-function-setupsession">public void function setupSession()</h3>
+<h2 id="public-void-function-setupsession">public void function setupSession()</h2>
 
 <p>Override this in your <code>Application.cfc</code> to provide session-specific initialization. You do not need to call <code>super.setupSession()</code>.</p>
 
-<h3 id="public-void-function-setupsubsystem-string-subsystem-">public void function setupSubsystem( string subsystem )</h3>
+<h2 id="public-void-function-setupsubsystem-string-subsystem-">public void function setupSubsystem( string subsystem )</h2>
 
-<p>Override this in your <code>Application.cfc</code> to provide subsystem-specific initialization. If you want the framework to use non-default subsystem-specific bean factories for any subsystems, this is where you should call <code>setSubsystemBeanFactory( subsystem, factory )</code>. See the example in <a href="/documentation/using-subsystems.html">Using Subsystems</a> for more details. You do not need to call <code>super.setupSubsystem()</code>.</p>
+<p>Override this in your <code>Application.cfc</code> to provide subsystem-specific initialization. If you want the framework to use non-default subsystem-specific bean factories for any subsystems, this is where you should call <code>setSubsystemBeanFactory( subsystem, factory )</code>. See the example in <a href="using-subsystems.html#setting-bean-factories-with-setupsubsystem">Using Subsystems</a> for more details. You do not need to call <code>super.setupSubsystem()</code>.</p>
 
-<h3 id="public-void-function-setuptracerender-string-output--html-">public void function setupTraceRender( string output = ‘html’ )</h3>
+<h2 id="public-void-function-setuptracerender-string-output--html-">public void function setupTraceRender( string output = ‘html’ )</h2>
 
 <p>This is called when the framework trace is about to be rendered at the end of a request. <code>output</code> will be either <code>'html'</code> or <code>'data'</code> depending on whether FW/1 has output HTML using views and layouts or rendered data in the current request. You can override it to take control of the rendering process yourself (for whatever reason such as saving the trace data to a database perhaps or providing a fancier rendering?). You can call <code>getFrameworkTrace()</code> to obtain the framework’s trace data (note that this will be a copy on Adobe ColdFusion but just a reference on Lucee and Railo), and do whatever you want with it. It’s probably a good idea to call <code>disableFrameworkTrace()</code> to prevent any further additions to the framework trace data. Note: this method used to be called only when FW/1 was outputting HTML and not rendering data, however, it is now called whenever tracing is enabled. If you were using this method to render trace data in a custom format at the end of HTML requests, you will find your rendered trace data appended to your request data when <code>renderData()</code> is used. In order to maintain your current functionality, you can easily fix this by checking that the <code>output</code> argument is equal to <code>'html'</code> before rendering the trace data.</p>
 
-<h3 id="public-void-function-setupview-struct-rc-">public void function setupView( struct rc )</h3>
+<h2 id="public-void-function-setupview-struct-rc-">public void function setupView( struct rc )</h2>
 
 <p>Override this in your <code>Application.cfc</code> to provide pre-rendering logic, e.g., putting globally available data into the request context so it is available to all views. You do not need to call <code>super.setupView()</code>.</p>
 
-<h3 id="public-void-function-setview-string-action-">public void function setView( string action )</h3>
+<h2 id="public-void-function-setview-string-action-">public void function setView( string action )</h2>
 
-<p>Call this to tell the framework to use a new action <em>subsystem:section.item</em> as the basis of the lookup process for the view and layouts for the current request. This allows you to override the default convention for choosing the view and layouts. A possible use for this is when redisplaying a form view when errors are present (i.e., from the form processing controller method, without using a redirect).</p>
+<p>Call this to tell the framework to use a new action <em>module:section.item</em> as the basis of the lookup process for the view and layouts for the current request. This allows you to override the default convention for choosing the view and layouts. A possible use for this is when redisplaying a form view when errors are present (i.e., from the form processing controller method, without using a redirect).</p>
 
-<h3 id="public-boolean-function-usingsubsystems">public boolean function usingSubsystems()</h3>
+<h2 id="public-boolean-function-usingsubsystems">public boolean function usingSubsystems()</h2>
 
-<p>Returns <code>true</code> if the application is using subsystems, i.e., <code>variables.framework.usingSubsystems</code> is <code>true</code>. Otherwise returns <code>false</code>.</p>
+<p>Returns <code>true</code> if the application is using legacy subsystems, i.e., <code>variables.framework.usingSubsystems</code> is <code>true</code>. Otherwise returns <code>false</code>. Not relevant to new style subsystems.</p>
 
-<h3 id="public-string-function-view-string-path-struct-args----any-missingview----">public string function view( string path, struct args = { }, any missingView = { } )</h3>
+<h2 id="public-string-function-view-string-path-struct-args----any-missingview----">public string function view( string path, struct args = { }, any missingView = { } )</h2>
 
 <p>This renders a view and returns the output of that view as a string. It is intended to be used primarily inside layouts to render fragments of a page such as menus and other common elements. Elements of the <em>args</em> structure are appended to the local scope accessible inside the view file. For example:</p>
 
@@ -662,7 +738,7 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
 
 
 
-<time class='entry-date' datetime='2015-07-12T21:40:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:40 pm</span></time>
+<time class='entry-date' datetime='2015-10-21T12:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:00 pm</span></time>
         
       </p>
       
@@ -680,14 +756,25 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
     <p>In addition, the family includes cfmljure, an easy way to integrate Clojure code into your CFML application, and a port of FW/1 to Clojure as well as a Leiningen template for creating FW/1 projects in Clojure.</p>
 </section>
 <section>
-    <h1>3.1 Documentation (current - master)</h1>
-    <a href="/documentation">Getting Started Guide</a><br />
+    <h1>3.5 Documentation (current - master)</h1>
+    <a href="/documentation/">Getting Started Guide</a><br />
     <a href="/documentation/developing-applications.html">Developing Applications Guide</a><br />
     <a href="/documentation/using-aop-one.html">Using AOP/1</a><br />
     <a href="/documentation/using-di-one.html">Using DI/1</a><br />
     <a href="/documentation/using-subsystems.html">Using Subsystems</a><br />
     <a href="/documentation/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
     <a href="/documentation/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>3.1 Documentation</h1>
+    <a href="/documentation/3.1">Getting Started Guide</a><br />
+    <a href="/documentation/3.1/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.1/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/3.1/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/3.1/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/3.1/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/3.1/roadmap.html">Roadmap</a><br />
 </section>
 <section>
     <h1>3.0 Documentation</h1>
@@ -699,19 +786,12 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
     <a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
 </section>
 <section>
-    <h1>3.5 Documentation (upcoming - develop)</h1>
-    <a href="/documentation/3.5">Getting Started Guide</a><br />
-    <a href="/documentation/3.5/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/3.5/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/3.5/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/3.5/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/3.5/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/3.5/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
-    <a href="/documentation/3.5/roadmap.html">Roadmap</a><br />
-</section>
-<section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/21/fw1-3-5-0-released/">FW/1 3.5.0 Released!</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/06/fw1-3-5-0-rc-2/">FW/1 3.5.0 Release Candidate 2 Available!</a>
@@ -747,10 +827,6 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
     
       <li class="post">
         <a href="/blog/2015/06/20/fw1-3-1-beta-2/">FW/1 3.1 Beta 2 Available!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/05/14/fw1-3-1-beta-1/">FW/1 3.1 Beta 1 Available!</a>
       </li>
     
   </ul>

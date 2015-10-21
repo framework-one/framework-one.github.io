@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using DI/1 Sep 5th, 2015 7:30 pm DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework. DI/1 searches specified &hellip;">
+  <meta name="description" content="Using DI/1 Oct 21st, 2015 12:00 pm DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework. DI/1 searches specified &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,12 +74,33 @@
 
 
 
-<time class='entry-date' datetime='2015-09-05T19:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>7:30 pm</span></time></p>
+<time class='entry-date' datetime='2015-10-21T12:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:00 pm</span></time></p>
   </header>
   
   <p>DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework.</p>
 
 <p>DI/1 searches specified directories for CFCs and treats them as singletons or non-singletons (transients) based on naming conventions for the CFCs themselves, or the folders in which they are found. You can override the conventions by configuration if needed.</p>
+
+<p>As of release 3.5, DI/1 also looks for <code>.lc</code> and <code>.lucee</code> files, as well as <code>.cfc</code> files, to support Lucee 5’s new dialect.</p>
+
+<ul id="markdown-toc">
+  <li><a href="#getting-started-with-di1" id="markdown-toc-getting-started-with-di1">Getting Started with DI/1</a>    <ul>
+      <li><a href="#acceptable-folder-paths" id="markdown-toc-acceptable-folder-paths">Acceptable Folder Paths</a></li>
+    </ul>
+  </li>
+  <li><a href="#more-advanced-usage" id="markdown-toc-more-advanced-usage">More Advanced Usage</a>    <ul>
+      <li><a href="#other-public-methods" id="markdown-toc-other-public-methods">Other Public Methods</a></li>
+      <li><a href="#specifying-additional-transient-beans" id="markdown-toc-specifying-additional-transient-beans">Specifying Additional Transient Beans</a></li>
+      <li><a href="#parent-bean-factories" id="markdown-toc-parent-bean-factories">Parent Bean Factories</a></li>
+      <li><a href="#bean-factory-aware" id="markdown-toc-bean-factory-aware">Bean Factory Aware</a></li>
+    </ul>
+  </li>
+  <li><a href="#configuration" id="markdown-toc-configuration">Configuration</a>    <ul>
+      <li><a href="#configuring-constant-beans" id="markdown-toc-configuring-constant-beans">Configuring “Constant” Beans</a></li>
+      <li><a href="#overriding-di1-behavior" id="markdown-toc-overriding-di1-behavior">Overriding DI/1 Behavior</a></li>
+    </ul>
+  </li>
+</ul>
 
 <h1 id="getting-started-with-di1">Getting Started with DI/1</h1>
 
@@ -204,13 +225,13 @@ info = beanFactory.getBeanInfo("someBean");
 <p>By default, any CFC in the <code>beans</code> folder is considered a transient and everything else is considered a singleton. There are three ways to specify other CFCs should be considered transient:</p>
 
 <ul>
-  <li><code>config.singulars</code> allows you to specify additional folders that resolve to <code>bean</code></li>
-  <li><code>config.transients</code> allows you to specify additional folders whose contents are transient</li>
+  <li><code>config.singulars</code> allows you to specify irregular plural folder names and their singular mappings, e.g., <code>geese : "goose"</code></li>
+  <li><code>config.transients</code> allows you to specify additional folders whose contents are transient (i.e., in addition to the <code>beans</code> folder convention)</li>
   <li><code>config.singletonPattern</code> allows you to specify a regular expression which limits which beans are considered singletons</li>
   <li><code>config.transientPattern</code> allows you to specify a regular expression which limits which beans are considered transients</li>
 </ul>
 
-<p>In the first case, any folder name whose singular name is <code>bean</code> will cause CFCs to get an alias that ends in <code>Bean</code> and will be considered transients. In the second case, the singular transformation will still be applied to create the alias, but the CFCs will be considered transients anyway. See below for additional uses of <code>config.singulars</code>. In the third case, CFCs will also be considered transients if their name does not match the regular expression pattern supplied. In the fourth case, CFCs will also be considered transients if their name matches the regular expression pattern supplied. You cannot specify both <code>config.singletonPattern</code> and <code>config.transientPattern</code>.</p>
+<p>For <code>config.singulars</code>, any folder name whose singular name is <code>bean</code> will cause CFCs to get an alias that ends in <code>Bean</code> and will be considered transients (see below for examples). For <code>config.transients</code>, the singular transformation will still be applied to create the alias, but the CFCs will be considered transients anyway. For <code>config.singletonPattern</code>, CFCs will also be considered transients if their name <strong>does not match</strong> the regular expression pattern supplied. For <code>config.transientPattern</code>, CFCs will also be considered transients if their name <strong>does match</strong> the regular expression pattern supplied. You cannot specify both <code>config.singletonPattern</code> and <code>config.transientPattern</code>.</p>
 
 <p>For example:</p>
 
@@ -256,6 +277,8 @@ moduleBeanFactory.setParent( mainBeanFactory );
   <li><code>constants</code> - struct - defaults to <code>{}</code>. DI/1 will use any name/value pairs specified here to provide <em>beans</em> that resolve to the specified values. This can be used to provide resolution for constructor arguments that need values which are not actual beans.</li>
   <li><code>exclude</code> - array - defaults to <code>[]</code>. DI/1 will ignore any CFCs whose file path contains the strings in this array. DI/1 always excludes paths containing <code>/WEB-INF</code> and <code>/Application.cfc</code>, as well as various FW/1 and DI/1 framework files. The strings are not case-sensitive.</li>
   <li><code>initMethod</code> - string - If specified, identifies a method name on beans that DI/1 will attempt to call (with no arguments) on each bean after its dependencies have been injected.</li>
+  <li><code>liberal</code> - boolean - default to <code>false</code>. If <code>true</code>, treat folder names ending in <code>ies</code> as plurals (of names ending in <code>y</code>, e.g., <code>libraries</code> would be treated as the plural of <code>librarie</code> by default, but with <code>liberal : true</code>, it would be treated as the plural of <code>library</code>).</li>
+  <li><code>loadListener</code> - any - If specified, DI/1 will register it as a load listener by calling <code>this.onLoad( loadListener )</code>. It can be a CFC instance, the name of a bean, or a function or closure.</li>
   <li><code>omitDirectoryAliases</code> - boolean - defaults to <code>false</code>. If <code>true</code>, use CFC names as bean names directly, without appending the singular directory name as a suffix. If your CFC names are not unique, you will get an exception.</li>
   <li><code>omitTypedProperties</code> - boolean - defaults to <code>false</code>. If <code>true</code>, property declarations that specify a type will be ignored for injection. That is useful if you are working with the ORM (since those property declarations will have types and should not be treated as dependencies).</li>
   <li><code>recurse</code> - boolean - defaults to <code>true</code>. Controls whether DI/1 searches subfolders recursively or not.</li>
@@ -301,7 +324,7 @@ private any function metadata( string dottedPath )
 
 
 
-<time class='entry-date' datetime='2015-09-05T19:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>7:30 pm</span></time>
+<time class='entry-date' datetime='2015-10-21T12:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:00 pm</span></time>
         
       </p>
       
@@ -319,14 +342,25 @@ private any function metadata( string dottedPath )
     <p>In addition, the family includes cfmljure, an easy way to integrate Clojure code into your CFML application, and a port of FW/1 to Clojure as well as a Leiningen template for creating FW/1 projects in Clojure.</p>
 </section>
 <section>
-    <h1>3.1 Documentation (current - master)</h1>
-    <a href="/documentation">Getting Started Guide</a><br />
+    <h1>3.5 Documentation (current - master)</h1>
+    <a href="/documentation/">Getting Started Guide</a><br />
     <a href="/documentation/developing-applications.html">Developing Applications Guide</a><br />
     <a href="/documentation/using-aop-one.html">Using AOP/1</a><br />
     <a href="/documentation/using-di-one.html">Using DI/1</a><br />
     <a href="/documentation/using-subsystems.html">Using Subsystems</a><br />
     <a href="/documentation/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
     <a href="/documentation/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>3.1 Documentation</h1>
+    <a href="/documentation/3.1">Getting Started Guide</a><br />
+    <a href="/documentation/3.1/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.1/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/3.1/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/3.1/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/3.1/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/3.1/roadmap.html">Roadmap</a><br />
 </section>
 <section>
     <h1>3.0 Documentation</h1>
@@ -338,19 +372,12 @@ private any function metadata( string dottedPath )
     <a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
 </section>
 <section>
-    <h1>3.5 Documentation (upcoming - develop)</h1>
-    <a href="/documentation/3.5">Getting Started Guide</a><br />
-    <a href="/documentation/3.5/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/3.5/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/3.5/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/3.5/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/3.5/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/3.5/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
-    <a href="/documentation/3.5/roadmap.html">Roadmap</a><br />
-</section>
-<section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/21/fw1-3-5-0-released/">FW/1 3.5.0 Released!</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/06/fw1-3-5-0-rc-2/">FW/1 3.5.0 Release Candidate 2 Available!</a>
@@ -386,10 +413,6 @@ private any function metadata( string dottedPath )
     
       <li class="post">
         <a href="/blog/2015/06/20/fw1-3-1-beta-2/">FW/1 3.1 Beta 2 Available!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/05/14/fw1-3-1-beta-1/">FW/1 3.1 Beta 1 Available!</a>
       </li>
     
   </ul>

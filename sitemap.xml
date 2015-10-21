@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://framework-one.github.io/blog/2015/10/21/fw1-3-5-0-released/</loc>
+    <lastmod>2015-10-21T12:00:00-07:00</lastmod>
+  </url>
+  <url>
     <loc>http://framework-one.github.io/blog/2015/10/06/fw1-3-5-0-rc-2/</loc>
     <lastmod>2015-10-06T15:40:00-07:00</lastmod>
   </url>
@@ -160,13 +164,16 @@
     <loc>http://framework-one.github.io/documentation/3.5/cfml-and-clojure.html</loc>
   </url>
   <url>
+    <loc>http://framework-one.github.io/documentation/cfml-and-clojure.html</loc>
+  </url>
+  <url>
     <loc>http://framework-one.github.io/documentation/3.0/developing-applications.html</loc>
   </url>
   <url>
-    <loc>http://framework-one.github.io/documentation/3.1/developing-applications.html</loc>
+    <loc>http://framework-one.github.io/documentation/3.5/developing-applications.html</loc>
   </url>
   <url>
-    <loc>http://framework-one.github.io/documentation/3.5/developing-applications.html</loc>
+    <loc>http://framework-one.github.io/documentation/3.1/developing-applications.html</loc>
   </url>
   <url>
     <loc>http://framework-one.github.io/documentation/developing-applications.html</loc>
@@ -178,6 +185,9 @@
     <loc>http://framework-one.github.io/</loc>
   </url>
   <url>
+    <loc>http://framework-one.github.io/documentation/3.0/</loc>
+  </url>
+  <url>
     <loc>http://framework-one.github.io/documentation/3.5/</loc>
   </url>
   <url>
@@ -187,40 +197,40 @@
     <loc>http://framework-one.github.io/documentation/3.1/</loc>
   </url>
   <url>
-    <loc>http://framework-one.github.io/documentation/3.0/</loc>
-  </url>
-  <url>
-    <loc>http://framework-one.github.io/documentation/3.5/reference-manual.html</loc>
+    <loc>http://framework-one.github.io/documentation/3.1/reference-manual.html</loc>
   </url>
   <url>
     <loc>http://framework-one.github.io/documentation/reference-manual.html</loc>
   </url>
   <url>
-    <loc>http://framework-one.github.io/documentation/3.1/reference-manual.html</loc>
+    <loc>http://framework-one.github.io/documentation/3.5/reference-manual.html</loc>
   </url>
   <url>
     <loc>http://framework-one.github.io/documentation/3.0/reference-manual.html</loc>
   </url>
   <url>
-    <loc>http://framework-one.github.io/documentation/3.1/roadmap.html</loc>
-  </url>
-  <url>
     <loc>http://framework-one.github.io/documentation/3.0/roadmap.html</loc>
-  </url>
-  <url>
-    <loc>http://framework-one.github.io/documentation/3.5/roadmap.html</loc>
   </url>
   <url>
     <loc>http://framework-one.github.io/documentation/roadmap.html</loc>
   </url>
   <url>
-    <loc>http://framework-one.github.io/documentation/using-aop-one.html</loc>
+    <loc>http://framework-one.github.io/documentation/3.1/roadmap.html</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/documentation/3.5/roadmap.html</loc>
   </url>
   <url>
     <loc>http://framework-one.github.io/documentation/3.5/using-aop-one.html</loc>
   </url>
   <url>
     <loc>http://framework-one.github.io/documentation/3.1/using-aop-one.html</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/documentation/using-aop-one.html</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/documentation/3.5/using-di-one.html</loc>
   </url>
   <url>
     <loc>http://framework-one.github.io/documentation/3.1/using-di-one.html</loc>
@@ -230,9 +240,6 @@
   </url>
   <url>
     <loc>http://framework-one.github.io/documentation/using-di-one.html</loc>
-  </url>
-  <url>
-    <loc>http://framework-one.github.io/documentation/3.5/using-di-one.html</loc>
   </url>
   <url>
     <loc>http://framework-one.github.io/documentation/3.5/using-subsystems.html</loc>
@@ -275,11 +282,5 @@
   </url>
   <url>
     <loc>http://framework-one.github.io/blog/categories/commandbox/</loc>
-  </url>
-  <url>
-    <loc>http://framework-one.github.io/posts/2/</loc>
-  </url>
-  <url>
-    <loc>http://framework-one.github.io/posts/3/</loc>
   </url>
 </urlset>

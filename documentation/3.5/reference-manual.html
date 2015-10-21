@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Oct 16th, 2015 2:40 am This is the upcoming (3.5 - develop) documentation - for the current stable release, read the 3.1 &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Oct 21st, 2015 12:00 pm This page provides a description of all the APIs and components involved in a FW/1 application. Please &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,12 +74,10 @@
 
 
 
-<time class='entry-date' datetime='2015-10-16T02:40:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>2:40 am</span></time></p>
+<time class='entry-date' datetime='2015-10-21T12:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:00 pm</span></time></p>
   </header>
   
-  <p><em>This is the upcoming (3.5 - develop) documentation - for the current stable release, read the <a href="/documentation/3.1/reference-manual.html">3.1 master stable documentation</a>.</em></p>
-
-<p>This page provides a description of all the APIs and components involved in a FW/1 application. Please also read the <a href="roadmap.html">Roadmap</a> to see how things may change in the future.</p>
+  <p>This page provides a description of all the APIs and components involved in a FW/1 application. Please also read the <a href="roadmap.html">Roadmap</a> to see how things may change in the future.</p>
 
 <ul id="markdown-toc">
   <li><a href="#fw1-controllers" id="markdown-toc-fw1-controllers">FW/1 Controllers</a></li>
@@ -141,7 +139,7 @@
         </ul>
       </li>
       <li><a href="#public-struct-function-processroutes-string-path-array-routes-string-httpmethod--requestfw1cgirequestmethod-" id="markdown-toc-public-struct-function-processroutes-string-path-array-routes-string-httpmethod--requestfw1cgirequestmethod-">public struct function processRoutes( string path, array routes, string httpMethod = request._fw1.cgiRequestMethod )</a></li>
-      <li><a href="#public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-string-querystring---string-statuscode--302-string-header---" id="markdown-toc-public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-string-querystring---string-statuscode--302-string-header---">public void function redirect( string action, string preserve = “none”, string append = “none”, string path = <em>see below</em>, string queryString = ‘’, string statusCode = ‘302’, string header = ‘’ )</a></li>
+      <li><a href="#public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-any-querystring---string-statuscode--302-string-header---" id="markdown-toc-public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-any-querystring---string-statuscode--302-string-header---">public void function redirect( string action, string preserve = “none”, string append = “none”, string path = <em>see below</em>, any queryString = ‘’, string statusCode = ‘302’, string header = ‘’ )</a></li>
       <li><a href="#public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---" id="markdown-toc-public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---">public void function redirectCustomURL( string uri, string preserve = ‘none’, string statusCode = ‘302’, string header = ‘’ )</a></li>
       <li><a href="#public-void-function-renderdata-string-type-any-data-numeric-statuscode--200-string-jsonpcallback---" id="markdown-toc-public-void-function-renderdata-string-type-any-data-numeric-statuscode--200-string-jsonpcallback---">public void function renderData( string type, any data, numeric statusCode = 200, string jsonpCallback = “” )</a></li>
       <li><a href="#public-void-function-setbeanfactory-any-factory-" id="markdown-toc-public-void-function-setbeanfactory-any-factory-">public void function setBeanFactory( any factory )</a></li>
@@ -609,7 +607,7 @@
 
 <p>Given a <code>path</code>, and an array of <code>routes</code>, and an optional <code>httpMethod</code>, process the routes to see if any matched and return a struct with a <code>matched</code> flag and if that’s <code>true</code> also <code>route</code> and <code>path</code> values. Route matching is case-sensitive by default but this can be overridden by setting <code>routesCaseSensitive</code> to <code>false</code> in FW/1’s configuration.</p>
 
-<h3 id="public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-string-querystring---string-statuscode--302-string-header---">public void function redirect( string action, string preserve = “none”, string append = “none”, string path = <em>see below</em>, string queryString = ‘’, string statusCode = ‘302’, string header = ‘’ )</h3>
+<h3 id="public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-any-querystring---string-statuscode--302-string-header---">public void function redirect( string action, string preserve = “none”, string append = “none”, string path = <em>see below</em>, any queryString = ‘’, string statusCode = ‘302’, string header = ‘’ )</h3>
 
 <p>This constructs a URL based on the <code>action</code> and optional <code>path</code> and redirects to it. If <code>preserve</code> is <code>"all"</code>, the entire contents of the request context are saved to <code>session</code> scope across the redirect (and restored back to the request context automatically after the redirect). If <code>preserve</code> is a list of keys, just those elements of the request context are preserved. If <code>append</code> is <code>"all"</code>, all simple values in the request context are appended to the constructed URL as a query string before the redirect. If <code>append</code> is a list of keys, just those elements of the request context are appended (if they are simple values). The <code>statusCode</code> argument lets you specify the HTTP status code for the redirect so you can override the default value of <code>302</code>. As of release 3.5 <code>queryString</code> also accepts a structure, which is converted to an HTML escaped query string.</p>
 
@@ -740,7 +738,7 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
 
 
 
-<time class='entry-date' datetime='2015-10-16T02:40:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>2:40 am</span></time>
+<time class='entry-date' datetime='2015-10-21T12:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:00 pm</span></time>
         
       </p>
       
@@ -758,14 +756,25 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
     <p>In addition, the family includes cfmljure, an easy way to integrate Clojure code into your CFML application, and a port of FW/1 to Clojure as well as a Leiningen template for creating FW/1 projects in Clojure.</p>
 </section>
 <section>
-    <h1>3.1 Documentation (current - master)</h1>
-    <a href="/documentation">Getting Started Guide</a><br />
+    <h1>3.5 Documentation (current - master)</h1>
+    <a href="/documentation/">Getting Started Guide</a><br />
     <a href="/documentation/developing-applications.html">Developing Applications Guide</a><br />
     <a href="/documentation/using-aop-one.html">Using AOP/1</a><br />
     <a href="/documentation/using-di-one.html">Using DI/1</a><br />
     <a href="/documentation/using-subsystems.html">Using Subsystems</a><br />
     <a href="/documentation/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
     <a href="/documentation/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>3.1 Documentation</h1>
+    <a href="/documentation/3.1">Getting Started Guide</a><br />
+    <a href="/documentation/3.1/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.1/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/3.1/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/3.1/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/3.1/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/3.1/roadmap.html">Roadmap</a><br />
 </section>
 <section>
     <h1>3.0 Documentation</h1>
@@ -777,19 +786,12 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
     <a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
 </section>
 <section>
-    <h1>3.5 Documentation (upcoming - develop)</h1>
-    <a href="/documentation/3.5">Getting Started Guide</a><br />
-    <a href="/documentation/3.5/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/3.5/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/3.5/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/3.5/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/3.5/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/3.5/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
-    <a href="/documentation/3.5/roadmap.html">Roadmap</a><br />
-</section>
-<section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/21/fw1-3-5-0-released/">FW/1 3.5.0 Released!</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/06/fw1-3-5-0-rc-2/">FW/1 3.5.0 Release Candidate 2 Available!</a>
@@ -825,10 +827,6 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
     
       <li class="post">
         <a href="/blog/2015/06/20/fw1-3-1-beta-2/">FW/1 3.1 Beta 2 Available!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/05/14/fw1-3-1-beta-1/">FW/1 3.1 Beta 1 Available!</a>
       </li>
     
   </ul>
