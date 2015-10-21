@@ -4,7 +4,7 @@
   <title><![CDATA[FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2015-10-21T12:52:34-07:00</updated>
+  <updated>2015-10-21T14:35:03-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -50,7 +50,7 @@
 <p>Finally, FW/1 includes experimental support for Lucee Language, so if you are running a prerelease build of Lucee Server that has Lucee Language support enabled, you can write controllers and views etc in <code>.lc</code> or <code>.lucee</code> files and FW/1 will use them.</p>
 
 <p>You can read the <a href="https://github.com/framework-one/fw1/issues?q=is%3Aissue+milestone%3A3.5+is%3Aclosed">full list of changes since 3.1</a> on GitHub, along with
-<a href="https://github.com/framework-one/fw1/pulls?q=is%3Apr+is%3Aclosed+milestone%3A3.5">accepted pull requests since 3.1</a>..</p>
+<a href="https://github.com/framework-one/fw1/pulls?q=is%3Apr+is%3Aclosed+milestone%3A3.5">accepted pull requests since 3.1</a>.</p>
 ]]></content>
   </entry>
   

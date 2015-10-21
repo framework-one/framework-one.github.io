@@ -161,6 +161,9 @@
     <lastmod>2009-07-19T19:26:21-07:00</lastmod>
   </url>
   <url>
+    <loc>http://framework-one.github.io/documentation/3.6/cfml-and-clojure.html</loc>
+  </url>
+  <url>
     <loc>http://framework-one.github.io/documentation/3.5/cfml-and-clojure.html</loc>
   </url>
   <url>
@@ -170,10 +173,13 @@
     <loc>http://framework-one.github.io/documentation/3.0/developing-applications.html</loc>
   </url>
   <url>
-    <loc>http://framework-one.github.io/documentation/3.5/developing-applications.html</loc>
+    <loc>http://framework-one.github.io/documentation/3.1/developing-applications.html</loc>
   </url>
   <url>
-    <loc>http://framework-one.github.io/documentation/3.1/developing-applications.html</loc>
+    <loc>http://framework-one.github.io/documentation/3.6/developing-applications.html</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/documentation/3.5/developing-applications.html</loc>
   </url>
   <url>
     <loc>http://framework-one.github.io/documentation/developing-applications.html</loc>
@@ -185,7 +191,7 @@
     <loc>http://framework-one.github.io/</loc>
   </url>
   <url>
-    <loc>http://framework-one.github.io/documentation/3.0/</loc>
+    <loc>http://framework-one.github.io/documentation/3.6/</loc>
   </url>
   <url>
     <loc>http://framework-one.github.io/documentation/3.5/</loc>
@@ -194,7 +200,19 @@
     <loc>http://framework-one.github.io/documentation/</loc>
   </url>
   <url>
+    <loc>http://framework-one.github.io/documentation/3.0/</loc>
+  </url>
+  <url>
     <loc>http://framework-one.github.io/documentation/3.1/</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/documentation/3.0/reference-manual.html</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/documentation/3.6/reference-manual.html</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/documentation/3.5/reference-manual.html</loc>
   </url>
   <url>
     <loc>http://framework-one.github.io/documentation/3.1/reference-manual.html</loc>
@@ -203,37 +221,37 @@
     <loc>http://framework-one.github.io/documentation/reference-manual.html</loc>
   </url>
   <url>
-    <loc>http://framework-one.github.io/documentation/3.5/reference-manual.html</loc>
-  </url>
-  <url>
-    <loc>http://framework-one.github.io/documentation/3.0/reference-manual.html</loc>
+    <loc>http://framework-one.github.io/documentation/3.6/roadmap.html</loc>
   </url>
   <url>
     <loc>http://framework-one.github.io/documentation/3.0/roadmap.html</loc>
   </url>
   <url>
-    <loc>http://framework-one.github.io/documentation/roadmap.html</loc>
+    <loc>http://framework-one.github.io/documentation/3.5/roadmap.html</loc>
   </url>
   <url>
     <loc>http://framework-one.github.io/documentation/3.1/roadmap.html</loc>
   </url>
   <url>
-    <loc>http://framework-one.github.io/documentation/3.5/roadmap.html</loc>
+    <loc>http://framework-one.github.io/documentation/roadmap.html</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/documentation/3.6/using-aop-one.html</loc>
   </url>
   <url>
     <loc>http://framework-one.github.io/documentation/3.5/using-aop-one.html</loc>
   </url>
   <url>
-    <loc>http://framework-one.github.io/documentation/3.1/using-aop-one.html</loc>
-  </url>
-  <url>
     <loc>http://framework-one.github.io/documentation/using-aop-one.html</loc>
   </url>
   <url>
-    <loc>http://framework-one.github.io/documentation/3.5/using-di-one.html</loc>
+    <loc>http://framework-one.github.io/documentation/3.1/using-aop-one.html</loc>
   </url>
   <url>
-    <loc>http://framework-one.github.io/documentation/3.1/using-di-one.html</loc>
+    <loc>http://framework-one.github.io/documentation/3.6/using-di-one.html</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/documentation/3.5/using-di-one.html</loc>
   </url>
   <url>
     <loc>http://framework-one.github.io/documentation/3.0/using-di-one.html</loc>
@@ -242,16 +260,22 @@
     <loc>http://framework-one.github.io/documentation/using-di-one.html</loc>
   </url>
   <url>
+    <loc>http://framework-one.github.io/documentation/3.1/using-di-one.html</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/documentation/3.6/using-subsystems.html</loc>
+  </url>
+  <url>
     <loc>http://framework-one.github.io/documentation/3.5/using-subsystems.html</loc>
   </url>
   <url>
     <loc>http://framework-one.github.io/documentation/using-subsystems.html</loc>
   </url>
   <url>
-    <loc>http://framework-one.github.io/documentation/3.1/using-subsystems.html</loc>
+    <loc>http://framework-one.github.io/documentation/3.0/using-subsystems.html</loc>
   </url>
   <url>
-    <loc>http://framework-one.github.io/documentation/3.0/using-subsystems.html</loc>
+    <loc>http://framework-one.github.io/documentation/3.1/using-subsystems.html</loc>
   </url>
   <url>
     <loc>http://framework-one.github.io/blog/categories/releases/</loc>
@@ -282,5 +306,11 @@
   </url>
   <url>
     <loc>http://framework-one.github.io/blog/categories/commandbox/</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/posts/2/</loc>
+  </url>
+  <url>
+    <loc>http://framework-one.github.io/posts/3/</loc>
   </url>
 </urlset>

@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Jan 21st, 2015 12:20 pm FW/1 is intended to allow you to quickly build applications with the minimum of overhead &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Oct 21st, 2015 12:00 pm This is documentation for the upcoming 3.6 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://framework-one.github.io/documentation/3.0/developing-applications.html">
+  <link rel="canonical" href="http://framework-one.github.io/documentation/3.6/developing-applications.html">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
@@ -74,15 +74,64 @@
 
 
 
-<time class='entry-date' datetime='2015-01-21T12:20:00-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:20 pm</span></time></p>
+<time class='entry-date' datetime='2015-10-21T12:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:00 pm</span></time></p>
   </header>
   
-  <p>FW/1 is intended to allow you to quickly build applications with the minimum of overhead and interference from the framework itself. The convention-based approach means that you can quickly put together an outline of your site or application merely by creating folders and files in the <code>views</code> folder. As you are ready to start adding business logic to the application, you can add controllers and/or services and domain objects as needed to implement the validation and data processing.</p>
+  <p><em>This is documentation for the upcoming 3.6 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
+
+<p>FW/1 is intended to allow you to quickly build applications with the minimum of overhead and interference from the framework itself. The convention-based approach means that you can quickly put together an outline of your site or application merely by creating folders and files in the <code>views</code> folder. As you are ready to start adding business logic to the application, you can add controllers and/or services and domain objects as needed to implement the validation and data processing.</p>
+
+<ul id="markdown-toc">
+  <li><a href="#basic-application-structure" id="markdown-toc-basic-application-structure">Basic Application Structure</a>    <ul>
+      <li><a href="#alternative-application-structure" id="markdown-toc-alternative-application-structure">Alternative Application Structure</a></li>
+    </ul>
+  </li>
+  <li><a href="#views-and-layouts" id="markdown-toc-views-and-layouts">Views and Layouts</a>    <ul>
+      <li><a href="#views-and-layouts-in-more-depth" id="markdown-toc-views-and-layouts-in-more-depth">Views and Layouts in more depth</a></li>
+      <li><a href="#rendering-data-to-the-caller" id="markdown-toc-rendering-data-to-the-caller">Rendering Data to the Caller</a></li>
+    </ul>
+  </li>
+  <li><a href="#designing-controllers" id="markdown-toc-designing-controllers">Designing Controllers</a>    <ul>
+      <li><a href="#using-onmissingmethod-to-implement-items" id="markdown-toc-using-onmissingmethod-to-implement-items">Using onMissingMethod() to Implement Items</a></li>
+      <li><a href="#using-onmissingview-to-handle-missing-views" id="markdown-toc-using-onmissingview-to-handle-missing-views">Using onMissingView() to Handle Missing Views</a></li>
+      <li><a href="#taking-actions-on-every-request" id="markdown-toc-taking-actions-on-every-request">Taking Actions on Every Request</a></li>
+      <li><a href="#short-circuiting-the-controller--services-lifecycle" id="markdown-toc-short-circuiting-the-controller--services-lifecycle">Short-Circuiting the Controller / Services Lifecycle</a></li>
+      <li><a href="#controllers-for-rest-apis" id="markdown-toc-controllers-for-rest-apis">Controllers for REST APIs</a></li>
+    </ul>
+  </li>
+  <li><a href="#designing-services-and-domain-objects" id="markdown-toc-designing-services-and-domain-objects">Designing Services and Domain Objects</a>    <ul>
+      <li><a href="#services-domain-objects-and-persistence" id="markdown-toc-services-domain-objects-and-persistence">Services, Domain Objects and Persistence</a></li>
+    </ul>
+  </li>
+  <li><a href="#using-bean-factories" id="markdown-toc-using-bean-factories">Using Bean Factories</a>    <ul>
+      <li><a href="#transients-bean-factory-framework" id="markdown-toc-transients-bean-factory-framework">Transients, Bean Factory, Framework</a></li>
+      <li><a href="#bean-factory-configuration" id="markdown-toc-bean-factory-configuration">Bean Factory Configuration</a>        <ul>
+          <li><a href="#migrating-2x-applications-to-3x" id="markdown-toc-migrating-2x-applications-to-3x">Migrating 2.x Applications to 3.x</a></li>
+        </ul>
+      </li>
+      <li><a href="#custom-bean-factory-support" id="markdown-toc-custom-bean-factory-support">Custom Bean Factory Support</a></li>
+    </ul>
+  </li>
+  <li><a href="#error-handling" id="markdown-toc-error-handling">Error Handling</a></li>
+  <li><a href="#configuring-fw1-applications" id="markdown-toc-configuring-fw1-applications">Configuring FW/1 Applications</a></li>
+  <li><a href="#url-routes" id="markdown-toc-url-routes">URL Routes</a></li>
+  <li><a href="#environment-control" id="markdown-toc-environment-control">Environment Control</a></li>
+  <li><a href="#setting-up-application-session-and-request-variables" id="markdown-toc-setting-up-application-session-and-request-variables">Setting up application, session and request variables</a></li>
+  <li><a href="#using-subsystems" id="markdown-toc-using-subsystems">Using Subsystems</a></li>
+  <li><a href="#accessing-the-fw1-api" id="markdown-toc-accessing-the-fw1-api">Accessing the FW/1 API</a>    <ul>
+      <li><a href="#controllers-and-the-fw1-api" id="markdown-toc-controllers-and-the-fw1-api">Controllers and the FW/1 API</a></li>
+      <li><a href="#viewslayouts-and-the-fw1-api" id="markdown-toc-viewslayouts-and-the-fw1-api">Views/Layouts and the FW/1 API</a></li>
+      <li><a href="#convenience-methods-in-the-fw1-api" id="markdown-toc-convenience-methods-in-the-fw1-api">Convenience Methods in the FW/1 API</a></li>
+    </ul>
+  </li>
+</ul>
 
 <h2 id="basic-application-structure">Basic Application Structure</h2>
-<p>FW/1 applications must have an <code>Application.cfc</code> that extends <code>framework.one</code> and an empty <code>index.cfm</code> as well as at least one view (under the <code>views</code> folder). Typical applications will also have folders for <code>controllers</code>, a <code>model</code>, containing subfolders for <code>services</code> and <code>beans</code>, and <code>layouts</code>. The folders may be in the same directory as <code>Application.cfc</code> / <code>index.cfm</code> or may be in a directory accessible via a mapping (or some other path under the webroot). If the folders are not in the same directory as <code>Application.cfc</code> / <code>index.cfm</code>, then <code>variables.framework.base</code> must be set in <code>Application.cfc</code> to identify the location of those folders.</p>
+<p>FW/1 applications generally have an <code>Application.cfc</code> that extends <code>framework.one</code> and an empty <code>index.cfm</code> as well as at least one view (under the <code>views</code> folder). Typical applications will also have folders for <code>controllers</code>, <code>layouts</code> and a <code>model</code> – itself containing subfolders for <code>services</code> and <code>beans</code>. Some applications may also have a <code>subsystems</code> folder (see below). The folders may be in the same directory as <code>Application.cfc</code> / <code>index.cfm</code> or may be in a directory accessible via a mapping (or some other path under the webroot). If the folders are not in the same directory as <code>Application.cfc</code> / <code>index.cfm</code>, then <code>variables.framework.base</code> must be set in <code>Application.cfc</code> to identify the location of those folders.</p>
 
-<p>Note: because <code>Application.cfc</code> must extend the FW/1 <code>/framework/one.cfc</code>, you need a mapping in the CFML administrator. An alternative approach is to simply copy the <code>framework</code> folder to your application’s web root. This requires no mapping - but means that you have the framework CFCs as web-accessible resources.</p>
+<p>As of release 3.5, these folder name conventions can be modified. See <strong><a href="#configuring-fw1-applications">Configuring FW/1 Applications</a></strong> below.</p>
+
+<p>Note: because <code>Application.cfc</code> generally extends the FW/1 <code>/framework/one.cfc</code>, you need a mapping in the CFML administrator. An alternative approach is to simply copy the <code>framework</code> folder to your application’s web root. This requires no mapping - but means that you have the framework CFCs as web-accessible resources. See <strong><a href="#alternative-application-structure">Alternative Application Structure</a></strong> below for another option.</p>
 
 <p>The <code>views</code> folder contains a subfolder for each section of the site, each section’s subfolder containing individual view files (pages or page fragments) used within that section. Note that if your operating system is case-sensitive, all view folders and filenames must be all lowercase.</p>
 
@@ -92,7 +141,92 @@
 
 <p>You would typically also have a <code>model</code> folder containing CFCs for your services and your domain objects - the business logic of your application. The convention is to have your domain objects in a <code>beans</code> subfolder and all your singleton service CFCs in a <code>services</code> subfolder. FW/1 and DI/1 use a convention where you typically reference model instances via a name that is the name of the CFC followed by the singular of the subfolder, e.g., <code>productService</code>, <code>userBean</code> but that behavior can be configured.</p>
 
-<p>An application may have additional web-accessible assets such as CSS, images and so on.</p>
+<p>Larger applications may also have a <code>subsystems</code> folder containing modules that are themselves “mini FW/1 applications”. Each module is a subfolder of <code>subsystems</code> and may contain its own <code>controllers</code>, <code>layouts</code>, <code>views</code>, and even a <code>model</code> containing module-specific <code>services</code> and <code>beans</code>. <em>Note: in earlier versions of FW/1, you needed to explicitly indicate you wanted to use subsystems and the “main application” also had to be a subsystem – see <a href="using-subsystems.html">Using Subsystems</a> for more details.</em></p>
+
+<p>An application may have additional web-accessible assets such as CSS, images and so on. Those can be organized however you prefer as they are outside FW/1’s purview.</p>
+
+<h3 id="alternative-application-structure">Alternative Application Structure</h3>
+
+<p>Instead of having your <code>Application.cfc</code> extend <code>framework.one</code>, you can use <code>/framework/Application.cfc</code> as a template for your <code>Application.cfc</code>. It creates the FW/1 instance explicitly on each request and delegates the various lifecycle methods to FW/1. The framework configuration structure must be passed to the FW/1 constructor, instead of being set in <code>variables</code> scope. This allows you to use a per-application mapping for FW/1:</p>
+
+<pre><code>// Application.cfc
+component { // does not extend anything
+    this.name = 'MyWonderfulApp';
+    this.mappings[ '/framework' ] = expandPath( '/libs/fw1/framework' );
+    function _get_framework_one() {
+        if ( !structKeyExists( request, '_framework_one' ) ) {
+            // create your FW/1 application:
+            request._framework_one = new framework.one( {
+                trace : true
+            } );
+        }
+        return request._framework_one;
+    }
+    
+    // lifecycle methods, per /framework/Application.cfc
+    ...
+}
+</code></pre>
+
+<p>This works well when you cannot set a mapping in the CFML admin and you don’t need to override any of FW/1’s behavior. If you do need to override any of those extension points, you can create an intermediate CFC that extends <code>framework.one</code> and put the methods in there, and then create an instance of that in your <code>Application.cfc</code>. Use <code>/framework/MyApplication.cfc</code> as a template for this:</p>
+
+<pre><code>// MyApplication.cfc (in webroot, next to Application.cfc)
+component extends=framework.one {
+    function setupRequest() {
+        controller( 'security.checkAuthorization' );
+    }
+}
+
+// Application.cfc
+component { // does not extend anything
+    this.name = 'MyWonderfulApp';
+    this.mappings[ '/framework' ] = expandPath( '/libs/fw1/framework' );
+    function _get_framework_one() {
+        if ( !structKeyExists( request, '_framework_one' ) ) {
+            // create my extended version of FW/1:
+            request._framework_one = new MyApplication( {
+                trace : true
+            } );
+        }
+        return request._framework_one;
+    }
+    
+    // lifecycle methods, per /framework/Application.cfc
+    ...
+}
+</code></pre>
+
+<p>Note that you can put your version of <code>MyApplication.cfc</code> anywhere and call it anything you want, as long as CFML can create an instance of it. A good strategy is to create a per-application mapping for your application’s base folder and use that:</p>
+
+<pre><code>// /path/to/app/CustomApp.cfc
+component extends=framework.one {
+    function setupRequest() {
+        controller( 'security.checkAuthorization' );
+    }
+}
+
+// Application.cfc
+component { // does not extend anything
+    this.name = 'MyWonderfulApp';
+    this.mappings[ '/app' ] = expandPath( '/path/to/app' );
+    this.mappings[ '/framework' ] = expandPath( '/libs/fw1/framework' );
+    function _get_framework_one() {
+        if ( !structKeyExists( request, '_framework_one' ) ) {
+            // create my extended version of FW/1:
+            request._framework_one = new app.CustomApp( {
+                base : '/app',
+                trace : true
+            } );
+        }
+        return request._framework_one;
+    }
+    
+    // lifecycle methods, per /framework/Application.cfc
+    ...
+}
+</code></pre>
+
+<p>This documentation assumes the <strong>Basic Application Structure</strong> but some of the examples provided in the FW/1 download use the <strong>Alternative Application Structure</strong> to show you how.</p>
 
 <h2 id="views-and-layouts">Views and Layouts</h2>
 <p>Views and layouts are simple CFML pages. Both views and layouts are passed a variable called <code>rc</code> which is the request context (containing the URL and form variables merged together). Layouts are also passed a variable called <code>body</code> which is the current rendered view. Both views and layouts have direct access to the full FW/1 API (see below).</p>
@@ -121,9 +255,20 @@
   <li><code>layouts/default.cfm</code> - The site-wide layout</li>
 </ul>
 
-<p>For a given <em>action</em> (<em>section.item</em>) up to three layouts may be found and executed, so the view may be wrapped in a view-specific layout, which may be wrapped in a section-specific layout, which may be wrapped in a site-wide layout. To stop the cascade, set <code>request.layout = false;</code> in your view-specific (or section-specific) layout. This allows for full control in authoring section and/or page specific layouts which may be very different from your site-wide layout.</p>
+<p>For a given <em>action</em> (<em>section.item</em>) up to three layouts may be found and executed, so the view may be wrapped in a view-specific layout, which may be wrapped in a section-specific layout, which may be wrapped in a site-wide layout. To stop the cascade, call <code>disableLayout()</code> in your view-specific (or section-specific) layout. This allows for full control in authoring section and/or page specific layouts which may be very different from your site-wide layout. You may also call <code>disableLayout()</code> in a controller to turn off all layouts for a request.</p>
 
-<p>By default, FW/1 selects views (and layouts) based on the action initiated, <em>subsystem:section.item</em> but that can be overridden in a controller by calling the <code>setView()</code> and <code>setLayout()</code> methods to specify a new action to use for the view and layout lookup respectively. This can be useful when several actions need to result in the same view, such as redisplaying a form when errors are present.</p>
+<p>When FW/1 is asked for <code>module:section.item</code>, it looks for layouts in the following places:</p>
+
+<ul>
+  <li><code>subsystems/module/layouts/section/item.cfm</code> - The view-specific layout</li>
+  <li><code>subsystems/module/layouts/section.cfm</code> - The section-specific layout</li>
+  <li><code>subsystems/module/layouts/default.cfm</code> - The subsystem-wide layout</li>
+  <li><code>layouts/default.cfm</code> - The site-wide layout</li>
+</ul>
+
+<p>For a given <em>action</em> (<em>module:section.item</em>) up to four layouts may be found and executed, so the view may be wrapped in a view-specific layout, which may be wrapped in a section-specific layout, which may be wrapped in a subsystem-wide layout, which may be wrapped in a site-wide layout.</p>
+
+<p>By default, FW/1 selects views (and layouts) based on the action initiated, <em>module:section.item</em> but that can be overridden in a controller by calling the <code>setView()</code> and <code>setLayout()</code> methods to specify a new action to use for the view and layout lookup respectively. This can be useful when several actions need to result in the same view, such as redisplaying a form when errors are present.</p>
 
 <p>For example, in your <code>product.list</code> controller method, you could call <code>setLayout( 'general.list' )</code> and FW/1 would look for <code>layouts/general/list.cfm</code> and <code>layouts/general.cfm</code> instead of layouts related to <code>product.list</code>. In addition, you can pass <code>true</code> as the second argument to <code>setLayout()</code> and cascading is automatically disabled (so only the specified layout will be applied).</p>
 
@@ -138,20 +283,22 @@
   <li><code>framework</code> - The FW/1 configuration structure (<code>variables.framework</code> in the framework CFC) which includes a number of useful values including <code>framework.action</code>, the name of the URL parameter that holds the action (if you’re building links, you should use the <code>buildURL()</code> API method which knows how to handle subsystems as well as regular section and item values in the action value). You can also write SES URLs without this variable, e.g., <em>/index.cfm/section/item</em> as long as your application server supports such URLs (better to use <code>buildCustomURL()</code> for this!).</li>
 </ul>
 
-<p>In addition, FW/1 uses a number of <code>request</code> scope variables to pass data between its various methods so it is advisable not to write to the <code>request</code> scope inside a view or layout. See the <a href="/documentation/3.0/reference-manual.html">Reference Manual</a> for complete details of <code>request</code> scope variables used by FW/1.</p>
+<p>In addition, FW/1 uses a number of <code>request</code> scope variables to pass data between its various methods so it is advisable not to write to the <code>request</code> scope inside a view or layout. See the <a href="reference-manual.html#request-scope">Reference Manual</a> for complete details of <code>request</code> scope variables used by FW/1.</p>
 
 <p>It is strongly recommended to use the <code>local</code> struct for any variables you need to create yourself in a view or layout!</p>
 
-<p>If you have data that is needed by all of your views, it may be convenient to set that up in your <code>setupView()</code> method in <code>Application.cfc</code> - see <strong>Taking Actions on Every Request</strong> below.</p>
+<p>If you have data that is needed by all of your views, it may be convenient to set that up in your <code>setupView()</code> method in <code>Application.cfc</code> - see <strong><a href="#taking-actions-on-every-request">Taking Actions on Every Request</a></strong> below.</p>
+
+<p>As of release 3.5, FW/1 also recognizes view and layout files with <code>.lc</code> and <code>.lucee</code> file extensions to support Lucee’s new dialect.</p>
 
 <h3 id="rendering-data-to-the-caller">Rendering Data to the Caller</h3>
 
-<p>If you want to return plain text, XML, or JSON from a request instead of rendering an HTML view, you can use the <code>renderData()</code> API to bypass views and layouts completely and automatically return data rendered as JSON, XML, or plain text to your caller, with the correct content type automatically set. See below for more details.</p>
+<p>If you want to return plain text, XML, or JSON from a request instead of rendering an HTML view, you can use the <code>renderData()</code> API to bypass views and layouts completely and automatically return data rendered as JSON, XML, or plain text to your caller, with the correct content type automatically set. See <strong><a href="#controllers-for-rest-apis">Controllers for REST APIs</a></strong> below for more details.</p>
 
 <h2 id="designing-controllers">Designing Controllers</h2>
-<p>Controllers are the pounding heart of an MVC application and FW/1 provides quite a bit of flexibility in this area. The most basic convention is that when FW/1 is asked for <code>section.item</code> it will look for <code>controllers/section.cfc</code> and attempt to call the <code>item()</code> method on it, passing in the request context as a single argument called <code>rc</code> and controllers may call into the application model as needed, then render a view.</p>
+<p>Controllers are the pounding heart of an MVC application and FW/1 provides quite a bit of flexibility in this area. The most basic convention is that when FW/1 is asked for <code>section.item</code> it will look for <code>controllers/section.cfc</code> and attempt to call the <code>item()</code> method on it, passing in the request context as a single argument called <code>rc</code> and controllers may call into the application model as needed, then render a view. Similarly, when asked for <code>module:section.item</code> it will look for <code>subsystems/module/controllers/section.cfc</code> and attempt to call the <code>item()</code> method on it.</p>
 
-<p>Controllers are cached in FW/1’s application cache so controller methods need to be written with thread safety in mind (i.e., use <code>var</code> to declare variables properly!). Any <code>setXxx()</code> methods on a controller CFC may be used by FW/1 to autowire beans from the bean factory into the controller when it is created. In addition, if you add <code>accessors=true</code> to your controller’s <code>component</code> tag, you can declare dependencies with the <code>property</code> keyword are those will be autowired by FW/1. <code>property</code>-based injection is the preferred approach.</p>
+<p>Controllers are cached in FW/1’s application cache so controller methods need to be written with thread safety in mind (i.e., use <code>var</code> to declare variables properly!). Any <code>setXxx()</code> methods on a controller CFC may be used by FW/1 to autowire beans from the bean factory into the controller when it is created. In addition, if you add <code>accessors=true</code> to your controller’s <code>component</code> tag, you can declare dependencies with the <code>property</code> keyword and those will be autowired by FW/1. <code>property</code>-based injection is the preferred approach.</p>
 
 <p>In addition, if you need certain actions to take place before all items in a particular section, you can define a <code>before()</code> method in your controller and FW/1 will automatically call it for you, before calling the <code>item()</code> method. This might be a good place to put a security check, to ensure a user is logged in before they can execute other actions in that section. The variable <code>request.item</code> contains the name of the controller method that will be called, in case you need to have exceptions on the security check (such as for a <code>main.doLogin</code> action that attempts to log a user in).</p>
 
@@ -171,13 +318,15 @@
 
 <p>Methods that do not exist are not called.</p>
 
+<p><em>Note: if you are using the <strong>Alternative Application Structure</strong> then <code>before()</code> and <code>after()</code> would be defined in your version of <code>MyApplication.cfc</code> which extends the framework, rather than in the actual <code>Application.cfc</code> file.</em></p>
+
 <h3 id="using-onmissingmethod-to-implement-items">Using onMissingMethod() to Implement Items</h3>
 
-<p>FW/1 supports <code>onMissingMethod()</code>, i.e., if a desired method is not present but <code>onMissingMethod()</code> is defined, FW/1 will call the method anyway. That applies to all three potential controller methods: <code>before</code>, <code>item</code>, and <code>after</code>. That means you must be a little careful if you implement <code>onMissingMethod()</code> since it will be called whenever FW/1 needs a method that isn’t already defined. If you are going to use <code>onMissingMethod()</code>, I would recommend always defining <code>before()</code> and <code>after()</code> methods, even if they are empty. Calls to <code>onMissingMethod()</code> are passed two arguments in <code>missingMethodArguments</code>: <code>rc</code> and <code>method</code> which is the type of the method being invoked (<code>"before"</code>, <code>"item"</code> - literally, regardless of the actual requested <em>item</em>, <code>"after"</code>).</p>
+<p>FW/1 supports <code>onMissingMethod()</code>, i.e., if a desired method is not present but <code>onMissingMethod()</code> is defined, FW/1 will call the method anyway. That applies to all three potential controller methods: <code>before</code>, <code>item</code>, and <code>after</code>. That means you must be a little careful if you implement <code>onMissingMethod()</code> since it will be called whenever FW/1 needs a method that isn’t already defined. Calls to <code>onMissingMethod()</code> are passed two arguments in <code>missingMethodArguments</code>: <code>rc</code> and <code>method</code> which is the type of the method being invoked (<code>"before"</code>, <code>"item"</code> - literally, regardless of the actual requested <em>item</em>, <code>"after"</code>). If you are going to use <code>onMissingMethod()</code>, you should either check <code>missingMethodArguments.method</code> or define <code>before()</code> and <code>after()</code> methods explicitly, even if they are empty.</p>
 
 <h3 id="using-onmissingview-to-handle-missing-views">Using onMissingView() to Handle Missing Views</h3>
 
-<p>FW/1 provides a default <code>onMissingView()</code> method for <code>Application.cfc</code> that throws an exception (view not found). This allows you to provide your own handler for when a view is not present for a specific request. Whatever <code>onMissingView()</code> returns is used as the core view and, unless layouts are disabled, it will be wrapped in layouts and then displayed to the user. Make sure you return a string value!</p>
+<p>FW/1 provides a default <code>onMissingView()</code> method that throws an exception (view not found). This allows you to provide your own handler for when a view is not present for a specific request. Whatever <code>onMissingView()</code> returns is used as the core view and, unless layouts are disabled, it will be wrapped in layouts and then displayed to the user. Make sure you return a string value! Calls to <code>onMissingView()</code> are passed the <code>rc</code> so you can look at <code>rc.action</code> to see which action failed to find a view and <code>request.missingView</code> if you need to know the specific view that was not found (see <a href="reference-manual.html#request-scope">Request Scope</a> in the Reference Manual for more details).</p>
 
 <p>Be aware that <code>onMissingView()</code> will be called if your application throws an exception and you have not provided a view for the default error handler (<code>main.error</code> - if your <code>defaultSection</code> is <code>main</code>). This can lead to exceptions being masked and instead appearing as if you have a missing view!</p>
 
@@ -185,14 +334,16 @@
 
 <p>FW/1 provides direct support for handling a specific request’s lifecycle based on an action (either supplied explicitly or implicitly) but relies on your <code>Application.cfc</code> for general lifecycle events. That’s why FW/1 expects you to write per-request logic in <code>setupRequest()</code> (or <code>before()</code> if you need to interact with <code>rc</code>), per-session logic in <code>setupSession()</code> and application initialization logic in <code>setupApplication()</code>. In addition there is  <code>setupView()</code> which is called just before view rendering begins to allow you to set up data for your views that needs to be globally available, but may depend on the results of running controllers or services.</p>
 
-<p>If you have some logic that is meant to be run on every request, the best way is generally to implement <code>setupRequest()</code> in your <code>Application.cfc</code> and have it queue up the desired controller method by name, like this:</p>
+<p><em>Note: if you are using the <strong>Alternative Application Structure</strong>, these methods will be in your equivalent of <code>MyApplication.cfc</code>, not the actual <code>Application.cfc</code> file.</em></p>
+
+<p>If you have some logic that is meant to be run on every request, that does not need to reference the request context, the best way is generally to implement <code>setupRequest()</code> in your <code>Application.cfc</code> and have it queue up the desired controller method by name, like this:</p>
 
 <pre><code>function setupRequest() {
     controller( 'security.checkAuthorization' );
 }
 </code></pre>
 
-<p>This queues up a call to that controller at the start of the request processing, calling <code>before()</code>, <code>checkAuthorization()</code>, and <code>after()</code> as appropriate, if those methods are present.</p>
+<p>This queues up a call to that controller at the start of the request processing, calling <code>before()</code>, <code>checkAuthorization()</code>, and <code>after()</code> as appropriate, if those methods are present in <code>controllers/security.cfc</code>.</p>
 
 <p>Note that the <em>request context</em> itself is <em>not available at this point</em>! <code>setupRequest()</code> is to set things up <em>prior to the request being processed</em>. If you need access to <code>rc</code>, you will want to implement <code>before()</code> in your <code>Application.cfc</code> which is a regular controller method that is called before any others (including <code>before()</code> in other controllers which get queued up):</p>
 
@@ -221,7 +372,7 @@
 
 <h3 id="short-circuiting-the-controller--services-lifecycle">Short-Circuiting the Controller / Services Lifecycle</h3>
 
-<p>If you need to immediately halt execution of a controller and prevent any further controllers or services from being called, use the <code>abortController()</code> method. See the <a href="/documentation/3.0/reference-manual.html">Reference Manual</a> for more details of <code>abortController()</code>, in particular how it interacts with exception-handling code in your controllers.</p>
+<p>If you need to immediately halt execution of a controller and prevent any further controllers or services from being called, use the <code>abortController()</code> method. See the <a href="reference-manual.html#public-void-function--abortcontroller">Reference Manual</a> for more details of <code>abortController()</code>, in particular how it interacts with exception-handling code in your controllers.</p>
 
 <h3 id="controllers-for-rest-apis">Controllers for REST APIs</h3>
 
@@ -232,15 +383,32 @@
 
 <p>Calling this function does not exit from your controller, but tells FW/1 that instead of looking for a view to render, the <code>resultData</code> value should be converted to the specified <code>contentType</code> and that should be the result of the complete HTTP request.</p>
 
-<p><code>contentType</code> may be <code>"json"</code>, <code>"xml"</code>, or <code>"text"</code>. The <code>Content-Type</code> HTTP header is automatically set to:</p>
+<p><code>contentType</code> may be <code>"html"</code>, <code>"json"</code>, <code>"jsonp"</code>, <code>"rawjson"</code>, <code>"xml"</code>, or <code>"text"</code>. The <code>Content-Type</code> HTTP header is automatically set to:</p>
 
 <ul>
+  <li><code>text/html; charset=utf-8</code></li>
+  <li><code>application/json; charset=utf-8</code></li>
+  <li><code>application/javascript; charset=utf-8</code></li>
   <li><code>application/json; charset=utf-8</code></li>
   <li><code>text/xml; charset=utf-8</code></li>
   <li><code>text/plain; charset=utf-8</code></li>
 </ul>
 
-<p>respectively. For JSON, the <code>resultData</code> value is converted to a string by calling <code>serializeJSON()</code>; for XML, the <code>resultData</code> value is expected to be either a valid XML string or an XML object (constructed via CFML’s various <code>xml...()</code> functions); for plain text, the <code>resultData</code> value must be a string.</p>
+<p>respectively. For JSON and JSONP, the <code>resultData</code> value is converted to
+a string by calling <code>serializeJSON()</code> (so use <code>"rawjson"</code> if your
+<code>resultData</code> value is already a valid JSON string); for XML, the
+<code>resultData</code> value is expected to be either a valid XML string or an XML
+object (constructed via CFML’s various <code>xml...()</code> functions); for plain
+text and HTML, the <code>resultData</code> value must be a string. <em><code>"html"</code>, <code>"jsonp"</code> and <code>"rawjson"</code> were added in 3.1.</em></p>
+
+<p>For JSONP, you must also specify the <code>jsonpCallback</code> argument:</p>
+
+<pre><code>variables.fw.renderData( contentType, resultData, statusCode, callback );
+// or:
+variables.fw.renderData(
+    type = contentType, data = resultData, jsonpCallback = callback
+);
+</code></pre>
 
 <p>You can also specify an HTTP status code as a third argument. The default is 200.</p>
 
@@ -251,7 +419,7 @@
 
 <p>Controllers should call methods on domain objects and services to do all the heavylifting in your application, passing specific elements of the request context as arguments. FW/1’s <code>populate()</code> API is designed to allow you to store arbitrary elements of the request context in domain objects.</p>
 
-<p>It is expected that you’ll be using a bean factory, your services will be autowired into your controllers, making it easier to call them directly, without having to worry about how and where to construct those CFCs. Using a bean factory means that your domain objects can also be managed, with services autowired into them as necessary, so your controllers can simply ask the bean factory for a new domain object (or ask a service for it), <code>populate()</code> it from the request context, call methods on the domain object, or pass them to services as necessary.</p>
+<p>It is expected that you’ll be using a bean factory, and your services will be autowired into your controllers, making it easier to call them directly, without having to worry about how and where to construct those CFCs. Using a bean factory means that your domain objects can also be managed, with services autowired into them as necessary, so your controllers can simply ask the bean factory for a new domain object (or ask a service for it), <code>populate()</code> it from the request context, call methods on the domain object, or pass them to services as necessary.</p>
 
 <p>Services should not know anything about the framework. Service methods should not “reach out” into the request scope to interact with FW/1 - or any other scopes! - they should simply have some declared arguments, perform some operation and return some data.</p>
 
@@ -259,7 +427,7 @@
 
 <p>There are many ways to organize how you save and load data. You could use the ORM that comes with ColdFusion, Lucee, or Railo, you could write your own data mapping service, you could write custom SQL for every domain object. Regardless of how you choose to handle your persistence, encapsulating it in a service CFC is probably a good idea. For convenience it is often worth injecting your persistence service into your domain object so you can have a convenient <code>domainObject.save()</code> call to use from your controller, even if it just delegates to the persistence service internally:</p>
 
-<pre><code>component accessors=true{
+<pre><code>component accessors=true {
     property dataService;
     //...
     function save() {
@@ -271,7 +439,7 @@
 <h2 id="using-bean-factories">Using Bean Factories</h2>
 <p>By default, FW/1 will use DI/1 to manage your controllers and your model. You don’t have to do anything for that to happen automatically.</p>
 
-<p><em>Note: in previous releases of FW/1 (prior to 3.0), you had to create the bean factory yourself and tell FW/1 about it, in <code>setupApplication()</code>. If you are migrating a 2.x application that uses a bean factory to 3.0, review the <strong>Bean Factory Configuration</strong> section below to see how to set up your bean factory the same way.</em></p>
+<p><em>Note: in previous releases of FW/1 (prior to 3.0), you had to create the bean factory yourself and tell FW/1 about it, in <code>setupApplication()</code>. If you are migrating a 2.x application that uses a bean factory to 3.0, review the <strong><a href="#bean-factory-configuration">Bean Factory Configuration</a></strong> section below to see how to set up your bean factory the same way.</em></p>
 
 <p>FW/1 &amp; DI/1 expect to find a <code>controllers</code> folder and a <code>model</code> folder in the base of the application tree. Under DI/1’s conventions, <code>controllers/section.cfc</code> becomes <code>sectionController</code>, <code>model/beans/foo.cfc</code> becomes <code>fooBean</code>, and <code>model/services/bar.cfc</code> becomes <code>barService</code>. Other pluralized subfolders under <code>model</code> are treated in a similar fashion. By default, everything is treated as a singleton - a single, unique instance, essentially cached in <code>application</code> scope - except for CFCs in the <code>beans</code> subfolder.</p>
 
@@ -286,7 +454,9 @@
 
 <p>This will make <code>variables.userService</code> and <code>variables.securityService</code> available, based on <code>model/services/user.cfc</code> and <code>model/services/security.cfc</code>. You could also use long form CFC names like <code>userservice.cfc</code> and <code>securityservice.cfc</code> if you wanted. See the next section for more details on configuring DI/1.</p>
 
-<p>If you let FW/1 use DI/1 (or AOP/1) to automatically manage your beans, and you are using subsystems, FW/1 will also use it to manage your subsystems’ beans. See <a href="/documentation/3.0/using-subsystems.html">Using Subsystems</a> for more details.</p>
+<p>If you let FW/1 use DI/1 to automatically manage your beans, and you are using subsystems, FW/1 will also use it to manage your subsystems’ beans. See <a href="using-subsystems.html">Using Subsystems</a> for more details.</p>
+
+<p>As of release 3.5, DI/1 will also recognize component files with a <code>.lc</code> or <code>.lucee</code> file extension, to support Lucee 5’s new dialect.</p>
 
 <h3 id="transients-bean-factory-framework">Transients, Bean Factory, Framework</h3>
 
@@ -300,7 +470,7 @@
 
 <h3 id="bean-factory-configuration">Bean Factory Configuration</h3>
 
-<p>Although FW/1 uses DI/1 by default, it also has out-of-the-box support for AOP/1 and WireBox. It can also support other bean factories that follow certain conventions - see <strong>Custom Bean Factory Support</strong> below for more details.</p>
+<p>Although FW/1 uses DI/1 by default, it also has out-of-the-box support for AOP/1 and WireBox. It can also support other bean factories that follow certain conventions - see <strong><a href="#custom-bean-factory">Custom Bean Factory Support</a></strong> below for more details.</p>
 
 <p>You tell FW/1 which bean factory to use through the <code>variables.framework.diEngine</code> configuration variable:</p>
 
@@ -309,7 +479,7 @@
   <li><code>"aop1"</code> - use AOP/1; additional configuration is the same as for DI/1.</li>
   <li><code>"wirebox"</code> - use WireBox, via the supplied adapter.</li>
   <li><code>"none"</code> - do not use a bean factory automatically; you may still create your own bean factory in <code>setupApplication()</code> and use <code>setBeanFactory()</code> to tell FW/1 about it (this is the easiest way to migrate a 2.x application to 3.0 - but also see below).</li>
-  <li><code>"custom"</code> - use a non-standard bean factory - see <strong>Custom Bean Factory Support</strong> below for the requirements on such a bean factory.</li>
+  <li><code>"custom"</code> - use a non-standard bean factory - see <strong><a href="#custom-bean-factory-support">Custom Bean Factory Support</a></strong> below for the requirements on such a bean factory.</li>
 </ul>
 
 <p>Unless you choose <code>"none"</code>, FW/1 will use <code>variables.framework.diComponent</code> as the dotted-path of a CFC to construct and use as the bean factory. This configuration variable has a default based on <code>diEngine</code> as follows:</p>
@@ -322,14 +492,16 @@
 
 <p>You can override these if you have installed FW/1’s <code>framework</code> folder contents elsewhere. If you specify a <code>diEngine</code> of <code>"custom"</code>, you must supply your own value for <code>diComponent</code>.</p>
 
-<p><em>Note: in order to use AOP/1 you need to manually download it and place it in the <code>framework</code> folder yourself.</em></p>
+<p>As of FW/1 3.5, if you try to manage your own bean factory via <code>setBeanFactory()</code> and forget to set <code>diEngine</code> to <code>"none"</code>, you will get an exception. You can suppress the exception using the <code>diOverrideAllowed</code> setting but you will still get a warning printed to the console, informing you that you really should set <code>diEngine</code> to <code>"none"</code> instead!</p>
 
 <p>The following configuration variables are used in the construction of the bean factory component:</p>
 
 <ul>
-  <li><code>diLocations</code> - for <code>diEngine</code> <code>"di1"</code> or <code>"aop1"</code>, this is the first argument to the constructor and represents a list of folders to be scanned; for <code>diEngine</code> <code>"wirebox"</code>, this is used to set the <code>scanLocations()</code> on WireBox’s binder; for <code>diEngine</code> <code>"custom"</code>, this is the first argument to the constructor.</li>
-  <li><code>diConfig</code> - for <code>diEngine</code> <code>"di1"</code> or <code>"aop1"</code>, this is the second argument to the constructor and represents configuration settings for DI/1 (or AOP/1); for <code>diEngine</code> <code>"wirebox"</code>, this is the <code>properties</code> argument to the constructor; for <code>diEngine</code> <code>"custom"</code>, this is the second argument to the constructor.</li>
+  <li><code>diLocations</code> - for <code>diEngine</code> <code>"di1"</code> or <code>"aop1"</code>, this is the first argument to the constructor and represents a list of folders to be scanned; for <code>diEngine</code> <code>"wirebox"</code>, this may be used to set the <code>scanLocations()</code> on WireBox’s binder if <code>diConfig</code> is a struct (<code>diLocations</code> is ignored if <code>diConfig</code> is a string); for <code>diEngine</code> <code>"custom"</code>, this is the first argument to the constructor.</li>
+  <li><code>diConfig</code> - for <code>diEngine</code> <code>"di1"</code> or <code>"aop1"</code>, this is the second argument to the constructor and represents configuration settings for DI/1 (or AOP/1); for <code>diEngine</code> <code>"wirebox"</code>, this is either the <code>properties</code> argument to the constructor (if it is a struct) or the dotted path to a binder CFC (if it is a string); for <code>diEngine</code> <code>"custom"</code>, this is the second argument to the constructor.</li>
 </ul>
+
+<p><em>Specifying a string for <code>diConfig</code> with WireBox is new in 3.5 and is the recommended way to configure FW/1 to use WireBox.</em></p>
 
 <p>Here’s how those values are used in code to construct the bean factory:</p>
 
@@ -338,9 +510,14 @@ var bf = new "#variables.framework.diComponent#"(
     variables.framework.diLocations,
     variables.framework.diConfig
 );
-// wirebox:
+// wirebox -- diConfig is a struct:
 var bf = new "#variables.framework.diComponent#"(
     properties = variables.framework.diConfig
+);
+// wirebox -- diConfig is a string:
+var bf = new "#variables.framework.diComponent#"(
+    variables.framework.diConfig, // binder
+    variables.framework           // properties
 );
 bf.getBinder().scanLocations( variables.framework.diLocations );
 // custom:
@@ -350,24 +527,26 @@ var bf = new "#variables.framework.diComponent#"(
 );
 </code></pre>
 
-<h4 id="migrating-2x-applications-to-30">Migrating 2.x Applications to 3.0</h4>
+<p>If you are using subsystems and also using DI/1 as your default bean factory component, <code>diConfig</code> will be passed to subsystem bean factories when they are constructed. You can override this on a per-subsystem basis by setting <code>diConfig</code> in the specific <code>framework.subsystems</code> configuration structure. <em>Per-subsystem <code>diConfig</code> is new in 3.1.</em></p>
 
-<p>If you migrated through FW/1 2.5 (recommended), you’ll have already dealt with the features that were deprecated in 2.5 and are removed in 3.0. The other changes are that <code>org.corfield.framework</code> has moved to <code>framework.one</code> and both <code>getRC()</code> and <code>getRCValue()</code> have been removed (these changes were deprecated throughout the 3.0 prerelease cycle and removed in the RC cycle).</p>
+<h4 id="migrating-2x-applications-to-3x">Migrating 2.x Applications to 3.x</h4>
+
+<p>If you migrated through FW/1 2.5 (recommended), you’ll have already dealt with the features that were deprecated in 2.5 and removed in 3.0. The other changes were that <code>org.corfield.framework</code> moved to <code>framework.one</code> and both <code>getRC()</code> and <code>getRCValue()</code> were removed (these changes were deprecated throughout the 3.0 prerelease cycle and removed in the RC cycle).</p>
 
 <p>The final change that you will run into if you were using a bean factory is how FW/1 3.0 manages this automatically now. The simplest migration is to set <code>variables.framework.diEngine</code> to <code>"none"</code> and carry on doing what you were doing (manually creating the bean factory).</p>
 
-<p>The recommended migration is to set the <code>di*</code> configuration variables appropriately to allow FW/1 to take over and manage your bean factory for you. If you are using DI/1, this is likely to be easier than, say, ColdSpring (see <strong>Custom Bean Factory Support</strong> below). If your DI/1 setup is fairly simple, you won’t need to do much. Here are some examples:</p>
+<p>The recommended migration is to set the <code>di*</code> configuration variables appropriately to allow FW/1 to take over and manage your bean factory for you. If you are using DI/1, this is likely to be easier than, say, ColdSpring (see <strong><a href="#custom-bean-factory-support">Custom Bean Factory Support</a></strong> below). If your DI/1 setup is fairly simple, you won’t need to do much. Here are some examples:</p>
 
 <pre><code>// 2.x setupApplication():
 var bf = new framework.ioc("model,controllers");
 setBeanFactory(bf);
-// 3.0 - no configuration necessary
+// 3.x - no configuration necessary
 // just remove those lines from setupApplication()
 
 // 2.x setupApplication():
 var bf = new framework.ioc("/model,/app/controllers");
 setBeanFactory(bf);
-// 3.0 - remove those lines and add this config:
+// 3.x - remove those lines and add this config:
 variables.framework = {
     ...
     diLocations = "/model,/app/controllers",
@@ -377,7 +556,7 @@ variables.framework = {
 // 2.x setupApplication():
 var bf = new path.to.ioc("/model,/app/controllers");
 setBeanFactory(bf);
-// 3.0 - remove those lines and add this config:
+// 3.x - remove those lines and add this config:
 variables.framework = {
     ...
     diComponent = "path.to.ioc",
@@ -391,7 +570,7 @@ var bf = new path.to.ioc(
     { ... config ... }
 );
 setBeanFactory(bf);
-// 3.0 - remove those lines and add this config:
+// 3.x - remove those lines and add this config:
 variables.framework = {
     ...
     diComponent = "path.to.ioc",
@@ -401,7 +580,9 @@ variables.framework = {
 };
 </code></pre>
 
-<p>If you use a load listener and call <code>bf.onLoad( myListener )</code>, you use <code>diConfig</code> and add <code>loadListener = myListener</code> to it instead.</p>
+<p>As of FW/1 3.5, <code>diLocations</code> can now be either an array of paths or a list of paths.</p>
+
+<p>If you use a load listener and call <code>bf.onLoad( myListener )</code>, you should use <code>diConfig</code> and add <code>loadListener = myListener</code> to it instead.</p>
 
 <p>If you perform more complex configuration of DI/1 (adding bean declarations etc), add a new function to your <code>Application.cfc</code> that accepts the bean factory as an argument, and then specify that as the <code>loadListener</code>:</p>
 
@@ -413,17 +594,36 @@ var bf = new path.to.ioc(
 bf...( ... );
 ... other bf stuff ...
 setBeanFactory(bf);
-// 3.0 - move the bf configuration to a load listener function:
+// 3.x - move the bf configuration to a load listener function in Application.cfc:
 function factoryConfig( bf ) {
     bf...( ... );
     ... other bf stuff ...
 }
-// 3.0 - then remove the 2.x code and add this config:
+// 3.x - then remove the 2.x code and add this config:
 variables.framework = {
     ...
     diComponent = "path.to.ioc",
     diLocations = "/model,/app/controllers",
     diConfig = { ... config ..., loadListener = factoryConfig },
+    ...
+};
+</code></pre>
+
+<p>Alternatively, create a new CFC in your model’s <code>services</code> tree (e.g., <code>LoadListener.cfc</code>) and move the bean factory configuration to an <code>onLoad()</code> method there, and specify that bean name in the configuration (this is better if you have a lot of configuration since it avoids cluttering up <code>Application.cfc</code>):</p>
+
+<pre><code>// 3.x - move the bf configuration to a LoadListener.cfc:
+component {
+    function onLoad( bf ) {
+        bf...( ... );
+        ... other bf stuff ...
+    }
+}
+// 3.x - then remove the 2.x code and add this config:
+variables.framework = {
+    ...
+    diComponent = "path.to.ioc",
+    diLocations = "/model,/app/controllers",
+    diConfig = { ... config ..., loadListener = "loadListenerService" },
     ...
 };
 </code></pre>
@@ -496,6 +696,8 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 
 <pre><code>variables.framework = {
     action = 'action',
+    // base has no default value -- see below
+    // cfcbase has no default value -- see below
     usingSubsystems = false,
     defaultSubsystem = 'home',
     defaultSection = 'main',
@@ -510,65 +712,77 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
     reload = 'reload',
     password = 'true',
     reloadApplicationOnEveryRequest = false,
-    generateSES = false,
-    SESOmitIndex = false,
-    // base = omitted so that the framework calculates a sensible default
-    baseURL = 'useCgiScriptName',
-    // cfcbase = omitted so that the framework calculates a sensible default
-    unhandledExtensions = 'cfc',
-    unhandledPaths = '/flex2gateway',
-    unhandledErrorCaught = false,
     preserveKeyURLKey = 'fw1pk',
     maxNumContextsPreserved = 10,
-    cacheFileExists = false,
+    baseURL = 'useCgiScriptName',
+    generateSES = false,
+    SESOmitIndex = false,
+    unhandledExtensions = 'cfc,lc,lucee',
+    unhandledPaths = '/flex2gateway',
+    unhandledErrorCaught = false,
     applicationKey = 'framework.one',
-    trace = false,
+    cacheFileExists = false,
     routes = [ ],
     // resourceRouteTemplates - see routes documentation
+    routesCaseSensitive = true,
     noLowerCase = false,
+    trace = false,
+    controllersFolder = "controllers",
+    layoutsFolder = "layouts",
+    subsystemsFolder = "subsystems",
+    viewsFolder = views",
+    diOverrideAllowed = false,
     diEngine = "di1",
+    diLocations = [ "model", "controllers" ],
+    diConfig = { },
     diComponent = "framework.ioc",
-    diLocations = "model,controllers",
-    diConfig = { }
+    environments = { }
 };
 </code></pre>
 
 <p>The keys in the structure have the following meanings:</p>
 
 <ul>
-  <li><code>action</code> - The URL or form variable used to specify the desired action (<code>section.item</code>).</li>
-  <li><code>usingSubsystems</code> - Whether or not to use subsystems - see <code>Using Subsystems</code> below. This is automatically set <code>true</code> if you set any of the of the subsystem-related configuration.</li>
-  <li><code>defaultSubsystem</code> - If subsystems are enabled, this is the default subsystem when no action is specified in the URL or form post.</li>
-  <li><code>defaultSection</code> - If subsystems are enabled, this is the default section within a subsystem when either no action is specified at all or just the subsystem is specified in the action. If subsystems are not enabled, this is the default section when no action is specified in the URL or form post.</li>
-  <li><code>defaultItem</code> - The default item within a section when either no action is specified at all or just the section is specified in the action.</li>
-  <li><code>subsystemDelimiter</code> - When subsystems are enabled, this specifies the delimiter between the subsystem name and the action in a URL or form post.</li>
-  <li><code>siteWideLayoutSubsystem</code> - When subsystems are enabled, this specifies the subsystem that is used for the (optional) site-wide default layout.</li>
-  <li><code>subsystems</code> - An optional struct of structs containing per-subsystem configuration data. Each key in the top-level struct is named for a subsystem. The contents of the nested structs can be anything you want for your subsystems. Retrieved by calling <code>getSubsystemConfig()</code>. Currently the only key used by FW/1 is <code>baseURL</code> which can be used to configure per-subsystem values.</li>
+  <li><code>action</code> - The URL or form variable used to specify the desired action (<code>?action=section.item</code>).</li>
+  <li><code>base</code> - Provide this if the application itself is not in the same directory as <code>Application.cfc</code> and <code>index.cfm</code>. It should be the <strong>relative</strong> path to the application from the <code>Application.cfc</code> file, or a <strong>mapped</strong> path to the application. Examples: <code>"../myapp/"</code>, <code>"/appmaping/"</code>.</li>
+  <li><code>cfcbase</code> - Provide this if the <code>controllers</code> and <code>model</code> folders are not in the same folder as the application. It is used as the dotted-path prefix for controller and service CFCs, e.g., if <code>cfcbase = 'com.myapp'</code> then a controller would be <code>com.myapp.controllers.MyController</code>.</li>
+  <li><code>usingSubsystems</code> - Whether or not to use legacy style subsystems - see <strong><a href="#using-subsystems">Using Subsystems</a></strong> below. This is automatically set <code>true</code> if you explicitly specify a <code>defaultSubsystem</code>. As of release 3.5, it is recommended to use the new style subsystems (and leave this as <code>false</code> or omit it).</li>
+  <li><code>defaultSubsystem</code> - If legacy subsystems are enabled, this is the default subsystem when none is specified in the URL or form post. It defaults to <code>"home"</code>. As of release 3.5, it is recommended to use the new style subsystems (and omit this).</li>
+  <li><code>defaultSection</code> - This is the default section to use when none is specified in the URL or form post. It defaults to <code>"main"</code>.</li>
+  <li><code>defaultItem</code> - This is the default item to use when none is specified in the URL or form post. It defauts to <code>"default"</code>.</li>
+  <li><code>subsystemDelimiter</code> - This specifies the delimiter between the subsystem name and the section in an action. It defaults to <code>":"</code>.</li>
+  <li><code>siteWideLayoutSubsystem</code> - If legacy subsystems are enabled, this specifies the subsystem that is used for the (optional) site-wide default layout. It defaults to <code>"common"</code>. As of release 3.5, it is recommended to use the new style subsystems (and omit this).</li>
+  <li><code>subsystems</code> - An optional struct of structs containing per-subsystem configuration data. Each key in the top-level struct is named for a subsystem. The contents of the nested structs can be anything you want for your subsystems. Retrieved by calling <code>getSubsystemConfig()</code>. Currently the only keys used by FW/1 are <code>baseURL</code> and <code>diConfig</code> which can be used to configure per-subsystem values.</li>
   <li><code>home</code> - The default action when it is not specified in the URL or form post. By default, this is <code>defaultSection</code>.<code>defaultItem</code>. If you specify <code>home</code>, you are overriding (and hiding) <code>defaultSection</code> but not <code>defaultItem</code>. If <code>usingSubsystem</code> is <code>true</code>, the default for <code>home</code> is <code>"home:main.default"</code>, i.e., <code>defaultSubsystem &amp; subsystemDelimiter &amp; defaultSection &amp; '.' &amp; defaultItem</code>.</li>
   <li><code>error</code> - The action to use if an exception occurs. By default this is <code>defaultSection.error</code>.</li>
   <li><code>reload</code> - The URL variable used to force FW/1 to reload its application cache and re-execute <code>setupApplication()</code>.</li>
   <li><code>password</code> - The value of the reload URL variable that must be specified, e.g., <code>?reload=true</code> is the default but you could specify <code>reload = 'refresh', password = 'fw1'</code> and then specifying <code>?refresh=fw1</code> would cause a reload.</li>
   <li><code>reloadApplicationOnEveryRequest</code> - If this is set to <code>true</code> then FW/1 behaves as if you specified the <code>reload</code> URL variable on every request, i.e., at the start of each request, the controller/service cache is cleared and <code>setupApplication()</code> is executed.</li>
-  <li><code>generateSES</code> - If true, causes <code>redirect()</code> and <code>buildURL()</code> to generate SES-style URLs with items separated by <code>/</code> (and the path info in the URL will begin <code>/section/item</code> rather than <code>?action=section.item</code> - see the <a href="/documentation/3.0/reference-manual.html">Reference Manual</a> for more details).</li>
-  <li><code>SESOmitIndex</code> - If SES URLs are enabled and this is <code>true</code>, will attempt to omit the base filename in the path when constructing URLs in <code>buildURL()</code> and <code>redirect()</code> which will generally omit <code>/index.cfm</code> from the start of the URL. Again, see the <a href="/documentation/3.0/reference-manual.html">Reference Manual</a> for more details.</li>
-  <li><code>base</code> - Provide this if the application itself is not in the same directory as <code>Application.cfc</code> and <code>index.cfm</code>. It should be the <strong>relative</strong> path to the application from the <code>Application.cfc</code> file.</li>
-  <li><code>baseURL</code> - Normally, <code>redirect()</code> and <code>buildURL()</code> default to using <code>CGI.SCRIPT_NAME</code> as the basis for the URL they construct. This is the right choice for most applications but there are times when the base URL used for your application could be different. You can also specify <code>baseURL = "useRequestURI"</code> and instead of <code>CGI.SCRIPT_NAME</code>, the result of <code>getPageContext().getRequest().getRequestURI()</code> will be used to construct URLs. This is the right choice for FW/1 applications embedded inside Mura.</li>
-  <li><code>cfcbase</code> - Provide this if the <code>controllers</code> and <code>model</code> folders are not in the same folder as the application. It is used as the dotted-path prefix for controller and service CFCs, e.g., if <code>cfcbase = 'com.myapp'</code> then a controller would be <code>com.myapp.controllers.MyController</code>.</li>
-  <li><code>unhandledExtensions</code> - A list of file extensions that FW/1 should not handle. By default, just requests for CFCs, e.g., <code>some.cfc</code>, are not handled by FW/1.</li>
-  <li><code>unhandledPaths</code> - A list of file paths that FW/1 should not handle. By default, just requests for <code>/flex2gateway</code> are not handled by FW/1 (hey, some people are still using Flex - don’t judge!). If you specify a directory path, requests for any files in that directory are then not handled by FW/1. For example, <code>unhandledPaths = '/flex2gateway,/404.cfm,/api'</code> will cause FW/1 to not handle requests from Flex, requests for the <code>/404.cfm</code> page and any requests for files in the <code>/api</code> folder.</li>
-  <li><code>unhandledErrorCaught</code> - By default the framework does not attempt to catch errors raised by unhandled requests but sometimes when you are migrating from a legacy application it is useful to route error handling of legacy (unhandled) requests through FW/1. The default for this option is <code>false</code>. Set it <code>true</code> to have FW/1’s error handling apply to unhandled requests.</li>
   <li><code>preserveKeyURLKey</code> - In order to support multiple, concurrent flash scope uses - across redirects - for a single user, such as when they have multiple browser windows open, this value is used as a URL key that identifies which flash context should be restored for that browser window. If that doesn’t make sense, don’t worry about it - it’s magic! This value just needs to be something unique that won’t clash with any of your own URL variables. This will be ignored if you set <code>maxNumContextsPreserved</code> to <code>1</code> because with only one context, FW/1 will not use a URL variable to track flash scope across redirects.</li>
   <li><code>maxNumContextsPreserved</code> - If you expect users to have more than 10 browser windows open at the same time, you’ll want to set this value higher. I know, Ryan was very thorough when he implemented multiple flash contexts! Setting <code>maxNumContextsPreserved</code> to <code>1</code> will prevent the URL key from being used for redirects (since FW/1 will not need to track multiple flash contexts).</li>
-  <li><code>cacheFileExists</code> - If you are running on a system where disk access is slow - or you simply want to avoid several calls to <code>fileExists()</code> during requests for performance - you can set this to true and FW/1 will cache all its calls to <code>fileExists()</code>. Be aware that if the result of <code>fileExists()</code> is cached and you add a new layout or a new view, it won’t be noticed until you reload the framework.</li>
+  <li><code>baseURL</code> - Normally, <code>redirect()</code> and <code>buildURL()</code> default to using <code>CGI.SCRIPT_NAME</code> as the basis for the URL they construct. This is the right choice for most applications but there are times when the base URL used for your application could be different. You can also specify <code>baseURL = "useRequestURI"</code> and instead of <code>CGI.SCRIPT_NAME</code>, the result of <code>getPageContext().getRequest().getRequestURI()</code> will be used to construct URLs. This is the right choice for FW/1 applications embedded inside Mura.</li>
+  <li><code>generateSES</code> - If true, causes <code>redirect()</code> and <code>buildURL()</code> to generate SES-style URLs with items separated by <code>/</code> (and the path info in the URL will begin <code>/section/item</code> rather than <code>?action=section.item</code> - see the <a href="reference-manual.html">Reference Manual</a> for more details).</li>
+  <li><code>SESOmitIndex</code> - If SES URLs are enabled and this is <code>true</code>, will attempt to omit the base filename in the path when constructing URLs in <code>buildURL()</code> and <code>redirect()</code> which will generally omit <code>/index.cfm</code> from the start of the URL. Again, see the <a href="reference-manual.html">Reference Manual</a> for more details.</li>
+  <li><code>unhandledExtensions</code> - A list of file extensions that FW/1 should not handle. By default, just requests for CFCs, e.g., <code>some.cfc</code>, are not handled by FW/1. As of release 3.5, Lucee components, with extensions of <code>.lc</code> or <code>.lucee</code> are also not handled by the framework.</li>
+  <li><code>unhandledPaths</code> - A list of file paths that FW/1 should not handle. By default, just requests for <code>/flex2gateway</code> are not handled by FW/1 (hey, some people are still using Flex - don’t judge!). If you specify a directory path, requests for any files in that directory are then not handled by FW/1. For example, <code>unhandledPaths = '/flex2gateway,/404.cfm,/api'</code> will cause FW/1 to not handle requests from Flex, requests for the <code>/404.cfm</code> page and any requests for files in the <code>/api</code> folder.</li>
+  <li><code>unhandledErrorCaught</code> - By default the framework does not attempt to catch errors raised by unhandled requests but sometimes when you are migrating from a legacy application it is useful to route error handling of legacy (unhandled) requests through FW/1. The default for this option is <code>false</code>. Set it <code>true</code> to have FW/1’s error handling apply to unhandled requests.</li>
   <li><code>applicationKey</code> - A unique value for each FW/1 application that shares a common ColdFusion application name.</li>
-  <li><code>noLowerCase</code> - If <code>true</code>, FW/1 will not force actions to lowercase so subsystem, section and item names will be case sensitive (in particular, filenames for controllers, views and layouts may therefore be mixed case on a case-sensitive operating system). The default is <code>false</code>. Use of this option is <em>not</em> recommended and is not considered good practice.</li>
-  <li><code>trace</code> - If <code>true</code>, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature. (Note that FW/1 will not print out debugging / tracing information when the <code>renderData()</code> function is used. You can still access and output debugging / tracing information in such cases by overriding the <code>setupTraceRender()</code> function. See the <a href="/documentation/3.0/reference-manual.html">Reference Manual</a> for more details.).</li>
+  <li><code>cacheFileExists</code> - If you are running on a system where disk access is slow - or you simply want to avoid several calls to <code>fileExists()</code> during requests for performance - you can set this to true and FW/1 will cache all its calls to <code>fileExists()</code>. Be aware that if the result of <code>fileExists()</code> is cached and you add a new layout or a new view, it won’t be noticed until you reload the framework.</li>
   <li><code>routes</code> - An array of URL path mappings. This allows you to override the conventional mapping of <code>/section/item</code> to controllers.</li>
-  <li><code>resourceRouteTemplates</code> - see <strong>URL Routes</strong> below.</li>
-  <li><code>diEngine</code> - the Dependency Injection framework that FW/1 should use.</li>
-  <li><code>diComponent</code> - the dotted-path to the CFC used for the bean factory (which has sensible defaults based on <code>diEngine</code>).</li>
-  <li><code>diLocations</code> - the list of folders to check for CFCs to manage; defaults to <code>"model,controllers"</code>.</li>
-  <li><code>diConfig</code> - any additional configuration needed for the Dependency Injection engine; defaults to <code>{ }</code>.</li>
+  <li><code>resourceRouteTemplates</code> - see <strong><a href="url-routes">URL Routes</a></strong> below.</li>
+  <li><code>routesCaseSensitive</code> - Default <code>true</code>. Controls whether route matches are case-sensitive or not. <em>New in 3.1.</em></li>
+  <li><code>noLowerCase</code> - If <code>true</code>, FW/1 will not force actions to lowercase so subsystem, section and item names will be case sensitive (in particular, filenames for controllers, views and layouts may therefore be mixed case on a case-sensitive operating system). The default is <code>false</code>. Use of this option is <em>not</em> recommended and is not considered good practice.</li>
+  <li><code>trace</code> - If <code>true</code>, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature. (Note that FW/1 will not print out debugging / tracing information when the <code>renderData()</code> function is used, unless the content type is <code>"html"</code>. You can still access and output debugging / tracing information in such cases by overriding the <code>setupTraceRender()</code> function. See the <a href="reference-manual.html">Reference Manual</a> for more details.).</li>
+  <li><code>controllersFolder</code> - The name used for the controllers folder. Must be plural. Defaults to <code>"controllers"</code> but could be <code>"handlers"</code> for example. <em>New in 3.5.</em></li>
+  <li><code>layoutsFolder</code> - The name used for the layouts folder. Must be plural. Defaults to <code>"layouts"</code> but could be <code>"wrappers"</code> for example. <em>New in 3.5.</em></li>
+  <li><code>subsystemsFolder</code> - The name used for the subsystems folder. Must be plural. Defaults to <code>"subsystems"</code> but could be <code>"plugins"</code> for example. <em>New in 3.5.</em></li>
+  <li><code>viewsFolder</code> - The name used for the views folder. Must be plural. Defaults to <code>"views"</code> but could be <code>"pages"</code> for example. <em>New in 3.5.</em></li>
+  <li><code>diOverrideAllowed</code> - If <code>true</code>, FW/1 will throw an exception if you attempt to call <code>setBeanFactory()</code> twice. If <code>false</code>, FW/1 will allow you to call <code>setBeanFactory()</code> twice and override the previous Dependency Injection setting, but it will log a warning to the console. If you want FW/1 to manage your bean factory, use the <code>di*</code> settings above to configure it – and do not call <code>setBeanFactory()</code> yourself. If you want to manage your bean factory directly, set <code>diEngine</code> to <code>"none"</code> so FW/1 doesn’t also attempt to do this. <em>New in 3.5.</em></li>
+  <li><code>diEngine</code> - The Dependency Injection framework that FW/1 should use.</li>
+  <li><code>diLocations</code> - The list of folders to check for CFCs to manage; defaults to <code>[ "model", "controllers" ]</code>.</li>
+  <li><code>diConfig</code> - Any additional configuration needed for the Dependency Injection engine; defaults to <code>{ }</code>.</li>
+  <li><code>diComponent</code> - The dotted-path to the CFC used for the bean factory (which has sensible defaults based on <code>diEngine</code>).</li>
+  <li><code>environments</code> - An optional struct containing per-tier and per-server configuration that should be merged into FW/1’s settings. See <strong><a href="#environment-control">Environment Control</a></strong> below for more details.</li>
 </ul>
 
 <p>At runtime, this structure also contains the following key (from release 0.4 onward):</p>
@@ -579,14 +793,12 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 
 <p>This is set automatically by the framework and cannot be overridden (well, it shouldn’t be overridden!).</p>
 
-<p>In addition you can override the base directory for the application, which is necessary when the <code>controllers</code>, <code>model</code>, <code>views</code> and <code>layouts</code> are not in the same directory as the application’s <code>index.cfm</code> file. <code>variables.framework.base</code> should specify the relative path to the directory containing the <code>layouts</code> and <code>views</code> folders, either as a mapped path or a webroot-relative path (i.e., it must start with / and expand to a full file system path). If the <code>controllers</code> and <code>model</code> folders are in that same directory, FW/1 will find them automatically. If you decide to put your <code>controllers</code> and <code>model</code> folders somewhere else, you can also specify <code>variables.framework.cfcbase</code> as a dotted-path to those components, e.g., <code>com.myapp.cfcs</code> assuming that <code>com.myapp.cfcs.controllers.Controller</code> maps to your <code>Controller.cfc</code> and <code>com.myapp.cfcs.model.services.Service</code> maps to your <code>Service.cfc</code>.</p>
-
 <h2 id="url-routes">URL Routes</h2>
-<p>In addition to the standard /section/item URLs that FW/1 supports, you can also specify <code>routes</code> that are URL patterns, optionally containing variables, that map to standard /section/item URLs.</p>
+<p>In addition to the standard <code>/section/item</code> and <code>/module:section/item</code> URLs that FW/1 supports, you can also specify <code>routes</code> that are URL patterns, optionally containing variables, that map to standard <code>/section/item</code> and <code>/module:section/item</code> URLs.</p>
 
 <p>To use routes, specify <code>variables.framework.routes</code> as an array of structures, where each structure specifies mappings from routes to standard URLs. The array is searched in order and the first matching route is the one selected (and any subsequent match is ignored). This allows you to control which route should be used when several possibilities match.</p>
 
-<p>Placeholder variables in the route are identified by a leading colon and can appear in the URL as well, for example <code>{ "/product/:id" = "/product/view/id/:id" }</code> specifies a match for <code>/product/something</code> which will be treated as if the URL was <code>/product/view/id/something</code> - section: <code>product</code>, item: <code>view</code>, query string <code>id=something</code>.</p>
+<p>Placeholder variables in the route are identified either by a leading colon or by braces (specifying a variable name and a regex to restrict matches) and can appear in the URL as well, for example <code>{ "/product/:id" = "/product/view/id/:id" }</code> specifies a match for <code>/product/something</code> which will be treated as if the URL was <code>/product/view/id/something</code> - section: <code>product</code>, item: <code>view</code>, query string <code>id=something</code>. Similarly, <code>{ "/product/{id:[0-9]+}" = "/product/view/id/:id" }</code> specifies a match for <code>/product/42</code> which will be treated as if the URL was <code>/product/view/id/42</code>, and only numeric values will match the placeholder.</p>
 
 <p>Routes can also be restricted to specific HTTP methods by prefixing them with <code>$</code> and the <em>method</em>, for example <code>{ "$POST/search" = "/main/search" }</code> specifies a match for a <code>POST</code> on <code>/search</code> which will be treated as if the URL was <code>/main/search</code> - section: <code>main</code>, item: <code>search</code>. A <code>GET</code> operation will not match this route.</p>
 
@@ -594,7 +806,9 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 
 <p>A route of <code>"*"</code> is a wildcard that will match any request and therefore must be the last route in the array. A wildcard route may be restricted to a specific method, e.g., <code>"$POST*"</code> will match a <code>POST</code> to any URL.</p>
 
-<p>The keyword <code>"$RESOURCES"</code> can be used as a shorthand way of specifying resource routes: <code>{ "$RESOURCES" = "dogs,cats,hamsters,gerbils" }</code>. FW/1 will interpret this as if you had specified a standard set of routes for each of the listed resources. For example, for the resource “dogs”, FW/1 will parse the following routes:</p>
+<p>Route matches are case-sensitive unless you set <code>routesCaseSensitive</code> to <code>false</code> in the FW/1 configuration.</p>
+
+<p>The keyword <code>"$RESOURCES"</code> can be used as a shorthand way of specifying resource routes: <code>{ "$RESOURCES" = "dogs,cats,hamsters,gerbils" }</code>. FW/1 will interpret this as if you had specified a standard set of routes for each of the listed resources. For example, for the resource <code>"dogs"</code>, FW/1 will parse the following routes:</p>
 
 <pre><code>{ "$GET/dogs/$" = "/dogs/default" },
 { "$GET/dogs/new/$" = "/dogs/new" },
@@ -648,7 +862,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 <p>Here’s an example showing all the features together:</p>
 
 <pre><code>variables.framework.routes = [
-    { "/product/:id" = "/product/view/id/:id", "/user/:id" = "/user/view/id/:id",
+    { "/product/:id" = "/product/view/id/:id", "/user/{id:[0-9]+}" = "/user/view/id/:id",
       hint = "Display a specific product or user" },
     { "/products" = "/product/list", "/users" = "/user/list" },
     { "/old/url" = "302:/new/url" },
@@ -665,6 +879,15 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 * <code>setupEnvironment( string env )</code> - A function that may optionally override in <code>Application.cfc</code> to provide more programmatic configuration for your application environment.</p>
 
 <p>Environment control is based on the concept of <em>tier</em> - development, staging, production etc - and optionally a <em>server</em> specifier. This two-part string determines how elements of <code>variables.framework.environments</code> are selected and merged into the base framework configuration. A string of the format <em><code>"tier"</code></em> or <em><code>"tier-server"</code></em> should be returned from <code>getEnvironment()</code>. FW/1 first looks for a group of options matching just <em>tier</em> and, if found, appends those to the base configuration. FW/1 then looks for a group of options matching <em>tier-server</em> and, if found, appends those to the configuration. After merging configuration options, FW/1 calls <code>setupEnvironment()</code> passing the tier/server string so your application may perform additional customization. This process is executed on every request (so be aware of performance considerations) which allows a single application to serve multiple domains and behave accordingly for each domain, for example.</p>
+
+<p>Note that for the most part, the <em>tier</em> or <em>tier-server</em> configuration will override any default configuration in the <code>variables.framework</code> structure. There are two exceptions to that basic rule:</p>
+
+<ul>
+  <li><code>diConfig</code> is recursively merged: the <code>constants</code> and <code>singulars</code> structures are key-merged, the <code>exclude</code> and <code>transients</code> arrays are appended. <em>tier-server</em> takes precedence in the key-merging, then <em>tier</em>, then the default configuration.</li>
+  <li><code>subsystems</code> is key-merged across the <em>tier</em> and <em>tier-server</em> data (with <em>tier-server</em> taking precedence, then <em>tier</em>, then then default).</li>
+</ul>
+
+<p>This gives the most intuitive behavior for DI/1 bean factory configuration. It also provides a convenient behavior for environment-based subsystem configuration. Be cautious when specifying subsystem-specific DI/1 configuration since that does not merge across environments. <em>Note that environment merging is new in 3.1.</em></p>
 
 <p>Your <code>getEnvironment()</code> function can use any means to determine which environment is active. Common methods are examining <code>CGI.SERVER_NAME</code> or using the server’s actual hostname (accessible thru the new <code>getHostname()</code> API method). Here’s an example setup:</p>
 
@@ -711,21 +934,22 @@ variables.framework.environments = {
 <p>The easiest way to setup <code>request</code> variables (or even global variables scope) is to define a <code>setupRequest()</code> method in your <code>Application.cfc</code> and put the initialization in there. Note that if you set <code>variables</code> scope data, it will be accessible inside your views and layouts but not inside your controllers or services.</p>
 
 <h1 id="using-subsystems">Using Subsystems</h1>
-<p>The subsystems feature allows you to combine existing FW/1 applications as modules of a larger FW/1 application. The subsystems feature was contributed by Ryan Cogswell and the documentation was written by Dutch Rapley. Read about <a href="/documentation/3.0/using-subsystems.html">Using Subsystems</a> to combine FW/1 applications.</p>
+<p>The subsystems feature allows you to modularize your FW/1 application as it grows, by breaking it down into a series of “mini FW/1 applications”. It can also allow you to combine  other FW/1 applications as modules into your application. The subsystems feature was originally contributed by Ryan Cogswell and has been overhauled as part of reelase 3.5, based on ideas by Steve Neiland. The original documentation was written by Dutch Rapley. Read about <a href="using-subsystems.html">Using Subsystems</a> to modularize or combine FW/1 applications.</p>
 
 <h1 id="accessing-the-fw1-api">Accessing the FW/1 API</h1>
-<p>FW/1 uses the <code>request</code> scope for some of its temporary data so that it can communicate between <code>Application.cfc</code> lifecycle methods without relying on <code>variables</code> scope (and potentially interfering with user data in variables scope). The <a href="/documentation/3.0/reference-manual.html">Reference Manual</a> specifies which request scope variables are used and what you may and may not do with them.</p>
+<p>FW/1 uses the <code>request</code> scope for some of its temporary data so that it can communicate between <code>Application.cfc</code> lifecycle methods without relying on <code>variables</code> scope (and potentially interfering with user data in variables scope). The <a href="reference-manual.html#request-scope">Reference Manual</a> specifies which request scope variables are used and what you may and may not do with them.</p>
 
 <p>In addition, the API of FW/1 is exposed to controllers, views and layouts in a particular way as documented below.</p>
 
 <h2 id="controllers-and-the-fw1-api">Controllers and the FW/1 API</h2>
-<p>Each controller method is passed the request context as a single argument called <code>rc</code>, of type <code>struct</code>. If access to the FW/1 API is required inside a controller, you can define an <code>init()</code> method (constructor) which takes a single argument, of type <code>any</code>, and when FW/1 creates the controller CFC, it passes itself in as the argument to <code>init()</code>. Your <code>init()</code> method should save that argument in the variables scope for use within the controller methods:</p>
+<p>Each controller method is passed the request context as a single argument called <code>rc</code>, of type <code>struct</code>. If access to the FW/1 API is required inside a controller, you can define an <code>init()</code> method (constructor) which takes a single argument <code>fw</code>, of type <code>any</code>, and when FW/1 creates the controller CFC, it passes itself in as the argument to <code>init()</code>. Your <code>init()</code> method should save the <code>fw</code> argument in the variables scope for use within the controller methods:</p>
 
-<pre><code>function init(fw) {
+<pre><code>function init( fw ) {
     variables.framework = fw;
     return this;
 }
 
+// make your controller bean factory aware
 function setBeanFactory( beanFactory ) {
     variables.beanFactory = beanFactory;
 }
@@ -733,31 +957,29 @@ function setBeanFactory( beanFactory ) {
 
 <p>Alternatively, you can declare a dependency on the <code>framework</code> like this:</p>
 
-<pre><code>property beanFactory;
-property framework;
+<pre><code>property beanFactory; // make your controller bean factory aware
+property framework;   // make your controller framework aware
 </code></pre>
 
 <p>Then you could call any framework method:</p>
 
-<pre><code> var user = variables.beanFactory.getBean("user");
- variables.framework.populate(user);
+<pre><code> var user = variables.beanFactory.getBean( "user" );
+ variables.framework.populate( user );
 </code></pre>
 
 <p>This will call <code>setXxx()</code> methods on the user bean, passing in matching elements from the request context. An optional second argument may be provided that specifies the keys to populate (the default is to attempt to match against every <code>setXxx()</code> method on the bean):</p>
 
-<pre><code>variables.framework.populate(user,'firstName, lastName, email');
+<pre><code>variables.framework.populate( user, 'firstName, lastName, email' );
 </code></pre>
 
 <p>This will call <code>setFirstName()</code>, <code>setLastName()</code> and <code>setEmail()</code> on the user bean, passing in matching elements from the request context.</p>
 
-<p>The other framework methods that are useful for controllers are:</p>
+<p>Other framework methods that are useful for controllers include <code>setView()</code>, <code>setLayout()</code>, <code>abortController()</code>, and <code>redirect()</code>:</p>
 
 <pre><code>variables.framework.redirect( action, preserve, append, path, queryString );
 </code></pre>
 
-<p>where <code>action</code> is the action to redirect to, <code>preserve</code> is a list of request context keys that should be preserved across the redirect (using <code>session</code> scope) and <code>append</code> is a list of request context keys that should be appended to the redirect URL. <code>preserve</code> and <code>append</code> can both be omitted and default to none, i.e., no values preserved or appended. The optional <code>path</code> argument allows you to force a new base URL to be used (instead of the default <code>variables.framework.baseURL</code> which is normally <code>CGI.SCRIPT_NAME</code>). <code>queryString</code> allows you to specify additional URL parameters and/or anchors to be added to the generated URL. See the <a href="/documentation/3.0/reference-manual.html">Reference Manual</a> for more details.</p>
-
-<p>I cannot imagine other FW/1 API methods being called from controllers at this point but the option is there if you need it.</p>
+<p>where <code>action</code> is the action to redirect to, <code>preserve</code> is a list of request context keys that should be preserved across the redirect (using <code>session</code> scope) and <code>append</code> is a list of request context keys that should be appended to the redirect URL. <code>preserve</code> and <code>append</code> can both be omitted and default to none, i.e., no values preserved or appended. The optional <code>path</code> argument allows you to force a new base URL to be used (instead of the default <code>variables.framework.baseURL</code> which is normally <code>CGI.SCRIPT_NAME</code>). <code>queryString</code> allows you to specify additional URL parameters and/or anchors to be added to the generated URL. See the <a href="reference-manual.html#public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-string-querystring---string-statuscode--302-string-header---">Reference Manual</a> for more details.</p>
 
 <h2 id="viewslayouts-and-the-fw1-api">Views/Layouts and the FW/1 API</h2>
 <p>As indicated above under the “in depth” paragraph about views and layouts, the entire FW/1 API is available to views and layouts directly (effectively in the <code>variables</code> scope) because of the way views and layouts are executed. This allows views and layouts to access utility beans from the bean factory, such as formatting services, as well as render views and, if necessary, other layouts. Views and layouts also have access to the <code>framework</code> structure which contains the <code>action</code> key - which could be used for building links:</p>
@@ -765,7 +987,7 @@ property framework;
 <pre><code>&lt;a href="?#framework.action#=section.item"&gt;Go to section.item&lt;/a&gt;
 </code></pre>
 
-<p>But you’re better off using the <em>buildURL()</em> API method:</p>
+<p>But you’re better off using the <code>buildURL()</code> API method:</p>
 
 <pre><code>&lt;a href="#buildURL( 'section.item' )#"&gt;Go to section.item&lt;/a&gt;
 </code></pre>
@@ -776,18 +998,20 @@ property framework;
 &lt;a href="#buildURL( action = 'section.item', queryString = 'arg=val' )#"&gt;Go to section.item with arg=val in URL&lt;/a&gt;
 </code></pre>
 
-<p>I cannot imagine a view or layout needing full access to the FW/1 API methods beyond <code>view()</code>, <code>layout()</code> and <code>getBeanFactory()</code> but the option is there if you need it.</p>
+<p>Other framework methods that are useful for views or layouts include <code>view()</code>, <code>layout()</code> and <code>getBeanFactory()</code>.</p>
 
 <h2 id="convenience-methods-in-the-fw1-api">Convenience Methods in the FW/1 API</h2>
 <p>FW/1 provides a number of convenience methods for manipulating the action value to extract parts of the action (the <code>action</code> argument is optional in all these methods and defaults to the currently requested action):</p>
 
 <ul>
-  <li><code>getSubsystem( action )</code> - If subsystems are enabled, this returns either the <em>subsystem</em> portion of the action or the default subsystem. If subsystems are not enabled, returns an empty string.</li>
-  <li><code>getSection( action )</code> - Returns the <em>section</em> portion of the action. If subsystems are enabled but no section is specified, returns the default section.</li>
+  <li><code>getSubsystem( action )</code> - Returns the <em>module</em> portion of the action, which may be empty. If the module name is empty and you are using legacy subsystems, this will return the home subsystem name.</li>
+  <li><code>getSection( action )</code> - Returns the <em>section</em> portion of the action. If no section is specified, returns the default section.</li>
   <li><code>getItem( action )</code> - Returns the <em>item</em> portion of the action. If no item is specified, returns the default item.</li>
   <li><code>getSectionAndItem( action )</code> - Returns the <em>section.item</em> portion of the action, including default values if either part is not specified.</li>
-  <li><code>getFullyQualifiedAction( action )</code> - If subsystems are enabled, returns the fully qualified <em>subsystem:section.item</em> version of the action, including defaults where appropriate. If subsystems are not enabled, returns <code>getSectionAndItem( action )</code>.</li>
+  <li><code>getFullyQualifiedAction( action )</code> - Returns the fully qualified <em>module:section.item</em> version of the action, including defaults where appropriate. If the module name is empty, returns <code>getSectionAndItem( action )</code>, without the subsystem delimiter. Be careful that <em>section.item</em> is a subsystem-relative action so if you use it inside a subsystem, it will be treated as part of the current subsystem, which is not the same as <em>:section.item</em> (which is treated as part of the main application). This is provided mostly for backward-compatibility and use with Subsystems 1.0 applications.</li>
+  <li><code>getSubsystemSectionAndItem( action )</code> - Returns the fully qualified <em>module:section.item</em> version of the action, including defaults where appropriate. If the module name is empty, the subsystem delimiter is still present (so you get <em>:section.item</em>) unlike <code>getFullyQualifiedAction()</code> above.</li>
 </ul>
+
 
   
     <footer>
@@ -798,7 +1022,7 @@ property framework;
 
 
 
-<time class='entry-date' datetime='2015-01-21T12:20:00-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:20 pm</span></time>
+<time class='entry-date' datetime='2015-10-21T12:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:00 pm</span></time>
         
       </p>
       
