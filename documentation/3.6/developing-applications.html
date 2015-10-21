@@ -414,6 +414,8 @@ variables.fw.renderData(
 
 <p>When you use <code>renderData()</code>, no matching view is required for the action being executed.</p>
 
+<p>As of release 3.6, FW/1 can accept JSON data in the body of a POST. To enable this, set <code>enableJSONPOST</code> to <code>true</code> in your framework configuration. FW/1 assumes the JSON data will deserialize to a struct and that will be appended to the request context, overriding any URL variables of the same name as elements of the deserialized struct.</p>
+
 <h2 id="designing-services-and-domain-objects">Designing Services and Domain Objects</h2>
 <p>Services - and domain objects - should encapsulate all of the business logic in your application. Where possible, most of the application logic should be in the domain objects, making them smart objects, and services can take care of orchestrating work that reaches across multiple domain objects.</p>
 
@@ -736,6 +738,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
     diLocations = [ "model", "controllers" ],
     diConfig = { },
     diComponent = "framework.ioc",
+    enableJSONPOST = false,
     environments = { }
 };
 </code></pre>
@@ -782,6 +785,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
   <li><code>diLocations</code> - The list of folders to check for CFCs to manage; defaults to <code>[ "model", "controllers" ]</code>.</li>
   <li><code>diConfig</code> - Any additional configuration needed for the Dependency Injection engine; defaults to <code>{ }</code>.</li>
   <li><code>diComponent</code> - The dotted-path to the CFC used for the bean factory (which has sensible defaults based on <code>diEngine</code>).</li>
+  <li><code>enableJSONPOST</code> - Default <code>false</code>. If <code>true</code>, FW/1 will accept JSON POST data and deserialize it automatically into the request context. <em>New in 3.6.</em></li>
   <li><code>environments</code> - An optional struct containing per-tier and per-server configuration that should be merged into FW/1’s settings. See <strong><a href="#environment-control">Environment Control</a></strong> below for more details.</li>
 </ul>
 
