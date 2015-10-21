@@ -284,6 +284,8 @@ You can also specify an HTTP status code as a third argument. The default is 200
 
 When you use `renderData()`, no matching view is required for the action being executed.
 
+As of release 3.6, FW/1 can accept JSON data in the body of a POST. To enable this, set `enableJSONPOST` to `true` in your framework configuration. FW/1 assumes the JSON data will deserialize to a struct and that will be appended to the request context, overriding any URL variables of the same name as elements of the deserialized struct.
+
 Designing Services and Domain Objects
 ---
 Services - and domain objects - should encapsulate all of the business logic in your application. Where possible, most of the application logic should be in the domain objects, making them smart objects, and services can take care of orchestrating work that reaches across multiple domain objects.
@@ -590,6 +592,7 @@ All of the configuration for FW/1 is done through a simple structure in `Applica
         diLocations = [ "model", "controllers" ],
         diConfig = { },
         diComponent = "framework.ioc",
+        enableJSONPOST = false,
         environments = { }
     };
 
@@ -634,6 +637,7 @@ The keys in the structure have the following meanings:
 * `diLocations` - The list of folders to check for CFCs to manage; defaults to `[ "model", "controllers" ]`.
 * `diConfig` - Any additional configuration needed for the Dependency Injection engine; defaults to `{ }`.
 * `diComponent` - The dotted-path to the CFC used for the bean factory (which has sensible defaults based on `diEngine`).
+* `enableJSONPOST` - Default `false`. If `true`, FW/1 will accept JSON POST data and deserialize it automatically into the request context. _New in 3.6._
 * `environments` - An optional struct containing per-tier and per-server configuration that should be merged into FW/1's settings. See **[Environment Control](#environment-control)** below for more details.
 
 At runtime, this structure also contains the following key (from release 0.4 onward):
