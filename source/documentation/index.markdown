@@ -1,30 +1,35 @@
 ---
 layout: page
 title: "Getting Started with FW/1"
-date: 2015-07-12 21:40
+date: 2015-10-21 12:00
 comments: false
 sharing: false
 footer: true
 ---
-FW/1 was created in July 2009 as a reaction against complexity and bloat in other frameworks in the CFML community. FW/1 itself is a single file, and provides a simple, convention-based approach to MVC (Model-View-Controller) applications. Whilst it has become more sophisticated over time, it has remained a single file, focused on getting out of your way and providing the intuitive plumbing you need. For historical background, you can read the [introductory blog post](http://framework-one.github.io/blog/2009/07/19/introducing-framework-one/) from July 2009.
+FW/1 was created in July 2009 as a reaction against complexity and bloat in other frameworks in the CFML community. FW/1 itself is a single file, and provides a simple, convention-based approach to MVC (Model-View-Controller) applications, as well as REST APIs. Whilst it has become more sophisticated over time, it has remained a single file, focused on getting out of your way and providing the intuitive plumbing you need. For historical background, you can read the [introductory blog post](http://framework-one.github.io/blog/2009/07/19/introducing-framework-one/) from July 2009.
 
-As of release 3.1, FW/1 also includes DI/1 - a simple, convention-based Dependency Injection framework - and AOP/1 - a simple, convention-based Aspect-Oriented Programming framework. If those phrases don't mean anything to you, don't worry, you won't need to know anything about them to get started.
+As of release 3.1, FW/1 also includes DI/1 - a simple, convention-based Dependency Injection framework - and AOP/1 - a simple, convention-based Aspect-Oriented Programming framework. As of release 3.5, FW/1 lets you mix'n'match CFML and Clojure code. If those phrases don't mean anything to you, don't worry, you won't need to know anything about them to get started.
 
-Requirements & Supported Platforms
----
-FW/1 3.1 supports Adobe ColdFusion 9.0.2 or later (not 9.0.0 or 9.0.1), Lucee 4.5.0 or later, and Railo 4.1 or later. I recommend using [Lucee 4.5.0](http://lucee.org/downloads.html) or later since it's free, open source, and fast, with a small footprint. If you're using Adobe ColdFusion, I recommend upgrading to the latest version (ColdFusion 11 as of August 2014) to take advantage of the huge improvements in the core language since ColdFusion 9.0.2 (closures, member functions, full cfscript support, etc) -- although there are quite a few bugs in several areas of ColdFusion 11 (even as of June 2015).
+* TOC
+{:toc}
 
-If you're on ColdFusion 9.0.1, FW/1 3.1 should work but there may be some edge cases in `Application.cfc` lifecycle behavior that may trip you up.
+## Requirements & Supported Platforms
+
+FW/1 3.5 supports Adobe ColdFusion 9.0.2 or later (not 9.0.0 or 9.0.1), Lucee 4.5.0 or later, and Railo 4.1 or later. I recommend using [Lucee 4.5.0](http://lucee.org/downloads.html) or later since it's free, open source, and fast, with a small footprint. If you're using Adobe ColdFusion, I recommend upgrading to the latest version (ColdFusion 11 as of August 2014) to take advantage of the huge improvements in the core language since ColdFusion 9.0.2 (closures, member functions, full cfscript support, etc) -- although there are quite a few bugs in several areas of ColdFusion 11 (even as of September 2015).
+
+Note that the Clojure support in FW/1 3.5 requires at least Railo 4.2, Lucee 4.5.1 or Adobe ColdFusion 11. Interoperability between CFML and Clojure is best in Lucee (or Railo) -- in Adobe ColdFusion you'll need to use `javaCast()` quite a lot (because numbers are stored as strings and need converting when you pass them to Clojure or Java).
+
+If you're on ColdFusion 9.0.1, FW/1 3.5 should work but there may be some edge cases in `Application.cfc` lifecycle behavior that may trip you up.
 
 If you're on ColdFusion 9.0.0 or earlier, or still using Open BlueDragon, you'll need to stick with FW/1 1.3. Sorry, but supporting those versions is just too painful!
 
-Your First FW/1 Application
----
+## Your First FW/1 Application
+
 FW/1 itself consists of a single CFC: `framework.one`, i.e., `framework/one.cfc`. Your `Application.cfc` will extend that and your application's "pages" will live under a `views` folder inside a subfolder for each _section_ of your application.
 
-When you download FW/1 (or check it out from Github), it's a complete web application. **The `framework` folder should either be copied to your webroot (the simplest way to get started) or else made accessible via a mapping for `/framework`.** Since `Application.cfc` extends `framework.one`, you have to add that mapping in your CFML admin - you cannot use a per-application mapping.
+When you download FW/1 (or check it out from Github), it's a complete web application. **The `framework` folder should either be copied to your webroot (the simplest way to get started) or else made accessible via a mapping for `/framework`.** Since `Application.cfc` extends `framework.one`, you have to add that mapping in your CFML admin - you cannot use a per-application mapping. _In release 3.5 there is a way to avoid the mapping and extending `framework.one` which we'll cover in the [Developing Applications Guide](developing-applications.html#alternative-application-structure)._
 
-_Note: do not install FW/1 into a subfolder that contains . in the name as this may prevent CFC resolution from working!_
+_**Note: do not install FW/1 into a subfolder that contains . in the name as this may prevent CFC resolution from working!**_
 
 The simplest FW/1 application comprises:
 
@@ -202,8 +207,8 @@ Your application at this point corresponds to the `5helloservice` example in the
 
 What's Next?
 ---
-Once you've read this Getting Started guide, you'll want to move on to the [Developing Applications Manual](/documentation/developing-applications.html) and when you need to look things up, use the [Reference Manual](/documentation/reference-manual.html). You may also want to learn about [Using Subsystems](/documentation/using-subsystems.html) which allows FW/1 applications to be combined as modules of a larger FW/1 application, or [DI/1](/documentation/using-di-one.html), a simple, convention-based dependency injection framework.
+Once you've read this Getting Started guide, you'll want to move on to the [Developing Applications Manual](developing-applications.html) and when you need to look things up, use the [Reference Manual](reference-manual.html). In particular, if you are interested in building REST APIs, you'll want to read [Controllers for REST APIs](developing-applications.html#controllers-for-rest-apis) in the Developing Applications Guide. You may also want to learn about [Using Subsystems](using-subsystems.html) which allows FW/1 applications to be combined as modules of a larger FW/1 application, or [DI/1](using-di-one.html), a simple, convention-based dependency injection framework. You may also want to learn about [AOP/1](using-aop-one.html) and, if you feel like stretching beyond CFML, take a look at [mixing CFML and Clojure](cfml-and-clojure.html).
 
 You probably also want to [join the FW/1 mailing list](http://groups.google.com/group/framework-one/) on Google Groups,
 [join the CFML Slack team](http://cfml-slack.herokuapp.com) for the [#fw1 channel on Slack](https://cfml.slack.com/messages/fw1/),
- or [follow the #FW1 twitter stream](http://twitter.com/search/%23FW1); you may also find help and inspiration in the [FW/1 Site Showcase](https://github.com/framework-one/fw1/wiki/FW-1-Site-Showcase), a directory of sites created with FW/1. To read about what's coming in the future, take a look at the [Roadmap](/documentation/roadmap.html).
+ or [follow the #FW1 twitter stream](http://twitter.com/search/%23FW1); you may also find help and inspiration in the [FW/1 Site Showcase](https://github.com/framework-one/fw1/wiki/FW-1-Site-Showcase), a directory of sites created with FW/1. To read about what's coming in the future, take a look at the [Roadmap](roadmap.html).
