@@ -1,20 +1,20 @@
 ---
 layout: page
 title: "FW/1 Roadmap"
-date: 2015-09-05 14:30
+date: 2015-10-21 12:00
 comments: false
 sharing: false
 footer: true
 ---
-_This is the upcoming (3.5 - develop) documentation - for the current stable release, read the [3.1 master stable documentation](/documentation/3.1/roadmap.html)._
-
 Whilst you can read the [FW/1 issues list](https://github.com/framework-one/fw1/issues) to see what's on the cards for future releases, several people have asked that I document things at a higher level so they can get a better sense of what's coming.
 
 3.x Integrations
 ---
-FW/1 3.5 is the `development` branch (formerly the `clojure` branch), coming soon after the 3.1 release. It adds integraton of Clojure controllers and autowired Clojure services. It does this by bundling cfmljure and providing an extension to DI/1, as well as a controller adapter. It also provides direct support for the Lucee language (a new dialect of CFML, introduced in Lucee 5.0), as well as a new, improved way to add subsystems to an existing application. In addition, WireBox is better support as a DI option, and the folder naming conventions can be configured for the first time. It is a major release but also remains compatible with earlier 3.x releases.
+FW/1 3.6 is tentatively planned as improving basic REST support and will be a maintenance release for 3.5.
 
-FW/1 3.1 is the current stable release, and it is primarily a maintenance release for 3.0, but it also bundles AOP/1 for the first time. It builds on core 3.0 features:
+FW/1 3.5 is the current stable release, coming soon after the 3.1 release. It adds integraton of Clojure controllers and autowired Clojure services. It does this by bundling cfmljure and providing an extension to DI/1, as well as a controller adapter. It also provides direct support for the Lucee language (a new dialect of CFML, introduced in Lucee 5.0), as well as a new, improved way to add subsystems to an existing application. In addition, WireBox is better support as a DI option, and the folder naming conventions can be configured for the first time. It is a major release but also remains compatible with earlier 3.x releases.
+
+FW/1 3.1 is the previous stable release, and it was primarily a maintenance release for 3.0, but it also bundled AOP/1 for the first time. It builds on core 3.0 features:
 
 * Using DI/1 to manage services and beans
 * Explicitly calling services in the `item()` controller methods
