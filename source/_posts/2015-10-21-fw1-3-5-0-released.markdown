@@ -31,4 +31,4 @@ And the following bugs have been fixed:
 Finally, FW/1 includes experimental support for Lucee Language, so if you are running a prerelease build of Lucee Server that has Lucee Language support enabled, you can write controllers and views etc in `.lc` or `.lucee` files and FW/1 will use them.
 
 You can read the [full list of changes since 3.1](https://github.com/framework-one/fw1/issues?q=is%3Aissue+milestone%3A3.5+is%3Aclosed) on GitHub, along with
-[accepted pull requests since 3.1](https://github.com/framework-one/fw1/pulls?q=is%3Apr+is%3Aclosed+milestone%3A3.5)..
+[accepted pull requests since 3.1](https://github.com/framework-one/fw1/pulls?q=is%3Apr+is%3Aclosed+milestone%3A3.5).
