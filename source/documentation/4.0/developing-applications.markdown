@@ -1,12 +1,12 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-10-21 12:00
+date: 2015-10-27 10:00
 comments: false
 sharing: false
 footer: true
 ---
-_This is documentation for the upcoming 3.6 release. For the current release, see [this documentation](/documentation/)._
+_This is documentation for the upcoming 4.0 release. For the current release, see [this documentation](/documentation/)._
 
 FW/1 is intended to allow you to quickly build applications with the minimum of overhead and interference from the framework itself. The convention-based approach means that you can quickly put together an outline of your site or application merely by creating folders and files in the `views` folder. As you are ready to start adding business logic to the application, you can add controllers and/or services and domain objects as needed to implement the validation and data processing.
 
@@ -284,7 +284,7 @@ You can also specify an HTTP status code as a third argument. The default is 200
 
 When you use `renderData()`, no matching view is required for the action being executed.
 
-As of release 3.6, FW/1 can accept JSON data in the body of a POST. To enable this, set `enableJSONPOST` to `true` in your framework configuration. FW/1 assumes the JSON data will deserialize to a struct and that will be appended to the request context, overriding any URL variables of the same name as elements of the deserialized struct.
+As of release 4.0, FW/1 can accept JSON data in the body of a POST. To enable this, set `enableJSONPOST` to `true` in your framework configuration. FW/1 assumes the JSON data will deserialize to a struct and that will be appended to the request context, overriding any URL variables of the same name as elements of the deserialized struct.
 
 Designing Services and Domain Objects
 ---
@@ -637,7 +637,7 @@ The keys in the structure have the following meanings:
 * `diLocations` - The list of folders to check for CFCs to manage; defaults to `[ "model", "controllers" ]`.
 * `diConfig` - Any additional configuration needed for the Dependency Injection engine; defaults to `{ }`.
 * `diComponent` - The dotted-path to the CFC used for the bean factory (which has sensible defaults based on `diEngine`).
-* `enableJSONPOST` - Default `false`. If `true`, FW/1 will accept JSON POST data and deserialize it automatically into the request context. _New in 3.6._
+* `enableJSONPOST` - Default `false`. If `true`, FW/1 will accept JSON POST data and deserialize it automatically into the request context. _New in 4.0._
 * `environments` - An optional struct containing per-tier and per-server configuration that should be merged into FW/1's settings. See **[Environment Control](#environment-control)** below for more details.
 
 At runtime, this structure also contains the following key (from release 0.4 onward):

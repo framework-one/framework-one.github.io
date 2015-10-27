@@ -1,12 +1,12 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-10-21 12:00
+date: 2015-10-27 10:00
 comments: false
 sharing: false
 footer: true
 ---
-_This is documentation for the upcoming 3.6 release. For the current release, see [this documentation](/documentation/)._
+_This is documentation for the upcoming 4.0 release. For the current release, see [this documentation](/documentation/)._
 
 This page provides a description of all the APIs and components involved in a FW/1 application. Please also read the [Roadmap](roadmap.html) to see how things may change in the future.
 
