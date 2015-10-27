@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Oct 21st, 2015 12:00 pm This is documentation for the upcoming 3.6 release. For the current release, see this &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Oct 27th, 2015 10:00 am This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://framework-one.github.io/documentation/3.6/developing-applications.html">
+  <link rel="canonical" href="http://framework-one.github.io/documentation/4.0/developing-applications.html">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
@@ -74,10 +74,10 @@
 
 
 
-<time class='entry-date' datetime='2015-10-21T12:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:00 pm</span></time></p>
+<time class='entry-date' datetime='2015-10-27T10:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:00 am</span></time></p>
   </header>
   
-  <p><em>This is documentation for the upcoming 3.6 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
+  <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
 
 <p>FW/1 is intended to allow you to quickly build applications with the minimum of overhead and interference from the framework itself. The convention-based approach means that you can quickly put together an outline of your site or application merely by creating folders and files in the <code>views</code> folder. As you are ready to start adding business logic to the application, you can add controllers and/or services and domain objects as needed to implement the validation and data processing.</p>
 
@@ -414,7 +414,7 @@ variables.fw.renderData(
 
 <p>When you use <code>renderData()</code>, no matching view is required for the action being executed.</p>
 
-<p>As of release 3.6, FW/1 can accept JSON data in the body of a POST. To enable this, set <code>enableJSONPOST</code> to <code>true</code> in your framework configuration. FW/1 assumes the JSON data will deserialize to a struct and that will be appended to the request context, overriding any URL variables of the same name as elements of the deserialized struct.</p>
+<p>As of release 4.0, FW/1 can accept JSON data in the body of a POST. To enable this, set <code>enableJSONPOST</code> to <code>true</code> in your framework configuration. FW/1 assumes the JSON data will deserialize to a struct and that will be appended to the request context, overriding any URL variables of the same name as elements of the deserialized struct.</p>
 
 <h2 id="designing-services-and-domain-objects">Designing Services and Domain Objects</h2>
 <p>Services - and domain objects - should encapsulate all of the business logic in your application. Where possible, most of the application logic should be in the domain objects, making them smart objects, and services can take care of orchestrating work that reaches across multiple domain objects.</p>
@@ -785,7 +785,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
   <li><code>diLocations</code> - The list of folders to check for CFCs to manage; defaults to <code>[ "model", "controllers" ]</code>.</li>
   <li><code>diConfig</code> - Any additional configuration needed for the Dependency Injection engine; defaults to <code>{ }</code>.</li>
   <li><code>diComponent</code> - The dotted-path to the CFC used for the bean factory (which has sensible defaults based on <code>diEngine</code>).</li>
-  <li><code>enableJSONPOST</code> - Default <code>false</code>. If <code>true</code>, FW/1 will accept JSON POST data and deserialize it automatically into the request context. <em>New in 3.6.</em></li>
+  <li><code>enableJSONPOST</code> - Default <code>false</code>. If <code>true</code>, FW/1 will accept JSON POST data and deserialize it automatically into the request context. <em>New in 4.0.</em></li>
   <li><code>environments</code> - An optional struct containing per-tier and per-server configuration that should be merged into FW/1’s settings. See <strong><a href="#environment-control">Environment Control</a></strong> below for more details.</li>
 </ul>
 
@@ -1026,7 +1026,7 @@ property framework;   // make your controller framework aware
 
 
 
-<time class='entry-date' datetime='2015-10-21T12:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:00 pm</span></time>
+<time class='entry-date' datetime='2015-10-27T10:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:00 am</span></time>
         
       </p>
       
@@ -1074,15 +1074,15 @@ property framework;   // make your controller framework aware
     <a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
 </section>
 <section>
-    <h1>3.6 Documentation (next - develop)</h1>
-    <a href="/documentation/3.6/">Getting Started Guide</a><br />
-    <a href="/documentation/3.6/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/3.6/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/3.6/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/3.6/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/3.6/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/3.6/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
-    <a href="/documentation/3.6/roadmap.html">Roadmap</a><br />
+    <h1>4.0 Documentation (next - develop)</h1>
+    <a href="/documentation/4.0/">Getting Started Guide</a><br />
+    <a href="/documentation/4.0/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/4.0/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/4.0/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/4.0/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/4.0/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/4.0/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+    <a href="/documentation/4.0/roadmap.html">Roadmap</a><br />
 </section>
 <section>
   <h1>Recent Posts</h1>
