@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-10-27 10:00
+date: 2015-10-31 16:30
 comments: false
 sharing: false
 footer: true
@@ -453,28 +453,34 @@ If `header` is provided (as a non-empty string), instead of performing an actual
 
 This is to `redirect()` as `buildCustomURL()` is to `buildURL()`.
 
-### public void function renderData( string type, any data, numeric statusCode = 200, string jsonpCallback = "" )
+### public any function renderData()
 
 Call this from your controller to tell FW/1 to skip views and layouts
-and instead render `data` in the specified content `type` format. `type`
-may be `"html"`, `"json"`, `"jsonp"`, `"rawjson"`, `"xml"`, or `"text"`.
+and instead render `data` in the specified content `type` format.
 
-For `"html"`, the `data` value must be a string and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `text/html; charset=utf-8`.
+This function returns a "builder" expression (_new in 4.0_) that supports the following methods:
 
-For `"json"` and `"jsonp"`, FW/1 calls `serializeJSON( data )` to
-generate the result of the HTTP request and sets the `Content-Type`
-header to `application/javascript; charset=utf-8`.
+* `data( payload )` - set the data payload to be rendered: see below for restrictions on the payload, based on the render type.
+* `type( contentType )` - set the type of rendering to be performed: the argument may be `"html"`, `"json"`, `"jsonp"`, `"rawjson"`, `"xml"`, or `"text"`.
+* `statusCode( code )` - set the HTTP status code: default is 200.
+* `statusText( message )` - set the HTTP status message (_new in 4.0_).
+* `jsonpCallback( callback )` - set the JSONP callback: required when `type` is `"jsonp"`, otherwise ignored.
 
-For `"jsonp"`, you must provide a non-empty value for the
-`jsonpCallback` argument. _New in 3.1._
+The following restrictions apply to the data payload, for each type as shown:
 
-For `"rawjson"`, the `data` value must be a string (and is assumed to be valid JSON already) and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `application/javascript; charset=utf-8`. _New in 3.1._
-
-For `"xml"`, the `data` value must be either a valid XML string or an XML object (constructed via CFML's various `xml...()` functions). If `data` is an XML object, FW/1 calls `toString( data )` to generate the result of the HTTP request, otherwise the XML string is used as the result of the request. In both cases, FW/1 sets the `Content-Type` header to `text/xml; charset=utf-8`.
-
-For `"text"`, the `data` value must be a string and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `text/plain; charset=utf-8`.
+* `"html"` - the payload must be a string and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `text/html; charset=utf-8`.
+* `"json"`, `"jsonp"` - FW/1 calls `serializeJSON( payload )` to generate the result of the HTTP request and sets the `Content-Type` header to `application/javascript; charset=utf-8`. In addition, for `"jsonp"`, you must provide a non-empty value for the `jsonpCallback` argument. _New in 3.1._
+* `"rawjson"` - the payload must be a string (and is assumed to be valid JSON already) and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `application/javascript; charset=utf-8`. _New in 3.1._
+* `"xml"` - the payload must be either a valid XML string or an XML object (constructed via CFML's various `xml...()` functions). If the payload is an XML object, FW/1 calls `toString( payload )` to generate the result of the HTTP request, otherwise the XML string is used as the result of the request. In both cases, FW/1 sets the `Content-Type` header to `text/xml; charset=utf-8`.
+* `"text"` - the payload must be a string and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `text/plain; charset=utf-8`.
 
 When you call `renderData()`, processing continues in your controller (so use `return;` if you want processing to stop at that point), and subsequent calls to `setView()` or `setLayout()` will have no effect (since FW/1 will ignore views and layouts for this request).
+
+For legacy application support, the following form of `renderData()` is still supported in 4.0:
+
+    public any function renderData( string type = "", any data = "", numeric statusCode = 200, string jsonpCallback = "" )
+
+Although this form is deprecated, FW/1 will only issue a deprecation warning (written to the console log) for `statusCode` and `jsonpCallback` in 4.0. In a future release, these will require a framework setting in order to be used and the `type` and `data` arguments will cause deprecation warnings.
 
 ### public void function setBeanFactory( any factory )
 

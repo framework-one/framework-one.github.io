@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-10-27 10:00
+date: 2015-10-31 16:30
 comments: false
 sharing: false
 footer: true
@@ -252,7 +252,7 @@ If you need to immediately halt execution of a controller and prevent any furthe
 
 You can return data directly to the caller, bypassing views and layouts, using the `renderData()` function.
 
-    variables.fw.renderData( contentType, resultData );
+    variables.fw.renderData().data( resultData ).type( contentType );
 
 Calling this function does not exit from your controller, but tells FW/1 that instead of looking for a view to render, the `resultData` value should be converted to the specified `contentType` and that should be the result of the complete HTTP request.
 
@@ -274,15 +274,23 @@ text and HTML, the `resultData` value must be a string. _`"html"`, `"jsonp"` and
 
 For JSONP, you must also specify the `jsonpCallback` argument:
 
-    variables.fw.renderData( contentType, resultData, statusCode, callback );
-    // or:
-    variables.fw.renderData(
-        type = contentType, data = resultData, jsonpCallback = callback
-    );
+    variables.fw.renderData().data( resultData ).type( contentType ).jsonpCallback( callback );
 
-You can also specify an HTTP status code as a third argument. The default is 200.
+You can also specify an HTTP status code. The default is 200:
+
+    variables.fw.renderData().data( resultData ).type( contentType ).statusCode( 403 );
 
 When you use `renderData()`, no matching view is required for the action being executed.
+
+As of release 4.0, you can use the new "builder syntax" shown above for all arguments to `renderData()` -- and the inline argument calls (FW/1 3.5 and earlier) should be considered deprecated, although only the `statusCode` and `jsonpCallback` arguments will trigger warnings to the console in 4.0. In a future release, these will require a framework setting in order to be used and the `type` and `data` arguments will cause deprecation warnings.
+
+The builder syntax supports:
+
+* `data()` to set the data payload to be rendered
+* `type()` to set the content type
+* `statusCode()` to set the HTTP status code
+* `statusText()` to set the HTTP status message (this is a new feature in release 4.0)
+* `jsonpCallback()` to set the JSONP callback
 
 As of release 4.0, FW/1 can accept JSON data in the body of a POST. To enable this, set `enableJSONPOST` to `true` in your framework configuration. FW/1 assumes the JSON data will deserialize to a struct and that will be appended to the request context, overriding any URL variables of the same name as elements of the deserialized struct.
 
