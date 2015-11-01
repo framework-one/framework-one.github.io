@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Oct 27th, 2015 10:00 am This is documentation for the upcoming 4.0 release. For the current release, see this documentation. &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Oct 31st, 2015 4:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-10-27T10:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:00 am</span></time></p>
+<time class='entry-date' datetime='2015-10-31T16:30:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>4:30 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -143,7 +143,7 @@
       <li><a href="#public-struct-function-processroutes-string-path-array-routes-string-httpmethod--requestfw1cgirequestmethod-" id="markdown-toc-public-struct-function-processroutes-string-path-array-routes-string-httpmethod--requestfw1cgirequestmethod-">public struct function processRoutes( string path, array routes, string httpMethod = request._fw1.cgiRequestMethod )</a></li>
       <li><a href="#public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-any-querystring---string-statuscode--302-string-header---" id="markdown-toc-public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-any-querystring---string-statuscode--302-string-header---">public void function redirect( string action, string preserve = “none”, string append = “none”, string path = <em>see below</em>, any queryString = ‘’, string statusCode = ‘302’, string header = ‘’ )</a></li>
       <li><a href="#public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---" id="markdown-toc-public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---">public void function redirectCustomURL( string uri, string preserve = ‘none’, string statusCode = ‘302’, string header = ‘’ )</a></li>
-      <li><a href="#public-void-function-renderdata-string-type-any-data-numeric-statuscode--200-string-jsonpcallback---" id="markdown-toc-public-void-function-renderdata-string-type-any-data-numeric-statuscode--200-string-jsonpcallback---">public void function renderData( string type, any data, numeric statusCode = 200, string jsonpCallback = “” )</a></li>
+      <li><a href="#public-any-function-renderdata" id="markdown-toc-public-any-function-renderdata">public any function renderData()</a></li>
       <li><a href="#public-void-function-setbeanfactory-any-factory-" id="markdown-toc-public-void-function-setbeanfactory-any-factory-">public void function setBeanFactory( any factory )</a></li>
       <li><a href="#public-void-function-setlayout-string-action-boolean-suppressotherlayouts--false-" id="markdown-toc-public-void-function-setlayout-string-action-boolean-suppressotherlayouts--false-">public void function setLayout( string action, boolean suppressOtherLayouts = false )</a></li>
       <li><a href="#public-void-function-setsubsystembeanfactory-string-subsystem-any-factory-" id="markdown-toc-public-void-function-setsubsystembeanfactory-string-subsystem-any-factory-">public void function setSubsystemBeanFactory( string subsystem, any factory )</a></li>
@@ -636,28 +636,39 @@
 
 <p>This is to <code>redirect()</code> as <code>buildCustomURL()</code> is to <code>buildURL()</code>.</p>
 
-<h3 id="public-void-function-renderdata-string-type-any-data-numeric-statuscode--200-string-jsonpcallback---">public void function renderData( string type, any data, numeric statusCode = 200, string jsonpCallback = “” )</h3>
+<h3 id="public-any-function-renderdata">public any function renderData()</h3>
 
 <p>Call this from your controller to tell FW/1 to skip views and layouts
-and instead render <code>data</code> in the specified content <code>type</code> format. <code>type</code>
-may be <code>"html"</code>, <code>"json"</code>, <code>"jsonp"</code>, <code>"rawjson"</code>, <code>"xml"</code>, or <code>"text"</code>.</p>
+and instead render <code>data</code> in the specified content <code>type</code> format.</p>
 
-<p>For <code>"html"</code>, the <code>data</code> value must be a string and that is the result of the HTTP request. FW/1 sets the <code>Content-Type</code> header to <code>text/html; charset=utf-8</code>.</p>
+<p>This function returns a “builder” expression (<em>new in 4.0</em>) that supports the following methods:</p>
 
-<p>For <code>"json"</code> and <code>"jsonp"</code>, FW/1 calls <code>serializeJSON( data )</code> to
-generate the result of the HTTP request and sets the <code>Content-Type</code>
-header to <code>application/javascript; charset=utf-8</code>.</p>
+<ul>
+  <li><code>data( payload )</code> - set the data payload to be rendered: see below for restrictions on the payload, based on the render type.</li>
+  <li><code>type( contentType )</code> - set the type of rendering to be performed: the argument may be <code>"html"</code>, <code>"json"</code>, <code>"jsonp"</code>, <code>"rawjson"</code>, <code>"xml"</code>, or <code>"text"</code>.</li>
+  <li><code>statusCode( code )</code> - set the HTTP status code: default is 200.</li>
+  <li><code>statusText( message )</code> - set the HTTP status message (<em>new in 4.0</em>).</li>
+  <li><code>jsonpCallback( callback )</code> - set the JSONP callback: required when <code>type</code> is <code>"jsonp"</code>, otherwise ignored.</li>
+</ul>
 
-<p>For <code>"jsonp"</code>, you must provide a non-empty value for the
-<code>jsonpCallback</code> argument. <em>New in 3.1.</em></p>
+<p>The following restrictions apply to the data payload, for each type as shown:</p>
 
-<p>For <code>"rawjson"</code>, the <code>data</code> value must be a string (and is assumed to be valid JSON already) and that is the result of the HTTP request. FW/1 sets the <code>Content-Type</code> header to <code>application/javascript; charset=utf-8</code>. <em>New in 3.1.</em></p>
-
-<p>For <code>"xml"</code>, the <code>data</code> value must be either a valid XML string or an XML object (constructed via CFML’s various <code>xml...()</code> functions). If <code>data</code> is an XML object, FW/1 calls <code>toString( data )</code> to generate the result of the HTTP request, otherwise the XML string is used as the result of the request. In both cases, FW/1 sets the <code>Content-Type</code> header to <code>text/xml; charset=utf-8</code>.</p>
-
-<p>For <code>"text"</code>, the <code>data</code> value must be a string and that is the result of the HTTP request. FW/1 sets the <code>Content-Type</code> header to <code>text/plain; charset=utf-8</code>.</p>
+<ul>
+  <li><code>"html"</code> - the payload must be a string and that is the result of the HTTP request. FW/1 sets the <code>Content-Type</code> header to <code>text/html; charset=utf-8</code>.</li>
+  <li><code>"json"</code>, <code>"jsonp"</code> - FW/1 calls <code>serializeJSON( payload )</code> to generate the result of the HTTP request and sets the <code>Content-Type</code> header to <code>application/javascript; charset=utf-8</code>. In addition, for <code>"jsonp"</code>, you must provide a non-empty value for the <code>jsonpCallback</code> argument. <em>New in 3.1.</em></li>
+  <li><code>"rawjson"</code> - the payload must be a string (and is assumed to be valid JSON already) and that is the result of the HTTP request. FW/1 sets the <code>Content-Type</code> header to <code>application/javascript; charset=utf-8</code>. <em>New in 3.1.</em></li>
+  <li><code>"xml"</code> - the payload must be either a valid XML string or an XML object (constructed via CFML’s various <code>xml...()</code> functions). If the payload is an XML object, FW/1 calls <code>toString( payload )</code> to generate the result of the HTTP request, otherwise the XML string is used as the result of the request. In both cases, FW/1 sets the <code>Content-Type</code> header to <code>text/xml; charset=utf-8</code>.</li>
+  <li><code>"text"</code> - the payload must be a string and that is the result of the HTTP request. FW/1 sets the <code>Content-Type</code> header to <code>text/plain; charset=utf-8</code>.</li>
+</ul>
 
 <p>When you call <code>renderData()</code>, processing continues in your controller (so use <code>return;</code> if you want processing to stop at that point), and subsequent calls to <code>setView()</code> or <code>setLayout()</code> will have no effect (since FW/1 will ignore views and layouts for this request).</p>
+
+<p>For legacy application support, the following form of <code>renderData()</code> is still supported in 4.0:</p>
+
+<pre><code>public any function renderData( string type = "", any data = "", numeric statusCode = 200, string jsonpCallback = "" )
+</code></pre>
+
+<p>Although this form is deprecated, FW/1 will only issue a deprecation warning (written to the console log) for <code>statusCode</code> and <code>jsonpCallback</code> in 4.0. In a future release, these will require a framework setting in order to be used and the <code>type</code> and <code>data</code> arguments will cause deprecation warnings.</p>
 
 <h3 id="public-void-function-setbeanfactory-any-factory-">public void function setBeanFactory( any factory )</h3>
 
@@ -740,7 +751,7 @@ header to <code>application/javascript; charset=utf-8</code>.</p>
 
 
 
-<time class='entry-date' datetime='2015-10-27T10:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:00 am</span></time>
+<time class='entry-date' datetime='2015-10-31T16:30:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>4:30 pm</span></time>
         
       </p>
       

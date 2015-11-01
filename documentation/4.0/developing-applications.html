@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Oct 27th, 2015 10:00 am This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Oct 31st, 2015 4:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-10-27T10:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:00 am</span></time></p>
+<time class='entry-date' datetime='2015-10-31T16:30:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>4:30 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -378,7 +378,7 @@ component { // does not extend anything
 
 <p>You can return data directly to the caller, bypassing views and layouts, using the <code>renderData()</code> function.</p>
 
-<pre><code>variables.fw.renderData( contentType, resultData );
+<pre><code>variables.fw.renderData().data( resultData ).type( contentType );
 </code></pre>
 
 <p>Calling this function does not exit from your controller, but tells FW/1 that instead of looking for a view to render, the <code>resultData</code> value should be converted to the specified <code>contentType</code> and that should be the result of the complete HTTP request.</p>
@@ -403,16 +403,27 @@ text and HTML, the <code>resultData</code> value must be a string. <em><code>"ht
 
 <p>For JSONP, you must also specify the <code>jsonpCallback</code> argument:</p>
 
-<pre><code>variables.fw.renderData( contentType, resultData, statusCode, callback );
-// or:
-variables.fw.renderData(
-    type = contentType, data = resultData, jsonpCallback = callback
-);
+<pre><code>variables.fw.renderData().data( resultData ).type( contentType ).jsonpCallback( callback );
 </code></pre>
 
-<p>You can also specify an HTTP status code as a third argument. The default is 200.</p>
+<p>You can also specify an HTTP status code. The default is 200:</p>
+
+<pre><code>variables.fw.renderData().data( resultData ).type( contentType ).statusCode( 403 );
+</code></pre>
 
 <p>When you use <code>renderData()</code>, no matching view is required for the action being executed.</p>
+
+<p>As of release 4.0, you can use the new “builder syntax” shown above for all arguments to <code>renderData()</code> – and the inline argument calls (FW/1 3.5 and earlier) should be considered deprecated, although only the <code>statusCode</code> and <code>jsonpCallback</code> arguments will trigger warnings to the console in 4.0. In a future release, these will require a framework setting in order to be used and the <code>type</code> and <code>data</code> arguments will cause deprecation warnings.</p>
+
+<p>The builder syntax supports:</p>
+
+<ul>
+  <li><code>data()</code> to set the data payload to be rendered</li>
+  <li><code>type()</code> to set the content type</li>
+  <li><code>statusCode()</code> to set the HTTP status code</li>
+  <li><code>statusText()</code> to set the HTTP status message (this is a new feature in release 4.0)</li>
+  <li><code>jsonpCallback()</code> to set the JSONP callback</li>
+</ul>
 
 <p>As of release 4.0, FW/1 can accept JSON data in the body of a POST. To enable this, set <code>enableJSONPOST</code> to <code>true</code> in your framework configuration. FW/1 assumes the JSON data will deserialize to a struct and that will be appended to the request context, overriding any URL variables of the same name as elements of the deserialized struct.</p>
 
@@ -1026,7 +1037,7 @@ property framework;   // make your controller framework aware
 
 
 
-<time class='entry-date' datetime='2015-10-27T10:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:00 am</span></time>
+<time class='entry-date' datetime='2015-10-31T16:30:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>4:30 pm</span></time>
         
       </p>
       

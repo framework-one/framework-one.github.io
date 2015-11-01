@@ -99,7 +99,10 @@
   </li>
   <li><a href="#configuration" id="markdown-toc-configuration">Configuration</a>    <ul>
       <li><a href="#configuring-constant-beans" id="markdown-toc-configuring-constant-beans">Configuring “Constant” Beans</a></li>
-      <li><a href="#overriding-di1-behavior" id="markdown-toc-overriding-di1-behavior">Overriding DI/1 Behavior</a></li>
+      <li><a href="#overriding-di1-behavior" id="markdown-toc-overriding-di1-behavior">Overriding DI/1 Behavior</a>        <ul>
+          <li><a href="#overriding-missingbean" id="markdown-toc-overriding-missingbean">Overriding missingBean()</a></li>
+        </ul>
+      </li>
     </ul>
   </li>
 </ul>
@@ -286,7 +289,7 @@ moduleBeanFactory.setParent( mainBeanFactory );
   <li><code>recurse</code> - boolean - defaults to <code>true</code>. Controls whether DI/1 searches subfolders recursively or not.</li>
   <li><code>singletonPattern</code> - string - no default. Specifies a regular expression that DI/1 uses to determine whether a bean is singleton or not, based on its name. The <code>beans</code> folder convention and the <code>transients</code> configuration below still apply so nothing in those folders will be considered a singleton, even if its name matches the pattern.</li>
   <li><code>singulars</code> - struct - defaults to <code>{}</code>. DI/1 will use any name/value pairs specified here to translate folder names to a singular variety, e.g., <code>pride = 'lion'</code> will convert the <em>plural</em> folder <code>pride</code> to the <em>singular</em> name <code>lion</code> and therefore a <code>simba.cfc</code> within the <code>pride</code> folder will get the alias <code>simbaLion</code>. This also allows for other folders to behave as if they were called <code>beans</code> by treating their singular name as <code>bean</code>. One of the DI/1 unit tests maps <code>sheep</code> to <code>bean</code> for this reason. This won’t work if the CFCs in <code>sheep</code> have the same name as the CFCs in <code>beans</code> however.</li>
-  <li><code>strict</code> - boolean - defaults to <code>false</code>. If <code>true</code>, DI/1 will throw an exception if it cannot resolve a bean implied by a constructor argument, setter name or property name. If <code>false</code>, DI/1 simply calls <code>logMissingBean()</code> which writes the failure to the Java console.</li>
+  <li><code>strict</code> - boolean - defaults to <code>false</code>. If <code>true</code>, DI/1 will throw an exception if it cannot resolve a bean implied by a constructor argument, setter name or property name. If <code>false</code>, DI/1 simply calls <code>logMissingBean()</code> which writes the failure to the Java console. See <code>missingBean()</code> in <strong>Overriding DI/1 Behavior</strong> below for more details.</li>
   <li><code>transients</code> - array - defaults to <code>[]</code>. DI/1 will consider any CFCs found in these folders to be transient, rather than singleton. The conversion to a singular form will still take place to create the alias for each CFC. For example, if <code>singulars = { pride = 'lion' }</code> and <code>transients = [ 'pride' ]</code> then any CFCs in the <code>pride</code> folder will be treated as transients and their alias will end in <code>Lion</code>.</li>
   <li><code>transientPattern</code> - string - no default. Specifies a regular expression that DI/1 uses to determine whether a bean is transient or not, based on its name. The <code>beans</code> folder convention and the <code>transients</code> configuration below still apply so CFCs in those folders will be still considered transients, in addition to any name that matches the pattern.</li>
 </ul>
@@ -301,21 +304,21 @@ moduleBeanFactory.setParent( mainBeanFactory );
 
 <p>If you want to override the methods in DI/1, such as <code>logMissingBean()</code>, you can create your own CFC that extends <code>ioc.cfc</code> and overrides the desired methods. Then use your CFC instead of <code>ioc.cfc</code>. If any particular use case becomes common, we can discuss incorporating it into DI/1 as a configuration option.</p>
 
-<p>A particular extension point that is provided is:</p>
+<p>The following supported extension points are provided:</p>
 
-<pre><code>private void function setupInitMethod( string name, any bean )
-</code></pre>
+<ul>
+  <li><code>private void function setupInitMethod( string name, any bean )</code> - this is called for each bean after its dependencies have been injected prior to calling <code>initMethod</code> (if specified).</li>
+  <li><code>private any function construct( string dottedPath )</code> - this is called to construct each CFC: the default implementation is <code>return createObject( "component", dottedPath );</code>.</li>
+  <li><code>private any function metadata( string dottedPath )</code> - this is called to obtain the metdata for each CFC: the default implementation is <code>return getComponentMetadata( dottedPath );</code> although it wraps that in <code>try/catch</code> and attempts to provide a more useful exception message in the case that <code>getComponentMetadata()</code> fails. An example from Adam Tuttle is the ability to silently ignore beans that have syntax errors during development, so the rest of the beans are loaded: you would override <code>metadata()</code> and have it wrap a call to <code>super.metadata( dottedPath )</code> in <code>try/catch</code> and return an empty struct if an exception is thrown.</li>
+  <li><code>private void function logMissingBean( string beanName, string resolvingBeanName = "" )</code> - this is called from <code>missingBean()</code> to log DI/1’s inability to find a dependency: the default implementation writes a message to the application server’s console log.</li>
+  <li><code>private any function missingBean( string beanName, string resolvingBeanName = "", boolean dependency = true )</code> - this is called when DI/1 cannot find a dependency and, new in FW/1 4.0 / DI/1 1.2, also when <code>getBean()</code> cannot find the specified bean. The default implementation is explained below.</li>
+</ul>
 
-<p>This is called for each bean after its dependencies have been injected prior to calling <code>initMethod</code> (if specified).</p>
+<h3 id="overriding-missingbean">Overriding missingBean()</h3>
 
-<p>Two related extension points that can be useful as well are:</p>
+<p><code>missingBean()</code> is called when DI/1 cannot find a bean. The default behavior when called from <code>getBean()</code> is to throw a “bean not found” exception. The default behavior when called during dependency resolution is to either throw a “bean not found” exception (when running in <code>strict</code> mode) or just call <code>logMissingBean()</code>. Prior to FW/1 4.0 (DI/1 1.2), <code>getBean()</code> threw the exception directly, and during dependency resolution the result of calling <code>missingBean()</code> was ignored.</p>
 
-<pre><code>private any function construct( string dottedPath )
-
-private any function metadata( string dottedPath )
-</code></pre>
-
-<p>These can be overridden if you want to change the behavior of how beans are created and how metadata is obtained for beans. An example from Adam Tuttle is the ability to silently ignore beans that have syntax errors during development, so the rest of the beans are loaded: you would override <code>metadata()</code> and have it wrap a call to <code>super.metadata( dottedPath )</code> in <code>try/catch</code> and return an empty struct if an exception is thrown.</p>
+<p>If you override <code>missingBean()</code> you could delegate bean lookup / creation to your own convention-based bean factory and return your own bean. You could decide whether to invoke that just for failed calls to <code>getBean()</code> (when <code>dependency</code> is <code>false</code>) or also for bean lookup during dependency resolution (when <code>dependency</code> is <code>true</code>). The <code>resolvingBeanName</code> argument is provided to allow for better error messages during failures to resolve dependencies and is not expected to affect the behavior of any override. If your <code>missingBean()</code> does not throw an exception, whatever result it returns will be used in place of the bean that DI/1 could not find. If you return nothing (<code>return;</code>), then DI/1 will not attempt to use the result: for dependency resolution that means the dependency will simply by ignored (and nothing injected); for <code>getBean()</code> calls that means that <code>getBean()</code> itself will return nothing (instead of throwing an exception - its default behavior) so be careful there!</p>
 
   
     <footer>
