@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-10-31 16:30
+date: 2015-10-31 18:30
 comments: false
 sharing: false
 footer: true
@@ -587,6 +587,7 @@ All of the configuration for FW/1 is done through a simple structure in `Applica
         applicationKey = 'framework.one',
         cacheFileExists = false,
         routes = [ ],
+        perResourceError = true,
         // resourceRouteTemplates - see routes documentation
         routesCaseSensitive = true,
         noLowerCase = false,
@@ -632,6 +633,7 @@ The keys in the structure have the following meanings:
 * `applicationKey` - A unique value for each FW/1 application that shares a common ColdFusion application name.
 * `cacheFileExists` - If you are running on a system where disk access is slow - or you simply want to avoid several calls to `fileExists()` during requests for performance - you can set this to true and FW/1 will cache all its calls to `fileExists()`. Be aware that if the result of `fileExists()` is cached and you add a new layout or a new view, it won't be noticed until you reload the framework.
 * `routes` - An array of URL path mappings. This allows you to override the conventional mapping of `/section/item` to controllers.
+* `perResourceError` - Default `true`. Controls whether a wildcard route is added to each resouce template. See **[URL Routes](url-routes)** for more details.
 * `resourceRouteTemplates` - see **[URL Routes](url-routes)** below.
 * `routesCaseSensitive` - Default `true`. Controls whether route matches are case-sensitive or not. _New in 3.1._
 * `noLowerCase` - If `true`, FW/1 will not force actions to lowercase so subsystem, section and item names will be case sensitive (in particular, filenames for controllers, views and layouts may therefore be mixed case on a case-sensitive operating system). The default is `false`. Use of this option is _not_ recommended and is not considered good practice.
@@ -710,8 +712,13 @@ The specific routes that FW/1 generates are determined by the `variables.framewo
          { method = 'create', httpMethods = [ '$POST' ] },
          { method = 'show', httpMethods = [ '$GET' ], includeId = true },
          { method = 'update', httpMethods = [ '$PUT','$PATCH' ], includeId = true },
-         { method = 'destroy', httpMethods = [ '$DELETE' ], includeId = true }
+         { method = 'destroy', httpMethods = [ '$DELETE' ], includeId = true },
+         { method = 'error', httpMethods = [ '$*' ] }
     ];
+
+The latter causes the `error` handler to be invoked for any API request that matches the resource itself, but either has an unknown HTTP method or does not match the pattern of a standard route (e.g., a `DELETE`, `PUT`, or `PATCH` without an `id`). _New in 4.0_
+
+The per-resource error handling can be turned off by setting `perResourceError` to `false` in the framework configuration. This will restore the FW/1 3.5 error handling behavior.
 
 If you wish to change the controller methods the routes are mapped to, for instance, you can specify this array in your `Application.cfc` and then change the default method names. For example, if you want `"$GET/dogs/$"` to map to `"/dogs/index"`, you would change `method = 'default'` to `method = 'index'` in the first template struct.
 
