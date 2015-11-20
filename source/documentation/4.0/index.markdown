@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Getting Started with FW/1"
-date: 2015-10-27 10:00
+date: 2015-11-20 14:30
 comments: false
 sharing: false
 footer: true
@@ -10,7 +10,7 @@ _This is documentation for the upcoming 4.0 release. For the current release, se
 
 FW/1 was created in July 2009 as a reaction against complexity and bloat in other frameworks in the CFML community. FW/1 itself is a single file, and provides a simple, convention-based approach to MVC (Model-View-Controller) applications, as well as REST APIs. Whilst it has become more sophisticated over time, it has remained a single file, focused on getting out of your way and providing the intuitive plumbing you need. For historical background, you can read the [introductory blog post](http://framework-one.github.io/blog/2009/07/19/introducing-framework-one/) from July 2009.
 
-As of release 3.1, FW/1 also includes DI/1 - a simple, convention-based Dependency Injection framework - and AOP/1 - a simple, convention-based Aspect-Oriented Programming framework. As of release 3.5, FW/1 lets you mix'n'match CFML and Clojure code. If those phrases don't mean anything to you, don't worry, you won't need to know anything about them to get started.
+As of release 3.1, FW/1 also includes DI/1 - a simple, convention-based Dependency Injection framework - and AOP/1 - a simple, convention-based Aspect-Oriented Programming framework. As of release 3.5, FW/1 lets you mix'n'match CFML and Clojure code. If those phrases don't mean anything to you, don't worry, you won't need to know anything about them to get started. For a full list of changes in this release, see the [Change Log](changes.html).
 
 * TOC
 {:toc}
