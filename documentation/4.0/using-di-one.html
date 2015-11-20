@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using DI/1 Oct 27th, 2015 10:00 am This is documentation for the upcoming 4.0 release. For the current release, see this documentation. DI/1 - a.k.a &hellip;">
+  <meta name="description" content="Using DI/1 Nov 20th, 2015 1:00 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. DI/1 - a.k.a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-10-27T10:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:00 am</span></time></p>
+<time class='entry-date' datetime='2015-11-20T13:00:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:00 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -125,7 +125,7 @@ var beanFactory = new ioc(["/model","/common/model"]);
 
 <p>All beans are also given an alias which is the name of the CFC followed by (the singular form of) the folder name in which it was found, e.g., /model/beans/product.cfc would get the alias “productBean”. If no other CFC is called product.cfc in the folders that you asked DI/1 to search, you can use “product” or “productBean” to reference that bean. By default, DI/1 assumes all beans are singletons unless they are found in a folder called <code>beans</code> (in which case DI/1 assumes those are transients). A singleton has just a single instance and DI/1 will cache that instance. A transient is created afresh every time you ask DI/1 for an instance.</p>
 
-<p>If a CFC has a constructor (a method called <code>init()</code>), DI/1 will use the argument names to look up beans and call the constructor with those beans. If a CFC has setter methods, DI/1 will use their names to look up beans and call the setters with those beans. If a CFC has property declarations and implicit setters are enabled, DI/1 will use their names to look up beans and call the implicit setters with those beans. This is called autowiring. By the time you get a bean back from DI/1, it should be fully populated. You can also specify an “init-method” function name that DI/1 should call after a bean has had its dependencies injected - see <strong><a href="#configuration">Configuration</a></strong> below.</p>
+<p>If a CFC has a constructor (a method called <code>init()</code>), DI/1 will use the argument names to look up beans and call the constructor with those beans. If a CFC has setter methods, DI/1 will use their names to look up beans and call the setters with those beans. If a CFC has property declarations and implicit setters are enabled, DI/1 will use their names to look up beans and call the implicit setters with those beans. This is called autowiring. By the time you get a bean back from DI/1, it should be fully populated. You can also specify an “init-method” function name that DI/1 should call after a bean has had its dependencies injected - see <strong><a href="#configuration">Configuration</a></strong> below. When using <code>property</code> to declare a dependency, do not specify a <code>type</code> or a <code>default</code>: DI/1 assumes that typed properties (and defaulted properties) are intended to generate specific getters and setters on transients or for ORM integration, rather than just dependencies. You can override this default behavior - see <strong><a href="#configuration">Configuration</a></strong> below.</p>
 
 <p>If DI/1 cannot find a matching bean for a constructor argument, it will throw an exception. If DI/1 cannot find a matching bean for a setter method or property, it will log the failure and ignore it (by default), and the corresponding variable will not be populated. You can configure DI/1 to be strict about matching bean names - see the configuration section below - in which case it will throw an exception.</p>
 
@@ -285,7 +285,8 @@ moduleBeanFactory.setParent( mainBeanFactory );
   <li><code>liberal</code> - boolean - default to <code>false</code>. If <code>true</code>, treat folder names ending in <code>ies</code> as plurals (of names ending in <code>y</code>, e.g., <code>libraries</code> would be treated as the plural of <code>librarie</code> by default, but with <code>liberal : true</code>, it would be treated as the plural of <code>library</code>).</li>
   <li><code>loadListener</code> - any - If specified, DI/1 will register it as a load listener by calling <code>this.onLoad( loadListener )</code>. It can be a CFC instance, the name of a bean, or a function or closure.</li>
   <li><code>omitDirectoryAliases</code> - boolean - defaults to <code>false</code>. If <code>true</code>, use CFC names as bean names directly, without appending the singular directory name as a suffix. If your CFC names are not unique, you will get an exception.</li>
-  <li><code>omitTypedProperties</code> - boolean - defaults to <code>false</code>. If <code>true</code>, property declarations that specify a type will be ignored for injection. That is useful if you are working with the ORM (since those property declarations will have types and should not be treated as dependencies).</li>
+  <li><code>omitDefaultedProperties</code> - boolean - defaults to <code>true</code>. If <code>false</code>, property declarations that specify a default will still be treated as dependency declarations and autowired. If <code>true</code>, property declarations that specify a default will be ignored for injection. This is useful when you are using <code>property</code> declarations on transients solely for generating setters and getters, rather than for declaring dependencies. <em>New in 4.0.</em></li>
+  <li><code>omitTypedProperties</code> - boolean - defaults to <code>true</code>. If <code>false</code>, property declarations that specify a type (other than <code>any</code>) will still be treated as dependency declarations and autowired. If <code>true</code>, property declarations that specify a type will be ignored for injection. This is useful when you are working with the ORM (since those property declarations will typeically have types and should not be treated as dependencies). <em>The default changed from <code>false</code> to <code>true</code> in 4.0.</em></li>
   <li><code>recurse</code> - boolean - defaults to <code>true</code>. Controls whether DI/1 searches subfolders recursively or not.</li>
   <li><code>singletonPattern</code> - string - no default. Specifies a regular expression that DI/1 uses to determine whether a bean is singleton or not, based on its name. The <code>beans</code> folder convention and the <code>transients</code> configuration below still apply so nothing in those folders will be considered a singleton, even if its name matches the pattern.</li>
   <li><code>singulars</code> - struct - defaults to <code>{}</code>. DI/1 will use any name/value pairs specified here to translate folder names to a singular variety, e.g., <code>pride = 'lion'</code> will convert the <em>plural</em> folder <code>pride</code> to the <em>singular</em> name <code>lion</code> and therefore a <code>simba.cfc</code> within the <code>pride</code> folder will get the alias <code>simbaLion</code>. This also allows for other folders to behave as if they were called <code>beans</code> by treating their singular name as <code>bean</code>. One of the DI/1 unit tests maps <code>sheep</code> to <code>bean</code> for this reason. This won’t work if the CFCs in <code>sheep</code> have the same name as the CFCs in <code>beans</code> however.</li>
@@ -329,7 +330,7 @@ moduleBeanFactory.setParent( mainBeanFactory );
 
 
 
-<time class='entry-date' datetime='2015-10-27T10:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:00 am</span></time>
+<time class='entry-date' datetime='2015-11-20T13:00:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:00 pm</span></time>
         
       </p>
       
@@ -385,6 +386,7 @@ moduleBeanFactory.setParent( mainBeanFactory );
     <a href="/documentation/4.0/using-subsystems.html">Using Subsystems</a><br />
     <a href="/documentation/4.0/reference-manual.html">Reference Manual</a><br />
     <a href="/documentation/4.0/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+    <a href="/documentation/4.0/changes.html">Change Log</a><br />
     <a href="/documentation/4.0/roadmap.html">Roadmap</a><br />
 </section>
 <section>

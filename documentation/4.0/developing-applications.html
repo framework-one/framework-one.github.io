@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Oct 31st, 2015 6:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Nov 20th, 2015 1:00 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-10-31T18:30:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>6:30 pm</span></time></p>
+<time class='entry-date' datetime='2015-11-20T13:00:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:00 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -298,7 +298,7 @@ component { // does not extend anything
 <h2 id="designing-controllers">Designing Controllers</h2>
 <p>Controllers are the pounding heart of an MVC application and FW/1 provides quite a bit of flexibility in this area. The most basic convention is that when FW/1 is asked for <code>section.item</code> it will look for <code>controllers/section.cfc</code> and attempt to call the <code>item()</code> method on it, passing in the request context as a single argument called <code>rc</code> and controllers may call into the application model as needed, then render a view. Similarly, when asked for <code>module:section.item</code> it will look for <code>subsystems/module/controllers/section.cfc</code> and attempt to call the <code>item()</code> method on it.</p>
 
-<p>Controllers are cached in FW/1’s application cache so controller methods need to be written with thread safety in mind (i.e., use <code>var</code> to declare variables properly!). Any <code>setXxx()</code> methods on a controller CFC may be used by FW/1 to autowire beans from the bean factory into the controller when it is created. In addition, if you add <code>accessors=true</code> to your controller’s <code>component</code> tag, you can declare dependencies with the <code>property</code> keyword and those will be autowired by FW/1. <code>property</code>-based injection is the preferred approach.</p>
+<p>Controllers are cached in FW/1’s application cache so controller methods need to be written with thread safety in mind (i.e., use <code>var</code> to declare variables properly!). Any <code>setXxx()</code> methods on a controller CFC may be used by FW/1 to autowire beans from the bean factory into the controller when it is created. In addition, if you add <code>accessors=true</code> to your controller’s <code>component</code> tag, you can declare dependencies with the <code>property</code> keyword and those will be autowired by FW/1. Do not specify a type or a default on dependency declarations. <code>property</code>-based injection is the preferred approach.</p>
 
 <p>In addition, if you need certain actions to take place before all items in a particular section, you can define a <code>before()</code> method in your controller and FW/1 will automatically call it for you, before calling the <code>item()</code> method. This might be a good place to put a security check, to ensure a user is logged in before they can execute other actions in that section. The variable <code>request.item</code> contains the name of the controller method that will be called, in case you need to have exceptions on the security check (such as for a <code>main.doLogin</code> action that attempts to log a user in).</p>
 
@@ -832,7 +832,8 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 { "$POST/dogs/$" = "/dogs/create" },
 { "$GET/dogs/:id/$" = "/dogs/show/id/:id" },
 { "$PATCH/dogs/:id/$" = "/dogs/update/id/:id", "$PUT/dogs/:id/$" = "/dogs/update/id/:id" },
-{ "$DELETE/dogs/:id/$" = "/dogs/destroy/id/:id" }
+{ "$DELETE/dogs/:id/$" = "/dogs/destroy/id/:id" },
+{ "$*/dogs/$" = "/dogs/error" }
 </code></pre>
 
 <p>There are also some additional resource route settings that can be specified. First you should note that the following three lines are equivalent:</p>
@@ -1044,7 +1045,7 @@ property framework;   // make your controller framework aware
 
 
 
-<time class='entry-date' datetime='2015-10-31T18:30:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>6:30 pm</span></time>
+<time class='entry-date' datetime='2015-11-20T13:00:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:00 pm</span></time>
         
       </p>
       
@@ -1100,6 +1101,7 @@ property framework;   // make your controller framework aware
     <a href="/documentation/4.0/using-subsystems.html">Using Subsystems</a><br />
     <a href="/documentation/4.0/reference-manual.html">Reference Manual</a><br />
     <a href="/documentation/4.0/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+    <a href="/documentation/4.0/changes.html">Change Log</a><br />
     <a href="/documentation/4.0/roadmap.html">Roadmap</a><br />
 </section>
 <section>
