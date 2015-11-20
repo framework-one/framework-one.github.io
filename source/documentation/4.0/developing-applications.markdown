@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-10-31 18:30
+date: 2015-11-20 13:00
 comments: false
 sharing: false
 footer: true
@@ -178,7 +178,7 @@ Designing Controllers
 ---
 Controllers are the pounding heart of an MVC application and FW/1 provides quite a bit of flexibility in this area. The most basic convention is that when FW/1 is asked for `section.item` it will look for `controllers/section.cfc` and attempt to call the `item()` method on it, passing in the request context as a single argument called `rc` and controllers may call into the application model as needed, then render a view. Similarly, when asked for `module:section.item` it will look for `subsystems/module/controllers/section.cfc` and attempt to call the `item()` method on it.
 
-Controllers are cached in FW/1's application cache so controller methods need to be written with thread safety in mind (i.e., use `var` to declare variables properly!). Any `setXxx()` methods on a controller CFC may be used by FW/1 to autowire beans from the bean factory into the controller when it is created. In addition, if you add `accessors=true` to your controller's `component` tag, you can declare dependencies with the `property` keyword and those will be autowired by FW/1. `property`-based injection is the preferred approach.
+Controllers are cached in FW/1's application cache so controller methods need to be written with thread safety in mind (i.e., use `var` to declare variables properly!). Any `setXxx()` methods on a controller CFC may be used by FW/1 to autowire beans from the bean factory into the controller when it is created. In addition, if you add `accessors=true` to your controller's `component` tag, you can declare dependencies with the `property` keyword and those will be autowired by FW/1. Do not specify a type or a default on dependency declarations. `property`-based injection is the preferred approach.
 
 In addition, if you need certain actions to take place before all items in a particular section, you can define a `before()` method in your controller and FW/1 will automatically call it for you, before calling the `item()` method. This might be a good place to put a security check, to ensure a user is logged in before they can execute other actions in that section. The variable `request.item` contains the name of the controller method that will be called, in case you need to have exceptions on the security check (such as for a `main.doLogin` action that attempts to log a user in).
 
