@@ -679,7 +679,8 @@ The keyword `"$RESOURCES"` can be used as a shorthand way of specifying resource
     { "$POST/dogs/$" = "/dogs/create" },
     { "$GET/dogs/:id/$" = "/dogs/show/id/:id" },
     { "$PATCH/dogs/:id/$" = "/dogs/update/id/:id", "$PUT/dogs/:id/$" = "/dogs/update/id/:id" },
-    { "$DELETE/dogs/:id/$" = "/dogs/destroy/id/:id" }
+    { "$DELETE/dogs/:id/$" = "/dogs/destroy/id/:id" },
+    { "$*/dogs/$" = "/dogs/error" }
 
 There are also some additional resource route settings that can be specified. First you should note that the following three lines are equivalent:
 
