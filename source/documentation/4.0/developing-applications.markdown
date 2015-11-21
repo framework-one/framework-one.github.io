@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-11-20 13:00
+date: 2015-11-20 16:30
 comments: false
 sharing: false
 footer: true
@@ -294,6 +294,18 @@ The builder syntax supports:
 
 As of release 4.0, FW/1 can accept JSON data in the body of a POST. To enable this, set `enableJSONPOST` to `true` in your framework configuration. FW/1 assumes the JSON data will deserialize to a struct and that will be appended to the request context, overriding any URL variables of the same name as elements of the deserialized struct.
 
+#### OPTIONS Support
+
+When making REST calls from JavaScript, some browsers will send an `OPTIONS` HTTP request to determine what HTTP methods are supported, as well as what headers are allowed etc. As of 4.0, FW/1 supports this via the `preflightOptions` setting. By default this is `false` but when you set it `true`, FW/1 will intercept `OPTIONS` requests, determine which routes match, and therefore which HTTP methods are actually supported, and return an empty text response, a 200 status code, and a set of headers that specify what's supported / acceptable:
+
+* `Access-Control-Allow-Origin` - By default FW/1 returns `*` here. The `optionsAccessControl.origin` setting will override this.
+* `Access-Control-Allow-Methods` - Determined by inspecting the matching routes, e.g., `GET, POST, OPTIONS`.
+* `Access-Control-Allow-Headers` - By default FW/1 returns `Accept, Authorization, Content-Type` here. The `optionsAccessControl.headers` setting will override this.
+* `Access-Control-Allow-Credentials` - By default FW/1 returns `true` here. The `optionsAccessControl.credentials` setting will override this.
+* `Access-Control-Max-Age` - By default FW/1 returns `1728000` here (20 days, in seconds). The `optionsAccessControl.maxAge` setting will override this.
+
+If you want to handle `OPTIONS` yourself, you can omit `preflightOptions` (or set it `false`) and provide an explicit `$OPTIONS*` route declaration that determines how to respond.
+
 Designing Services and Domain Objects
 ---
 Services - and domain objects - should encapsulate all of the business logic in your application. Where possible, most of the application logic should be in the domain objects, making them smart objects, and services can take care of orchestrating work that reaches across multiple domain objects.
@@ -556,7 +568,7 @@ Note: If you override `onMissingView()` and forget to define a view for the erro
 
 Configuring FW/1 Applications
 ---
-All of the configuration for FW/1 is done through a simple structure in `Application.cfc`. The default behavior for the application is as if you specified this structure:
+All of the configuration for FW/1 is done through a simple structure in `Application.cfc`. The default behavior for the application is as if you specified this structure (but it is strongly recommended you **omit** any settings that you do not explicitly need to change!):
 
     variables.framework = {
         action = 'action',
@@ -602,6 +614,8 @@ All of the configuration for FW/1 is done through a simple structure in `Applica
         diConfig = { },
         diComponent = "framework.ioc",
         enableJSONPOST = false,
+        preflightOptions = false,
+        optionsAccessControl = { },
         environments = { }
     };
 
@@ -648,6 +662,8 @@ The keys in the structure have the following meanings:
 * `diConfig` - Any additional configuration needed for the Dependency Injection engine; defaults to `{ }`.
 * `diComponent` - The dotted-path to the CFC used for the bean factory (which has sensible defaults based on `diEngine`).
 * `enableJSONPOST` - Default `false`. If `true`, FW/1 will accept JSON POST data and deserialize it automatically into the request context. _New in 4.0._
+* `preflightOptions` - Default `false`. If `true`, FW/1 will handle HTTP `OPTIONS` requests for you. See **[OPTIONS Support](#options-support)** above for more details. _New in 4.0._
+* `optionsAccessControl` - Default `{ }`. You can use this to override the default `Access-Control-*` headers returns by FW/1's `OPTIONS` support. Valid keys are: `origin`, `headers`, `credentials`, and `maxAge`. _New in 4.0._
 * `environments` - An optional struct containing per-tier and per-server configuration that should be merged into FW/1's settings. See **[Environment Control](#environment-control)** below for more details.
 
 At runtime, this structure also contains the following key (from release 0.4 onward):
