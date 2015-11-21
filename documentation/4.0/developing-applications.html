@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Nov 20th, 2015 1:00 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Nov 20th, 2015 4:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-11-20T13:00:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:00 pm</span></time></p>
+<time class='entry-date' datetime='2015-11-20T16:30:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:30 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -96,7 +96,10 @@
       <li><a href="#using-onmissingview-to-handle-missing-views" id="markdown-toc-using-onmissingview-to-handle-missing-views">Using onMissingView() to Handle Missing Views</a></li>
       <li><a href="#taking-actions-on-every-request" id="markdown-toc-taking-actions-on-every-request">Taking Actions on Every Request</a></li>
       <li><a href="#short-circuiting-the-controller--services-lifecycle" id="markdown-toc-short-circuiting-the-controller--services-lifecycle">Short-Circuiting the Controller / Services Lifecycle</a></li>
-      <li><a href="#controllers-for-rest-apis" id="markdown-toc-controllers-for-rest-apis">Controllers for REST APIs</a></li>
+      <li><a href="#controllers-for-rest-apis" id="markdown-toc-controllers-for-rest-apis">Controllers for REST APIs</a>        <ul>
+          <li><a href="#options-support" id="markdown-toc-options-support">OPTIONS Support</a></li>
+        </ul>
+      </li>
     </ul>
   </li>
   <li><a href="#designing-services-and-domain-objects" id="markdown-toc-designing-services-and-domain-objects">Designing Services and Domain Objects</a>    <ul>
@@ -427,6 +430,20 @@ text and HTML, the <code>resultData</code> value must be a string. <em><code>"ht
 
 <p>As of release 4.0, FW/1 can accept JSON data in the body of a POST. To enable this, set <code>enableJSONPOST</code> to <code>true</code> in your framework configuration. FW/1 assumes the JSON data will deserialize to a struct and that will be appended to the request context, overriding any URL variables of the same name as elements of the deserialized struct.</p>
 
+<h4 id="options-support">OPTIONS Support</h4>
+
+<p>When making REST calls from JavaScript, some browsers will send an <code>OPTIONS</code> HTTP request to determine what HTTP methods are supported, as well as what headers are allowed etc. As of 4.0, FW/1 supports this via the <code>preflightOptions</code> setting. By default this is <code>false</code> but when you set it <code>true</code>, FW/1 will intercept <code>OPTIONS</code> requests, determine which routes match, and therefore which HTTP methods are actually supported, and return an empty text response, a 200 status code, and a set of headers that specify what’s supported / acceptable:</p>
+
+<ul>
+  <li><code>Access-Control-Allow-Origin</code> - By default FW/1 returns <code>*</code> here. The <code>optionsAccessControl.origin</code> setting will override this.</li>
+  <li><code>Access-Control-Allow-Methods</code> - Determined by inspecting the matching routes, e.g., <code>GET, POST, OPTIONS</code>.</li>
+  <li><code>Access-Control-Allow-Headers</code> - By default FW/1 returns <code>Accept, Authorization, Content-Type</code> here. The <code>optionsAccessControl.headers</code> setting will override this.</li>
+  <li><code>Access-Control-Allow-Credentials</code> - By default FW/1 returns <code>true</code> here. The <code>optionsAccessControl.credentials</code> setting will override this.</li>
+  <li><code>Access-Control-Max-Age</code> - By default FW/1 returns <code>1728000</code> here (20 days, in seconds). The <code>optionsAccessControl.maxAge</code> setting will override this.</li>
+</ul>
+
+<p>If you want to handle <code>OPTIONS</code> yourself, you can omit <code>preflightOptions</code> (or set it <code>false</code>) and provide an explicit <code>$OPTIONS*</code> route declaration that determines how to respond.</p>
+
 <h2 id="designing-services-and-domain-objects">Designing Services and Domain Objects</h2>
 <p>Services - and domain objects - should encapsulate all of the business logic in your application. Where possible, most of the application logic should be in the domain objects, making them smart objects, and services can take care of orchestrating work that reaches across multiple domain objects.</p>
 
@@ -705,7 +722,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 <p>Note: If you override <code>onMissingView()</code> and forget to define a view for the error handler, FW/1 will call <code>onMissingView()</code> and that will hide the original exception.</p>
 
 <h2 id="configuring-fw1-applications">Configuring FW/1 Applications</h2>
-<p>All of the configuration for FW/1 is done through a simple structure in <code>Application.cfc</code>. The default behavior for the application is as if you specified this structure:</p>
+<p>All of the configuration for FW/1 is done through a simple structure in <code>Application.cfc</code>. The default behavior for the application is as if you specified this structure (but it is strongly recommended you <strong>omit</strong> any settings that you do not explicitly need to change!):</p>
 
 <pre><code>variables.framework = {
     action = 'action',
@@ -751,6 +768,8 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
     diConfig = { },
     diComponent = "framework.ioc",
     enableJSONPOST = false,
+    preflightOptions = false,
+    optionsAccessControl = { },
     environments = { }
 };
 </code></pre>
@@ -799,6 +818,8 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
   <li><code>diConfig</code> - Any additional configuration needed for the Dependency Injection engine; defaults to <code>{ }</code>.</li>
   <li><code>diComponent</code> - The dotted-path to the CFC used for the bean factory (which has sensible defaults based on <code>diEngine</code>).</li>
   <li><code>enableJSONPOST</code> - Default <code>false</code>. If <code>true</code>, FW/1 will accept JSON POST data and deserialize it automatically into the request context. <em>New in 4.0.</em></li>
+  <li><code>preflightOptions</code> - Default <code>false</code>. If <code>true</code>, FW/1 will handle HTTP <code>OPTIONS</code> requests for you. See <strong><a href="#options-support">OPTIONS Support</a></strong> above for more details. <em>New in 4.0.</em></li>
+  <li><code>optionsAccessControl</code> - Default <code>{ }</code>. You can use this to override the default <code>Access-Control-*</code> headers returns by FW/1’s <code>OPTIONS</code> support. Valid keys are: <code>origin</code>, <code>headers</code>, <code>credentials</code>, and <code>maxAge</code>. <em>New in 4.0.</em></li>
   <li><code>environments</code> - An optional struct containing per-tier and per-server configuration that should be merged into FW/1’s settings. See <strong><a href="#environment-control">Environment Control</a></strong> below for more details.</li>
 </ul>
 
@@ -1045,7 +1066,7 @@ property framework;   // make your controller framework aware
 
 
 
-<time class='entry-date' datetime='2015-11-20T13:00:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:00 pm</span></time>
+<time class='entry-date' datetime='2015-11-20T16:30:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:30 pm</span></time>
         
       </p>
       

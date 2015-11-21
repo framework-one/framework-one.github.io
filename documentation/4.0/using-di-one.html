@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using DI/1 Nov 20th, 2015 1:00 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. DI/1 - a.k.a &hellip;">
+  <meta name="description" content="Using DI/1 Nov 20th, 2015 4:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. DI/1 - a.k.a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-11-20T13:00:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:00 pm</span></time></p>
+<time class='entry-date' datetime='2015-11-20T16:30:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:30 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -128,6 +128,13 @@ var beanFactory = new ioc(["/model","/common/model"]);
 <p>If a CFC has a constructor (a method called <code>init()</code>), DI/1 will use the argument names to look up beans and call the constructor with those beans. If a CFC has setter methods, DI/1 will use their names to look up beans and call the setters with those beans. If a CFC has property declarations and implicit setters are enabled, DI/1 will use their names to look up beans and call the implicit setters with those beans. This is called autowiring. By the time you get a bean back from DI/1, it should be fully populated. You can also specify an “init-method” function name that DI/1 should call after a bean has had its dependencies injected - see <strong><a href="#configuration">Configuration</a></strong> below. When using <code>property</code> to declare a dependency, do not specify a <code>type</code> or a <code>default</code>: DI/1 assumes that typed properties (and defaulted properties) are intended to generate specific getters and setters on transients or for ORM integration, rather than just dependencies. You can override this default behavior - see <strong><a href="#configuration">Configuration</a></strong> below.</p>
 
 <p>If DI/1 cannot find a matching bean for a constructor argument, it will throw an exception. If DI/1 cannot find a matching bean for a setter method or property, it will log the failure and ignore it (by default), and the corresponding variable will not be populated. You can configure DI/1 to be strict about matching bean names - see the configuration section below - in which case it will throw an exception.</p>
+
+<p>As of FW/1 4.0 (DI/1 1.2), you can specify a second argument to <code>getBean()</code> that provides constructor arguments that should be used instead of beans in the factory:</p>
+
+<pre><code>var user = beanFactory.getBean( "user", { name : "Sean", email : "sean@corfield.org" } );
+</code></pre>
+
+<p>This will use <code>name</code> and <code>email</code> as overrides so that they <em>hide</em> any beans of the same name when DI/1 calls the <code>init()</code> method (or any setters). This can be particularly valuable when you are migrating legacy code to DI/1 and want it to manage bean creation while still providing constructor arguments in the (legacy) code.</p>
 
 <p>Note that DI/1 will only inject singletons via setters or properties. Injecting transients in those situations often leads to unexpected results (consider a transient <code>invoice</code> bean that has a <code>setCustomer()</code> method when you also have a transient <code>customer</code> bean - you almost certainly don’t want DI/1 to automatically create a customer instance and inject it every time you ask DI/1 for a new invoice bean!). If a constructor argument matches a transient bean, DI/1 will still create an instance since it has to finish constructing the original bean.</p>
 
@@ -330,7 +337,7 @@ moduleBeanFactory.setParent( mainBeanFactory );
 
 
 
-<time class='entry-date' datetime='2015-11-20T13:00:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:00 pm</span></time>
+<time class='entry-date' datetime='2015-11-20T16:30:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:30 pm</span></time>
         
       </p>
       
