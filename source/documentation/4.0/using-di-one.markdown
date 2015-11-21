@@ -41,7 +41,7 @@ As of FW/1 4.0 (DI/1 1.2), you can specify a second argument to `getBean()` that
 
     var user = beanFactory.getBean( "user", { name : "Sean", email : "sean@corfield.org" } );
 
-This will use `name` and `email` as overrides so that they _hide_ any beans of the same name when DI/1 calls the `init()` method (or any setters). This can be particularly valuable when you are migrating legacy code to DI/1 and want it to manage bean creation while still providing constructor arguments in the (legacy) code.
+This will use `name` and `email` as overrides so that they _hide_ any beans of the same name when DI/1 calls the `init()` method. This can be particularly valuable when you are migrating legacy code to DI/1 and want it to manage bean creation while still providing constructor arguments in the (legacy) code.
 
 Note that DI/1 will only inject singletons via setters or properties. Injecting transients in those situations often leads to unexpected results (consider a transient `invoice` bean that has a `setCustomer()` method when you also have a transient `customer` bean - you almost certainly don't want DI/1 to automatically create a customer instance and inject it every time you ask DI/1 for a new invoice bean!). If a constructor argument matches a transient bean, DI/1 will still create an instance since it has to finish constructing the original bean.
 
