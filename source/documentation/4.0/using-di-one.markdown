@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using DI/1"
-date: 2015-11-20 13:00
+date: 2015-11-20 16:30
 comments: false
 sharing: false
 footer: true
@@ -36,6 +36,12 @@ All beans are also given an alias which is the name of the CFC followed by (the 
 If a CFC has a constructor (a method called `init()`), DI/1 will use the argument names to look up beans and call the constructor with those beans. If a CFC has setter methods, DI/1 will use their names to look up beans and call the setters with those beans. If a CFC has property declarations and implicit setters are enabled, DI/1 will use their names to look up beans and call the implicit setters with those beans. This is called autowiring. By the time you get a bean back from DI/1, it should be fully populated. You can also specify an "init-method" function name that DI/1 should call after a bean has had its dependencies injected - see **[Configuration](#configuration)** below. When using `property` to declare a dependency, do not specify a `type` or a `default`: DI/1 assumes that typed properties (and defaulted properties) are intended to generate specific getters and setters on transients or for ORM integration, rather than just dependencies. You can override this default behavior - see **[Configuration](#configuration)** below.
 
 If DI/1 cannot find a matching bean for a constructor argument, it will throw an exception. If DI/1 cannot find a matching bean for a setter method or property, it will log the failure and ignore it (by default), and the corresponding variable will not be populated. You can configure DI/1 to be strict about matching bean names - see the configuration section below - in which case it will throw an exception.
+
+As of FW/1 4.0 (DI/1 1.2), you can specify a second argument to `getBean()` that provides constructor arguments that should be used instead of beans in the factory:
+
+    var user = beanFactory.getBean( "user", { name : "Sean", email : "sean@corfield.org" } );
+
+This will use `name` and `email` as overrides so that they _hide_ any beans of the same name when DI/1 calls the `init()` method (or any setters). This can be particularly valuable when you are migrating legacy code to DI/1 and want it to manage bean creation while still providing constructor arguments in the (legacy) code.
 
 Note that DI/1 will only inject singletons via setters or properties. Injecting transients in those situations often leads to unexpected results (consider a transient `invoice` bean that has a `setCustomer()` method when you also have a transient `customer` bean - you almost certainly don't want DI/1 to automatically create a customer instance and inject it every time you ask DI/1 for a new invoice bean!). If a constructor argument matches a transient bean, DI/1 will still create an instance since it has to finish constructing the original bean.
 
