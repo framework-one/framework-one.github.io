@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Change Log for FW/1 and Friends Nov 20th, 2015 1:20 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
+  <meta name="description" content="Change Log for FW/1 and Friends Dec 16th, 2015 3:20 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-11-20T13:20:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:20 pm</span></time></p>
+<time class='entry-date' datetime='2015-12-16T15:20:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:20 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -87,6 +87,7 @@
 <ul>
   <li>JSON-encoded POST body support.</li>
   <li>Builder syntax for <code>renderData()</code> result elements.</li>
+  <li>Support for user-supplied rendering functions.</li>
   <li>Integrated support for HTTP <code>OPTIONS</code> verb.</li>
   <li>Per-resource error handling.</li>
   <li>Setting status text (in addition to status code) in HTTP responses.</li>
@@ -106,6 +107,8 @@
 <h2 id="enhancements">Enhancements</h2>
 
 <ul>
+  <li><a href="https://github.com/framework-one/fw1/issues/409">409</a> - Dependency injection uses additional caches to improve <code>getBean()</code> performance (by a factor of 9x-25x, depending on your usage and your CFML engine).</li>
+  <li><a href="https://github.com/framework-one/fw1/pull/407">407</a> - DI/1 now has a public <code>hasParent()</code> predicate method.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/400">400</a> - Dependency injection ignores typed/defaulted properties by default. This can be disabled via the <code>omitDefaultedProperties</code> and <code>omitTypedProperties</code> settings.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/399">399</a> - <code>getBean()</code> now accepts an optional second argument that can override beans in the factory to provide constructor arguments to be used in the bean’s <code>init()</code> call.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/394">394</a> - Improved error messages when DI/1 attempts to use a CFC that has syntax errors to include filename/line number of the underlying error.</li>
@@ -116,6 +119,7 @@
   <li><a href="https://github.com/framework-one/fw1/issues/387">387</a> - A new setting <code>preflightOptions</code> tells FW/1 to provide built-in support for HTTP <code>OPTIONS</code>. An additional setting <code>optionsAccessControl</code> allows you to fine tune the <code>Access-Control-*</code> headers returned.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/386">386</a> - Routes can now have <code>$*</code> as an explicit wildcard for the HTTP method.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/385">385</a> - The new <code>renderData()</code> build syntax supports <code>statusText()</code> to set the HTTP response status text.</li>
+  <li><a href="https://github.com/framework-one/fw1/issues/328">328</a> - The <code>renderData()</code> <code>type</code> may be a function/closure that returns <code>contentType</code>, rendered <code>content</code>, and an optional <code>writer</code> for delivering the data to the browser.</li>
 </ul>
 
 <h2 id="bug-fixes">Bug Fixes</h2>
@@ -133,7 +137,7 @@
 
 
 
-<time class='entry-date' datetime='2015-11-20T13:20:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:20 pm</span></time>
+<time class='entry-date' datetime='2015-12-16T15:20:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:20 pm</span></time>
         
       </p>
       

@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Oct 31st, 2015 4:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Dec 16th, 2015 3:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-10-31T16:30:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>4:30 pm</span></time></p>
+<time class='entry-date' datetime='2015-12-16T15:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:30 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -645,7 +645,7 @@ and instead render <code>data</code> in the specified content <code>type</code> 
 
 <ul>
   <li><code>data( payload )</code> - set the data payload to be rendered: see below for restrictions on the payload, based on the render type.</li>
-  <li><code>type( contentType )</code> - set the type of rendering to be performed: the argument may be <code>"html"</code>, <code>"json"</code>, <code>"jsonp"</code>, <code>"rawjson"</code>, <code>"xml"</code>, or <code>"text"</code>.</li>
+  <li><code>type( contentType )</code> - set the type of rendering to be performed: the argument may be <code>"html"</code>, <code>"json"</code>, <code>"jsonp"</code>, <code>"rawjson"</code>, <code>"xml"</code>, or <code>"text"</code>; it may also be a custom rendering function (or closure).</li>
   <li><code>statusCode( code )</code> - set the HTTP status code: default is 200.</li>
   <li><code>statusText( message )</code> - set the HTTP status message (<em>new in 4.0</em>).</li>
   <li><code>jsonpCallback( callback )</code> - set the JSONP callback: required when <code>type</code> is <code>"jsonp"</code>, otherwise ignored.</li>
@@ -660,6 +660,8 @@ and instead render <code>data</code> in the specified content <code>type</code> 
   <li><code>"xml"</code> - the payload must be either a valid XML string or an XML object (constructed via CFML’s various <code>xml...()</code> functions). If the payload is an XML object, FW/1 calls <code>toString( payload )</code> to generate the result of the HTTP request, otherwise the XML string is used as the result of the request. In both cases, FW/1 sets the <code>Content-Type</code> header to <code>text/xml; charset=utf-8</code>.</li>
   <li><code>"text"</code> - the payload must be a string and that is the result of the HTTP request. FW/1 sets the <code>Content-Type</code> header to <code>text/plain; charset=utf-8</code>.</li>
 </ul>
+
+<p>If a function or closure is passed as the type, you can perform pretty much any custom rendering you can imagine. See <a href="developing-applications.html#custom-data-rendering">Custom Data Rendering</a> in the Developing Applications Guide for more detail on how to use this.</p>
 
 <p>When you call <code>renderData()</code>, processing continues in your controller (so use <code>return;</code> if you want processing to stop at that point), and subsequent calls to <code>setView()</code> or <code>setLayout()</code> will have no effect (since FW/1 will ignore views and layouts for this request).</p>
 
@@ -751,7 +753,7 @@ and instead render <code>data</code> in the specified content <code>type</code> 
 
 
 
-<time class='entry-date' datetime='2015-10-31T16:30:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>4:30 pm</span></time>
+<time class='entry-date' datetime='2015-12-16T15:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:30 pm</span></time>
         
       </p>
       

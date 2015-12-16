@@ -222,9 +222,10 @@ beanFactory.declareBean("admindata", "util.DataSource", true, { dsn = "admindb" 
 
 <pre><code>if ( beanFactory.isSingleton("someBean") ) ...
 info = beanFactory.getBeanInfo("someBean");
+if ( beanFactory.hasParent() ) ...
 </code></pre>
 
-<p>I would expect these only to be useful to framework authors. Both methods walk up into parent bean factories, if present. If you omit the bean name for <code>getBeanInfo()</code> you get back a struct with a key <code>beanInfo</code> that refers to metadata for all of the beans known in the factory. If there is a parent bean factory, its metadata is returned under a key <code>parent</code> in that struct.</p>
+<p>I would expect these only to be useful to framework authors. The first two methods walk up into parent bean factories, if present, the third indicates whether the bean factory has a parent. If you omit the bean name for <code>getBeanInfo()</code> you get back a struct with a key <code>beanInfo</code> that refers to metadata for all of the beans known in the factory. If there is a parent bean factory, its metadata is returned under a key <code>parent</code> in that struct.</p>
 
 <p><code>getBeanInfo()</code> can be called with a <code>beanName</code> argument - the default - or with a <code>regex</code> argument which will return metadata about all the beans in the factory whose names match the regular expression, in a struct with the single key <code>beanInfo</code>, whose value will be a struct with a key for each matching bean.</p>
 

@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Nov 20th, 2015 4:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Dec 16th, 2015 3:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-11-20T16:30:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:30 pm</span></time></p>
+<time class='entry-date' datetime='2015-12-16T15:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:30 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -97,6 +97,7 @@
       <li><a href="#taking-actions-on-every-request" id="markdown-toc-taking-actions-on-every-request">Taking Actions on Every Request</a></li>
       <li><a href="#short-circuiting-the-controller--services-lifecycle" id="markdown-toc-short-circuiting-the-controller--services-lifecycle">Short-Circuiting the Controller / Services Lifecycle</a></li>
       <li><a href="#controllers-for-rest-apis" id="markdown-toc-controllers-for-rest-apis">Controllers for REST APIs</a>        <ul>
+          <li><a href="#custom-data-rendering" id="markdown-toc-custom-data-rendering">Custom Data Rendering</a></li>
           <li><a href="#options-support" id="markdown-toc-options-support">OPTIONS Support</a></li>
         </ul>
       </li>
@@ -384,9 +385,9 @@ component { // does not extend anything
 <pre><code>variables.fw.renderData().data( resultData ).type( contentType );
 </code></pre>
 
-<p>Calling this function does not exit from your controller, but tells FW/1 that instead of looking for a view to render, the <code>resultData</code> value should be converted to the specified <code>contentType</code> and that should be the result of the complete HTTP request.</p>
+<p>Calling this function does not exit from your controller, but tells FW/1 that instead of looking for a view to render, the <code>resultData</code> value should be converted to the specified <code>contentType</code> and that should be the result of the complete HTTP request (or the <code>contentType</code> may instead be a custom renderer – see below).</p>
 
-<p><code>contentType</code> may be <code>"html"</code>, <code>"json"</code>, <code>"jsonp"</code>, <code>"rawjson"</code>, <code>"xml"</code>, or <code>"text"</code>. The <code>Content-Type</code> HTTP header is automatically set to:</p>
+<p><code>contentType</code> may be <code>"html"</code>, <code>"json"</code>, <code>"jsonp"</code>, <code>"rawjson"</code>, <code>"xml"</code>, or <code>"text"</code> (or a function / closure – see below). The <code>Content-Type</code> HTTP header is automatically set to:</p>
 
 <ul>
   <li><code>text/html; charset=utf-8</code></li>
@@ -429,6 +430,37 @@ text and HTML, the <code>resultData</code> value must be a string. <em><code>"ht
 </ul>
 
 <p>As of release 4.0, FW/1 can accept JSON data in the body of a POST. To enable this, set <code>enableJSONPOST</code> to <code>true</code> in your framework configuration. FW/1 assumes the JSON data will deserialize to a struct and that will be appended to the request context, overriding any URL variables of the same name as elements of the deserialized struct.</p>
+
+<h4 id="custom-data-rendering">Custom Data Rendering</h4>
+
+<p>In addition to the string values for the <code>contentType</code>, you may specify a function or closure that behaves as follows:</p>
+
+<ul>
+  <li>It accepts a struct as an argument, containing all the values set by the builder syntax (<code>data</code>, <code>type</code>, <code>statusCode</code>, <code>statusText</code>, <code>jsonpCallback</code>, as appropriate).</li>
+  <li>It returns a struct containing <code>contentType</code>, <code>output</code>, and optionally a <code>writer</code> key.</li>
+  <li>It returns the desired value of the <code>Content-Type</code> HTTP header as the <code>contentType</code> key.</li>
+  <li>It renders <code>resultData</code> however you wish and returns that as the <code>output</code> key.</li>
+  <li>If the <code>content</code> needs to be delivered to the browser using something more sophisticated than <code>writeOutput()</code>, the <code>writer</code> key should specify a function or closure to handle that.</li>
+</ul>
+
+<p>The optional <code>writer</code> function (or closure) is called as follows:</p>
+
+<ul>
+  <li>It is passed the <code>output</code> value from the returned struct.</li>
+  <li>It is called instead of calling <code>writeOutput()</code>, so FW/1 expects it to perform whatever content delivery is needed (setting additional headers, encoding and writing the response body, etc).</li>
+</ul>
+
+<p>Internally, the standard six content types are implemented as rendering functions in <code>one.cfc</code> (as <code>render_{type}(struct renderData)</code>). For example, <code>render_json()</code> looks like this:</p>
+
+<pre><code>function render_json( struct renderData ) {
+    return {
+        contentType = 'application/json; charset=utf-8',
+        output = serializeJSON( renderData.data )
+    };
+}
+</code></pre>
+
+<p>Thus you also have the option of overriding one of the standard rendering types by defining your own version of the function in <code>Application.cfc</code> (or the application CFC that extends <code>framework.one</code> if you are using the <strong>Alternative Application Structure</strong>). Similarly, rather than pass a function directly to type <code>type()</code> builder, you could define it in your <code>Application.cfc</code> as <code>render_{type}</code> and then pass that <em>type</em> as a string to <code>type()</code>, since FW/1 looks up the render function by name if a string is passed.</p>
 
 <h4 id="options-support">OPTIONS Support</h4>
 
@@ -1066,7 +1098,7 @@ property framework;   // make your controller framework aware
 
 
 
-<time class='entry-date' datetime='2015-11-20T16:30:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:30 pm</span></time>
+<time class='entry-date' datetime='2015-12-16T15:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:30 pm</span></time>
         
       </p>
       
