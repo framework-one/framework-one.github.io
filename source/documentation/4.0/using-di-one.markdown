@@ -118,8 +118,9 @@ Metadata can be queried using the following methods:
 
     if ( beanFactory.isSingleton("someBean") ) ...
     info = beanFactory.getBeanInfo("someBean");
+    if ( beanFactory.hasParent() ) ...
 
-I would expect these only to be useful to framework authors. Both methods walk up into parent bean factories, if present. If you omit the bean name for `getBeanInfo()` you get back a struct with a key `beanInfo` that refers to metadata for all of the beans known in the factory. If there is a parent bean factory, its metadata is returned under a key `parent` in that struct.
+I would expect these only to be useful to framework authors. The first two methods walk up into parent bean factories, if present, the third indicates whether the bean factory has a parent. If you omit the bean name for `getBeanInfo()` you get back a struct with a key `beanInfo` that refers to metadata for all of the beans known in the factory. If there is a parent bean factory, its metadata is returned under a key `parent` in that struct.
 
 `getBeanInfo()` can be called with a `beanName` argument - the default - or with a `regex` argument which will return metadata about all the beans in the factory whose names match the regular expression, in a struct with the single key `beanInfo`, whose value will be a struct with a key for each matching bean.
 

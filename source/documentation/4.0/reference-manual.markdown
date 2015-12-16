@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-10-31 16:30
+date: 2015-12-16 15:30
 comments: false
 sharing: false
 footer: true
@@ -461,7 +461,7 @@ and instead render `data` in the specified content `type` format.
 This function returns a "builder" expression (_new in 4.0_) that supports the following methods:
 
 * `data( payload )` - set the data payload to be rendered: see below for restrictions on the payload, based on the render type.
-* `type( contentType )` - set the type of rendering to be performed: the argument may be `"html"`, `"json"`, `"jsonp"`, `"rawjson"`, `"xml"`, or `"text"`.
+* `type( contentType )` - set the type of rendering to be performed: the argument may be `"html"`, `"json"`, `"jsonp"`, `"rawjson"`, `"xml"`, or `"text"`; it may also be a custom rendering function (or closure).
 * `statusCode( code )` - set the HTTP status code: default is 200.
 * `statusText( message )` - set the HTTP status message (_new in 4.0_).
 * `jsonpCallback( callback )` - set the JSONP callback: required when `type` is `"jsonp"`, otherwise ignored.
@@ -473,6 +473,8 @@ The following restrictions apply to the data payload, for each type as shown:
 * `"rawjson"` - the payload must be a string (and is assumed to be valid JSON already) and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `application/javascript; charset=utf-8`. _New in 3.1._
 * `"xml"` - the payload must be either a valid XML string or an XML object (constructed via CFML's various `xml...()` functions). If the payload is an XML object, FW/1 calls `toString( payload )` to generate the result of the HTTP request, otherwise the XML string is used as the result of the request. In both cases, FW/1 sets the `Content-Type` header to `text/xml; charset=utf-8`.
 * `"text"` - the payload must be a string and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `text/plain; charset=utf-8`.
+
+If a function or closure is passed as the type, you can perform pretty much any custom rendering you can imagine. See [Custom Data Rendering](developing-applications.html#custom-data-rendering) in the Developing Applications Guide for more detail on how to use this.
 
 When you call `renderData()`, processing continues in your controller (so use `return;` if you want processing to stop at that point), and subsequent calls to `setView()` or `setLayout()` will have no effect (since FW/1 will ignore views and layouts for this request).
 

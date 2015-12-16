@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-11-20 16:30
+date: 2015-12-16 15:30
 comments: false
 sharing: false
 footer: true
@@ -254,9 +254,9 @@ You can return data directly to the caller, bypassing views and layouts, using t
 
     variables.fw.renderData().data( resultData ).type( contentType );
 
-Calling this function does not exit from your controller, but tells FW/1 that instead of looking for a view to render, the `resultData` value should be converted to the specified `contentType` and that should be the result of the complete HTTP request.
+Calling this function does not exit from your controller, but tells FW/1 that instead of looking for a view to render, the `resultData` value should be converted to the specified `contentType` and that should be the result of the complete HTTP request (or the `contentType` may instead be a custom renderer -- see below).
 
-`contentType` may be `"html"`, `"json"`, `"jsonp"`, `"rawjson"`, `"xml"`, or `"text"`. The `Content-Type` HTTP header is automatically set to:
+`contentType` may be `"html"`, `"json"`, `"jsonp"`, `"rawjson"`, `"xml"`, or `"text"` (or a function / closure -- see below). The `Content-Type` HTTP header is automatically set to:
 
 * `text/html; charset=utf-8`
 * `application/json; charset=utf-8`
@@ -293,6 +293,32 @@ The builder syntax supports:
 * `jsonpCallback()` to set the JSONP callback
 
 As of release 4.0, FW/1 can accept JSON data in the body of a POST. To enable this, set `enableJSONPOST` to `true` in your framework configuration. FW/1 assumes the JSON data will deserialize to a struct and that will be appended to the request context, overriding any URL variables of the same name as elements of the deserialized struct.
+
+#### Custom Data Rendering
+
+In addition to the string values for the `contentType`, you may specify a function or closure that behaves as follows:
+
+* It accepts a struct as an argument, containing all the values set by the builder syntax (`data`, `type`, `statusCode`, `statusText`, `jsonpCallback`, as appropriate).
+* It returns a struct containing `contentType`, `output`, and optionally a `writer` key.
+* It returns the desired value of the `Content-Type` HTTP header as the `contentType` key.
+* It renders `resultData` however you wish and returns that as the `output` key.
+* If the `content` needs to be delivered to the browser using something more sophisticated than `writeOutput()`, the `writer` key should specify a function or closure to handle that.
+
+The optional `writer` function (or closure) is called as follows:
+
+* It is passed the `output` value from the returned struct.
+* It is called instead of calling `writeOutput()`, so FW/1 expects it to perform whatever content delivery is needed (setting additional headers, encoding and writing the response body, etc).
+
+Internally, the standard six content types are implemented as rendering functions in `one.cfc` (as `render_{type}(struct renderData)`). For example, `render_json()` looks like this:
+
+    function render_json( struct renderData ) {
+        return {
+            contentType = 'application/json; charset=utf-8',
+            output = serializeJSON( renderData.data )
+        };
+    }
+
+Thus you also have the option of overriding one of the standard rendering types by defining your own version of the function in `Application.cfc` (or the application CFC that extends `framework.one` if you are using the **Alternative Application Structure**). Similarly, rather than pass a function directly to type `type()` builder, you could define it in your `Application.cfc` as `render_{type}` and then pass that *type* as a string to `type()`, since FW/1 looks up the render function by name if a string is passed.
 
 #### OPTIONS Support
 

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Change Log for FW/1 and Friends"
-date: 2015-11-20 13:20
+date: 2015-12-16 15:20
 comments: false
 sharing: false
 footer: true
@@ -16,6 +16,7 @@ The focus of the 4.0 release is on improving REST support. Improvements include:
 
 * JSON-encoded POST body support.
 * Builder syntax for `renderData()` result elements.
+* Support for user-supplied rendering functions.
 * Integrated support for HTTP `OPTIONS` verb.
 * Per-resource error handling.
 * Setting status text (in addition to status code) in HTTP responses.
@@ -33,6 +34,8 @@ Breaking Changes
 Enhancements
 ---
 
+* [409](https://github.com/framework-one/fw1/issues/409) - Dependency injection uses additional caches to improve `getBean()` performance (by a factor of 9x-25x, depending on your usage and your CFML engine).
+* [407](https://github.com/framework-one/fw1/pull/407) - DI/1 now has a public `hasParent()` predicate method.
 * [400](https://github.com/framework-one/fw1/issues/400) - Dependency injection ignores typed/defaulted properties by default. This can be disabled via the `omitDefaultedProperties` and `omitTypedProperties` settings.
 * [399](https://github.com/framework-one/fw1/issues/399) - `getBean()` now accepts an optional second argument that can override beans in the factory to provide constructor arguments to be used in the bean's `init()` call.
 * [394](https://github.com/framework-one/fw1/issues/394) - Improved error messages when DI/1 attempts to use a CFC that has syntax errors to include filename/line number of the underlying error.
@@ -43,6 +46,7 @@ Enhancements
 * [387](https://github.com/framework-one/fw1/issues/387) - A new setting `preflightOptions` tells FW/1 to provide built-in support for HTTP `OPTIONS`. An additional setting `optionsAccessControl` allows you to fine tune the `Access-Control-*` headers returned.
 * [386](https://github.com/framework-one/fw1/issues/386) - Routes can now have `$*` as an explicit wildcard for the HTTP method.
 * [385](https://github.com/framework-one/fw1/issues/385) - The new `renderData()` build syntax supports `statusText()` to set the HTTP response status text.
+* [328](https://github.com/framework-one/fw1/issues/328) - The `renderData()` `type` may be a function/closure that returns `contentType`, rendered `content`, and an optional `writer` for delivering the data to the browser.
 
 Bug Fixes
 ---
