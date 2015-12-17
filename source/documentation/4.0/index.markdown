@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Getting Started with FW/1"
-date: 2015-11-20 14:30
+date: 2015-12-16 16:10
 comments: false
 sharing: false
 footer: true
@@ -24,6 +24,12 @@ Note that the Clojure support in FW/1 3.5 requires at least Railo 4.2, Lucee 4.5
 If you're on ColdFusion 9.0.1, FW/1 3.5 should work but there may be some edge cases in `Application.cfc` lifecycle behavior that may trip you up.
 
 If you're on ColdFusion 9.0.0 or earlier, or still using Open BlueDragon, you'll need to stick with FW/1 1.3. Sorry, but supporting those versions is just too painful!
+
+## Copyright and License
+
+The FW/1 software family is copyright (c) 2009-2015 Sean Corfield (and others). All rights reserved. The use and distribution terms for that software are covered by the Apache Software License 2.0 (http://www.apache.org/licenses/LICENSE-2.0) which can also be found in the file LICENSE at the root of that distribution and in individual licensed files. By using that software in any fashion, you are agreeing to be bound by the terms of that license. You must not remove that notice, or any other, from that software.
+
+The FW/1 documentation is copyright (c) 2009-2015 Sean Corfield and is made available under [Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](http://creativecommons.org/licenses/by-nc-sa/4.0/).
 
 ## Your First FW/1 Application
 
