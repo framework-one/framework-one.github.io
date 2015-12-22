@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using Clojure with CFML"
-date: 2015-12-21 19:30
+date: 2015-12-21 22:30
 comments: false
 sharing: false
 footer: true
@@ -251,7 +251,7 @@ If you run `lein test` in the `6helloclojure` folder, you'll see:
     Ran 2 tests containing 3 assertions.
     0 failures, 0 errors.
 
-We'll take a look at that in a minute.
+We'll take a look at that in a minute. You can also run `boot test` (if you have **Boot** installed) and you will see similar output.
 
 Let's start with the CFML files and look at `Application.cfc` first, then the `views` folder. As usual `index.cfm` is an empty file.
 
