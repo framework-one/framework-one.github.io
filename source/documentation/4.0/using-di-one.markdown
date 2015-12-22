@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using DI/1"
-date: 2015-11-20 16:30
+date: 2015-12-22 10:30
 comments: false
 sharing: false
 footer: true
@@ -25,15 +25,15 @@ Create an instance of the DI/1 bean factory and specify the folder(s) you want i
     // or multiple folders:
     var beanFactory = new ioc("/model,/common/model");
     // or an array:
-    var beanFactory = new ioc(["/model","/common/model"]);
+    var beanFactory = new ioc(["/model", "/common/model"]);
 
 CFCs found in a folder called `beans` are assumed to be transients; otherwise CFCs are assumed to be singletons. If CFC names are unique, you can use that name to get the bean out of the factory:
 
     var userManager = beanFactory.getBean("userManager");
 
-All beans are also given an alias which is the name of the CFC followed by (the singular form of) the folder name in which it was found, e.g., /model/beans/product.cfc would get the alias "productBean". If no other CFC is called product.cfc in the folders that you asked DI/1 to search, you can use "product" or "productBean" to reference that bean. By default, DI/1 assumes all beans are singletons unless they are found in a folder called `beans` (in which case DI/1 assumes those are transients). A singleton has just a single instance and DI/1 will cache that instance. A transient is created afresh every time you ask DI/1 for an instance.
+All beans are also given an alias which is the name of the CFC followed by (the singular form of) the folder name in which it was found, e.g., `/model/beans/product.cfc` would get the alias `"productBean"`. If no other CFC is called `product.cfc` in the folders that you asked DI/1 to search, you can use `"product"` or `"productBean"` to reference that bean. By default, DI/1 assumes all beans are singletons unless they are found in a folder called `beans` (in which case DI/1 assumes those are transients). A singleton has just a single instance and DI/1 will cache that instance. A transient is created afresh every time you ask DI/1 for an instance.
 
-If a CFC has a constructor (a method called `init()`), DI/1 will use the argument names to look up beans and call the constructor with those beans. If a CFC has setter methods, DI/1 will use their names to look up beans and call the setters with those beans. If a CFC has property declarations and implicit setters are enabled, DI/1 will use their names to look up beans and call the implicit setters with those beans. This is called autowiring. By the time you get a bean back from DI/1, it should be fully populated. You can also specify an "init-method" function name that DI/1 should call after a bean has had its dependencies injected - see **[Configuration](#configuration)** below. When using `property` to declare a dependency, do not specify a `type` or a `default`: DI/1 assumes that typed properties (and defaulted properties) are intended to generate specific getters and setters on transients or for ORM integration, rather than just dependencies. You can override this default behavior - see **[Configuration](#configuration)** below.
+If a CFC has a constructor (a method called `init()`), DI/1 will use the argument names to look up beans and call the constructor with those beans. If a CFC has setter methods, DI/1 will use their names to look up beans and call the setters with those beans. If a CFC has property declarations and implicit setters are enabled, DI/1 will use their names to look up beans and call the implicit setters with those beans. This is called autowiring. By the time you get a bean back from DI/1, it should be fully populated. You can also specify an `"init-method"` function name that DI/1 should call after a bean has had its dependencies injected - see **[Configuration](#configuration)** below. When using `property` to declare a dependency, do not specify a `type` or a `default`: DI/1 assumes that typed properties (and defaulted properties) are intended to generate specific getters and setters on transients or for ORM integration, rather than just dependencies. You can override this default behavior - see **[Configuration](#configuration)** below.
 
 If DI/1 cannot find a matching bean for a constructor argument, it will throw an exception. If DI/1 cannot find a matching bean for a setter method or property, it will log the failure and ignore it (by default), and the corresponding variable will not be populated. You can configure DI/1 to be strict about matching bean names - see the configuration section below - in which case it will throw an exception.
 
@@ -43,7 +43,7 @@ As of FW/1 4.0 (DI/1 1.2), you can specify a second argument to `getBean()` that
 
 This will use `name` and `email` as overrides so that they _hide_ any beans of the same name when DI/1 calls the `init()` method. This can be particularly valuable when you are migrating legacy code to DI/1 and want it to manage bean creation while still providing constructor arguments in the (legacy) code.
 
-Note that DI/1 will only inject singletons via setters or properties. Injecting transients in those situations often leads to unexpected results (consider a transient `invoice` bean that has a `setCustomer()` method when you also have a transient `customer` bean - you almost certainly don't want DI/1 to automatically create a customer instance and inject it every time you ask DI/1 for a new invoice bean!). If a constructor argument matches a transient bean, DI/1 will still create an instance since it has to finish constructing the original bean.
+Note that DI/1 will only inject singletons via setters or properties. Injecting transients in those situations often leads to unexpected results (consider a transient `invoice` bean that has a `setCustomer()` method when you also have a transient `customer` bean - you almost certainly don't want DI/1 to automatically create a customer instance and inject it every time you ask DI/1 for a new invoice bean!). If a constructor argument matches a transient bean, DI/1 will still create an instance since it has to finish constructing the original bean. _Note: this is unclear and there is an open issue against the documentation to reword this once some testing has verified exactly how DI/1 behaves with combinations of transients and singletons in constructor arguments!_
 
 ## Acceptable Folder Paths
 
@@ -194,6 +194,44 @@ When you create the bean factory, you can optionally supply a second argument th
 As noted above, the optional config argument to the `ioc` constructor is a struct containing various parameters that alter the behavior of DI/1. The `constants` config element is a struct containing mappings from bean names to specific constant values. This allows you to specify non-CFC values for constructor arguments, setters and properties (but is most commonly used for constructor arguments). The value may be of any type and any reference to that bean name will return the specified value as a singleton.
 
 These values may be added after DI/1 has been initialized using the `addBean()` method as shown above.
+
+# Reference Manual
+
+This section lists every public method in DI/1, along with a brief explanation. After the listing of public methods, some additional discussion is provided about extending DI/1 and overriding its behavior.
+
+## Public Methods
+
+### public any function init( any folders, struct config = { } )
+
+### public any function addAlias( string aliasName, string beanName )
+
+### public any function addBean( string beanName, any beanValue )
+
+### public boolean function containsBean( string beanName )
+
+### public boolean function hasParent()
+
+### public any function declareBean( string beanName, string dottedPath, boolean isSingleton = true, struct overrides = { } )
+
+### public any function factoryBean( string beanName, any factory, string methodName, array args = [ ], struct overrides = { } )
+
+### public any function getBean( string beanName, struct constructorArgs = { } )
+
+### public any function getBeanInfo( string beanName = '', boolean flatten = false, string regex = '' )
+
+### public struct function getConfig()
+
+### public string function getVersion()
+
+### public boolean function isSingleton( string beanName )
+
+### public any function injectProperties( any bean, struct properties )
+
+### public any function load()
+
+### public any function onLoad( any listener )
+
+### public any function setParent( any parent )
 
 ## Overriding DI/1 Behavior
 
