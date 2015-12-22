@@ -201,37 +201,71 @@ This section lists every public method in DI/1, along with a brief explanation. 
 
 ## Public Methods
 
+This section describes the supported public API of DI/1.
+
 ### public any function init( any folders, struct config = { } )
+
+The constructor. `folders` can be a list or array of paths to search for CFCs to manage. It is recommended to use webroot-relative paths or mappings (both starting with `/`) for the paths. The optional `config` struct can supply various configuration settings to override the default behavior.
 
 ### public any function addAlias( string aliasName, string beanName )
 
+Add an alias for a given bean name. This allows you to have a more meaningly / friendly name for a bean than the default that is deduced from the file and folder names.
+
 ### public any function addBean( string beanName, any beanValue )
+
+Tell DI/1 that the given bean name should resolve to the supplied value. The value may be any type of data. This is good way to provide named configuration values for your managed beans.
 
 ### public boolean function containsBean( string beanName )
 
+Returns `true` if DI/1 knows about the given bean name. If DI/1 doesn't know about it directly, but has been given a parent bean factory, it will ask the parent (by calling `containsBean()` on the parent).
+
 ### public boolean function hasParent()
+
+Returns `true` if DI/1 has been given a parent bean factory.
 
 ### public any function declareBean( string beanName, string dottedPath, boolean isSingleton = true, struct overrides = { } )
 
+Tell DI/1 that the given bean name should resolve to an instance of the named CFC. This is useful when you need DI/1 to manage specific CFCs that are not part of your own application's model or controllers, such as third party library CFCs. You can tell DI/1 whether to treat this bean as a single (default) or transient. You can also provide an collection of named beans (values) that should override (_hide_) beans of the same name in the bean factory. This allows you to provide specific values for constructor arguments or for setter / property injection.
+
 ### public any function factoryBean( string beanName, any factory, string methodName, array args = [ ], struct overrides = { } )
+
+Tell DI/1 that the given bean name should be resolved by called the specified `methodName` on the `factory` bean, with the specified arguments (`args` by name). The `factory` bean can be either a string, identifying a bean that DI/1 knows about, or an instance of a CFC you provide. The `args` array contains the names of beans that should be passed as arguments to the `methodName` call. The optional `overrides` collection can provide named beans (values) that should _hide_ beans of the same name, i.e., they will be used instead of DI/1 looking up the bean internally.
 
 ### public any function getBean( string beanName, struct constructorArgs = { } )
 
+Ask DI/1 for the specified bean. If `constructArgs` are provided, they are treated as overrides and will _hide_ any beans of the same name that DI/1 is managing, just for the initialization of the requested bean.
+
 ### public any function getBeanInfo( string beanName = '', boolean flatten = false, string regex = '' )
+
+Return metadata about the named bean. If no bean name is given, return a struct containing metadata about all beans that DI/1 knows about. By default, any parent bean factory's metadata is returned as a nested struct but `flatten` will recursively unroll the chain of parent metadata (so the `structKeyList()` of the returned metadata will be all beans, not just the ones in the child bean factory). In addition, you can specify a `regex` to return metadata just for beans whose name matches the regular expression.
 
 ### public struct function getConfig()
 
+Return a (shallow) copy of DI/1's configuration struct, with all the defaults populated.
+
 ### public string function getVersion()
+
+Return a string indicating the version of DI/1 being used.
 
 ### public boolean function isSingleton( string beanName )
 
+Return `true` if the specified bean is known to be a singleton. If the bean is known to be a non-singleton, this will return `false`. If the bean is not known in the current bean factory but a parent bean factory exists, the parent will be asked `isSingleton(beanName)`. If the bean is not known at all (or asking the parent fails), this will return `false`.
+
 ### public any function injectProperties( any bean, struct properties )
+
+Given a bean (either a name, a dotted path to a CFC, or an actual instance), inject each of the (non-null) `properties` specified by calling the matching setter on the bean. If a bean name is given, it will be fully constructed by DI/1 first, and then populated. If a dotted path to a CFC is given, it will be created -- but its constructor will **not** be called -- and then it will be populated. If an actual bean instance is given, it will be populated. If calling any setter fails, that exception will propagate and other properties of the bean will not be populated. In general, use of this method is not recommended as it is not very flexible and you need to know what you are doing!
 
 ### public any function load()
 
+This causes DI/1 to flush all its caches and to go through all the singleton beans it knows about and force full resolution of each. This can be used to reload a bean factory (although it is safer to just create a new instance of DI/1 and start over, because `load()` does not reload any parent bean factories), but the most common usage is to avoid lazy loading of beans (e.g., if you want to "warm up" your application after a deployment before putting it back in the cluster). Calling `load()` at the end of a load listener will also avoid any potential thread safety issues caused by lazy loading beans under heavy load in an application.
+
 ### public any function onLoad( any listener )
 
+Register a load listener that DI/1 should call after the factory has initialized itself. This is the recommanded way to provide additional bean declarations (`addAlias()`, `addBean()`, `declareBean()`, `factoryBean()`) since it ensures they all run before the constructed instance of DI/1 is returned to your program. The `listener` may be a bean name, in which case DI/1 will look it up internally, or an instance of a CFC, or a user-defined function or closure. If the `listener` resolves to a CFC instance, DI/1 will call `onLoad()` on that instance and pass itself in as the only argument. If the `listener` is a function or closure, DI/1 will call it and pass itself in as the only argument. You can then manipulate the bean factory further as part of its initialization.
+
 ### public any function setParent( any parent )
+
+Tell DI/1 that the given `parent` object should be treated as a parent bean factory. Several calls in DI/1 will delegate to a parent bean factory if the specified information is not present in the child bean factory. This allows common beans to be shared with several child factories, for example with a main application that has subsystems.
 
 ## Overriding DI/1 Behavior
 
