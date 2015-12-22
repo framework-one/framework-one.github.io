@@ -6,7 +6,7 @@ comments: false
 sharing: false
 footer: true
 ---
-DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework. 
+DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework.
 
 DI/1 searches specified directories for CFCs and treats them as singletons or non-singletons (transients) based on naming conventions for the CFCs themselves, or the folders in which they are found. You can override the conventions by configuration if needed.
 
@@ -47,6 +47,8 @@ This section covers the rest of the public API, how to specify additional folder
 
 ## Other Public Methods
 
+### injectProperties <small>injects properties into a bean</small>
+
 Given a struct of values (such as form scope or URL scope), you can ask DI/1 to inject those values as properties into a given bean:
 
     bean = beanFactory.injectProperties(myBeanInstance, form);
@@ -54,6 +56,8 @@ Given a struct of values (such as form scope or URL scope), you can ask DI/1 to 
 
 The first call will loop over the form scope and, for each key in that scope, call a setter on `myBeanInstance`. The second call asks DI/1 to create a `user` bean and populate it by calling a setter for each element of the struct `userAttributes`. You may also use a dotted-path to a CFC as the first argument in which case DI/1 will use `createObject` to instantiate it and *will not call the constructor*. Caution: DI/1 assumes you know what you're doing and will call a setter for *every* member of the struct passed in!
 
+
+### addBean <small>programmatically add new bean instances</small>
 You can programmatically add new bean instances - or named values:
 
     beanFactory.addBean("magicvalue", 42);
@@ -61,6 +65,8 @@ You can programmatically add new bean instances - or named values:
 
 After these calls, `getBean("magicvalue")` will return the value 42 and `getBean("logger")` will return the CFC instance you provided. That means that any properties, setter methods or constructor arguments that refer to `magicvalue` or `logger` will get those values injected.
 
+
+### declareBean <small>programmatically declare new beans </small>
 You can also programmatically declare new beans to be managed by DI/1:
 
     beanFactory.declareBean("navigation", "site.utils.navigation", true);
@@ -72,18 +78,22 @@ When declaring a bean, you can also optionally provide a set of overrides for na
     beanFactory.declareBean("datasource", "util.DataSource", true, { dsn = "main" } );
     beanFactory.declareBean("admindata", "util.DataSource", true, { dsn = "admindb" } );
 
+### factoryBean <small>declare a custom factory for specific beans</small>
+
 You can declare a factory bean - like Spring/ColdSpring - as follow:
 
     beanFactory.factoryBean("generated", factory, "method", [ ..args.. ], { ... } );
 
 This tells DI/1 that when you call `getBean("generated")`, instead of trying to create the bean itself, it should call `factory.method(..args..)` to get the bean instance. `args` can be omitted (and defaults to an empty list of arguments). The last argument provides overrides for bean values, as shown above, and is optional.
 
+### addAlias <small>declare a custom name for a bean</small>
 You can add an alias for a bean:
 
     beanFactory.addAlias("alsoKnownAs", "navigation");
 
 That will tell DI/1 that `alsoKnownAs` is an alias for the bean identified by `navigation` so `getBean("alsoKnownAs")` will behave the same as `getBean("navigation")`.
 
+### onLoad <small>define a bean that will add additional configuration on load</small>
 If you want code to be executed after DI/1 has discovered all the beans on disk -- for example, to configure a variety of additional "constant" or computed beans -- you can use the `onLoad()` method to specify a listener function:
 
     beanFactory.onLoad( loadListener );
@@ -94,18 +104,21 @@ That will register `loadListener` with DI/1 to be called after bean discovery is
 * If `loadListener` is a bean name, DI/1 will call `beanFactory.getBean( loadListener ).onLoad( beanFactory )`, where `beanFactory` is the DI/1 instance.
 * If `loadListener` is a function or closure, DI/1 will call `loadListener( beanFactory )`. Note that if `loadListener` is a method on a CFC, it will be called out of context so it will not have access to the `variables` scope or `this` scope of that CFC instance and therefore also won't have access to other methods of that CFC.
 
+### containsBean <small>ask if the bean factory knows about a particular bean</small>
 You can ask if the bean factory knows about a particular bean using the `containsBean()` method:
 
     if ( beanFactory.containsBean("productService") ) ...
 
 (although you probably shouldn't need to do this unless you are building some sort of framework plugin that needs to check what is available to it at runtime!).
 
+### load <small>force all singletons to be reloaded</small>
 You can force all singletons to be reloaded using the `load()` method:
 
     beanFactory.load();
 
 That will empty the bean cache and then call `getBean()` on every bean that DI/1 knows about. Note: it does not call `load()` on any parent bean factory (see below) and it does not perform a new search on the folders (so it won't see newly written CFCs). To force the search to be performed again, create a new instance of the bean factory as shown above.
 
+### isSingleton, getBeanInfo &amp; getConfig <small>get metadata about your beans</small>
 Metadata can be queried using the following methods:
 
     if ( beanFactory.isSingleton("someBean") ) ...
@@ -198,7 +211,7 @@ This is called for each bean after its dependencies have been injected prior to 
 Two related extension points that can be useful as well are:
 
     private any function construct( string dottedPath )
-    
+
     private any function metadata( string dottedPath )
 
 These can be overridden if you want to change the behavior of how beans are created and how metadata is obtained for beans. An example from Adam Tuttle is the ability to silently ignore beans that have syntax errors during development, so the rest of the beans are loaded: you would override `metadata()` and have it wrap a call to `super.metadata( dottedPath )` in `try/catch` and return an empty struct if an exception is thrown.
