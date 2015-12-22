@@ -1,11 +1,13 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-10-21 12:00
+date: 2015-12-21 19:30
 comments: false
 sharing: false
 footer: true
 ---
+_This is documentation for the upcoming 4.0 release. For the current release, see [this documentation](/documentation/)._
+
 This page provides a description of all the APIs and components involved in a FW/1 application. Please also read the [Roadmap](roadmap.html) to see how things may change in the future.
 
 * TOC
@@ -338,6 +340,8 @@ This function renders a layout and could be called inside a view or a layout, al
 
 Rendering views, using the `view()` method, is supported, documented and the recommended way to build composite pages. Layouts should simply wrap views, in a cascade from item to section to site.
 
+As of release 4.0, `layout()` may be called from a controller to wrap HTML (such as produced by a call to `view()`). See the `view()` below for such use cases.
+
 ### public function onApplicationStart()
 
 Part of the standard CFML lifecycle, this method is called automatically by the CFML engine at application startup. You should not override this nor call it (even tho' it is `public`). Use `setupApplication()` to perform application-specific initialization.
@@ -451,28 +455,36 @@ If `header` is provided (as a non-empty string), instead of performing an actual
 
 This is to `redirect()` as `buildCustomURL()` is to `buildURL()`.
 
-### public void function renderData( string type, any data, numeric statusCode = 200, string jsonpCallback = "" )
+### public any function renderData()
 
 Call this from your controller to tell FW/1 to skip views and layouts
-and instead render `data` in the specified content `type` format. `type`
-may be `"html"`, `"json"`, `"jsonp"`, `"rawjson"`, `"xml"`, or `"text"`.
+and instead render `data` in the specified content `type` format.
 
-For `"html"`, the `data` value must be a string and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `text/html; charset=utf-8`.
+This function returns a "builder" expression (_new in 4.0_) that supports the following methods:
 
-For `"json"` and `"jsonp"`, FW/1 calls `serializeJSON( data )` to
-generate the result of the HTTP request and sets the `Content-Type`
-header to `application/javascript; charset=utf-8`.
+* `data( payload )` - set the data payload to be rendered: see below for restrictions on the payload, based on the render type.
+* `type( contentType )` - set the type of rendering to be performed: the argument may be `"html"`, `"json"`, `"jsonp"`, `"rawjson"`, `"xml"`, or `"text"`; it may also be a custom rendering function (or closure).
+* `statusCode( code )` - set the HTTP status code: default is 200.
+* `statusText( message )` - set the HTTP status message (_new in 4.0_).
+* `jsonpCallback( callback )` - set the JSONP callback: required when `type` is `"jsonp"`, otherwise ignored.
 
-For `"jsonp"`, you must provide a non-empty value for the
-`jsonpCallback` argument. _New in 3.1._
+The following restrictions apply to the data payload, for each type as shown:
 
-For `"rawjson"`, the `data` value must be a string (and is assumed to be valid JSON already) and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `application/javascript; charset=utf-8`. _New in 3.1._
+* `"html"` - the payload must be a string and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `text/html; charset=utf-8`.
+* `"json"`, `"jsonp"` - FW/1 calls `serializeJSON( payload )` to generate the result of the HTTP request and sets the `Content-Type` header to `application/javascript; charset=utf-8`. In addition, for `"jsonp"`, you must provide a non-empty value for the `jsonpCallback` argument. _New in 3.1._
+* `"rawjson"` - the payload must be a string (and is assumed to be valid JSON already) and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `application/javascript; charset=utf-8`. _New in 3.1._
+* `"xml"` - the payload must be either a valid XML string or an XML object (constructed via CFML's various `xml...()` functions). If the payload is an XML object, FW/1 calls `toString( payload )` to generate the result of the HTTP request, otherwise the XML string is used as the result of the request. In both cases, FW/1 sets the `Content-Type` header to `text/xml; charset=utf-8`.
+* `"text"` - the payload must be a string and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `text/plain; charset=utf-8`.
 
-For `"xml"`, the `data` value must be either a valid XML string or an XML object (constructed via CFML's various `xml...()` functions). If `data` is an XML object, FW/1 calls `toString( data )` to generate the result of the HTTP request, otherwise the XML string is used as the result of the request. In both cases, FW/1 sets the `Content-Type` header to `text/xml; charset=utf-8`.
-
-For `"text"`, the `data` value must be a string and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `text/plain; charset=utf-8`.
+If a function or closure is passed as the type, you can perform pretty much any custom rendering you can imagine. See [Custom Data Rendering](developing-applications.html#custom-data-rendering) in the Developing Applications Guide for more detail on how to use this.
 
 When you call `renderData()`, processing continues in your controller (so use `return;` if you want processing to stop at that point), and subsequent calls to `setView()` or `setLayout()` will have no effect (since FW/1 will ignore views and layouts for this request).
+
+For legacy application support, the following form of `renderData()` is still supported in 4.0:
+
+    public any function renderData( string type = "", any data = "", numeric statusCode = 200, string jsonpCallback = "" )
+
+Although this form is deprecated, FW/1 will only issue a deprecation warning (written to the console log) for `statusCode` and `jsonpCallback` in 4.0. In a future release, these will require a framework setting in order to be used and the `type` and `data` arguments will cause deprecation warnings.
 
 ### public void function setBeanFactory( any factory )
 
@@ -541,6 +553,6 @@ This renders a view and returns the output of that view as a string. It is inten
 
 This renders the `header` and `footer` items (views) from the `common` subsystem's `site` section and the `menu` item (view) from the current subsystem's `nav` section. Inside `menu.cfm`, `local.selected` would be available containing the string `"home"`.
 
-A controller may call `view()` which can be useful if you have email templates that need to be rendered and sent as part of a request: those email templates can be treated as views and have all the associated `rc`, `local`, etc machinery applied.
+A controller may call `view()` which can be useful if you have email templates that need to be rendered and sent as part of a request: those email templates can be treated as views and have all the associated `rc`, `local`, etc machinery applied. As of release 4.0, a controller may also call `layout()` to wrap a view for such purposes.
 
 If the argument `missingView` is not specified, and the specified view `path` does not exist, then `onMissingView()` will be called. If a string is passed as `missingView` and the specified view does not exist, then the value of the `missingView` argument will be returned. This allows for programmatically calculated views to be silently rendered as empty strings if they are not present. This can be useful for programmatic skins with optional elements.

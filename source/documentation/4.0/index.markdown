@@ -1,14 +1,16 @@
 ---
 layout: page
 title: "Getting Started with FW/1"
-date: 2015-10-21 12:00
+date: 2015-12-16 16:10
 comments: false
 sharing: false
 footer: true
 ---
+_This is documentation for the upcoming 4.0 release. For the current release, see [this documentation](/documentation/)._
+
 FW/1 was created in July 2009 as a reaction against complexity and bloat in other frameworks in the CFML community. FW/1 itself is a single file, and provides a simple, convention-based approach to MVC (Model-View-Controller) applications, as well as REST APIs. Whilst it has become more sophisticated over time, it has remained a single file, focused on getting out of your way and providing the intuitive plumbing you need. For historical background, you can read the [introductory blog post](http://framework-one.github.io/blog/2009/07/19/introducing-framework-one/) from July 2009.
 
-As of release 3.1, FW/1 also includes DI/1 - a simple, convention-based Dependency Injection framework - and AOP/1 - a simple, convention-based Aspect-Oriented Programming framework. As of release 3.5, FW/1 lets you mix'n'match CFML and Clojure code. If those phrases don't mean anything to you, don't worry, you won't need to know anything about them to get started.
+As of release 3.1, FW/1 also includes DI/1 - a simple, convention-based Dependency Injection framework - and AOP/1 - a simple, convention-based Aspect-Oriented Programming framework. As of release 3.5, FW/1 lets you mix'n'match CFML and Clojure code. If those phrases don't mean anything to you, don't worry, you won't need to know anything about them to get started. For a full list of changes in this release, see the [Change Log](changes.html).
 
 * TOC
 {:toc}
@@ -22,6 +24,12 @@ Note that the Clojure support in FW/1 3.5 requires at least Railo 4.2, Lucee 4.5
 If you're on ColdFusion 9.0.1, FW/1 3.5 should work but there may be some edge cases in `Application.cfc` lifecycle behavior that may trip you up.
 
 If you're on ColdFusion 9.0.0 or earlier, or still using Open BlueDragon, you'll need to stick with FW/1 1.3. Sorry, but supporting those versions is just too painful!
+
+## Copyright and License
+
+The FW/1 software family is copyright (c) 2009-2015 Sean Corfield (and others). All rights reserved. The use and distribution terms for that software are covered by the Apache Software License 2.0 (http://www.apache.org/licenses/LICENSE-2.0) which can also be found in the file LICENSE at the root of that distribution and in individual licensed files. By using that software in any fashion, you are agreeing to be bound by the terms of that license. You must not remove that notice, or any other, from that software.
+
+The FW/1 documentation is copyright (c) 2009-2015 Sean Corfield and is made available under [Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](http://creativecommons.org/licenses/by-nc-sa/4.0/).
 
 ## Your First FW/1 Application
 

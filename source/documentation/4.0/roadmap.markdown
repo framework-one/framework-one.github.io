@@ -6,11 +6,13 @@ comments: false
 sharing: false
 footer: true
 ---
+_This is documentation for the upcoming 4.0 release. For the current release, see [this documentation](/documentation/)._
+
 Whilst you can read the [FW/1 issues list](https://github.com/framework-one/fw1/issues) to see what's on the cards for future releases, several people have asked that I document things at a higher level so they can get a better sense of what's coming.
 
 4.x REST and Modernization
 ---
-FW/1 4.0 is tentatively planned as improving basic REST support and will be a maintenance release for 3.5. Platform support and code modernization will also be addressed in this release (hence the major version update).
+FW/1 4.0 is tentatively planned as improving basic REST support and will be a maintenance release for 3.5. The major version number change indicates that support for ACF9.0.2 will be dropped to allow for the use of closures in the code as this will provide some nicer syntax for some framework features. The core code will be modernized to take advantage of features in ACF10+ and Lucee 4.5+ in this release.
 
 3.x Integrations
 ---
