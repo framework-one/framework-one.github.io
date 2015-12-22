@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using Clojure with CFML"
-date: 2015-10-27 10:00
+date: 2015-12-21 19:30
 comments: false
 sharing: false
 footer: true
@@ -75,16 +75,22 @@ initialization proceeds.
 
 ## Getting Started with Clojure and CFML
 
-Clojure has a standard build tool called [Leiningen](http://leiningen.org). This manages all of your project dependencies
+Clojure has two standard build tools, called [Leiningen](http://leiningen.org) and [Boot](http://boot-clj.com/). The former has been around longer and is currently the most popular. The latter is more general purpose. FW/1, via cfmljure, supports both build tools. These tools manage all of your project dependencies
 (e.g., automatically downloading and installing any libraries you need) as well as providing a REPL for
 interactive development, running your tests, packaging applications into JAR files, deploying them to standard repositories and so on.
 
-**cfmljure** leverages **Leiningen** to figure out the complete classpath that your Clojure code needs -- including any
+**cfmljure** leverages **Leiningen** or **Boot** to figure out the complete classpath that your Clojure code needs -- including any
 libraries you use -- so that it can easily load all the JAR files (and Clojure source code) into your CFML server.
+
+The first step to using FW/1 and Clojure together is to install one (or both!) of these build tools and make sure it is working.
+We're going to look at both build tools -- support for **Boot** is new in release 4.0.
 
 ### Leiningen
 
-That means the first step to using FW/1 and Clojure together is to install **Leiningen** and make sure it is working.
+In addition to managing your project dependencies, **Leiningen** also provides a template system for new projects, so it's the most
+convenient way to get up and running right now. Since we want to create a test project without needing to manually set up various
+files, I recommend starting with **Leiningen** -- and looking at **Boot** later on. _For what it's worth, World Singles has just
+switched from **Leiningen** to **Boot**, in order to leverage the increased flexibility that tool offers._
 
 If you're on Mac or Linux, follow the [Leiningen Install steps](http://leiningen.org/#install) for the `lein` shell script.
 
@@ -134,9 +140,51 @@ Because the test skeleton doesn't have any valid tests -- just one deliberate fa
 When you start developing services and controllers in Clojure, you'll find it handy to write unit tests as you go and run
 them with `lein test`!
 
-### Testing FW/1 3.5 and Clojure
+### Boot
 
-At this point you should be able to start your CFML server (remember: not under the **root** account!) and, with FW/1 3.5
+Follow the [Boot Install steps](https://github.com/boot-clj/boot#install) for either "Unix, Linux, OSX" or "Windows". You'll notice the Windows installation is much simpler than for **Leiningen**.
+
+You should go through the [Getting Started](https://github.com/boot-clj/boot#getting-started) section to verify that **Boot** is installed and working (`boot -h`, `boot repl`).
+
+Unlike with **Leiningen**, you'll need to create projects manually, but **Boot** gives you a lot more flexibility over how your projects are structured. If you want to get going quickly and you've already installed **Leiningen** and gone through the project creation and testing steps above, you can create a `build.boot` file in that project and run code and tests like this:
+
+    ;; build.boot
+    (set-env! :resource-paths #{"src"}
+              :dependencies '[[org.clojre/clojure "1.7.0"]])
+    
+    (require 'myapp.core)
+    (deftask run []
+      (myapp.core/-main))
+
+Like `project.clj` under **Leiningen**, we specify the project dependencies. We also specify where our source code is -- there's no default -- using `:resource-paths`. Next we load the main namespace of our new application and define a task called `run` that calls the main function in that application. Whilst **Leiningen** has a built-in task called `run`, you still have to declare the main namespace (or specify it as a command line argument). **Boot** takes the approach that this is "just code" so you can define whatever tasks you want, to run whatever Clojure code you want.
+
+Accordingly, **Boot** does not have a built-in task to run tests, but there are readily available libraries to provide this functionality. We'll update `build.boot` as follows:
+
+    ;; build.boot
+    (set-env! :resource-paths #{"src"}
+              :source-paths #{"test"}
+              :dependencies '[[org.clojre/clojure "1.7.0"]
+                              [adzerk/boot-test "1.0.7"]])
+    
+    (require '[adzerk.boot-test :refer [test]])
+    
+    (require 'myapp.core)
+    (deftask run []
+      (myapp.core/-main))
+
+We tell **Boot** where our test code is, we add a dependency on `boot-test` and we load that library and import the `test` task. Now we can run our tests:
+
+    boot test
+
+The output will be somewhat different to that produced by `lein test` above but you will see the same failing test, followed by an exception that indicates the build failed (this is common to **Boot** tasks as a way to report build failures).
+
+A note on `:resource-paths` and `:source-paths`: **Boot** considers files that are part of the classpath and also intended to be an output of the project (such as contents of a JAR file) to be "resources"; files that are part of the classpath but not intended to be an output of the project are "sources". That seems a bit confusing at first (source files are resources, test files are sources), but as you work more with **Boot** you get used to more things being resources, not just source files, so it soon makes a lot of sense.
+
+Now we'll move on to using FW/1 and Clojure together, and show how both **Leiningen** and **Boot** can be used.
+
+### Testing FW/1 4.0 and Clojure
+
+At this point you should be able to start your CFML server (remember: not under the **root** account!) and, with FW/1 4.0
 installed (and possibly with a `/framework` mapping set up, or with the `framework` folder moved into your webroot), you
 should be able to run all of the FW/1 examples. Make sure examples 1-5 work, then try `6helloclojure`.
 
@@ -153,6 +201,10 @@ when you post to the FW/1 mailing list, asking for help!
 At this point, however, I hope you got the example to run and you were able to try out the various links and see what it was
 doing in the trace output in the browser, and perhaps by looking at the code, which we'll go over next.
 
+By default, `6helloclojure` relies on **Leiningen**. To use **Boot** instead, add `diConfig : { boot : "boot" }` to the
+`variables.framework` configuration (or merge it with your `debug` setting). If **Boot** isn't on the PATH used by your CFML server,
+you can specify the full file path to the **Boot** shell script or executable using that `boot` configuration (instead of just `"boot"`).
+
 ## The 6helloclojure Example Explained
 
 If you look in the `6helloclojure` folder (in `examples/subsystems/`), you'll see a combination of things you expect to see in a FW/1 application and
@@ -160,7 +212,7 @@ files and folders that would see in your `myapp` Clojure test project above:
 
     Application.cfc MyApplication.cfc index.cfm views
     .gitignore LICENSE README.md doc resources target
-    project.clj src test
+    boot.properties build.boot project.clj src test
 
 The files shown in the first line are for FW/1. You might later add a `controllers` folder and a `model` folder if you 
 write any of those pieces in CFML.
@@ -174,7 +226,10 @@ generating JAR files etc.
 
 The files shown in the third line are the important parts of the Clojure code:
 
-* `project.clj` defines the dependencies of
+* `boot.properties` (for **Boot**) defines the configuration of **Boot** itself: the specific version of **Boot**, **Clojure**, and so on.
+* `build.boot` (for **Boot**) defines the dependencies of
+your project (the libraries it needs), as well as any development or test tooling (as tasks) etc. The license, description, and URL information listed in `project.clj` can be specified for **Boot** but that is out of the scope of this documentation.
+* `project.clj` (for **Leiningen**) defines the dependencies of
 your project (the libraries it needs), as well as any development or test tooling (as plugins) and several other
 important aspects of how to run, test, and package your code. You'll notice that it also has a description, a URL for
 where to find the project (e.g., on GitHub), and details of the license.
@@ -211,10 +266,12 @@ rather than the default `ioc.cfc` for the Dependency Injection component (the be
 provides the Clojure-specific magic. Note that we leave `diEngine` as the default (which is `"di1"`) because `ioclj.cfc` is just an extension to DI/1.
 
 Next we specify `diLocations` as the full filesystem path of the current folder. In a CFML / Clojure application, you need to tell the bean factory
-about two things: where to find your `project.clj` file and where to look for your CFML beans (if any). Locations are specified as
-either a comma-separated list of file paths, or an array of paths, and one of them must specify the exact directory path to where `project.clj` lives. That will also be
+about two things: where to find your `project.clj` or `build.boot` file and where to look for your CFML beans (if any). Locations are specified as
+either a comma-separated list of file paths, or an array of paths, and one of them must specify the exact directory path to where `project.clj` or `build.boot` lives. That will also be
 searched (recursively) for CFCs so you can store both your Clojure code and your CFML beans in the same tree structure if you wish, or
 you can store them separately and provide both file paths in `diLocations`.
+
+If you want to run `6helloclojure` with **Boot**, just add `diConfig : { boot : "boot" }` into the framework configuration and reload the application.
 
 ### MyApplication.cfc
 
@@ -351,22 +408,23 @@ and know that `reload("all")` does `(require ... :reload)` on each namespace cov
 
 Since `ioclj.cfc` is a extension of `ioc.cfc` (DI/1), all of the [same configuration options apply](using-di-one.html#configuration) as well as the following:
 
+* `boot` - string - default `""`. If you specify a non-empty value here, FW/1 will assume you want to use **Boot** instead of **Leiningen** and it wlil look for `build.boot` instead of `project.clj`. When a non-empty value is used here, the value of `lein` (below) is ignored.
 * `debug` - boolean - default `false`. If `true`, the CFML/Clojure bridge will write a lot of additional information to the server console (e.g., `catalina.out`),
 which will help you check where FW/1 is looking for your Clojure files and which ones it may be ignoring (due to naming conventions not matching). Another
 useful form of debugging is `<cfdump var=#getBeanFactory().getBeanInfo()#"/>` in a view so you can see all of the beans / namespaces that were found.
 * `lein` - string - default `"lein"`. Use this to specify the full file system path to your Leiningen shell/batch script if just the `lein` command on its
-own won't be found on the path used by your CFML server. At World Singles, we actually keep the Leiningen shell script under version control so we can
-manage which version is used our applications, and we specify the path to that script, which is part of our application deployment, using the `lein`
+own won't be found on the path used by your CFML server. At World Singles, we kept the Leiningen shell script under version control so we could
+manage which version was used our applications, and we specified the path to that script, which was part of our application deployment, using the `lein`
 configuration setting.
 * `server` - boolean - default `false`. By default, a new instance of the CFML/Clojure bridge CFC (`cfmljure.cfc`) is created every time the bean factory
 (`ioclj.cfc`) is created. However, since this bridge _modifies the classpath of your server on the fly_ -- not just your application (because JVM settings
 are per server instance, not per application instance) -- it is a reasonable optimization to cache the bridge instance in `server` scope (since running
-`lein classpath` can be slow). Specifying
+`lein classpath` or `boot show -C` can be slow). Specifying
 `server : true` will tell `framework.ioclj` to perform that optimization for you. This will create `server.__cfmljure`, which will be reused each time
-the bean factory is recreated, until the server is restarted, or you explicitly delete that variable. If you change the dependencies in `project.clj`,
+the bean factory is recreated, until the server is restarted, or you explicitly delete that variable. If you change the dependencies in `project.clj` or `build.boot`,
 you will need to force the bridge instance to be recreated in order for those new dependencies to be picked up.
-* `timeout` - numeric - default `300`. This is the number of seconds that FW/1 will wait for the `lein classpath` command to execute at startup. This
-should be sufficient even if you have a large number of dependencies in your `project.clj`.
+* `timeout` - numeric - default `300`. This is the number of seconds that FW/1 will wait for the `lein classpath` or `boot show -C` command to execute at startup. This
+should be sufficient even if you have a large number of dependencies in your `project.clj` or `build.boot`.
 
 ## What is ns all about?
 
@@ -394,7 +452,7 @@ the controller can call `greet/hello`.
 
 You'll use the `:require` expression to bring in Clojure standard libraries, 3rd party Clojure libraries, and parts of your own code. For most
 3rd party libraries, you'll also need to add an entry to `:dependencies` in your `project.clj` file in order to tell **Leiningen** that you
-need that library downloaded. We'll see this when we learn about database access below.
+need that library downloaded (or in your `build.boot` file for **Boot**). We'll see this when we learn about database access below.
 
 I recommend writing your required namespaces in alphabetical order -- most production Clojure code relies on quite a long list of other namespaces
 so organization is important.
@@ -412,6 +470,9 @@ in order to create a web application.
 We will build a very simple task manager, backed by a database. We will initially create
 a CFML controller and write a Clojure service to interact with the database, then we'll
 replace the CFML controller with a Clojure controller to wrap things up.
+
+We'll assume you're using **Leiningen** for this exercise. _I may update this section
+with instructions for **Boot** once project templates are avaialble for that tool._
 
 ## Creating the Clojure project
 
@@ -1051,7 +1112,7 @@ and artifact ID are the same thing (so `clj-time` is shorthand for `clj-time/clj
 
 To search Maven Central for `org.clojure/clojure` you would use the query `g:"org.clojure" AND a:"clojure"` which asks for
 group ID `org.clojure` and artifact ID `clojure`. Right now there are 80 versions of that library on Maven Central and the 
-latest is `1.8.0-alpha4` but if you click the `All (80)` link, you'll see the most recent non-prerelease version is `1.7.0`
+latest is `1.8.0-RC4` but if you click the `All (87)` link, you'll see the most recent non-prerelease version is `1.7.0`
 which is what **Leiningen** puts in `project.clj` by default (in Leiningen 2.5.2 and later).
 
 On the other hand, `clj-time` comes from Clojars because it is a community project. If you search for `clj-time` you'll 
