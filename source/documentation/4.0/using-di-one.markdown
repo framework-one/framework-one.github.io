@@ -49,86 +49,42 @@ Note that DI/1 will only inject singletons via setters or properties. Injecting 
 
 In general, you should use webroot-relative folders - starting with `/` - or mappings - also starting with `/` - as the constructor arguments to `ioc`. If you pass a full file system path, DI/1 will only be able to deduce the dotted-name of CFCs found there if it points into the webroot tree. Similarly, if you pass a relative folder path, it must point into the webroot tree. If DI/1 cannot deduce the dotted name of a CFC, it will throw an exception.
 
-# More Advanced Usage
+# Beyond Convention
 
-This section covers the rest of the public API, how to specify additional folders as containing transients, parent bean factories and bean factory injection.
+For many applications, DI/1's default conventions will be sufficient but it also supports more advanced usage through three avenues:
 
-## Other Public Methods
+* Configuration -- a `config` struct that can be provided to the `ioc()` constructor.
+* Customization -- several public methods that can add additional beans to the factory.
+* Overriding -- extending `ioc.cfc` to provide your own versions of several key methods.
 
-Given a struct of values (such as form scope or URL scope), you can ask DI/1 to inject those values as properties into a given bean:
+Each of these approaches will be discussed in the following sections.
 
-    bean = beanFactory.injectProperties(myBeanInstance, form);
-    user = beanFactory.injectProperties("user", userAttributes);
+## Configuration
 
-The first call will loop over the form scope and, for each key in that scope, call a setter on `myBeanInstance`. The second call asks DI/1 to create a `user` bean and populate it by calling a setter for each element of the struct `userAttributes`. You may also use a dotted-path to a CFC as the first argument in which case DI/1 will use `createObject` to instantiate it and *will not call the constructor*. Caution: DI/1 assumes you know what you're doing and will call a setter for *every* member of the struct passed in!
+When you create the bean factory, you can optionally supply a second argument that is a struct containing configuration for DI/1. At present, DI/1 understands the follow configuration options:
 
-You can programmatically add new bean instances - or named values:
+* `constants` - struct - defaults to `{}`. DI/1 will use any name/value pairs specified here to provide _beans_ that resolve to the specified values. This can be used to provide resolution for constructor arguments that need values which are not actual beans. See also `addBean()` in the **Customization** section that follows.
+* `exclude` - array - defaults to `[]`. DI/1 will ignore any CFCs whose file path contains the strings in this array. DI/1 always excludes paths containing `/WEB-INF` and `/Application.cfc`, as well as various FW/1 and DI/1 framework files. The strings are not case-sensitive.
+* `initMethod` - string - If specified, identifies a method name on beans that DI/1 will attempt to call (with no arguments) on each bean after its dependencies have been injected.
+* `liberal` - boolean - default to `false`. If `true`, treat folder names ending in `ies` as plurals (of names ending in `y`, e.g., `libraries` would be treated as the plural of `librarie` by default, but with `liberal : true`, it would be treated as the plural of `library`).
+* `loadListener` - any - If specified, DI/1 will register it as a load listener by calling `this.onLoad( loadListener )`. It can be a CFC instance, the name of a bean, or a function or closure.
+* `omitDirectoryAliases` - boolean - defaults to `false`. If `true`, use CFC names as bean names directly, without appending the singular directory name as a suffix. If your CFC names are not unique, you will get an exception.
+* `omitDefaultedProperties` - boolean - defaults to `true`. If `false`, property declarations that specify a default will still be treated as dependency declarations and autowired. If `true`, property declarations that specify a default will be ignored for injection. This is useful when you are using `property` declarations on transients solely for generating setters and getters, rather than for declaring dependencies. _New in 4.0._
+* `omitTypedProperties` - boolean - defaults to `true`. If `false`, property declarations that specify a type (other than `any`) will still be treated as dependency declarations and autowired. If `true`, property declarations that specify a type will be ignored for injection. This is useful when you are working with the ORM (since those property declarations will typeically have types and should not be treated as dependencies). _The default changed from `false` to `true` in 4.0._
+* `recurse` - boolean - defaults to `true`. Controls whether DI/1 searches subfolders recursively or not.
+* `singletonPattern` - string - no default. Specifies a regular expression that DI/1 uses to determine whether a bean is singleton or not, based on its name. The `beans` folder convention and the `transients` configuration below still apply so nothing in those folders will be considered a singleton, even if its name matches the pattern.
+* `singulars` - struct - defaults to `{}`. DI/1 will use any name/value pairs specified here to translate folder names to a singular variety, e.g., `pride = 'lion'` will convert the *plural* folder `pride` to the *singular* name `lion` and therefore a `simba.cfc` within the `pride` folder will get the alias `simbaLion`. This also allows for other folders to behave as if they were called `beans` by treating their singular name as `bean`. One of the DI/1 unit tests maps `sheep` to `bean` for this reason. This won't work if the CFCs in `sheep` have the same name as the CFCs in a `beans` folder however.
+* `strict` - boolean - defaults to `false`. If `true`, DI/1 will throw an exception if it cannot resolve a bean implied by a constructor argument, setter name or property name. If `false`, DI/1 simply calls `logMissingBean()` which writes the failure to the Java console. See `missingBean()` in **Overriding DI/1 Behavior** below for more details.
+* `transients` - array - defaults to `[]`. DI/1 will consider any CFCs found in these folders to be transient, rather than singleton. The conversion to a singular form will still take place to create the alias for each CFC. For example, if `singulars = { pride = 'lion' }` and `transients = [ 'pride' ]` then any CFCs in the `pride` folder will be treated as transients and their alias will end in `Lion`.
+* `transientPattern` - string - no default. Specifies a regular expression that DI/1 uses to determine whether a bean is transient or not, based on its name. The `beans` folder convention and the `transients` configuration below still apply so CFCs in those folders will be still considered transients, in addition to any name that matches the pattern.
 
-    beanFactory.addBean("magicvalue", 42);
-    beanFactory.addBean("logger", new LogFactory("log4j"));
+### Configuring "Constant" Beans
 
-After these calls, `getBean("magicvalue")` will return the value 42 and `getBean("logger")` will return the CFC instance you provided. That means that any properties, setter methods or constructor arguments that refer to `magicvalue` or `logger` will get those values injected.
+As noted above, the optional config argument to the `ioc` constructor is a struct containing various parameters that alter the behavior of DI/1. The `constants` config element is a struct containing mappings from bean names to specific constant values. This allows you to specify non-CFC values for constructor arguments, setters and properties (but is most commonly used for constructor arguments). The value may be of any type and any reference to that bean name will return the specified value as a singleton.
 
-You can also programmatically declare new beans to be managed by DI/1:
+These values may be added after DI/1 has been initialized using the `addBean()` method as shown above.
 
-    beanFactory.declareBean("navigation", "site.utils.navigation", true);
-
-That will tell DI/1 that `/site/utils/navigation.cfc` should be managed as a singleton with name `navigation`. You can declare transients by specifying `false` as the third argument. `true` is the default so it can be omitted for singletons.
-
-When declaring a bean, you can also optionally provide a set of overrides for named beans, so that constructor arguments or properties will take on specified values, rather than what is managed by the bean factory. This is useful for creating variants of a single bean:
-
-    beanFactory.declareBean("datasource", "util.DataSource", true, { dsn = "main" } );
-    beanFactory.declareBean("admindata", "util.DataSource", true, { dsn = "admindb" } );
-
-You can declare a factory bean - like Spring/ColdSpring - as follow:
-
-    beanFactory.factoryBean("generated", factory, "method", [ ..args.. ], { ... } );
-
-This tells DI/1 that when you call `getBean("generated")`, instead of trying to create the bean itself, it should call `factory.method(..args..)` to get the bean instance. `args` can be omitted (and defaults to an empty list of arguments). The last argument provides overrides for bean values, as shown above, and is optional.
-
-You can add an alias for a bean:
-
-    beanFactory.addAlias("alsoKnownAs", "navigation");
-
-That will tell DI/1 that `alsoKnownAs` is an alias for the bean identified by `navigation` so `getBean("alsoKnownAs")` will behave the same as `getBean("navigation")`.
-
-If you want code to be executed after DI/1 has discovered all the beans on disk -- for example, to configure a variety of additional "constant" or computed beans -- you can use the `onLoad()` method to specify a listener function:
-
-    beanFactory.onLoad( loadListener );
-
-That will register `loadListener` with DI/1 to be called after bean discovery is complete. This is a good place to put your calls to `declareBean()` and `addAlias()` if you need those to be in effect prior to the first call to `getBean()`.
-
-* If `loadListener` is a CFC instance, DI/1 will call `loadListener.onLoad( beanFactory )`, passing the DI/1 instance in as an argument.
-* If `loadListener` is a bean name, DI/1 will call `beanFactory.getBean( loadListener ).onLoad( beanFactory )`, where `beanFactory` is the DI/1 instance.
-* If `loadListener` is a function or closure, DI/1 will call `loadListener( beanFactory )`. Note that if `loadListener` is a method on a CFC, it will be called out of context so it will not have access to the `variables` scope or `this` scope of that CFC instance and therefore also won't have access to other methods of that CFC.
-
-You can ask if the bean factory knows about a particular bean using the `containsBean()` method:
-
-    if ( beanFactory.containsBean("productService") ) ...
-
-(although you probably shouldn't need to do this unless you are building some sort of framework plugin that needs to check what is available to it at runtime!).
-
-You can force all singletons to be reloaded using the `load()` method:
-
-    beanFactory.load();
-
-That will empty the bean cache and then call `getBean()` on every bean that DI/1 knows about. Note: it does not call `load()` on any parent bean factory (see below) and it does not perform a new search on the folders (so it won't see newly written CFCs). To force the search to be performed again, create a new instance of the bean factory as shown above.
-
-Metadata can be queried using the following methods:
-
-    if ( beanFactory.isSingleton("someBean") ) ...
-    info = beanFactory.getBeanInfo("someBean");
-    if ( beanFactory.hasParent() ) ...
-
-I would expect these only to be useful to framework authors. The first two methods walk up into parent bean factories, if present, the third indicates whether the bean factory has a parent. If you omit the bean name for `getBeanInfo()` you get back a struct with a key `beanInfo` that refers to metadata for all of the beans known in the factory. If there is a parent bean factory, its metadata is returned under a key `parent` in that struct.
-
-`getBeanInfo()` can be called with a `beanName` argument - the default - or with a `regex` argument which will return metadata about all the beans in the factory whose names match the regular expression, in a struct with the single key `beanInfo`, whose value will be a struct with a key for each matching bean.
-
-`getBeanInfo()` can also be called with no arguments, in which case it will return metadata for all the beans in the factory (in the `beanInfo` key of the result) and metadata for all the beans in the factory's parent, if any, in the `parent` key of the result. Optionally, you may specify an argument of `flatten = true` and the `parent` structures will be merged (recursively through the parents) into `beanInfo`, producing a flat struct.
-
-`getConfig()` can be called to get a copy of the bean factory's configuration, in case you need to have conditional behavior in your load listeners.
-
-## Specifying Additional Transient Beans
+### Specifying Additional Transient Beans
 
 By default, any CFC in the `beans` folder is considered a transient and everything else is considered a singleton. There are three ways to specify other CFCs should be considered transient:
 
@@ -157,7 +113,103 @@ In addition to any CFCs found in a folder called `beans`, any CFC whose name doe
 
 In addition to any CFCs found in a folder called `beans`, any CFC whose name ends in `Entity` will be considered a transient.
 
-## Parent Bean Factories
+## Customization
+
+In addition to the configuration that lets you specify additional "constant" beans and define how the conventions work, DI/1 provides four methods that allow you to programmatically add beans to the bean factory:
+
+* `addAlias( alias, beanName )` -- tells DI/1 that `alias` should resolve to the same bean as `beanName`.
+* `addbean( beanName, beanValue )` -- tells DI/1 that `beanName` should resolve to the specified `beanValue` (which can be a constant or a data structure or an object).
+* `declareBean( beanName, dottedPath, isSingleton, overrides )` -- tells DI/1 that `beanName` should resolve to an instance of the specified `dottedPath`, and whether it should be treated as a singleton or a transient. In addition, you can provide specific bean/value pairs to be used for the construction and autowiring of that bean, which will override any beans known to the bean factory.
+* `factoryBean( beanName, factory, methodName, args, overrides )` -- tells DI/1 that `beanName` should be resolved by calling `methodName` on the `factory` object and passing arguments looked up by name (`args` contains an array of bean names to use). As with `declareBean()`, you can provide bean/value pairs for construction and autowiring.
+
+The recommended way to perform this programmatic customization is inside a load listener. A load listener is a function, closure, or method that accepts a bean factory as an argument and performs all the customization you need on that bean factory. You can register a load listener either by specifying it in the `config` struct, above, as `loadListener`, or by calling `onLoad( listener )` on the bean factory itself.
+
+* If `loadListener` is a CFC instance, DI/1 will call `loadListener.onLoad( beanFactory )`, passing the DI/1 instance in as an argument.
+* If `loadListener` is a bean name, DI/1 will call `beanFactory.getBean( loadListener ).onLoad( beanFactory )`, where `beanFactory` is the DI/1 instance.
+* If `loadListener` is a function or closure, DI/1 will call `loadListener( beanFactory )`. Note that if `loadListener` is a method on a CFC, it will be called out of context so it will not have access to the `variables` scope or `this` scope of that CFC instance and therefore also won't have access to other methods of that CFC.
+
+See the next section for examples of customizing the bean factory.
+
+### Customization Examples
+
+You can add an alias for a bean:
+
+    beanFactory.addAlias("alsoKnownAs", "navigation");
+
+That will tell DI/1 that `alsoKnownAs` is an alias for the bean identified by `navigation` so `getBean("alsoKnownAs")` will behave the same as `getBean("navigation")`.
+
+You can programmatically add new bean instances - or named values:
+
+    beanFactory.addBean("magicvalue", 42);
+    beanFactory.addBean("logger", new LogFactory("log4j"));
+
+After these calls, `getBean("magicvalue")` will return the value 42 and `getBean("logger")` will return the CFC instance you provided. That means that any properties, setter methods or constructor arguments that refer to `magicvalue` or `logger` will get those values injected.
+
+You can also programmatically declare new beans to be managed by DI/1:
+
+    beanFactory.declareBean("navigation", "site.utils.navigation", true);
+
+That will tell DI/1 that `/site/utils/navigation.cfc` should be managed as a singleton with name `navigation`. You can declare transients by specifying `false` as the third argument. `true` is the default so it can be omitted for singletons.
+
+When declaring a bean, you can also optionally provide a set of overrides for named beans, so that constructor arguments or properties will take on specified values, rather than what is managed by the bean factory. This is useful for creating variants of a single bean:
+
+    beanFactory.declareBean("datasource", "util.DataSource", true, { dsn = "main" } );
+    beanFactory.declareBean("admindata", "util.DataSource", true, { dsn = "admindb" } );
+
+You can declare a factory bean - like Spring/ColdSpring - as follow:
+
+    beanFactory.factoryBean("generated", factory, "method", [ ..args.. ], { ... } );
+
+This tells DI/1 that when you call `getBean("generated")`, instead of trying to create the bean itself, it should call `factory.method(..args..)` to get the bean instance. `args` can be omitted (and defaults to an empty list of arguments). The last argument provides overrides for bean values, as shown above, and is optional.
+
+## Overriding
+
+Customizing the behavior of DI/1 by overriding its methods should probably be considered a "last resort" so before you go down this path, ask on Slack or on the mailing list if there is a way to achieve your goals without doing this. As an example of overridden behavior, the Clojure integration provided by `ioclj.cfc` could be a useful model for you. That overrides the constructor (to deal with finding Clojure code and modifying the metadata), `containsBean()` and `getBean()` to check whether the requested bean is Clojure code or a regular CFC, and `getBeanInfo()` to provide metadata about Clojure code that is loaded.
+
+DI/1 provides no specific public extension points but it does provide a few `private` extension points that are considered documented and supported. These are described in detail near the end of this document and they are primarily intended to allow you to customized how CFC instances are actually constructed, how metadata is obtained, and what to do if DI/1 cannot locate a bean that you have requested.
+
+In addition, there is a hook for modifying beans as they are initialized -- `setupInitMethod()` -- which is called after a bean has been fully populated but prior to calleding the `"init-method"` (if any is specified).
+
+See **[Overriding DI/1 Behavior](#overrding-di-1-behavior)** for more detail.
+
+# Other Public Methods
+
+This section describes some of the other methods that DI/1 provides, which applications may find useful. See the **Reference Manual** section below for full details of the function signatures.
+
+Given a struct of values (such as form scope or URL scope), you can ask DI/1 to inject those values as properties into a given bean:
+
+    bean = beanFactory.injectProperties(myBeanInstance, form);
+    user = beanFactory.injectProperties("user", userAttributes);
+
+The first call will loop over the form scope and, for each key in that scope, call a setter on `myBeanInstance`. The second call asks DI/1 to create a `user` bean and populate it by calling a setter for each element of the struct `userAttributes`. You may also use a dotted-path to a CFC as the first argument in which case DI/1 will use `createObject` to instantiate it and *will not call the constructor*. Caution: DI/1 assumes you know what you're doing and will call a setter for *every* member of the struct passed in!
+
+You can ask if the bean factory knows about a particular bean using the `containsBean()` method:
+
+    if ( beanFactory.containsBean("productService") ) ...
+
+(although you probably shouldn't need to do this unless you are building some sort of framework plugin that needs to check what is available to it at runtime!).
+
+You can force all singletons to be reloaded using the `load()` method:
+
+    beanFactory.load();
+
+That will empty the bean cache and then call `getBean()` on every bean that DI/1 knows about. Note: it does not call `load()` on any parent bean factory (see below) and it does not perform a new search on the folders (so it won't see newly written CFCs). To force the search to be performed again, create a new instance of the bean factory as shown above.
+
+Metadata can be queried using the following methods:
+
+    if ( beanFactory.isSingleton("someBean") ) ...
+    info = beanFactory.getBeanInfo("someBean");
+    if ( beanFactory.hasParent() ) ...
+
+I would expect these only to be useful to framework authors. The first two methods walk up into parent bean factories, if present, the third indicates whether the bean factory has a parent. If you omit the bean name for `getBeanInfo()` you get back a struct with a key `beanInfo` that refers to metadata for all of the beans known in the factory. If there is a parent bean factory, its metadata is returned under a key `parent` in that struct.
+
+`getBeanInfo()` can be called with a `beanName` argument - the default - or with a `regex` argument which will return metadata about all the beans in the factory whose names match the regular expression, in a struct with the single key `beanInfo`, whose value will be a struct with a key for each matching bean.
+
+`getBeanInfo()` can also be called with no arguments, in which case it will return metadata for all the beans in the factory (in the `beanInfo` key of the result) and metadata for all the beans in the factory's parent, if any, in the `parent` key of the result. Optionally, you may specify an argument of `flatten = true` and the `parent` structures will be merged (recursively through the parents) into `beanInfo`, producing a flat struct.
+
+`getConfig()` can be called to get a copy of the bean factory's configuration, in case you need to have conditional behavior in your load listeners.
+
+# Parent Bean Factories
 
 If your application is assembled from multiple modules, you may have a main bean factory containing shared CFCs and each module may also have a bean factory. You can tell a module's bean factory about the shared CFCs in the main bean factory using the `setParent()` method:
 
@@ -166,34 +218,9 @@ If your application is assembled from multiple modules, you may have a main bean
 
 This causes DI/1 to ask its parent bean factory about any beans that are requested but unknown (within the moduleBeanFactory). Because DI/1 uses only `containsBean(name)` and `getBean(name)` the parent bean factory does not need to be another DI/1 instance - it can be any bean factory that provides that API.
 
-## Bean Factory Aware
+# Bean Factory Aware
 
 If you need access to the bean factory itself within one of your CFCs, either declare a constructor argument called `beanFactory`, provide a `setBeanFactory( any beanFactory )` setter or declare a `beanFactory` property (with implicit setters enabled). DI/1 declares itself as a bean called `beanFactory` and will inject itself where any such dependencies appear.
-
-# Configuration
-
-When you create the bean factory, you can optionally supply a second argument that is a struct containing configuration for DI/1. At present, DI/1 understands the follow config options:
-
-* `constants` - struct - defaults to `{}`. DI/1 will use any name/value pairs specified here to provide _beans_ that resolve to the specified values. This can be used to provide resolution for constructor arguments that need values which are not actual beans.
-* `exclude` - array - defaults to `[]`. DI/1 will ignore any CFCs whose file path contains the strings in this array. DI/1 always excludes paths containing `/WEB-INF` and `/Application.cfc`, as well as various FW/1 and DI/1 framework files. The strings are not case-sensitive.
-* `initMethod` - string - If specified, identifies a method name on beans that DI/1 will attempt to call (with no arguments) on each bean after its dependencies have been injected.
-* `liberal` - boolean - default to `false`. If `true`, treat folder names ending in `ies` as plurals (of names ending in `y`, e.g., `libraries` would be treated as the plural of `librarie` by default, but with `liberal : true`, it would be treated as the plural of `library`).
-* `loadListener` - any - If specified, DI/1 will register it as a load listener by calling `this.onLoad( loadListener )`. It can be a CFC instance, the name of a bean, or a function or closure.
-* `omitDirectoryAliases` - boolean - defaults to `false`. If `true`, use CFC names as bean names directly, without appending the singular directory name as a suffix. If your CFC names are not unique, you will get an exception.
-* `omitDefaultedProperties` - boolean - defaults to `true`. If `false`, property declarations that specify a default will still be treated as dependency declarations and autowired. If `true`, property declarations that specify a default will be ignored for injection. This is useful when you are using `property` declarations on transients solely for generating setters and getters, rather than for declaring dependencies. _New in 4.0._
-* `omitTypedProperties` - boolean - defaults to `true`. If `false`, property declarations that specify a type (other than `any`) will still be treated as dependency declarations and autowired. If `true`, property declarations that specify a type will be ignored for injection. This is useful when you are working with the ORM (since those property declarations will typeically have types and should not be treated as dependencies). _The default changed from `false` to `true` in 4.0._
-* `recurse` - boolean - defaults to `true`. Controls whether DI/1 searches subfolders recursively or not.
-* `singletonPattern` - string - no default. Specifies a regular expression that DI/1 uses to determine whether a bean is singleton or not, based on its name. The `beans` folder convention and the `transients` configuration below still apply so nothing in those folders will be considered a singleton, even if its name matches the pattern.
-* `singulars` - struct - defaults to `{}`. DI/1 will use any name/value pairs specified here to translate folder names to a singular variety, e.g., `pride = 'lion'` will convert the *plural* folder `pride` to the *singular* name `lion` and therefore a `simba.cfc` within the `pride` folder will get the alias `simbaLion`. This also allows for other folders to behave as if they were called `beans` by treating their singular name as `bean`. One of the DI/1 unit tests maps `sheep` to `bean` for this reason. This won't work if the CFCs in `sheep` have the same name as the CFCs in `beans` however.
-* `strict` - boolean - defaults to `false`. If `true`, DI/1 will throw an exception if it cannot resolve a bean implied by a constructor argument, setter name or property name. If `false`, DI/1 simply calls `logMissingBean()` which writes the failure to the Java console. See `missingBean()` in **Overriding DI/1 Behavior** below for more details.
-* `transients` - array - defaults to `[]`. DI/1 will consider any CFCs found in these folders to be transient, rather than singleton. The conversion to a singular form will still take place to create the alias for each CFC. For example, if `singulars = { pride = 'lion' }` and `transients = [ 'pride' ]` then any CFCs in the `pride` folder will be treated as transients and their alias will end in `Lion`.
-* `transientPattern` - string - no default. Specifies a regular expression that DI/1 uses to determine whether a bean is transient or not, based on its name. The `beans` folder convention and the `transients` configuration below still apply so CFCs in those folders will be still considered transients, in addition to any name that matches the pattern.
-
-## Configuring "Constant" Beans
-
-As noted above, the optional config argument to the `ioc` constructor is a struct containing various parameters that alter the behavior of DI/1. The `constants` config element is a struct containing mappings from bean names to specific constant values. This allows you to specify non-CFC values for constructor arguments, setters and properties (but is most commonly used for constructor arguments). The value may be of any type and any reference to that bean name will return the specified value as a singleton.
-
-These values may be added after DI/1 has been initialized using the `addBean()` method as shown above.
 
 # Reference Manual
 
