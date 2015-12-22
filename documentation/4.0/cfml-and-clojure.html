@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using Clojure With CFML Oct 27th, 2015 10:00 am This is documentation for the upcoming 4.0 release. For the current release, see this documentation &hellip;">
+  <meta name="description" content="Using Clojure With CFML Dec 21st, 2015 7:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-10-27T10:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:00 am</span></time></p>
+<time class='entry-date' datetime='2015-12-21T19:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>7:30 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -110,7 +110,8 @@ Clojure code to be discovered and autowired into your CFML code, as well as a wa
   <li><a href="#some-important-caveats-and-system-requirements" id="markdown-toc-some-important-caveats-and-system-requirements">Some Important Caveats (and System Requirements)</a></li>
   <li><a href="#getting-started-with-clojure-and-cfml" id="markdown-toc-getting-started-with-clojure-and-cfml">Getting Started with Clojure and CFML</a>    <ul>
       <li><a href="#leiningen" id="markdown-toc-leiningen">Leiningen</a></li>
-      <li><a href="#testing-fw1-35-and-clojure" id="markdown-toc-testing-fw1-35-and-clojure">Testing FW/1 3.5 and Clojure</a></li>
+      <li><a href="#boot" id="markdown-toc-boot">Boot</a></li>
+      <li><a href="#testing-fw1-40-and-clojure" id="markdown-toc-testing-fw1-40-and-clojure">Testing FW/1 4.0 and Clojure</a></li>
     </ul>
   </li>
   <li><a href="#the-6helloclojure-example-explained" id="markdown-toc-the-6helloclojure-example-explained">The 6helloclojure Example Explained</a>    <ul>
@@ -205,16 +206,22 @@ initialization proceeds.</li>
 
 <h2 id="getting-started-with-clojure-and-cfml">Getting Started with Clojure and CFML</h2>
 
-<p>Clojure has a standard build tool called <a href="http://leiningen.org">Leiningen</a>. This manages all of your project dependencies
+<p>Clojure has two standard build tools, called <a href="http://leiningen.org">Leiningen</a> and <a href="http://boot-clj.com/">Boot</a>. The former has been around longer and is currently the most popular. The latter is more general purpose. FW/1, via cfmljure, supports both build tools. These tools manage all of your project dependencies
 (e.g., automatically downloading and installing any libraries you need) as well as providing a REPL for
 interactive development, running your tests, packaging applications into JAR files, deploying them to standard repositories and so on.</p>
 
-<p><strong>cfmljure</strong> leverages <strong>Leiningen</strong> to figure out the complete classpath that your Clojure code needs – including any
+<p><strong>cfmljure</strong> leverages <strong>Leiningen</strong> or <strong>Boot</strong> to figure out the complete classpath that your Clojure code needs – including any
 libraries you use – so that it can easily load all the JAR files (and Clojure source code) into your CFML server.</p>
+
+<p>The first step to using FW/1 and Clojure together is to install one (or both!) of these build tools and make sure it is working.
+We’re going to look at both build tools – support for <strong>Boot</strong> is new in release 4.0.</p>
 
 <h3 id="leiningen">Leiningen</h3>
 
-<p>That means the first step to using FW/1 and Clojure together is to install <strong>Leiningen</strong> and make sure it is working.</p>
+<p>In addition to managing your project dependencies, <strong>Leiningen</strong> also provides a template system for new projects, so it’s the most
+convenient way to get up and running right now. Since we want to create a test project without needing to manually set up various
+files, I recommend starting with <strong>Leiningen</strong> – and looking at <strong>Boot</strong> later on. <em>For what it’s worth, World Singles has just
+switched from <strong>Leiningen</strong> to <strong>Boot</strong>, in order to leverage the increased flexibility that tool offers.</em></p>
 
 <p>If you’re on Mac or Linux, follow the <a href="http://leiningen.org/#install">Leiningen Install steps</a> for the <code>lein</code> shell script.</p>
 
@@ -270,9 +277,54 @@ Tests failed.
 <p>When you start developing services and controllers in Clojure, you’ll find it handy to write unit tests as you go and run
 them with <code>lein test</code>!</p>
 
-<h3 id="testing-fw1-35-and-clojure">Testing FW/1 3.5 and Clojure</h3>
+<h3 id="boot">Boot</h3>
 
-<p>At this point you should be able to start your CFML server (remember: not under the <strong>root</strong> account!) and, with FW/1 3.5
+<p>Follow the <a href="https://github.com/boot-clj/boot#install">Boot Install steps</a> for either “Unix, Linux, OSX” or “Windows”. You’ll notice the Windows installation is much simpler than for <strong>Leiningen</strong>.</p>
+
+<p>You should go through the <a href="https://github.com/boot-clj/boot#getting-started">Getting Started</a> section to verify that <strong>Boot</strong> is installed and working (<code>boot -h</code>, <code>boot repl</code>).</p>
+
+<p>Unlike with <strong>Leiningen</strong>, you’ll need to create projects manually, but <strong>Boot</strong> gives you a lot more flexibility over how your projects are structured. If you want to get going quickly and you’ve already installed <strong>Leiningen</strong> and gone through the project creation and testing steps above, you can create a <code>build.boot</code> file in that project and run code and tests like this:</p>
+
+<pre><code>;; build.boot
+(set-env! :resource-paths #{"src"}
+          :dependencies '[[org.clojre/clojure "1.7.0"]])
+
+(require 'myapp.core)
+(deftask run []
+  (myapp.core/-main))
+</code></pre>
+
+<p>Like <code>project.clj</code> under <strong>Leiningen</strong>, we specify the project dependencies. We also specify where our source code is – there’s no default – using <code>:resource-paths</code>. Next we load the main namespace of our new application and define a task called <code>run</code> that calls the main function in that application. Whilst <strong>Leiningen</strong> has a built-in task called <code>run</code>, you still have to declare the main namespace (or specify it as a command line argument). <strong>Boot</strong> takes the approach that this is “just code” so you can define whatever tasks you want, to run whatever Clojure code you want.</p>
+
+<p>Accordingly, <strong>Boot</strong> does not have a built-in task to run tests, but there are readily available libraries to provide this functionality. We’ll update <code>build.boot</code> as follows:</p>
+
+<pre><code>;; build.boot
+(set-env! :resource-paths #{"src"}
+          :source-paths #{"test"}
+          :dependencies '[[org.clojre/clojure "1.7.0"]
+                          [adzerk/boot-test "1.0.7"]])
+
+(require '[adzerk.boot-test :refer [test]])
+
+(require 'myapp.core)
+(deftask run []
+  (myapp.core/-main))
+</code></pre>
+
+<p>We tell <strong>Boot</strong> where our test code is, we add a dependency on <code>boot-test</code> and we load that library and import the <code>test</code> task. Now we can run our tests:</p>
+
+<pre><code>boot test
+</code></pre>
+
+<p>The output will be somewhat different to that produced by <code>lein test</code> above but you will see the same failing test, followed by an exception that indicates the build failed (this is common to <strong>Boot</strong> tasks as a way to report build failures).</p>
+
+<p>A note on <code>:resource-paths</code> and <code>:source-paths</code>: <strong>Boot</strong> considers files that are part of the classpath and also intended to be an output of the project (such as contents of a JAR file) to be “resources”; files that are part of the classpath but not intended to be an output of the project are “sources”. That seems a bit confusing at first (source files are resources, test files are sources), but as you work more with <strong>Boot</strong> you get used to more things being resources, not just source files, so it soon makes a lot of sense.</p>
+
+<p>Now we’ll move on to using FW/1 and Clojure together, and show how both <strong>Leiningen</strong> and <strong>Boot</strong> can be used.</p>
+
+<h3 id="testing-fw1-40-and-clojure">Testing FW/1 4.0 and Clojure</h3>
+
+<p>At this point you should be able to start your CFML server (remember: not under the <strong>root</strong> account!) and, with FW/1 4.0
 installed (and possibly with a <code>/framework</code> mapping set up, or with the <code>framework</code> folder moved into your webroot), you
 should be able to run all of the FW/1 examples. Make sure examples 1-5 work, then try <code>6helloclojure</code>.</p>
 
@@ -289,6 +341,10 @@ when you post to the FW/1 mailing list, asking for help!</p>
 <p>At this point, however, I hope you got the example to run and you were able to try out the various links and see what it was
 doing in the trace output in the browser, and perhaps by looking at the code, which we’ll go over next.</p>
 
+<p>By default, <code>6helloclojure</code> relies on <strong>Leiningen</strong>. To use <strong>Boot</strong> instead, add <code>diConfig : { boot : "boot" }</code> to the
+<code>variables.framework</code> configuration (or merge it with your <code>debug</code> setting). If <strong>Boot</strong> isn’t on the PATH used by your CFML server,
+you can specify the full file path to the <strong>Boot</strong> shell script or executable using that <code>boot</code> configuration (instead of just <code>"boot"</code>).</p>
+
 <h2 id="the-6helloclojure-example-explained">The 6helloclojure Example Explained</h2>
 
 <p>If you look in the <code>6helloclojure</code> folder (in <code>examples/subsystems/</code>), you’ll see a combination of things you expect to see in a FW/1 application and
@@ -296,7 +352,7 @@ files and folders that would see in your <code>myapp</code> Clojure test project
 
 <pre><code>Application.cfc MyApplication.cfc index.cfm views
 .gitignore LICENSE README.md doc resources target
-project.clj src test
+boot.properties build.boot project.clj src test
 </code></pre>
 
 <p>The files shown in the first line are for FW/1. You might later add a <code>controllers</code> folder and a <code>model</code> folder if you 
@@ -312,7 +368,10 @@ generating JAR files etc.</p>
 <p>The files shown in the third line are the important parts of the Clojure code:</p>
 
 <ul>
-  <li><code>project.clj</code> defines the dependencies of
+  <li><code>boot.properties</code> (for <strong>Boot</strong>) defines the configuration of <strong>Boot</strong> itself: the specific version of <strong>Boot</strong>, <strong>Clojure</strong>, and so on.</li>
+  <li><code>build.boot</code> (for <strong>Boot</strong>) defines the dependencies of
+your project (the libraries it needs), as well as any development or test tooling (as tasks) etc. The license, description, and URL information listed in <code>project.clj</code> can be specified for <strong>Boot</strong> but that is out of the scope of this documentation.</li>
+  <li><code>project.clj</code> (for <strong>Leiningen</strong>) defines the dependencies of
 your project (the libraries it needs), as well as any development or test tooling (as plugins) and several other
 important aspects of how to run, test, and package your code. You’ll notice that it also has a description, a URL for
 where to find the project (e.g., on GitHub), and details of the license.</li>
@@ -351,10 +410,12 @@ rather than the default <code>ioc.cfc</code> for the Dependency Injection compon
 provides the Clojure-specific magic. Note that we leave <code>diEngine</code> as the default (which is <code>"di1"</code>) because <code>ioclj.cfc</code> is just an extension to DI/1.</p>
 
 <p>Next we specify <code>diLocations</code> as the full filesystem path of the current folder. In a CFML / Clojure application, you need to tell the bean factory
-about two things: where to find your <code>project.clj</code> file and where to look for your CFML beans (if any). Locations are specified as
-either a comma-separated list of file paths, or an array of paths, and one of them must specify the exact directory path to where <code>project.clj</code> lives. That will also be
+about two things: where to find your <code>project.clj</code> or <code>build.boot</code> file and where to look for your CFML beans (if any). Locations are specified as
+either a comma-separated list of file paths, or an array of paths, and one of them must specify the exact directory path to where <code>project.clj</code> or <code>build.boot</code> lives. That will also be
 searched (recursively) for CFCs so you can store both your Clojure code and your CFML beans in the same tree structure if you wish, or
 you can store them separately and provide both file paths in <code>diLocations</code>.</p>
+
+<p>If you want to run <code>6helloclojure</code> with <strong>Boot</strong>, just add <code>diConfig : { boot : "boot" }</code> into the framework configuration and reload the application.</p>
 
 <h3 id="myapplicationcfc">MyApplication.cfc</h3>
 
@@ -500,22 +561,23 @@ and know that <code>reload("all")</code> does <code>(require ... :reload)</code>
 <p>Since <code>ioclj.cfc</code> is a extension of <code>ioc.cfc</code> (DI/1), all of the <a href="using-di-one.html#configuration">same configuration options apply</a> as well as the following:</p>
 
 <ul>
+  <li><code>boot</code> - string - default <code>""</code>. If you specify a non-empty value here, FW/1 will assume you want to use <strong>Boot</strong> instead of <strong>Leiningen</strong> and it wlil look for <code>build.boot</code> instead of <code>project.clj</code>. When a non-empty value is used here, the value of <code>lein</code> (below) is ignored.</li>
   <li><code>debug</code> - boolean - default <code>false</code>. If <code>true</code>, the CFML/Clojure bridge will write a lot of additional information to the server console (e.g., <code>catalina.out</code>),
 which will help you check where FW/1 is looking for your Clojure files and which ones it may be ignoring (due to naming conventions not matching). Another
 useful form of debugging is <code>&lt;cfdump var=#getBeanFactory().getBeanInfo()#"/&gt;</code> in a view so you can see all of the beans / namespaces that were found.</li>
   <li><code>lein</code> - string - default <code>"lein"</code>. Use this to specify the full file system path to your Leiningen shell/batch script if just the <code>lein</code> command on its
-own won’t be found on the path used by your CFML server. At World Singles, we actually keep the Leiningen shell script under version control so we can
-manage which version is used our applications, and we specify the path to that script, which is part of our application deployment, using the <code>lein</code>
+own won’t be found on the path used by your CFML server. At World Singles, we kept the Leiningen shell script under version control so we could
+manage which version was used our applications, and we specified the path to that script, which was part of our application deployment, using the <code>lein</code>
 configuration setting.</li>
   <li><code>server</code> - boolean - default <code>false</code>. By default, a new instance of the CFML/Clojure bridge CFC (<code>cfmljure.cfc</code>) is created every time the bean factory
 (<code>ioclj.cfc</code>) is created. However, since this bridge <em>modifies the classpath of your server on the fly</em> – not just your application (because JVM settings
 are per server instance, not per application instance) – it is a reasonable optimization to cache the bridge instance in <code>server</code> scope (since running
-<code>lein classpath</code> can be slow). Specifying
+<code>lein classpath</code> or <code>boot show -C</code> can be slow). Specifying
 <code>server : true</code> will tell <code>framework.ioclj</code> to perform that optimization for you. This will create <code>server.__cfmljure</code>, which will be reused each time
-the bean factory is recreated, until the server is restarted, or you explicitly delete that variable. If you change the dependencies in <code>project.clj</code>,
+the bean factory is recreated, until the server is restarted, or you explicitly delete that variable. If you change the dependencies in <code>project.clj</code> or <code>build.boot</code>,
 you will need to force the bridge instance to be recreated in order for those new dependencies to be picked up.</li>
-  <li><code>timeout</code> - numeric - default <code>300</code>. This is the number of seconds that FW/1 will wait for the <code>lein classpath</code> command to execute at startup. This
-should be sufficient even if you have a large number of dependencies in your <code>project.clj</code>.</li>
+  <li><code>timeout</code> - numeric - default <code>300</code>. This is the number of seconds that FW/1 will wait for the <code>lein classpath</code> or <code>boot show -C</code> command to execute at startup. This
+should be sufficient even if you have a large number of dependencies in your <code>project.clj</code> or <code>build.boot</code>.</li>
 </ul>
 
 <h2 id="what-is-ns-all-about">What is ns all about?</h2>
@@ -548,7 +610,7 @@ the controller can call <code>greet/hello</code>.</p>
 
 <p>You’ll use the <code>:require</code> expression to bring in Clojure standard libraries, 3rd party Clojure libraries, and parts of your own code. For most
 3rd party libraries, you’ll also need to add an entry to <code>:dependencies</code> in your <code>project.clj</code> file in order to tell <strong>Leiningen</strong> that you
-need that library downloaded. We’ll see this when we learn about database access below.</p>
+need that library downloaded (or in your <code>build.boot</code> file for <strong>Boot</strong>). We’ll see this when we learn about database access below.</p>
 
 <p>I recommend writing your required namespaces in alphabetical order – most production Clojure code relies on quite a long list of other namespaces
 so organization is important.</p>
@@ -566,6 +628,9 @@ in order to create a web application.</p>
 <p>We will build a very simple task manager, backed by a database. We will initially create
 a CFML controller and write a Clojure service to interact with the database, then we’ll
 replace the CFML controller with a Clojure controller to wrap things up.</p>
+
+<p>We’ll assume you’re using <strong>Leiningen</strong> for this exercise. <em>I may update this section
+with instructions for <strong>Boot</strong> once project templates are avaialble for that tool.</em></p>
 
 <h2 id="creating-the-clojure-project">Creating the Clojure project</h2>
 
@@ -1268,7 +1333,7 @@ and artifact ID are the same thing (so <code>clj-time</code> is shorthand for <c
 
 <p>To search Maven Central for <code>org.clojure/clojure</code> you would use the query <code>g:"org.clojure" AND a:"clojure"</code> which asks for
 group ID <code>org.clojure</code> and artifact ID <code>clojure</code>. Right now there are 80 versions of that library on Maven Central and the 
-latest is <code>1.8.0-alpha4</code> but if you click the <code>All (80)</code> link, you’ll see the most recent non-prerelease version is <code>1.7.0</code>
+latest is <code>1.8.0-RC4</code> but if you click the <code>All (87)</code> link, you’ll see the most recent non-prerelease version is <code>1.7.0</code>
 which is what <strong>Leiningen</strong> puts in <code>project.clj</code> by default (in Leiningen 2.5.2 and later).</p>
 
 <p>On the other hand, <code>clj-time</code> comes from Clojars because it is a community project. If you search for <code>clj-time</code> you’ll 
@@ -1580,7 +1645,7 @@ Here’s a small sample, roughly in order of approachability:</p>
 
 
 
-<time class='entry-date' datetime='2015-10-27T10:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:00 am</span></time>
+<time class='entry-date' datetime='2015-12-21T19:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>7:30 pm</span></time>
         
       </p>
       

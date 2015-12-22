@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Dec 16th, 2015 3:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Dec 21st, 2015 7:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-12-16T15:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:30 pm</span></time></p>
+<time class='entry-date' datetime='2015-12-21T19:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>7:30 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -515,6 +515,8 @@
 
 <p>Rendering views, using the <code>view()</code> method, is supported, documented and the recommended way to build composite pages. Layouts should simply wrap views, in a cascade from item to section to site.</p>
 
+<p>As of release 4.0, <code>layout()</code> may be called from a controller to wrap HTML (such as produced by a call to <code>view()</code>). See the <code>view()</code> below for such use cases.</p>
+
 <h3 id="public-function-onapplicationstart">public function onApplicationStart()</h3>
 
 <p>Part of the standard CFML lifecycle, this method is called automatically by the CFML engine at application startup. You should not override this nor call it (even tho’ it is <code>public</code>). Use <code>setupApplication()</code> to perform application-specific initialization.</p>
@@ -740,7 +742,7 @@ and instead render <code>data</code> in the specified content <code>type</code> 
 
 <p>This renders the <code>header</code> and <code>footer</code> items (views) from the <code>common</code> subsystem’s <code>site</code> section and the <code>menu</code> item (view) from the current subsystem’s <code>nav</code> section. Inside <code>menu.cfm</code>, <code>local.selected</code> would be available containing the string <code>"home"</code>.</p>
 
-<p>A controller may call <code>view()</code> which can be useful if you have email templates that need to be rendered and sent as part of a request: those email templates can be treated as views and have all the associated <code>rc</code>, <code>local</code>, etc machinery applied.</p>
+<p>A controller may call <code>view()</code> which can be useful if you have email templates that need to be rendered and sent as part of a request: those email templates can be treated as views and have all the associated <code>rc</code>, <code>local</code>, etc machinery applied. As of release 4.0, a controller may also call <code>layout()</code> to wrap a view for such purposes.</p>
 
 <p>If the argument <code>missingView</code> is not specified, and the specified view <code>path</code> does not exist, then <code>onMissingView()</code> will be called. If a string is passed as <code>missingView</code> and the specified view does not exist, then the value of the <code>missingView</code> argument will be returned. This allows for programmatically calculated views to be silently rendered as empty strings if they are not present. This can be useful for programmatic skins with optional elements.</p>
 
@@ -753,7 +755,7 @@ and instead render <code>data</code> in the specified content <code>type</code> 
 
 
 
-<time class='entry-date' datetime='2015-12-16T15:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:30 pm</span></time>
+<time class='entry-date' datetime='2015-12-21T19:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>7:30 pm</span></time>
         
       </p>
       
