@@ -337,37 +337,71 @@ moduleBeanFactory.setParent( mainBeanFactory );
 
 <h2 id="public-methods">Public Methods</h2>
 
+<p>This section describes the supported public API of DI/1.</p>
+
 <h3 id="public-any-function-init-any-folders-struct-config----">public any function init( any folders, struct config = { } )</h3>
+
+<p>The constructor. <code>folders</code> can be a list or array of paths to search for CFCs to manage. It is recommended to use webroot-relative paths or mappings (both starting with <code>/</code>) for the paths. The optional <code>config</code> struct can supply various configuration settings to override the default behavior.</p>
 
 <h3 id="public-any-function-addalias-string-aliasname-string-beanname-">public any function addAlias( string aliasName, string beanName )</h3>
 
+<p>Add an alias for a given bean name. This allows you to have a more meaningly / friendly name for a bean than the default that is deduced from the file and folder names.</p>
+
 <h3 id="public-any-function-addbean-string-beanname-any-beanvalue-">public any function addBean( string beanName, any beanValue )</h3>
+
+<p>Tell DI/1 that the given bean name should resolve to the supplied value. The value may be any type of data. This is good way to provide named configuration values for your managed beans.</p>
 
 <h3 id="public-boolean-function-containsbean-string-beanname-">public boolean function containsBean( string beanName )</h3>
 
+<p>Returns <code>true</code> if DI/1 knows about the given bean name. If DI/1 doesn’t know about it directly, but has been given a parent bean factory, it will ask the parent (by calling <code>containsBean()</code> on the parent).</p>
+
 <h3 id="public-boolean-function-hasparent">public boolean function hasParent()</h3>
+
+<p>Returns <code>true</code> if DI/1 has been given a parent bean factory.</p>
 
 <h3 id="public-any-function-declarebean-string-beanname-string-dottedpath-boolean-issingleton--true-struct-overrides----">public any function declareBean( string beanName, string dottedPath, boolean isSingleton = true, struct overrides = { } )</h3>
 
+<p>Tell DI/1 that the given bean name should resolve to an instance of the named CFC. This is useful when you need DI/1 to manage specific CFCs that are not part of your own application’s model or controllers, such as third party library CFCs. You can tell DI/1 whether to treat this bean as a single (default) or transient. You can also provide an collection of named beans (values) that should override (<em>hide</em>) beans of the same name in the bean factory. This allows you to provide specific values for constructor arguments or for setter / property injection.</p>
+
 <h3 id="public-any-function-factorybean-string-beanname-any-factory-string-methodname-array-args----struct-overrides----">public any function factoryBean( string beanName, any factory, string methodName, array args = [ ], struct overrides = { } )</h3>
+
+<p>Tell DI/1 that the given bean name should be resolved by called the specified <code>methodName</code> on the <code>factory</code> bean, with the specified arguments (<code>args</code> by name). The <code>factory</code> bean can be either a string, identifying a bean that DI/1 knows about, or an instance of a CFC you provide. The <code>args</code> array contains the names of beans that should be passed as arguments to the <code>methodName</code> call. The optional <code>overrides</code> collection can provide named beans (values) that should <em>hide</em> beans of the same name, i.e., they will be used instead of DI/1 looking up the bean internally.</p>
 
 <h3 id="public-any-function-getbean-string-beanname-struct-constructorargs----">public any function getBean( string beanName, struct constructorArgs = { } )</h3>
 
+<p>Ask DI/1 for the specified bean. If <code>constructArgs</code> are provided, they are treated as overrides and will <em>hide</em> any beans of the same name that DI/1 is managing, just for the initialization of the requested bean.</p>
+
 <h3 id="public-any-function-getbeaninfo-string-beanname---boolean-flatten--false-string-regex---">public any function getBeanInfo( string beanName = ‘’, boolean flatten = false, string regex = ‘’ )</h3>
+
+<p>Return metadata about the named bean. If no bean name is given, return a struct containing metadata about all beans that DI/1 knows about. By default, any parent bean factory’s metadata is returned as a nested struct but <code>flatten</code> will recursively unroll the chain of parent metadata (so the <code>structKeyList()</code> of the returned metadata will be all beans, not just the ones in the child bean factory). In addition, you can specify a <code>regex</code> to return metadata just for beans whose name matches the regular expression.</p>
 
 <h3 id="public-struct-function-getconfig">public struct function getConfig()</h3>
 
+<p>Return a (shallow) copy of DI/1’s configuration struct, with all the defaults populated.</p>
+
 <h3 id="public-string-function-getversion">public string function getVersion()</h3>
+
+<p>Return a string indicating the version of DI/1 being used.</p>
 
 <h3 id="public-boolean-function-issingleton-string-beanname-">public boolean function isSingleton( string beanName )</h3>
 
+<p>Return <code>true</code> if the specified bean is known to be a singleton. If the bean is known to be a non-singleton, this will return <code>false</code>. If the bean is not known in the current bean factory but a parent bean factory exists, the parent will be asked <code>isSingleton(beanName)</code>. If the bean is not known at all (or asking the parent fails), this will return <code>false</code>.</p>
+
 <h3 id="public-any-function-injectproperties-any-bean-struct-properties-">public any function injectProperties( any bean, struct properties )</h3>
+
+<p>Given a bean (either a name, a dotted path to a CFC, or an actual instance), inject each of the (non-null) <code>properties</code> specified by calling the matching setter on the bean. If a bean name is given, it will be fully constructed by DI/1 first, and then populated. If a dotted path to a CFC is given, it will be created – but its constructor will <strong>not</strong> be called – and then it will be populated. If an actual bean instance is given, it will be populated. If calling any setter fails, that exception will propagate and other properties of the bean will not be populated. In general, use of this method is not recommended as it is not very flexible and you need to know what you are doing!</p>
 
 <h3 id="public-any-function-load">public any function load()</h3>
 
+<p>This causes DI/1 to flush all its caches and to go through all the singleton beans it knows about and force full resolution of each. This can be used to reload a bean factory (although it is safer to just create a new instance of DI/1 and start over, because <code>load()</code> does not reload any parent bean factories), but the most common usage is to avoid lazy loading of beans (e.g., if you want to “warm up” your application after a deployment before putting it back in the cluster). Calling <code>load()</code> at the end of a load listener will also avoid any potential thread safety issues caused by lazy loading beans under heavy load in an application.</p>
+
 <h3 id="public-any-function-onload-any-listener-">public any function onLoad( any listener )</h3>
 
+<p>Register a load listener that DI/1 should call after the factory has initialized itself. This is the recommanded way to provide additional bean declarations (<code>addAlias()</code>, <code>addBean()</code>, <code>declareBean()</code>, <code>factoryBean()</code>) since it ensures they all run before the constructed instance of DI/1 is returned to your program. The <code>listener</code> may be a bean name, in which case DI/1 will look it up internally, or an instance of a CFC, or a user-defined function or closure. If the <code>listener</code> resolves to a CFC instance, DI/1 will call <code>onLoad()</code> on that instance and pass itself in as the only argument. If the <code>listener</code> is a function or closure, DI/1 will call it and pass itself in as the only argument. You can then manipulate the bean factory further as part of its initialization.</p>
+
 <h3 id="public-any-function-setparent-any-parent-">public any function setParent( any parent )</h3>
+
+<p>Tell DI/1 that the given <code>parent</code> object should be treated as a parent bean factory. Several calls in DI/1 will delegate to a parent bean factory if the specified information is not present in the child bean factory. This allows common beans to be shared with several child factories, for example with a main application that has subsystems.</p>
 
 <h2 id="overriding-di1-behavior">Overriding DI/1 Behavior</h2>
 
