@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using DI/1 Nov 20th, 2015 4:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. DI/1 - a.k.a &hellip;">
+  <meta name="description" content="Using DI/1 Dec 22nd, 2015 10:30 am This is documentation for the upcoming 4.0 release. For the current release, see this documentation. DI/1 - a.k.a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-11-20T16:30:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:30 pm</span></time></p>
+<time class='entry-date' datetime='2015-12-22T10:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>10:30 am</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -99,6 +99,28 @@
   </li>
   <li><a href="#configuration" id="markdown-toc-configuration">Configuration</a>    <ul>
       <li><a href="#configuring-constant-beans" id="markdown-toc-configuring-constant-beans">Configuring “Constant” Beans</a></li>
+    </ul>
+  </li>
+  <li><a href="#reference-manual" id="markdown-toc-reference-manual">Reference Manual</a>    <ul>
+      <li><a href="#public-methods" id="markdown-toc-public-methods">Public Methods</a>        <ul>
+          <li><a href="#public-any-function-init-any-folders-struct-config----" id="markdown-toc-public-any-function-init-any-folders-struct-config----">public any function init( any folders, struct config = { } )</a></li>
+          <li><a href="#public-any-function-addalias-string-aliasname-string-beanname-" id="markdown-toc-public-any-function-addalias-string-aliasname-string-beanname-">public any function addAlias( string aliasName, string beanName )</a></li>
+          <li><a href="#public-any-function-addbean-string-beanname-any-beanvalue-" id="markdown-toc-public-any-function-addbean-string-beanname-any-beanvalue-">public any function addBean( string beanName, any beanValue )</a></li>
+          <li><a href="#public-boolean-function-containsbean-string-beanname-" id="markdown-toc-public-boolean-function-containsbean-string-beanname-">public boolean function containsBean( string beanName )</a></li>
+          <li><a href="#public-boolean-function-hasparent" id="markdown-toc-public-boolean-function-hasparent">public boolean function hasParent()</a></li>
+          <li><a href="#public-any-function-declarebean-string-beanname-string-dottedpath-boolean-issingleton--true-struct-overrides----" id="markdown-toc-public-any-function-declarebean-string-beanname-string-dottedpath-boolean-issingleton--true-struct-overrides----">public any function declareBean( string beanName, string dottedPath, boolean isSingleton = true, struct overrides = { } )</a></li>
+          <li><a href="#public-any-function-factorybean-string-beanname-any-factory-string-methodname-array-args----struct-overrides----" id="markdown-toc-public-any-function-factorybean-string-beanname-any-factory-string-methodname-array-args----struct-overrides----">public any function factoryBean( string beanName, any factory, string methodName, array args = [ ], struct overrides = { } )</a></li>
+          <li><a href="#public-any-function-getbean-string-beanname-struct-constructorargs----" id="markdown-toc-public-any-function-getbean-string-beanname-struct-constructorargs----">public any function getBean( string beanName, struct constructorArgs = { } )</a></li>
+          <li><a href="#public-any-function-getbeaninfo-string-beanname---boolean-flatten--false-string-regex---" id="markdown-toc-public-any-function-getbeaninfo-string-beanname---boolean-flatten--false-string-regex---">public any function getBeanInfo( string beanName = ‘’, boolean flatten = false, string regex = ‘’ )</a></li>
+          <li><a href="#public-struct-function-getconfig" id="markdown-toc-public-struct-function-getconfig">public struct function getConfig()</a></li>
+          <li><a href="#public-string-function-getversion" id="markdown-toc-public-string-function-getversion">public string function getVersion()</a></li>
+          <li><a href="#public-boolean-function-issingleton-string-beanname-" id="markdown-toc-public-boolean-function-issingleton-string-beanname-">public boolean function isSingleton( string beanName )</a></li>
+          <li><a href="#public-any-function-injectproperties-any-bean-struct-properties-" id="markdown-toc-public-any-function-injectproperties-any-bean-struct-properties-">public any function injectProperties( any bean, struct properties )</a></li>
+          <li><a href="#public-any-function-load" id="markdown-toc-public-any-function-load">public any function load()</a></li>
+          <li><a href="#public-any-function-onload-any-listener-" id="markdown-toc-public-any-function-onload-any-listener-">public any function onLoad( any listener )</a></li>
+          <li><a href="#public-any-function-setparent-any-parent-" id="markdown-toc-public-any-function-setparent-any-parent-">public any function setParent( any parent )</a></li>
+        </ul>
+      </li>
       <li><a href="#overriding-di1-behavior" id="markdown-toc-overriding-di1-behavior">Overriding DI/1 Behavior</a>        <ul>
           <li><a href="#overriding-missingbean" id="markdown-toc-overriding-missingbean">Overriding missingBean()</a></li>
         </ul>
@@ -115,7 +137,7 @@
 // or multiple folders:
 var beanFactory = new ioc("/model,/common/model");
 // or an array:
-var beanFactory = new ioc(["/model","/common/model"]);
+var beanFactory = new ioc(["/model", "/common/model"]);
 </code></pre>
 
 <p>CFCs found in a folder called <code>beans</code> are assumed to be transients; otherwise CFCs are assumed to be singletons. If CFC names are unique, you can use that name to get the bean out of the factory:</p>
@@ -123,9 +145,9 @@ var beanFactory = new ioc(["/model","/common/model"]);
 <pre><code>var userManager = beanFactory.getBean("userManager");
 </code></pre>
 
-<p>All beans are also given an alias which is the name of the CFC followed by (the singular form of) the folder name in which it was found, e.g., /model/beans/product.cfc would get the alias “productBean”. If no other CFC is called product.cfc in the folders that you asked DI/1 to search, you can use “product” or “productBean” to reference that bean. By default, DI/1 assumes all beans are singletons unless they are found in a folder called <code>beans</code> (in which case DI/1 assumes those are transients). A singleton has just a single instance and DI/1 will cache that instance. A transient is created afresh every time you ask DI/1 for an instance.</p>
+<p>All beans are also given an alias which is the name of the CFC followed by (the singular form of) the folder name in which it was found, e.g., <code>/model/beans/product.cfc</code> would get the alias <code>"productBean"</code>. If no other CFC is called <code>product.cfc</code> in the folders that you asked DI/1 to search, you can use <code>"product"</code> or <code>"productBean"</code> to reference that bean. By default, DI/1 assumes all beans are singletons unless they are found in a folder called <code>beans</code> (in which case DI/1 assumes those are transients). A singleton has just a single instance and DI/1 will cache that instance. A transient is created afresh every time you ask DI/1 for an instance.</p>
 
-<p>If a CFC has a constructor (a method called <code>init()</code>), DI/1 will use the argument names to look up beans and call the constructor with those beans. If a CFC has setter methods, DI/1 will use their names to look up beans and call the setters with those beans. If a CFC has property declarations and implicit setters are enabled, DI/1 will use their names to look up beans and call the implicit setters with those beans. This is called autowiring. By the time you get a bean back from DI/1, it should be fully populated. You can also specify an “init-method” function name that DI/1 should call after a bean has had its dependencies injected - see <strong><a href="#configuration">Configuration</a></strong> below. When using <code>property</code> to declare a dependency, do not specify a <code>type</code> or a <code>default</code>: DI/1 assumes that typed properties (and defaulted properties) are intended to generate specific getters and setters on transients or for ORM integration, rather than just dependencies. You can override this default behavior - see <strong><a href="#configuration">Configuration</a></strong> below.</p>
+<p>If a CFC has a constructor (a method called <code>init()</code>), DI/1 will use the argument names to look up beans and call the constructor with those beans. If a CFC has setter methods, DI/1 will use their names to look up beans and call the setters with those beans. If a CFC has property declarations and implicit setters are enabled, DI/1 will use their names to look up beans and call the implicit setters with those beans. This is called autowiring. By the time you get a bean back from DI/1, it should be fully populated. You can also specify an <code>"init-method"</code> function name that DI/1 should call after a bean has had its dependencies injected - see <strong><a href="#configuration">Configuration</a></strong> below. When using <code>property</code> to declare a dependency, do not specify a <code>type</code> or a <code>default</code>: DI/1 assumes that typed properties (and defaulted properties) are intended to generate specific getters and setters on transients or for ORM integration, rather than just dependencies. You can override this default behavior - see <strong><a href="#configuration">Configuration</a></strong> below.</p>
 
 <p>If DI/1 cannot find a matching bean for a constructor argument, it will throw an exception. If DI/1 cannot find a matching bean for a setter method or property, it will log the failure and ignore it (by default), and the corresponding variable will not be populated. You can configure DI/1 to be strict about matching bean names - see the configuration section below - in which case it will throw an exception.</p>
 
@@ -136,7 +158,7 @@ var beanFactory = new ioc(["/model","/common/model"]);
 
 <p>This will use <code>name</code> and <code>email</code> as overrides so that they <em>hide</em> any beans of the same name when DI/1 calls the <code>init()</code> method. This can be particularly valuable when you are migrating legacy code to DI/1 and want it to manage bean creation while still providing constructor arguments in the (legacy) code.</p>
 
-<p>Note that DI/1 will only inject singletons via setters or properties. Injecting transients in those situations often leads to unexpected results (consider a transient <code>invoice</code> bean that has a <code>setCustomer()</code> method when you also have a transient <code>customer</code> bean - you almost certainly don’t want DI/1 to automatically create a customer instance and inject it every time you ask DI/1 for a new invoice bean!). If a constructor argument matches a transient bean, DI/1 will still create an instance since it has to finish constructing the original bean.</p>
+<p>Note that DI/1 will only inject singletons via setters or properties. Injecting transients in those situations often leads to unexpected results (consider a transient <code>invoice</code> bean that has a <code>setCustomer()</code> method when you also have a transient <code>customer</code> bean - you almost certainly don’t want DI/1 to automatically create a customer instance and inject it every time you ask DI/1 for a new invoice bean!). If a constructor argument matches a transient bean, DI/1 will still create an instance since it has to finish constructing the original bean. <em>Note: this is unclear and there is an open issue against the documentation to reword this once some testing has verified exactly how DI/1 behaves with combinations of transients and singletons in constructor arguments!</em></p>
 
 <h2 id="acceptable-folder-paths">Acceptable Folder Paths</h2>
 
@@ -309,6 +331,44 @@ moduleBeanFactory.setParent( mainBeanFactory );
 
 <p>These values may be added after DI/1 has been initialized using the <code>addBean()</code> method as shown above.</p>
 
+<h1 id="reference-manual">Reference Manual</h1>
+
+<p>This section lists every public method in DI/1, along with a brief explanation. After the listing of public methods, some additional discussion is provided about extending DI/1 and overriding its behavior.</p>
+
+<h2 id="public-methods">Public Methods</h2>
+
+<h3 id="public-any-function-init-any-folders-struct-config----">public any function init( any folders, struct config = { } )</h3>
+
+<h3 id="public-any-function-addalias-string-aliasname-string-beanname-">public any function addAlias( string aliasName, string beanName )</h3>
+
+<h3 id="public-any-function-addbean-string-beanname-any-beanvalue-">public any function addBean( string beanName, any beanValue )</h3>
+
+<h3 id="public-boolean-function-containsbean-string-beanname-">public boolean function containsBean( string beanName )</h3>
+
+<h3 id="public-boolean-function-hasparent">public boolean function hasParent()</h3>
+
+<h3 id="public-any-function-declarebean-string-beanname-string-dottedpath-boolean-issingleton--true-struct-overrides----">public any function declareBean( string beanName, string dottedPath, boolean isSingleton = true, struct overrides = { } )</h3>
+
+<h3 id="public-any-function-factorybean-string-beanname-any-factory-string-methodname-array-args----struct-overrides----">public any function factoryBean( string beanName, any factory, string methodName, array args = [ ], struct overrides = { } )</h3>
+
+<h3 id="public-any-function-getbean-string-beanname-struct-constructorargs----">public any function getBean( string beanName, struct constructorArgs = { } )</h3>
+
+<h3 id="public-any-function-getbeaninfo-string-beanname---boolean-flatten--false-string-regex---">public any function getBeanInfo( string beanName = ‘’, boolean flatten = false, string regex = ‘’ )</h3>
+
+<h3 id="public-struct-function-getconfig">public struct function getConfig()</h3>
+
+<h3 id="public-string-function-getversion">public string function getVersion()</h3>
+
+<h3 id="public-boolean-function-issingleton-string-beanname-">public boolean function isSingleton( string beanName )</h3>
+
+<h3 id="public-any-function-injectproperties-any-bean-struct-properties-">public any function injectProperties( any bean, struct properties )</h3>
+
+<h3 id="public-any-function-load">public any function load()</h3>
+
+<h3 id="public-any-function-onload-any-listener-">public any function onLoad( any listener )</h3>
+
+<h3 id="public-any-function-setparent-any-parent-">public any function setParent( any parent )</h3>
+
 <h2 id="overriding-di1-behavior">Overriding DI/1 Behavior</h2>
 
 <p>If you want to override the methods in DI/1, such as <code>logMissingBean()</code>, you can create your own CFC that extends <code>ioc.cfc</code> and overrides the desired methods. Then use your CFC instead of <code>ioc.cfc</code>. If any particular use case becomes common, we can discuss incorporating it into DI/1 as a configuration option.</p>
@@ -338,7 +398,7 @@ moduleBeanFactory.setParent( mainBeanFactory );
 
 
 
-<time class='entry-date' datetime='2015-11-20T16:30:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:30 pm</span></time>
+<time class='entry-date' datetime='2015-12-22T10:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>10:30 am</span></time>
         
       </p>
       
