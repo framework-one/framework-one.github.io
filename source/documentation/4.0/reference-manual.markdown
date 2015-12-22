@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-12-16 15:30
+date: 2015-12-21 19:30
 comments: false
 sharing: false
 footer: true
@@ -340,6 +340,8 @@ This function renders a layout and could be called inside a view or a layout, al
 
 Rendering views, using the `view()` method, is supported, documented and the recommended way to build composite pages. Layouts should simply wrap views, in a cascade from item to section to site.
 
+As of release 4.0, `layout()` may be called from a controller to wrap HTML (such as produced by a call to `view()`). See the `view()` below for such use cases.
+
 ### public function onApplicationStart()
 
 Part of the standard CFML lifecycle, this method is called automatically by the CFML engine at application startup. You should not override this nor call it (even tho' it is `public`). Use `setupApplication()` to perform application-specific initialization.
@@ -551,6 +553,6 @@ This renders a view and returns the output of that view as a string. It is inten
 
 This renders the `header` and `footer` items (views) from the `common` subsystem's `site` section and the `menu` item (view) from the current subsystem's `nav` section. Inside `menu.cfm`, `local.selected` would be available containing the string `"home"`.
 
-A controller may call `view()` which can be useful if you have email templates that need to be rendered and sent as part of a request: those email templates can be treated as views and have all the associated `rc`, `local`, etc machinery applied.
+A controller may call `view()` which can be useful if you have email templates that need to be rendered and sent as part of a request: those email templates can be treated as views and have all the associated `rc`, `local`, etc machinery applied. As of release 4.0, a controller may also call `layout()` to wrap a view for such purposes.
 
 If the argument `missingView` is not specified, and the specified view `path` does not exist, then `onMissingView()` will be called. If a string is passed as `missingView` and the specified view does not exist, then the value of the `missingView` argument will be returned. This allows for programmatically calculated views to be silently rendered as empty strings if they are not present. This can be useful for programmatic skins with optional elements.

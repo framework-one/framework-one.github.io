@@ -1,14 +1,14 @@
 ---
 layout: page
 title: "Change Log for FW/1 and Friends"
-date: 2015-12-16 15:20
+date: 2015-12-21 19:20
 comments: false
 sharing: false
 footer: true
 ---
 _This is documentation for the upcoming 4.0 release. For the current release, see [this documentation](/documentation/)._
 
-The following changes are part of FW/1 4.0, DI/1 1.2.0, and cfmljure 1.0.1.
+The following changes are part of FW/1 4.0, DI/1 1.2.0, and cfmljure 1.1.0.
 
 Summary
 ---
@@ -34,6 +34,8 @@ Breaking Changes
 Enhancements
 ---
 
+* [414](https://github.com/framework-one/fw1/issues/414) - Add support for Boot to cfmljure.
+* [413](https://github.com/framework-one/fw1/issues/413) - `layout()` may now be called from controllers.
 * [409](https://github.com/framework-one/fw1/issues/409) - Dependency injection uses additional caches to improve `getBean()` performance (by a factor of 9x-25x, depending on your usage and your CFML engine).
 * [407](https://github.com/framework-one/fw1/pull/407) - DI/1 now has a public `hasParent()` predicate method.
 * [400](https://github.com/framework-one/fw1/issues/400) - Dependency injection ignores typed/defaulted properties by default. This can be disabled via the `omitDefaultedProperties` and `omitTypedProperties` settings.
