@@ -162,6 +162,8 @@ You can declare a factory bean - like Spring/ColdSpring - as follow:
 
 This tells DI/1 that when you call `getBean("generated")`, instead of trying to create the bean itself, it should call `factory.method(..args..)` to get the bean instance. `args` can be omitted (and defaults to an empty list of arguments). The last argument provides overrides for bean values, as shown above, and is optional.
 
+### Using Load Listeners
+
 ## Overriding
 
 Customizing the behavior of DI/1 by overriding its methods should probably be considered a "last resort" so before you go down this path, ask on Slack or on the mailing list if there is a way to achieve your goals without doing this. As an example of overridden behavior, the Clojure integration provided by `ioclj.cfc` could be a useful model for you. That overrides the constructor (to deal with finding Clojure code and modifying the metadata), `containsBean()` and `getBean()` to check whether the requested bean is Clojure code or a regular CFC, and `getBeanInfo()` to provide metadata about Clojure code that is loaded.
@@ -288,7 +290,7 @@ This causes DI/1 to flush all its caches and to go through all the singleton bea
 
 ### public any function onLoad( any listener )
 
-Register a load listener that DI/1 should call after the factory has initialized itself. This is the recommanded way to provide additional bean declarations (`addAlias()`, `addBean()`, `declareBean()`, `factoryBean()`) since it ensures they all run before the constructed instance of DI/1 is returned to your program. The `listener` may be a bean name, in which case DI/1 will look it up internally, or an instance of a CFC, or a user-defined function or closure. If the `listener` resolves to a CFC instance, DI/1 will call `onLoad()` on that instance and pass itself in as the only argument. If the `listener` is a function or closure, DI/1 will call it and pass itself in as the only argument. You can then manipulate the bean factory further as part of its initialization.
+Register a load listener that DI/1 should call after the factory has initialized itself. This is the recommanded way to provide additional bean declarations (`addAlias()`, `addBean()`, `declareBean()`, `factoryBean()`) since it ensures they all run before the constructed instance of DI/1 is returned to your program. The `listener` may be a bean name, in which case DI/1 will look it up internally, or an instance of a CFC, or a user-defined function or closure. If the `listener` resolves to a CFC instance, DI/1 will call `onLoad()` on that instance and pass itself in as the only argument. If the `listener` is a function or closure, DI/1 will call it and pass itself in as the only argument. You can then manipulate the bean factory further as part of its initialization. A single load listener is usually registered via the `loadListener` element of the `config` struct when DI/1 is initialized but `onLoad()` can be called multiple times to register additional listeners. When muliple listeners are registered, they are called in the reverse order of registration.
 
 ### public any function setParent( any parent )
 
