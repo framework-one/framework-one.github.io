@@ -347,6 +347,8 @@ Tell DI/1 that the given `parent` object should be treated as a parent bean fact
 
 If you want to override the methods in DI/1, such as `logMissingBean()`, you can create your own CFC that extends `ioc.cfc` and overrides the desired methods. Then use your CFC instead of `ioc.cfc`. If any particular use case becomes common, we can discuss incorporating it into DI/1 as a configuration option.
 
+One possible use case is overriding the constructor to provide your own `init()` method that does additional configurtion (although using a load listener is probably a better way to do this in general). The Clojure integration provided by `ioclj.cfc` takes this approach because it needs to do additional setup work, as well as registering its own load listener (in addition to any `config.loadListener`), so that it can modify the bean metadata at startup, after the (CFC) beans have been discovered by DI/1.
+
 The following supported extension points are provided:
 
 * `private void function setupInitMethod( string name, any bean )` - this is called for each bean after its dependencies have been injected prior to calling `initMethod` (if specified).
