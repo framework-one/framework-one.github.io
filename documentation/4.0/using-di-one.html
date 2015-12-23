@@ -363,7 +363,7 @@ bf.onLoad( "LoadListener" );
 
 <p>In addition, there is a hook for modifying beans as they are initialized – <code>setupInitMethod()</code> – which is called after a bean has been fully populated but prior to calleding the <code>"init-method"</code> (if any is specified).</p>
 
-<p>See <strong><a href="#overrding-di-1-behavior">Overriding DI/1 Behavior</a></strong> for more detail.</p>
+<p>See <strong><a href="#overriding-di-1-behavior">Overriding DI/1 Behavior</a></strong> for more detail.</p>
 
 <h1 id="other-public-methods">Other Public Methods</h1>
 
@@ -495,6 +495,8 @@ moduleBeanFactory.setParent( mainBeanFactory );
 <h2 id="overriding-di1-behavior">Overriding DI/1 Behavior</h2>
 
 <p>If you want to override the methods in DI/1, such as <code>logMissingBean()</code>, you can create your own CFC that extends <code>ioc.cfc</code> and overrides the desired methods. Then use your CFC instead of <code>ioc.cfc</code>. If any particular use case becomes common, we can discuss incorporating it into DI/1 as a configuration option.</p>
+
+<p>One possible use case is overriding the constructor to provide your own <code>init()</code> method that does additional configurtion (although using a load listener is probably a better way to do this in general). The Clojure integration provided by <code>ioclj.cfc</code> takes this approach because it needs to do additional setup work, as well as registering its own load listener (in addition to any <code>config.loadListener</code>), so that it can modify the bean metadata at startup, after the (CFC) beans have been discovered by DI/1.</p>
 
 <p>The following supported extension points are provided:</p>
 
