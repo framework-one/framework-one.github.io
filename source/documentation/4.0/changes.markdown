@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Change Log for FW/1 and Friends"
-date: 2015-12-21 19:20
+date: 2015-12-22 21:20
 comments: false
 sharing: false
 footer: true
@@ -15,6 +15,7 @@ Summary
 The focus of the 4.0 release is on improving REST support. Improvements include:
 
 * JSON-encoded POST body support.
+* Controllers have easy access to HTTP headers.
 * Builder syntax for `renderData()` result elements.
 * Support for user-supplied rendering functions.
 * Integrated support for HTTP `OPTIONS` verb.
@@ -35,6 +36,7 @@ Enhancements
 ---
 
 * [414](https://github.com/framework-one/fw1/issues/414) - Add support for Boot to cfmljure.
+* [411](https://github.com/framework-one/fw1/issues/411) - Add `headers` argument to controllers.
 * [413](https://github.com/framework-one/fw1/issues/413) - `layout()` may now be called from controllers.
 * [409](https://github.com/framework-one/fw1/issues/409) - Dependency injection uses additional caches to improve `getBean()` performance (by a factor of 9x-25x, depending on your usage and your CFML engine).
 * [407](https://github.com/framework-one/fw1/pull/407) - DI/1 now has a public `hasParent()` predicate method.

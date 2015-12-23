@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-12-22 20:00
+date: 2015-12-22 21:40
 comments: false
 sharing: false
 footer: true
@@ -176,7 +176,21 @@ If you want to return plain text, XML, or JSON from a request instead of renderi
 
 Designing Controllers
 ---
-Controllers are the pounding heart of an MVC application and FW/1 provides quite a bit of flexibility in this area. The most basic convention is that when FW/1 is asked for `section.item` it will look for `controllers/section.cfc` and attempt to call the `item()` method on it, passing in the request context as a single argument called `rc` and controllers may call into the application model as needed, then render a view. Similarly, when asked for `module:section.item` it will look for `subsystems/module/controllers/section.cfc` and attempt to call the `item()` method on it.
+Controllers are the pounding heart of an MVC application and FW/1 provides quite a bit of flexibility in this area. The most basic convention is that when FW/1 is asked for `section.item` it will look for `controllers/section.cfc` and attempt to call the `item()` method on it, passing in the request context as an argument called `rc` and the HTTP headers as an argument called `headers` (_new in 4.0_). Controllers may call into the application model as needed, then render a view. Similarly, when asked for `module:section.item` it will look for `subsystems/module/controllers/section.cfc` and attempt to call the `item()` method on it.
+
+Most of the time, you will see controller methods defined like this:
+
+    function item( rc ) {
+        ...
+    }
+
+A controller that wants to inspect the HTTP headers can be defined like this:
+
+    function item( rc, headers ) {
+        ...
+    }
+
+The `headers` argument is a struct of HTTP headers, and is the same as you would get from calling `getHttpRequestData().headers`. This argument was introduced in release 4.0 to better support REST APIs.
 
 Controllers are cached in FW/1's application cache so controller methods need to be written with thread safety in mind (i.e., use `var` to declare variables properly!). Any `setXxx()` methods on a controller CFC may be used by FW/1 to autowire beans from the bean factory into the controller when it is created. In addition, if you add `accessors=true` to your controller's `component` tag, you can declare dependencies with the `property` keyword and those will be autowired by FW/1. Do not specify a type or a default on dependency declarations. `property`-based injection is the preferred approach.
 
@@ -200,7 +214,7 @@ _Note: if you are using the **Alternative Application Structure** then `before()
 
 ### Using onMissingMethod() to Implement Items
 
-FW/1 supports `onMissingMethod()`, i.e., if a desired method is not present but `onMissingMethod()` is defined, FW/1 will call the method anyway. That applies to all three potential controller methods: `before`, `item`, and `after`. That means you must be a little careful if you implement `onMissingMethod()` since it will be called whenever FW/1 needs a method that isn't already defined. Calls to `onMissingMethod()` are passed two arguments in `missingMethodArguments`: `rc` and `method` which is the type of the method being invoked (`"before"`, `"item"` - literally, regardless of the actual requested _item_, `"after"`). If you are going to use `onMissingMethod()`, you should either check `missingMethodArguments.method` or define `before()` and `after()` methods explicitly, even if they are empty.
+FW/1 supports `onMissingMethod()`, i.e., if a desired method is not present but `onMissingMethod()` is defined, FW/1 will call the method anyway. That applies to all three potential controller methods: `before`, `item`, and `after`. That means you must be a little careful if you implement `onMissingMethod()` since it will be called whenever FW/1 needs a method that isn't already defined. Calls to `onMissingMethod()` are passed three arguments in `missingMethodArguments`: `rc`, `headers` (_new in 4.0_) and `method` which is the type of the method being invoked (`"before"`, `"item"` - literally, regardless of the actual requested _item_, `"after"`). If you are going to use `onMissingMethod()`, you should either check `missingMethodArguments.method` or define `before()` and `after()` methods explicitly, even if they are empty.
 
 ### Using onMissingView() to Handle Missing Views
 
