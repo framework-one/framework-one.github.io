@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-12-22 20:00
+date: 2015-12-22 22:40
 comments: false
 sharing: false
 footer: true
@@ -464,9 +464,12 @@ This function returns a "builder" expression (_new in 4.0_) that supports the fo
 
 * `data( payload )` - set the data payload to be rendered: see below for restrictions on the payload, based on the render type.
 * `type( contentType )` - set the type of rendering to be performed: the argument may be `"html"`, `"json"`, `"jsonp"`, `"rawjson"`, `"xml"`, or `"text"`; it may also be a custom rendering function (or closure).
+* `header( name, value )` - add an HTTP header to be sent with the response (_new in 4.0_).
 * `statusCode( code )` - set the HTTP status code: default is 200.
 * `statusText( message )` - set the HTTP status message (_new in 4.0_).
 * `jsonpCallback( callback )` - set the JSONP callback: required when `type` is `"jsonp"`, otherwise ignored.
+
+This "builder" expression can be retrieved at any time in a controller by calling `renderer()` (below). _New in 4.0._
 
 The following restrictions apply to the data payload, for each type as shown:
 
@@ -485,6 +488,10 @@ For legacy application support, the following form of `renderData()` is still su
     public any function renderData( string type = "", any data = "", numeric statusCode = 200, string jsonpCallback = "" )
 
 Although this form is deprecated, FW/1 will only issue a deprecation warning (written to the console log) for `statusCode` and `jsonpCallback` in 4.0. In a future release, these will require a framework setting in order to be used and the `type` and `data` arguments will cause deprecation warnings.
+
+### public any function renderer()
+
+This returns the same "builder" expression that `renderData()` returns so that you can add settings and headers piecemeal in your controllers. _New in 4.0._
 
 ### public void function setBeanFactory( any factory )
 

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-12-22 21:40
+date: 2015-12-22 22:40
 comments: false
 sharing: false
 footer: true
@@ -302,9 +302,17 @@ The builder syntax supports:
 
 * `data()` to set the data payload to be rendered
 * `type()` to set the content type
+* `header()` to add an HTTP response header (this is an new feature in release 4.0)
 * `statusCode()` to set the HTTP status code
 * `statusText()` to set the HTTP status message (this is a new feature in release 4.0)
 * `jsonpCallback()` to set the JSONP callback
+
+Once you have called `renderData()`, you can either chain builder calls onto that call to set these values, or you can call the `renderer()` function (_new in 4.0_) to get the builder to set these values:
+
+    variables.fw.renderData().data( result ).type( "json" );
+    if ( someCondition ) {
+        variables.fw.renderer().header( "X-Result", "Condition Happened" );
+    }
 
 As of release 4.0, FW/1 can accept JSON data in the body of a POST. To enable this, set `enableJSONPOST` to `true` in your framework configuration. FW/1 assumes the JSON data will deserialize to a struct and that will be appended to the request context, overriding any URL variables of the same name as elements of the deserialized struct.
 
