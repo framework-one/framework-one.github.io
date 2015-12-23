@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using DI/1"
-date: 2015-12-22 10:30
+date: 2015-12-22 19:30
 comments: false
 sharing: false
 footer: true
@@ -163,6 +163,53 @@ You can declare a factory bean - like Spring/ColdSpring - as follow:
 This tells DI/1 that when you call `getBean("generated")`, instead of trying to create the bean itself, it should call `factory.method(..args..)` to get the bean instance. `args` can be omitted (and defaults to an empty list of arguments). The last argument provides overrides for bean values, as shown above, and is optional.
 
 ### Using Load Listeners
+
+The easiest way to organize all your customization of the DI/1 bean factory is to use a load listener. I prefer to have a CFC, called `LoadListener.cfc`, somewhere in my `/model` folder that contains an `onLoad()` method, and I declare this in the `config` struct when I create DI/1:
+
+    // if creating DI/1 explicitly:
+    var bf = new ioc( [ "/model", "/controllers" ], { loadListener : "LoadListener" } );
+    
+    // if letting FW/1 create DI/1 for you:
+    variables.framework = {
+        ...
+        diLocations : [ "/model", "/controllers" ],
+        diConfig : { loadListener : "LoadListener" },
+        ...
+    };
+
+This tells DI/1 that when it has first discovered all the beans in the folders you specified (after construction but before any further operations take place on the bean factory), it should call `getBean( "LoadListener" )` and then call `onLoad( this )` on that bean (i.e., passing itself into your method).
+
+Your load listener CFC would look like this:
+
+    // LoadListener.cfc:
+    component {
+        function onLoad( beanFactory ) {
+            beanFactory.addBean( ... );
+            beanFactory.addBean( ... );
+            beanFactory.declareBean( ... );
+            ...
+            // eagerly load all the singletons:
+            beanFactory.load();
+        }
+    }
+
+That last step is optional, but I like to avoid lazy loading of singletons in applications that see heavy load (DI/1 deliberately avoids locks so heavy load can cause singletons to be constructed multiple times if you don't eagerly load the singletons at startup).
+
+You can also manually add load listeners by calling `onLoad()` on the bean factory itself, as long as you do it before any other operations are performed:
+
+    // only when creating DI/1 explicitly:
+    var bf = new ioc( [ "/model", "/controllers" ] );
+    bf.onLoad( "LoadListener" );
+
+You cannot do this when you let FW/1 create DI/1 for you, because it calls `addBean()` to add itself to DI/1's bean factory (as `"fw"`) and so the load listener has already triggered by the time `setupApplication()` is called. You also cannot add more load listeners inside your load listener method itself! If you want to add more load listeners, your best choice is to extend `ioc.cfc` and in your `init()` function, after calling `super.init()`, call `this.onLoad()` to register them before you `return this;`. You can easily tell FW/1 to use you extended version of DI/1 with the `variables.framework.diComponent` setting.
+
+Note that a load listener can also be passed as a function or closure, or as a CFC instance, so if you only wanted to eagerly load the singletons, you could declare it inline like this:
+
+    variables.framework = {
+        ...
+        diConfig : { loadListener : function( di1 ) { di1.load(); } },
+        ...
+    };
 
 ## Overriding
 
