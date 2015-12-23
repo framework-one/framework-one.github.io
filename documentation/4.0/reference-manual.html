@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Dec 22nd, 2015 8:00 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Dec 22nd, 2015 10:40 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-12-22T20:00:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>8:00 pm</span></time></p>
+<time class='entry-date' datetime='2015-12-22T22:40:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>10:40 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -144,6 +144,7 @@
       <li><a href="#public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-any-querystring---string-statuscode--302-string-header---" id="markdown-toc-public-void-function-redirect-string-action-string-preserve--none-string-append--none-string-path--see-below-any-querystring---string-statuscode--302-string-header---">public void function redirect( string action, string preserve = “none”, string append = “none”, string path = <em>see below</em>, any queryString = ‘’, string statusCode = ‘302’, string header = ‘’ )</a></li>
       <li><a href="#public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---" id="markdown-toc-public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---">public void function redirectCustomURL( string uri, string preserve = ‘none’, string statusCode = ‘302’, string header = ‘’ )</a></li>
       <li><a href="#public-any-function-renderdata" id="markdown-toc-public-any-function-renderdata">public any function renderData()</a></li>
+      <li><a href="#public-any-function-renderer" id="markdown-toc-public-any-function-renderer">public any function renderer()</a></li>
       <li><a href="#public-void-function-setbeanfactory-any-factory-" id="markdown-toc-public-void-function-setbeanfactory-any-factory-">public void function setBeanFactory( any factory )</a></li>
       <li><a href="#public-void-function-setlayout-string-action-boolean-suppressotherlayouts--false-" id="markdown-toc-public-void-function-setlayout-string-action-boolean-suppressotherlayouts--false-">public void function setLayout( string action, boolean suppressOtherLayouts = false )</a></li>
       <li><a href="#public-void-function-setsubsystembeanfactory-string-subsystem-any-factory-" id="markdown-toc-public-void-function-setsubsystembeanfactory-string-subsystem-any-factory-">public void function setSubsystemBeanFactory( string subsystem, any factory )</a></li>
@@ -648,10 +649,13 @@ and instead render <code>data</code> in the specified content <code>type</code> 
 <ul>
   <li><code>data( payload )</code> - set the data payload to be rendered: see below for restrictions on the payload, based on the render type.</li>
   <li><code>type( contentType )</code> - set the type of rendering to be performed: the argument may be <code>"html"</code>, <code>"json"</code>, <code>"jsonp"</code>, <code>"rawjson"</code>, <code>"xml"</code>, or <code>"text"</code>; it may also be a custom rendering function (or closure).</li>
+  <li><code>header( name, value )</code> - add an HTTP header to be sent with the response (<em>new in 4.0</em>).</li>
   <li><code>statusCode( code )</code> - set the HTTP status code: default is 200.</li>
   <li><code>statusText( message )</code> - set the HTTP status message (<em>new in 4.0</em>).</li>
   <li><code>jsonpCallback( callback )</code> - set the JSONP callback: required when <code>type</code> is <code>"jsonp"</code>, otherwise ignored.</li>
 </ul>
+
+<p>This “builder” expression can be retrieved at any time in a controller by calling <code>renderer()</code> (below). <em>New in 4.0.</em></p>
 
 <p>The following restrictions apply to the data payload, for each type as shown:</p>
 
@@ -673,6 +677,10 @@ and instead render <code>data</code> in the specified content <code>type</code> 
 </code></pre>
 
 <p>Although this form is deprecated, FW/1 will only issue a deprecation warning (written to the console log) for <code>statusCode</code> and <code>jsonpCallback</code> in 4.0. In a future release, these will require a framework setting in order to be used and the <code>type</code> and <code>data</code> arguments will cause deprecation warnings.</p>
+
+<h3 id="public-any-function-renderer">public any function renderer()</h3>
+
+<p>This returns the same “builder” expression that <code>renderData()</code> returns so that you can add settings and headers piecemeal in your controllers. <em>New in 4.0.</em></p>
 
 <h3 id="public-void-function-setbeanfactory-any-factory-">public void function setBeanFactory( any factory )</h3>
 
@@ -755,7 +763,7 @@ and instead render <code>data</code> in the specified content <code>type</code> 
 
 
 
-<time class='entry-date' datetime='2015-12-22T20:00:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>8:00 pm</span></time>
+<time class='entry-date' datetime='2015-12-22T22:40:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>10:40 pm</span></time>
         
       </p>
       

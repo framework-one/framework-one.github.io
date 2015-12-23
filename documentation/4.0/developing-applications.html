@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Dec 22nd, 2015 8:00 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Dec 22nd, 2015 10:40 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-12-22T20:00:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>8:00 pm</span></time></p>
+<time class='entry-date' datetime='2015-12-22T22:40:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>10:40 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -300,7 +300,23 @@ component { // does not extend anything
 <p>If you want to return plain text, XML, or JSON from a request instead of rendering an HTML view, you can use the <code>renderData()</code> API to bypass views and layouts completely and automatically return data rendered as JSON, XML, or plain text to your caller, with the correct content type automatically set. See <strong><a href="#controllers-for-rest-apis">Controllers for REST APIs</a></strong> below for more details.</p>
 
 <h2 id="designing-controllers">Designing Controllers</h2>
-<p>Controllers are the pounding heart of an MVC application and FW/1 provides quite a bit of flexibility in this area. The most basic convention is that when FW/1 is asked for <code>section.item</code> it will look for <code>controllers/section.cfc</code> and attempt to call the <code>item()</code> method on it, passing in the request context as a single argument called <code>rc</code> and controllers may call into the application model as needed, then render a view. Similarly, when asked for <code>module:section.item</code> it will look for <code>subsystems/module/controllers/section.cfc</code> and attempt to call the <code>item()</code> method on it.</p>
+<p>Controllers are the pounding heart of an MVC application and FW/1 provides quite a bit of flexibility in this area. The most basic convention is that when FW/1 is asked for <code>section.item</code> it will look for <code>controllers/section.cfc</code> and attempt to call the <code>item()</code> method on it, passing in the request context as an argument called <code>rc</code> and the HTTP headers as an argument called <code>headers</code> (<em>new in 4.0</em>). Controllers may call into the application model as needed, then render a view. Similarly, when asked for <code>module:section.item</code> it will look for <code>subsystems/module/controllers/section.cfc</code> and attempt to call the <code>item()</code> method on it.</p>
+
+<p>Most of the time, you will see controller methods defined like this:</p>
+
+<pre><code>function item( rc ) {
+    ...
+}
+</code></pre>
+
+<p>A controller that wants to inspect the HTTP headers can be defined like this:</p>
+
+<pre><code>function item( rc, headers ) {
+    ...
+}
+</code></pre>
+
+<p>The <code>headers</code> argument is a struct of HTTP headers, and is the same as you would get from calling <code>getHttpRequestData().headers</code>. This argument was introduced in release 4.0 to better support REST APIs.</p>
 
 <p>Controllers are cached in FW/1’s application cache so controller methods need to be written with thread safety in mind (i.e., use <code>var</code> to declare variables properly!). Any <code>setXxx()</code> methods on a controller CFC may be used by FW/1 to autowire beans from the bean factory into the controller when it is created. In addition, if you add <code>accessors=true</code> to your controller’s <code>component</code> tag, you can declare dependencies with the <code>property</code> keyword and those will be autowired by FW/1. Do not specify a type or a default on dependency declarations. <code>property</code>-based injection is the preferred approach.</p>
 
@@ -326,7 +342,7 @@ component { // does not extend anything
 
 <h3 id="using-onmissingmethod-to-implement-items">Using onMissingMethod() to Implement Items</h3>
 
-<p>FW/1 supports <code>onMissingMethod()</code>, i.e., if a desired method is not present but <code>onMissingMethod()</code> is defined, FW/1 will call the method anyway. That applies to all three potential controller methods: <code>before</code>, <code>item</code>, and <code>after</code>. That means you must be a little careful if you implement <code>onMissingMethod()</code> since it will be called whenever FW/1 needs a method that isn’t already defined. Calls to <code>onMissingMethod()</code> are passed two arguments in <code>missingMethodArguments</code>: <code>rc</code> and <code>method</code> which is the type of the method being invoked (<code>"before"</code>, <code>"item"</code> - literally, regardless of the actual requested <em>item</em>, <code>"after"</code>). If you are going to use <code>onMissingMethod()</code>, you should either check <code>missingMethodArguments.method</code> or define <code>before()</code> and <code>after()</code> methods explicitly, even if they are empty.</p>
+<p>FW/1 supports <code>onMissingMethod()</code>, i.e., if a desired method is not present but <code>onMissingMethod()</code> is defined, FW/1 will call the method anyway. That applies to all three potential controller methods: <code>before</code>, <code>item</code>, and <code>after</code>. That means you must be a little careful if you implement <code>onMissingMethod()</code> since it will be called whenever FW/1 needs a method that isn’t already defined. Calls to <code>onMissingMethod()</code> are passed three arguments in <code>missingMethodArguments</code>: <code>rc</code>, <code>headers</code> (<em>new in 4.0</em>) and <code>method</code> which is the type of the method being invoked (<code>"before"</code>, <code>"item"</code> - literally, regardless of the actual requested <em>item</em>, <code>"after"</code>). If you are going to use <code>onMissingMethod()</code>, you should either check <code>missingMethodArguments.method</code> or define <code>before()</code> and <code>after()</code> methods explicitly, even if they are empty.</p>
 
 <h3 id="using-onmissingview-to-handle-missing-views">Using onMissingView() to Handle Missing Views</h3>
 
@@ -424,10 +440,19 @@ text and HTML, the <code>resultData</code> value must be a string. <em><code>"ht
 <ul>
   <li><code>data()</code> to set the data payload to be rendered</li>
   <li><code>type()</code> to set the content type</li>
+  <li><code>header()</code> to add an HTTP response header (this is an new feature in release 4.0)</li>
   <li><code>statusCode()</code> to set the HTTP status code</li>
   <li><code>statusText()</code> to set the HTTP status message (this is a new feature in release 4.0)</li>
   <li><code>jsonpCallback()</code> to set the JSONP callback</li>
 </ul>
+
+<p>Once you have called <code>renderData()</code>, you can either chain builder calls onto that call to set these values, or you can call the <code>renderer()</code> function (<em>new in 4.0</em>) to get the builder to set these values:</p>
+
+<pre><code>variables.fw.renderData().data( result ).type( "json" );
+if ( someCondition ) {
+    variables.fw.renderer().header( "X-Result", "Condition Happened" );
+}
+</code></pre>
 
 <p>As of release 4.0, FW/1 can accept JSON data in the body of a POST. To enable this, set <code>enableJSONPOST</code> to <code>true</code> in your framework configuration. FW/1 assumes the JSON data will deserialize to a struct and that will be appended to the request context, overriding any URL variables of the same name as elements of the deserialized struct.</p>
 
@@ -1098,7 +1123,7 @@ property framework;   // make your controller framework aware
 
 
 
-<time class='entry-date' datetime='2015-12-22T20:00:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>8:00 pm</span></time>
+<time class='entry-date' datetime='2015-12-22T22:40:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>10:40 pm</span></time>
         
       </p>
       
