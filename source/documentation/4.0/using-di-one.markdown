@@ -219,7 +219,7 @@ DI/1 provides no specific public extension points but it does provide a few `pri
 
 In addition, there is a hook for modifying beans as they are initialized -- `setupInitMethod()` -- which is called after a bean has been fully populated but prior to calleding the `"init-method"` (if any is specified).
 
-See **[Overriding DI/1 Behavior](#overriding-di-1-behavior)** for more detail.
+See **[Overriding DI/1 Behavior](#overriding-di1-behavior)** for more detail.
 
 # Other Public Methods
 
