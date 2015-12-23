@@ -39,6 +39,7 @@ Enhancements
 * [413](https://github.com/framework-one/fw1/issues/413) - `layout()` may now be called from controllers.
 * [412](https://github.com/framework-one/fw1/issues/412) - Add `renderer()` to access `renderData()` builder and add `header()` to set HTTP response headers.
 * [411](https://github.com/framework-one/fw1/issues/411) - Add `headers` argument to controllers.
+* [410](https://github.com/framework-one/fw1/issues/410) - Clarified license (Apache Source License 2.0), added LICENSE file.
 * [409](https://github.com/framework-one/fw1/issues/409) - Dependency injection uses additional caches to improve `getBean()` performance (by a factor of 9x-25x, depending on your usage and your CFML engine).
 * [407](https://github.com/framework-one/fw1/pull/407) - DI/1 now has a public `hasParent()` predicate method.
 * [400](https://github.com/framework-one/fw1/issues/400) - Dependency injection ignores typed/defaulted properties by default. This can be disabled via the `omitDefaultedProperties` and `omitTypedProperties` settings.
