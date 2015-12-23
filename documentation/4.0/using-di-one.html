@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using DI/1 Dec 22nd, 2015 10:30 am This is documentation for the upcoming 4.0 release. For the current release, see this documentation. DI/1 - a.k.a &hellip;">
+  <meta name="description" content="Using DI/1 Dec 22nd, 2015 7:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. DI/1 - a.k.a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-12-22T10:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>10:30 am</span></time></p>
+<time class='entry-date' datetime='2015-12-22T19:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>7:30 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -98,6 +98,7 @@
       </li>
       <li><a href="#customization" id="markdown-toc-customization">Customization</a>        <ul>
           <li><a href="#customization-examples" id="markdown-toc-customization-examples">Customization Examples</a></li>
+          <li><a href="#using-load-listeners" id="markdown-toc-using-load-listeners">Using Load Listeners</a></li>
         </ul>
       </li>
       <li><a href="#overriding" id="markdown-toc-overriding">Overriding</a></li>
@@ -301,6 +302,59 @@ beanFactory.declareBean("admindata", "util.DataSource", true, { dsn = "admindb" 
 
 <p>This tells DI/1 that when you call <code>getBean("generated")</code>, instead of trying to create the bean itself, it should call <code>factory.method(..args..)</code> to get the bean instance. <code>args</code> can be omitted (and defaults to an empty list of arguments). The last argument provides overrides for bean values, as shown above, and is optional.</p>
 
+<h3 id="using-load-listeners">Using Load Listeners</h3>
+
+<p>The easiest way to organize all your customization of the DI/1 bean factory is to use a load listener. I prefer to have a CFC, called <code>LoadListener.cfc</code>, somewhere in my <code>/model</code> folder that contains an <code>onLoad()</code> method, and I declare this in the <code>config</code> struct when I create DI/1:</p>
+
+<pre><code>// if creating DI/1 explicitly:
+var bf = new ioc( [ "/model", "/controllers" ], { loadListener : "LoadListener" } );
+
+// if letting FW/1 create DI/1 for you:
+variables.framework = {
+    ...
+    diLocations : [ "/model", "/controllers" ],
+    diConfig : { loadListener : "LoadListener" },
+    ...
+};
+</code></pre>
+
+<p>This tells DI/1 that when it has first discovered all the beans in the folders you specified (after construction but before any further operations take place on the bean factory), it should call <code>getBean( "LoadListener" )</code> and then call <code>onLoad( this )</code> on that bean (i.e., passing itself into your method).</p>
+
+<p>Your load listener CFC would look like this:</p>
+
+<pre><code>// LoadListener.cfc:
+component {
+    function onLoad( beanFactory ) {
+        beanFactory.addBean( ... );
+        beanFactory.addBean( ... );
+        beanFactory.declareBean( ... );
+        ...
+        // eagerly load all the singletons:
+        beanFactory.load();
+    }
+}
+</code></pre>
+
+<p>That last step is optional, but I like to avoid lazy loading of singletons in applications that see heavy load (DI/1 deliberately avoids locks so heavy load can cause singletons to be constructed multiple times if you don’t eagerly load the singletons at startup).</p>
+
+<p>You can also manually add load listeners by calling <code>onLoad()</code> on the bean factory itself, as long as you do it before any other operations are performed:</p>
+
+<pre><code>// only when creating DI/1 explicitly:
+var bf = new ioc( [ "/model", "/controllers" ] );
+bf.onLoad( "LoadListener" );
+</code></pre>
+
+<p>You cannot do this when you let FW/1 create DI/1 for you, because it calls <code>addBean()</code> to add itself to DI/1’s bean factory (as <code>"fw"</code>) and so the load listener has already triggered by the time <code>setupApplication()</code> is called. You also cannot add more load listeners inside your load listener method itself! If you want to add more load listeners, your best choice is to extend <code>ioc.cfc</code> and in your <code>init()</code> function, after calling <code>super.init()</code>, call <code>this.onLoad()</code> to register them before you <code>return this;</code>. You can easily tell FW/1 to use you extended version of DI/1 with the <code>variables.framework.diComponent</code> setting.</p>
+
+<p>Note that a load listener can also be passed as a function or closure, or as a CFC instance, so if you only wanted to eagerly load the singletons, you could declare it inline like this:</p>
+
+<pre><code>variables.framework = {
+    ...
+    diConfig : { loadListener : function( di1 ) { di1.load(); } },
+    ...
+};
+</code></pre>
+
 <h2 id="overriding">Overriding</h2>
 
 <p>Customizing the behavior of DI/1 by overriding its methods should probably be considered a “last resort” so before you go down this path, ask on Slack or on the mailing list if there is a way to achieve your goals without doing this. As an example of overridden behavior, the Clojure integration provided by <code>ioclj.cfc</code> could be a useful model for you. That overrides the constructor (to deal with finding Clojure code and modifying the metadata), <code>containsBean()</code> and <code>getBean()</code> to check whether the requested bean is Clojure code or a regular CFC, and <code>getBeanInfo()</code> to provide metadata about Clojure code that is loaded.</p>
@@ -432,7 +486,7 @@ moduleBeanFactory.setParent( mainBeanFactory );
 
 <h3 id="public-any-function-onload-any-listener-">public any function onLoad( any listener )</h3>
 
-<p>Register a load listener that DI/1 should call after the factory has initialized itself. This is the recommanded way to provide additional bean declarations (<code>addAlias()</code>, <code>addBean()</code>, <code>declareBean()</code>, <code>factoryBean()</code>) since it ensures they all run before the constructed instance of DI/1 is returned to your program. The <code>listener</code> may be a bean name, in which case DI/1 will look it up internally, or an instance of a CFC, or a user-defined function or closure. If the <code>listener</code> resolves to a CFC instance, DI/1 will call <code>onLoad()</code> on that instance and pass itself in as the only argument. If the <code>listener</code> is a function or closure, DI/1 will call it and pass itself in as the only argument. You can then manipulate the bean factory further as part of its initialization.</p>
+<p>Register a load listener that DI/1 should call after the factory has initialized itself. This is the recommanded way to provide additional bean declarations (<code>addAlias()</code>, <code>addBean()</code>, <code>declareBean()</code>, <code>factoryBean()</code>) since it ensures they all run before the constructed instance of DI/1 is returned to your program. The <code>listener</code> may be a bean name, in which case DI/1 will look it up internally, or an instance of a CFC, or a user-defined function or closure. If the <code>listener</code> resolves to a CFC instance, DI/1 will call <code>onLoad()</code> on that instance and pass itself in as the only argument. If the <code>listener</code> is a function or closure, DI/1 will call it and pass itself in as the only argument. You can then manipulate the bean factory further as part of its initialization. A single load listener is usually registered via the <code>loadListener</code> element of the <code>config</code> struct when DI/1 is initialized but <code>onLoad()</code> can be called multiple times to register additional listeners. When muliple listeners are registered, they are called in the reverse order of registration.</p>
 
 <h3 id="public-any-function-setparent-any-parent-">public any function setParent( any parent )</h3>
 
@@ -467,7 +521,7 @@ moduleBeanFactory.setParent( mainBeanFactory );
 
 
 
-<time class='entry-date' datetime='2015-12-22T10:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>10:30 am</span></time>
+<time class='entry-date' datetime='2015-12-22T19:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>7:30 pm</span></time>
         
       </p>
       
