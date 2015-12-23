@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-12-21 19:30
+date: 2015-12-22 20:00
 comments: false
 sharing: false
 footer: true
@@ -546,12 +546,12 @@ This renders a view and returns the output of that view as a string. It is inten
 
     <cfoutput>
       <div>#view( 'common:site/header' )#</div>
-      <div>#view( 'nav/menu', { selected = 'home' } )#</div>
+      <div>#view( 'nav/fragment/menu', { selected = 'home' } )#</div>
       <div>#body#</div>
       <div>#view( 'common:site/footer' )#</div>
     </cfoutput>
 
-This renders the `header` and `footer` items (views) from the `common` subsystem's `site` section and the `menu` item (view) from the current subsystem's `nav` section. Inside `menu.cfm`, `local.selected` would be available containing the string `"home"`.
+This renders the `header` and `footer` items (views) from the `common` subsystem's `site` section (i.e., `subsystems/common/views/site/header.cfm` and `footer.cfm`) and the `fragment/menu` item (view) from the current subsystem's `nav` section (i.e., `views/nav/fragment/menu.cfm`). Inside `menu.cfm`, `local.selected` would be available containing the string `"home"`.
 
 A controller may call `view()` which can be useful if you have email templates that need to be rendered and sent as part of a request: those email templates can be treated as views and have all the associated `rc`, `local`, etc machinery applied. As of release 4.0, a controller may also call `layout()` to wrap a view for such purposes.
 

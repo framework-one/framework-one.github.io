@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-12-16 15:30
+date: 2015-12-22 20:00
 comments: false
 sharing: false
 footer: true
@@ -122,11 +122,11 @@ The general principle behind views and layouts in FW/1 is that each request will
 Both views and layouts may invoke other views by name, using the `view()` method in the FW/1 API. For example, the home page of a site might be a portal style view that aggregates the company mission with the latest news. `views/home/default.cfm` might therefore look like this:
 
     <cfoutput>
-      <div>#view('company/mission')#</div>
+      <div>#view('company/section/mission')#</div>
       <div>#view('news/list')#</div>
     </cfoutput>
 
-This would render the `company.mission` view and the `news.list` view.
+This would render the `views/company/section/mission.cfm` view and the `views/news/list.cfm` view. The latter is as if you had invoked just the view portion of the `news.list` action, but `view()` is generic and intended for use with both full views for actions as well as view fragments that are often kept in subfolders (so they cannot accidentally be run by using just an action in a URL).
 
 Note: The `view()` method behaves like a smart include, automatically handling subsystems and providing a `local` scope that is private to each view, as well as the `rc` request context variable (through which views can communicate, if necessary). No controllers are executed as part of a `view()` call. Additional data may be passed to the `view()` method in an optional second argument, as elements of a struct that is added to the `local` scope.
 
