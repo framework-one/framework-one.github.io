@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Dec 16th, 2015 3:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Dec 22nd, 2015 8:00 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-12-16T15:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:30 pm</span></time></p>
+<time class='entry-date' datetime='2015-12-22T20:00:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>8:00 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -240,12 +240,12 @@ component { // does not extend anything
 <p>Both views and layouts may invoke other views by name, using the <code>view()</code> method in the FW/1 API. For example, the home page of a site might be a portal style view that aggregates the company mission with the latest news. <code>views/home/default.cfm</code> might therefore look like this:</p>
 
 <pre><code>&lt;cfoutput&gt;
-  &lt;div&gt;#view('company/mission')#&lt;/div&gt;
+  &lt;div&gt;#view('company/section/mission')#&lt;/div&gt;
   &lt;div&gt;#view('news/list')#&lt;/div&gt;
 &lt;/cfoutput&gt;
 </code></pre>
 
-<p>This would render the <code>company.mission</code> view and the <code>news.list</code> view.</p>
+<p>This would render the <code>views/company/section/mission.cfm</code> view and the <code>views/news/list.cfm</code> view. The latter is as if you had invoked just the view portion of the <code>news.list</code> action, but <code>view()</code> is generic and intended for use with both full views for actions as well as view fragments that are often kept in subfolders (so they cannot accidentally be run by using just an action in a URL).</p>
 
 <p>Note: The <code>view()</code> method behaves like a smart include, automatically handling subsystems and providing a <code>local</code> scope that is private to each view, as well as the <code>rc</code> request context variable (through which views can communicate, if necessary). No controllers are executed as part of a <code>view()</code> call. Additional data may be passed to the <code>view()</code> method in an optional second argument, as elements of a struct that is added to the <code>local</code> scope.</p>
 
@@ -1098,7 +1098,7 @@ property framework;   // make your controller framework aware
 
 
 
-<time class='entry-date' datetime='2015-12-16T15:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:30 pm</span></time>
+<time class='entry-date' datetime='2015-12-22T20:00:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>8:00 pm</span></time>
         
       </p>
       

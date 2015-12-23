@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Dec 21st, 2015 7:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Dec 22nd, 2015 8:00 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-12-21T19:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>7:30 pm</span></time></p>
+<time class='entry-date' datetime='2015-12-22T20:00:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>8:00 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -734,13 +734,13 @@ and instead render <code>data</code> in the specified content <code>type</code> 
 
 <pre><code>&lt;cfoutput&gt;
   &lt;div&gt;#view( 'common:site/header' )#&lt;/div&gt;
-  &lt;div&gt;#view( 'nav/menu', { selected = 'home' } )#&lt;/div&gt;
+  &lt;div&gt;#view( 'nav/fragment/menu', { selected = 'home' } )#&lt;/div&gt;
   &lt;div&gt;#body#&lt;/div&gt;
   &lt;div&gt;#view( 'common:site/footer' )#&lt;/div&gt;
 &lt;/cfoutput&gt;
 </code></pre>
 
-<p>This renders the <code>header</code> and <code>footer</code> items (views) from the <code>common</code> subsystem’s <code>site</code> section and the <code>menu</code> item (view) from the current subsystem’s <code>nav</code> section. Inside <code>menu.cfm</code>, <code>local.selected</code> would be available containing the string <code>"home"</code>.</p>
+<p>This renders the <code>header</code> and <code>footer</code> items (views) from the <code>common</code> subsystem’s <code>site</code> section (i.e., <code>subsystems/common/views/site/header.cfm</code> and <code>footer.cfm</code>) and the <code>fragment/menu</code> item (view) from the current subsystem’s <code>nav</code> section (i.e., <code>views/nav/fragment/menu.cfm</code>). Inside <code>menu.cfm</code>, <code>local.selected</code> would be available containing the string <code>"home"</code>.</p>
 
 <p>A controller may call <code>view()</code> which can be useful if you have email templates that need to be rendered and sent as part of a request: those email templates can be treated as views and have all the associated <code>rc</code>, <code>local</code>, etc machinery applied. As of release 4.0, a controller may also call <code>layout()</code> to wrap a view for such purposes.</p>
 
@@ -755,7 +755,7 @@ and instead render <code>data</code> in the specified content <code>type</code> 
 
 
 
-<time class='entry-date' datetime='2015-12-21T19:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>7:30 pm</span></time>
+<time class='entry-date' datetime='2015-12-22T20:00:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>8:00 pm</span></time>
         
       </p>
       
