@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using Clojure With CFML Dec 21st, 2015 10:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation &hellip;">
+  <meta name="description" content="Using Clojure With CFML Dec 26th, 2015 1:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-12-21T22:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>10:30 pm</span></time></p>
+<time class='entry-date' datetime='2015-12-26T13:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:30 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -156,6 +156,7 @@ Clojure code to be discovered and autowired into your CFML code, as well as a wa
         </ul>
       </li>
       <li><a href="#the-projectclj-file" id="markdown-toc-the-projectclj-file">The project.clj File</a></li>
+      <li><a href="#the-buildboot-file" id="markdown-toc-the-buildboot-file">The build.boot File</a></li>
     </ul>
   </li>
   <li><a href="#about-functional-programming" id="markdown-toc-about-functional-programming">About Functional Programming</a>    <ul>
@@ -409,11 +410,21 @@ FW/1 configuration structure.</p>
 rather than the default <code>ioc.cfc</code> for the Dependency Injection component (the bean factory). <code>ioclj.cfc</code> extends DI/1 and
 provides the Clojure-specific magic. Note that we leave <code>diEngine</code> as the default (which is <code>"di1"</code>) because <code>ioclj.cfc</code> is just an extension to DI/1.</p>
 
-<p>Next we specify <code>diLocations</code> as the full filesystem path of the current folder. In a CFML / Clojure application, you need to tell the bean factory
-about two things: where to find your <code>project.clj</code> or <code>build.boot</code> file and where to look for your CFML beans (if any). Locations are specified as
-either a comma-separated list of file paths, or an array of paths, and one of them must specify the exact directory path to where <code>project.clj</code> or <code>build.boot</code> lives. That will also be
-searched (recursively) for CFCs so you can store both your Clojure code and your CFML beans in the same tree structure if you wish, or
-you can store them separately and provide both file paths in <code>diLocations</code>.</p>
+<p>Next we specify <code>diLocations</code> as the full filesystem path of the current folder. In a CFML / Clojure application, you potentially need to tell the bean factory
+about three things:</p>
+
+<ul>
+  <li>Where to look for your CFML beans (if any).</li>
+  <li>Where to find your <code>project.clj</code> or <code>build.boot</code> file.</li>
+  <li>Where to find Clojure <code>src</code> folders to look for Clojure source code to be “managed” (and autowired).</li>
+</ul>
+
+<p>Locations are specified as
+either a comma-separated list of file paths, or an array of paths, and one of them must specify the exact directory path to where <code>project.clj</code> or <code>build.boot</code> lives.
+By default, each path is searched in order, for each of the three types of files.
+That means you can store both your Clojure code and your CFML beans in the same tree structure if you wish, or
+you can store them separately and provide multiple file paths in <code>diLocations</code>. File paths may optionally be prefixed with <code>clj:</code> or <code>cfml:</code> which
+will restrict searching to just that type of file.</p>
 
 <p>If you want to run <code>6helloclojure</code> with <strong>Boot</strong>, just add <code>diConfig : { boot : "boot" }</code> into the framework configuration and reload the application.</p>
 
@@ -579,6 +590,69 @@ you will need to force the bridge instance to be recreated in order for those ne
   <li><code>timeout</code> - numeric - default <code>300</code>. This is the number of seconds that FW/1 will wait for the <code>lein classpath</code> or <code>boot show -C</code> command to execute at startup. This
 should be sufficient even if you have a large number of dependencies in your <code>project.clj</code> or <code>build.boot</code>.</li>
 </ul>
+
+<p>In addition, the folder paths you provide are searched as follows:</p>
+
+<ul>
+  <li>No prefix: path is searched (recursively) for CFCs, path is checked for <code>project.clj</code> or <code>build.boot</code> (according to whether the <code>boot</code> configuration is omitted or present), path is checked for a <code>src</code> folder which is then searched (recursively) for Clojure files to manage and autowire into CFCs.</li>
+  <li><code>clj:</code> prefix: path is checked for <code>project.clj</code> or <code>build.boot</code> (according to whether the <code>boot</code> configuration is omitted or present), path is checked for a <code>src</code> folder which is then searched (recursively) for Clojure files to manage and autowire into CFCs.</li>
+  <li><code>cfml:</code> prefix: path is searched (recursively) for CFCs.</li>
+</ul>
+
+<p>If your Clojure build file is alongside your <code>src</code> folder, and all your CFCs are also in (subfolders of) that same location, you can specify just one folder path with no prefix. Otherwise you will need to specify the path(s) to your CFCs, the path to your Clojure build file, and the path to your Clojure <code>src</code> folders separately.</p>
+
+<p>Example 1:</p>
+
+<pre><code>approot/
+    controllers/
+        ... CFCs ...
+    model/
+        ... CFCs ...
+    project.clj
+    src/
+        ... Clojure source files ...
+    test/
+        ... Clojure test files ...
+</code></pre>
+
+<p>In this project, just supplying the path to <code>approot</code> is all you need: <code>ioclj</code> will find <code>project.clj</code> there as well as the <code>src</code> folder (which it will
+recursively search for <code>.clj</code> files) and DI/1 will recursively search the whole thing for CFCs.</p>
+
+<p>Example 2:</p>
+
+<pre><code>approot/
+    build.boot
+    controllers/
+        ... CFCs ...
+    model/
+        cfcs/
+            ... CFCs ...
+        src/
+            ... Clojure source files ...
+        test/
+            ... Clojure test files ...
+</code></pre>
+
+<p>In this project, you can supply the path to <code>approot</code> and it will find <code>build.boot</code> (assuming you also specify <code>boot</code> in your configuration), and it will
+recursively find all your CFCs, but if you want any Clojure code to be managed and injected, you’ll need to supply the path to <code>model</code> as well (where
+<code>src</code> is) and because you don’t want DI/1 to search both locations for CFCs (because that path overlaps with part of the <code>approot</code> tree), you will want
+to specify that is Clojure only:</p>
+
+<pre><code>diLocations : [ "/path/to/approot", "clj:/path/to/approot/model" ]
+</code></pre>
+
+<p>It would be better to be explicit about which paths are to be searched for what types of files:</p>
+
+<pre><code>diLocations : [
+    "clj:/path/to/approot",             // build.boot location
+    "clj:/path/to/approot/model",       // Clojure src location
+    "cfml:/path/to/approot/model/cfcs", // Model CFCs
+    "cfml:/path/to/approot/controllers" // Controller CFCs
+]
+</code></pre>
+
+<p>As you can see, you can organize you CFML and Clojure source code – and your Clojure build file – however you like (modulo the <code>src</code> folder requirement
+for Clojure) and still tell FW/1 exactly what you want it to do.</p>
 
 <h2 id="what-is-ns-all-about">What is ns all about?</h2>
 
@@ -1343,6 +1417,24 @@ get on IRC, Slack, or the mailing list and ask!</p>
 
 <p>For an overview of all the possible settings in <code>project.clj</code>, take a look at the <a href="https://github.com/technomancy/leiningen/blob/master/sample.project.clj">Sample project.clj File on GitHub</a>.</p>
 
+<h2 id="the-buildboot-file">The build.boot File</h2>
+
+<p>As with <strong>Leiningen</strong>’s <code>project.clj</code> file, the piece you’ll touch most often in <strong>Boot</strong>’s <code>build.boot</code> file will be the
+<code>:dependencies</code> entry (in a <code>(set-env! ..)</code> call). The only additional wrinkle with <strong>Boot</strong> is that you’ll need a <code>boot.properties</code>
+file as well if the version of Clojure you want to use in your project is not the same as the default version that your installation
+of <strong>Boot</strong> already uses. For example, at World Singles we’re using Clojure 1.8.0 RC 4 so our <code>boot.properties</code> file contains:</p>
+
+<pre><code>BOOT_CLOJURE_VERSION=1.8.0-RC4
+</code></pre>
+
+<p>and then in our <code>build.boot</code> file we specify <code>[org.clojure/clojure "1.8.0-RC4"]</code> as a dependency. This is because <strong>Boot</strong> uses the
+same JVM for itself as for your project’s code (whereas <strong>Leiningen</strong> uses two separate JVMs).</p>
+
+<p><strong>Boot</strong>’s build file is “just Clojure” so you can do pretty much anything you want there. <strong>Boot</strong> provides a number of
+important functions for setting up and managing projects but the main one you’ll use is <code>set-env!</code> to specify the libraries you
+need (<code>:dependencies</code>), where your resources – source files etc – are (<code>:resource-paths</code>), and where your tests are (<code>:source-paths</code>).
+For more detail, consult the <a href="http://boot-clj.com"><strong>Boot</strong> web site</a>.</p>
+
 <h1 id="about-functional-programming">About Functional Programming</h1>
 
 <p>Functional programming isn’t new. It’s origins lie in Lisp which was created in the 1950’s and is the second-oldest computer language
@@ -1540,7 +1632,7 @@ we’re using to iterating through the elements and either modifying them in pla
 along the way.</p>
 
 <p>What makes this problematic is that you can’t then easily run this code concurrently to take advantage of multiple cores:
-code that mutates collections in places or generates side effects is rarely thread safe.</p>
+code that mutates collections in place or generates side effects is rarely thread safe.</p>
 
 <p>In other words, mutable state is bad.</p>
 
@@ -1605,7 +1697,7 @@ In other words, a lot of people already know that FP is a better way to solve a 
 <p>Remember that modern OOP – as enshrined in Java and C# particularly – is not what the originators of OOP had
 in mind. They imagined objects as proxies for real world elements such as displays and control devices, that
 objects would be coarse-grained and communicate by sending messages between themselves. <em>In other words, they
-would be more like “actors”… which you have in both Clojure and Scala!</em></p>
+would be more like “actors”… which you have in both Clojure (as agents) and Scala (as actors)!</em></p>
 
 <h1 id="more-stuff-to-read">More Stuff to Read</h1>
 
@@ -1626,8 +1718,10 @@ Here’s a small sample, roughly in order of approachability:</p>
   </li>
   <li>Some great books to read:
     <ul>
-      <li>Clojure Programming http://www.clojurebook.com followed by</li>
-      <li>The Joy Of Clojure http://www.joyofclojure.com :)</li>
+      <li>Clojure for the Brave and True http://www.braveclojure.com (introductory level)</li>
+      <li>Living Clojure http://shop.oreilly.com/product/0636920034292.do (introduces Clojure, but assumes you’re an experienced developer in other languages)</li>
+      <li>Clojure Programming http://www.clojurebook.com (deep technical coverage)</li>
+      <li>The Joy Of Clojure http://www.joyofclojure.com (focused on the “why” of Clojure)</li>
     </ul>
   </li>
 </ul>
@@ -1645,7 +1739,7 @@ Here’s a small sample, roughly in order of approachability:</p>
 
 
 
-<time class='entry-date' datetime='2015-12-21T22:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>10:30 pm</span></time>
+<time class='entry-date' datetime='2015-12-26T13:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:30 pm</span></time>
         
       </p>
       
