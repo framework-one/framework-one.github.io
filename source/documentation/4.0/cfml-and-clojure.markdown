@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using Clojure with CFML"
-date: 2015-12-21 22:30
+date: 2015-12-26 13:30
 comments: false
 sharing: false
 footer: true
@@ -265,11 +265,19 @@ There are a few items of note here, and the first is that we specify `diComponen
 rather than the default `ioc.cfc` for the Dependency Injection component (the bean factory). `ioclj.cfc` extends DI/1 and
 provides the Clojure-specific magic. Note that we leave `diEngine` as the default (which is `"di1"`) because `ioclj.cfc` is just an extension to DI/1.
 
-Next we specify `diLocations` as the full filesystem path of the current folder. In a CFML / Clojure application, you need to tell the bean factory
-about two things: where to find your `project.clj` or `build.boot` file and where to look for your CFML beans (if any). Locations are specified as
-either a comma-separated list of file paths, or an array of paths, and one of them must specify the exact directory path to where `project.clj` or `build.boot` lives. That will also be
-searched (recursively) for CFCs so you can store both your Clojure code and your CFML beans in the same tree structure if you wish, or
-you can store them separately and provide both file paths in `diLocations`.
+Next we specify `diLocations` as the full filesystem path of the current folder. In a CFML / Clojure application, you potentially need to tell the bean factory
+about three things:
+
+* Where to look for your CFML beans (if any).
+* Where to find your `project.clj` or `build.boot` file.
+* Where to find Clojure `src` folders to look for Clojure source code to be "managed" (and autowired).
+
+Locations are specified as
+either a comma-separated list of file paths, or an array of paths, and one of them must specify the exact directory path to where `project.clj` or `build.boot` lives.
+By default, each path is searched in order, for each of the three types of files.
+That means you can store both your Clojure code and your CFML beans in the same tree structure if you wish, or
+you can store them separately and provide multiple file paths in `diLocations`. File paths may optionally be prefixed with `clj:` or `cfml:` which
+will restrict searching to just that type of file.
 
 If you want to run `6helloclojure` with **Boot**, just add `diConfig : { boot : "boot" }` into the framework configuration and reload the application.
 
@@ -425,6 +433,63 @@ the bean factory is recreated, until the server is restarted, or you explicitly 
 you will need to force the bridge instance to be recreated in order for those new dependencies to be picked up.
 * `timeout` - numeric - default `300`. This is the number of seconds that FW/1 will wait for the `lein classpath` or `boot show -C` command to execute at startup. This
 should be sufficient even if you have a large number of dependencies in your `project.clj` or `build.boot`.
+
+In addition, the folder paths you provide are searched as follows:
+
+* No prefix: path is searched (recursively) for CFCs, path is checked for `project.clj` or `build.boot` (according to whether the `boot` configuration is omitted or present), path is checked for a `src` folder which is then searched (recursively) for Clojure files to manage and autowire into CFCs.
+* `clj:` prefix: path is checked for `project.clj` or `build.boot` (according to whether the `boot` configuration is omitted or present), path is checked for a `src` folder which is then searched (recursively) for Clojure files to manage and autowire into CFCs.
+* `cfml:` prefix: path is searched (recursively) for CFCs.
+
+If your Clojure build file is alongside your `src` folder, and all your CFCs are also in (subfolders of) that same location, you can specify just one folder path with no prefix. Otherwise you will need to specify the path(s) to your CFCs, the path to your Clojure build file, and the path to your Clojure `src` folders separately.
+
+Example 1:
+
+    approot/
+        controllers/
+            ... CFCs ...
+        model/
+            ... CFCs ...
+        project.clj
+        src/
+            ... Clojure source files ...
+        test/
+            ... Clojure test files ...
+
+In this project, just supplying the path to `approot` is all you need: `ioclj` will find `project.clj` there as well as the `src` folder (which it will
+recursively search for `.clj` files) and DI/1 will recursively search the whole thing for CFCs.
+
+Example 2:
+
+    approot/
+        build.boot
+        controllers/
+            ... CFCs ...
+        model/
+            cfcs/
+                ... CFCs ...
+            src/
+                ... Clojure source files ...
+            test/
+                ... Clojure test files ...
+
+In this project, you can supply the path to `approot` and it will find `build.boot` (assuming you also specify `boot` in your configuration), and it will
+recursively find all your CFCs, but if you want any Clojure code to be managed and injected, you'll need to supply the path to `model` as well (where
+`src` is) and because you don't want DI/1 to search both locations for CFCs (because that path overlaps with part of the `approot` tree), you will want
+to specify that is Clojure only:
+
+    diLocations : [ "/path/to/approot", "clj:/path/to/approot/model" ]
+
+It would be better to be explicit about which paths are to be searched for what types of files:
+
+    diLocations : [
+        "clj:/path/to/approot",             // build.boot location
+        "clj:/path/to/approot/model",       // Clojure src location
+        "cfml:/path/to/approot/model/cfcs", // Model CFCs
+        "cfml:/path/to/approot/controllers" // Controller CFCs
+    ]
+
+As you can see, you can organize you CFML and Clojure source code -- and your Clojure build file -- however you like (modulo the `src` folder requirement
+for Clojure) and still tell FW/1 exactly what you want it to do.
 
 ## What is ns all about?
 
@@ -1122,6 +1187,23 @@ get on IRC, Slack, or the mailing list and ask!
 
 For an overview of all the possible settings in `project.clj`, take a look at the [Sample project.clj File on GitHub](https://github.com/technomancy/leiningen/blob/master/sample.project.clj).
 
+## The build.boot File
+
+As with **Leiningen**'s `project.clj` file, the piece you'll touch most often in **Boot**'s `build.boot` file will be the
+`:dependencies` entry (in a `(set-env! ..)` call). The only additional wrinkle with **Boot** is that you'll need a `boot.properties`
+file as well if the version of Clojure you want to use in your project is not the same as the default version that your installation
+of **Boot** already uses. For example, at World Singles we're using Clojure 1.8.0 RC 4 so our `boot.properties` file contains:
+
+    BOOT_CLOJURE_VERSION=1.8.0-RC4
+
+and then in our `build.boot` file we specify `[org.clojure/clojure "1.8.0-RC4"]` as a dependency. This is because **Boot** uses the
+same JVM for itself as for your project's code (whereas **Leiningen** uses two separate JVMs).
+
+**Boot**'s build file is "just Clojure" so you can do pretty much anything you want there. **Boot** provides a number of
+important functions for setting up and managing projects but the main one you'll use is `set-env!` to specify the libraries you
+need (`:dependencies`), where your resources -- source files etc -- are (`:resource-paths`), and where your tests are (`:source-paths`).
+For more detail, consult the [**Boot** web site](http://boot-clj.com).
+
 # About Functional Programming
 
 Functional programming isn't new. It's origins lie in Lisp which was created in the 1950's and is the second-oldest computer language
@@ -1312,7 +1394,7 @@ we're using to iterating through the elements and either modifying them in place
 along the way.
 
 What makes this problematic is that you can't then easily run this code concurrently to take advantage of multiple cores:
-code that mutates collections in places or generates side effects is rarely thread safe.
+code that mutates collections in place or generates side effects is rarely thread safe.
 
 In other words, mutable state is bad.
 
@@ -1377,7 +1459,7 @@ In other words, a lot of people already know that FP is a better way to solve a 
 Remember that modern OOP -- as enshrined in Java and C# particularly -- is not what the originators of OOP had
 in mind. They imagined objects as proxies for real world elements such as displays and control devices, that
 objects would be coarse-grained and communicate by sending messages between themselves. _In other words, they
-would be more like "actors"... which you have in both Clojure and Scala!_
+would be more like "actors"... which you have in both Clojure (as agents) and Scala (as actors)!_
 
 # More Stuff to Read
 
@@ -1390,8 +1472,10 @@ Here's a small sample, roughly in order of approachability:
 * The Clojure Koans: http://clojurekoans.com
   * You need at least Java, Leiningen, and Git installed for these.
 * Some great books to read:
-  * Clojure Programming http://www.clojurebook.com followed by
-  * The Joy Of Clojure http://www.joyofclojure.com :)
+  * Clojure for the Brave and True http://www.braveclojure.com (introductory level)
+  * Living Clojure http://shop.oreilly.com/product/0636920034292.do (introduces Clojure, but assumes you're an experienced developer in other languages)
+  * Clojure Programming http://www.clojurebook.com (deep technical coverage)
+  * The Joy Of Clojure http://www.joyofclojure.com (focused on the "why" of Clojure)
 
 # Digging Into Reloading
 
