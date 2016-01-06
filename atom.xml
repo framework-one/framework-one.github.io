@@ -4,7 +4,7 @@
   <title><![CDATA[FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2016-01-03T15:26:22-08:00</updated>
+  <updated>2016-01-05T22:45:35-08:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,27 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 4.0 and Beyond]]></title>
+    <link href="http://framework-one.github.io/blog/2016/01/05/fw1-4-0-and-beyond/"/>
+    <updated>2016-01-05T22:20:00-08:00</updated>
+    <id>http://framework-one.github.io/blog/2016/01/05/fw1-4-0-and-beyond</id>
+    <content type="html"><![CDATA[<p>Happy New Year and Welcome to 2016!</p>
+
+<p>FW/1 3.5 has been out for a few months now and I want to talk about what’s coming this year.<!-- more -->
+FW/1 4.0 is well under way and the themes are REST APIs and enhancements to DI/1. You can read <a href="http://framework-one.github.io/documentation/4.0/changes.html">the FW/1 4.0 change log</a> here to see how much has been done so far. There are <a href="https://github.com/framework-one/fw1/issues?q=is%3Aopen+is%3Aissue+milestone%3A4.0">only a few issues left for 4.0</a> so we’re close to the first Alpha release at this point.</p>
+
+<p>Why the 4.0 version? A major version number change indicates breaking changes. 4.0 drops support for Adobe ColdFusion 9.0.x because it relies on closures. Frankly, I’d like to drop support for Adobe ColdFusion 10 so I could rely on using member functions, but I feel it’s important to support two major versions. Just bear in mind that Raijin – ColdFusion 2016 – is coming and when that’s released, I will drop support for ACF10!</p>
+
+<p>Aside from the minimum version support, FW/1 4.0 includes a (potentially) breaking change around <code>property</code> declarations: if a <code>property</code> includes a type or default, it will no longer be considered for injection. In FW/1 3.5, typed properties could be excluded if you specified <code>omitTypedProperties : true</code>. That is the default in 4.0 so you can still restore the earlier behavior. In addition, 4.0 now ignores defaulted properties but you can specify <code>omitDefaultedProperties : false</code> to override that new behavior.</p>
+
+<p>The next planned version of FW/1 will be 4.5 – a fairly major release that will pave the way for 5.0, in the same way 2.5 paved the way for 3.0. In 5.0, the request lifecycle methods will move from <code>Application.cfc</code> (or your custom CFC that extends <code>framework.one</code> in the <strong>Alternative Application Structure</strong>) to a separate CFC, and subsystems will also be able to specify a request lifecycle with a <code>subsystem.cfc</code> – and subsystems with such a CFC will be eagerly loaded at application startup (whereas subsystems are lazily loaded today). In order to provide a smooth upgrade path, FW/1 4.5 will support most of those features but disabled by default and will provide warnings or throw exceptions if the behavior would change in 5.0.</p>
+
+<p>As always, I want FW/1 to be driven by your needs so please raise issues on the <a href="http://groups.google.com/group/framework-one/">mailing list</a> or on <a href="https://github.com/framework-one/fw1">GitHub</a> so that your voices are heard and can drive future versions of one of CFML’s most popular MVC/DI/AOP frameworks!</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 3.5.0 Released!]]></title>
@@ -469,45 +490,6 @@ automatic support for Clojure code in the Model and Controllers, as well as firs
 <p>At this point, only bug fixes will be considered before FW/1 3.0 goes “gold” and given the long period of testing so far on Beta 1, that final release shouldn’t be too far away.</p>
 
 <p>Oh, and if you go to <a href="http://fw1.riaforge.org">FW/1’s page on RIAForge</a>, you’ll see that 3.0 RC 1 is the default download now, instead of 2.5.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Cfmljure Release 0.1.0]]></title>
-    <link href="http://framework-one.github.io/blog/2015/01/23/cfmljure-0-1-0/"/>
-    <updated>2015-01-23T13:30:49-08:00</updated>
-    <id>http://framework-one.github.io/blog/2015/01/23/cfmljure-0-1-0</id>
-    <content type="html"><![CDATA[<p>I started cfmljure back in 2010, a few months after I started to learn Clojure, as a way to run Clojure code inside a CFML application. That early version worked - we’ve been using it in at World Singles since mid-2011 to integrate Clojure into our large ColdBox application, and updated versions of cfmljure have been in very heavy production usage since May 2012.<!-- more --> Those early versions were pretty clunky to setup though, since you needed to mess with the classpath of your CFML engine (or at least the container on which you ran it - Tomcat, in our case) and you needed to copy all your third-party library dependencies into the <code>WEB-INF/lib</code> folder (and restart your container if you changed your dependencies).</p>
-
-<p>When Clojure 1.6 came out (March 2014), it introduced a new API for embedding Clojure inside other JVM applications. I’d been relying on an unsupported API so I wanted to move to the new API as soon as possible. I ran into problems with classpath handling so I put it on the back burner for a while. One of the things that bothered me about the earlier cfmljure was that you had to do so much configuration and manual copying of libraries. Leiningen handles all this for you in Clojure and I wanted things to be that slick for cfmljure. I experimented with some CFML code that executed Leiningen to retrieve the classpath and I had some success, but not enough to create a reliable version that could be used in our app at work.</p>
-
-<p>This past week, I decided to have another run at it, using a different approach to manipulating the classpath in my running CFML application:</p>
-
-<pre><code>// extend the classloader - not at all sketchy, honest!
-var threadProxy = createObject( "java", "java.lang.Thread" );
-var appCL = threadProxy.currentThread().getContextClassLoader();
-var urlCLProxy = createObject( "java", "java.net.URLClassLoader" );
-var addURL = urlCLProxy.getClass().getDeclaredMethod( "addURL", __classes( "URL", 1, "java.net" ) );
-addUrl.setAccessible( true ); // hack to make it callable
-for ( var newURL in urls.toArray() ) {
-    addURL.invoke( appCL, [ newURL ] );
-}
-</code></pre>
-
-<p>I gleaned the principle of this from time spent on Google and StackOverflow and several snippets of Java code that did this same thing. It uses Java Reflection to get a handle on <code>URLClassLoader.addURL()</code> and change its access to public so that it can be called by code that doesn’t extend the <code>URLClassLoader</code> class. This got me past the previous blocking point and I was able to complete the rewrite of that earlier version of cfmljure to use the new Clojure 1.6 API and also leverage Leiningen to avoid that configuration and manual copying.</p>
-
-<p>I present: <a href="https://github.com/framework-one/cfmljure/releases/tag/v0.1.0">cfmljure Release 0.1.0</a>! An easy-to-use way to embed a Clojure project into your CFML application (running on Lucee or Railo).</p>
-
-<p>The documentation is in the <a href="https://github.com/framework-one/cfmljure/blob/master/README.md">cfmljure README</a> on Github but the basic flow is as follows:</p>
-
-<ul>
-  <li>Create a Clojure project with Leiningen: <code>lein new myproject</code></li>
-  <li>Create an instance of cfmljure pointing at that project folder: <code>var clj = new cfmljure("/path/to/myproject");</code></li>
-  <li>Install Clojure namespaces into a struct (or a scope): <code>clj.install("clojure.core,myproject.core",this);</code></li>
-  <li>Call Clojure code: <code>this.clojure.core.println("Hello World!");</code></li>
-</ul>
-
-<p>That’s about as simple as it gets!</p>
 ]]></content>
   </entry>
   
