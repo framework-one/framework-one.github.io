@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Roadmap"
-date: 2015-10-27 10:00
+date: 2016-01-05 23:00
 comments: false
 sharing: false
 footer: true
@@ -10,9 +10,13 @@ _This is documentation for the upcoming 4.0 release. For the current release, se
 
 Whilst you can read the [FW/1 issues list](https://github.com/framework-one/fw1/issues) to see what's on the cards for future releases, several people have asked that I document things at a higher level so they can get a better sense of what's coming.
 
+5.x Lifecycle Restructuring
+---
+FW/1 5.0 will move the request lifecycle methods out of `Application.cfc` into a separate CFC. In addition, subsystems will also get a CFC that controls their lifecycle methods (`subsystem.cfc`). Since this will be a breaking change, there will be a 4.5 release to pave the way with deprecation warnings and exceptions, in the same way that the 2.5 release paved the way between 2.2 and 3.0.
+
 4.x REST and Modernization
 ---
-FW/1 4.0 is tentatively planned as improving basic REST support and will be a maintenance release for 3.5. The major version number change indicates that support for ACF9.0.2 will be dropped to allow for the use of closures in the code as this will provide some nicer syntax for some framework features. The core code will be modernized to take advantage of features in ACF10+ and Lucee 4.5+ in this release.
+FW/1 4.0 is planned as improving REST support and Dependency Injection, and will be a maintenance release for 3.5. The major version number change indicates that support for ACF9.0.2 will be dropped to allow for the use of closures in the code as this will provide some nicer syntax for some framework features. The core code will be modernized to take advantage of features in ACF10+ and Lucee 4.5+ in this release.
 
 3.x Integrations
 ---
