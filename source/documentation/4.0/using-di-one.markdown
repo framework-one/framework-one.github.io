@@ -121,6 +121,7 @@ In addition to the configuration that lets you specify additional "constant" bea
 * `addbean( beanName, beanValue )` -- tells DI/1 that `beanName` should resolve to the specified `beanValue` (which can be a constant or a data structure or an object).
 * `declareBean( beanName, dottedPath, isSingleton, overrides )` -- tells DI/1 that `beanName` should resolve to an instance of the specified `dottedPath`, and whether it should be treated as a singleton or a transient. In addition, you can provide specific bean/value pairs to be used for the construction and autowiring of that bean, which will override any beans known to the bean factory.
 * `factoryBean( beanName, factory, methodName, args, overrides )` -- tells DI/1 that `beanName` should be resolved by calling `methodName` on the `factory` object and passing arguments looked up by name (`args` contains an array of bean names to use). As with `declareBean()`, you can provide bean/value pairs for construction and autowiring.
+As of FW/1 4.0, the `factory` can be a function or closure (and `method` omitted).
 
 The recommended way to perform this programmatic customization is inside a load listener. A load listener is a function, closure, or method that accepts a bean factory as an argument and performs all the customization you need on that bean factory. You can register a load listener either by specifying it in the `config` struct, above, as `loadListener`, or by calling `onLoad( listener )` on the bean factory itself.
 
@@ -303,9 +304,9 @@ Returns `true` if DI/1 has been given a parent bean factory.
 
 Tell DI/1 that the given bean name should resolve to an instance of the named CFC. This is useful when you need DI/1 to manage specific CFCs that are not part of your own application's model or controllers, such as third party library CFCs. You can tell DI/1 whether to treat this bean as a single (default) or transient. You can also provide an collection of named beans (values) that should override (_hide_) beans of the same name in the bean factory. This allows you to provide specific values for constructor arguments or for setter / property injection.
 
-### public any function factoryBean( string beanName, any factory, string methodName, array args = [ ], struct overrides = { } )
+### public any function factoryBean( string beanName, any factory, string methodName = "", array args = [ ], struct overrides = { } )
 
-Tell DI/1 that the given bean name should be resolved by called the specified `methodName` on the `factory` bean, with the specified arguments (`args` by name). The `factory` bean can be either a string, identifying a bean that DI/1 knows about, or an instance of a CFC you provide. The `args` array contains the names of beans that should be passed as arguments to the `methodName` call. The optional `overrides` collection can provide named beans (values) that should _hide_ beans of the same name, i.e., they will be used instead of DI/1 looking up the bean internally.
+Tell DI/1 that the given bean name should be resolved by called the specified `methodName` on the `factory` bean, with the specified arguments (`args` by name). The `factory` bean can be either a string, identifying a bean that DI/1 knows about, or an instance of a CFC you provide, or _as of FW/1 4.0_ can be a function or closure (in which case `methodName` can be omitted). The `args` array contains the names of beans that should be passed as arguments to the `methodName` call (or the `factory` call if it is a function or closure). The optional `overrides` collection can provide named beans (values) that should _hide_ beans of the same name, i.e., they will be used instead of DI/1 looking up the bean internally.
 
 ### public any function getBean( string beanName, struct constructorArgs = { } )
 
