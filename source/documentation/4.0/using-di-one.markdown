@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using DI/1"
-date: 2015-12-22 19:30
+date: 2016-01-11 16:30
 comments: false
 sharing: false
 footer: true

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Change Log for FW/1 and Friends"
-date: 2015-12-22 23:20
+date: 2016-01-11 17:20
 comments: false
 sharing: false
 footer: true
@@ -23,7 +23,7 @@ The focus of the 4.0 release is on improving REST support. Improvements include:
 * Setting status text (in addition to status code) in HTTP responses.
 * Wildcard HTTP method support.
 
-In addition, DI/1 has had a number of enhancements.
+In addition, DI/1 has had a number of enhancements, including the addition of a builder syntax for programmatically declaring beans.
 
 Breaking Changes
 ---
@@ -35,6 +35,10 @@ Breaking Changes
 Enhancements
 ---
 
+* [418](https://github.com/framework-one/fw1/issues/418) - Allow `factoryBean()` to accept function/closure.
+* [417](https://github.com/framework-one/fw1/issues/417) - Add builder syntax for bean declarations.
+* [416](https://github.com/framework-one/fw1/issues/416) - Delay bean discovery (where possible) until after declarations are processed.
+* [415](https://github.com/framework-one/fw1/issues/415) - Add support for CFML-only and Clojure-only search paths.
 * [414](https://github.com/framework-one/fw1/issues/414) - Add support for Boot to cfmljure.
 * [413](https://github.com/framework-one/fw1/issues/413) - `layout()` may now be called from controllers.
 * [412](https://github.com/framework-one/fw1/issues/412) - Add `renderer()` to access `renderData()` builder and add `header()` to set HTTP response headers.
