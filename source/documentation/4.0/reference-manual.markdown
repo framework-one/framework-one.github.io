@@ -268,6 +268,10 @@ Returns the server's local hostname (via Java's InetAddress class). Intended to 
 
 Returns the item portion of the specified action - or of the current request's action if no action is specified. Returns the default item if no item is present in the specified action.
 
+### public string function getCGIRequestMethod()
+
+Returns the method (GET, POST, etc) used for the current request. This is a convenience method for controllers to access CGI.REQUEST_METHOD in a clean way via the framework.
+
 ### public string function getRoute()
 
 Returns the route that was used to initiate the current request (if any). Returns an empty string if the current request was not initiated via a matched route.
