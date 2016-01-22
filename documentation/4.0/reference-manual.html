@@ -111,6 +111,7 @@
       <li><a href="#public-string-function-getfullyqualifiedaction-string-action--requestaction-" id="markdown-toc-public-string-function-getfullyqualifiedaction-string-action--requestaction-">public string function getFullyQualifiedAction( string action = request.action )</a></li>
       <li><a href="#public-string-function-gethostname" id="markdown-toc-public-string-function-gethostname">public string function getHostname()</a></li>
       <li><a href="#public-string-function-getitem-string-action--requestaction-" id="markdown-toc-public-string-function-getitem-string-action--requestaction-">public string function getItem( string action = request.action )</a></li>
+      <li><a href="#public-string-function-getcgirequestmethod" id="markdown-toc-public-string-function-getcgirequestmethod">public string function getCGIRequestMethod()</a></li>
       <li><a href="#public-string-function-getroute" id="markdown-toc-public-string-function-getroute">public string function getRoute()</a></li>
       <li><a href="#public-array-function-getroutes" id="markdown-toc-public-array-function-getroutes">public array function getRoutes()</a></li>
       <li><a href="#public-array-function-getresourceroutetemplates" id="markdown-toc-public-array-function-getresourceroutetemplates">public array function getResourceRouteTemplates()</a></li>
@@ -442,6 +443,10 @@
 <h3 id="public-string-function-getitem-string-action--requestaction-">public string function getItem( string action = request.action )</h3>
 
 <p>Returns the item portion of the specified action - or of the current request’s action if no action is specified. Returns the default item if no item is present in the specified action.</p>
+
+<h3 id="public-string-function-getcgirequestmethod">public string function getCGIRequestMethod()</h3>
+
+<p>Returns the method (GET, POST, etc) used for the current request. This is a convenience method for controllers to access CGI.REQUEST_METHOD in a clean way via the framework.</p>
 
 <h3 id="public-string-function-getroute">public string function getRoute()</h3>
 
