@@ -86,6 +86,7 @@
 <ul id="markdown-toc">
   <li><a href="#requirements--supported-platforms" id="markdown-toc-requirements--supported-platforms">Requirements &amp; Supported Platforms</a></li>
   <li><a href="#copyright-and-license" id="markdown-toc-copyright-and-license">Copyright and License</a></li>
+  <li><a href="#installing-fw1" id="markdown-toc-installing-fw1">Installing FW/1</a></li>
   <li><a href="#your-first-fw1-application" id="markdown-toc-your-first-fw1-application">Your First FW/1 Application</a>    <ul>
       <li><a href="#linking-pages-together" id="markdown-toc-linking-pages-together">Linking Pages Together</a></li>
       <li><a href="#an-aside-on-url-structure" id="markdown-toc-an-aside-on-url-structure">An Aside on URL Structure</a></li>
@@ -113,13 +114,27 @@
 
 <p>The FW/1 documentation is copyright (c) 2009-2015 Sean Corfield and is made available under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>.</p>
 
-<h2 id="your-first-fw1-application">Your First FW/1 Application</h2>
+<h2 id="installing-fw1">Installing FW/1</h2>
 
-<p>FW/1 itself consists of a single CFC: <code>framework.one</code>, i.e., <code>framework/one.cfc</code>. Your <code>Application.cfc</code> will extend that and your application’s “pages” will live under a <code>views</code> folder inside a subfolder for each <em>section</em> of your application.</p>
+<p>There are two options from which to install FW/1.</p>
+
+<p><strong>Download from Github or RIAForge</strong></p>
+
+<p>FW/1 can be downloaded directly from <a href="https://github.com/framework-one/fw1">Github</a> or <a href="http://fw1.riaforge.org/">RIAForge</a>.</p>
 
 <p>When you download FW/1 (or check it out from Github), it’s a complete web application. <strong>The <code>framework</code> folder should either be copied to your webroot (the simplest way to get started) or else made accessible via a mapping for <code>/framework</code>.</strong> Since <code>Application.cfc</code> extends <code>framework.one</code>, you have to add that mapping in your CFML admin - you cannot use a per-application mapping. <em>In release 3.5 there is a way to avoid the mapping and extending <code>framework.one</code> which we’ll cover in the <a href="developing-applications.html#alternative-application-structure">Developing Applications Guide</a>.</em></p>
 
+<p><strong>Download with CommandBox</strong></p>
+
+<p>FW/1 may also be installed via <a href="https://www.ortussolutions.com/products/commandbox">CommandBox</a>. From your command prompt, you can easily install FW/1 by entering <code>box install fw1</code> and the latest stable version will be installed to your current working directory. To install the latest development vesion of FW/1, simply enter <code>box install fw1-dev</code>. Refer to the <a href="https://ortus.gitbooks.io/commandbox-documentation/content/setup/installation.html">CommandBox documentation</a> for more info on installing and using CommandBox.</p>
+
+<p><em>This is a minimal install and only the <code>framework</code> folder is installed via this method</em>. To start with a complete working application, you can grab the <code>examples</code> folder from the full Github/RIAForge download (see the first install method) or generate one via <a href="https://github.com/framework-one/fw1-commands">FW/1 Commands</a> from CommandBox.</p>
+
 <p><em><strong>Note: do not install FW/1 into a subfolder that contains . in the name as this may prevent CFC resolution from working!</strong></em></p>
+
+<h2 id="your-first-fw1-application">Your First FW/1 Application</h2>
+
+<p>FW/1 itself consists of a single CFC: <code>framework.one</code>, i.e., <code>framework/one.cfc</code>. Your <code>Application.cfc</code> will extend that and your application’s “pages” will live under a <code>views</code> folder inside a subfolder for each <em>section</em> of your application.</p>
 
 <p>The simplest FW/1 application comprises:</p>
 
