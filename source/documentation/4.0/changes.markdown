@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Change Log for FW/1 and Friends"
-date: 2016-01-11 17:20
+date: 2016-03-05 17:20
 comments: false
 sharing: false
 footer: true
@@ -35,6 +35,7 @@ Breaking Changes
 Enhancements
 ---
 
+* [419](https://github.com/framework-one/fw1/issues/419) - Add `getCGIRequestMethod()` convenience method.
 * [418](https://github.com/framework-one/fw1/issues/418) - Allow `factoryBean()` to accept function/closure.
 * [417](https://github.com/framework-one/fw1/issues/417) - Add builder syntax for bean declarations.
 * [416](https://github.com/framework-one/fw1/issues/416) - Delay bean discovery (where possible) until after declarations are processed.
@@ -61,4 +62,6 @@ Enhancements
 Bug Fixes
 ---
 
+* [422](https://github.com/framework-one/fw1/pull/422) - Fix bug with case insensitive routes.
+* [420](https://github.com/framework-one/fw1/issues/420) - Fix bug in transient autowiring (caused by caching metadata).
 * [395](https://github.com/framework-one/fw1/pull/395) - Corrected calls to `buildURL()` in examples.
