@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Di1 | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/di1/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2016-03-05T16:53:25-08:00</updated>
+  <updated>2016-03-05T17:15:41-08:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,32 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 4.0.0 Alpha 1]]></title>
+    <link href="http://framework-one.github.io/blog/2016/03/05/fw1-4-0-0-alpha-1/"/>
+    <updated>2016-03-05T17:00:00-08:00</updated>
+    <id>http://framework-one.github.io/blog/2016/03/05/fw1-4-0-0-alpha-1</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/framework-one/fw1/releases/tag/v4.0.0-alpha1">FW/1 4.0.0 Alpha 1</a> is available. At this point FW/1 4.0.0 is feature complete – there may be a few very minor changes between now and the Beta, and then only bug fixes through the RC phase. We’ve been using this <strong>develop</strong> version in production at work all along so I consider it solid enough for serious work.<!-- more --></p>
+
+<p>The focus of the 4.0 release is on improving REST support. Improvements include:</p>
+
+<ul>
+  <li>JSON-encoded POST body support.</li>
+  <li>Controllers have easy access to HTTP headers.</li>
+  <li>Builder syntax for <code>renderData()</code> result elements.</li>
+  <li>Support for user-supplied rendering functions.</li>
+  <li>Integrated support for HTTP <code>OPTIONS</code> verb.</li>
+  <li>Per-resource error handling.</li>
+  <li>Setting status text (in addition to status code) in HTTP responses.</li>
+  <li>Wildcard HTTP method support.</li>
+</ul>
+
+<p>In addition, DI/1 has had a number of enhancements, including the addition of a builder syntax for programmatically declaring beans.</p>
+
+<p>For more detail, read the <a href="http://framework-one.github.io/documentation/4.0/changes.html">Change Log for FW/1 4.0</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 4.0 and Beyond]]></title>
@@ -100,36 +126,6 @@ I consider this stable enough to evaluate for production usage at this point –
 <p>This Release Candidate contains just bug fixes since Beta 2. Beta 2 contained mostly bug fixes since Beta 1, with one small enhancement to DI/1 (<code>liberal</code> plural support, e.g., <code>libraries</code> becomes <code>library</code>).</p>
 
 <p>You can read the <a href="https://github.com/framework-one/fw1/issues?q=is%3Aissue+milestone%3A3.5+is%3Aclosed">full list of changes since 3.1</a> on GitHub.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 3.5.0 Beta 1 Available!]]></title>
-    <link href="http://framework-one.github.io/blog/2015/09/10/fw1-3-5-0-beta-1/"/>
-    <updated>2015-09-10T13:35:00-07:00</updated>
-    <id>http://framework-one.github.io/blog/2015/09/10/fw1-3-5-0-beta-1</id>
-    <content type="html"><![CDATA[<p>The <a href="https://github.com/framework-one/fw1/releases/tag/v3.5.0-beta1">first Beta release of FW/1 3.5.0</a> is available for testing.</p>
-
-<p>The focus of this release is integration:<!--more--></p>
-
-<ul>
-  <li>Support for controllers and services to be written in CFML (<code>.cfc</code>), Clojure (<code>.clj</code>), or Lucee (<code>.lucee</code>)</li>
-  <li>Support for views and layouts to be written in CFML (<code>.cfm</code>) or Lucee (<code>.lucee</code>)</li>
-  <li>Configurable folder names to set your own conventions (for <em>controllers</em>, <em>layouts</em>, <em>subsystems</em>, and <em>views</em>)</li>
-  <li>Support for <code>Application.cfc</code> to use FW/1 without extending <code>framework.one</code></li>
-  <li>A new, cleaner, more consistent set of conventions for adding subsystems to an existing application</li>
-</ul>
-
-<p>You can read the <a href="https://github.com/framework-one/fw1/issues?q=is%3Aissue+milestone%3A3.5+is%3Aclosed">full list of changes since 3.0</a> on GitHub.</p>
-
-<p>The <a href="/documentation/3.5/">documentation for 3.5</a> has been completely overhauled with complete descriptions of all the new features, as well as many
-clarifications and expansions of existing features. In particular, you’ll want to check out:</p>
-
-<ul>
-  <li><a href="/documentation/3.5/developing-applications.html#alternative-application-structure">Alternative Application Structure</a></li>
-  <li><a href="/documentation/3.5/using-subsystems.html#subsystems-10-vs-20">Subsystems 1.0 vs 2.0</a></li>
-  <li><a href="/documentation/3.5/cfml-and-clojure.html">Using Clojure with CFML</a></li>
-</ul>
 ]]></content>
   </entry>
   
