@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using DI/1 Jan 11th, 2016 4:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. DI/1 - a.k.a &hellip;">
+  <meta name="description" content="Using DI/1 Mar 5th, 2016 8:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. DI/1 - a.k.a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2016-01-11T16:30:00-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:30 pm</span></time></p>
+<time class='entry-date' datetime='2016-03-05T20:30:00-08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:30 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -114,6 +114,7 @@
           <li><a href="#public-any-function-addbean-string-beanname-any-beanvalue-" id="markdown-toc-public-any-function-addbean-string-beanname-any-beanvalue-">public any function addBean( string beanName, any beanValue )</a></li>
           <li><a href="#public-boolean-function-containsbean-string-beanname-" id="markdown-toc-public-boolean-function-containsbean-string-beanname-">public boolean function containsBean( string beanName )</a></li>
           <li><a href="#public-boolean-function-hasparent" id="markdown-toc-public-boolean-function-hasparent">public boolean function hasParent()</a></li>
+          <li><a href="#public-any-function-declare-string-beanname-" id="markdown-toc-public-any-function-declare-string-beanname-">public any function declare( string beanName )</a></li>
           <li><a href="#public-any-function-declarebean-string-beanname-string-dottedpath-boolean-issingleton--true-struct-overrides----" id="markdown-toc-public-any-function-declarebean-string-beanname-string-dottedpath-boolean-issingleton--true-struct-overrides----">public any function declareBean( string beanName, string dottedPath, boolean isSingleton = true, struct overrides = { } )</a></li>
           <li><a href="#public-any-function-factorybean-string-beanname-any-factory-string-methodname---array-args----struct-overrides----" id="markdown-toc-public-any-function-factorybean-string-beanname-any-factory-string-methodname---array-args----struct-overrides----">public any function factoryBean( string beanName, any factory, string methodName = “”, array args = [ ], struct overrides = { } )</a></li>
           <li><a href="#public-any-function-getbean-string-beanname-struct-constructorargs----" id="markdown-toc-public-any-function-getbean-string-beanname-struct-constructorargs----">public any function getBean( string beanName, struct constructorArgs = { } )</a></li>
@@ -187,7 +188,7 @@ var beanFactory = new ioc(["/model", "/common/model"]);
 <p>When you create the bean factory, you can optionally supply a second argument that is a struct containing configuration for DI/1. At present, DI/1 understands the follow configuration options:</p>
 
 <ul>
-  <li><code>constants</code> - struct - defaults to <code>{}</code>. DI/1 will use any name/value pairs specified here to provide <em>beans</em> that resolve to the specified values. This can be used to provide resolution for constructor arguments that need values which are not actual beans. See also <code>addBean()</code> in the <strong>Customization</strong> section that follows.</li>
+  <li><code>constants</code> - struct - defaults to <code>{}</code>. DI/1 will use any name/value pairs specified here to provide <em>beans</em> that resolve to the specified values. This can be used to provide resolution for constructor arguments that need values which are not actual beans. See also <code>declare()</code> in the <strong>Customization</strong> section that follows.</li>
   <li><code>exclude</code> - array - defaults to <code>[]</code>. DI/1 will ignore any CFCs whose file path contains the strings in this array. DI/1 always excludes paths containing <code>/WEB-INF</code> and <code>/Application.cfc</code>, as well as various FW/1 and DI/1 framework files. The strings are not case-sensitive.</li>
   <li><code>initMethod</code> - string - If specified, identifies a method name on beans that DI/1 will attempt to call (with no arguments) on each bean after its dependencies have been injected.</li>
   <li><code>liberal</code> - boolean - default to <code>false</code>. If <code>true</code>, treat folder names ending in <code>ies</code> as plurals (of names ending in <code>y</code>, e.g., <code>libraries</code> would be treated as the plural of <code>librarie</code> by default, but with <code>liberal : true</code>, it would be treated as the plural of <code>library</code>).</li>
@@ -207,7 +208,7 @@ var beanFactory = new ioc(["/model", "/common/model"]);
 
 <p>As noted above, the optional config argument to the <code>ioc</code> constructor is a struct containing various parameters that alter the behavior of DI/1. The <code>constants</code> config element is a struct containing mappings from bean names to specific constant values. This allows you to specify non-CFC values for constructor arguments, setters and properties (but is most commonly used for constructor arguments). The value may be of any type and any reference to that bean name will return the specified value as a singleton.</p>
 
-<p>These values may be added after DI/1 has been initialized using the <code>addBean()</code> method as shown above.</p>
+<p>These values may be added after DI/1 has been initialized using the <code>declare()</code> method as shown above.</p>
 
 <h3 id="specifying-additional-transient-beans">Specifying Additional Transient Beans</h3>
 
@@ -246,10 +247,48 @@ var beanFactory = new ioc(["/model", "/common/model"]);
 
 <h2 id="customization">Customization</h2>
 
-<p>In addition to the configuration that lets you specify additional “constant” beans and define how the conventions work, DI/1 provides four methods that allow you to programmatically add beans to the bean factory:</p>
+<p>In addition to the configuration that lets you specify additional “constant” beans and define how the conventions work, DI/1 provides four ways to programmatically add beans to the bean factory:</p>
 
 <ul>
-  <li><code>addAlias( alias, beanName )</code> – tells DI/1 that <code>alias</code> should resolve to the same bean as <code>beanName</code>.</li>
+  <li>Add an alias for a bean. This can be useful if the deduced name of a bean (based on the file system path) doesn’t match a property that you want injected. You can add an alias that matches the property name, and DI/1 will resolve it to the underlying bean.</li>
+  <li>Add a named value as a bean. This can be any constant, data structure, or object. This can be useful when you want to add properties whose values have to be computed in a load listener, rather than supplied as “constants” as part of DI/1’s configuration.</li>
+  <li>Declare a bean based on a CFC that is outside the folders you asked DI/1 to manage for you. When asked for this bean DI/1 will create an instance, calling the constructor, and injecting any declared properties. You can choose whether these instances are singletons or transients. You can also provide overrides for named constructor arguments and properties.</li>
+  <li>Declare that a bean should be obtained from a (another) factory (which, itself, can be one of your managed beans or an object you created directly). You specify the fectory, the method to call on it, and the names of beans that should be passed as the arguments to that method. Like the declaration approach above, you can provide overrides for those beans.</li>
+</ul>
+
+<p>There is a corresponding method on DI/1 for each of these, but as of FW/1 4.0 (DI/1 1.2), there is a better way to declare beans to the bean factory, using a new “builder” syntax:</p>
+
+<pre><code>beanFactory.declare( beanName ).aliasFor( existingBean );
+beanFactory.declare( beanName ).asValue( beanValue );
+beanFactory.declare( beanName ).instanceOf( dottedPath );
+beanFactory.declare( beanName ).fromFactory( factory, methodName );
+</code></pre>
+
+<p>For the last two declarations, you can also call <code>.asSingleton()</code> or <code>.asTransient()</code> to specify whether the bean should be a singleton or transient. Also for the last two declarations, you can call <code>.withOverrides()</code> to specify a struct containing bean / value pairs that should be used for constructor arguments and property injections, instead of existing beans in the factory.</p>
+
+<p>For the factory declaration, you can call <code>.withArguments()</code> to specify an array of bean names that should be looked up and passed as arguments to the <code>factory</code>’s <code>methodName</code>.</p>
+
+<p>All of the above declarations return the declaration itself, so you can chain the modifier functions:</p>
+
+<pre><code>beanFactory.declare( "generated" ).fromFactory( factory, "gen" )
+    .withArguments( [ "rand256", "gaussDistStrategy" ] );
+</code></pre>
+
+<p>When DI/1 is asked for the <code>"generated"</code> bean, it will call the <code>gen()</code> method on the <code>factory</code>, passing two arguments: the values of the beans <code>"rand256"</code> and <code>"gaussDistStrategy"</code> respectively.</p>
+
+<p>In addition, you can call <code>.done()</code> on a declaration to get the bean factory back so that you can chain declarations:</p>
+
+<pre><code>beanFactory.declare( "abbrev" ).aliasFor( "longBeanName" ).done()
+    .declare( "answer" ).asValue( 42 ).done()
+    .declare( "copyright" ).asValue( 2016 );
+</code></pre>
+
+<p>See <strong>Customization Examples</strong> below for more examples and explanations.</p>
+
+<p>Here are the four direct methods, as present in earlier versions of DI/1 (these may be deprecated in a future release):</p>
+
+<ul>
+  <li><code>addAlias( beanName, existingBean )</code> – tells DI/1 that <code>beanName</code> should resolve to the same bean as <code>existingBean</code>.</li>
   <li><code>addbean( beanName, beanValue )</code> – tells DI/1 that <code>beanName</code> should resolve to the specified <code>beanValue</code> (which can be a constant or a data structure or an object).</li>
   <li><code>declareBean( beanName, dottedPath, isSingleton, overrides )</code> – tells DI/1 that <code>beanName</code> should resolve to an instance of the specified <code>dottedPath</code>, and whether it should be treated as a singleton or a transient. In addition, you can provide specific bean/value pairs to be used for the construction and autowiring of that bean, which will override any beans known to the bean factory.</li>
   <li><code>factoryBean( beanName, factory, methodName, args, overrides )</code> – tells DI/1 that <code>beanName</code> should be resolved by calling <code>methodName</code> on the <code>factory</code> object and passing arguments looked up by name (<code>args</code> contains an array of bean names to use). As with <code>declareBean()</code>, you can provide bean/value pairs for construction and autowiring.
@@ -270,38 +309,41 @@ As of FW/1 4.0, the <code>factory</code> can be a function or closure (and <code
 
 <p>You can add an alias for a bean:</p>
 
-<pre><code>beanFactory.addAlias("alsoKnownAs", "navigation");
+<pre><code>beanFactory.declare("alsoKnownAs").aliasFor("navigation");
 </code></pre>
 
 <p>That will tell DI/1 that <code>alsoKnownAs</code> is an alias for the bean identified by <code>navigation</code> so <code>getBean("alsoKnownAs")</code> will behave the same as <code>getBean("navigation")</code>.</p>
 
 <p>You can programmatically add new bean instances - or named values:</p>
 
-<pre><code>beanFactory.addBean("magicvalue", 42);
-beanFactory.addBean("logger", new LogFactory("log4j"));
+<pre><code>beanFactory.declare("magicvalue").asValue(42);
+beanFactory.declare("logger").asValue(new LogFactory("log4j"));
 </code></pre>
 
 <p>After these calls, <code>getBean("magicvalue")</code> will return the value 42 and <code>getBean("logger")</code> will return the CFC instance you provided. That means that any properties, setter methods or constructor arguments that refer to <code>magicvalue</code> or <code>logger</code> will get those values injected.</p>
 
 <p>You can also programmatically declare new beans to be managed by DI/1:</p>
 
-<pre><code>beanFactory.declareBean("navigation", "site.utils.navigation", true);
+<pre><code>beanFactory.declare("navigation").instanceOf("site.utils.navigation");
 </code></pre>
 
-<p>That will tell DI/1 that <code>/site/utils/navigation.cfc</code> should be managed as a singleton with name <code>navigation</code>. You can declare transients by specifying <code>false</code> as the third argument. <code>true</code> is the default so it can be omitted for singletons.</p>
+<p>That will tell DI/1 that <code>/site/utils/navigation.cfc</code> should be managed as a singleton with name <code>navigation</code>. You can declare transients by adding a call to <code>.asTransient()</code>.</p>
 
 <p>When declaring a bean, you can also optionally provide a set of overrides for named beans, so that constructor arguments or properties will take on specified values, rather than what is managed by the bean factory. This is useful for creating variants of a single bean:</p>
 
-<pre><code>beanFactory.declareBean("datasource", "util.DataSource", true, { dsn = "main" } );
-beanFactory.declareBean("admindata", "util.DataSource", true, { dsn = "admindb" } );
+<pre><code>beanFactory.declare("datasource").instanceOf("util.DataSource")
+    .withOverrides( { dsn = "main" } );
+beanFactory.declare("admindata").instanceOf("util.DataSource")
+    .withOverrides( { dsn = "admindb" } );
 </code></pre>
 
 <p>You can declare a factory bean - like Spring/ColdSpring - as follow:</p>
 
-<pre><code>beanFactory.factoryBean("generated", factory, "method", [ ..args.. ], { ... } );
+<pre><code>beanFactory.declare("generated").fromFactory(factory, "method")
+    .withArguments( [ ..args.. ] ).withOverrides( { ... } );
 </code></pre>
 
-<p>This tells DI/1 that when you call <code>getBean("generated")</code>, instead of trying to create the bean itself, it should call <code>factory.method(..args..)</code> to get the bean instance. <code>args</code> can be omitted (and defaults to an empty list of arguments). The last argument provides overrides for bean values, as shown above, and is optional.</p>
+<p>This tells DI/1 that when you call <code>getBean("generated")</code>, instead of trying to create the bean itself, it should call <code>factory.method(..args..)</code> to get the bean instance. If you don’t call <code>.withArguments()</code> then the method is called with no arguments.</p>
 
 <h3 id="using-load-listeners">Using Load Listeners</h3>
 
@@ -326,12 +368,12 @@ variables.framework = {
 <pre><code>// LoadListener.cfc:
 component {
     function onLoad( beanFactory ) {
-        beanFactory.addBean( ... );
-        beanFactory.addBean( ... );
-        beanFactory.declareBean( ... );
-        ...
-        // eagerly load all the singletons:
-        beanFactory.load();
+        beanFactory.declare( ... ).asValue( ... ).done()
+            .declare( ... ).asValue( ... ).done()
+            .declare( ... ).instanceOf( ... ).done()
+            ...done()
+            // eagerly load all the singletons:
+            .load();
     }
 }
 </code></pre>
@@ -345,7 +387,9 @@ var bf = new ioc( [ "/model", "/controllers" ] );
 bf.onLoad( "LoadListener" );
 </code></pre>
 
-<p>You cannot do this when you let FW/1 create DI/1 for you, because it calls <code>addBean()</code> to add itself to DI/1’s bean factory (as <code>"fw"</code>) and so the load listener has already triggered by the time <code>setupApplication()</code> is called. You also cannot add more load listeners inside your load listener method itself! If you want to add more load listeners, your best choice is to extend <code>ioc.cfc</code> and in your <code>init()</code> function, after calling <code>super.init()</code>, call <code>this.onLoad()</code> to register them before you <code>return this;</code>. You can easily tell FW/1 to use you extended version of DI/1 with the <code>variables.framework.diComponent</code> setting.</p>
+<p>If you let FW/1 manage your DI/1 bean factory for you, you need to specify the load listener as part of the configuration (<code>diConfig</code>) as shown below.</p>
+
+<p>Note that you cannot add load listeners inside your load listener method itself! If you want to add more load listeners, your best choice is to extend <code>ioc.cfc</code> and in your <code>init()</code> function, after calling <code>super.init()</code>, call <code>this.onLoad()</code> to register them before you <code>return this;</code>. You can easily tell FW/1 to use you extended version of DI/1 with the <code>variables.framework.diComponent</code> setting.</p>
 
 <p>Note that a load listener can also be passed as a function or closure, or as a CFC instance, so if you only wanted to eagerly load the singletons, you could declare it inline like this:</p>
 
@@ -435,11 +479,11 @@ moduleBeanFactory.setParent( mainBeanFactory );
 
 <h3 id="public-any-function-addalias-string-aliasname-string-beanname-">public any function addAlias( string aliasName, string beanName )</h3>
 
-<p>Add an alias for a given bean name. This allows you to have a more meaningly / friendly name for a bean than the default that is deduced from the file and folder names.</p>
+<p>Add an alias for a given bean name. Prefer the new “builder” syntax of the <code>declare()</code> method.</p>
 
 <h3 id="public-any-function-addbean-string-beanname-any-beanvalue-">public any function addBean( string beanName, any beanValue )</h3>
 
-<p>Tell DI/1 that the given bean name should resolve to the supplied value. The value may be any type of data. This is good way to provide named configuration values for your managed beans.</p>
+<p>Tell DI/1 that the given bean name should resolve to the supplied value. The value may be any type of data. Prefer the new “builder” syntax of the <code>declare()</code> method.</p>
 
 <h3 id="public-boolean-function-containsbean-string-beanname-">public boolean function containsBean( string beanName )</h3>
 
@@ -449,13 +493,17 @@ moduleBeanFactory.setParent( mainBeanFactory );
 
 <p>Returns <code>true</code> if DI/1 has been given a parent bean factory.</p>
 
+<h3 id="public-any-function-declare-string-beanname-">public any function declare( string beanName )</h3>
+
+<p>Declare a new bean in the bean factory. Returns a “builder” on which you can call <code>aliasFor</code>, <code>asValue</code>, <code>instanceOf</code>, <code>fromFactory</code>, <code>asSingleton</code>, <code>asTransient</code>, <code>withArguments</code>, and/or <code>withOverrides</code>.</p>
+
 <h3 id="public-any-function-declarebean-string-beanname-string-dottedpath-boolean-issingleton--true-struct-overrides----">public any function declareBean( string beanName, string dottedPath, boolean isSingleton = true, struct overrides = { } )</h3>
 
-<p>Tell DI/1 that the given bean name should resolve to an instance of the named CFC. This is useful when you need DI/1 to manage specific CFCs that are not part of your own application’s model or controllers, such as third party library CFCs. You can tell DI/1 whether to treat this bean as a single (default) or transient. You can also provide an collection of named beans (values) that should override (<em>hide</em>) beans of the same name in the bean factory. This allows you to provide specific values for constructor arguments or for setter / property injection.</p>
+<p>Tell DI/1 that the given bean name should resolve to an instance of the named CFC. Prefer the new “builder” syntax of the <code>declare()</code> method.</p>
 
 <h3 id="public-any-function-factorybean-string-beanname-any-factory-string-methodname---array-args----struct-overrides----">public any function factoryBean( string beanName, any factory, string methodName = “”, array args = [ ], struct overrides = { } )</h3>
 
-<p>Tell DI/1 that the given bean name should be resolved by called the specified <code>methodName</code> on the <code>factory</code> bean, with the specified arguments (<code>args</code> by name). The <code>factory</code> bean can be either a string, identifying a bean that DI/1 knows about, or an instance of a CFC you provide, or <em>as of FW/1 4.0</em> can be a function or closure (in which case <code>methodName</code> can be omitted). The <code>args</code> array contains the names of beans that should be passed as arguments to the <code>methodName</code> call (or the <code>factory</code> call if it is a function or closure). The optional <code>overrides</code> collection can provide named beans (values) that should <em>hide</em> beans of the same name, i.e., they will be used instead of DI/1 looking up the bean internally.</p>
+<p>Tell DI/1 that the given bean name should be resolved by called the specified <code>methodName</code> on the <code>factory</code> bean, with the specified arguments (<code>args</code> by name). Prefer the new “builder” syntax of the <code>declare()</code> method.</p>
 
 <h3 id="public-any-function-getbean-string-beanname-struct-constructorargs----">public any function getBean( string beanName, struct constructorArgs = { } )</h3>
 
@@ -487,7 +535,7 @@ moduleBeanFactory.setParent( mainBeanFactory );
 
 <h3 id="public-any-function-onload-any-listener-">public any function onLoad( any listener )</h3>
 
-<p>Register a load listener that DI/1 should call after the factory has initialized itself. This is the recommanded way to provide additional bean declarations (<code>addAlias()</code>, <code>addBean()</code>, <code>declareBean()</code>, <code>factoryBean()</code>) since it ensures they all run before the constructed instance of DI/1 is returned to your program. The <code>listener</code> may be a bean name, in which case DI/1 will look it up internally, or an instance of a CFC, or a user-defined function or closure. If the <code>listener</code> resolves to a CFC instance, DI/1 will call <code>onLoad()</code> on that instance and pass itself in as the only argument. If the <code>listener</code> is a function or closure, DI/1 will call it and pass itself in as the only argument. You can then manipulate the bean factory further as part of its initialization. A single load listener is usually registered via the <code>loadListener</code> element of the <code>config</code> struct when DI/1 is initialized but <code>onLoad()</code> can be called multiple times to register additional listeners. When muliple listeners are registered, they are called in the reverse order of registration.</p>
+<p>Register a load listener that DI/1 should call after the factory has initialized itself. This is the recommanded way to provide additional bean declarations since it ensures they all run before the constructed instance of DI/1 is returned to your program. The <code>listener</code> may be a bean name, in which case DI/1 will look it up internally, or an instance of a CFC, or a user-defined function or closure. If the <code>listener</code> resolves to a CFC instance, DI/1 will call <code>onLoad()</code> on that instance and pass itself in as the only argument. If the <code>listener</code> is a function or closure, DI/1 will call it and pass itself in as the only argument. You can then manipulate the bean factory further as part of its initialization. A single load listener is usually registered via the <code>loadListener</code> element of the <code>config</code> struct when DI/1 is initialized but <code>onLoad()</code> can be called multiple times to register additional listeners. When muliple listeners are registered, they are called in the reverse order of registration.</p>
 
 <h3 id="public-any-function-setparent-any-parent-">public any function setParent( any parent )</h3>
 
@@ -524,7 +572,7 @@ moduleBeanFactory.setParent( mainBeanFactory );
 
 
 
-<time class='entry-date' datetime='2016-01-11T16:30:00-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:30 pm</span></time>
+<time class='entry-date' datetime='2016-03-05T20:30:00-08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:30 pm</span></time>
         
       </p>
       
