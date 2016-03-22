@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Change Log for FW/1 and Friends"
-date: 2016-03-05 17:20
+date: 2016-03-22 09:40
 comments: false
 sharing: false
 footer: true
@@ -62,6 +62,7 @@ Enhancements
 Bug Fixes
 ---
 
+* [427](https://github.com/framework-one/fw1/issues/427) - Fixed bug that prevented `before()` / `after()` working in Clojure controllers; fixed bug that caused Clojure controller shims to be created twice.
 * [422](https://github.com/framework-one/fw1/pull/422) - Fix bug with case insensitive routes.
 * [420](https://github.com/framework-one/fw1/issues/420) - Fix bug in transient autowiring (caused by caching metadata).
 * [395](https://github.com/framework-one/fw1/pull/395) - Corrected calls to `buildURL()` in examples.
