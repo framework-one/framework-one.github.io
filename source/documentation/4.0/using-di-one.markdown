@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using DI/1"
-date: 2016-03-05 20:30
+date: 2016-04-07 11:30
 comments: false
 sharing: false
 footer: true
@@ -19,31 +19,51 @@ As of release 3.5, DI/1 also looks for `.lc` and `.lucee` files, as well as `.cf
 
 # Getting Started with DI/1
 
-Create an instance of the DI/1 bean factory and specify the folder(s) you want it to search for beans (CFCs):
+Most users will be using DI/1 as the default bean factory for FW/1, but you can also use DI/1 in a non-FW/1 application, and that can be a good way to start adding structure and automation to an existing legacy project if you're not ready for an MVC framework. Both approaches will be covered below.
 
-    var beanFactory = new ioc("/model");
+## Getting Started with DI/1 and FW/1
+
+By default, FW/1 creates an instance of DI/1 to use as its bean factory, to manage controller CFCs and also CFCs that are part of your application model. You control how FW/1 uses DI/1 through the `diEngine`, `diComponent`, `diLocations`, and `diConfig` settings. Read [Using Bean Factories](developing-applications.html#using-bean-factories) in the Developing Applications Guide for more detail.
+
+You should only need to call `getBean()` to get a transient -- by default, a CFC found in a folder called `beans`:
+
+    var user = fw.getBeanFactory().getBean( "user" ); // or "userBean"
+
+CFCs found in other folders (e.g., `services`) are treated as singletons and will be autowired into each other, based on `property` declarations (if you have `accessors=true` on your `component`), `setXxx()` methods, and constructor arguments (`init()`).
+
+## Getting Started with DI/1 Standalone
+
+If you want to use DI/1 outside of FW/1, here's how you should do it: create an instance of the DI/1 bean factory and specify the folder(s) you want it to search for beans (CFCs):
+
+    var beanFactory = new framework.ioc("/model");
     // or multiple folders:
-    var beanFactory = new ioc("/model,/common/model");
+    var beanFactory = new framework.ioc("/model,/common/model");
     // or an array:
-    var beanFactory = new ioc(["/model", "/common/model"]);
+    var beanFactory = new framework.ioc(["/model", "/common/model"]);
 
-CFCs found in a folder called `beans` are assumed to be transients; otherwise CFCs are assumed to be singletons. If CFC names are unique, you can use that name to get the bean out of the factory:
+If CFC names are unique, you can use that name to get the bean out of the factory:
 
     var userManager = beanFactory.getBean("userManager");
 
-All beans are also given an alias which is the name of the CFC followed by (the singular form of) the folder name in which it was found, e.g., `/model/beans/product.cfc` would get the alias `"productBean"`. If no other CFC is called `product.cfc` in the folders that you asked DI/1 to search, you can use `"product"` or `"productBean"` to reference that bean. By default, DI/1 assumes all beans are singletons unless they are found in a folder called `beans` (in which case DI/1 assumes those are transients). A singleton has just a single instance and DI/1 will cache that instance. A transient is created afresh every time you ask DI/1 for an instance.
+See below for how DI/1 handles CFCs that have the same name, found in different folders.
 
-If a CFC has a constructor (a method called `init()`), DI/1 will use the argument names to look up beans and call the constructor with those beans. If a CFC has setter methods, DI/1 will use their names to look up beans and call the setters with those beans. If a CFC has property declarations and implicit setters are enabled, DI/1 will use their names to look up beans and call the implicit setters with those beans. This is called autowiring. By the time you get a bean back from DI/1, it should be fully populated. You can also specify an `"init-method"` function name that DI/1 should call after a bean has had its dependencies injected - see **[Configuration](#configuration)** below. When using `property` to declare a dependency, do not specify a `type` or a `default`: DI/1 assumes that typed properties (and defaulted properties) are intended to generate specific getters and setters on transients or for ORM integration, rather than just dependencies. You can override this default behavior - see **[Configuration](#configuration)** below.
+## Basic DI/1 Conventions
+
+CFCs found in a folder called `beans` are assumed to be transients; otherwise CFCs are assumed to be singletons. A singleton has just a single instance and DI/1 will cache that instance. A transient is created afresh every time you ask DI/1 for an instance.
+
+The name of a bean is the name of the CFC (without the path information or file extension). All beans are also given an alias which is the name of the CFC followed by (the singular form of) the folder name in which it was found, e.g., `/model/beans/product.cfc` would get the alias `"productBean"`. If no other CFC is called `product.cfc` in the folders that you asked DI/1 to search, you can use `"product"` or `"productBean"` to reference that bean (in your `property` declarations or `getBean()` calls).
+
+If a CFC has a constructor (a method called `init()`), DI/1 will use the argument names to look up beans and call the constructor with those beans. If a CFC has setter methods, DI/1 will use their names to look up beans and call the setters with those beans. If a CFC has `property` declarations and implicit setters are enabled (`accessors=true` on `component`), DI/1 will use their names to look up beans and call the implicit setters with those beans. This is called autowiring. By the time you get a bean back from DI/1, it should be fully populated. You can also specify an `"init-method"` function name that DI/1 should call after a bean has had its dependencies injected - see **[Configuration](#configuration)** below. When using `property` to declare a dependency, do not specify a `type` or a `default`: DI/1 assumes that typed properties (and defaulted properties) are intended to generate specific getters and setters on transients or for ORM integration, rather than just dependencies. You can override this default behavior - see **[Configuration](#configuration)** below.
 
 If DI/1 cannot find a matching bean for a constructor argument, it will throw an exception. If DI/1 cannot find a matching bean for a setter method or property, it will log the failure and ignore it (by default), and the corresponding variable will not be populated. You can configure DI/1 to be strict about matching bean names - see the configuration section below - in which case it will throw an exception.
 
 As of FW/1 4.0 (DI/1 1.2), you can specify a second argument to `getBean()` that provides constructor arguments that should be used instead of beans in the factory:
 
-    var user = beanFactory.getBean( "user", { name : "Sean", email : "sean@corfield.org" } );
+    var user = fw.getBeanFactory().getBean( "user", { name : "Sean", email : "sean@corfield.org" } );
 
 This will use `name` and `email` as overrides so that they _hide_ any beans of the same name when DI/1 calls the `init()` method. This can be particularly valuable when you are migrating legacy code to DI/1 and want it to manage bean creation while still providing constructor arguments in the (legacy) code.
 
-Note that DI/1 will only inject singletons via setters or properties. Injecting transients in those situations often leads to unexpected results (consider a transient `invoice` bean that has a `setCustomer()` method when you also have a transient `customer` bean - you almost certainly don't want DI/1 to automatically create a customer instance and inject it every time you ask DI/1 for a new invoice bean!). If a constructor argument matches a transient bean, DI/1 will still create an instance since it has to finish constructing the original bean. _Note: this is unclear and there is an open issue against the documentation to reword this once some testing has verified exactly how DI/1 behaves with combinations of transients and singletons in constructor arguments!_
+Note that DI/1 will inject only singletons via setters or properties. Injecting transients in those situations often leads to unexpected results (consider a transient `invoice` bean that has a `setCustomer()` method when you also have a transient `customer` bean - you almost certainly don't want DI/1 to automatically create a customer instance and inject it every time you ask DI/1 for a new invoice bean!). If a constructor argument matches a transient bean, DI/1 will still create an instance since it has to finish constructing the original bean. _Note: this is unclear and there is an open issue against the documentation to reword this once some testing has verified exactly how DI/1 behaves with combinations of transients and singletons in constructor arguments!_
 
 ## Acceptable Folder Paths
 
@@ -53,15 +73,15 @@ In general, you should use webroot-relative folders - starting with `/` - or map
 
 For many applications, DI/1's default conventions will be sufficient but it also supports more advanced usage through three avenues:
 
-* Configuration -- a `config` struct that can be provided to the `ioc()` constructor.
+* Configuration -- a `config` struct that can be provided to the `ioc()` constructor. In a FW/1 application, this is specified as `diConfig` in the framework settings.
 * Customization -- several public methods that can add additional beans to the factory.
-* Overriding -- extending `ioc.cfc` to provide your own versions of several key methods.
+* Overriding -- extending `ioc.cfc` to provide your own versions of several key methods. In a FW/1 application, you will be able to specify your extended CFC using the `diComponent` framework setting.
 
 Each of these approaches will be discussed in the following sections.
 
 ## Configuration
 
-When you create the bean factory, you can optionally supply a second argument that is a struct containing configuration for DI/1. At present, DI/1 understands the follow configuration options:
+When the bean factory is created, you can optionally supply a struct containing configuration for DI/1. At present, DI/1 understands the follow configuration options:
 
 * `constants` - struct - defaults to `{}`. DI/1 will use any name/value pairs specified here to provide _beans_ that resolve to the specified values. This can be used to provide resolution for constructor arguments that need values which are not actual beans. See also `declare()` in the **Customization** section that follows.
 * `exclude` - array - defaults to `[]`. DI/1 will ignore any CFCs whose file path contains the strings in this array. DI/1 always excludes paths containing `/WEB-INF` and `/Application.cfc`, as well as various FW/1 and DI/1 framework files. The strings are not case-sensitive.
@@ -78,11 +98,15 @@ When you create the bean factory, you can optionally supply a second argument th
 * `transients` - array - defaults to `[]`. DI/1 will consider any CFCs found in these folders to be transient, rather than singleton. The conversion to a singular form will still take place to create the alias for each CFC. For example, if `singulars = { pride = 'lion' }` and `transients = [ 'pride' ]` then any CFCs in the `pride` folder will be treated as transients and their alias will end in `Lion`.
 * `transientPattern` - string - no default. Specifies a regular expression that DI/1 uses to determine whether a bean is transient or not, based on its name. The `beans` folder convention and the `transients` configuration below still apply so CFCs in those folders will be still considered transients, in addition to any name that matches the pattern.
 
+The examples below all show `diConfig` for FW/1 (and `diLocations` in some examples). If you are using DI/1 standalone, you can imagine creating the instance of DI/1 like this, in order to map those examples to your usage:
+
+    var beanFactory = new framework.ioc( diLocations, diConfig );
+
 ### Configuring "Constant" Beans
 
-As noted above, the optional config argument to the `ioc` constructor is a struct containing various parameters that alter the behavior of DI/1. The `constants` config element is a struct containing mappings from bean names to specific constant values. This allows you to specify non-CFC values for constructor arguments, setters and properties (but is most commonly used for constructor arguments). The value may be of any type and any reference to that bean name will return the specified value as a singleton.
+The `constants` config element is a struct containing mappings from bean names to specific constant values. This allows you to specify non-CFC values for constructor arguments, setters and properties (but is most commonly used for constructor arguments). The value may be of any type and any reference to that bean name will return the specified value as a singleton.
 
-These values may be added after DI/1 has been initialized using the `declare()` method as shown above.
+These values may also be added after DI/1 has been initialized using the `declare()` method as shown below (in **Customization**).
 
 ### Specifying Additional Transient Beans
 
@@ -97,19 +121,19 @@ For `config.singulars`, any folder name whose singular name is `bean` will cause
 
 For example:
 
-    var beanFactory = new ioc( ".", { singulars = { objects = "bean" }, transients = [ "models" ] } );
+    diConfig : { singulars : { objects : "bean" }, transients : [ "models" ] }
 
 This will cause CFCs found in the `objects` folder to be treated as if they were in the `beans` folder (their alias will end with `Bean` and they will be considered transients because of that) and CFCs found in the `models` folder to be treated as transients too (but their alias will end with `Model`, the singular of `models`).
 
-    var beanFactory = new ioc( ".", { singulars = { services = "manager" }, transients = [ "objects" ] } );
+    diConfig : { singulars : { services : "manager" }, transients : [ "objects" ] }
 
 This, on the other hand, will cause CFCs found in the `services` folder to be treated as if they were in the `managers` folder (their alias will end with `Manager` and they will be considered singletons because of that) and CFCs found in the `objects` folder to be treated as transients (their alias will end with `Object`, the singular of `objects`).
 
-    var beanFactory = new ioc( ".", { singletonPattern = "(Service|Factory)$" } );
+    diConfig :{ singletonPattern : "(Service|Factory)$" }
 
 In addition to any CFCs found in a folder called `beans`, any CFC whose name does not end in `Service` or `Factory` will be considered a transient.
 
-    var beanFactory = new ioc( ".", { transientPattern = "(Entity)$" } );
+    diConfig : { transientPattern : "(Entity)$" }
 
 In addition to any CFCs found in a folder called `beans`, any CFC whose name ends in `Entity` will be considered a transient.
 
@@ -203,9 +227,6 @@ This tells DI/1 that when you call `getBean("generated")`, instead of trying to 
 
 The easiest way to organize all your customization of the DI/1 bean factory is to use a load listener. I prefer to have a CFC, called `LoadListener.cfc`, somewhere in my `/model` folder that contains an `onLoad()` method, and I declare this in the `config` struct when I create DI/1:
 
-    // if creating DI/1 explicitly:
-    var bf = new ioc( [ "/model", "/controllers" ], { loadListener : "LoadListener" } );
-    
     // if letting FW/1 create DI/1 for you:
     variables.framework = {
         ...
@@ -213,6 +234,9 @@ The easiest way to organize all your customization of the DI/1 bean factory is t
         diConfig : { loadListener : "LoadListener" },
         ...
     };
+
+    // if creating DI/1 explicitly:
+    var bf = new framework.ioc( [ "/model", "/controllers" ], { loadListener : "LoadListener" } );
 
 This tells DI/1 that when it has first discovered all the beans in the folders you specified (after construction but before any further operations take place on the bean factory), it should call `getBean( "LoadListener" )` and then call `onLoad( this )` on that bean (i.e., passing itself into your method).
 
@@ -232,13 +256,13 @@ Your load listener CFC would look like this:
 
 That last step is optional, but I like to avoid lazy loading of singletons in applications that see heavy load (DI/1 deliberately avoids locks so heavy load can cause singletons to be constructed multiple times if you don't eagerly load the singletons at startup).
 
-You can also manually add load listeners by calling `onLoad()` on the bean factory itself, as long as you do it before any other operations are performed:
+If you are using DI/1 standalone, you can also manually add load listeners by calling `onLoad()` on the bean factory itself, as long as you do it before any other operations are performed:
 
     // only when creating DI/1 explicitly:
-    var bf = new ioc( [ "/model", "/controllers" ] );
+    var bf = new framework.ioc( [ "/model", "/controllers" ] );
     bf.onLoad( "LoadListener" );
 
-If you let FW/1 manage your DI/1 bean factory for you, you need to specify the load listener as part of the configuration (`diConfig`) as shown below.
+If you let FW/1 manage your DI/1 bean factory for you, you need to specify the load listener as part of the configuration (`diConfig`) as shown above.
 
 Note that you cannot add load listeners inside your load listener method itself! If you want to add more load listeners, your best choice is to extend `ioc.cfc` and in your `init()` function, after calling `super.init()`, call `this.onLoad()` to register them before you `return this;`. You can easily tell FW/1 to use you extended version of DI/1 with the `variables.framework.diComponent` setting.
 
@@ -252,11 +276,11 @@ Note that a load listener can also be passed as a function or closure, or as a C
 
 ## Overriding
 
-Customizing the behavior of DI/1 by overriding its methods should probably be considered a "last resort" so before you go down this path, ask on Slack or on the mailing list if there is a way to achieve your goals without doing this. As an example of overridden behavior, the Clojure integration provided by `ioclj.cfc` could be a useful model for you. That overrides the constructor (to deal with finding Clojure code and modifying the metadata), `containsBean()` and `getBean()` to check whether the requested bean is Clojure code or a regular CFC, and `getBeanInfo()` to provide metadata about Clojure code that is loaded.
+Customizing the behavior of DI/1 by overriding its methods should probably be considered a "last resort" so before you go down this path, ask on Slack or on the mailing list if there is a way to achieve your goals without doing this. As an example of overridden behavior, the Clojure integration provided by `ioclj.cfc` could be a useful model for you. That overrides the constructor (to deal with finding Clojure code and modifying the metadata) and `getBeanInfo()` to provide metadata about Clojure code that is loaded.
 
 DI/1 provides no specific public extension points but it does provide a few `private` extension points that are considered documented and supported. These are described in detail near the end of this document and they are primarily intended to allow you to customized how CFC instances are actually constructed, how metadata is obtained, and what to do if DI/1 cannot locate a bean that you have requested.
 
-In addition, there is a hook for modifying beans as they are initialized -- `setupInitMethod()` -- which is called after a bean has been fully populated but prior to calleding the `"init-method"` (if any is specified).
+In addition, there is a hook for modifying beans as they are initialized -- `setupInitMethod()` -- which is called after a bean has been fully populated but prior to calling the `"init-method"` (if any is specified).
 
 See **[Overriding DI/1 Behavior](#overriding-di1-behavior)** for more detail.
 
@@ -301,14 +325,16 @@ I would expect these only to be useful to framework authors. The first two metho
 
 If your application is assembled from multiple modules, you may have a main bean factory containing shared CFCs and each module may also have a bean factory. You can tell a module's bean factory about the shared CFCs in the main bean factory using the `setParent()` method:
 
-    var moduleBeanFactory = new ioc("/moduleModel");
+    var moduleBeanFactory = new framework.ioc("/moduleModel");
     moduleBeanFactory.setParent( mainBeanFactory );
 
 This causes DI/1 to ask its parent bean factory about any beans that are requested but unknown (within the moduleBeanFactory). Because DI/1 uses only `containsBean(name)` and `getBean(name)` the parent bean factory does not need to be another DI/1 instance - it can be any bean factory that provides that API.
 
+Note that this is done automatically by FW/1 in an application with subsystems: each subsystem has its own bean factory with the main application's bean factory as the parent.
+
 # Bean Factory Aware
 
-If you need access to the bean factory itself within one of your CFCs, either declare a constructor argument called `beanFactory`, provide a `setBeanFactory( any beanFactory )` setter or declare a `beanFactory` property (with implicit setters enabled). DI/1 declares itself as a bean called `beanFactory` and will inject itself where any such dependencies appear.
+If you need access to the bean factory itself within one of your CFCs, either declare a constructor argument called `beanFactory`, provide a `setBeanFactory( any beanFactory )` setter or declare `property beanFactory;` (with implicit setters enabled). DI/1 declares itself as a bean called `beanFactory` and will inject itself where any such dependencies appear.
 
 # Reference Manual
 
