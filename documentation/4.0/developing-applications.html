@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Dec 22nd, 2015 10:40 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Apr 7th, 2014 11:00 am This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-12-22T22:40:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>10:40 pm</span></time></p>
+<time class='entry-date' datetime='2014-04-07T11:00:00-07:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:00 am</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -131,7 +131,7 @@
 </ul>
 
 <h2 id="basic-application-structure">Basic Application Structure</h2>
-<p>FW/1 applications generally have an <code>Application.cfc</code> that extends <code>framework.one</code> and an empty <code>index.cfm</code> as well as at least one view (under the <code>views</code> folder). Typical applications will also have folders for <code>controllers</code>, <code>layouts</code> and a <code>model</code> – itself containing subfolders for <code>services</code> and <code>beans</code>. Some applications may also have a <code>subsystems</code> folder (see below). The folders may be in the same directory as <code>Application.cfc</code> / <code>index.cfm</code> or may be in a directory accessible via a mapping (or some other path under the webroot). If the folders are not in the same directory as <code>Application.cfc</code> / <code>index.cfm</code>, then <code>variables.framework.base</code> must be set in <code>Application.cfc</code> to identify the location of those folders.</p>
+<p>FW/1 applications generally have an <code>Application.cfc</code> that extends <code>framework.one</code> and an empty <code>index.cfm</code> as well as at least one view (under the <code>views</code> folder). Typical applications will also have folders for <code>controllers</code>, <code>layouts</code> and a <code>model</code> – itself containing subfolders for <code>services</code> and <code>beans</code>. Some applications may also have a <code>subsystems</code> folder (see below). The folders may be in the same directory as <code>Application.cfc</code> / <code>index.cfm</code> or may be in a directory accessible via a mapping (or some other path under the webroot). If the folders are not in the same directory as <code>Application.cfc</code> / <code>index.cfm</code>, then <code>variables.framework.base</code> must be set in <code>Application.cfc</code> to identify the location of those folders (and you will need to use mapped paths for <code>diLocations</code>).</p>
 
 <p>As of release 3.5, these folder name conventions can be modified. See <strong><a href="#configuring-fw1-applications">Configuring FW/1 Applications</a></strong> below.</p>
 
@@ -219,6 +219,7 @@ component { // does not extend anything
             // create my extended version of FW/1:
             request._framework_one = new app.CustomApp( {
                 base : '/app',
+                diLocations = '/app/model, /app/controllers',
                 trace : true
             } );
         }
@@ -835,8 +836,8 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 
 <ul>
   <li><code>action</code> - The URL or form variable used to specify the desired action (<code>?action=section.item</code>).</li>
-  <li><code>base</code> - Provide this if the application itself is not in the same directory as <code>Application.cfc</code> and <code>index.cfm</code>. It should be the <strong>relative</strong> path to the application from the <code>Application.cfc</code> file, or a <strong>mapped</strong> path to the application. Examples: <code>"../myapp/"</code>, <code>"/appmaping/"</code>.</li>
-  <li><code>cfcbase</code> - Provide this if the <code>controllers</code> and <code>model</code> folders are not in the same folder as the application. It is used as the dotted-path prefix for controller and service CFCs, e.g., if <code>cfcbase = 'com.myapp'</code> then a controller would be <code>com.myapp.controllers.MyController</code>.</li>
+  <li><code>base</code> - Provide this if the application itself is not in the same directory as <code>Application.cfc</code> and <code>index.cfm</code>. It should either be the <strong>relative</strong> path to the folder containing the <code>views</code> and <code>layouts</code> from the <code>Application.cfc</code> file, or a <strong>mapped</strong> path to that folder. Examples: <code>"../myapp/"</code>, <code>"/appmapping/"</code>. You will also need to specify the location for <code>controllers</code> and <code>model</code> via <code>diLocations</code> if you are using a bean factory (the default), or via <code>cfcbase</code> if you have disabled the bean factory.</li>
+  <li><code>cfcbase</code> - Essentially deprecated, this tells FW/1 how to find the <code>controllers</code> folder if you are not using a bean factory. It is used as the dotted-path prefix for controller CFCs when FW/1 is managing them (rather than a bean factory), e.g., if <code>cfcbase = 'com.myapp'</code> then a controller would be <code>com.myapp.controllers.MyController</code>.</li>
   <li><code>usingSubsystems</code> - Whether or not to use legacy style subsystems - see <strong><a href="#using-subsystems">Using Subsystems</a></strong> below. This is automatically set <code>true</code> if you explicitly specify a <code>defaultSubsystem</code>. As of release 3.5, it is recommended to use the new style subsystems (and leave this as <code>false</code> or omit it).</li>
   <li><code>defaultSubsystem</code> - If legacy subsystems are enabled, this is the default subsystem when none is specified in the URL or form post. It defaults to <code>"home"</code>. As of release 3.5, it is recommended to use the new style subsystems (and omit this).</li>
   <li><code>defaultSection</code> - This is the default section to use when none is specified in the URL or form post. It defaults to <code>"main"</code>.</li>
@@ -871,7 +872,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
   <li><code>viewsFolder</code> - The name used for the views folder. Must be plural. Defaults to <code>"views"</code> but could be <code>"pages"</code> for example. <em>New in 3.5.</em></li>
   <li><code>diOverrideAllowed</code> - If <code>true</code>, FW/1 will throw an exception if you attempt to call <code>setBeanFactory()</code> twice. If <code>false</code>, FW/1 will allow you to call <code>setBeanFactory()</code> twice and override the previous Dependency Injection setting, but it will log a warning to the console. If you want FW/1 to manage your bean factory, use the <code>di*</code> settings above to configure it – and do not call <code>setBeanFactory()</code> yourself. If you want to manage your bean factory directly, set <code>diEngine</code> to <code>"none"</code> so FW/1 doesn’t also attempt to do this. <em>New in 3.5.</em></li>
   <li><code>diEngine</code> - The Dependency Injection framework that FW/1 should use.</li>
-  <li><code>diLocations</code> - The list of folders to check for CFCs to manage; defaults to <code>[ "model", "controllers" ]</code>.</li>
+  <li><code>diLocations</code> - The list of folders to check for CFCs to manage; defaults to <code>[ "model", "controllers" ]</code>. If you’ve had to use <code>base</code> to tell FW/1 where your <code>views</code> and <code>layouts</code> are, you’ll need to include that location in the paths to the folders where your CFCs are, and use a <strong>mapped</strong> path instead of a relative path.</li>
   <li><code>diConfig</code> - Any additional configuration needed for the Dependency Injection engine; defaults to <code>{ }</code>.</li>
   <li><code>diComponent</code> - The dotted-path to the CFC used for the bean factory (which has sensible defaults based on <code>diEngine</code>).</li>
   <li><code>enableJSONPOST</code> - Default <code>false</code>. If <code>true</code>, FW/1 will accept JSON POST data and deserialize it automatically into the request context. <em>New in 4.0.</em></li>
@@ -1123,7 +1124,7 @@ property framework;   // make your controller framework aware
 
 
 
-<time class='entry-date' datetime='2015-12-22T22:40:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>10:40 pm</span></time>
+<time class='entry-date' datetime='2014-04-07T11:00:00-07:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:00 am</span></time>
         
       </p>
       
