@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-12-22 22:40
+date: 2014-04-07 11:00
 comments: false
 sharing: false
 footer: true
@@ -15,7 +15,7 @@ FW/1 is intended to allow you to quickly build applications with the minimum of 
 
 Basic Application Structure
 ---
-FW/1 applications generally have an `Application.cfc` that extends `framework.one` and an empty `index.cfm` as well as at least one view (under the `views` folder). Typical applications will also have folders for `controllers`, `layouts` and a `model` -- itself containing subfolders for `services` and `beans`. Some applications may also have a `subsystems` folder (see below). The folders may be in the same directory as `Application.cfc` / `index.cfm` or may be in a directory accessible via a mapping (or some other path under the webroot). If the folders are not in the same directory as `Application.cfc` / `index.cfm`, then `variables.framework.base` must be set in `Application.cfc` to identify the location of those folders.
+FW/1 applications generally have an `Application.cfc` that extends `framework.one` and an empty `index.cfm` as well as at least one view (under the `views` folder). Typical applications will also have folders for `controllers`, `layouts` and a `model` -- itself containing subfolders for `services` and `beans`. Some applications may also have a `subsystems` folder (see below). The folders may be in the same directory as `Application.cfc` / `index.cfm` or may be in a directory accessible via a mapping (or some other path under the webroot). If the folders are not in the same directory as `Application.cfc` / `index.cfm`, then `variables.framework.base` must be set in `Application.cfc` to identify the location of those folders (and you will need to use mapped paths for `diLocations`).
 
 As of release 3.5, these folder name conventions can be modified. See **[Configuring FW/1 Applications](#configuring-fw1-applications)** below.
 
@@ -101,6 +101,7 @@ Note that you can put your version of `MyApplication.cfc` anywhere and call it a
                 // create my extended version of FW/1:
                 request._framework_one = new app.CustomApp( {
                     base : '/app',
+                    diLocations = '/app/model, /app/controllers',
                     trace : true
                 } );
             }
@@ -670,8 +671,8 @@ All of the configuration for FW/1 is done through a simple structure in `Applica
 The keys in the structure have the following meanings:
 
 * `action` - The URL or form variable used to specify the desired action (`?action=section.item`).
-* `base` - Provide this if the application itself is not in the same directory as `Application.cfc` and `index.cfm`. It should be the **relative** path to the application from the `Application.cfc` file, or a **mapped** path to the application. Examples: `"../myapp/"`, `"/appmaping/"`.
-* `cfcbase` - Provide this if the `controllers` and `model` folders are not in the same folder as the application. It is used as the dotted-path prefix for controller and service CFCs, e.g., if `cfcbase = 'com.myapp'` then a controller would be `com.myapp.controllers.MyController`.
+* `base` - Provide this if the application itself is not in the same directory as `Application.cfc` and `index.cfm`. It should either be the **relative** path to the folder containing the `views` and `layouts` from the `Application.cfc` file, or a **mapped** path to that folder. Examples: `"../myapp/"`, `"/appmapping/"`. You will also need to specify the location for `controllers` and `model` via `diLocations` if you are using a bean factory (the default), or via `cfcbase` if you have disabled the bean factory.
+* `cfcbase` - Essentially deprecated, this tells FW/1 how to find the `controllers` folder if you are not using a bean factory. It is used as the dotted-path prefix for controller CFCs when FW/1 is managing them (rather than a bean factory), e.g., if `cfcbase = 'com.myapp'` then a controller would be `com.myapp.controllers.MyController`.
 * `usingSubsystems` - Whether or not to use legacy style subsystems - see **[Using Subsystems](#using-subsystems)** below. This is automatically set `true` if you explicitly specify a `defaultSubsystem`. As of release 3.5, it is recommended to use the new style subsystems (and leave this as `false` or omit it).
 * `defaultSubsystem` - If legacy subsystems are enabled, this is the default subsystem when none is specified in the URL or form post. It defaults to `"home"`. As of release 3.5, it is recommended to use the new style subsystems (and omit this).
 * `defaultSection` - This is the default section to use when none is specified in the URL or form post. It defaults to `"main"`.
@@ -706,7 +707,7 @@ The keys in the structure have the following meanings:
 * `viewsFolder` - The name used for the views folder. Must be plural. Defaults to `"views"` but could be `"pages"` for example. _New in 3.5._
 * `diOverrideAllowed` - If `true`, FW/1 will throw an exception if you attempt to call `setBeanFactory()` twice. If `false`, FW/1 will allow you to call `setBeanFactory()` twice and override the previous Dependency Injection setting, but it will log a warning to the console. If you want FW/1 to manage your bean factory, use the `di*` settings above to configure it -- and do not call `setBeanFactory()` yourself. If you want to manage your bean factory directly, set `diEngine` to `"none"` so FW/1 doesn't also attempt to do this. _New in 3.5._
 * `diEngine` - The Dependency Injection framework that FW/1 should use.
-* `diLocations` - The list of folders to check for CFCs to manage; defaults to `[ "model", "controllers" ]`.
+* `diLocations` - The list of folders to check for CFCs to manage; defaults to `[ "model", "controllers" ]`. If you've had to use `base` to tell FW/1 where your `views` and `layouts` are, you'll need to include that location in the paths to the folders where your CFCs are, and use a **mapped** path instead of a relative path.
 * `diConfig` - Any additional configuration needed for the Dependency Injection engine; defaults to `{ }`.
 * `diComponent` - The dotted-path to the CFC used for the bean factory (which has sensible defaults based on `diEngine`).
 * `enableJSONPOST` - Default `false`. If `true`, FW/1 will accept JSON POST data and deserialize it automatically into the request context. _New in 4.0._
