@@ -145,14 +145,14 @@
 
 <h2 id="getting-started-with-di1-and-fw1">Getting Started with DI/1 and FW/1</h2>
 
-<p>By default, FW/1 creates an instance of DI/1 to use as its bean factory, to manage controller CFCs and also CFCs that are part of your application model. You control how FW/1 uses DI/1 through the <code>diEngine</code>, <code>diComponent</code>, <code>diLocations</code>, and <code>diConfig</code> settings. Read <a href="developing-applications.html#using-bean-factories">Using Bean Factories</a> in the Developing Applications Guide for more detail.</p>
+<p>By default, FW/1 creates an instance of DI/1 to use as its bean factory, to manage controller CFCs and also CFCs that are part of your application model. You control how FW/1 uses DI/1 through the <code>diEngine</code>, <code>diComponent</code>, <code>diLocations</code>, and <code>diConfig</code> settings.</p>
 
 <p>You should only need to call <code>getBean()</code> to get a transient – by default, a CFC found in a folder called <code>beans</code>:</p>
 
 <pre><code>var user = fw.getBeanFactory().getBean( "user" ); // or "userBean"
 </code></pre>
 
-<p>CFCs found in other folders (e.g., <code>services</code>) are treated as singletons and will be autowired into each other, based on <code>property</code> declarations (if you have <code>accessors=true</code> on your <code>component</code>), <code>setXxx()</code> methods, and constructor arguments (<code>init()</code>).</p>
+<p>CFCs found in other folders (e.g., <code>services</code>) are treated as singletons and will be autowired into each other, based on <code>property</code> declarations (if you have <code>accessors=true</code> on your <code>component</code>), <code>setXxx()</code> methods, and constructor arguments (<code>init()</code>). Read <a href="developing-applications.html#using-bean-factories">Using Bean Factories</a> in the Developing Applications Guide for more detail.</p>
 
 <h2 id="getting-started-with-di1-standalone">Getting Started with DI/1 Standalone</h2>
 
@@ -179,6 +179,25 @@ var beanFactory = new framework.ioc(["/model", "/common/model"]);
 <p>The name of a bean is the name of the CFC (without the path information or file extension). All beans are also given an alias which is the name of the CFC followed by (the singular form of) the folder name in which it was found, e.g., <code>/model/beans/product.cfc</code> would get the alias <code>"productBean"</code>. If no other CFC is called <code>product.cfc</code> in the folders that you asked DI/1 to search, you can use <code>"product"</code> or <code>"productBean"</code> to reference that bean (in your <code>property</code> declarations or <code>getBean()</code> calls).</p>
 
 <p>If a CFC has a constructor (a method called <code>init()</code>), DI/1 will use the argument names to look up beans and call the constructor with those beans. If a CFC has setter methods, DI/1 will use their names to look up beans and call the setters with those beans. If a CFC has <code>property</code> declarations and implicit setters are enabled (<code>accessors=true</code> on <code>component</code>), DI/1 will use their names to look up beans and call the implicit setters with those beans. This is called autowiring. By the time you get a bean back from DI/1, it should be fully populated. You can also specify an <code>"init-method"</code> function name that DI/1 should call after a bean has had its dependencies injected - see <strong><a href="#configuration">Configuration</a></strong> below. When using <code>property</code> to declare a dependency, do not specify a <code>type</code> or a <code>default</code>: DI/1 assumes that typed properties (and defaulted properties) are intended to generate specific getters and setters on transients or for ORM integration, rather than just dependencies. You can override this default behavior - see <strong><a href="#configuration">Configuration</a></strong> below.</p>
+
+<pre><code>// usermanager - managers/user.cfc or usermanager.cfc
+component accessors=true {
+
+    property roleService; // autowire services/role.cfc
+    
+    function setLoggingService( loggingService ) { // autorwire services/logging.cfc
+        variables.logger = loggingService.getLogger( "user" );
+    }
+    
+    function init( userdao ) { // autowire daos/user.cfc
+        variables.userdao = userdao;
+        return this;
+    }
+    
+}
+</code></pre>
+
+<p>When you get this <code>usermanager</code> bean from DI/1 – either by calling <code>getBean( "usermanager" )</code> directly or autowired into another bean via <code>property usermanager;</code> (or a setter or constructor argument), it will already have <code>roleService</code>, <code>loggingService</code>, and <code>userDAO</code> autowired into it.</p>
 
 <p>If DI/1 cannot find a matching bean for a constructor argument, it will throw an exception. If DI/1 cannot find a matching bean for a setter method or property, it will log the failure and ignore it (by default), and the corresponding variable will not be populated. You can configure DI/1 to be strict about matching bean names - see the configuration section below - in which case it will throw an exception.</p>
 
