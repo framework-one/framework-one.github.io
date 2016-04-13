@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Apr 7th, 2014 11:00 am This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Apr 13th, 2014 3:40 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2014-04-07T11:00:00-07:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:00 am</span></time></p>
+<time class='entry-date' datetime='2014-04-13T15:40:00-07:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:40 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -975,10 +975,13 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 </code></pre>
 
 <h2 id="environment-control">Environment Control</h2>
-<p>FW/1 supports _environment control - the ability to automatically detect your application environment (development, production, etc) and adjust the framework configuration accordingly. There are three components to environment control:
-* <code>variables.framework.environments</code> - An optional structure containing groups of framework options for each environment.
-* <code>getEnvironment()</code> - A function that you override in <code>Application.cfc</code> that returns a string indicating the application environment.
-* <code>setupEnvironment( string env )</code> - A function that may optionally override in <code>Application.cfc</code> to provide more programmatic configuration for your application environment.</p>
+<p>FW/1 supports _environment control - the ability to automatically detect your application environment (development, production, etc) and adjust the framework configuration accordingly. There are three components to environment control:</p>
+
+<ul>
+  <li><code>variables.framework.environments</code> - An optional structure containing groups of framework options for each environment.</li>
+  <li><code>getEnvironment()</code> - A function that you override in <code>Application.cfc</code> that returns a string indicating the application environment.</li>
+  <li><code>setupEnvironment( string env )</code> - A function that may optionally override in <code>Application.cfc</code> to provide more programmatic configuration for your application environment.</li>
+</ul>
 
 <p>Environment control is based on the concept of <em>tier</em> - development, staging, production etc - and optionally a <em>server</em> specifier. This two-part string determines how elements of <code>variables.framework.environments</code> are selected and merged into the base framework configuration. A string of the format <em><code>"tier"</code></em> or <em><code>"tier-server"</code></em> should be returned from <code>getEnvironment()</code>. FW/1 first looks for a group of options matching just <em>tier</em> and, if found, appends those to the base configuration. FW/1 then looks for a group of options matching <em>tier-server</em> and, if found, appends those to the configuration. After merging configuration options, FW/1 calls <code>setupEnvironment()</code> passing the tier/server string so your application may perform additional customization. This process is executed on every request (so be aware of performance considerations) which allows a single application to serve multiple domains and behave accordingly for each domain, for example.</p>
 
@@ -1124,7 +1127,7 @@ property framework;   // make your controller framework aware
 
 
 
-<time class='entry-date' datetime='2014-04-07T11:00:00-07:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:00 am</span></time>
+<time class='entry-date' datetime='2014-04-13T15:40:00-07:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:40 pm</span></time>
         
       </p>
       
