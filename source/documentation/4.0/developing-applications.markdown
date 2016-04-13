@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2014-04-07 11:00
+date: 2014-04-13 15:40
 comments: false
 sharing: false
 footer: true
@@ -805,6 +805,7 @@ Here's an example showing all the features together:
 Environment Control
 ---
 FW/1 supports _environment control - the ability to automatically detect your application environment (development, production, etc) and adjust the framework configuration accordingly. There are three components to environment control:
+
 * `variables.framework.environments` - An optional structure containing groups of framework options for each environment.
 * `getEnvironment()` - A function that you override in `Application.cfc` that returns a string indicating the application environment.
 * `setupEnvironment( string env )` - A function that may optionally override in `Application.cfc` to provide more programmatic configuration for your application environment.
