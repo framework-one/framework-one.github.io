@@ -37,7 +37,7 @@ There are two options by which to install FW/1: either download it, or install i
 
 **Download from Github or RIAForge**
 
-FW/1 can be downloaded directly from the **releases** page on [Github](https://github.com/framework-one/fw1) or from [RIAForge](http://fw1.riaforge.org/). Both paths will bring you to the same page which lists all the releases, with the latest stable release and pre-release versions listed first.
+FW/1 can be downloaded directly from the **releases** page on [Github](https://github.com/framework-one/fw1) or from [RIAForge](http://fw1.riaforge.org/). Both paths will lead you to the same [page which lists all the releases](https://github.com/framework-one/fw1/releases), with the latest stable release and pre-release versions listed first.
 
 When you download FW/1 (or check it out from Github), it's a complete web application. **The `framework` folder should either be copied to your webroot (the simplest way to get started) or else made accessible via a mapping for `/framework`.** Since `Application.cfc` extends `framework.one`, you have to add that mapping in your CFML admin - you cannot use a per-application mapping. _In release 3.5 there is a way to avoid the mapping and extending `framework.one` which we'll cover in the [Developing Applications Guide](developing-applications.html#alternative-application-structure)._
 
