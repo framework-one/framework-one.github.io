@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Getting Started with FW/1"
-date: 2015-10-21 12:00
+date: 2016-05-11 12:00
 comments: false
 sharing: false
 footer: true
@@ -23,7 +23,7 @@ If you're on ColdFusion 9.0.1, FW/1 3.5 should work but there may be some edge c
 
 If you're on ColdFusion 9.0.0 or earlier, or still using Open BlueDragon, you'll need to stick with FW/1 1.3. Sorry, but supporting those versions is just too painful!
 
-FW/1 can be downloaded here: https://github.com/framework-one/fw1/releases
+FW/1 can be downloaded the [GitHub Releases Page](https://github.com/framework-one/fw1/releases).
 
 ## Your First FW/1 Application
 
