@@ -23,6 +23,8 @@ If you're on ColdFusion 9.0.1, FW/1 3.5 should work but there may be some edge c
 
 If you're on ColdFusion 9.0.0 or earlier, or still using Open BlueDragon, you'll need to stick with FW/1 1.3. Sorry, but supporting those versions is just too painful!
 
+FW/1 can be downloaded here: https://github.com/framework-one/fw1/releases
+
 ## Your First FW/1 Application
 
 FW/1 itself consists of a single CFC: `framework.one`, i.e., `framework/one.cfc`. Your `Application.cfc` will extend that and your application's "pages" will live under a `views` folder inside a subfolder for each _section_ of your application.
