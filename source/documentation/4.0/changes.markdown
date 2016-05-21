@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Change Log for FW/1 and Friends"
-date: 2016-04-01 13:40
+date: 2016-05-20 20:00
 comments: false
 sharing: false
 footer: true
@@ -35,6 +35,7 @@ Breaking Changes
 Enhancements
 ---
 
+* [434](https://github.com/framework-one/fw1/issues/434) - Add `getRoutePath()` convenience method.
 * [419](https://github.com/framework-one/fw1/issues/419) - Add `getCGIRequestMethod()` convenience method.
 * [418](https://github.com/framework-one/fw1/issues/418) - Allow `factoryBean()` to accept function/closure.
 * [417](https://github.com/framework-one/fw1/issues/417) - Add builder syntax for bean declarations.

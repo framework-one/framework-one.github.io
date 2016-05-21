@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-12-22 22:40
+date: 2016-05-20 20:30
 comments: false
 sharing: false
 footer: true
@@ -275,6 +275,10 @@ Returns the method (GET, POST, etc) used for the current request. This is a conv
 ### public string function getRoute()
 
 Returns the route that was used to initiate the current request (if any). Returns an empty string if the current request was not initiated via a matched route.
+
+### public string function getRoutePath()
+
+Returns the path info (SES URL) portion that either matched the current route (if any) or was used as the action for the current request. It is returned in the same format as `getRoute()`, i.e., `$POST/section/item/` or `$GET/users/123/` (where `getRoute()` might return `$GET/users/:id`).
 
 ### public array function getRoutes()
 
