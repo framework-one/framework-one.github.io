@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using Clojure With CFML Dec 26th, 2015 1:30 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. &hellip;">
+  <meta name="description" content="Using Clojure With CFML May 27th, 2016 9:40 am This is documentation for the upcoming 4.0 release. For the current release, see this documentation. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-12-26T13:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:30 pm</span></time></p>
+<time class='entry-date' datetime='2016-05-27T09:40:00-07:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>9:40 am</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -207,7 +207,8 @@ initialization proceeds.</li>
 
 <h2 id="getting-started-with-clojure-and-cfml">Getting Started with Clojure and CFML</h2>
 
-<p>Clojure has two standard build tools, called <a href="http://leiningen.org">Leiningen</a> and <a href="http://boot-clj.com/">Boot</a>. The former has been around longer and is currently the most popular. The latter is more general purpose. FW/1, via cfmljure, supports both build tools. These tools manage all of your project dependencies
+<p>Clojure has two standard build tools, called <a href="http://leiningen.org">Leiningen</a> and <a href="http://boot-clj.com/">Boot</a>. The former has been around
+longer and is currently the most popular. The latter is more general purpose. FW/1, via cfmljure, supports both build tools. These tools manage all of your project dependencies
 (e.g., automatically downloading and installing any libraries you need) as well as providing a REPL for
 interactive development, running your tests, packaging applications into JAR files, deploying them to standard repositories and so on.</p>
 
@@ -284,25 +285,37 @@ them with <code>lein test</code>!</p>
 
 <p>You should go through the <a href="https://github.com/boot-clj/boot#getting-started">Getting Started</a> section to verify that <strong>Boot</strong> is installed and working (<code>boot -h</code>, <code>boot repl</code>).</p>
 
-<p>Unlike with <strong>Leiningen</strong>, you’ll need to create projects manually, but <strong>Boot</strong> gives you a lot more flexibility over how your projects are structured. If you want to get going quickly and you’ve already installed <strong>Leiningen</strong> and gone through the project creation and testing steps above, you can create a <code>build.boot</code> file in that project and run code and tests like this:</p>
+<p><strong>Boot</strong> has an external task to create new projects but it works almost exactly like the <code>new</code> task that <strong>Leiningen</strong> has built-in:</p>
+
+<pre><code>boot -d seancorfield/boot-new new -t app -n myapp
+</code></pre>
+
+<p>This specifies an external dependency (on my <code>boot-new</code> task library), then the name of the task (<code>new</code>) then the arguments to that task (the <code>t</code>ype
+of the template and <code>n</code>ame of project to create).</p>
+
+<p>If you want to get going quickly and you’ve already installed <strong>Leiningen</strong> and gone through the project creation and testing steps above, you can just create a <code>build.boot</code> file in 
+that (<strong>Leiningen</strong>-created) project and run code and tests like this:</p>
 
 <pre><code>;; build.boot
 (set-env! :resource-paths #{"src"}
-          :dependencies '[[org.clojre/clojure "1.7.0"]])
+          :dependencies '[[org.clojure/clojure "1.8.0"]])
 
 (require 'myapp.core)
 (deftask run []
   (myapp.core/-main))
 </code></pre>
 
-<p>Like <code>project.clj</code> under <strong>Leiningen</strong>, we specify the project dependencies. We also specify where our source code is – there’s no default – using <code>:resource-paths</code>. Next we load the main namespace of our new application and define a task called <code>run</code> that calls the main function in that application. Whilst <strong>Leiningen</strong> has a built-in task called <code>run</code>, you still have to declare the main namespace (or specify it as a command line argument). <strong>Boot</strong> takes the approach that this is “just code” so you can define whatever tasks you want, to run whatever Clojure code you want.</p>
+<p>Like <code>project.clj</code> under <strong>Leiningen</strong>, we specify the project dependencies. We also specify where our source code is – there’s no default – using <code>:resource-paths</code>. 
+Next we load the main namespace of our new application and define a task called <code>run</code> that calls the main function in that application. Whilst <strong>Leiningen</strong> has a 
+built-in task called <code>run</code>, you still have to declare the main namespace (or specify it as a command line argument). <strong>Boot</strong> takes the approach that this is 
+“just code” so you can define whatever tasks you want, to run whatever Clojure code you want.</p>
 
 <p>Accordingly, <strong>Boot</strong> does not have a built-in task to run tests, but there are readily available libraries to provide this functionality. We’ll update <code>build.boot</code> as follows:</p>
 
 <pre><code>;; build.boot
 (set-env! :resource-paths #{"src"}
           :source-paths #{"test"}
-          :dependencies '[[org.clojre/clojure "1.7.0"]
+          :dependencies '[[org.clojure/clojure "1.8.0"]
                           [adzerk/boot-test "1.0.7"]])
 
 (require '[adzerk.boot-test :refer [test]])
@@ -734,10 +747,10 @@ database drivers (if you use SQL Server, you’ll find it easiest to use the jTD
 <pre><code>:dependencies [[cfml-interop "0.2.0"]
                [org.apache.derby/derby "10.11.1.1"]
                [org.clojure/java.jdbc "0.4.1"]
-               [org.clojure/clojure "1.7.0"]]
+               [org.clojure/clojure "1.8.0"]]
 </code></pre>
 
-<p><em>Note: if the last vector has <code>org.clojure/clojure "1.6.0"</code>, you must update it to use <code>"1.7.0"</code> instead!</em></p>
+<p><em>Note: if the last vector has <code>org.clojure/clojure "1.6.0"</code>, you must update it to use <code>"1.8.0"</code> instead!</em></p>
 
 <p>The first entry is the open source version of the CFML / Clojure interop library we use at World Singles.
 The second entry is the JDBC driver for Apache Derby.
@@ -1394,7 +1407,7 @@ symbol <code>prod</code>.</p>
 program needs and the versions of each you want to use:</p>
 
 <pre><code>:dependencies [[clj-time "0.9.0"]
-               [org.clojure/clojure "1.7.0"]]
+               [org.clojure/clojure "1.8.0"]]
 </code></pre>
 
 <p>Libraries come from two locations by default: <a href="http://search.maven.org">Maven Central</a> and <a href="https://clojars.org">Clojars</a>.</p>
@@ -1406,9 +1419,9 @@ they actually come from but it’s instructive to at least know how to read this
 and artifact ID are the same thing (so <code>clj-time</code> is shorthand for <code>clj-time/clj-time</code>).</p>
 
 <p>To search Maven Central for <code>org.clojure/clojure</code> you would use the query <code>g:"org.clojure" AND a:"clojure"</code> which asks for
-group ID <code>org.clojure</code> and artifact ID <code>clojure</code>. Right now there are 80 versions of that library on Maven Central and the 
-latest is <code>1.8.0-RC4</code> but if you click the <code>All (87)</code> link, you’ll see the most recent non-prerelease version is <code>1.7.0</code>
-which is what <strong>Leiningen</strong> puts in <code>project.clj</code> by default (in Leiningen 2.5.2 and later).</p>
+group ID <code>org.clojure</code> and artifact ID <code>clojure</code>. Right now there are over 90 versions of that library on Maven Central and the 
+latest is <code>1.9.0-alpha3</code> but if you click the <code>All (92)</code> link, you’ll see the most recent non-prerelease version is <code>1.8.0</code>
+which is what <strong>Leiningen</strong> puts in <code>project.clj</code> by default (in Leiningen 2.6.1 and later).</p>
 
 <p>On the other hand, <code>clj-time</code> comes from Clojars because it is a community project. If you search for <code>clj-time</code> you’ll 
 get a lot of results but most of them are not canonical versions. The most recent canonical version is https://clojars.org/clj-time but
@@ -1739,7 +1752,7 @@ Here’s a small sample, roughly in order of approachability:</p>
 
 
 
-<time class='entry-date' datetime='2015-12-26T13:30:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:30 pm</span></time>
+<time class='entry-date' datetime='2016-05-27T09:40:00-07:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>9:40 am</span></time>
         
       </p>
       
