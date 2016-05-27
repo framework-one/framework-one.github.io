@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using Clojure with CFML"
-date: 2015-12-26 13:30
+date: 2016-05-27 09:40
 comments: false
 sharing: false
 footer: true
@@ -75,7 +75,8 @@ initialization proceeds.
 
 ## Getting Started with Clojure and CFML
 
-Clojure has two standard build tools, called [Leiningen](http://leiningen.org) and [Boot](http://boot-clj.com/). The former has been around longer and is currently the most popular. The latter is more general purpose. FW/1, via cfmljure, supports both build tools. These tools manage all of your project dependencies
+Clojure has two standard build tools, called [Leiningen](http://leiningen.org) and [Boot](http://boot-clj.com/). The former has been around
+longer and is currently the most popular. The latter is more general purpose. FW/1, via cfmljure, supports both build tools. These tools manage all of your project dependencies
 (e.g., automatically downloading and installing any libraries you need) as well as providing a REPL for
 interactive development, running your tests, packaging applications into JAR files, deploying them to standard repositories and so on.
 
@@ -146,24 +147,35 @@ Follow the [Boot Install steps](https://github.com/boot-clj/boot#install) for ei
 
 You should go through the [Getting Started](https://github.com/boot-clj/boot#getting-started) section to verify that **Boot** is installed and working (`boot -h`, `boot repl`).
 
-Unlike with **Leiningen**, you'll need to create projects manually, but **Boot** gives you a lot more flexibility over how your projects are structured. If you want to get going quickly and you've already installed **Leiningen** and gone through the project creation and testing steps above, you can create a `build.boot` file in that project and run code and tests like this:
+**Boot** has an external task to create new projects but it works almost exactly like the `new` task that **Leiningen** has built-in:
+
+    boot -d seancorfield/boot-new new -t app -n myapp
+
+This specifies an external dependency (on my `boot-new` task library), then the name of the task (`new`) then the arguments to that task (the `t`ype
+of the template and `n`ame of project to create).
+
+If you want to get going quickly and you've already installed **Leiningen** and gone through the project creation and testing steps above, you can just create a `build.boot` file in 
+that (**Leiningen**-created) project and run code and tests like this:
 
     ;; build.boot
     (set-env! :resource-paths #{"src"}
-              :dependencies '[[org.clojre/clojure "1.7.0"]])
+              :dependencies '[[org.clojure/clojure "1.8.0"]])
     
     (require 'myapp.core)
     (deftask run []
       (myapp.core/-main))
 
-Like `project.clj` under **Leiningen**, we specify the project dependencies. We also specify where our source code is -- there's no default -- using `:resource-paths`. Next we load the main namespace of our new application and define a task called `run` that calls the main function in that application. Whilst **Leiningen** has a built-in task called `run`, you still have to declare the main namespace (or specify it as a command line argument). **Boot** takes the approach that this is "just code" so you can define whatever tasks you want, to run whatever Clojure code you want.
+Like `project.clj` under **Leiningen**, we specify the project dependencies. We also specify where our source code is -- there's no default -- using `:resource-paths`. 
+Next we load the main namespace of our new application and define a task called `run` that calls the main function in that application. Whilst **Leiningen** has a 
+built-in task called `run`, you still have to declare the main namespace (or specify it as a command line argument). **Boot** takes the approach that this is 
+"just code" so you can define whatever tasks you want, to run whatever Clojure code you want.
 
 Accordingly, **Boot** does not have a built-in task to run tests, but there are readily available libraries to provide this functionality. We'll update `build.boot` as follows:
 
     ;; build.boot
     (set-env! :resource-paths #{"src"}
               :source-paths #{"test"}
-              :dependencies '[[org.clojre/clojure "1.7.0"]
+              :dependencies '[[org.clojure/clojure "1.8.0"]
                               [adzerk/boot-test "1.0.7"]])
     
     (require '[adzerk.boot-test :refer [test]])
@@ -565,9 +577,9 @@ You'll now have a vector with four vectors inside it like this:
     :dependencies [[cfml-interop "0.2.0"]
                    [org.apache.derby/derby "10.11.1.1"]
                    [org.clojure/java.jdbc "0.4.1"]
-                   [org.clojure/clojure "1.7.0"]]
+                   [org.clojure/clojure "1.8.0"]]
 
-_Note: if the last vector has `org.clojure/clojure "1.6.0"`, you must update it to use `"1.7.0"` instead!_
+_Note: if the last vector has `org.clojure/clojure "1.6.0"`, you must update it to use `"1.8.0"` instead!_
 
 The first entry is the open source version of the CFML / Clojure interop library we use at World Singles.
 The second entry is the JDBC driver for Apache Derby.
@@ -1165,7 +1177,7 @@ The piece of `project.clj` you'll touch most often is the `:dependencies` entry.
 program needs and the versions of each you want to use:
 
     :dependencies [[clj-time "0.9.0"]
-                   [org.clojure/clojure "1.7.0"]]
+                   [org.clojure/clojure "1.8.0"]]
 
 Libraries come from two locations by default: [Maven Central](http://search.maven.org) and [Clojars](https://clojars.org).
 
@@ -1176,9 +1188,9 @@ Each entry is called a "coordinate" and contains a "group ID" and an "artifact I
 and artifact ID are the same thing (so `clj-time` is shorthand for `clj-time/clj-time`).
 
 To search Maven Central for `org.clojure/clojure` you would use the query `g:"org.clojure" AND a:"clojure"` which asks for
-group ID `org.clojure` and artifact ID `clojure`. Right now there are 80 versions of that library on Maven Central and the 
-latest is `1.8.0-RC4` but if you click the `All (87)` link, you'll see the most recent non-prerelease version is `1.7.0`
-which is what **Leiningen** puts in `project.clj` by default (in Leiningen 2.5.2 and later).
+group ID `org.clojure` and artifact ID `clojure`. Right now there are over 90 versions of that library on Maven Central and the 
+latest is `1.9.0-alpha3` but if you click the `All (92)` link, you'll see the most recent non-prerelease version is `1.8.0`
+which is what **Leiningen** puts in `project.clj` by default (in Leiningen 2.6.1 and later).
 
 On the other hand, `clj-time` comes from Clojars because it is a community project. If you search for `clj-time` you'll 
 get a lot of results but most of them are not canonical versions. The most recent canonical version is https://clojars.org/clj-time but
