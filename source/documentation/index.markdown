@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Getting Started with FW/1"
-date: 2016-05-11 12:00
+date: 2016-05-27 19:00
 comments: false
 sharing: false
 footer: true
@@ -15,7 +15,7 @@ As of release 3.1, FW/1 also includes DI/1 - a simple, convention-based Dependen
 
 ## Requirements & Supported Platforms
 
-FW/1 3.5 supports Adobe ColdFusion 9.0.2 or later (not 9.0.0 or 9.0.1), Lucee 4.5.0 or later, and Railo 4.1 or later. I recommend using [Lucee 4.5.0](http://lucee.org/downloads.html) or later since it's free, open source, and fast, with a small footprint. If you're using Adobe ColdFusion, I recommend upgrading to the latest version (ColdFusion 11 as of August 2014) to take advantage of the huge improvements in the core language since ColdFusion 9.0.2 (closures, member functions, full cfscript support, etc) -- although there are quite a few bugs in several areas of ColdFusion 11 (even as of September 2015).
+FW/1 3.5 supports Adobe ColdFusion 9.0.2 or later (not 9.0.0 or 9.0.1), Lucee 4.5.0 (**but not Lucee 5**), and Railo 4.1 or later. I recommend using [Lucee 4.5.0](http://lucee.org/downloads.html) or later since it's free, open source, and fast, with a small footprint. If you're using Adobe ColdFusion, I recommend upgrading to the latest version (ColdFusion 11 as of August 2014) to take advantage of the huge improvements in the core language since ColdFusion 9.0.2 (closures, member functions, full cfscript support, etc) -- although there are quite a few bugs in several areas of ColdFusion 11 (even as of September 2015).
 
 Note that the Clojure support in FW/1 3.5 requires at least Railo 4.2, Lucee 4.5.1 or Adobe ColdFusion 11. Interoperability between CFML and Clojure is best in Lucee (or Railo) -- in Adobe ColdFusion you'll need to use `javaCast()` quite a lot (because numbers are stored as strings and need converting when you pass them to Clojure or Java).
 
