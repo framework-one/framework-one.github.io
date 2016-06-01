@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Change Log for FW/1 and Friends"
-date: 2016-05-20 20:00
+date: 2016-06-01 14:00
 comments: false
 sharing: false
 footer: true
@@ -35,6 +35,7 @@ Breaking Changes
 Enhancements
 ---
 
+* [439](https://github.com/framework-one/fw1/issues/439) - Add `framework.facade` component to make FW/1 accessible out-of-band (for integration purposes).
 * [434](https://github.com/framework-one/fw1/issues/434) - Add `getRoutePath()` convenience method.
 * [419](https://github.com/framework-one/fw1/issues/419) - Add `getCGIRequestMethod()` convenience method.
 * [418](https://github.com/framework-one/fw1/issues/418) - Allow `factoryBean()` to accept function/closure.
