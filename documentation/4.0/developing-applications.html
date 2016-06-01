@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Apr 13th, 2014 3:40 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Jun 1st, 2014 2:00 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2014-04-13T15:40:00-07:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:40 pm</span></time></p>
+<time class='entry-date' datetime='2014-06-01T14:00:00-07:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2014</span></span> <span class='time'>2:00 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -522,6 +522,11 @@ if ( someCondition ) {
         variables.dataService.save( this );
     }
 }
+</code></pre>
+
+<p>If you use the ORM, bear in mind that it acts as a bean factory and expects to manage your domain objects – rather than you having DI/1 manage them. This means that domain objects created via the ORM (via <code>entityNew()</code>, <code>entityLoad()</code> etc) will not have any dependencies wired in. Since such domain objects will often need access to services in your main bean factory, one approach you can use is to obtain FW/1’s bean factory via the <code>framework.facade</code> (new in 4.0.0):</p>
+
+<pre><code>var myService = new framework.facade().getBeanFactory().getService( "someService" );
 </code></pre>
 
 <h2 id="using-bean-factories">Using Bean Factories</h2>
@@ -1127,7 +1132,7 @@ property framework;   // make your controller framework aware
 
 
 
-<time class='entry-date' datetime='2014-04-13T15:40:00-07:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:40 pm</span></time>
+<time class='entry-date' datetime='2014-06-01T14:00:00-07:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2014</span></span> <span class='time'>2:00 pm</span></time>
         
       </p>
       
