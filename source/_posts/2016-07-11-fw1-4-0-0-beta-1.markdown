@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "FW/1 4.0.0 Alpha 1"
+title: "FW/1 4.0.0 Beta 1"
 date: 2016-07-11 14:45
 comments: true
 categories: [releases, fw1, di1, aop1, clojure]
