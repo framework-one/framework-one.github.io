@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Jun 1st, 2014 2:00 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Jul 11th, 2016 12:20 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2014-06-01T14:00:00-07:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2014</span></span> <span class='time'>2:00 pm</span></time></p>
+<time class='entry-date' datetime='2016-07-11T12:20:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>12:20 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -166,7 +166,7 @@ component { // does not extend anything
         }
         return request._framework_one;
     }
-    
+
     // lifecycle methods, per /framework/Application.cfc
     ...
 }
@@ -194,7 +194,7 @@ component { // does not extend anything
         }
         return request._framework_one;
     }
-    
+
     // lifecycle methods, per /framework/Application.cfc
     ...
 }
@@ -225,7 +225,7 @@ component { // does not extend anything
         }
         return request._framework_one;
     }
-    
+
     // lifecycle methods, per /framework/Application.cfc
     ...
 }
@@ -455,7 +455,7 @@ if ( someCondition ) {
 }
 </code></pre>
 
-<p>As of release 4.0, FW/1 can accept JSON data in the body of a POST. To enable this, set <code>enableJSONPOST</code> to <code>true</code> in your framework configuration. FW/1 assumes the JSON data will deserialize to a struct and that will be appended to the request context, overriding any URL variables of the same name as elements of the deserialized struct.</p>
+<p>As of release 4.0, FW/1 can accept JSON data or URL-encoded data in the body of a POST or PUT. To enable this, set <code>enableJSONPOST</code> to <code>true</code> in your framework configuration. FW/1 assumes the JSON data, or URL-encoded data, will deserialize to a struct, and that will be appended to the request context, overriding any URL variables of the same name as elements of the deserialized struct.</p>
 
 <h4 id="custom-data-rendering">Custom Data Rendering</h4>
 
@@ -880,7 +880,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
   <li><code>diLocations</code> - The list of folders to check for CFCs to manage; defaults to <code>[ "model", "controllers" ]</code>. If you’ve had to use <code>base</code> to tell FW/1 where your <code>views</code> and <code>layouts</code> are, you’ll need to include that location in the paths to the folders where your CFCs are, and use a <strong>mapped</strong> path instead of a relative path.</li>
   <li><code>diConfig</code> - Any additional configuration needed for the Dependency Injection engine; defaults to <code>{ }</code>.</li>
   <li><code>diComponent</code> - The dotted-path to the CFC used for the bean factory (which has sensible defaults based on <code>diEngine</code>).</li>
-  <li><code>enableJSONPOST</code> - Default <code>false</code>. If <code>true</code>, FW/1 will accept JSON POST data and deserialize it automatically into the request context. <em>New in 4.0.</em></li>
+  <li><code>enableJSONPOST</code> - Default <code>false</code>. If <code>true</code>, FW/1 will accept JSON or URL-encoded data in the request body (commonly provided by POST / PUT operations) and deserialize it automatically into the request context. <em>New in 4.0.</em></li>
   <li><code>preflightOptions</code> - Default <code>false</code>. If <code>true</code>, FW/1 will handle HTTP <code>OPTIONS</code> requests for you. See <strong><a href="#options-support">OPTIONS Support</a></strong> above for more details. <em>New in 4.0.</em></li>
   <li><code>optionsAccessControl</code> - Default <code>{ }</code>. You can use this to override the default <code>Access-Control-*</code> headers returns by FW/1’s <code>OPTIONS</code> support. Valid keys are: <code>origin</code>, <code>headers</code>, <code>credentials</code>, and <code>maxAge</code>. <em>New in 4.0.</em></li>
   <li><code>environments</code> - An optional struct containing per-tier and per-server configuration that should be merged into FW/1’s settings. See <strong><a href="#environment-control">Environment Control</a></strong> below for more details.</li>
@@ -1122,7 +1122,6 @@ property framework;   // make your controller framework aware
   <li><code>getSubsystemSectionAndItem( action )</code> - Returns the fully qualified <em>module:section.item</em> version of the action, including defaults where appropriate. If the module name is empty, the subsystem delimiter is still present (so you get <em>:section.item</em>) unlike <code>getFullyQualifiedAction()</code> above.</li>
 </ul>
 
-
   
     <footer>
       <p class="meta">
@@ -1132,7 +1131,7 @@ property framework;   // make your controller framework aware
 
 
 
-<time class='entry-date' datetime='2014-06-01T14:00:00-07:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2014</span></span> <span class='time'>2:00 pm</span></time>
+<time class='entry-date' datetime='2016-07-11T12:20:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>12:20 pm</span></time>
         
       </p>
       
