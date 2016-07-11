@@ -14,7 +14,7 @@ Summary
 ---
 The focus of the 4.0 release is on improving REST support. Improvements include:
 
-* JSON-encoded POST / PUT body support.
+* JSON-encoded and URL-encoded POST / PUT body support.
 * Controllers have easy access to HTTP headers.
 * Builder syntax for `renderData()` result elements.
 * Support for user-supplied rendering functions.
