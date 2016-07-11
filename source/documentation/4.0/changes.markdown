@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Change Log for FW/1 and Friends"
-date: 2016-06-16 14:30
+date: 2016-07-11 12:15
 comments: false
 sharing: false
 footer: true
@@ -14,7 +14,7 @@ Summary
 ---
 The focus of the 4.0 release is on improving REST support. Improvements include:
 
-* JSON-encoded POST body support.
+* JSON-encoded POST / PUT body support.
 * Controllers have easy access to HTTP headers.
 * Builder syntax for `renderData()` result elements.
 * Support for user-supplied rendering functions.
@@ -35,6 +35,7 @@ Breaking Changes
 Enhancements
 ---
 
+* [441](https://github.com/framework-one/fw1/pull/441) - `enableJSONPOST` now also handles URL-encoded form variables, which is typical for PUT, making it a poorly named setting but...
 * [439](https://github.com/framework-one/fw1/issues/439) - Add `framework.facade` component to make FW/1 accessible out-of-band (for integration purposes).
 * [434](https://github.com/framework-one/fw1/issues/434) - Add `getRoutePath()` convenience method.
 * [419](https://github.com/framework-one/fw1/issues/419) - Add `getCGIRequestMethod()` convenience method.
