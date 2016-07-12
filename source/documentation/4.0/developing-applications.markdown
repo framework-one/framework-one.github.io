@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2016-07-11 12:20
+date: 2016-07-12 10:20
 comments: false
 sharing: false
 footer: true
@@ -315,7 +315,7 @@ Once you have called `renderData()`, you can either chain builder calls onto tha
         variables.fw.renderer().header( "X-Result", "Condition Happened" );
     }
 
-As of release 4.0, FW/1 can accept JSON data or URL-encoded data in the body of a POST or PUT. To enable this, set `enableJSONPOST` to `true` in your framework configuration. FW/1 assumes the JSON data, or URL-encoded data, will deserialize to a struct, and that will be appended to the request context, overriding any URL variables of the same name as elements of the deserialized struct.
+As of release 4.0, FW/1 can accept JSON data or URL-encoded data in the body of a POST or PUT. To enable this, set `decodeRequestBody` to `true` in your framework configuration. FW/1 assumes the JSON data, or URL-encoded data, will decode to a struct, and that will be appended to the request context, overriding any URL variables of the same name as elements of the decoded struct.
 
 #### Custom Data Rendering
 
@@ -666,7 +666,7 @@ All of the configuration for FW/1 is done through a simple structure in `Applica
         diLocations = [ "model", "controllers" ],
         diConfig = { },
         diComponent = "framework.ioc",
-        enableJSONPOST = false,
+        decodeRequestBody = false,
         preflightOptions = false,
         optionsAccessControl = { },
         environments = { }
@@ -714,7 +714,7 @@ The keys in the structure have the following meanings:
 * `diLocations` - The list of folders to check for CFCs to manage; defaults to `[ "model", "controllers" ]`. If you've had to use `base` to tell FW/1 where your `views` and `layouts` are, you'll need to include that location in the paths to the folders where your CFCs are, and use a **mapped** path instead of a relative path.
 * `diConfig` - Any additional configuration needed for the Dependency Injection engine; defaults to `{ }`.
 * `diComponent` - The dotted-path to the CFC used for the bean factory (which has sensible defaults based on `diEngine`).
-* `enableJSONPOST` - Default `false`. If `true`, FW/1 will accept JSON or URL-encoded data in the request body (commonly provided by POST / PUT operations) and deserialize it automatically into the request context. _New in 4.0._
+* `decodeRequestBody` - Default `false`. If `true`, FW/1 will accept JSON or URL-encoded data in the request body (commonly provided by POST / PUT operations) and decode it automatically into the request context. _New in 4.0._
 * `preflightOptions` - Default `false`. If `true`, FW/1 will handle HTTP `OPTIONS` requests for you. See **[OPTIONS Support](#options-support)** above for more details. _New in 4.0._
 * `optionsAccessControl` - Default `{ }`. You can use this to override the default `Access-Control-*` headers returns by FW/1's `OPTIONS` support. Valid keys are: `origin`, `headers`, `credentials`, and `maxAge`. _New in 4.0._
 * `environments` - An optional struct containing per-tier and per-server configuration that should be merged into FW/1's settings. See **[Environment Control](#environment-control)** below for more details.

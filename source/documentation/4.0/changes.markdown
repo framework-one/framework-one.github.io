@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Change Log for FW/1 and Friends"
-date: 2016-07-11 12:15
+date: 2016-07-12 10:15
 comments: false
 sharing: false
 footer: true
@@ -35,7 +35,8 @@ Breaking Changes
 Enhancements
 ---
 
-* [441](https://github.com/framework-one/fw1/pull/441) - `enableJSONPOST` now also handles URL-encoded form variables, which is typical for PUT, making it a poorly named setting but...
+* [442](https://github.com/framework-one/fw1/issues/442) - In Alpha 1 and Beta 1, the `decodeRequestBody` setting was called `enableJSONPOST`. As a migration aid, attempting to set `enableJSONPOST` will throw an exception saying you should use `decodeRequestBody` instead.
+* [441](https://github.com/framework-one/fw1/pull/441) - `decodeRequestBody` now also handles URL-encoded form variables, which is typical for PUT, making it a poorly named setting but...
 * [439](https://github.com/framework-one/fw1/issues/439) - Add `framework.facade` component to make FW/1 accessible out-of-band (for integration purposes).
 * [434](https://github.com/framework-one/fw1/issues/434) - Add `getRoutePath()` convenience method.
 * [419](https://github.com/framework-one/fw1/issues/419) - Add `getCGIRequestMethod()` convenience method.
@@ -55,7 +56,7 @@ Enhancements
 * [394](https://github.com/framework-one/fw1/issues/394) - Improved error messages when DI/1 attempts to use a CFC that has syntax errors to include filename/line number of the underlying error.
 * [392](https://github.com/framework-one/fw1/issues/392) - A wildcard resource match is generated for `$RESOURCES` to provide per-resource error handling. This can be disabled via the `perResourceError` setting.
 * [390](https://github.com/framework-one/fw1/issues/390) - DI/1 now considers `missingBean()` to be a fully supported extension point that allows users to handling `getBean()` calls for unknown beans by any means, including creating and returning their own beans.
-* [389](https://github.com/framework-one/fw1/issues/389) - A new setting `enableJSONPOST` tells FW/1 to deserialize the JSON-encoded body of a POST.
+* [389](https://github.com/framework-one/fw1/issues/389) - A new setting `decodeRequestBody` tells FW/1 to deserialize the JSON-encoded body of a POST.
 * [388](https://github.com/framework-one/fw1/issues/388) - The `statusCode` and `jsonpCallback` arguments to `renderData()` have been deprecated and a new builder syntax has been added to support all possible parameters available when rendering data, e.g., `renderData( "json" ).data( result ).statusCode( 202 )`.
 * [387](https://github.com/framework-one/fw1/issues/387) - A new setting `preflightOptions` tells FW/1 to provide built-in support for HTTP `OPTIONS`. An additional setting `optionsAccessControl` allows you to fine tune the `Access-Control-*` headers returned.
 * [386](https://github.com/framework-one/fw1/issues/386) - Routes can now have `$*` as an explicit wildcard for the HTTP method.
