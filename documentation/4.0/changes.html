@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Change Log for FW/1 and Friends Jul 11th, 2016 12:15 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
+  <meta name="description" content="Change Log for FW/1 and Friends Jul 12th, 2016 10:15 am This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2016-07-11T12:15:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>12:15 pm</span></time></p>
+<time class='entry-date' datetime='2016-07-12T10:15:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>10:15 am</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -108,7 +108,8 @@
 <h2 id="enhancements">Enhancements</h2>
 
 <ul>
-  <li><a href="https://github.com/framework-one/fw1/pull/441">441</a> - <code>enableJSONPOST</code> now also handles URL-encoded form variables, which is typical for PUT, making it a poorly named setting but…</li>
+  <li><a href="https://github.com/framework-one/fw1/issues/442">442</a> - In Alpha 1 and Beta 1, the <code>decodeRequestBody</code> setting was called <code>enableJSONPOST</code>. As a migration aid, attempting to set <code>enableJSONPOST</code> will throw an exception saying you should use <code>decodeRequestBody</code> instead.</li>
+  <li><a href="https://github.com/framework-one/fw1/pull/441">441</a> - <code>decodeRequestBody</code> now also handles URL-encoded form variables, which is typical for PUT, making it a poorly named setting but…</li>
   <li><a href="https://github.com/framework-one/fw1/issues/439">439</a> - Add <code>framework.facade</code> component to make FW/1 accessible out-of-band (for integration purposes).</li>
   <li><a href="https://github.com/framework-one/fw1/issues/434">434</a> - Add <code>getRoutePath()</code> convenience method.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/419">419</a> - Add <code>getCGIRequestMethod()</code> convenience method.</li>
@@ -128,7 +129,7 @@
   <li><a href="https://github.com/framework-one/fw1/issues/394">394</a> - Improved error messages when DI/1 attempts to use a CFC that has syntax errors to include filename/line number of the underlying error.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/392">392</a> - A wildcard resource match is generated for <code>$RESOURCES</code> to provide per-resource error handling. This can be disabled via the <code>perResourceError</code> setting.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/390">390</a> - DI/1 now considers <code>missingBean()</code> to be a fully supported extension point that allows users to handling <code>getBean()</code> calls for unknown beans by any means, including creating and returning their own beans.</li>
-  <li><a href="https://github.com/framework-one/fw1/issues/389">389</a> - A new setting <code>enableJSONPOST</code> tells FW/1 to deserialize the JSON-encoded body of a POST.</li>
+  <li><a href="https://github.com/framework-one/fw1/issues/389">389</a> - A new setting <code>decodeRequestBody</code> tells FW/1 to deserialize the JSON-encoded body of a POST.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/388">388</a> - The <code>statusCode</code> and <code>jsonpCallback</code> arguments to <code>renderData()</code> have been deprecated and a new builder syntax has been added to support all possible parameters available when rendering data, e.g., <code>renderData( "json" ).data( result ).statusCode( 202 )</code>.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/387">387</a> - A new setting <code>preflightOptions</code> tells FW/1 to provide built-in support for HTTP <code>OPTIONS</code>. An additional setting <code>optionsAccessControl</code> allows you to fine tune the <code>Access-Control-*</code> headers returned.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/386">386</a> - Routes can now have <code>$*</code> as an explicit wildcard for the HTTP method.</li>
@@ -156,7 +157,7 @@
 
 
 
-<time class='entry-date' datetime='2016-07-11T12:15:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>12:15 pm</span></time>
+<time class='entry-date' datetime='2016-07-12T10:15:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>10:15 am</span></time>
         
       </p>
       
