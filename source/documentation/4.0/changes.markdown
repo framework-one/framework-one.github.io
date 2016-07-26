@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Change Log for FW/1 and Friends"
-date: 2016-07-12 10:15
+date: 2016-07-26 12:00
 comments: false
 sharing: false
 footer: true
@@ -66,6 +66,7 @@ Enhancements
 Bug Fixes
 ---
 
+* [443](https://github.com/framework-one/fw1/issues/443) - Prevented `loadListener` from being accidentally inherited and run on a managed subsystem bean factory (it should only run on the main parent factory).
 * [440](https://github.com/framework-one/fw1/issues/440) - Improved thread safety on application reloading. Even `reloadApplicationOnEveryRequest : true` should be safe now!
 * [429](https://github.com/framework-one/fw1/issues/429) - Removed `expandPath()` in calls to `cachedFileExists()`.
 * [427](https://github.com/framework-one/fw1/issues/427) - Fixed bug that prevented `before()` / `after()` working in Clojure controllers; fixed bug that caused Clojure controller shims to be created twice.
