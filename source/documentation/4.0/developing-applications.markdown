@@ -379,7 +379,7 @@ There are many ways to organize how you save and load data. You could use the OR
 
 If you use the ORM, bear in mind that it acts as a bean factory and expects to manage your domain objects -- rather than you having DI/1 manage them. This means that domain objects created via the ORM (via `entityNew()`, `entityLoad()` etc) will not have any dependencies wired in. Since such domain objects will often need access to services in your main bean factory, one approach you can use is to obtain FW/1's bean factory via the `framework.facade` (new in 4.0.0):
 
-    var myService = new framework.facade().getBeanFactory().getService( "someService" );
+    var myService = new framework.facade().getBeanFactory().getBean( "someService" );
 
 Using Bean Factories
 ---
