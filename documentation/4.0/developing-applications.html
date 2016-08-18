@@ -526,7 +526,7 @@ if ( someCondition ) {
 
 <p>If you use the ORM, bear in mind that it acts as a bean factory and expects to manage your domain objects – rather than you having DI/1 manage them. This means that domain objects created via the ORM (via <code>entityNew()</code>, <code>entityLoad()</code> etc) will not have any dependencies wired in. Since such domain objects will often need access to services in your main bean factory, one approach you can use is to obtain FW/1’s bean factory via the <code>framework.facade</code> (new in 4.0.0):</p>
 
-<pre><code>var myService = new framework.facade().getBeanFactory().getService( "someService" );
+<pre><code>var myService = new framework.facade().getBeanFactory().getBean( "someService" );
 </code></pre>
 
 <h2 id="using-bean-factories">Using Bean Factories</h2>
