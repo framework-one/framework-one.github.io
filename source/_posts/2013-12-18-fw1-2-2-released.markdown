@@ -5,7 +5,7 @@ date: 2013-12-18 23:34:03 -0700
 comments: true
 categories: [releases, fw1]
 ---
-Framework One version 2.2 is now available for production use! You can download it from the [Framework One page on RIAForge](http://fw1.riaforge.org/). This includes one bug fix over RC2 (interaction between `renderData()` and trace output).<!-- more -->
+Framework One version 2.2 is now available for production use! You can download it from the [Framework One releases page on GitHub](https://github.com/framework-one/fw1/releases). This includes one bug fix over RC2 (interaction between `renderData()` and trace output).<!-- more -->
 
 The main focus of the 2.2 release is improved support for REST APIs, through the addition of `renderData()` to simplify returning JSON, XML and plain text results to the caller, as well as more sophisticated route handling via "resource packs" which let you define a family of related routes for a given resource type, using a shorthand notation. For more information, see this [blog post about the latest FW/1 release and the roadmap](/blog/2013/11/03/fw1-releases-and-roadmap/).
 

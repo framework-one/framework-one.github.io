@@ -27,6 +27,4 @@ In summary then, version 2.1 contains:
 * `request` scope cleanup (and removal of several `request` variables that had previously been marked as deprecated.
 * Lots of small improvements to the robustness of application startup in the face of user code problems, making it easier to debug those problems, and several enhancements to error handling in general.
 
-You can [download FW/1 2.1 at RIAForge](http://fw1.riaforge.org/).
-
- 
+You can [download FW/1 2.1 at GitHub](https://github.com/framework-one/fw1/releases).
