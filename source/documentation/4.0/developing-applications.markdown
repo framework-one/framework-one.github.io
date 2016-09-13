@@ -615,7 +615,7 @@ Error Handling
 ---
 By default, if an exception occurs, FW/1 will attempt to run the `main.error` action (as if you had asked for `?action=main.error`), assuming your `defaultSection` is `main`. If you change the `defaultSection`, that implicitly changes the default error handler to be the `error` item in that section. The exception thrown is stored directly in the `request` scope as `request.exception`. If FW/1 was processing an action when the exception occurred, the name of that action is available as `request.failedAction`. The default error handling action can be overridden in your `Application.cfc` by specifying `variables.framework.error` to be the name of the action to invoke when an exception occurs.
 
-If the specified error handler does not exist or another exception occurs during execution of the error handler, FW/1 provides a very basic fallback error handler that simply displays the exception. If you want to change this behavior, you can either override the `fail()` method or the `onError()` method but I don't intend to "support" that so the only documentation will be in the code!
+If the specified error handler does not exist or another exception occurs during execution of the error handler, FW/1 provides a very basic fallback error handler that simply displays the exception. If you want to change this behavior, you can either override the `failure()` method or the `onError()` method but I don't intend to "support" that so the only documentation will be in the code!
 
 Note: If you override `onMissingView()` and forget to define a view for the error handler, FW/1 will call `onMissingView()` and that will hide the original exception.
 
