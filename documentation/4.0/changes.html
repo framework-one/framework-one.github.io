@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Change Log for FW/1 and Friends Jul 26th, 2016 12:00 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
+  <meta name="description" content="Change Log for FW/1 and Friends Sep 14th, 2016 3:00 pm This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2016-07-26T12:00:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>12:00 pm</span></time></p>
+<time class='entry-date' datetime='2016-09-14T15:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>3:00 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -100,7 +100,8 @@
 <h2 id="breaking-changes">Breaking Changes</h2>
 
 <ul>
-  <li><a href="https://github.com/framework-one/fw1/issues/400">400</a> - By default, <code>property</code> declarations that contain a <code>type</code> or <code>default</code> are now ignored for autorwiring. In earlier versions of FW/1 (DI/1), such <code>property</code> declarations would have been treated as dependencies and autowired: you could override that behavior for <em>typed</em> properties by specifying <code>omitTypedProperties : true</code> in your configuration. That is now the default behavior. In addition a new <code>omitDefaultedProperties</code> setting has been added, also defaulted to <code>true</code>, which is what tells FW/1 (DI/1) to ignore <code>property</code> declarations that contain a <code>default</code>. If you need to restore the pre-4.0 behavior, add <code>omitDefaultedProperties</code> and/or <code>omitTypedProperties</code> to your configuration, set to <code>false</code>.</li>
+  <li><a href="https://github.com/framework-one/fw1/issues/443">443</a> - Prevented <code>loadListener</code> from being accidentally inherited and run on a managed subsystem bean factory (it should only run on the main parent factory). This is potentially breaking: if you relied on running load listeners multiple times – however, that was never a recommended approach.</li>
+  <li><a href="https://github.com/framework-one/fw1/issues/400">400</a> - By default, <code>property</code> declarations that contain a <code>type</code> or <code>default</code> are now ignored for autowiring. In earlier versions of FW/1 (DI/1), such <code>property</code> declarations would have been treated as dependencies and autowired: you could override that behavior for <em>typed</em> properties by specifying <code>omitTypedProperties : true</code> in your configuration. That is now the default behavior. In addition a new <code>omitDefaultedProperties</code> setting has been added, also defaulted to <code>true</code>, which is what tells FW/1 (DI/1) to ignore <code>property</code> declarations that contain a <code>default</code>. If you need to restore the pre-4.0 behavior, add <code>omitDefaultedProperties</code> and/or <code>omitTypedProperties</code> to your configuration, set to <code>false</code>.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/391">391</a> - Adobe ColdFusion 9.0.2 is no longer a supported platform. FW/1 4.0 relies on closure support and therefore requires Adobe ColdFusion 10 or later. Support for Railo and Lucee has not changed.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/390">390</a> - If you override <code>missingBean()</code> in DI/1, read the documentation carefully as this is now an official extension point with different behavior to previous releases.</li>
 </ul>
@@ -108,8 +109,9 @@
 <h2 id="enhancements">Enhancements</h2>
 
 <ul>
+  <li><a href="https://github.com/framework-one/fw1/issues/448">448</a> - Added <code>callClojure()</code> extension point for <code>cljcontroller.cfc</code>.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/442">442</a> - In Alpha 1 and Beta 1, the <code>decodeRequestBody</code> setting was called <code>enableJSONPOST</code>. As a migration aid, attempting to set <code>enableJSONPOST</code> will throw an exception saying you should use <code>decodeRequestBody</code> instead.</li>
-  <li><a href="https://github.com/framework-one/fw1/pull/441">441</a> - <code>decodeRequestBody</code> now also handles URL-encoded form variables, which is typical for PUT, making it a poorly named setting but…</li>
+  <li><a href="https://github.com/framework-one/fw1/pull/441">441</a> - <code>decodeRequestBody</code> handles URL-encoded form variables, which is typical for PUT, as well as JSON-encoded form bodies (see issue 389 below for the introduction of this setting).</li>
   <li><a href="https://github.com/framework-one/fw1/issues/439">439</a> - Add <code>framework.facade</code> component to make FW/1 accessible out-of-band (for integration purposes).</li>
   <li><a href="https://github.com/framework-one/fw1/issues/434">434</a> - Add <code>getRoutePath()</code> convenience method.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/419">419</a> - Add <code>getCGIRequestMethod()</code> convenience method.</li>
@@ -129,7 +131,7 @@
   <li><a href="https://github.com/framework-one/fw1/issues/394">394</a> - Improved error messages when DI/1 attempts to use a CFC that has syntax errors to include filename/line number of the underlying error.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/392">392</a> - A wildcard resource match is generated for <code>$RESOURCES</code> to provide per-resource error handling. This can be disabled via the <code>perResourceError</code> setting.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/390">390</a> - DI/1 now considers <code>missingBean()</code> to be a fully supported extension point that allows users to handling <code>getBean()</code> calls for unknown beans by any means, including creating and returning their own beans.</li>
-  <li><a href="https://github.com/framework-one/fw1/issues/389">389</a> - A new setting <code>decodeRequestBody</code> tells FW/1 to deserialize the JSON-encoded body of a POST.</li>
+  <li><a href="https://github.com/framework-one/fw1/issues/389">389</a> - A new setting <code>decodeRequestBody</code> tells FW/1 to deserialize the JSON-encoded body of an HTTP request.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/388">388</a> - The <code>statusCode</code> and <code>jsonpCallback</code> arguments to <code>renderData()</code> have been deprecated and a new builder syntax has been added to support all possible parameters available when rendering data, e.g., <code>renderData( "json" ).data( result ).statusCode( 202 )</code>.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/387">387</a> - A new setting <code>preflightOptions</code> tells FW/1 to provide built-in support for HTTP <code>OPTIONS</code>. An additional setting <code>optionsAccessControl</code> allows you to fine tune the <code>Access-Control-*</code> headers returned.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/386">386</a> - Routes can now have <code>$*</code> as an explicit wildcard for the HTTP method.</li>
@@ -140,7 +142,7 @@
 <h2 id="bug-fixes">Bug Fixes</h2>
 
 <ul>
-  <li><a href="https://github.com/framework-one/fw1/issues/443">443</a> - Prevented <code>loadListener</code> from being accidentally inherited and run on a managed subsystem bean factory (it should only run on the main parent factory).</li>
+  <li><a href="https://github.com/framework-one/fw1/issues/446">446</a> - Fix bug in <code>$RESOURCES</code> when <code>nested</code> resource appeared in multiple <code>resources</code>.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/440">440</a> - Improved thread safety on application reloading. Even <code>reloadApplicationOnEveryRequest : true</code> should be safe now!</li>
   <li><a href="https://github.com/framework-one/fw1/issues/429">429</a> - Removed <code>expandPath()</code> in calls to <code>cachedFileExists()</code>.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/427">427</a> - Fixed bug that prevented <code>before()</code> / <code>after()</code> working in Clojure controllers; fixed bug that caused Clojure controller shims to be created twice.</li>
@@ -158,7 +160,7 @@
 
 
 
-<time class='entry-date' datetime='2016-07-26T12:00:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>12:00 pm</span></time>
+<time class='entry-date' datetime='2016-09-14T15:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>3:00 pm</span></time>
         
       </p>
       
