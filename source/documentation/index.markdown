@@ -1,14 +1,14 @@
 ---
 layout: page
 title: "Getting Started with FW/1"
-date: 2016-05-27 19:00
+date: 2016-09-16 20:00
 comments: false
 sharing: false
 footer: true
 ---
 FW/1 was created in July 2009 as a reaction against complexity and bloat in other frameworks in the CFML community. FW/1 itself is a single file, and provides a simple, convention-based approach to MVC (Model-View-Controller) applications, as well as REST APIs. Whilst it has become more sophisticated over time, it has remained a single file, focused on getting out of your way and providing the intuitive plumbing you need. For historical background, you can read the [introductory blog post](http://framework-one.github.io/blog/2009/07/19/introducing-framework-one/) from July 2009.
 
-As of release 3.1, FW/1 also includes DI/1 - a simple, convention-based Dependency Injection framework - and AOP/1 - a simple, convention-based Aspect-Oriented Programming framework. As of release 3.5, FW/1 lets you mix'n'match CFML and Clojure code. If those phrases don't mean anything to you, don't worry, you won't need to know anything about them to get started.
+As of release 3.1, FW/1 also includes DI/1 - a simple, convention-based Dependency Injection framework - and AOP/1 - a simple, convention-based Aspect-Oriented Programming framework. As of release 3.5, FW/1 lets you mix'n'match CFML and Clojure code. If those phrases don't mean anything to you, don't worry, you won't need to know anything about them to get started. For a full list of changes in this release, see the [Change Log](changes.html).
 
 * TOC
 {:toc}
@@ -23,15 +23,33 @@ If you're on ColdFusion 9.0.1, FW/1 3.5 should work but there may be some edge c
 
 If you're on ColdFusion 9.0.0 or earlier, or still using Open BlueDragon, you'll need to stick with FW/1 1.3. Sorry, but supporting those versions is just too painful!
 
-FW/1 can be downloaded from the [GitHub Releases Page](https://github.com/framework-one/fw1/releases).
+## Copyright and License
+
+The FW/1 software family is copyright (c) 2009-2016 Sean Corfield (and others). All rights reserved. The use and distribution terms for that software are covered by the Apache Software License 2.0 (http://www.apache.org/licenses/LICENSE-2.0) which can also be found in the file LICENSE at the root of that distribution and in individual licensed files. By using that software in any fashion, you are agreeing to be bound by the terms of that license. You must not remove that notice, or any other, from that software.
+
+The FW/1 documentation is copyright (c) 2009-2016 Sean Corfield and is made available under [Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+## Installing FW/1
+
+There are two options by which to install FW/1: either download it, or install it via CommandBox.
+
+**Download from Github**
+
+FW/1 can be downloaded directly from the **releases** page on [Github](https://github.com/framework-one/fw1). Both paths will lead you to the same [page which lists all the releases](https://github.com/framework-one/fw1/releases), with the latest stable release and pre-release versions listed first.
+
+When you download FW/1 (or check it out from Github), it's a complete web application. **The `framework` folder should either be copied to your webroot (the simplest way to get started) or else made accessible via a mapping for `/framework`.** Since `Application.cfc` extends `framework.one`, you have to add that mapping in your CFML admin - you cannot use a per-application mapping. _In release 3.5 there is a way to avoid the mapping and extending `framework.one` which we'll cover in the [Developing Applications Guide](developing-applications.html#alternative-application-structure)._
+
+**Download with CommandBox**
+
+FW/1 may also be installed via [CommandBox](https://www.ortussolutions.com/products/commandbox). From your command prompt, you can easily install FW/1 by entering `box install fw1` and the latest stable version will be installed to your current working directory. To install the latest development vesion of FW/1, simply enter `box install fw1-dev`. Refer to the [CommandBox documentation](https://ortus.gitbooks.io/commandbox-documentation/content/setup/installation.html) for more info on installing and using CommandBox.
+
+_This is a minimal install and only the `framework` folder is installed via this method_. To start with a complete working application, you can grab the `examples` folder from the full Github download (see the first install method) or generate one via [FW/1 Commands](https://github.com/framework-one/fw1-commands) from CommandBox.
+
+_**Note: do not install FW/1 into a subfolder that contains . in the name as this may prevent CFC resolution from working!**_
 
 ## Your First FW/1 Application
 
 FW/1 itself consists of a single CFC: `framework.one`, i.e., `framework/one.cfc`. Your `Application.cfc` will extend that and your application's "pages" will live under a `views` folder inside a subfolder for each _section_ of your application.
-
-When you download FW/1 (or check it out from Github), it's a complete web application. **The `framework` folder should either be copied to your webroot (the simplest way to get started) or else made accessible via a mapping for `/framework`.** Since `Application.cfc` extends `framework.one`, you have to add that mapping in your CFML admin - you cannot use a per-application mapping. _In release 3.5 there is a way to avoid the mapping and extending `framework.one` which we'll cover in the [Developing Applications Guide](developing-applications.html#alternative-application-structure)._
-
-_**Note: do not install FW/1 into a subfolder that contains . in the name as this may prevent CFC resolution from working!**_
 
 The simplest FW/1 application comprises:
 

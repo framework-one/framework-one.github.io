@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-10-21 12:00
+date: 2016-09-16 20:00
 comments: false
 sharing: false
 footer: true
@@ -266,9 +266,17 @@ Returns the server's local hostname (via Java's InetAddress class). Intended to 
 
 Returns the item portion of the specified action - or of the current request's action if no action is specified. Returns the default item if no item is present in the specified action.
 
+### public string function getCGIRequestMethod()
+
+Returns the method (GET, POST, etc) used for the current request. This is a convenience method for controllers to access CGI.REQUEST_METHOD in a clean way via the framework.
+
 ### public string function getRoute()
 
 Returns the route that was used to initiate the current request (if any). Returns an empty string if the current request was not initiated via a matched route.
+
+### public string function getRoutePath()
+
+Returns the path info (SES URL) portion that either matched the current route (if any) or was used as the action for the current request. It is returned in the same format as `getRoute()`, i.e., `$POST/section/item/` or `$GET/users/123/` (where `getRoute()` might return `$GET/users/:id`).
 
 ### public array function getRoutes()
 
@@ -337,6 +345,8 @@ This function renders a layout and could be called inside a view or a layout, al
     writeOutput( layout( 'main/nav-template', nav_menu ) );
 
 Rendering views, using the `view()` method, is supported, documented and the recommended way to build composite pages. Layouts should simply wrap views, in a cascade from item to section to site.
+
+As of release 4.0, `layout()` may be called from a controller to wrap HTML (such as produced by a call to `view()`). See the `view()` below for such use cases.
 
 ### public function onApplicationStart()
 
@@ -451,28 +461,43 @@ If `header` is provided (as a non-empty string), instead of performing an actual
 
 This is to `redirect()` as `buildCustomURL()` is to `buildURL()`.
 
-### public void function renderData( string type, any data, numeric statusCode = 200, string jsonpCallback = "" )
+### public any function renderData()
 
 Call this from your controller to tell FW/1 to skip views and layouts
-and instead render `data` in the specified content `type` format. `type`
-may be `"html"`, `"json"`, `"jsonp"`, `"rawjson"`, `"xml"`, or `"text"`.
+and instead render `data` in the specified content `type` format.
 
-For `"html"`, the `data` value must be a string and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `text/html; charset=utf-8`.
+This function returns a "builder" expression (_new in 4.0_) that supports the following methods:
 
-For `"json"` and `"jsonp"`, FW/1 calls `serializeJSON( data )` to
-generate the result of the HTTP request and sets the `Content-Type`
-header to `application/javascript; charset=utf-8`.
+* `data( payload )` - set the data payload to be rendered: see below for restrictions on the payload, based on the render type.
+* `type( contentType )` - set the type of rendering to be performed: the argument may be `"html"`, `"json"`, `"jsonp"`, `"rawjson"`, `"xml"`, or `"text"`; it may also be a custom rendering function (or closure).
+* `header( name, value )` - add an HTTP header to be sent with the response (_new in 4.0_).
+* `statusCode( code )` - set the HTTP status code: default is 200.
+* `statusText( message )` - set the HTTP status message (_new in 4.0_).
+* `jsonpCallback( callback )` - set the JSONP callback: required when `type` is `"jsonp"`, otherwise ignored.
 
-For `"jsonp"`, you must provide a non-empty value for the
-`jsonpCallback` argument. _New in 3.1._
+This "builder" expression can be retrieved at any time in a controller by calling `renderer()` (below). _New in 4.0._
 
-For `"rawjson"`, the `data` value must be a string (and is assumed to be valid JSON already) and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `application/javascript; charset=utf-8`. _New in 3.1._
+The following restrictions apply to the data payload, for each type as shown:
 
-For `"xml"`, the `data` value must be either a valid XML string or an XML object (constructed via CFML's various `xml...()` functions). If `data` is an XML object, FW/1 calls `toString( data )` to generate the result of the HTTP request, otherwise the XML string is used as the result of the request. In both cases, FW/1 sets the `Content-Type` header to `text/xml; charset=utf-8`.
+* `"html"` - the payload must be a string and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `text/html; charset=utf-8`.
+* `"json"`, `"jsonp"` - FW/1 calls `serializeJSON( payload )` to generate the result of the HTTP request and sets the `Content-Type` header to `application/javascript; charset=utf-8`. In addition, for `"jsonp"`, you must provide a non-empty value for the `jsonpCallback` argument. _New in 3.1._
+* `"rawjson"` - the payload must be a string (and is assumed to be valid JSON already) and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `application/javascript; charset=utf-8`. _New in 3.1._
+* `"xml"` - the payload must be either a valid XML string or an XML object (constructed via CFML's various `xml...()` functions). If the payload is an XML object, FW/1 calls `toString( payload )` to generate the result of the HTTP request, otherwise the XML string is used as the result of the request. In both cases, FW/1 sets the `Content-Type` header to `text/xml; charset=utf-8`.
+* `"text"` - the payload must be a string and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `text/plain; charset=utf-8`.
 
-For `"text"`, the `data` value must be a string and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `text/plain; charset=utf-8`.
+If a function or closure is passed as the type, you can perform pretty much any custom rendering you can imagine. See [Custom Data Rendering](developing-applications.html#custom-data-rendering) in the Developing Applications Guide for more detail on how to use this.
 
 When you call `renderData()`, processing continues in your controller (so use `return;` if you want processing to stop at that point), and subsequent calls to `setView()` or `setLayout()` will have no effect (since FW/1 will ignore views and layouts for this request).
+
+For legacy application support, the following form of `renderData()` is still supported in 4.0:
+
+    public any function renderData( string type = "", any data = "", numeric statusCode = 200, string jsonpCallback = "" )
+
+Although this form is deprecated, FW/1 will only issue a deprecation warning (written to the console log) for `statusCode` and `jsonpCallback` in 4.0. In a future release, these will require a framework setting in order to be used and the `type` and `data` arguments will cause deprecation warnings.
+
+### public any function renderer()
+
+This returns the same "builder" expression that `renderData()` returns so that you can add settings and headers piecemeal in your controllers. _New in 4.0._
 
 ### public void function setBeanFactory( any factory )
 
@@ -502,7 +527,7 @@ Override this in your `Application.cfc` to provide request-specific initializati
 
 ## public void function setupResponse( struct rc )
 
-Override this in your `Application.cfc` to provide request-specific finalization. This is called after all views and layouts have been rendered or immediately before a redirect. You do not need to call `super.setupResponse()`. 
+Override this in your `Application.cfc` to provide request-specific finalization. This is called after all views and layouts have been rendered or immediately before a redirect. You do not need to call `super.setupResponse()`.
 
 ## public void function setupSession()
 
@@ -518,7 +543,7 @@ This is called when the framework trace is about to be rendered at the end of a 
 
 ## public void function setupView( struct rc )
 
-Override this in your `Application.cfc` to provide pre-rendering logic, e.g., putting globally available data into the request context so it is available to all views. You do not need to call `super.setupView()`. 
+Override this in your `Application.cfc` to provide pre-rendering logic, e.g., putting globally available data into the request context so it is available to all views. You do not need to call `super.setupView()`.
 
 ## public void function setView( string action )
 
@@ -534,13 +559,13 @@ This renders a view and returns the output of that view as a string. It is inten
 
     <cfoutput>
       <div>#view( 'common:site/header' )#</div>
-      <div>#view( 'nav/menu', { selected = 'home' } )#</div>
+      <div>#view( 'nav/fragment/menu', { selected = 'home' } )#</div>
       <div>#body#</div>
       <div>#view( 'common:site/footer' )#</div>
     </cfoutput>
 
-This renders the `header` and `footer` items (views) from the `common` subsystem's `site` section and the `menu` item (view) from the current subsystem's `nav` section. Inside `menu.cfm`, `local.selected` would be available containing the string `"home"`.
+This renders the `header` and `footer` items (views) from the `common` subsystem's `site` section (i.e., `subsystems/common/views/site/header.cfm` and `footer.cfm`) and the `fragment/menu` item (view) from the current subsystem's `nav` section (i.e., `views/nav/fragment/menu.cfm`). Inside `menu.cfm`, `local.selected` would be available containing the string `"home"`.
 
-A controller may call `view()` which can be useful if you have email templates that need to be rendered and sent as part of a request: those email templates can be treated as views and have all the associated `rc`, `local`, etc machinery applied.
+A controller may call `view()` which can be useful if you have email templates that need to be rendered and sent as part of a request: those email templates can be treated as views and have all the associated `rc`, `local`, etc machinery applied. As of release 4.0, a controller may also call `layout()` to wrap a view for such purposes.
 
 If the argument `missingView` is not specified, and the specified view `path` does not exist, then `onMissingView()` will be called. If a string is passed as `missingView` and the specified view does not exist, then the value of the `missingView` argument will be returned. This allows for programmatically calculated views to be silently rendered as empty strings if they are not present. This can be useful for programmatic skins with optional elements.
