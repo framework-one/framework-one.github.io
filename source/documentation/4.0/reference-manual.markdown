@@ -1,13 +1,11 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2016-05-20 20:30
+date: 2016-09-16 20:00
 comments: false
 sharing: false
 footer: true
 ---
-_This is documentation for the upcoming 4.0 release. For the current release, see [this documentation](/documentation/)._
-
 This page provides a description of all the APIs and components involved in a FW/1 application. Please also read the [Roadmap](roadmap.html) to see how things may change in the future.
 
 * TOC
@@ -529,7 +527,7 @@ Override this in your `Application.cfc` to provide request-specific initializati
 
 ## public void function setupResponse( struct rc )
 
-Override this in your `Application.cfc` to provide request-specific finalization. This is called after all views and layouts have been rendered or immediately before a redirect. You do not need to call `super.setupResponse()`. 
+Override this in your `Application.cfc` to provide request-specific finalization. This is called after all views and layouts have been rendered or immediately before a redirect. You do not need to call `super.setupResponse()`.
 
 ## public void function setupSession()
 
@@ -545,7 +543,7 @@ This is called when the framework trace is about to be rendered at the end of a 
 
 ## public void function setupView( struct rc )
 
-Override this in your `Application.cfc` to provide pre-rendering logic, e.g., putting globally available data into the request context so it is available to all views. You do not need to call `super.setupView()`. 
+Override this in your `Application.cfc` to provide pre-rendering logic, e.g., putting globally available data into the request context so it is available to all views. You do not need to call `super.setupView()`.
 
 ## public void function setView( string action )
 

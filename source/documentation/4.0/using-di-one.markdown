@@ -1,14 +1,12 @@
 ---
 layout: page
 title: "Using DI/1"
-date: 2016-04-07 11:30
+date: 2016-09-16 20:00
 comments: false
 sharing: false
 footer: true
 ---
-_This is documentation for the upcoming 4.0 release. For the current release, see [this documentation](/documentation/)._
-
-DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework. 
+DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework.
 
 DI/1 searches specified directories for CFCs and treats them as singletons or non-singletons (transients) based on naming conventions for the CFCs themselves, or the folders in which they are found. You can override the conventions by configuration if needed.
 
@@ -57,18 +55,18 @@ If a CFC has a constructor (a method called `init()`), DI/1 will use the argumen
 
     // usermanager - managers/user.cfc or usermanager.cfc
     component accessors=true {
-    
+
         property roleService; // autowire services/role.cfc
-        
+
         function setLoggingService( loggingService ) { // autorwire services/logging.cfc
             variables.logger = loggingService.getLogger( "user" );
         }
-        
+
         function init( userdao ) { // autowire daos/user.cfc
             variables.userdao = userdao;
             return this;
         }
-        
+
     }
 
 When you get this `usermanager` bean from DI/1 -- either by calling `getBean( "usermanager" )` directly or autowired into another bean via `property usermanager;` (or a setter or constructor argument), it will already have `roleService`, `loggingService`, and `userDAO` autowired into it.

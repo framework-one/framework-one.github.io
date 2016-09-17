@@ -1,13 +1,11 @@
 ---
 layout: page
 title: "Using Clojure with CFML"
-date: 2016-09-14 15:00
+date: 2016-09-16 20:00
 comments: false
 sharing: false
 footer: true
 ---
-_This is documentation for the upcoming 4.0 release. For the current release, see [this documentation](/documentation/)._
-
 # Clojure and CFML Sitting in a tree
 {:.no_toc}
 

@@ -6,8 +6,6 @@ comments: false
 sharing: false
 footer: true
 ---
-_This is documentation for the upcoming 4.0 release. For the current release, see [this documentation](/documentation/)._
-
 The following changes are part of FW/1 4.0, DI/1 1.2.0, and cfmljure 1.1.0.
 
 Summary
