@@ -25,9 +25,9 @@ If you're on ColdFusion 9.0.0 or earlier, or still using Open BlueDragon, you'll
 
 ## Copyright and License
 
-The FW/1 software family is copyright (c) 2009-2015 Sean Corfield (and others). All rights reserved. The use and distribution terms for that software are covered by the Apache Software License 2.0 (http://www.apache.org/licenses/LICENSE-2.0) which can also be found in the file LICENSE at the root of that distribution and in individual licensed files. By using that software in any fashion, you are agreeing to be bound by the terms of that license. You must not remove that notice, or any other, from that software.
+The FW/1 software family is copyright (c) 2009-2016 Sean Corfield (and others). All rights reserved. The use and distribution terms for that software are covered by the Apache Software License 2.0 (http://www.apache.org/licenses/LICENSE-2.0) which can also be found in the file LICENSE at the root of that distribution and in individual licensed files. By using that software in any fashion, you are agreeing to be bound by the terms of that license. You must not remove that notice, or any other, from that software.
 
-The FW/1 documentation is copyright (c) 2009-2015 Sean Corfield and is made available under [Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+The FW/1 documentation is copyright (c) 2009-2016 Sean Corfield and is made available under [Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](http://creativecommons.org/licenses/by-nc-sa/4.0/).
 
 ## Installing FW/1
 
