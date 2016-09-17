@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Change Log for FW/1 and Friends"
-date: 2016-09-14 15:00
+date: 2016-09-16 20:00
 comments: false
 sharing: false
 footer: true
@@ -68,6 +68,7 @@ Enhancements
 Bug Fixes
 ---
 
+* [449](https://github.com/framework-one/fw1/issues/449) - Fix race condition in DI/1's bean resolution caching.
 * [446](https://github.com/framework-one/fw1/issues/446) - Fix bug in `$RESOURCES` when `nested` resource appeared in multiple `resources`.
 * [440](https://github.com/framework-one/fw1/issues/440) - Improved thread safety on application reloading. Even `reloadApplicationOnEveryRequest : true` should be safe now!
 * [429](https://github.com/framework-one/fw1/issues/429) - Removed `expandPath()` in calls to `cachedFileExists()`.
