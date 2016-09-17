@@ -1,0 +1,332 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>FW/1 Roadmap - FW/1 - The Invisible Framework</title>
+  <meta name="author" content="Sean Corfield">
+
+  
+  <meta name="description" content="FW/1 Roadmap Jan 5th, 2016 11:00 pm This is documentation for the upcoming 4.0 release. For the current release, see this documentation. Whilst you &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://framework-one.github.io/documentation/4.5/roadmap.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">FW/1 - The Invisible Framework</a></h1>
+  
+    <h2>Framework One and friends...</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:framework-one.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/documentation">Documentation</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article role="article">
+  
+  <header>
+    <h1 class="entry-title">FW/1 Roadmap</h1>
+    <p class="meta">
+
+
+
+
+<time class='entry-date' datetime='2016-01-05T23:00:00-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>11:00 pm</span></time></p>
+  </header>
+  
+  <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
+
+<p>Whilst you can read the <a href="https://github.com/framework-one/fw1/issues">FW/1 issues list</a> to see what’s on the cards for future releases, several people have asked that I document things at a higher level so they can get a better sense of what’s coming.</p>
+
+<h2 id="x-lifecycle-restructuring">5.x Lifecycle Restructuring</h2>
+<p>FW/1 5.0 will move the request lifecycle methods out of <code>Application.cfc</code> into a separate CFC. In addition, subsystems will also get a CFC that controls their lifecycle methods (<code>subsystem.cfc</code>). Since this will be a breaking change, there will be a 4.5 release to pave the way with deprecation warnings and exceptions, in the same way that the 2.5 release paved the way between 2.2 and 3.0.</p>
+
+<h2 id="x-rest-and-modernization">4.x REST and Modernization</h2>
+<p>FW/1 4.0 is planned as improving REST support and Dependency Injection, and will be a maintenance release for 3.5. The major version number change indicates that support for ACF9.0.2 will be dropped to allow for the use of closures in the code as this will provide some nicer syntax for some framework features. The core code will be modernized to take advantage of features in ACF10+ and Lucee 4.5+ in this release.</p>
+
+<h2 id="x-integrations">3.x Integrations</h2>
+<p>FW/1 3.5 is the current stable release, coming soon after the 3.1 release. It adds integraton of Clojure controllers and autowired Clojure services. It does this by bundling cfmljure and providing an extension to DI/1, as well as a controller adapter. It also provides direct support for the Lucee language (a new dialect of CFML, introduced in Lucee 5.0), as well as a new, improved way to add subsystems to an existing application. In addition, WireBox is better support as a DI option, and the folder naming conventions can be configured for the first time. It is a major release but also remains compatible with earlier 3.x releases.</p>
+
+<p>FW/1 3.1 is the previous stable release, and it was primarily a maintenance release for 3.0, but it also bundled AOP/1 for the first time. It builds on core 3.0 features:</p>
+
+<ul>
+  <li>Using DI/1 to manage services and beans</li>
+  <li>Explicitly calling services in the <code>item()</code> controller methods</li>
+</ul>
+
+<p>FW/1 3.0 bundles DI/1 and automatically creates bean factories following the convention of a <code>model</code> folder containing <code>services</code> and <code>beans</code> subfolders. Subsystems also follow this convention and use the main application’s bean factory as a parent to enable sharing of common services across subsystems.</p>
+
+<p>FW/1 3.0 also slims down the framework by removing all of the service queue machinery and the start/end variants of controller methods, as well as coalescing all the framework components in a single folder <code>framework</code> (with <code>org.corfield.framework</code> replaced by <code>framework.one</code>).</p>
+
+<h2 id="deprecations">2.5 Deprecations</h2>
+<p>FW/1 2.5 represented a large shift from 2.2.1 and deprecated a number of long-standing features that were removed in 3.0:</p>
+
+<ul>
+  <li>Service queue - implicit service calls were disabled in 2.x but still supported for backward compatibility with 1.x, but in 2.5 the whole service queue machinery is deprecated, including the <code>service()</code> call, and will be removed in 3.0.</li>
+  <li><code>startItem()</code> / <code>endItem()</code> controller methods - these were originally introduced to encourage a clean separation of controller logic from (queued) service logic. With the service queue going away, they make no sense, so they are deprecated in 2.5 and will be removed in 3.0.</li>
+  <li>Global access to the <code>rc</code> variable - this was never really intended to be supported but some users found it convenient and started to rely on it. Due to edge case bugs, and the fact that there are better ways to manage the <code>rc</code> in the lifecycle, global access is deprecated in 2.5 and will be removed in 3.0. This will mostly affect users who update the <code>rc</code> in <code>setupRequest()</code> - logic which should generally be moved to <code>Application.cfc</code> in the global <code>before()</code> controller method.</li>
+</ul>
+
+<h2 id="release-stream">2.1/2.2 Release Stream</h2>
+<p>This is the previous stable stream. FW/1 2.5 is the last release in that stream. The 2.x versions support Adobe ColdFusion 9.0.1 and later, Lucee 4.5.0 and later, and Railo 3.2.2 and later.</p>
+
+<p>Changes between 1.x and 2.x include:</p>
+
+<ul>
+  <li>No more implicit service calls</li>
+  <li>Custom route support</li>
+  <li>Property-based injection in controllers</li>
+  <li>Better lifecycle control: layout and view control, abort controllers</li>
+  <li>Better REST support: render data instead of views, resource packs and regular expressions in routes</li>
+  <li>Environment control</li>
+  <li>Application tracing</li>
+  <li>Automated test suite</li>
+</ul>
+
+<h2 id="x-release-stream">1.x Release Stream</h2>
+<p>This is the legacy stream. FW/1 1.3 is the most recent legacy version, provided to support older CFML engines (Adobe ColdFusion 9.0.0 and earlier, Railo 3.1.x, Open BlueDragon). FW/1 2.x and 3.x will not run on these older CFML engines. Only critical fixes will be made to the 1.x release stream. Currently no new 1.x releases are planned.</p>
+
+  
+    <footer>
+      <p class="meta">
+        
+        
+
+
+
+
+<time class='entry-date' datetime='2016-01-05T23:00:00-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>11:00 pm</span></time>
+        
+      </p>
+      
+    </footer>
+  
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+    <h1>About FW/1</h1>
+    <p>FW/1 - Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.</p>
+    <p>In addition, the family includes cfmljure, an easy way to integrate Clojure code into your CFML application, and a port of FW/1 to Clojure as well as a Leiningen template for creating FW/1 projects in Clojure.</p>
+    <p>For support and assistance, join <a href="http://groups.google.com/group/framework-one/">the FW/1 mailing list</a> and/or the <a href="https://gitter.im/framework-one/fw1">FW/1 room on Gitter</a>. There are also Gitter rooms for <a href="https://gitter.im/framework-one/fw1-clj">FW/1 for/with Clojure</a> and <a href="https://gitter.im/framework-one/architecture">FW/1 (and MVC) architectural discussions</a>. You can sign into Gitter with either your Gitter or Twitter account.</p>
+    <p>The main FW/1 Gitter room is also mirrored to the <a href="https://cfml.slack.com/messages/fw1/">FW/1 channel</a> on the <a href="http://cfml-slack.herokuapp.com/">CFML Slack</a> (that's the link to get an invite to sign up for the Slack).</p>
+</section>
+<section>
+    <h1>4.0 Documentation (current - master)</h1>
+    <a href="/documentation/4.0/">Getting Started Guide</a><br />
+    <a href="/documentation/4.0/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/4.0/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/4.0/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/4.0/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/4.0/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/4.0/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+    <a href="/documentation/4.0/changes.html">Change Log</a><br />
+    <a href="/documentation/4.0/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>3.5 Documentation</h1>
+    <a href="/documentation/3.5/">Getting Started Guide</a><br />
+    <a href="/documentation/3.5/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.5/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/3.5/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/3.5/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/3.5/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/3.5/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+    <a href="/documentation/3.5/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>3.1 Documentation</h1>
+    <a href="/documentation/3.1">Getting Started Guide</a><br />
+    <a href="/documentation/3.1/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.1/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/3.1/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/3.1/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/3.1/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/3.1/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>3.0 Documentation</h1>
+    <a href="/documentation/3.0">Getting Started Guide</a><br />
+    <a href="/documentation/3.0/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.0/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/3.0/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/3.0/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>4.1 Documentation (next - develop)</h1>
+    <a href="/documentation/4.1/">Getting Started Guide</a><br />
+    <a href="/documentation/4.1/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/4.1/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/4.1/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/4.1/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/4.1/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/4.1/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+    <a href="/documentation/4.1/changes.html">Change Log</a><br />
+    <a href="/documentation/4.1/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/07/26/fw1-4-0-0-rc-1/">FW/1 4.0.0 Release Candidate 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/07/12/fw1-4-0-0-beta-2/">FW/1 4.0.0 Beta 2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/07/11/fw1-4-0-0-beta-1/">FW/1 4.0.0 Beta 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/03/05/fw1-4-0-0-alpha-1/">FW/1 4.0.0 Alpha 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/05/fw1-4-0-and-beyond/">FW/1 4.0 and Beyond</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/21/fw1-3-5-0-released/">FW/1 3.5.0 Released!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/06/fw1-3-5-0-rc-2/">FW/1 3.5.0 Release Candidate 2 Available!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/09/22/fw1-3-5-0-rc-1/">FW/1 3.5.0 Release Candidate 1 Available!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/09/10/fw1-3-5-0-beta-1/">FW/1 3.5.0 Beta 1 Available!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/09/06/out-of-the-box/">FW/1 Out of the Box</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/framework-one">@framework-one</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'framework-one',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+<section>
+  <a href="https://github.com/seancorfield">@seancorfield</a> on GitHub
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - Sean Corfield -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

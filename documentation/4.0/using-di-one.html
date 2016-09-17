@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using DI/1 Apr 7th, 2016 11:30 am This is documentation for the upcoming 4.0 release. For the current release, see this documentation. DI/1 - a.k.a &hellip;">
+  <meta name="description" content="Using DI/1 Sep 16th, 2016 8:00 pm DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework. DI/1 searches specified &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,12 +74,10 @@
 
 
 
-<time class='entry-date' datetime='2016-04-07T11:30:00-07:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>11:30 am</span></time></p>
+<time class='entry-date' datetime='2016-09-16T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:00 pm</span></time></p>
   </header>
   
-  <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
-
-<p>DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework.</p>
+  <p>DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework.</p>
 
 <p>DI/1 searches specified directories for CFCs and treats them as singletons or non-singletons (transients) based on naming conventions for the CFCs themselves, or the folders in which they are found. You can override the conventions by configuration if needed.</p>
 
@@ -184,16 +182,16 @@ var beanFactory = new framework.ioc(["/model", "/common/model"]);
 component accessors=true {
 
     property roleService; // autowire services/role.cfc
-    
+
     function setLoggingService( loggingService ) { // autorwire services/logging.cfc
         variables.logger = loggingService.getLogger( "user" );
     }
-    
+
     function init( userdao ) { // autowire daos/user.cfc
         variables.userdao = userdao;
         return this;
     }
-    
+
 }
 </code></pre>
 
@@ -622,7 +620,7 @@ moduleBeanFactory.setParent( mainBeanFactory );
 
 
 
-<time class='entry-date' datetime='2016-04-07T11:30:00-07:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>11:30 am</span></time>
+<time class='entry-date' datetime='2016-09-16T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:00 pm</span></time>
         
       </p>
       
@@ -642,15 +640,27 @@ moduleBeanFactory.setParent( mainBeanFactory );
     <p>The main FW/1 Gitter room is also mirrored to the <a href="https://cfml.slack.com/messages/fw1/">FW/1 channel</a> on the <a href="http://cfml-slack.herokuapp.com/">CFML Slack</a> (that's the link to get an invite to sign up for the Slack).</p>
 </section>
 <section>
-    <h1>3.5 Documentation (current - master)</h1>
-    <a href="/documentation/">Getting Started Guide</a><br />
-    <a href="/documentation/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
-    <a href="/documentation/roadmap.html">Roadmap</a><br />
+    <h1>4.0 Documentation (current - master)</h1>
+    <a href="/documentation/4.0/">Getting Started Guide</a><br />
+    <a href="/documentation/4.0/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/4.0/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/4.0/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/4.0/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/4.0/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/4.0/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+    <a href="/documentation/4.0/changes.html">Change Log</a><br />
+    <a href="/documentation/4.0/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>3.5 Documentation</h1>
+    <a href="/documentation/3.5/">Getting Started Guide</a><br />
+    <a href="/documentation/3.5/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.5/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/3.5/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/3.5/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/3.5/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/3.5/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+    <a href="/documentation/3.5/roadmap.html">Roadmap</a><br />
 </section>
 <section>
     <h1>3.1 Documentation</h1>
@@ -672,16 +682,16 @@ moduleBeanFactory.setParent( mainBeanFactory );
     <a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
 </section>
 <section>
-    <h1>4.0 Documentation (next - develop)</h1>
-    <a href="/documentation/4.0/">Getting Started Guide</a><br />
-    <a href="/documentation/4.0/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/4.0/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/4.0/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/4.0/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/4.0/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/4.0/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
-    <a href="/documentation/4.0/changes.html">Change Log</a><br />
-    <a href="/documentation/4.0/roadmap.html">Roadmap</a><br />
+    <h1>4.1 Documentation (next - develop)</h1>
+    <a href="/documentation/4.1/">Getting Started Guide</a><br />
+    <a href="/documentation/4.1/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/4.1/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/4.1/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/4.1/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/4.1/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/4.1/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+    <a href="/documentation/4.1/changes.html">Change Log</a><br />
+    <a href="/documentation/4.1/roadmap.html">Roadmap</a><br />
 </section>
 <section>
   <h1>Recent Posts</h1>

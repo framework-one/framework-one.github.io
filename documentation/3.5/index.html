@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Getting Started With FW/1 Oct 21st, 2015 12:00 pm FW/1 was created in July 2009 as a reaction against complexity and bloat in other frameworks in &hellip;">
+  <meta name="description" content="Getting Started With FW/1 May 27th, 2016 7:00 pm FW/1 was created in July 2009 as a reaction against complexity and bloat in other frameworks in the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-10-21T12:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:00 pm</span></time></p>
+<time class='entry-date' datetime='2016-05-27T19:00:00-07:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>7:00 pm</span></time></p>
   </header>
   
   <p>FW/1 was created in July 2009 as a reaction against complexity and bloat in other frameworks in the CFML community. FW/1 itself is a single file, and provides a simple, convention-based approach to MVC (Model-View-Controller) applications, as well as REST APIs. Whilst it has become more sophisticated over time, it has remained a single file, focused on getting out of your way and providing the intuitive plumbing you need. For historical background, you can read the <a href="http://framework-one.github.io/blog/2009/07/19/introducing-framework-one/">introductory blog post</a> from July 2009.</p>
@@ -96,13 +96,15 @@
 
 <h2 id="requirements--supported-platforms">Requirements &amp; Supported Platforms</h2>
 
-<p>FW/1 3.5 supports Adobe ColdFusion 9.0.2 or later (not 9.0.0 or 9.0.1), Lucee 4.5.0 or later, and Railo 4.1 or later. I recommend using <a href="http://lucee.org/downloads.html">Lucee 4.5.0</a> or later since it’s free, open source, and fast, with a small footprint. If you’re using Adobe ColdFusion, I recommend upgrading to the latest version (ColdFusion 11 as of August 2014) to take advantage of the huge improvements in the core language since ColdFusion 9.0.2 (closures, member functions, full cfscript support, etc) – although there are quite a few bugs in several areas of ColdFusion 11 (even as of September 2015).</p>
+<p>FW/1 3.5 supports Adobe ColdFusion 9.0.2 or later (not 9.0.0 or 9.0.1), Lucee 4.5.0 (<strong>but not Lucee 5</strong>), and Railo 4.1 or later. I recommend using <a href="http://lucee.org/downloads.html">Lucee 4.5.0</a> or later since it’s free, open source, and fast, with a small footprint. If you’re using Adobe ColdFusion, I recommend upgrading to the latest version (ColdFusion 11 as of August 2014) to take advantage of the huge improvements in the core language since ColdFusion 9.0.2 (closures, member functions, full cfscript support, etc) – although there are quite a few bugs in several areas of ColdFusion 11 (even as of September 2015).</p>
 
 <p>Note that the Clojure support in FW/1 3.5 requires at least Railo 4.2, Lucee 4.5.1 or Adobe ColdFusion 11. Interoperability between CFML and Clojure is best in Lucee (or Railo) – in Adobe ColdFusion you’ll need to use <code>javaCast()</code> quite a lot (because numbers are stored as strings and need converting when you pass them to Clojure or Java).</p>
 
 <p>If you’re on ColdFusion 9.0.1, FW/1 3.5 should work but there may be some edge cases in <code>Application.cfc</code> lifecycle behavior that may trip you up.</p>
 
 <p>If you’re on ColdFusion 9.0.0 or earlier, or still using Open BlueDragon, you’ll need to stick with FW/1 1.3. Sorry, but supporting those versions is just too painful!</p>
+
+<p>FW/1 can be downloaded from the <a href="https://github.com/framework-one/fw1/releases">GitHub Releases Page</a>.</p>
 
 <h2 id="your-first-fw1-application">Your First FW/1 Application</h2>
 
@@ -319,7 +321,7 @@
 
 
 
-<time class='entry-date' datetime='2015-10-21T12:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:00 pm</span></time>
+<time class='entry-date' datetime='2016-05-27T19:00:00-07:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>7:00 pm</span></time>
         
       </p>
       
@@ -339,15 +341,27 @@
     <p>The main FW/1 Gitter room is also mirrored to the <a href="https://cfml.slack.com/messages/fw1/">FW/1 channel</a> on the <a href="http://cfml-slack.herokuapp.com/">CFML Slack</a> (that's the link to get an invite to sign up for the Slack).</p>
 </section>
 <section>
-    <h1>3.5 Documentation (current - master)</h1>
-    <a href="/documentation/">Getting Started Guide</a><br />
-    <a href="/documentation/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
-    <a href="/documentation/roadmap.html">Roadmap</a><br />
+    <h1>4.0 Documentation (current - master)</h1>
+    <a href="/documentation/4.0/">Getting Started Guide</a><br />
+    <a href="/documentation/4.0/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/4.0/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/4.0/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/4.0/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/4.0/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/4.0/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+    <a href="/documentation/4.0/changes.html">Change Log</a><br />
+    <a href="/documentation/4.0/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>3.5 Documentation</h1>
+    <a href="/documentation/3.5/">Getting Started Guide</a><br />
+    <a href="/documentation/3.5/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.5/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/3.5/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/3.5/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/3.5/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/3.5/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+    <a href="/documentation/3.5/roadmap.html">Roadmap</a><br />
 </section>
 <section>
     <h1>3.1 Documentation</h1>
@@ -369,16 +383,16 @@
     <a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
 </section>
 <section>
-    <h1>4.0 Documentation (next - develop)</h1>
-    <a href="/documentation/4.0/">Getting Started Guide</a><br />
-    <a href="/documentation/4.0/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/4.0/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/4.0/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/4.0/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/4.0/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/4.0/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
-    <a href="/documentation/4.0/changes.html">Change Log</a><br />
-    <a href="/documentation/4.0/roadmap.html">Roadmap</a><br />
+    <h1>4.1 Documentation (next - develop)</h1>
+    <a href="/documentation/4.1/">Getting Started Guide</a><br />
+    <a href="/documentation/4.1/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/4.1/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/4.1/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/4.1/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/4.1/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/4.1/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+    <a href="/documentation/4.1/changes.html">Change Log</a><br />
+    <a href="/documentation/4.1/roadmap.html">Roadmap</a><br />
 </section>
 <section>
   <h1>Recent Posts</h1>

@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using AOP/1 Oct 27th, 2015 10:00 am This is documentation for the upcoming 4.0 release. For the current release, see this documentation. AOP/1 is a &hellip;">
+  <meta name="description" content="Using AOP/1 Sep 16th, 2016 8:00 pm AOP/1 is a simple Aspect Oriented Programming extension for DI/1 (a.k.a Inject One) which allows you to define &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,12 +74,10 @@
 
 
 
-<time class='entry-date' datetime='2015-10-27T10:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:00 am</span></time></p>
+<time class='entry-date' datetime='2016-09-16T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:00 pm</span></time></p>
   </header>
   
-  <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
-
-<p>AOP/1 is a simple Aspect Oriented Programming extension for <a href="using-di-one.html">DI/1 (a.k.a Inject One)</a> which allows you to define interceptors for your beans.</p>
+  <p>AOP/1 is a simple Aspect Oriented Programming extension for <a href="using-di-one.html">DI/1 (a.k.a Inject One)</a> which allows you to define interceptors for your beans.</p>
 
 <p>These interceptors can run code before or after a method is called on a bean without the need for you to alter the code in your bean.  This allows you to create generic services (such as a logger service) that is coded and configured to operate completely separate from your other services and beans.  What this means is you no longer need to mix unrelated service code together by using dedicated interceptors.</p>
 
@@ -291,7 +289,6 @@ This method is automatically added to any interceptor and will attempt translate
 
 <p>All the stacks will only execute if there is an interceptor of their type present.  If the stack is emtpy, nothing is executed.  The <strong>onError</strong> stack only executes if there is an error in the execution of the other stacks.  The <strong>before</strong> and <strong>after</strong> stacks execute like a queue and will execute from start to finish regardless of changes to the arguments or result, skipping any interceptors that do not match the currently intercepted bean method.  The <strong>around</strong> stack executes more like a chain.  The chain execution can be stopped by not calling the <code>proceed()</code> method.</p>
 
-
   
     <footer>
       <p class="meta">
@@ -301,7 +298,7 @@ This method is automatically added to any interceptor and will attempt translate
 
 
 
-<time class='entry-date' datetime='2015-10-27T10:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:00 am</span></time>
+<time class='entry-date' datetime='2016-09-16T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:00 pm</span></time>
         
       </p>
       
@@ -321,15 +318,27 @@ This method is automatically added to any interceptor and will attempt translate
     <p>The main FW/1 Gitter room is also mirrored to the <a href="https://cfml.slack.com/messages/fw1/">FW/1 channel</a> on the <a href="http://cfml-slack.herokuapp.com/">CFML Slack</a> (that's the link to get an invite to sign up for the Slack).</p>
 </section>
 <section>
-    <h1>3.5 Documentation (current - master)</h1>
-    <a href="/documentation/">Getting Started Guide</a><br />
-    <a href="/documentation/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
-    <a href="/documentation/roadmap.html">Roadmap</a><br />
+    <h1>4.0 Documentation (current - master)</h1>
+    <a href="/documentation/4.0/">Getting Started Guide</a><br />
+    <a href="/documentation/4.0/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/4.0/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/4.0/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/4.0/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/4.0/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/4.0/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+    <a href="/documentation/4.0/changes.html">Change Log</a><br />
+    <a href="/documentation/4.0/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>3.5 Documentation</h1>
+    <a href="/documentation/3.5/">Getting Started Guide</a><br />
+    <a href="/documentation/3.5/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.5/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/3.5/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/3.5/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/3.5/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/3.5/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+    <a href="/documentation/3.5/roadmap.html">Roadmap</a><br />
 </section>
 <section>
     <h1>3.1 Documentation</h1>
@@ -351,16 +360,16 @@ This method is automatically added to any interceptor and will attempt translate
     <a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
 </section>
 <section>
-    <h1>4.0 Documentation (next - develop)</h1>
-    <a href="/documentation/4.0/">Getting Started Guide</a><br />
-    <a href="/documentation/4.0/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/4.0/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/4.0/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/4.0/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/4.0/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/4.0/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
-    <a href="/documentation/4.0/changes.html">Change Log</a><br />
-    <a href="/documentation/4.0/roadmap.html">Roadmap</a><br />
+    <h1>4.1 Documentation (next - develop)</h1>
+    <a href="/documentation/4.1/">Getting Started Guide</a><br />
+    <a href="/documentation/4.1/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/4.1/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/4.1/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/4.1/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/4.1/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/4.1/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+    <a href="/documentation/4.1/changes.html">Change Log</a><br />
+    <a href="/documentation/4.1/roadmap.html">Roadmap</a><br />
 </section>
 <section>
   <h1>Recent Posts</h1>

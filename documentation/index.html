@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Getting Started With FW/1 May 27th, 2016 7:00 pm FW/1 was created in July 2009 as a reaction against complexity and bloat in other frameworks in the &hellip;">
+  <meta name="description" content="Getting Started With FW/1 Sep 16th, 2016 8:00 pm FW/1 was created in July 2009 as a reaction against complexity and bloat in other frameworks in the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,15 +74,17 @@
 
 
 
-<time class='entry-date' datetime='2016-05-27T19:00:00-07:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>7:00 pm</span></time></p>
+<time class='entry-date' datetime='2016-09-16T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:00 pm</span></time></p>
   </header>
   
   <p>FW/1 was created in July 2009 as a reaction against complexity and bloat in other frameworks in the CFML community. FW/1 itself is a single file, and provides a simple, convention-based approach to MVC (Model-View-Controller) applications, as well as REST APIs. Whilst it has become more sophisticated over time, it has remained a single file, focused on getting out of your way and providing the intuitive plumbing you need. For historical background, you can read the <a href="http://framework-one.github.io/blog/2009/07/19/introducing-framework-one/">introductory blog post</a> from July 2009.</p>
 
-<p>As of release 3.1, FW/1 also includes DI/1 - a simple, convention-based Dependency Injection framework - and AOP/1 - a simple, convention-based Aspect-Oriented Programming framework. As of release 3.5, FW/1 lets you mix’n’match CFML and Clojure code. If those phrases don’t mean anything to you, don’t worry, you won’t need to know anything about them to get started.</p>
+<p>As of release 3.1, FW/1 also includes DI/1 - a simple, convention-based Dependency Injection framework - and AOP/1 - a simple, convention-based Aspect-Oriented Programming framework. As of release 3.5, FW/1 lets you mix’n’match CFML and Clojure code. If those phrases don’t mean anything to you, don’t worry, you won’t need to know anything about them to get started. For a full list of changes in this release, see the <a href="changes.html">Change Log</a>.</p>
 
 <ul id="markdown-toc">
   <li><a href="#requirements--supported-platforms" id="markdown-toc-requirements--supported-platforms">Requirements &amp; Supported Platforms</a></li>
+  <li><a href="#copyright-and-license" id="markdown-toc-copyright-and-license">Copyright and License</a></li>
+  <li><a href="#installing-fw1" id="markdown-toc-installing-fw1">Installing FW/1</a></li>
   <li><a href="#your-first-fw1-application" id="markdown-toc-your-first-fw1-application">Your First FW/1 Application</a>    <ul>
       <li><a href="#linking-pages-together" id="markdown-toc-linking-pages-together">Linking Pages Together</a></li>
       <li><a href="#an-aside-on-url-structure" id="markdown-toc-an-aside-on-url-structure">An Aside on URL Structure</a></li>
@@ -104,15 +106,33 @@
 
 <p>If you’re on ColdFusion 9.0.0 or earlier, or still using Open BlueDragon, you’ll need to stick with FW/1 1.3. Sorry, but supporting those versions is just too painful!</p>
 
-<p>FW/1 can be downloaded from the <a href="https://github.com/framework-one/fw1/releases">GitHub Releases Page</a>.</p>
+<h2 id="copyright-and-license">Copyright and License</h2>
+
+<p>The FW/1 software family is copyright (c) 2009-2016 Sean Corfield (and others). All rights reserved. The use and distribution terms for that software are covered by the Apache Software License 2.0 (http://www.apache.org/licenses/LICENSE-2.0) which can also be found in the file LICENSE at the root of that distribution and in individual licensed files. By using that software in any fashion, you are agreeing to be bound by the terms of that license. You must not remove that notice, or any other, from that software.</p>
+
+<p>The FW/1 documentation is copyright (c) 2009-2016 Sean Corfield and is made available under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>.</p>
+
+<h2 id="installing-fw1">Installing FW/1</h2>
+
+<p>There are two options by which to install FW/1: either download it, or install it via CommandBox.</p>
+
+<p><strong>Download from Github</strong></p>
+
+<p>FW/1 can be downloaded directly from the <strong>releases</strong> page on <a href="https://github.com/framework-one/fw1">Github</a>. Both paths will lead you to the same <a href="https://github.com/framework-one/fw1/releases">page which lists all the releases</a>, with the latest stable release and pre-release versions listed first.</p>
+
+<p>When you download FW/1 (or check it out from Github), it’s a complete web application. <strong>The <code>framework</code> folder should either be copied to your webroot (the simplest way to get started) or else made accessible via a mapping for <code>/framework</code>.</strong> Since <code>Application.cfc</code> extends <code>framework.one</code>, you have to add that mapping in your CFML admin - you cannot use a per-application mapping. <em>In release 3.5 there is a way to avoid the mapping and extending <code>framework.one</code> which we’ll cover in the <a href="developing-applications.html#alternative-application-structure">Developing Applications Guide</a>.</em></p>
+
+<p><strong>Download with CommandBox</strong></p>
+
+<p>FW/1 may also be installed via <a href="https://www.ortussolutions.com/products/commandbox">CommandBox</a>. From your command prompt, you can easily install FW/1 by entering <code>box install fw1</code> and the latest stable version will be installed to your current working directory. To install the latest development vesion of FW/1, simply enter <code>box install fw1-dev</code>. Refer to the <a href="https://ortus.gitbooks.io/commandbox-documentation/content/setup/installation.html">CommandBox documentation</a> for more info on installing and using CommandBox.</p>
+
+<p><em>This is a minimal install and only the <code>framework</code> folder is installed via this method</em>. To start with a complete working application, you can grab the <code>examples</code> folder from the full Github download (see the first install method) or generate one via <a href="https://github.com/framework-one/fw1-commands">FW/1 Commands</a> from CommandBox.</p>
+
+<p><em><strong>Note: do not install FW/1 into a subfolder that contains . in the name as this may prevent CFC resolution from working!</strong></em></p>
 
 <h2 id="your-first-fw1-application">Your First FW/1 Application</h2>
 
 <p>FW/1 itself consists of a single CFC: <code>framework.one</code>, i.e., <code>framework/one.cfc</code>. Your <code>Application.cfc</code> will extend that and your application’s “pages” will live under a <code>views</code> folder inside a subfolder for each <em>section</em> of your application.</p>
-
-<p>When you download FW/1 (or check it out from Github), it’s a complete web application. <strong>The <code>framework</code> folder should either be copied to your webroot (the simplest way to get started) or else made accessible via a mapping for <code>/framework</code>.</strong> Since <code>Application.cfc</code> extends <code>framework.one</code>, you have to add that mapping in your CFML admin - you cannot use a per-application mapping. <em>In release 3.5 there is a way to avoid the mapping and extending <code>framework.one</code> which we’ll cover in the <a href="developing-applications.html#alternative-application-structure">Developing Applications Guide</a>.</em></p>
-
-<p><em><strong>Note: do not install FW/1 into a subfolder that contains . in the name as this may prevent CFC resolution from working!</strong></em></p>
 
 <p>The simplest FW/1 application comprises:</p>
 
@@ -321,7 +341,7 @@
 
 
 
-<time class='entry-date' datetime='2016-05-27T19:00:00-07:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>7:00 pm</span></time>
+<time class='entry-date' datetime='2016-09-16T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:00 pm</span></time>
         
       </p>
       
@@ -341,15 +361,27 @@
     <p>The main FW/1 Gitter room is also mirrored to the <a href="https://cfml.slack.com/messages/fw1/">FW/1 channel</a> on the <a href="http://cfml-slack.herokuapp.com/">CFML Slack</a> (that's the link to get an invite to sign up for the Slack).</p>
 </section>
 <section>
-    <h1>3.5 Documentation (current - master)</h1>
-    <a href="/documentation/">Getting Started Guide</a><br />
-    <a href="/documentation/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
-    <a href="/documentation/roadmap.html">Roadmap</a><br />
+    <h1>4.0 Documentation (current - master)</h1>
+    <a href="/documentation/4.0/">Getting Started Guide</a><br />
+    <a href="/documentation/4.0/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/4.0/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/4.0/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/4.0/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/4.0/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/4.0/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+    <a href="/documentation/4.0/changes.html">Change Log</a><br />
+    <a href="/documentation/4.0/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>3.5 Documentation</h1>
+    <a href="/documentation/3.5/">Getting Started Guide</a><br />
+    <a href="/documentation/3.5/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/3.5/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/3.5/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/3.5/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/3.5/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/3.5/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+    <a href="/documentation/3.5/roadmap.html">Roadmap</a><br />
 </section>
 <section>
     <h1>3.1 Documentation</h1>
@@ -371,16 +403,16 @@
     <a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
 </section>
 <section>
-    <h1>4.0 Documentation (next - develop)</h1>
-    <a href="/documentation/4.0/">Getting Started Guide</a><br />
-    <a href="/documentation/4.0/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/4.0/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/4.0/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/4.0/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/4.0/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/4.0/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
-    <a href="/documentation/4.0/changes.html">Change Log</a><br />
-    <a href="/documentation/4.0/roadmap.html">Roadmap</a><br />
+    <h1>4.1 Documentation (next - develop)</h1>
+    <a href="/documentation/4.1/">Getting Started Guide</a><br />
+    <a href="/documentation/4.1/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/4.1/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/4.1/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/4.1/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/4.1/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/4.1/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+    <a href="/documentation/4.1/changes.html">Change Log</a><br />
+    <a href="/documentation/4.1/roadmap.html">Roadmap</a><br />
 </section>
 <section>
   <h1>Recent Posts</h1>
