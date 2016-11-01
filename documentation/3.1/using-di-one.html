@@ -83,9 +83,9 @@
 
 <h3 id="terminology">Terminology</h3>
 <ul>
-  <li><strong>Bean</strong>: A CFC that you want to create. Any file with a .cfc extension can be a bean</li>
-  <li><strong>Transient</strong> or <strong>non-singleton</strong> : A bean that will freshly created each time you call <code>getBean()</code>, it could be used for only the lifespan of the request, e.g. a basket object ready to be populated with items.</li>
-  <li><strong>Singleton</strong>: A cfc that only one exists in the system, each time you call <code>getBean()</code> you will get the SAME bean, not a new one, for example a Service that creates basket objects.</li>
+  <li><strong>Bean</strong>: A CFC that you want to create and manage. Any file with a .cfc extension can be a bean.</li>
+  <li><strong>Transient</strong> or <strong>non-singleton</strong> : A bean that will be freshly created each time you call <code>getBean()</code>. It could be used for only the lifespan of the request, e.g., a shopping cart object ready to be populated with items.</li>
+  <li><strong>Singleton</strong>: A bean where only one exists in the system, so that each time you call <code>getBean()</code> you will get the <strong>same</strong> bean, not a new one, e.g., a service that creates shopping cart objects.</li>
   <li><strong>Bean Factory</strong>: A service that creates beans for you, so you don’t have to use <code>new</code> or <code>createObject</code>, and populates them with any dependencies.</li>
 </ul>
 

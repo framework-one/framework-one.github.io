@@ -85,7 +85,6 @@
 
 <p>As of release 3.5, DI/1 also looks for <code>.lc</code> and <code>.lucee</code> files, as well as <code>.cfc</code> files, to support Lucee 5’s new dialect.</p>
 
-<h3 id="terminology">Terminology</h3>
 <ul id="markdown-toc">
   <li><a href="#terminology" id="markdown-toc-terminology">Terminology</a></li>
   <li><a href="#getting-started-with-di1" id="markdown-toc-getting-started-with-di1">Getting Started with DI/1</a>    <ul>
@@ -139,6 +138,14 @@
       </li>
     </ul>
   </li>
+</ul>
+
+<h3 id="terminology">Terminology</h3>
+<ul>
+  <li><strong>Bean</strong>: A CFC that you want to create and manage. Any file with a .cfc extension can be a bean.</li>
+  <li><strong>Transient</strong> or <strong>non-singleton</strong> : A bean that will be freshly created each time you call <code>getBean()</code>. It could be used for only the lifespan of the request, e.g., a shopping cart object ready to be populated with items.</li>
+  <li><strong>Singleton</strong>: A bean where only one exists in the system, so that each time you call <code>getBean()</code> you will get the <strong>same</strong> bean, not a new one, e.g., a service that creates shopping cart objects.</li>
+  <li><strong>Bean Factory</strong>: A service that creates beans for you, so you don’t have to use <code>new</code> or <code>createObject</code>, and populates them with any dependencies.</li>
 </ul>
 
 <h1 id="getting-started-with-di1">Getting Started with DI/1</h1>
