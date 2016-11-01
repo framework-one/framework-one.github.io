@@ -49,7 +49,7 @@ See below for how DI/1 handles CFCs that have the same name, found in different 
 
 ## Basic DI/1 Conventions
 
-CFCs found in a folder called `beans` are assumed to be transients; otherwise CFCs are assumed to be singletons. A singleton has just a single instance and DI/1 will cache that instance. A transient is created afresh every time you ask DI/1 for an instance.
+CFCs found in a folder called `beans` are assumed to be transients; otherwise CFCs are assumed to be singletons, this includes beans found in folders under the `beans` folder. A singleton has just a single instance and DI/1 will cache that instance. A transient is created afresh every time you ask DI/1 for an instance.
 
 The name of a bean is the name of the CFC (without the path information or file extension). All beans are also given an alias which is the name of the CFC followed by (the singular form of) the folder name in which it was found, e.g., `/model/beans/product.cfc` would get the alias `"productBean"`. If no other CFC is called `product.cfc` in the folders that you asked DI/1 to search, you can use `"product"` or `"productBean"` to reference that bean (in your `property` declarations or `getBean()` calls).
 

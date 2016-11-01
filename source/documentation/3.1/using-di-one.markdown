@@ -20,7 +20,7 @@ Create an instance of the DI/1 bean factory and specify the folder(s) you want i
     // or an array:
     var beanFactory = new ioc(["/model","/common/model"]);
 
-CFCs found in a folder called `beans` are assumed to be transients; otherwise CFCs are assumed to be singletons. If CFC names are unique, you can use that name to get the bean out of the factory:
+CFCs found in a folder called `beans` are assumed to be transients; otherwise CFCs are assumed to be singletons, this includes beans found in folders under the `beans` folder. If CFC names are unique, you can use that name to get the bean out of the factory:
 
     var userManager = beanFactory.getBean("userManager");
 
