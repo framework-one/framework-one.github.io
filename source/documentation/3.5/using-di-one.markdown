@@ -21,6 +21,12 @@ As of release 3.5, DI/1 also looks for `.lc` and `.lucee` files, as well as `.cf
 * TOC
 {:toc}
 
+### Terminology
+- **Bean**: A CFC that you want to create. Any file with a .cfc extension can be a bean
+- **Transient** or **non-singleton** : A bean that will freshly created each time you call `getBean()`, it could be used for only the lifespan of the request, e.g. a basket object ready to be populated with items.
+- **Singleton**: A cfc that only one exists in the system, each time you call `getBean()` you will get the SAME bean, not a new one, for example a Service that creates basket objects.
+- **Bean Factory**: A service that creates beans for you, so you don't have to use `new` or `createObject`, and populates them with any dependencies.
+
 # Getting Started with DI/1
 
 Create an instance of the DI/1 bean factory and specify the folder(s) you want it to search for beans (CFCs):
