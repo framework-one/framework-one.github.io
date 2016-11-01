@@ -83,7 +83,9 @@
 
 <p>As of release 3.5, DI/1 also looks for <code>.lc</code> and <code>.lucee</code> files, as well as <code>.cfc</code> files, to support Lucee 5’s new dialect.</p>
 
+<h3 id="terminology">Terminology</h3>
 <ul id="markdown-toc">
+  <li><a href="#terminology" id="markdown-toc-terminology">Terminology</a></li>
   <li><a href="#getting-started-with-di1" id="markdown-toc-getting-started-with-di1">Getting Started with DI/1</a>    <ul>
       <li><a href="#acceptable-folder-paths" id="markdown-toc-acceptable-folder-paths">Acceptable Folder Paths</a></li>
     </ul>
@@ -113,7 +115,7 @@ var beanFactory = new ioc("/model,/common/model");
 var beanFactory = new ioc(["/model","/common/model"]);
 </code></pre>
 
-<p>CFCs found in a folder called <code>beans</code> are assumed to be transients; otherwise CFCs are assumed to be singletons. If CFC names are unique, you can use that name to get the bean out of the factory:</p>
+<p>CFCs found in a folder called <code>beans</code> are assumed to be transients; otherwise CFCs are assumed to be singletons, this includes beans found in folders under the <code>beans</code> folder. If CFC names are unique, you can use that name to get the bean out of the factory:</p>
 
 <pre><code>var userManager = beanFactory.getBean("userManager");
 </code></pre>

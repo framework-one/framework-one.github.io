@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Change Log for FW/1 and Friends Sep 16th, 2016 8:00 pm This is documentation for the upcoming 4.1 release. For the current release, see this &hellip;">
+  <meta name="description" content="Change Log for FW/1 and Friends Oct 26th, 2016 5:00 pm This is documentation for the upcoming 4.1 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2016-09-16T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:00 pm</span></time></p>
+<time class='entry-date' datetime='2016-10-26T17:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>5:00 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.1 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -93,13 +93,16 @@
 <h2 id="enhancements">Enhancements</h2>
 
 <ul>
-  <li>None so far.</li>
+  <li><a href="https://github.com/framework-one/fw1/issues/457">457</a> - In mixed CFML / Clojure applications, dependencies that might break your CFML Servlet container are no longer loaded (e.g., <code>servlet-api</code> JARs). You could often get away with doing this, but sometimes you could get errors and they were often very obscure.</li>
+  <li><a href="https://github.com/framework-one/fw1/issues/455">455</a> - In mixed CFML / Clojure applications, you can now use <code>framework.one</code> (from FW/1 for Clojure) to simplify how you render data, redirect, etc. The <code>cljcontroller.cfc</code> shim now understands both the original data format (where you just did <code>(assoc rc :render {:type :json :data expr})</code>) and the native FW/1 data format (from <code>(fw1/render-json rc expr)</code>). This allows controllers to be shared between mixed CFML / Clojure applications and standalone FW/1 for Clojure applications.</li>
+  <li><a href="https://github.com/framework-one/fw1/issues/454">454</a> - In mixed CFML / Clojure applications, Clojure namespaces that could conflict with CFML beans are suppressed (turn on <code>debug : true</code> to see this in the console log). Previously, such Clojure namespaces could supplant CFML beans and the errors produced would be obscure at best.</li>
+  <li><a href="https://github.com/framework-one/fw1/issues/452">452</a> - <code>baseURL</code> with trailing <code>/</code> no longer causes <code>//</code> to appear in URLs (when calling <code>buildURL()</code>).</li>
 </ul>
 
 <h2 id="bug-fixes">Bug Fixes</h2>
 
 <ul>
-  <li>None so far.</li>
+  <li><a href="https://github.com/framework-one/fw1/issues/458">458</a> - If an exception occurs during bean discovery, and an application’s error handling causes any DI/1 method to be invoked, it’s likely that <code>discoverBeans()</code> will be run a second time. Previously, that caused beans to be loaded twice and, if you had <code>omitDirectoryAliases : true</code>, you would get a new exception (that bean names were not unique) which masked the original exception. Now, if an exception occurs during initialization, bean discovery is considered complete, which should allow the original exception to propagate (even if your exception handling then crashes and burns!).</li>
 </ul>
 
   
@@ -111,7 +114,7 @@
 
 
 
-<time class='entry-date' datetime='2016-09-16T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:00 pm</span></time>
+<time class='entry-date' datetime='2016-10-26T17:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>5:00 pm</span></time>
         
       </p>
       

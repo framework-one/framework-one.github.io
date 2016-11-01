@@ -81,6 +81,14 @@
 
 <p>DI/1 searches specified directories for CFCs and treats them as singletons or non-singletons (transients) based on naming conventions for the CFCs themselves, or the folders in which they are found. You can override the conventions by configuration if needed.</p>
 
+<h3 id="terminology">Terminology</h3>
+<ul>
+  <li><strong>Bean</strong>: A CFC that you want to create. Any file with a .cfc extension can be a bean</li>
+  <li><strong>Transient</strong> or <strong>non-singleton</strong> : A bean that will freshly created each time you call <code>getBean()</code>, it could be used for only the lifespan of the request, e.g. a basket object ready to be populated with items.</li>
+  <li><strong>Singleton</strong>: A cfc that only one exists in the system, each time you call <code>getBean()</code> you will get the SAME bean, not a new one, for example a Service that creates basket objects.</li>
+  <li><strong>Bean Factory</strong>: A service that creates beans for you, so you don’t have to use <code>new</code> or <code>createObject</code>, and populates them with any dependencies.</li>
+</ul>
+
 <h1 id="getting-started-with-di1">Getting Started with DI/1</h1>
 
 <p>Create an instance of the DI/1 bean factory and specify the folder(s) you want it to search for beans (CFCs):</p>
@@ -92,7 +100,7 @@ var beanFactory = new ioc("/model,/common/model");
 var beanFactory = new ioc(["/model","/common/model"]);
 </code></pre>
 
-<p>CFCs found in a folder called <code>beans</code> are assumed to be transients; otherwise CFCs are assumed to be singletons. If CFC names are unique, you can use that name to get the bean out of the factory:</p>
+<p>CFCs found in a folder called <code>beans</code> are assumed to be transients; otherwise CFCs are assumed to be singletons, this includes beans found in folders under the <code>beans</code> folder. If CFC names are unique, you can use that name to get the bean out of the factory:</p>
 
 <pre><code>var userManager = beanFactory.getBean("userManager");
 </code></pre>

@@ -83,7 +83,9 @@
 
 <p>As of release 3.5, DI/1 also looks for <code>.lc</code> and <code>.lucee</code> files, as well as <code>.cfc</code> files, to support Lucee 5’s new dialect.</p>
 
+<h3 id="terminology">Terminology</h3>
 <ul id="markdown-toc">
+  <li><a href="#terminology" id="markdown-toc-terminology">Terminology</a></li>
   <li><a href="#getting-started-with-di1" id="markdown-toc-getting-started-with-di1">Getting Started with DI/1</a>    <ul>
       <li><a href="#getting-started-with-di1-and-fw1" id="markdown-toc-getting-started-with-di1-and-fw1">Getting Started with DI/1 and FW/1</a></li>
       <li><a href="#getting-started-with-di1-standalone" id="markdown-toc-getting-started-with-di1-standalone">Getting Started with DI/1 Standalone</a></li>
@@ -172,7 +174,7 @@ var beanFactory = new framework.ioc(["/model", "/common/model"]);
 
 <h2 id="basic-di1-conventions">Basic DI/1 Conventions</h2>
 
-<p>CFCs found in a folder called <code>beans</code> are assumed to be transients; otherwise CFCs are assumed to be singletons. A singleton has just a single instance and DI/1 will cache that instance. A transient is created afresh every time you ask DI/1 for an instance.</p>
+<p>CFCs found in a folder called <code>beans</code> are assumed to be transients; otherwise CFCs are assumed to be singletons, this includes beans found in folders under the <code>beans</code> folder. A singleton has just a single instance and DI/1 will cache that instance. A transient is created afresh every time you ask DI/1 for an instance.</p>
 
 <p>The name of a bean is the name of the CFC (without the path information or file extension). All beans are also given an alias which is the name of the CFC followed by (the singular form of) the folder name in which it was found, e.g., <code>/model/beans/product.cfc</code> would get the alias <code>"productBean"</code>. If no other CFC is called <code>product.cfc</code> in the folders that you asked DI/1 to search, you can use <code>"product"</code> or <code>"productBean"</code> to reference that bean (in your <code>property</code> declarations or <code>getBean()</code> calls).</p>
 
