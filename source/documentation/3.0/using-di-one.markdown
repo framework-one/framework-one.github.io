@@ -6,9 +6,16 @@ comments: false
 sharing: false
 footer: true
 ---
-DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework. 
+DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework.
 
 DI/1 searches specified directories for CFCs and treats them as singletons or non-singletons (transients) based on naming conventions for the CFCs themselves, or the folders in which they are found. You can override the conventions by configuration if needed.
+
+### Terminology
+- **Bean**: A CFC that you want to create. Any file with a .cfc extension can be a bean
+- **Transient** or **non-singleton** : A bean that will freshly created each time you call `getBean()`, it could be used for only the lifespan of the request, e.g. a basket object ready to be populated with items.
+- **Singleton**: A cfc that only one exists in the system, each time you call `getBean()` you will get the SAME bean, not a new one, for example a Service that creates basket objects.
+- **Bean Factory**: A service that creates beans for you, so you don't have to use `new` or `createObject`, and populates them with any dependencies.
+
 
 # Getting Started with DI/1
 
