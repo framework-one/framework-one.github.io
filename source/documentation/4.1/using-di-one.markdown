@@ -18,10 +18,10 @@ As of release 3.5, DI/1 also looks for `.lc` and `.lucee` files, as well as `.cf
 {:toc}
 
 ### Terminology
-- **Bean**: A CFC that you want to create. Any file with a .cfc extension can be a bean
-- **Transient** or **non-singleton** : A bean that will freshly created each time you call `getBean()`, it could be used for only the lifespan of the request, e.g. a basket object ready to be populated with items.
-- **Singleton**: A cfc that only one exists in the system, each time you call `getBean()` you will get the SAME bean, not a new one, for example a Service that creates basket objects.
-- **Bean Factory**: A service that creates beans for you, so you don't have to use `new` or `createObject`, and populates them with any dependencies. 
+- **Bean**: A CFC that you want to create and manage. Any file with a .cfc extension can be a bean.
+- **Transient** or **non-singleton** : A bean that will be freshly created each time you call `getBean()`. It could be used for only the lifespan of the request, e.g., a shopping cart object ready to be populated with items.
+- **Singleton**: A bean where only one exists in the system, so that each time you call `getBean()` you will get the **same** bean, not a new one, e.g., a service that creates shopping cart objects.
+- **Bean Factory**: A service that creates beans for you, so you don't have to use `new` or `createObject`, and populates them with any dependencies.
 
 # Getting Started with DI/1
 

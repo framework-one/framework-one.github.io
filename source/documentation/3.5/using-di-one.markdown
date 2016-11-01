@@ -16,15 +16,9 @@ As of release 3.5, DI/1 also looks for `.lc` and `.lucee` files, as well as `.cf
 {:toc}
 
 ### Terminology
-- **Bean**: A CFC that you want to create. Any file with a .cfc extension can be a bean
-- **Transient** or **non-singleton** : A bean that will freshly created each time you call `getBean()`, it could be used for only the lifespan of the request, e.g. a basket object ready to be populated with items.
-- **Singleton**: A cfc that only one exists in the system, each time you call `getBean()` you will get the SAME bean, not a new one, for example a Service that creates basket objects.
-- **Bean Factory**: A service that creates beans for you, so you don't have to use `new` or `createObject`, and populates them with any dependencies.
-
-### Terminology
-- **Bean**: A CFC that you want to create. Any file with a .cfc extension can be a bean
-- **Transient** or **non-singleton** : A bean that will freshly created each time you call `getBean()`, it could be used for only the lifespan of the request, e.g. a basket object ready to be populated with items.
-- **Singleton**: A cfc that only one exists in the system, each time you call `getBean()` you will get the SAME bean, not a new one, for example a Service that creates basket objects.
+- **Bean**: A CFC that you want to create and manage. Any file with a .cfc extension can be a bean.
+- **Transient** or **non-singleton** : A bean that will be freshly created each time you call `getBean()`. It could be used for only the lifespan of the request, e.g., a shopping cart object ready to be populated with items.
+- **Singleton**: A bean where only one exists in the system, so that each time you call `getBean()` you will get the **same** bean, not a new one, e.g., a service that creates shopping cart objects.
 - **Bean Factory**: A service that creates beans for you, so you don't have to use `new` or `createObject`, and populates them with any dependencies.
 
 # Getting Started with DI/1
@@ -210,7 +204,7 @@ This is called for each bean after its dependencies have been injected prior to 
 Two related extension points that can be useful as well are:
 
     private any function construct( string dottedPath )
-    
+
     private any function metadata( string dottedPath )
 
 These can be overridden if you want to change the behavior of how beans are created and how metadata is obtained for beans. An example from Adam Tuttle is the ability to silently ignore beans that have syntax errors during development, so the rest of the beans are loaded: you would override `metadata()` and have it wrap a call to `super.metadata( dottedPath )` in `try/catch` and return an empty struct if an exception is thrown.
