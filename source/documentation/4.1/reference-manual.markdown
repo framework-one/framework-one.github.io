@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2016-09-16 20:00
+date: 2016-11-27 16:50
 comments: false
 sharing: false
 footer: true
@@ -66,6 +66,8 @@ If no matching view file exists for a request, `onMissingView()` is called and w
 
 As noted in the [Developing Applications Manual](developing-applications.html#using-onmissingview-to-handle-missing-views), `onMissingView()` will be called if your application throws an exception and you have not provided a view for the default error handler (`main.error` - if `defaultSection` is `main`). This can lead to exceptions being masked and instead appearing as if you have a missing view!
 
+If you do not provide `onMissingView()` -- or your error handler view is missing -- then a `FW1.viewNotFound` exception will be thrown and if you have specified an action via `missingview` in your framework configuration, that action will be taken instead of the default `error` action. _New in 4.1._
+
 FW/1 Layouts
 ---
 Everything that applies to views above also applies to layouts. The variables that are available to layouts are the same as for views without `args` and with just one addition:
@@ -93,7 +95,7 @@ Request variables:
 * `request.failedMethod` - If an exception occurs during execution of a controller, this holds the name of the failed method (on the controller CFC). This can be accessed in the error action to provide more details of where the exception occurred. An API method may be added in the future to access this.
 * `request.item` - The item portion of the action. This can be obtained by calling `getItem()` (with no argument).
 * `request.layout` - This is a boolean that indicates whether layouts should be rendered. It can be set in a view or layout to prevent any further layouts from being processed. Use `disableLayout()` and `enableLayout()` to manipulate this flag.
-* `request.missingView` - When `onMissingView()` is triggered, this hold the name of the view that was not found. An API method may be added in future to access this.
+* `request.missingView` - When `onMissingView()` is triggered, this hold the name of the view that was not found. An API method may be added in future to access this. As of 4.1, this is available in any action (and view) triggered by `missingview` in the framework configuration as well.
 * `request.section` - The section portion of the action. This can be obtained by calling `getSection()` (with no argument).
 * `request.subsystem` - The subsystem portion of the action. This can be obtained by calling `getSubsystem()` (with no argument).
 * `request.subsystembase` - The path from the main application directory to the current subsystem's directory (where the `views/` and `layouts/` folders are). This can be obtained by calling `getSubsystemBase()`.
@@ -371,6 +373,8 @@ You may override this method to provide alternative behavior when a view is not 
     function onMissingView( rc ) {
        return view( 'page/notFound' );
     }
+
+As of 4.1, you can specify that the `FW1.viewNotFound` exception be handled via the `missingview` action in the configuration, as opposed to the `error` action.
 
 ### public void function onPopulateError( any cfc, string property, struct rc )
 
