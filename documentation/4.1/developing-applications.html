@@ -351,6 +351,8 @@ component { // does not extend anything
 
 <p>Be aware that <code>onMissingView()</code> will be called if your application throws an exception and you have not provided a view for the default error handler (<code>main.error</code> - if your <code>defaultSection</code> is <code>main</code>). This can lead to exceptions being masked and instead appearing as if you have a missing view!</p>
 
+<p>As of 4.1, there is an alternative way to handle missing views: you can specify an action to take when a view is missing. Much like the default <code>error</code> handler, you can specify <code>missingview</code> in your framework configuration and if the <code>FW1.viewNotFound</code> exception occurs – because no <code>onMissingView()</code> handler exists – then the action specified by <code>missingview</code> will be executed to handle that exception (instead of the default <code>error</code> action).</p>
+
 <h3 id="taking-actions-on-every-request">Taking Actions on Every Request</h3>
 
 <p>FW/1 provides direct support for handling a specific request’s lifecycle based on an action (either supplied explicitly or implicitly) but relies on your <code>Application.cfc</code> for general lifecycle events. That’s why FW/1 expects you to write per-request logic in <code>setupRequest()</code> (or <code>before()</code> if you need to interact with <code>rc</code>), per-session logic in <code>setupSession()</code> and application initialization logic in <code>setupApplication()</code>. In addition there is  <code>setupView()</code> which is called just before view rendering begins to allow you to set up data for your views that needs to be globally available, but may depend on the results of running controllers or services.</p>
@@ -802,6 +804,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
     // or: defaultSubsystem &amp; subsystemDelimiter &amp; defaultSection &amp; '.' &amp; defaultItem
     error = 'main.error', // defaultSection &amp; '.error'
     // or: defaultSubsystem &amp; subsystemDelimiter &amp; defaultSection &amp; '.error'
+    // missingview has no default value -- see below
     reload = 'reload',
     password = 'true',
     reloadApplicationOnEveryRequest = false,
@@ -852,6 +855,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
   <li><code>subsystems</code> - An optional struct of structs containing per-subsystem configuration data. Each key in the top-level struct is named for a subsystem. The contents of the nested structs can be anything you want for your subsystems. Retrieved by calling <code>getSubsystemConfig()</code>. Currently the only keys used by FW/1 are <code>baseURL</code> and <code>diConfig</code> which can be used to configure per-subsystem values.</li>
   <li><code>home</code> - The default action when it is not specified in the URL or form post. By default, this is <code>defaultSection</code>.<code>defaultItem</code>. If you specify <code>home</code>, you are overriding (and hiding) <code>defaultSection</code> but not <code>defaultItem</code>. If <code>usingSubsystem</code> is <code>true</code>, the default for <code>home</code> is <code>"home:main.default"</code>, i.e., <code>defaultSubsystem &amp; subsystemDelimiter &amp; defaultSection &amp; '.' &amp; defaultItem</code>.</li>
   <li><code>error</code> - The action to use if an exception occurs. By default this is <code>defaultSection.error</code>.</li>
+  <li><code>missingview</code> - If specified, the action to use if a <code>FW1.viewNotFound</code> exception occurs. This allows you to override the default exception handling for a missing view, as another alternative for handling missing views. <em>New in 4.1.</em></li>
   <li><code>reload</code> - The URL variable used to force FW/1 to reload its application cache and re-execute <code>setupApplication()</code>.</li>
   <li><code>password</code> - The value of the reload URL variable that must be specified, e.g., <code>?reload=true</code> is the default but you could specify <code>reload = 'refresh', password = 'fw1'</code> and then specifying <code>?refresh=fw1</code> would cause a reload.</li>
   <li><code>reloadApplicationOnEveryRequest</code> - If this is set to <code>true</code> then FW/1 behaves as if you specified the <code>reload</code> URL variable on every request, i.e., at the start of each request, the controller/service cache is cleared and <code>setupApplication()</code> is executed.</li>

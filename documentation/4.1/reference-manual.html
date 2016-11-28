@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Sep 16th, 2016 8:00 pm This is documentation for the upcoming 4.1 release. For the current release, see this documentation. &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Nov 27th, 2016 4:50 pm This is documentation for the upcoming 4.1 release. For the current release, see this documentation. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2016-09-16T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:00 pm</span></time></p>
+<time class='entry-date' datetime='2016-11-27T16:50:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:50 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.1 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -223,6 +223,8 @@
 
 <p>As noted in the <a href="developing-applications.html#using-onmissingview-to-handle-missing-views">Developing Applications Manual</a>, <code>onMissingView()</code> will be called if your application throws an exception and you have not provided a view for the default error handler (<code>main.error</code> - if <code>defaultSection</code> is <code>main</code>). This can lead to exceptions being masked and instead appearing as if you have a missing view!</p>
 
+<p>If you do not provide <code>onMissingView()</code> – or your error handler view is missing – then a <code>FW1.viewNotFound</code> exception will be thrown and if you have specified an action via <code>missingview</code> in your framework configuration, that action will be taken instead of the default <code>error</code> action. <em>New in 4.1.</em></p>
+
 <h2 id="fw1-layouts">FW/1 Layouts</h2>
 <p>Everything that applies to views above also applies to layouts. The variables that are available to layouts are the same as for views without <code>args</code> and with just one addition:</p>
 
@@ -251,7 +253,7 @@
   <li><code>request.failedMethod</code> - If an exception occurs during execution of a controller, this holds the name of the failed method (on the controller CFC). This can be accessed in the error action to provide more details of where the exception occurred. An API method may be added in the future to access this.</li>
   <li><code>request.item</code> - The item portion of the action. This can be obtained by calling <code>getItem()</code> (with no argument).</li>
   <li><code>request.layout</code> - This is a boolean that indicates whether layouts should be rendered. It can be set in a view or layout to prevent any further layouts from being processed. Use <code>disableLayout()</code> and <code>enableLayout()</code> to manipulate this flag.</li>
-  <li><code>request.missingView</code> - When <code>onMissingView()</code> is triggered, this hold the name of the view that was not found. An API method may be added in future to access this.</li>
+  <li><code>request.missingView</code> - When <code>onMissingView()</code> is triggered, this hold the name of the view that was not found. An API method may be added in future to access this. As of 4.1, this is available in any action (and view) triggered by <code>missingview</code> in the framework configuration as well.</li>
   <li><code>request.section</code> - The section portion of the action. This can be obtained by calling <code>getSection()</code> (with no argument).</li>
   <li><code>request.subsystem</code> - The subsystem portion of the action. This can be obtained by calling <code>getSubsystem()</code> (with no argument).</li>
   <li><code>request.subsystembase</code> - The path from the main application directory to the current subsystem’s directory (where the <code>views/</code> and <code>layouts/</code> folders are). This can be obtained by calling <code>getSubsystemBase()</code>.</li>
@@ -551,6 +553,8 @@
 }
 </code></pre>
 
+<p>As of 4.1, you can specify that the <code>FW1.viewNotFound</code> exception be handled via the <code>missingview</code> action in the configuration, as opposed to the <code>error</code> action.</p>
+
 <h3 id="public-void-function-onpopulateerror-any-cfc-string-property-struct-rc-">public void function onPopulateError( any cfc, string property, struct rc )</h3>
 
 <p>Called when an exception occurs during an attempt to populate the named <code>property</code> of the specified <code>cfc</code> if no keys were specified for <code>populate()</code> and <code>trustKeys</code> was <code>true</code>. This method does nothing, effectively causing the exception to be ignored.</p>
@@ -773,7 +777,7 @@ and instead render <code>data</code> in the specified content <code>type</code> 
 
 
 
-<time class='entry-date' datetime='2016-09-16T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:00 pm</span></time>
+<time class='entry-date' datetime='2016-11-27T16:50:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:50 pm</span></time>
         
       </p>
       
