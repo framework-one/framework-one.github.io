@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Change Log for FW/1 and Friends Nov 27th, 2016 4:40 pm This is documentation for the upcoming 4.1 release. For the current release, see this &hellip;">
+  <meta name="description" content="Change Log for FW/1 and Friends Dec 12th, 2016 8:20 pm This is documentation for the upcoming 4.1 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2016-11-27T16:40:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:40 pm</span></time></p>
+<time class='entry-date' datetime='2016-12-12T20:20:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:20 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.1 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -103,6 +103,7 @@
 <h2 id="bug-fixes">Bug Fixes</h2>
 
 <ul>
+  <li><a href="https://github.com/framework-one/fw1/pull/462">462</a> - Addresses a race condition around resolving transients under heavy load. Thanks to John Whish and jcberquist for chasing this down!</li>
   <li><a href="https://github.com/framework-one/fw1/issues/458">458</a> - If an exception occurs during bean discovery, and an application’s error handling causes any DI/1 method to be invoked, it’s likely that <code>discoverBeans()</code> will be run a second time. Previously, that caused beans to be loaded twice and, if you had <code>omitDirectoryAliases : true</code>, you would get a new exception (that bean names were not unique) which masked the original exception. Now, if an exception occurs during initialization, bean discovery is considered complete, which should allow the original exception to propagate (even if your exception handling then crashes and burns!).</li>
   <li><a href="https://github.com/framework-one/fw1/issues/456">456</a> - <code>onError()</code> now resets <code>setLayout()</code> so that if an error occurs in a subsystem, the error handling is rendered correctly, using only layouts from the error action.</li>
 </ul>
@@ -116,7 +117,7 @@
 
 
 
-<time class='entry-date' datetime='2016-11-27T16:40:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:40 pm</span></time>
+<time class='entry-date' datetime='2016-12-12T20:20:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:20 pm</span></time>
         
       </p>
       
