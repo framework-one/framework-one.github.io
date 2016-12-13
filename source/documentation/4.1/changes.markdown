@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Change Log for FW/1 and Friends"
-date: 2016-11-27 16:40
+date: 2016-12-12 20:20
 comments: false
 sharing: false
 footer: true
@@ -31,5 +31,6 @@ Enhancements
 Bug Fixes
 ---
 
+* [462](https://github.com/framework-one/fw1/pull/462) - Addresses a race condition around resolving transients under heavy load. Thanks to John Whish and jcberquist for chasing this down!
 * [458](https://github.com/framework-one/fw1/issues/458) - If an exception occurs during bean discovery, and an application's error handling causes any DI/1 method to be invoked, it's likely that `discoverBeans()` will be run a second time. Previously, that caused beans to be loaded twice and, if you had `omitDirectoryAliases : true`, you would get a new exception (that bean names were not unique) which masked the original exception. Now, if an exception occurs during initialization, bean discovery is considered complete, which should allow the original exception to propagate (even if your exception handling then crashes and burns!).
 * [456](https://github.com/framework-one/fw1/issues/456) - `onError()` now resets `setLayout()` so that if an error occurs in a subsystem, the error handling is rendered correctly, using only layouts from the error action.
