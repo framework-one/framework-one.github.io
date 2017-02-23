@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using DI/1 Apr 7th, 2016 11:30 am This is documentation for the upcoming 4.0 release. For the current release, see this documentation. DI/1 - a.k.a &hellip;">
+  <meta name="description" content="Using DI/1 Feb 23rd, 2017 1:30 pm This is documentation for the upcoming 4.1 release. For the current release, see this documentation. DI/1 - a.k.a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,10 +74,10 @@
 
 
 
-<time class='entry-date' datetime='2016-04-07T11:30:00-07:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>11:30 am</span></time></p>
+<time class='entry-date' datetime='2017-02-23T13:30:00-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2017</span></span> <span class='time'>1:30 pm</span></time></p>
   </header>
   
-  <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
+  <p><em>This is documentation for the upcoming 4.1 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
 
 <p>DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework.</p>
 
@@ -459,7 +459,7 @@ bf.onLoad( "LoadListener" );
 
 <h2 id="overriding">Overriding</h2>
 
-<p>Customizing the behavior of DI/1 by overriding its methods should probably be considered a “last resort” so before you go down this path, ask on Slack or on the mailing list if there is a way to achieve your goals without doing this. As an example of overridden behavior, the Clojure integration provided by <code>ioclj.cfc</code> could be a useful model for you. That overrides the constructor (to deal with finding Clojure code and modifying the metadata) and <code>getBeanInfo()</code> to provide metadata about Clojure code that is loaded.</p>
+<p>Customizing the behavior of DI/1 by overriding its methods should probably be considered a “last resort” so before you go down this path, ask on Slack or on the mailing list if there is a way to achieve your goals without doing this.</p>
 
 <p>DI/1 provides no specific public extension points but it does provide a few <code>private</code> extension points that are considered documented and supported. These are described in detail near the end of this document and they are primarily intended to allow you to customized how CFC instances are actually constructed, how metadata is obtained, and what to do if DI/1 cannot locate a bean that you have requested.</p>
 
@@ -604,7 +604,7 @@ moduleBeanFactory.setParent( mainBeanFactory );
 
 <p>If you want to override the methods in DI/1, such as <code>logMissingBean()</code>, you can create your own CFC that extends <code>ioc.cfc</code> and overrides the desired methods. Then use your CFC instead of <code>ioc.cfc</code>. If any particular use case becomes common, we can discuss incorporating it into DI/1 as a configuration option.</p>
 
-<p>One possible use case is overriding the constructor to provide your own <code>init()</code> method that does additional configurtion (although using a load listener is probably a better way to do this in general). The Clojure integration provided by <code>ioclj.cfc</code> takes this approach because it needs to do additional setup work, as well as registering its own load listener (in addition to any <code>config.loadListener</code>), so that it can modify the bean metadata at startup, after the (CFC) beans have been discovered by DI/1.</p>
+<p>One possible use case is overriding the constructor to provide your own <code>init()</code> method that does additional configurtion (although using a load listener is probably a better way to do this in general).</p>
 
 <p>The following supported extension points are provided:</p>
 
@@ -631,7 +631,7 @@ moduleBeanFactory.setParent( mainBeanFactory );
 
 
 
-<time class='entry-date' datetime='2016-04-07T11:30:00-07:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>11:30 am</span></time>
+<time class='entry-date' datetime='2017-02-23T13:30:00-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2017</span></span> <span class='time'>1:30 pm</span></time>
         
       </p>
       
@@ -646,8 +646,7 @@ moduleBeanFactory.setParent( mainBeanFactory );
     <section>
     <h1>About FW/1</h1>
     <p>FW/1 - Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.</p>
-    <p>In addition, the family includes cfmljure, an easy way to integrate Clojure code into your CFML application, and a port of FW/1 to Clojure as well as a Leiningen template for creating FW/1 projects in Clojure.</p>
-    <p>For support and assistance, join <a href="http://groups.google.com/group/framework-one/">the FW/1 mailing list</a> and/or the <a href="https://gitter.im/framework-one/fw1">FW/1 room on Gitter</a>. There are also Gitter rooms for <a href="https://gitter.im/framework-one/fw1-clj">FW/1 for/with Clojure</a> and <a href="https://gitter.im/framework-one/architecture">FW/1 (and MVC) architectural discussions</a>. You can sign into Gitter with either your Gitter or Twitter account.</p>
+    <p>For support and assistance, join <a href="http://groups.google.com/group/framework-one/">the FW/1 mailing list</a> and/or the <a href="https://gitter.im/framework-one/fw1">FW/1 room on Gitter</a>. There is also a Gitter room for <a href="https://gitter.im/framework-one/architecture">FW/1 (and MVC) architectural discussions</a>. You can sign into Gitter with either your Gitter or Twitter account.</p>
     <p>The main FW/1 Gitter room is also mirrored to the <a href="https://cfml.slack.com/messages/fw1/">FW/1 channel</a> on the <a href="http://cfml-slack.herokuapp.com/">CFML Slack</a> (that's the link to get an invite to sign up for the Slack).</p>
 </section>
 <section>
@@ -700,7 +699,6 @@ moduleBeanFactory.setParent( mainBeanFactory );
     <a href="/documentation/4.1/using-di-one.html">Using DI/1</a><br />
     <a href="/documentation/4.1/using-subsystems.html">Using Subsystems</a><br />
     <a href="/documentation/4.1/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/4.1/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
     <a href="/documentation/4.1/changes.html">Change Log</a><br />
     <a href="/documentation/4.1/roadmap.html">Roadmap</a><br />
 </section>
@@ -794,7 +792,7 @@ moduleBeanFactory.setParent( mainBeanFactory );
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - Sean Corfield -
+  Copyright &copy; 2017 - Sean Corfield -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

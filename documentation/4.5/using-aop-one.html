@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using AOP/1 Oct 27th, 2015 10:00 am This is documentation for the upcoming 4.0 release. For the current release, see this documentation. AOP/1 is a &hellip;">
+  <meta name="description" content="Using AOP/1 Sep 16th, 2016 8:00 pm This is documentation for the upcoming 4.1 release. For the current release, see this documentation. AOP/1 is a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,10 +74,10 @@
 
 
 
-<time class='entry-date' datetime='2015-10-27T10:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:00 am</span></time></p>
+<time class='entry-date' datetime='2016-09-16T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:00 pm</span></time></p>
   </header>
   
-  <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
+  <p><em>This is documentation for the upcoming 4.1 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
 
 <p>AOP/1 is a simple Aspect Oriented Programming extension for <a href="using-di-one.html">DI/1 (a.k.a Inject One)</a> which allows you to define interceptors for your beans.</p>
 
@@ -291,7 +291,6 @@ This method is automatically added to any interceptor and will attempt translate
 
 <p>All the stacks will only execute if there is an interceptor of their type present.  If the stack is emtpy, nothing is executed.  The <strong>onError</strong> stack only executes if there is an error in the execution of the other stacks.  The <strong>before</strong> and <strong>after</strong> stacks execute like a queue and will execute from start to finish regardless of changes to the arguments or result, skipping any interceptors that do not match the currently intercepted bean method.  The <strong>around</strong> stack executes more like a chain.  The chain execution can be stopped by not calling the <code>proceed()</code> method.</p>
 
-
   
     <footer>
       <p class="meta">
@@ -301,7 +300,7 @@ This method is automatically added to any interceptor and will attempt translate
 
 
 
-<time class='entry-date' datetime='2015-10-27T10:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:00 am</span></time>
+<time class='entry-date' datetime='2016-09-16T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:00 pm</span></time>
         
       </p>
       
@@ -316,8 +315,7 @@ This method is automatically added to any interceptor and will attempt translate
     <section>
     <h1>About FW/1</h1>
     <p>FW/1 - Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.</p>
-    <p>In addition, the family includes cfmljure, an easy way to integrate Clojure code into your CFML application, and a port of FW/1 to Clojure as well as a Leiningen template for creating FW/1 projects in Clojure.</p>
-    <p>For support and assistance, join <a href="http://groups.google.com/group/framework-one/">the FW/1 mailing list</a> and/or the <a href="https://gitter.im/framework-one/fw1">FW/1 room on Gitter</a>. There are also Gitter rooms for <a href="https://gitter.im/framework-one/fw1-clj">FW/1 for/with Clojure</a> and <a href="https://gitter.im/framework-one/architecture">FW/1 (and MVC) architectural discussions</a>. You can sign into Gitter with either your Gitter or Twitter account.</p>
+    <p>For support and assistance, join <a href="http://groups.google.com/group/framework-one/">the FW/1 mailing list</a> and/or the <a href="https://gitter.im/framework-one/fw1">FW/1 room on Gitter</a>. There is also a Gitter room for <a href="https://gitter.im/framework-one/architecture">FW/1 (and MVC) architectural discussions</a>. You can sign into Gitter with either your Gitter or Twitter account.</p>
     <p>The main FW/1 Gitter room is also mirrored to the <a href="https://cfml.slack.com/messages/fw1/">FW/1 channel</a> on the <a href="http://cfml-slack.herokuapp.com/">CFML Slack</a> (that's the link to get an invite to sign up for the Slack).</p>
 </section>
 <section>
@@ -370,7 +368,6 @@ This method is automatically added to any interceptor and will attempt translate
     <a href="/documentation/4.1/using-di-one.html">Using DI/1</a><br />
     <a href="/documentation/4.1/using-subsystems.html">Using Subsystems</a><br />
     <a href="/documentation/4.1/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/4.1/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
     <a href="/documentation/4.1/changes.html">Change Log</a><br />
     <a href="/documentation/4.1/roadmap.html">Roadmap</a><br />
 </section>
@@ -464,7 +461,7 @@ This method is automatically added to any interceptor and will attempt translate
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - Sean Corfield -
+  Copyright &copy; 2017 - Sean Corfield -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

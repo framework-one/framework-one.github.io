@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Change Log for FW/1 and Friends Dec 12th, 2016 8:20 pm This is documentation for the upcoming 4.1 release. For the current release, see this &hellip;">
+  <meta name="description" content="Change Log for FW/1 and Friends Feb 23rd, 2017 1:30 pm This is documentation for the upcoming 4.1 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,12 +74,12 @@
 
 
 
-<time class='entry-date' datetime='2016-12-12T20:20:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:20 pm</span></time></p>
+<time class='entry-date' datetime='2017-02-23T13:30:00-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2017</span></span> <span class='time'>1:30 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.1 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
 
-<p>The following changes are part of FW/1 4.1, DI/1 1.3.0, and cfmljure 1.2.0.</p>
+<p>The following changes are part of FW/1 4.1 and DI/1 1.3.0.</p>
 
 <h2 id="summary">Summary</h2>
 <p>The 4.1 release is intended to be a minor maintenance release over 4.0.</p>
@@ -87,16 +87,14 @@
 <h2 id="breaking-changes">Breaking Changes</h2>
 
 <ul>
-  <li>None so far.</li>
+  <li><a href="https://github.com/framework-one/fw1/issues/466">466</a> - Clojure integration is no longer provided out of the box, so that Lucee 5.x can be officially supported.</li>
 </ul>
 
 <h2 id="enhancements">Enhancements</h2>
 
 <ul>
+  <li><a href="https://github.com/framework-one/fw1/pull/467">467</a> - Session scope handling is now pluggable (but still uses <code>session</code> scope by default).</li>
   <li><a href="https://github.com/framework-one/fw1/issues/460">460</a> - New framework option <code>missingview</code> can specify an action to take on a <code>FW1.viewNotFound</code> exception, rather than the default <code>error</code> action.</li>
-  <li><a href="https://github.com/framework-one/fw1/issues/457">457</a> - In mixed CFML / Clojure applications, dependencies that might break your CFML Servlet container are no longer loaded (e.g., <code>servlet-api</code> JARs). You could often get away with doing this, but sometimes you could get errors and they were often very obscure.</li>
-  <li><a href="https://github.com/framework-one/fw1/issues/455">455</a> - In mixed CFML / Clojure applications, you can now use <code>framework.one</code> (from FW/1 for Clojure) to simplify how you render data, redirect, etc. The <code>cljcontroller.cfc</code> shim now understands both the original data format (where you just did <code>(assoc rc :render {:type :json :data expr})</code>) and the native FW/1 data format (from <code>(fw1/render-json rc expr)</code>). This allows controllers to be shared between mixed CFML / Clojure applications and standalone FW/1 for Clojure applications.</li>
-  <li><a href="https://github.com/framework-one/fw1/issues/454">454</a> - In mixed CFML / Clojure applications, Clojure namespaces that could conflict with CFML beans are suppressed (turn on <code>debug : true</code> to see this in the console log). Previously, such Clojure namespaces could supplant CFML beans and the errors produced would be obscure at best.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/452">452</a> - <code>baseURL</code> with trailing <code>/</code> no longer causes <code>//</code> to appear in URLs (when calling <code>buildURL()</code>).</li>
 </ul>
 
@@ -117,7 +115,7 @@
 
 
 
-<time class='entry-date' datetime='2016-12-12T20:20:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:20 pm</span></time>
+<time class='entry-date' datetime='2017-02-23T13:30:00-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2017</span></span> <span class='time'>1:30 pm</span></time>
         
       </p>
       
@@ -132,8 +130,7 @@
     <section>
     <h1>About FW/1</h1>
     <p>FW/1 - Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.</p>
-    <p>In addition, the family includes cfmljure, an easy way to integrate Clojure code into your CFML application, and a port of FW/1 to Clojure as well as a Leiningen template for creating FW/1 projects in Clojure.</p>
-    <p>For support and assistance, join <a href="http://groups.google.com/group/framework-one/">the FW/1 mailing list</a> and/or the <a href="https://gitter.im/framework-one/fw1">FW/1 room on Gitter</a>. There are also Gitter rooms for <a href="https://gitter.im/framework-one/fw1-clj">FW/1 for/with Clojure</a> and <a href="https://gitter.im/framework-one/architecture">FW/1 (and MVC) architectural discussions</a>. You can sign into Gitter with either your Gitter or Twitter account.</p>
+    <p>For support and assistance, join <a href="http://groups.google.com/group/framework-one/">the FW/1 mailing list</a> and/or the <a href="https://gitter.im/framework-one/fw1">FW/1 room on Gitter</a>. There is also a Gitter room for <a href="https://gitter.im/framework-one/architecture">FW/1 (and MVC) architectural discussions</a>. You can sign into Gitter with either your Gitter or Twitter account.</p>
     <p>The main FW/1 Gitter room is also mirrored to the <a href="https://cfml.slack.com/messages/fw1/">FW/1 channel</a> on the <a href="http://cfml-slack.herokuapp.com/">CFML Slack</a> (that's the link to get an invite to sign up for the Slack).</p>
 </section>
 <section>
@@ -186,7 +183,6 @@
     <a href="/documentation/4.1/using-di-one.html">Using DI/1</a><br />
     <a href="/documentation/4.1/using-subsystems.html">Using Subsystems</a><br />
     <a href="/documentation/4.1/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/4.1/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
     <a href="/documentation/4.1/changes.html">Change Log</a><br />
     <a href="/documentation/4.1/roadmap.html">Roadmap</a><br />
 </section>
@@ -280,7 +276,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - Sean Corfield -
+  Copyright &copy; 2017 - Sean Corfield -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

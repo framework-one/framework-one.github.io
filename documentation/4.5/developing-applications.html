@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Jul 12th, 2016 10:20 am This is documentation for the upcoming 4.0 release. For the current release, see this &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Sep 16th, 2016 8:00 pm This is documentation for the upcoming 4.1 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,10 +74,10 @@
 
 
 
-<time class='entry-date' datetime='2016-07-12T10:20:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>10:20 am</span></time></p>
+<time class='entry-date' datetime='2016-09-16T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:00 pm</span></time></p>
   </header>
   
-  <p><em>This is documentation for the upcoming 4.0 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
+  <p><em>This is documentation for the upcoming 4.1 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
 
 <p>FW/1 is intended to allow you to quickly build applications with the minimum of overhead and interference from the framework itself. The convention-based approach means that you can quickly put together an outline of your site or application merely by creating folders and files in the <code>views</code> folder. As you are ready to start adding business logic to the application, you can add controllers and/or services and domain objects as needed to implement the validation and data processing.</p>
 
@@ -350,6 +350,8 @@ component { // does not extend anything
 <p>FW/1 provides a default <code>onMissingView()</code> method that throws an exception (view not found). This allows you to provide your own handler for when a view is not present for a specific request. Whatever <code>onMissingView()</code> returns is used as the core view and, unless layouts are disabled, it will be wrapped in layouts and then displayed to the user. Make sure you return a string value! Calls to <code>onMissingView()</code> are passed the <code>rc</code> so you can look at <code>rc.action</code> to see which action failed to find a view and <code>request.missingView</code> if you need to know the specific view that was not found (see <a href="reference-manual.html#request-scope">Request Scope</a> in the Reference Manual for more details).</p>
 
 <p>Be aware that <code>onMissingView()</code> will be called if your application throws an exception and you have not provided a view for the default error handler (<code>main.error</code> - if your <code>defaultSection</code> is <code>main</code>). This can lead to exceptions being masked and instead appearing as if you have a missing view!</p>
+
+<p>As of 4.1, there is an alternative way to handle missing views: you can specify an action to take when a view is missing. Much like the default <code>error</code> handler, you can specify <code>missingview</code> in your framework configuration and if the <code>FW1.viewNotFound</code> exception occurs – because no <code>onMissingView()</code> handler exists – then the action specified by <code>missingview</code> will be executed to handle that exception (instead of the default <code>error</code> action).</p>
 
 <h3 id="taking-actions-on-every-request">Taking Actions on Every Request</h3>
 
@@ -802,6 +804,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
     // or: defaultSubsystem &amp; subsystemDelimiter &amp; defaultSection &amp; '.' &amp; defaultItem
     error = 'main.error', // defaultSection &amp; '.error'
     // or: defaultSubsystem &amp; subsystemDelimiter &amp; defaultSection &amp; '.error'
+    // missingview has no default value -- see below
     reload = 'reload',
     password = 'true',
     reloadApplicationOnEveryRequest = false,
@@ -852,6 +855,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
   <li><code>subsystems</code> - An optional struct of structs containing per-subsystem configuration data. Each key in the top-level struct is named for a subsystem. The contents of the nested structs can be anything you want for your subsystems. Retrieved by calling <code>getSubsystemConfig()</code>. Currently the only keys used by FW/1 are <code>baseURL</code> and <code>diConfig</code> which can be used to configure per-subsystem values.</li>
   <li><code>home</code> - The default action when it is not specified in the URL or form post. By default, this is <code>defaultSection</code>.<code>defaultItem</code>. If you specify <code>home</code>, you are overriding (and hiding) <code>defaultSection</code> but not <code>defaultItem</code>. If <code>usingSubsystem</code> is <code>true</code>, the default for <code>home</code> is <code>"home:main.default"</code>, i.e., <code>defaultSubsystem &amp; subsystemDelimiter &amp; defaultSection &amp; '.' &amp; defaultItem</code>.</li>
   <li><code>error</code> - The action to use if an exception occurs. By default this is <code>defaultSection.error</code>.</li>
+  <li><code>missingview</code> - If specified, the action to use if a <code>FW1.viewNotFound</code> exception occurs. This allows you to override the default exception handling for a missing view, as another alternative for handling missing views. <em>New in 4.1.</em></li>
   <li><code>reload</code> - The URL variable used to force FW/1 to reload its application cache and re-execute <code>setupApplication()</code>.</li>
   <li><code>password</code> - The value of the reload URL variable that must be specified, e.g., <code>?reload=true</code> is the default but you could specify <code>reload = 'refresh', password = 'fw1'</code> and then specifying <code>?refresh=fw1</code> would cause a reload.</li>
   <li><code>reloadApplicationOnEveryRequest</code> - If this is set to <code>true</code> then FW/1 behaves as if you specified the <code>reload</code> URL variable on every request, i.e., at the start of each request, the controller/service cache is cleared and <code>setupApplication()</code> is executed.</li>
@@ -1131,7 +1135,7 @@ property framework;   // make your controller framework aware
 
 
 
-<time class='entry-date' datetime='2016-07-12T10:20:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>10:20 am</span></time>
+<time class='entry-date' datetime='2016-09-16T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:00 pm</span></time>
         
       </p>
       
@@ -1146,8 +1150,7 @@ property framework;   // make your controller framework aware
     <section>
     <h1>About FW/1</h1>
     <p>FW/1 - Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.</p>
-    <p>In addition, the family includes cfmljure, an easy way to integrate Clojure code into your CFML application, and a port of FW/1 to Clojure as well as a Leiningen template for creating FW/1 projects in Clojure.</p>
-    <p>For support and assistance, join <a href="http://groups.google.com/group/framework-one/">the FW/1 mailing list</a> and/or the <a href="https://gitter.im/framework-one/fw1">FW/1 room on Gitter</a>. There are also Gitter rooms for <a href="https://gitter.im/framework-one/fw1-clj">FW/1 for/with Clojure</a> and <a href="https://gitter.im/framework-one/architecture">FW/1 (and MVC) architectural discussions</a>. You can sign into Gitter with either your Gitter or Twitter account.</p>
+    <p>For support and assistance, join <a href="http://groups.google.com/group/framework-one/">the FW/1 mailing list</a> and/or the <a href="https://gitter.im/framework-one/fw1">FW/1 room on Gitter</a>. There is also a Gitter room for <a href="https://gitter.im/framework-one/architecture">FW/1 (and MVC) architectural discussions</a>. You can sign into Gitter with either your Gitter or Twitter account.</p>
     <p>The main FW/1 Gitter room is also mirrored to the <a href="https://cfml.slack.com/messages/fw1/">FW/1 channel</a> on the <a href="http://cfml-slack.herokuapp.com/">CFML Slack</a> (that's the link to get an invite to sign up for the Slack).</p>
 </section>
 <section>
@@ -1200,7 +1203,6 @@ property framework;   // make your controller framework aware
     <a href="/documentation/4.1/using-di-one.html">Using DI/1</a><br />
     <a href="/documentation/4.1/using-subsystems.html">Using Subsystems</a><br />
     <a href="/documentation/4.1/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/4.1/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
     <a href="/documentation/4.1/changes.html">Change Log</a><br />
     <a href="/documentation/4.1/roadmap.html">Roadmap</a><br />
 </section>
@@ -1294,7 +1296,7 @@ property framework;   // make your controller framework aware
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - Sean Corfield -
+  Copyright &copy; 2017 - Sean Corfield -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
