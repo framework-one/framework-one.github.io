@@ -1,12 +1,12 @@
 ---
 layout: page
 title: "FW/1 Roadmap"
-date: 2016-01-05 23:00
+date: 2017-02-23 13:30
 comments: false
 sharing: false
 footer: true
 ---
-_This is documentation for the upcoming 4.0 release. For the current release, see [this documentation](/documentation/)._
+_This is documentation for the upcoming 4.1 release. For the current release, see [this documentation](/documentation/)._
 
 Whilst you can read the [FW/1 issues list](https://github.com/framework-one/fw1/issues) to see what's on the cards for future releases, several people have asked that I document things at a higher level so they can get a better sense of what's coming.
 
@@ -16,11 +16,13 @@ FW/1 5.0 will move the request lifecycle methods out of `Application.cfc` into a
 
 4.x REST and Modernization
 ---
-FW/1 4.0 is planned as improving REST support and Dependency Injection, and will be a maintenance release for 3.5. The major version number change indicates that support for ACF9.0.2 will be dropped to allow for the use of closures in the code as this will provide some nicer syntax for some framework features. The core code will be modernized to take advantage of features in ACF10+ and Lucee 4.5+ in this release.
+FW/1 4.0 is the current stable release and focus on improved REST support and Dependency Injection. The major version number change indicates that support for ACF9.0.2 was dropped to allow for the use of closures in the code as this provided some nicer syntax for some framework features. The core code was also modernized a little to take advantage of features in ACF10+ and Lucee 4.5+ in this release.
+
+FW/1 4.1 will be a maintenance release, followed by FW/1 4.5 which will be a migration release for the breaking features of 5.0 (see above). FW/1 4.1 removes direct support for Clojure integration so that Lucee 5.x can be officially supported.
 
 3.x Integrations
 ---
-FW/1 3.5 is the current stable release, coming soon after the 3.1 release. It adds integraton of Clojure controllers and autowired Clojure services. It does this by bundling cfmljure and providing an extension to DI/1, as well as a controller adapter. It also provides direct support for the Lucee language (a new dialect of CFML, introduced in Lucee 5.0), as well as a new, improved way to add subsystems to an existing application. In addition, WireBox is better support as a DI option, and the folder naming conventions can be configured for the first time. It is a major release but also remains compatible with earlier 3.x releases.
+FW/1 3.5 added integraton of Clojure controllers and autowired Clojure services (_this was removed in FW/1 4.1_). It did this by bundling cfmljure and providing an extension to DI/1, as well as a controller adapter. It also provides direct support for the Lucee language (a new dialect of CFML, introduced in Lucee 5.0), as well as a new, improved way to add subsystems to an existing application. In addition, WireBox is better support as a DI option, and the folder naming conventions can be configured for the first time. It is a major release but also remains compatible with earlier 3.x releases.
 
 FW/1 3.1 is the previous stable release, and it was primarily a maintenance release for 3.0, but it also bundled AOP/1 for the first time. It builds on core 3.0 features:
 

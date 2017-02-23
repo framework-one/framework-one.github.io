@@ -1,12 +1,12 @@
 ---
 layout: page
 title: "Using Subsystems in FW/1"
-date: 2015-10-27 10:00
+date: 2016-09-16 20:00
 comments: false
 sharing: false
 footer: true
 ---
-_This is documentation for the upcoming 4.0 release. For the current release, see [this documentation](/documentation/)._
+_This is documentation for the upcoming 4.1 release. For the current release, see [this documentation](/documentation/)._
 
 Subsystems give you a way of modularizing your FW/1 application as it grows. They also provide a way to incorporate other FW/1 applications directly into an existing one. Subsystems can be used to create modules that have no dependencies on the parent application or you can use subsystems to group common functionality together.
 
@@ -107,7 +107,7 @@ Legacy subsystems do not have the `subsystems/` prefix.
 
 Views
 ---
-Subsystem views are located in `subsystems/module/views` (e.g., `subsystems/admin/views/login/default.cfm` and `subsystems/home/views/main/error.cfm`). 
+Subsystem views are located in `subsystems/module/views` (e.g., `subsystems/admin/views/login/default.cfm` and `subsystems/home/views/main/error.cfm`).
 
 Legacy subsystems do not have the `subsystems/` prefix.
 
@@ -128,7 +128,7 @@ In addition to your top-level bean factory, you can have subsystem-specific bean
 
 The following bean factory methods are available for subsystems:
 
-* `setSubsystemBeanFactory( subsystem, beanFactory )` - sets up a subsystem specific bean factory 
+* `setSubsystemBeanFactory( subsystem, beanFactory )` - sets up a subsystem specific bean factory
 * `hasSubsystemBeanFactory( subsystem )` - returns `true` if a subsystem specific bean factory exists for the named subsystem
 * `getBeanFactory()` - returns the bean factory for the current subsystem. Alternately, it can be used to retrieve the bean factory for another subsystem by passing the name of the subsystem (e.g., `getBeanFactory( subsystem )` ).
 * `getDefaultBeanFactory()` - returns the default bean factory that was passed to `setBeanFactory()` (at the top-level)

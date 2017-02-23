@@ -1,12 +1,12 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2016-07-12 10:20
+date: 2016-09-16 20:00
 comments: false
 sharing: false
 footer: true
 ---
-_This is documentation for the upcoming 4.0 release. For the current release, see [this documentation](/documentation/)._
+_This is documentation for the upcoming 4.1 release. For the current release, see [this documentation](/documentation/)._
 
 FW/1 is intended to allow you to quickly build applications with the minimum of overhead and interference from the framework itself. The convention-based approach means that you can quickly put together an outline of your site or application merely by creating folders and files in the `views` folder. As you are ready to start adding business logic to the application, you can add controllers and/or services and domain objects as needed to implement the validation and data processing.
 
@@ -222,6 +222,8 @@ FW/1 supports `onMissingMethod()`, i.e., if a desired method is not present but 
 FW/1 provides a default `onMissingView()` method that throws an exception (view not found). This allows you to provide your own handler for when a view is not present for a specific request. Whatever `onMissingView()` returns is used as the core view and, unless layouts are disabled, it will be wrapped in layouts and then displayed to the user. Make sure you return a string value! Calls to `onMissingView()` are passed the `rc` so you can look at `rc.action` to see which action failed to find a view and `request.missingView` if you need to know the specific view that was not found (see [Request Scope](reference-manual.html#request-scope) in the Reference Manual for more details).
 
 Be aware that `onMissingView()` will be called if your application throws an exception and you have not provided a view for the default error handler (`main.error` - if your `defaultSection` is `main`). This can lead to exceptions being masked and instead appearing as if you have a missing view!
+
+As of 4.1, there is an alternative way to handle missing views: you can specify an action to take when a view is missing. Much like the default `error` handler, you can specify `missingview` in your framework configuration and if the `FW1.viewNotFound` exception occurs -- because no `onMissingView()` handler exists -- then the action specified by `missingview` will be executed to handle that exception (instead of the default `error` action).
 
 ### Taking Actions on Every Request
 
@@ -638,6 +640,7 @@ All of the configuration for FW/1 is done through a simple structure in `Applica
         // or: defaultSubsystem & subsystemDelimiter & defaultSection & '.' & defaultItem
         error = 'main.error', // defaultSection & '.error'
         // or: defaultSubsystem & subsystemDelimiter & defaultSection & '.error'
+        // missingview has no default value -- see below
         reload = 'reload',
         password = 'true',
         reloadApplicationOnEveryRequest = false,
@@ -686,6 +689,7 @@ The keys in the structure have the following meanings:
 * `subsystems` - An optional struct of structs containing per-subsystem configuration data. Each key in the top-level struct is named for a subsystem. The contents of the nested structs can be anything you want for your subsystems. Retrieved by calling `getSubsystemConfig()`. Currently the only keys used by FW/1 are `baseURL` and `diConfig` which can be used to configure per-subsystem values.
 * `home` - The default action when it is not specified in the URL or form post. By default, this is `defaultSection`.`defaultItem`. If you specify `home`, you are overriding (and hiding) `defaultSection` but not `defaultItem`. If `usingSubsystem` is `true`, the default for `home` is `"home:main.default"`, i.e., `defaultSubsystem & subsystemDelimiter & defaultSection & '.' & defaultItem`.
 * `error` - The action to use if an exception occurs. By default this is `defaultSection.error`.
+* `missingview` - If specified, the action to use if a `FW1.viewNotFound` exception occurs. This allows you to override the default exception handling for a missing view, as another alternative for handling missing views. _New in 4.1._
 * `reload` - The URL variable used to force FW/1 to reload its application cache and re-execute `setupApplication()`.
 * `password` - The value of the reload URL variable that must be specified, e.g., `?reload=true` is the default but you could specify `reload = 'refresh', password = 'fw1'` and then specifying `?refresh=fw1` would cause a reload.
 * `reloadApplicationOnEveryRequest` - If this is set to `true` then FW/1 behaves as if you specified the `reload` URL variable on every request, i.e., at the start of each request, the controller/service cache is cleared and `setupApplication()` is executed.

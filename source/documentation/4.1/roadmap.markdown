@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Roadmap"
-date: 2016-09-16 20:00
+date: 2017-02-23 13:30
 comments: false
 sharing: false
 footer: true
@@ -18,11 +18,11 @@ FW/1 5.0 will move the request lifecycle methods out of `Application.cfc` into a
 ---
 FW/1 4.0 is the current stable release and focus on improved REST support and Dependency Injection. The major version number change indicates that support for ACF9.0.2 was dropped to allow for the use of closures in the code as this provided some nicer syntax for some framework features. The core code was also modernized a little to take advantage of features in ACF10+ and Lucee 4.5+ in this release.
 
-FW/1 4.1 will be a maintenance release, followed by FW/1 4.5 which will be a migration release for the breaking features of 5.0 (see above).
+FW/1 4.1 will be a maintenance release, followed by FW/1 4.5 which will be a migration release for the breaking features of 5.0 (see above). FW/1 4.1 removes direct support for Clojure integration so that Lucee 5.x can be officially supported.
 
 3.x Integrations
 ---
-FW/1 3.5 added integraton of Clojure controllers and autowired Clojure services. It does this by bundling cfmljure and providing an extension to DI/1, as well as a controller adapter. It also provides direct support for the Lucee language (a new dialect of CFML, introduced in Lucee 5.0), as well as a new, improved way to add subsystems to an existing application. In addition, WireBox is better support as a DI option, and the folder naming conventions can be configured for the first time. It is a major release but also remains compatible with earlier 3.x releases.
+FW/1 3.5 added integraton of Clojure controllers and autowired Clojure services (_this was removed in FW/1 4.1_). It did this by bundling cfmljure and providing an extension to DI/1, as well as a controller adapter. It also provides direct support for the Lucee language (a new dialect of CFML, introduced in Lucee 5.0), as well as a new, improved way to add subsystems to an existing application. In addition, WireBox is better support as a DI option, and the folder naming conventions can be configured for the first time. It is a major release but also remains compatible with earlier 3.x releases.
 
 FW/1 3.1 is the previous stable release, and it was primarily a maintenance release for 3.0, but it also bundled AOP/1 for the first time. It builds on core 3.0 features:
 
