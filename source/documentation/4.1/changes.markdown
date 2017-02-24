@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Change Log for FW/1 and Friends"
-date: 2017-02-23 13:30
+date: 2017-02-23 18:30
 comments: false
 sharing: false
 footer: true
@@ -23,6 +23,7 @@ Enhancements
 ---
 
 * [467](https://github.com/framework-one/fw1/pull/467) - Session scope handling is now pluggable (but still uses `session` scope by default).
+* [465](https://github.com/framework-one/fw1/issues/465) - The tests have been switched from MXUnit to TestBox and the CI system has been switched from Ant (and explicitly download CFML engines) to CommandBox. The test matrix now includes: Adobe ColdFusion 10, 11, 2016; Lucee 4.5, 5 (current 5.1).
 * [460](https://github.com/framework-one/fw1/issues/460) - New framework option `missingview` can specify an action to take on a `FW1.viewNotFound` exception, rather than the default `error` action.
 * [452](https://github.com/framework-one/fw1/issues/452) - `baseURL` with trailing `/` no longer causes `//` to appear in URLs (when calling `buildURL()`).
 
