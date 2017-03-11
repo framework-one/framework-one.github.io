@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Change Log for FW/1 and Friends Feb 23rd, 2017 6:30 pm This is documentation for the upcoming 4.1 release. For the current release, see this &hellip;">
+  <meta name="description" content="Change Log for FW/1 and Friends Mar 10th, 2017 5:05 pm This is documentation for the upcoming 4.1 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2017-02-23T18:30:00-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2017</span></span> <span class='time'>6:30 pm</span></time></p>
+<time class='entry-date' datetime='2017-03-10T17:05:00-08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>5:05 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.1 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -97,14 +97,17 @@
   <li><a href="https://github.com/framework-one/fw1/issues/465">465</a> - The tests have been switched from MXUnit to TestBox and the CI system has been switched from Ant (and explicitly download CFML engines) to CommandBox. The test matrix now includes: Adobe ColdFusion 10, 11, 2016; Lucee 4.5, 5 (current 5.1).</li>
   <li><a href="https://github.com/framework-one/fw1/issues/460">460</a> - New framework option <code>missingview</code> can specify an action to take on a <code>FW1.viewNotFound</code> exception, rather than the default <code>error</code> action.</li>
   <li><a href="https://github.com/framework-one/fw1/issues/452">452</a> - <code>baseURL</code> with trailing <code>/</code> no longer causes <code>//</code> to appear in URLs (when calling <code>buildURL()</code>).</li>
+  <li><a href="https://github.com/framework-one/fw1/issues/424">424</a> - To partially support the desire to unload bean factory data when FW/1 is reloaded, there is a new extension point <code>onReload()</code>.</li>
 </ul>
 
 <h2 id="bug-fixes">Bug Fixes</h2>
 
 <ul>
+  <li><a href="https://github.com/framework-one/fw1/issues/463">463</a> - A potential XSS vulnerability in the default exception reporting function has been addressed.</li>
   <li><a href="https://github.com/framework-one/fw1/pull/462">462</a> - Addresses a race condition around resolving transients under heavy load. Thanks to John Whish and jcberquist for chasing this down!</li>
   <li><a href="https://github.com/framework-one/fw1/issues/458">458</a> - If an exception occurs during bean discovery, and an application’s error handling causes any DI/1 method to be invoked, it’s likely that <code>discoverBeans()</code> will be run a second time. Previously, that caused beans to be loaded twice and, if you had <code>omitDirectoryAliases : true</code>, you would get a new exception (that bean names were not unique) which masked the original exception. Now, if an exception occurs during initialization, bean discovery is considered complete, which should allow the original exception to propagate (even if your exception handling then crashes and burns!).</li>
   <li><a href="https://github.com/framework-one/fw1/issues/456">456</a> - <code>onError()</code> now resets <code>setLayout()</code> so that if an error occurs in a subsystem, the error handling is rendered correctly, using only layouts from the error action.</li>
+  <li><a href="https://github.com/framework-one/fw1/issues/383">383</a> - <code>redirect()</code> now accepts a <code>struct</code> for the <code>queryString</code> argument: this was introduced in version 3.5 but never actually worked until now!</li>
 </ul>
 
   
@@ -116,7 +119,7 @@
 
 
 
-<time class='entry-date' datetime='2017-02-23T18:30:00-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2017</span></span> <span class='time'>6:30 pm</span></time>
+<time class='entry-date' datetime='2017-03-10T17:05:00-08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>5:05 pm</span></time>
         
       </p>
       

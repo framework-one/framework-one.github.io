@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Nov 27th, 2016 4:50 pm This is documentation for the upcoming 4.1 release. For the current release, see this documentation. &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Mar 10th, 2017 5:15 pm This is documentation for the upcoming 4.1 release. For the current release, see this documentation. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2016-11-27T16:50:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:50 pm</span></time></p>
+<time class='entry-date' datetime='2017-03-10T17:15:00-08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>5:15 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.1 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -134,6 +134,7 @@
       <li><a href="#public-function-onerror-any-exception-string-event-" id="markdown-toc-public-function-onerror-any-exception-string-event-">public function onError( any exception, string event )</a></li>
       <li><a href="#public-string-function-onmissingview-struct-rc-" id="markdown-toc-public-string-function-onmissingview-struct-rc-">public string function onMissingView( struct rc )</a></li>
       <li><a href="#public-void-function-onpopulateerror-any-cfc-string-property-struct-rc-" id="markdown-toc-public-void-function-onpopulateerror-any-cfc-string-property-struct-rc-">public void function onPopulateError( any cfc, string property, struct rc )</a></li>
+      <li><a href="#public-void-function-onreload" id="markdown-toc-public-void-function-onreload">public void function onReload()</a></li>
       <li><a href="#public-function-onrequest-string-targetpage-" id="markdown-toc-public-function-onrequest-string-targetpage-">public function onRequest( string targetPage )</a></li>
       <li><a href="#public-function-onrequestend-string-targetpage-" id="markdown-toc-public-function-onrequestend-string-targetpage-">public function onRequestEnd( string targetPage )</a></li>
       <li><a href="#public-function-onrequeststart-string-targetpage-" id="markdown-toc-public-function-onrequeststart-string-targetpage-">public function onRequestStart( string targetPage )</a></li>
@@ -348,7 +349,7 @@
 
 <p>Call this from your <code>Application.cfc</code> methods to add to the queue of controllers that will be called by the framework. The <code>action</code> is used to identify the controller that should be called, e.g., <code>"app1:section.item"</code>, <code>"section.item"</code> or <code>"section"</code> (which will call the default item with that section).</p>
 
-<p>A typical example is to trigger a security controller method invoked from setupRequest()`, e.g.,</p>
+<p>A typical example is to trigger a security controller method invoked from <code>setupRequest()</code>, e.g.,</p>
 
 <pre><code>function setupRequest() {
     controller( 'security.checkAuthorization' );
@@ -560,6 +561,10 @@
 <p>Called when an exception occurs during an attempt to populate the named <code>property</code> of the specified <code>cfc</code> if no keys were specified for <code>populate()</code> and <code>trustKeys</code> was <code>true</code>. This method does nothing, effectively causing the exception to be ignored.</p>
 
 <p>If you intend to call <code>populate()</code> with no keys specified and you tell it to trust what it finds in the request context, you may wish to override <code>onPopulateError()</code> and do something like log such failed attempts. See <code>populate()</code> below.</p>
+
+<h3 id="public-void-function-onreload">public void function onReload()</h3>
+
+<p>An extension point so that you can perform operations that may be necessary when FW/1 is about to reload itself. This was originally added so that any resources allocated by beans created by the bean factory could be deallocated prior to the bean factory being recreated.</p>
 
 <h3 id="public-function-onrequest-string-targetpage-">public function onRequest( string targetPage )</h3>
 
@@ -777,7 +782,7 @@ and instead render <code>data</code> in the specified content <code>type</code> 
 
 
 
-<time class='entry-date' datetime='2016-11-27T16:50:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:50 pm</span></time>
+<time class='entry-date' datetime='2017-03-10T17:15:00-08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>5:15 pm</span></time>
         
       </p>
       
