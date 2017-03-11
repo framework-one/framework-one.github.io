@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2016-11-27 16:50
+date: 2017-03-10 17:15
 comments: false
 sharing: false
 footer: true
@@ -174,7 +174,7 @@ Will generate:
 
 Call this from your `Application.cfc` methods to add to the queue of controllers that will be called by the framework. The `action` is used to identify the controller that should be called, e.g., `"app1:section.item"`, `"section.item"` or `"section"` (which will call the default item with that section).
 
-A typical example is to trigger a security controller method invoked from setupRequest()`, e.g.,
+A typical example is to trigger a security controller method invoked from `setupRequest()`, e.g.,
 
     function setupRequest() {
         controller( 'security.checkAuthorization' );
@@ -381,6 +381,10 @@ As of 4.1, you can specify that the `FW1.viewNotFound` exception be handled via 
 Called when an exception occurs during an attempt to populate the named `property` of the specified `cfc` if no keys were specified for `populate()` and `trustKeys` was `true`. This method does nothing, effectively causing the exception to be ignored.
 
 If you intend to call `populate()` with no keys specified and you tell it to trust what it finds in the request context, you may wish to override `onPopulateError()` and do something like log such failed attempts. See `populate()` below.
+
+### public void function onReload()
+
+An extension point so that you can perform operations that may be necessary when FW/1 is about to reload itself. This was originally added so that any resources allocated by beans created by the bean factory could be deallocated prior to the bean factory being recreated.
 
 ### public function onRequest( string targetPage )
 
