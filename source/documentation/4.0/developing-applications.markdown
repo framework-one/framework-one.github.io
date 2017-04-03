@@ -866,7 +866,7 @@ The easiest way to setup `request` variables (or even global variables scope) is
 
 Using Subsystems
 ===
-The subsystems feature allows you to modularize your FW/1 application as it grows, by breaking it down into a series of "mini FW/1 applications". It can also allow you to combine  other FW/1 applications as modules into your application. The subsystems feature was originally contributed by Ryan Cogswell and has been overhauled as part of reelase 3.5, based on ideas by Steve Neiland. The original documentation was written by Dutch Rapley. Read about [Using Subsystems](using-subsystems.html) to modularize or combine FW/1 applications.
+The subsystems feature allows you to modularize your FW/1 application as it grows, by breaking it down into a series of "mini FW/1 applications". It can also allow you to combine  other FW/1 applications as modules into your application. The subsystems feature was originally contributed by Ryan Cogswell and has been overhauled as part of release 3.5, based on ideas by Steve Neiland. The original documentation was written by Dutch Rapley. Read about [Using Subsystems](using-subsystems.html) to modularize or combine FW/1 applications.
 
 Accessing the FW/1 API
 ===
