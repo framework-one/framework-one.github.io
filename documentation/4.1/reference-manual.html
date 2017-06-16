@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Mar 10th, 2017 5:15 pm This is documentation for the upcoming 4.1 release. For the current release, see this documentation. &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Jun 16th, 2017 10:35 am This is documentation for the upcoming 4.1 release. For the current release, see this documentation. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2017-03-10T17:15:00-08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>5:15 pm</span></time></p>
+<time class='entry-date' datetime='2017-06-16T10:35:00-07:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>10:35 am</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.1 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -148,6 +148,12 @@
       <li><a href="#public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---" id="markdown-toc-public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---">public void function redirectCustomURL( string uri, string preserve = ‘none’, string statusCode = ‘302’, string header = ‘’ )</a></li>
       <li><a href="#public-any-function-renderdata" id="markdown-toc-public-any-function-renderdata">public any function renderData()</a></li>
       <li><a href="#public-any-function-renderer" id="markdown-toc-public-any-function-renderer">public any function renderer()</a></li>
+      <li><a href="#public-void-function-sessiondefault-string-keyname-string-defaultvalue-" id="markdown-toc-public-void-function-sessiondefault-string-keyname-string-defaultvalue-">public void function sessionDefault( string keyname, string defaultValue )</a></li>
+      <li><a href="#public-void-function-sessiondelete-string-keyname-" id="markdown-toc-public-void-function-sessiondelete-string-keyname-">public void function sessionDelete( string keyname )</a></li>
+      <li><a href="#public-boolean-function-sessionhas-string-keyname-" id="markdown-toc-public-boolean-function-sessionhas-string-keyname-">public boolean function sessionHas( string keyname )</a></li>
+      <li><a href="#public-void-function-sessionlock-required-function-callback-" id="markdown-toc-public-void-function-sessionlock-required-function-callback-">public void function sessionLock( required function callback )</a></li>
+      <li><a href="#public-any-function-sessionread-string-keyname-" id="markdown-toc-public-any-function-sessionread-string-keyname-">public any function sessionRead( string keyname )</a></li>
+      <li><a href="#public-void-function-sessionwrite-string-keyname-any-keyvalue-" id="markdown-toc-public-void-function-sessionwrite-string-keyname-any-keyvalue-">public void function sessionWrite( string keyname, any keyvalue )</a></li>
       <li><a href="#public-void-function-setbeanfactory-any-factory-" id="markdown-toc-public-void-function-setbeanfactory-any-factory-">public void function setBeanFactory( any factory )</a></li>
       <li><a href="#public-void-function-setlayout-string-action-boolean-suppressotherlayouts--false-" id="markdown-toc-public-void-function-setlayout-string-action-boolean-suppressotherlayouts--false-">public void function setLayout( string action, boolean suppressOtherLayouts = false )</a></li>
       <li><a href="#public-void-function-setsubsystembeanfactory-string-subsystem-any-factory-" id="markdown-toc-public-void-function-setsubsystembeanfactory-string-subsystem-any-factory-">public void function setSubsystemBeanFactory( string subsystem, any factory )</a></li>
@@ -701,6 +707,30 @@ and instead render <code>data</code> in the specified content <code>type</code> 
 
 <p>This returns the same “builder” expression that <code>renderData()</code> returns so that you can add settings and headers piecemeal in your controllers. <em>New in 4.0.</em></p>
 
+<h3 id="public-void-function-sessiondefault-string-keyname-string-defaultvalue-">public void function sessionDefault( string keyname, string defaultValue )</h3>
+
+<p>Extension point that is used to set a default value for a session variable. Use <code>sessionWrite()</code> to set a non-string value. <em>New in 4.1.</em></p>
+
+<h3 id="public-void-function-sessiondelete-string-keyname-">public void function sessionDelete( string keyname )</h3>
+
+<p>Extension point that is used to delete a session variable. <em>New in 4.1.</em></p>
+
+<h3 id="public-boolean-function-sessionhas-string-keyname-">public boolean function sessionHas( string keyname )</h3>
+
+<p>Extension point that is used to check whether a session variable exists. <em>New in 4.1.</em></p>
+
+<h3 id="public-void-function-sessionlock-required-function-callback-">public void function sessionLock( required function callback )</h3>
+
+<p>Extension point that is used execute code inside a “session lock” (however that works for your pluggable session handling). <em>New in 4.1.</em></p>
+
+<h3 id="public-any-function-sessionread-string-keyname-">public any function sessionRead( string keyname )</h3>
+
+<p>Extension point that is used to read a session variable. <em>New in 4.1.</em></p>
+
+<h3 id="public-void-function-sessionwrite-string-keyname-any-keyvalue-">public void function sessionWrite( string keyname, any keyvalue )</h3>
+
+<p>Extension point that is used to write to a session variable. <em>New in 4.1.</em></p>
+
 <h3 id="public-void-function-setbeanfactory-any-factory-">public void function setBeanFactory( any factory )</h3>
 
 <p>If you are manually creating a bean factory, call this from your <code>setupApplication()</code> method to tell the framework about your primary (default) bean factory. By default FW/1 will use DI/1 as the bean factory and you won’t have to worry about this.</p>
@@ -782,7 +812,7 @@ and instead render <code>data</code> in the specified content <code>type</code> 
 
 
 
-<time class='entry-date' datetime='2017-03-10T17:15:00-08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>5:15 pm</span></time>
+<time class='entry-date' datetime='2017-06-16T10:35:00-07:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>10:35 am</span></time>
         
       </p>
       
@@ -858,6 +888,10 @@ and instead render <code>data</code> in the specified content <code>type</code> 
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/06/16/fw1-4-1-0-rc1/">FW/1 4.1.0 Release Candidate Available</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/09/16/fw1-4-0-0-released/">FW/1 4.0.0 Released!</a>
       </li>
     
@@ -891,10 +925,6 @@ and instead render <code>data</code> in the specified content <code>type</code> 
     
       <li class="post">
         <a href="/blog/2015/09/22/fw1-3-5-0-rc-1/">FW/1 3.5.0 Release Candidate 1 Available!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/09/10/fw1-3-5-0-beta-1/">FW/1 3.5.0 Beta 1 Available!</a>
       </li>
     
   </ul>
