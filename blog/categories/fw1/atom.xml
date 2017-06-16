@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Fw1 | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/fw1/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2017-06-16T11:09:27-07:00</updated>
+  <updated>2017-06-16T11:10:49-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -20,7 +20,7 @@
     <id>http://framework-one.github.io/blog/2017/06/16/fw1-4-1-0-rc1</id>
     <content type="html"><![CDATA[<p>The first <a href="https://github.com/framework-one/fw1/releases/tag/v4.1.0-rc1">Release Candidate of FW/1 4.1.0</a> is available for testing.</p>
 
-<p>This is a maintenance release for FW/1 4.0.0 that includes a number of bug fixes and some minor enhancements. The most important bug fix addresses a race condition that could cause transient beans to be partially resolved, leading to dependencies not being available under heavy load conditions. My thanks to <a href="https://github.com/aliaspooryorik">John Whish</a> and <a href="https://github.com/jcberquist">J Berquist</a> for their work in tracking that down and providing a patch to address it!</p>
+<p>This is a maintenance release for FW/1 4.0.0 that includes a number of bug fixes and some minor enhancements. The most important bug fix addresses a race condition that could cause transient beans to be partially resolved, leading to dependencies not being available under heavy load conditions. My thanks to <a href="https://github.com/aliaspooryorik">John Whish</a> and <a href="https://github.com/jcberquist">John Berquist</a> for their work in tracking that down and providing a patch to address it!</p>
 
 <p>Other bug fixes mostly focus on error handling.</p>
 
