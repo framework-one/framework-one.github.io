@@ -909,7 +909,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 
 <p>Routes can also specify a redirect instead of a substitute URL by prefixing the URL with an HTTP status code and a colon, for example <code>{ "/thankyou" = "302:/main/thankyou" }</code> specifies a match for <code>/thankyou</code> which will cause a redirect to <code>/main/thankyou</code>.</p>
 
-<p>A route of <code>"*"</code> is a wildcard that will match any request and therefore must be the last route in the array. A wildcard route may be restricted to a specific method, e.g., <code>"$POST*"</code> will match a <code>POST</code> to any URL.</p>
+<p>A route of <code>"*"</code> is a wildcard that will match any request and therefore must be the last route in the array. A wildcard route may be restricted to a specific method, e.g., <code>"$POST*"</code> will match a <code>POST</code> to any URL. Note that URLs are normalized to end in <code>/</code> and routes are turned into regular expressions (in particular, the <code>"*"</code> is treated as <code>"^.*$"</code>). That means that a route of <code>"/$"</code> will match all URLs, since they will all end in <code>/</code>. If you want a total match, you need both start and end anchors: <code>"^/$"</code>.</p>
 
 <p>Route matches are case-sensitive unless you set <code>routesCaseSensitive</code> to <code>false</code> in the FW/1 configuration.</p>
 
@@ -923,6 +923,8 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
 { "$DELETE/dogs/:id/$" = "/dogs/destroy/id/:id" },
 { "$*/dogs/$" = "/dogs/error" }
 </code></pre>
+
+<p>Remember the caveat above that these will match URLs that <em>end</em> in these strings. See below for a <code>pathRoot</code> option that can be used to provide a prefix for all routes.</p>
 
 <p>There are also some additional resource route settings that can be specified. First you should note that the following three lines are equivalent:</p>
 

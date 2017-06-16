@@ -93,6 +93,7 @@
 <h2 id="enhancements">Enhancements</h2>
 
 <ul>
+  <li><a href="https://github.com/framework-one/fw1/issues/472">472</a> - Since Adobe ColdFusion 9 is no longer supported, dynamic method invocations are done via <code>invoke()</code> rather than <code>evaluate()</code> (and so they might be slightly faster).</li>
   <li><a href="https://github.com/framework-one/fw1/pull/467">467</a> - Session scope handling is now pluggable (but still uses <code>session</code> scope by default).</li>
   <li><a href="https://github.com/framework-one/fw1/issues/465">465</a> - The tests have been switched from MXUnit to TestBox and the CI system has been switched from Ant (and explicitly download CFML engines) to CommandBox. The test matrix now includes: Adobe ColdFusion 10, 11, 2016; Lucee 4.5, 5 (current 5.1).</li>
   <li><a href="https://github.com/framework-one/fw1/issues/460">460</a> - New framework option <code>missingview</code> can specify an action to take on a <code>FW1.viewNotFound</code> exception, rather than the default <code>error</code> action.</li>
