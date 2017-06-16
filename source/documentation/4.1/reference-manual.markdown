@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2017-03-10 17:15
+date: 2017-06-16 10:35
 comments: false
 sharing: false
 footer: true
@@ -508,6 +508,30 @@ Although this form is deprecated, FW/1 will only issue a deprecation warning (wr
 ### public any function renderer()
 
 This returns the same "builder" expression that `renderData()` returns so that you can add settings and headers piecemeal in your controllers. _New in 4.0._
+
+### public void function sessionDefault( string keyname, string defaultValue )
+
+Extension point that is used to set a default value for a session variable. Use `sessionWrite()` to set a non-string value. _New in 4.1._
+
+### public void function sessionDelete( string keyname )
+
+Extension point that is used to delete a session variable. _New in 4.1._
+
+### public boolean function sessionHas( string keyname )
+
+Extension point that is used to check whether a session variable exists. _New in 4.1._
+
+### public void function sessionLock( required function callback )
+
+Extension point that is used execute code inside a "session lock" (however that works for your pluggable session handling). _New in 4.1._
+
+### public any function sessionRead( string keyname )
+
+Extension point that is used to read a session variable. _New in 4.1._
+
+### public void function sessionWrite( string keyname, any keyvalue )
+
+Extension point that is used to write to a session variable. _New in 4.1._
 
 ### public void function setBeanFactory( any factory )
 
