@@ -741,7 +741,7 @@ Routes can also be restricted to specific HTTP methods by prefixing them with `$
 
 Routes can also specify a redirect instead of a substitute URL by prefixing the URL with an HTTP status code and a colon, for example `{ "/thankyou" = "302:/main/thankyou" }` specifies a match for `/thankyou` which will cause a redirect to `/main/thankyou`.
 
-A route of `"*"` is a wildcard that will match any request and therefore must be the last route in the array. A wildcard route may be restricted to a specific method, e.g., `"$POST*"` will match a `POST` to any URL.
+A route of `"*"` is a wildcard that will match any request and therefore must be the last route in the array. A wildcard route may be restricted to a specific method, e.g., `"$POST*"` will match a `POST` to any URL. Note that URLs are normalized to end in `/` and routes are turned into regular expressions (in particular, the `"*"` is treated as `"^.*$"`). That means that a route of `"/$"` will match all URLs, since they will all end in `/`. If you want a total match, you need both start and end anchors: `"^/$"`.
 
 Route matches are case-sensitive unless you set `routesCaseSensitive` to `false` in the FW/1 configuration.
 
@@ -754,6 +754,8 @@ The keyword `"$RESOURCES"` can be used as a shorthand way of specifying resource
     { "$PATCH/dogs/:id/$" = "/dogs/update/id/:id", "$PUT/dogs/:id/$" = "/dogs/update/id/:id" },
     { "$DELETE/dogs/:id/$" = "/dogs/destroy/id/:id" },
     { "$*/dogs/$" = "/dogs/error" }
+
+Remember the caveat above that these will match URLs that _end_ in these strings. See below for a `pathRoot` option that can be used to provide a prefix for all routes.
 
 There are also some additional resource route settings that can be specified. First you should note that the following three lines are equivalent:
 
