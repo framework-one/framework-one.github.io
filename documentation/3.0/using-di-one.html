@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Using DI/1 Sep 5th, 2015 7:30 pm DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework. DI/1 searches specified &hellip;">
+  <meta name="description" content="Using DI/1 Jul 1st, 2017 6:20 pm DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework. DI/1 searches specified &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2015-09-05T19:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>7:30 pm</span></time></p>
+<time class='entry-date' datetime='2017-07-01T18:20:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2017</span></span> <span class='time'>6:20 pm</span></time></p>
   </header>
   
   <p>DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework.</p>
@@ -109,7 +109,7 @@ var beanFactory = new ioc("/model,/common/model");
 
 <p>If DI/1 cannot find a matching bean for a constructor argument, it will throw an exception. If DI/1 cannot find a matching bean for a setter method or property, it will log the failure and ignore it (by default), and the corresponding variable will not be populated. You can configure DI/1 to be strict about matching bean names - see the configuration section below - in which case it will throw an exception.</p>
 
-<p>Note that DI/1 will only inject singletons via setters or properties. Injecting transients in those situations often leads to unexpected results (consider a transient <code>invoice</code> bean that has a <code>setCustomer()</code> method when you also have a transient <code>customer</code> bean - you almost certainly don’t want DI/1 to automatically create a customer instance and inject it every time you ask DI/1 for a new invoice bean!). If a constructor argument matches a transient bean, DI/1 will still create an instance since it has to finish constructing the original bean.</p>
+<p>Note that DI/1 will inject both singletons and transients via constructors, but it will inject only singletons via setters or properties, not transients. Injecting transients in those situations often leads to unexpected results (consider a transient <code>invoice</code> bean that has a <code>setCustomer()</code> method when you also have a transient <code>customer</code> bean - you almost certainly don’t want DI/1 to automatically create a customer instance and inject it every time you ask DI/1 for a new invoice bean!). If a constructor argument matches a transient bean, DI/1 will still create an instance since it has to finish constructing the original bean.</p>
 
 <h2 id="acceptable-folder-paths">Acceptable Folder Paths</h2>
 
@@ -307,7 +307,7 @@ private any function metadata( string dottedPath )
 
 
 
-<time class='entry-date' datetime='2015-09-05T19:30:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>7:30 pm</span></time>
+<time class='entry-date' datetime='2017-07-01T18:20:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2017</span></span> <span class='time'>6:20 pm</span></time>
         
       </p>
       
