@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Sep 16th, 2016 8:00 pm This page provides a description of all the APIs and components involved in a FW/1 application. Please &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Jul 1st, 2017 6:50 pm This page provides a description of all the APIs and components involved in a FW/1 application. Please &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2016-09-16T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:00 pm</span></time></p>
+<time class='entry-date' datetime='2017-07-01T18:50:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2017</span></span> <span class='time'>6:50 pm</span></time></p>
   </header>
   
   <p>This page provides a description of all the APIs and components involved in a FW/1 application. Please also read the <a href="roadmap.html">Roadmap</a> to see how things may change in the future.</p>
@@ -92,6 +92,7 @@
       <li><a href="#public-string-function-buildurl-string-action---string-path--see-below-any-querystring---" id="markdown-toc-public-string-function-buildurl-string-action---string-path--see-below-any-querystring---">public string function buildURL( string action = ‘.’, string path = <em>see below</em>, any queryString = ‘’ )</a></li>
       <li><a href="#public-void-function-controller-string-action-" id="markdown-toc-public-void-function-controller-string-action-">public void function controller( string action )</a></li>
       <li><a href="#public-string-function-customizevieworlayoutpath-struct-pathinfo-string-type-string-fullpath-" id="markdown-toc-public-string-function-customizevieworlayoutpath-struct-pathinfo-string-type-string-fullpath-">public string function customizeViewOrLayoutPath( struct pathInfo, string type, string fullPath )</a></li>
+      <li><a href="#public-any-function-customtemplateengine-string-type-string-path-struct-scope-" id="markdown-toc-public-any-function-customtemplateengine-string-type-string-path-struct-scope-">public any function customTemplateEngine( string type, string path, struct scope )</a></li>
       <li><a href="#public-void-function-disableframeworktrace" id="markdown-toc-public-void-function-disableframeworktrace">public void function disableFrameworkTrace()</a></li>
       <li><a href="#public-void-function-disablelayout" id="markdown-toc-public-void-function-disablelayout">public void function disableLayout()</a></li>
       <li><a href="#public-void-function-enableframeworktrace" id="markdown-toc-public-void-function-enableframeworktrace">public void function enableFrameworkTrace()</a></li>
@@ -128,10 +129,12 @@
       <li><a href="#public-boolean-function-isframeworkreloadrequest" id="markdown-toc-public-boolean-function-isframeworkreloadrequest">public boolean function isFrameworkReloadRequest()</a></li>
       <li><a href="#public-boolean-function-isunhandledrequest-string-targetpath-" id="markdown-toc-public-boolean-function-isunhandledrequest-string-targetpath-">public boolean function isUnhandledRequest( string targetPath )</a></li>
       <li><a href="#public-string-function-layout-string-path-string-body-" id="markdown-toc-public-string-function-layout-string-path-string-body-">public string function layout( string path, string body )</a></li>
+      <li><a href="#public-struct-function-makemethodproxies-array-methodnames-" id="markdown-toc-public-struct-function-makemethodproxies-array-methodnames-">public struct function makeMethodProxies( array methodNames )</a></li>
       <li><a href="#public-function-onapplicationstart" id="markdown-toc-public-function-onapplicationstart">public function onApplicationStart()</a></li>
       <li><a href="#public-function-onerror-any-exception-string-event-" id="markdown-toc-public-function-onerror-any-exception-string-event-">public function onError( any exception, string event )</a></li>
       <li><a href="#public-string-function-onmissingview-struct-rc-" id="markdown-toc-public-string-function-onmissingview-struct-rc-">public string function onMissingView( struct rc )</a></li>
       <li><a href="#public-void-function-onpopulateerror-any-cfc-string-property-struct-rc-" id="markdown-toc-public-void-function-onpopulateerror-any-cfc-string-property-struct-rc-">public void function onPopulateError( any cfc, string property, struct rc )</a></li>
+      <li><a href="#public-void-function-onreload" id="markdown-toc-public-void-function-onreload">public void function onReload()</a></li>
       <li><a href="#public-function-onrequest-string-targetpage-" id="markdown-toc-public-function-onrequest-string-targetpage-">public function onRequest( string targetPage )</a></li>
       <li><a href="#public-function-onrequestend-string-targetpage-" id="markdown-toc-public-function-onrequestend-string-targetpage-">public function onRequestEnd( string targetPage )</a></li>
       <li><a href="#public-function-onrequeststart-string-targetpage-" id="markdown-toc-public-function-onrequeststart-string-targetpage-">public function onRequestStart( string targetPage )</a></li>
@@ -145,6 +148,12 @@
       <li><a href="#public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---" id="markdown-toc-public-void-function-redirectcustomurl-string-uri-string-preserve--none-string-statuscode--302-string-header---">public void function redirectCustomURL( string uri, string preserve = ‘none’, string statusCode = ‘302’, string header = ‘’ )</a></li>
       <li><a href="#public-any-function-renderdata" id="markdown-toc-public-any-function-renderdata">public any function renderData()</a></li>
       <li><a href="#public-any-function-renderer" id="markdown-toc-public-any-function-renderer">public any function renderer()</a></li>
+      <li><a href="#public-void-function-sessiondefault-string-keyname-string-defaultvalue-" id="markdown-toc-public-void-function-sessiondefault-string-keyname-string-defaultvalue-">public void function sessionDefault( string keyname, string defaultValue )</a></li>
+      <li><a href="#public-void-function-sessiondelete-string-keyname-" id="markdown-toc-public-void-function-sessiondelete-string-keyname-">public void function sessionDelete( string keyname )</a></li>
+      <li><a href="#public-boolean-function-sessionhas-string-keyname-" id="markdown-toc-public-boolean-function-sessionhas-string-keyname-">public boolean function sessionHas( string keyname )</a></li>
+      <li><a href="#public-void-function-sessionlock-required-function-callback-" id="markdown-toc-public-void-function-sessionlock-required-function-callback-">public void function sessionLock( required function callback )</a></li>
+      <li><a href="#public-any-function-sessionread-string-keyname-" id="markdown-toc-public-any-function-sessionread-string-keyname-">public any function sessionRead( string keyname )</a></li>
+      <li><a href="#public-void-function-sessionwrite-string-keyname-any-keyvalue-" id="markdown-toc-public-void-function-sessionwrite-string-keyname-any-keyvalue-">public void function sessionWrite( string keyname, any keyvalue )</a></li>
       <li><a href="#public-void-function-setbeanfactory-any-factory-" id="markdown-toc-public-void-function-setbeanfactory-any-factory-">public void function setBeanFactory( any factory )</a></li>
       <li><a href="#public-void-function-setlayout-string-action-boolean-suppressotherlayouts--false-" id="markdown-toc-public-void-function-setlayout-string-action-boolean-suppressotherlayouts--false-">public void function setLayout( string action, boolean suppressOtherLayouts = false )</a></li>
       <li><a href="#public-void-function-setsubsystembeanfactory-string-subsystem-any-factory-" id="markdown-toc-public-void-function-setsubsystembeanfactory-string-subsystem-any-factory-">public void function setSubsystemBeanFactory( string subsystem, any factory )</a></li>
@@ -221,6 +230,8 @@
 
 <p>As noted in the <a href="developing-applications.html#using-onmissingview-to-handle-missing-views">Developing Applications Manual</a>, <code>onMissingView()</code> will be called if your application throws an exception and you have not provided a view for the default error handler (<code>main.error</code> - if <code>defaultSection</code> is <code>main</code>). This can lead to exceptions being masked and instead appearing as if you have a missing view!</p>
 
+<p>If you do not provide <code>onMissingView()</code> – or your error handler view is missing – then a <code>FW1.viewNotFound</code> exception will be thrown and if you have specified an action via <code>missingview</code> in your framework configuration, that action will be taken instead of the default <code>error</code> action. <em>New in 4.1.</em></p>
+
 <h2 id="fw1-layouts">FW/1 Layouts</h2>
 <p>Everything that applies to views above also applies to layouts. The variables that are available to layouts are the same as for views without <code>args</code> and with just one addition:</p>
 
@@ -249,7 +260,7 @@
   <li><code>request.failedMethod</code> - If an exception occurs during execution of a controller, this holds the name of the failed method (on the controller CFC). This can be accessed in the error action to provide more details of where the exception occurred. An API method may be added in the future to access this.</li>
   <li><code>request.item</code> - The item portion of the action. This can be obtained by calling <code>getItem()</code> (with no argument).</li>
   <li><code>request.layout</code> - This is a boolean that indicates whether layouts should be rendered. It can be set in a view or layout to prevent any further layouts from being processed. Use <code>disableLayout()</code> and <code>enableLayout()</code> to manipulate this flag.</li>
-  <li><code>request.missingView</code> - When <code>onMissingView()</code> is triggered, this hold the name of the view that was not found. An API method may be added in future to access this.</li>
+  <li><code>request.missingView</code> - When <code>onMissingView()</code> is triggered, this hold the name of the view that was not found. An API method may be added in future to access this. As of 4.1, this is available in any action (and view) triggered by <code>missingview</code> in the framework configuration as well.</li>
   <li><code>request.section</code> - The section portion of the action. This can be obtained by calling <code>getSection()</code> (with no argument).</li>
   <li><code>request.subsystem</code> - The subsystem portion of the action. This can be obtained by calling <code>getSubsystem()</code> (with no argument).</li>
   <li><code>request.subsystembase</code> - The path from the main application directory to the current subsystem’s directory (where the <code>views/</code> and <code>layouts/</code> folders are). This can be obtained by calling <code>getSubsystemBase()</code>.</li>
@@ -344,7 +355,7 @@
 
 <p>Call this from your <code>Application.cfc</code> methods to add to the queue of controllers that will be called by the framework. The <code>action</code> is used to identify the controller that should be called, e.g., <code>"app1:section.item"</code>, <code>"section.item"</code> or <code>"section"</code> (which will call the default item with that section).</p>
 
-<p>A typical example is to trigger a security controller method invoked from setupRequest()`, e.g.,</p>
+<p>A typical example is to trigger a security controller method invoked from <code>setupRequest()</code>, e.g.,</p>
 
 <pre><code>function setupRequest() {
     controller( 'security.checkAuthorization' );
@@ -370,6 +381,12 @@
 </ul>
 
 <p>Additional documentation will be provided for this feature in due course. Probably an entire section on skinning applications with FW/1.</p>
+
+<h3 id="public-any-function-customtemplateengine-string-type-string-path-struct-scope-">public any function customTemplateEngine( string type, string path, struct scope )</h3>
+
+<p>By default, this simply returns no value (null).</p>
+
+<p>It can be overridden to provide a custom rendering engine (non-CFML). If it returns a string, the <code>internalView()</code> and <code>internalLayout()</code> functions will skip including the CFML template that the view (or layout) would normally be used. See the <code>mustache</code> example.</p>
 
 <h3 id="public-void-function-disableframeworktrace">public void function disableFrameworkTrace()</h3>
 
@@ -526,6 +543,10 @@
 
 <p>As of release 4.0, <code>layout()</code> may be called from a controller to wrap HTML (such as produced by a call to <code>view()</code>). See the <code>view()</code> below for such use cases.</p>
 
+<h3 id="public-struct-function-makemethodproxies-array-methodnames-">public struct function makeMethodProxies( array methodNames )</h3>
+
+<p>If you are running on Java 8, this function will return a struct containing Java-callable proxies for the named methods in FW/1. They will implement the <code>java.util.function.Function</code> interface. See the <code>mustache</code> example.</p>
+
 <h3 id="public-function-onapplicationstart">public function onApplicationStart()</h3>
 
 <p>Part of the standard CFML lifecycle, this method is called automatically by the CFML engine at application startup. You should not override this nor call it (even tho’ it is <code>public</code>). Use <code>setupApplication()</code> to perform application-specific initialization.</p>
@@ -549,11 +570,17 @@
 }
 </code></pre>
 
+<p>As of 4.1, you can specify that the <code>FW1.viewNotFound</code> exception be handled via the <code>missingview</code> action in the configuration, as opposed to the <code>error</code> action.</p>
+
 <h3 id="public-void-function-onpopulateerror-any-cfc-string-property-struct-rc-">public void function onPopulateError( any cfc, string property, struct rc )</h3>
 
 <p>Called when an exception occurs during an attempt to populate the named <code>property</code> of the specified <code>cfc</code> if no keys were specified for <code>populate()</code> and <code>trustKeys</code> was <code>true</code>. This method does nothing, effectively causing the exception to be ignored.</p>
 
 <p>If you intend to call <code>populate()</code> with no keys specified and you tell it to trust what it finds in the request context, you may wish to override <code>onPopulateError()</code> and do something like log such failed attempts. See <code>populate()</code> below.</p>
+
+<h3 id="public-void-function-onreload">public void function onReload()</h3>
+
+<p>An extension point so that you can perform operations that may be necessary when FW/1 is about to reload itself. This was originally added so that any resources allocated by beans created by the bean factory could be deallocated prior to the bean factory being recreated.</p>
 
 <h3 id="public-function-onrequest-string-targetpage-">public function onRequest( string targetPage )</h3>
 
@@ -690,6 +717,30 @@ and instead render <code>data</code> in the specified content <code>type</code> 
 
 <p>This returns the same “builder” expression that <code>renderData()</code> returns so that you can add settings and headers piecemeal in your controllers. <em>New in 4.0.</em></p>
 
+<h3 id="public-void-function-sessiondefault-string-keyname-string-defaultvalue-">public void function sessionDefault( string keyname, string defaultValue )</h3>
+
+<p>Extension point that is used to set a default value for a session variable. Use <code>sessionWrite()</code> to set a non-string value. <em>New in 4.1.</em></p>
+
+<h3 id="public-void-function-sessiondelete-string-keyname-">public void function sessionDelete( string keyname )</h3>
+
+<p>Extension point that is used to delete a session variable. <em>New in 4.1.</em></p>
+
+<h3 id="public-boolean-function-sessionhas-string-keyname-">public boolean function sessionHas( string keyname )</h3>
+
+<p>Extension point that is used to check whether a session variable exists. <em>New in 4.1.</em></p>
+
+<h3 id="public-void-function-sessionlock-required-function-callback-">public void function sessionLock( required function callback )</h3>
+
+<p>Extension point that is used execute code inside a “session lock” (however that works for your pluggable session handling). <em>New in 4.1.</em></p>
+
+<h3 id="public-any-function-sessionread-string-keyname-">public any function sessionRead( string keyname )</h3>
+
+<p>Extension point that is used to read a session variable. <em>New in 4.1.</em></p>
+
+<h3 id="public-void-function-sessionwrite-string-keyname-any-keyvalue-">public void function sessionWrite( string keyname, any keyvalue )</h3>
+
+<p>Extension point that is used to write to a session variable. <em>New in 4.1.</em></p>
+
 <h3 id="public-void-function-setbeanfactory-any-factory-">public void function setBeanFactory( any factory )</h3>
 
 <p>If you are manually creating a bean factory, call this from your <code>setupApplication()</code> method to tell the framework about your primary (default) bean factory. By default FW/1 will use DI/1 as the bean factory and you won’t have to worry about this.</p>
@@ -771,7 +822,7 @@ and instead render <code>data</code> in the specified content <code>type</code> 
 
 
 
-<time class='entry-date' datetime='2016-09-16T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:00 pm</span></time>
+<time class='entry-date' datetime='2017-07-01T18:50:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2017</span></span> <span class='time'>6:50 pm</span></time>
         
       </p>
       
@@ -790,7 +841,18 @@ and instead render <code>data</code> in the specified content <code>type</code> 
     <p>The main FW/1 Gitter room is also mirrored to the <a href="https://cfml.slack.com/messages/fw1/">FW/1 channel</a> on the <a href="http://cfml-slack.herokuapp.com/">CFML Slack</a> (that's the link to get an invite to sign up for the Slack).</p>
 </section>
 <section>
-    <h1>4.0 Documentation (current - master)</h1>
+    <h1>4.1 Documentation (current - master)</h1>
+    <a href="/documentation/4.1/">Getting Started Guide</a><br />
+    <a href="/documentation/4.1/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/4.1/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/4.1/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/4.1/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/4.1/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/4.1/changes.html">Change Log</a><br />
+    <a href="/documentation/4.1/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>4.0 Documentation</h1>
     <a href="/documentation/4.0/">Getting Started Guide</a><br />
     <a href="/documentation/4.0/developing-applications.html">Developing Applications Guide</a><br />
     <a href="/documentation/4.0/using-aop-one.html">Using AOP/1</a><br />
@@ -832,19 +894,12 @@ and instead render <code>data</code> in the specified content <code>type</code> 
     <a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
 </section>
 <section>
-    <h1>4.1 Documentation (next - develop)</h1>
-    <a href="/documentation/4.1/">Getting Started Guide</a><br />
-    <a href="/documentation/4.1/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/4.1/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/4.1/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/4.1/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/4.1/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/4.1/changes.html">Change Log</a><br />
-    <a href="/documentation/4.1/roadmap.html">Roadmap</a><br />
-</section>
-<section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2017/07/01/fw1-4-1-0-released/">FW/1 4.1.0 Released!</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2017/06/16/fw1-4-1-0-rc1/">FW/1 4.1.0 Release Candidate Available</a>
@@ -880,10 +935,6 @@ and instead render <code>data</code> in the specified content <code>type</code> 
     
       <li class="post">
         <a href="/blog/2015/10/06/fw1-3-5-0-rc-2/">FW/1 3.5.0 Release Candidate 2 Available!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/09/22/fw1-3-5-0-rc-1/">FW/1 3.5.0 Release Candidate 1 Available!</a>
       </li>
     
   </ul>

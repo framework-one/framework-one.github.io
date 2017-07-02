@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Aop1 | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/aop1/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2017-07-01T19:31:40-07:00</updated>
+  <updated>2017-07-01T20:04:12-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 4.1.0 Released!]]></title>
+    <link href="http://framework-one.github.io/blog/2017/07/01/fw1-4-1-0-released/"/>
+    <updated>2017-07-01T20:00:00-07:00</updated>
+    <id>http://framework-one.github.io/blog/2017/07/01/fw1-4-1-0-released</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/framework-one/fw1/releases/tag/v4.1.0">FW/1 4.1.0</a> has been released!</p>
+
+<p>This is a maintenance release for FW/1 4.0.0 that includes a number of bug fixes and some minor enhancements. See this <a href="http://framework-one.github.io/blog/2017/06/16/fw1-4-1-0-rc1/">blog post about the release candidate</a> for the main changes in this release. Since the release candidate, most of the work has been on updating the documentation and adding an example of using a custom template engine (Mustache) with FW/1.</p>
+
+<p>Note that 4.1.0 includes an important bug fix for 4.0.0 which addresses a race condition that could cause transient beans to be partially resolved, leading to dependencies not being available under heavy load conditions.</p>
+
+<p>Lucee 5.x is now an officially supported platform for FW/1, along with Adobe ColdFusion 10, 11, and 2016, and Lucee 4.5.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 4.1.0 Release Candidate Available]]></title>
@@ -81,18 +96,6 @@ The only change from Beta 2 is a bug fix in the handling of load listeners for s
 The only change from Beta 1 is that the <code>enableJSONPOST</code> setting has been renamed to <code>decodeRequestBody</code>.
 This is a <strong>breaking change</strong> if you were using that setting in the earlier Alpha / Beta builds:
 you will now get an exception and will need to update your application’s configuration.</p>
-
-<p>For full details, read the <a href="http://framework-one.github.io/documentation/4.0/changes.html">Change Log for FW/1 4.0</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 4.0.0 Beta 1]]></title>
-    <link href="http://framework-one.github.io/blog/2016/07/11/fw1-4-0-0-beta-1/"/>
-    <updated>2016-07-11T14:45:00-07:00</updated>
-    <id>http://framework-one.github.io/blog/2016/07/11/fw1-4-0-0-beta-1</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/framework-one/fw1/releases/tag/v4.0.0-beta1">FW/1 4.0.0 Beta 1</a> is available.
-Per those release notes, the beta contains a small number of enhancements and bug fixes since Alpha 1 was released in March.</p>
 
 <p>For full details, read the <a href="http://framework-one.github.io/documentation/4.0/changes.html">Change Log for FW/1 4.0</a>.</p>
 ]]></content>

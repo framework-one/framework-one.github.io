@@ -4,7 +4,7 @@
   <title><![CDATA[FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2017-07-01T19:31:40-07:00</updated>
+  <updated>2017-07-01T20:04:12-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 4.1.0 Released!]]></title>
+    <link href="http://framework-one.github.io/blog/2017/07/01/fw1-4-1-0-released/"/>
+    <updated>2017-07-01T20:00:00-07:00</updated>
+    <id>http://framework-one.github.io/blog/2017/07/01/fw1-4-1-0-released</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/framework-one/fw1/releases/tag/v4.1.0">FW/1 4.1.0</a> has been released!</p>
+
+<p>This is a maintenance release for FW/1 4.0.0 that includes a number of bug fixes and some minor enhancements. See this <a href="http://framework-one.github.io/blog/2017/06/16/fw1-4-1-0-rc1/">blog post about the release candidate</a> for the main changes in this release. Since the release candidate, most of the work has been on updating the documentation and adding an example of using a custom template engine (Mustache) with FW/1.</p>
+
+<p>Note that 4.1.0 includes an important bug fix for 4.0.0 which addresses a race condition that could cause transient beans to be partially resolved, leading to dependencies not being available under heavy load conditions.</p>
+
+<p>Lucee 5.x is now an officially supported platform for FW/1, along with Adobe ColdFusion 10, 11, and 2016, and Lucee 4.5.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 4.1.0 Release Candidate Available]]></title>
@@ -481,19 +496,6 @@ automatic support for Clojure code in the Model and Controllers, as well as firs
 <p>If you are on an earlier release of FW/1 and believe you are seeing the issue that is fixed in this patch, please post on the FW/1 mailing list (I’d rather not backport this patch any further – I’d rather you upgraded!).</p>
 
 <p>Once again, thank you to David Sedeño who highlighted this critical issue!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 3.0.2 - Important Update!]]></title>
-    <link href="http://framework-one.github.io/blog/2015/05/09/fw1-3-0-1-important/"/>
-    <updated>2015-05-09T22:00:49-07:00</updated>
-    <id>http://framework-one.github.io/blog/2015/05/09/fw1-3-0-1-important</id>
-    <content type="html"><![CDATA[<p>If you are using SES URLs or routes with FW/1 3.0 you should <a href="https://github.com/framework-one/fw1/releases/tag/v3.0.2">download FW/1 3.0.2</a> and update your applications as soon as possible, to address a thread safety issue in the way that <code>CGI.PATH_INFO</code> was handled in FW/1 3.0. This is an update to 3.0.1 and includes a context root fix.</p>
-
-<p>The symptoms you might see include incorrectly routed requests under load.</p>
-
-<p>Thank you to David Sedeño who highlighted this critical issue!</p>
 ]]></content>
   </entry>
   

@@ -81,8 +81,6 @@
 
 <p>DI/1 searches specified directories for CFCs and treats them as singletons or non-singletons (transients) based on naming conventions for the CFCs themselves, or the folders in which they are found. You can override the conventions by configuration if needed.</p>
 
-<p>As of release 3.5, DI/1 also looks for <code>.lc</code> and <code>.lucee</code> files, as well as <code>.cfc</code> files, to support Lucee 5’s new dialect.</p>
-
 <ul id="markdown-toc">
   <li><a href="#terminology" id="markdown-toc-terminology">Terminology</a></li>
   <li><a href="#getting-started-with-di1" id="markdown-toc-getting-started-with-di1">Getting Started with DI/1</a>    <ul>
@@ -457,7 +455,7 @@ bf.onLoad( "LoadListener" );
 
 <h2 id="overriding">Overriding</h2>
 
-<p>Customizing the behavior of DI/1 by overriding its methods should probably be considered a “last resort” so before you go down this path, ask on Slack or on the mailing list if there is a way to achieve your goals without doing this. As an example of overridden behavior, the Clojure integration provided by <code>ioclj.cfc</code> could be a useful model for you. That overrides the constructor (to deal with finding Clojure code and modifying the metadata) and <code>getBeanInfo()</code> to provide metadata about Clojure code that is loaded.</p>
+<p>Customizing the behavior of DI/1 by overriding its methods should probably be considered a “last resort” so before you go down this path, ask on Slack or on the mailing list if there is a way to achieve your goals without doing this.</p>
 
 <p>DI/1 provides no specific public extension points but it does provide a few <code>private</code> extension points that are considered documented and supported. These are described in detail near the end of this document and they are primarily intended to allow you to customized how CFC instances are actually constructed, how metadata is obtained, and what to do if DI/1 cannot locate a bean that you have requested.</p>
 
@@ -602,7 +600,7 @@ moduleBeanFactory.setParent( mainBeanFactory );
 
 <p>If you want to override the methods in DI/1, such as <code>logMissingBean()</code>, you can create your own CFC that extends <code>ioc.cfc</code> and overrides the desired methods. Then use your CFC instead of <code>ioc.cfc</code>. If any particular use case becomes common, we can discuss incorporating it into DI/1 as a configuration option.</p>
 
-<p>One possible use case is overriding the constructor to provide your own <code>init()</code> method that does additional configurtion (although using a load listener is probably a better way to do this in general). The Clojure integration provided by <code>ioclj.cfc</code> takes this approach because it needs to do additional setup work, as well as registering its own load listener (in addition to any <code>config.loadListener</code>), so that it can modify the bean metadata at startup, after the (CFC) beans have been discovered by DI/1.</p>
+<p>One possible use case is overriding the constructor to provide your own <code>init()</code> method that does additional configurtion (although using a load listener is probably a better way to do this in general).</p>
 
 <p>The following supported extension points are provided:</p>
 
@@ -648,7 +646,18 @@ moduleBeanFactory.setParent( mainBeanFactory );
     <p>The main FW/1 Gitter room is also mirrored to the <a href="https://cfml.slack.com/messages/fw1/">FW/1 channel</a> on the <a href="http://cfml-slack.herokuapp.com/">CFML Slack</a> (that's the link to get an invite to sign up for the Slack).</p>
 </section>
 <section>
-    <h1>4.0 Documentation (current - master)</h1>
+    <h1>4.1 Documentation (current - master)</h1>
+    <a href="/documentation/4.1/">Getting Started Guide</a><br />
+    <a href="/documentation/4.1/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/4.1/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/4.1/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/4.1/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/4.1/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/4.1/changes.html">Change Log</a><br />
+    <a href="/documentation/4.1/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>4.0 Documentation</h1>
     <a href="/documentation/4.0/">Getting Started Guide</a><br />
     <a href="/documentation/4.0/developing-applications.html">Developing Applications Guide</a><br />
     <a href="/documentation/4.0/using-aop-one.html">Using AOP/1</a><br />
@@ -690,19 +699,12 @@ moduleBeanFactory.setParent( mainBeanFactory );
     <a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
 </section>
 <section>
-    <h1>4.1 Documentation (next - develop)</h1>
-    <a href="/documentation/4.1/">Getting Started Guide</a><br />
-    <a href="/documentation/4.1/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/4.1/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/4.1/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/4.1/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/4.1/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/4.1/changes.html">Change Log</a><br />
-    <a href="/documentation/4.1/roadmap.html">Roadmap</a><br />
-</section>
-<section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2017/07/01/fw1-4-1-0-released/">FW/1 4.1.0 Released!</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2017/06/16/fw1-4-1-0-rc1/">FW/1 4.1.0 Release Candidate Available</a>
@@ -738,10 +740,6 @@ moduleBeanFactory.setParent( mainBeanFactory );
     
       <li class="post">
         <a href="/blog/2015/10/06/fw1-3-5-0-rc-2/">FW/1 3.5.0 Release Candidate 2 Available!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/09/22/fw1-3-5-0-rc-1/">FW/1 3.5.0 Release Candidate 1 Available!</a>
       </li>
     
   </ul>
