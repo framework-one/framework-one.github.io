@@ -12,8 +12,6 @@ DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection fra
 
 DI/1 searches specified directories for CFCs and treats them as singletons or non-singletons (transients) based on naming conventions for the CFCs themselves, or the folders in which they are found. You can override the conventions by configuration if needed.
 
-As of release 3.5, DI/1 also looks for `.lc` and `.lucee` files, as well as `.cfc` files, to support Lucee 5's new dialect.
-
 * TOC
 {:toc}
 

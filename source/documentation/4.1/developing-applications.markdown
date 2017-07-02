@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2016-09-16 20:00
+date: 2017-07-01 19:15
 comments: false
 sharing: false
 footer: true
@@ -168,8 +168,6 @@ In addition, FW/1 uses a number of `request` scope variables to pass data betwee
 It is strongly recommended to use the `local` struct for any variables you need to create yourself in a view or layout!
 
 If you have data that is needed by all of your views, it may be convenient to set that up in your `setupView()` method in `Application.cfc` - see **[Taking Actions on Every Request](#taking-actions-on-every-request)** below.
-
-As of release 3.5, FW/1 also recognizes view and layout files with `.lc` and `.lucee` file extensions to support Lucee's new dialect.
 
 ### Rendering Data to the Caller
 
@@ -402,8 +400,6 @@ In general, managing dependencies is as simple as adding `accessors=true` to you
 This will make `variables.userService` and `variables.securityService` available, based on `model/services/user.cfc` and `model/services/security.cfc`. You could also use long form CFC names like `userservice.cfc` and `securityservice.cfc` if you wanted. See the next section for more details on configuring DI/1.
 
 If you let FW/1 use DI/1 to automatically manage your beans, and you are using subsystems, FW/1 will also use it to manage your subsystems' beans. See [Using Subsystems](using-subsystems.html) for more details.
-
-As of release 3.5, DI/1 will also recognize component files with a `.lc` or `.lucee` file extension, to support Lucee 5's new dialect.
 
 ### Transients, Bean Factory, Framework
 
@@ -698,7 +694,7 @@ The keys in the structure have the following meanings:
 * `baseURL` - Normally, `redirect()` and `buildURL()` default to using `CGI.SCRIPT_NAME` as the basis for the URL they construct. This is the right choice for most applications but there are times when the base URL used for your application could be different. You can also specify `baseURL = "useRequestURI"` and instead of `CGI.SCRIPT_NAME`, the result of `getPageContext().getRequest().getRequestURI()` will be used to construct URLs. This is the right choice for FW/1 applications embedded inside Mura.
 * `generateSES` - If true, causes `redirect()` and `buildURL()` to generate SES-style URLs with items separated by `/` (and the path info in the URL will begin `/section/item` rather than `?action=section.item` - see the [Reference Manual](reference-manual.html) for more details).
 * `SESOmitIndex` - If SES URLs are enabled and this is `true`, will attempt to omit the base filename in the path when constructing URLs in `buildURL()` and `redirect()` which will generally omit `/index.cfm` from the start of the URL. Again, see the [Reference Manual](reference-manual.html) for more details.
-* `unhandledExtensions` - A list of file extensions that FW/1 should not handle. By default, just requests for CFCs, e.g., `some.cfc`, are not handled by FW/1. As of release 3.5, Lucee components, with extensions of `.lc` or `.lucee` are also not handled by the framework.
+* `unhandledExtensions` - A list of file extensions that FW/1 should not handle. By default, just requests for CFCs, e.g., `some.cfc`, are not handled by FW/1.
 * `unhandledPaths` - A list of file paths that FW/1 should not handle. By default, just requests for `/flex2gateway` are not handled by FW/1 (hey, some people are still using Flex - don't judge!). If you specify a directory path, requests for any files in that directory are then not handled by FW/1. For example, `unhandledPaths = '/flex2gateway,/404.cfm,/api'` will cause FW/1 to not handle requests from Flex, requests for the `/404.cfm` page and any requests for files in the `/api` folder.
 * `unhandledErrorCaught` - By default the framework does not attempt to catch errors raised by unhandled requests but sometimes when you are migrating from a legacy application it is useful to route error handling of legacy (unhandled) requests through FW/1. The default for this option is `false`. Set it `true` to have FW/1's error handling apply to unhandled requests.
 * `applicationKey` - A unique value for each FW/1 application that shares a common ColdFusion application name.
