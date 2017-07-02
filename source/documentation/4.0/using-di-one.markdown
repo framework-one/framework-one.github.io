@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using DI/1"
-date: 2016-09-16 20:00
+date: 2017-07-01 18:20
 comments: false
 sharing: false
 footer: true
@@ -86,7 +86,7 @@ As of FW/1 4.0 (DI/1 1.2), you can specify a second argument to `getBean()` that
 
 This will use `name` and `email` as overrides so that they _hide_ any beans of the same name when DI/1 calls the `init()` method. This can be particularly valuable when you are migrating legacy code to DI/1 and want it to manage bean creation while still providing constructor arguments in the (legacy) code.
 
-Note that DI/1 will inject only singletons via setters or properties. Injecting transients in those situations often leads to unexpected results (consider a transient `invoice` bean that has a `setCustomer()` method when you also have a transient `customer` bean - you almost certainly don't want DI/1 to automatically create a customer instance and inject it every time you ask DI/1 for a new invoice bean!). If a constructor argument matches a transient bean, DI/1 will still create an instance since it has to finish constructing the original bean. _Note: this is unclear and there is an open issue against the documentation to reword this once some testing has verified exactly how DI/1 behaves with combinations of transients and singletons in constructor arguments!_
+Note that DI/1 will inject both singletons and transients via constructors, but it will inject only singletons via setters or properties, not transients. Injecting transients in those situations often leads to unexpected results (consider a transient `invoice` bean that has a `setCustomer()` method when you also have a transient `customer` bean - you almost certainly don't want DI/1 to automatically create a customer instance and inject it every time you ask DI/1 for a new invoice bean!). If a constructor argument matches a transient bean, DI/1 will still create an instance since it has to finish constructing the original bean.
 
 ## Acceptable Folder Paths
 

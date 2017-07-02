@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Using DI/1"
-date: 2015-09-05 19:30
+date: 2017-07-01 18:20
 comments: false
 sharing: false
 footer: true
@@ -36,7 +36,7 @@ If a CFC has a constructor (a method called `init()`), DI/1 will use the argumen
 
 If DI/1 cannot find a matching bean for a constructor argument, it will throw an exception. If DI/1 cannot find a matching bean for a setter method or property, it will log the failure and ignore it (by default), and the corresponding variable will not be populated. You can configure DI/1 to be strict about matching bean names - see the configuration section below - in which case it will throw an exception.
 
-Note that DI/1 will only inject singletons via setters or properties. Injecting transients in those situations often leads to unexpected results (consider a transient `invoice` bean that has a `setCustomer()` method when you also have a transient `customer` bean - you almost certainly don't want DI/1 to automatically create a customer instance and inject it every time you ask DI/1 for a new invoice bean!). If a constructor argument matches a transient bean, DI/1 will still create an instance since it has to finish constructing the original bean.
+Note that DI/1 will inject both singletons and transients via constructors, but it will inject only singletons via setters or properties, not transients. Injecting transients in those situations often leads to unexpected results (consider a transient `invoice` bean that has a `setCustomer()` method when you also have a transient `customer` bean - you almost certainly don't want DI/1 to automatically create a customer instance and inject it every time you ask DI/1 for a new invoice bean!). If a constructor argument matches a transient bean, DI/1 will still create an instance since it has to finish constructing the original bean.
 
 ## Acceptable Folder Paths
 
