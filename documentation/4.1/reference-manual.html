@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 Reference Manual Jun 16th, 2017 10:35 am This is documentation for the upcoming 4.1 release. For the current release, see this documentation. &hellip;">
+  <meta name="description" content="FW/1 Reference Manual Jul 1st, 2017 6:50 pm This is documentation for the upcoming 4.1 release. For the current release, see this documentation. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2017-06-16T10:35:00-07:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>10:35 am</span></time></p>
+<time class='entry-date' datetime='2017-07-01T18:50:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2017</span></span> <span class='time'>6:50 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.1 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -94,6 +94,7 @@
       <li><a href="#public-string-function-buildurl-string-action---string-path--see-below-any-querystring---" id="markdown-toc-public-string-function-buildurl-string-action---string-path--see-below-any-querystring---">public string function buildURL( string action = ‘.’, string path = <em>see below</em>, any queryString = ‘’ )</a></li>
       <li><a href="#public-void-function-controller-string-action-" id="markdown-toc-public-void-function-controller-string-action-">public void function controller( string action )</a></li>
       <li><a href="#public-string-function-customizevieworlayoutpath-struct-pathinfo-string-type-string-fullpath-" id="markdown-toc-public-string-function-customizevieworlayoutpath-struct-pathinfo-string-type-string-fullpath-">public string function customizeViewOrLayoutPath( struct pathInfo, string type, string fullPath )</a></li>
+      <li><a href="#public-any-function-customtemplateengine-string-type-string-path-struct-scope-" id="markdown-toc-public-any-function-customtemplateengine-string-type-string-path-struct-scope-">public any function customTemplateEngine( string type, string path, struct scope )</a></li>
       <li><a href="#public-void-function-disableframeworktrace" id="markdown-toc-public-void-function-disableframeworktrace">public void function disableFrameworkTrace()</a></li>
       <li><a href="#public-void-function-disablelayout" id="markdown-toc-public-void-function-disablelayout">public void function disableLayout()</a></li>
       <li><a href="#public-void-function-enableframeworktrace" id="markdown-toc-public-void-function-enableframeworktrace">public void function enableFrameworkTrace()</a></li>
@@ -130,6 +131,7 @@
       <li><a href="#public-boolean-function-isframeworkreloadrequest" id="markdown-toc-public-boolean-function-isframeworkreloadrequest">public boolean function isFrameworkReloadRequest()</a></li>
       <li><a href="#public-boolean-function-isunhandledrequest-string-targetpath-" id="markdown-toc-public-boolean-function-isunhandledrequest-string-targetpath-">public boolean function isUnhandledRequest( string targetPath )</a></li>
       <li><a href="#public-string-function-layout-string-path-string-body-" id="markdown-toc-public-string-function-layout-string-path-string-body-">public string function layout( string path, string body )</a></li>
+      <li><a href="#public-struct-function-makemethodproxies-array-methodnames-" id="markdown-toc-public-struct-function-makemethodproxies-array-methodnames-">public struct function makeMethodProxies( array methodNames )</a></li>
       <li><a href="#public-function-onapplicationstart" id="markdown-toc-public-function-onapplicationstart">public function onApplicationStart()</a></li>
       <li><a href="#public-function-onerror-any-exception-string-event-" id="markdown-toc-public-function-onerror-any-exception-string-event-">public function onError( any exception, string event )</a></li>
       <li><a href="#public-string-function-onmissingview-struct-rc-" id="markdown-toc-public-string-function-onmissingview-struct-rc-">public string function onMissingView( struct rc )</a></li>
@@ -382,6 +384,12 @@
 
 <p>Additional documentation will be provided for this feature in due course. Probably an entire section on skinning applications with FW/1.</p>
 
+<h3 id="public-any-function-customtemplateengine-string-type-string-path-struct-scope-">public any function customTemplateEngine( string type, string path, struct scope )</h3>
+
+<p>By default, this simply returns no value (null).</p>
+
+<p>It can be overridden to provide a custom rendering engine (non-CFML). If it returns a string, the <code>internalView()</code> and <code>internalLayout()</code> functions will skip including the CFML template that the view (or layout) would normally be used. See the <code>mustache</code> example.</p>
+
 <h3 id="public-void-function-disableframeworktrace">public void function disableFrameworkTrace()</h3>
 
 <p>Disable framework tracing for this request.</p>
@@ -536,6 +544,10 @@
 <p>Rendering views, using the <code>view()</code> method, is supported, documented and the recommended way to build composite pages. Layouts should simply wrap views, in a cascade from item to section to site.</p>
 
 <p>As of release 4.0, <code>layout()</code> may be called from a controller to wrap HTML (such as produced by a call to <code>view()</code>). See the <code>view()</code> below for such use cases.</p>
+
+<h3 id="public-struct-function-makemethodproxies-array-methodnames-">public struct function makeMethodProxies( array methodNames )</h3>
+
+<p>If you are running on Java 8, this function will return a struct containing Java-callable proxies for the named methods in FW/1. They will implement the <code>java.util.function.Function</code> interface. See the <code>mustache</code> example.</p>
 
 <h3 id="public-function-onapplicationstart">public function onApplicationStart()</h3>
 
@@ -812,7 +824,7 @@ and instead render <code>data</code> in the specified content <code>type</code> 
 
 
 
-<time class='entry-date' datetime='2017-06-16T10:35:00-07:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>10:35 am</span></time>
+<time class='entry-date' datetime='2017-07-01T18:50:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2017</span></span> <span class='time'>6:50 pm</span></time>
         
       </p>
       

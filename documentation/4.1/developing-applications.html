@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Developing Applications With FW/1 Sep 16th, 2016 8:00 pm This is documentation for the upcoming 4.1 release. For the current release, see this &hellip;">
+  <meta name="description" content="Developing Applications With FW/1 Jul 1st, 2017 7:15 pm This is documentation for the upcoming 4.1 release. For the current release, see this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
 
 
 
-<time class='entry-date' datetime='2016-09-16T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:00 pm</span></time></p>
+<time class='entry-date' datetime='2017-07-01T19:15:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2017</span></span> <span class='time'>7:15 pm</span></time></p>
   </header>
   
   <p><em>This is documentation for the upcoming 4.1 release. For the current release, see <a href="/documentation/">this documentation</a>.</em></p>
@@ -293,8 +293,6 @@ component { // does not extend anything
 <p>It is strongly recommended to use the <code>local</code> struct for any variables you need to create yourself in a view or layout!</p>
 
 <p>If you have data that is needed by all of your views, it may be convenient to set that up in your <code>setupView()</code> method in <code>Application.cfc</code> - see <strong><a href="#taking-actions-on-every-request">Taking Actions on Every Request</a></strong> below.</p>
-
-<p>As of release 3.5, FW/1 also recognizes view and layout files with <code>.lc</code> and <code>.lucee</code> file extensions to support Lucee’s new dialect.</p>
 
 <h3 id="rendering-data-to-the-caller">Rendering Data to the Caller</h3>
 
@@ -550,8 +548,6 @@ if ( someCondition ) {
 <p>This will make <code>variables.userService</code> and <code>variables.securityService</code> available, based on <code>model/services/user.cfc</code> and <code>model/services/security.cfc</code>. You could also use long form CFC names like <code>userservice.cfc</code> and <code>securityservice.cfc</code> if you wanted. See the next section for more details on configuring DI/1.</p>
 
 <p>If you let FW/1 use DI/1 to automatically manage your beans, and you are using subsystems, FW/1 will also use it to manage your subsystems’ beans. See <a href="using-subsystems.html">Using Subsystems</a> for more details.</p>
-
-<p>As of release 3.5, DI/1 will also recognize component files with a <code>.lc</code> or <code>.lucee</code> file extension, to support Lucee 5’s new dialect.</p>
 
 <h3 id="transients-bean-factory-framework">Transients, Bean Factory, Framework</h3>
 
@@ -864,7 +860,7 @@ component extends=coldspring.beans.DefaultXmlBeanFactory {
   <li><code>baseURL</code> - Normally, <code>redirect()</code> and <code>buildURL()</code> default to using <code>CGI.SCRIPT_NAME</code> as the basis for the URL they construct. This is the right choice for most applications but there are times when the base URL used for your application could be different. You can also specify <code>baseURL = "useRequestURI"</code> and instead of <code>CGI.SCRIPT_NAME</code>, the result of <code>getPageContext().getRequest().getRequestURI()</code> will be used to construct URLs. This is the right choice for FW/1 applications embedded inside Mura.</li>
   <li><code>generateSES</code> - If true, causes <code>redirect()</code> and <code>buildURL()</code> to generate SES-style URLs with items separated by <code>/</code> (and the path info in the URL will begin <code>/section/item</code> rather than <code>?action=section.item</code> - see the <a href="reference-manual.html">Reference Manual</a> for more details).</li>
   <li><code>SESOmitIndex</code> - If SES URLs are enabled and this is <code>true</code>, will attempt to omit the base filename in the path when constructing URLs in <code>buildURL()</code> and <code>redirect()</code> which will generally omit <code>/index.cfm</code> from the start of the URL. Again, see the <a href="reference-manual.html">Reference Manual</a> for more details.</li>
-  <li><code>unhandledExtensions</code> - A list of file extensions that FW/1 should not handle. By default, just requests for CFCs, e.g., <code>some.cfc</code>, are not handled by FW/1. As of release 3.5, Lucee components, with extensions of <code>.lc</code> or <code>.lucee</code> are also not handled by the framework.</li>
+  <li><code>unhandledExtensions</code> - A list of file extensions that FW/1 should not handle. By default, just requests for CFCs, e.g., <code>some.cfc</code>, are not handled by FW/1.</li>
   <li><code>unhandledPaths</code> - A list of file paths that FW/1 should not handle. By default, just requests for <code>/flex2gateway</code> are not handled by FW/1 (hey, some people are still using Flex - don’t judge!). If you specify a directory path, requests for any files in that directory are then not handled by FW/1. For example, <code>unhandledPaths = '/flex2gateway,/404.cfm,/api'</code> will cause FW/1 to not handle requests from Flex, requests for the <code>/404.cfm</code> page and any requests for files in the <code>/api</code> folder.</li>
   <li><code>unhandledErrorCaught</code> - By default the framework does not attempt to catch errors raised by unhandled requests but sometimes when you are migrating from a legacy application it is useful to route error handling of legacy (unhandled) requests through FW/1. The default for this option is <code>false</code>. Set it <code>true</code> to have FW/1’s error handling apply to unhandled requests.</li>
   <li><code>applicationKey</code> - A unique value for each FW/1 application that shares a common ColdFusion application name.</li>
@@ -1137,7 +1133,7 @@ property framework;   // make your controller framework aware
 
 
 
-<time class='entry-date' datetime='2016-09-16T20:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:00 pm</span></time>
+<time class='entry-date' datetime='2017-07-01T19:15:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2017</span></span> <span class='time'>7:15 pm</span></time>
         
       </p>
       
