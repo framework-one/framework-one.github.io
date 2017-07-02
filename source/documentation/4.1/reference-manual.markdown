@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2017-06-16 10:35
+date: 2017-07-01 18:50
 comments: false
 sharing: false
 footer: true
@@ -198,6 +198,12 @@ The arguments are as follows:
 
 Additional documentation will be provided for this feature in due course. Probably an entire section on skinning applications with FW/1.
 
+### public any function customTemplateEngine( string type, string path, struct scope )
+
+By default, this simply returns no value (null).
+
+It can be overridden to provide a custom rendering engine (non-CFML). If it returns a string, the `internalView()` and `internalLayout()` functions will skip including the CFML template that the view (or layout) would normally be used. See the `mustache` example.
+
 ### public void function disableFrameworkTrace()
 
 Disable framework tracing for this request.
@@ -351,6 +357,10 @@ This function renders a layout and could be called inside a view or a layout, al
 Rendering views, using the `view()` method, is supported, documented and the recommended way to build composite pages. Layouts should simply wrap views, in a cascade from item to section to site.
 
 As of release 4.0, `layout()` may be called from a controller to wrap HTML (such as produced by a call to `view()`). See the `view()` below for such use cases.
+
+### public struct function makeMethodProxies( array methodNames )
+
+If you are running on Java 8, this function will return a struct containing Java-callable proxies for the named methods in FW/1. They will implement the `java.util.function.Function` interface. See the `mustache` example.
 
 ### public function onApplicationStart()
 

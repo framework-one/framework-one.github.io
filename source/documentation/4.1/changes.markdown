@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Change Log for FW/1 and Friends"
-date: 2017-06-16 10:35
+date: 2017-07-01 19:10
 comments: false
 sharing: false
 footer: true
@@ -22,6 +22,7 @@ Breaking Changes
 Enhancements
 ---
 
+* [481](https://github.com/framework-one/fw1/issues/481) - `customTemplateEngine()` extension point and `makeMethodProxies()` utility function have been added to make it easier to support additional templating engines. An example is provided for `mustache` in which the views and layouts are HTML templates rendered by a Java implementation of the [Mustache template language](http://mustache.github.io).
 * [472](https://github.com/framework-one/fw1/issues/472) - Since Adobe ColdFusion 9 is no longer supported, dynamic method invocations are done via `invoke()` rather than `evaluate()` (and so they might be slightly faster).
 * [467](https://github.com/framework-one/fw1/pull/467) - Session scope handling is now pluggable (but still uses `session` scope by default).
 * [465](https://github.com/framework-one/fw1/issues/465) - The tests have been switched from MXUnit to TestBox and the CI system has been switched from Ant (and explicitly download CFML engines) to CommandBox. The test matrix now includes: Adobe ColdFusion 10, 11, 2016; Lucee 4.5, 5 (current 5.1).
