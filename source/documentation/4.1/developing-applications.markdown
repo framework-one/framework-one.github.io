@@ -6,8 +6,6 @@ comments: false
 sharing: false
 footer: true
 ---
-_This is documentation for the upcoming 4.1 release. For the current release, see [this documentation](/documentation/)._
-
 FW/1 is intended to allow you to quickly build applications with the minimum of overhead and interference from the framework itself. The convention-based approach means that you can quickly put together an outline of your site or application merely by creating folders and files in the `views` folder. As you are ready to start adding business logic to the application, you can add controllers and/or services and domain objects as needed to implement the validation and data processing.
 
 * Table of Contents

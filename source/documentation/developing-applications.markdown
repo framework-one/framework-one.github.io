@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2016-09-16 20:00
+date: 2017-07-01 19:15
 comments: false
 sharing: false
 footer: true
@@ -167,8 +167,6 @@ It is strongly recommended to use the `local` struct for any variables you need 
 
 If you have data that is needed by all of your views, it may be convenient to set that up in your `setupView()` method in `Application.cfc` - see **[Taking Actions on Every Request](#taking-actions-on-every-request)** below.
 
-As of release 3.5, FW/1 also recognizes view and layout files with `.lc` and `.lucee` file extensions to support Lucee's new dialect.
-
 ### Rendering Data to the Caller
 
 If you want to return plain text, XML, or JSON from a request instead of rendering an HTML view, you can use the `renderData()` API to bypass views and layouts completely and automatically return data rendered as JSON, XML, or plain text to your caller, with the correct content type automatically set. See **[Controllers for REST APIs](#controllers-for-rest-apis)** below for more details.
@@ -220,6 +218,8 @@ FW/1 supports `onMissingMethod()`, i.e., if a desired method is not present but 
 FW/1 provides a default `onMissingView()` method that throws an exception (view not found). This allows you to provide your own handler for when a view is not present for a specific request. Whatever `onMissingView()` returns is used as the core view and, unless layouts are disabled, it will be wrapped in layouts and then displayed to the user. Make sure you return a string value! Calls to `onMissingView()` are passed the `rc` so you can look at `rc.action` to see which action failed to find a view and `request.missingView` if you need to know the specific view that was not found (see [Request Scope](reference-manual.html#request-scope) in the Reference Manual for more details).
 
 Be aware that `onMissingView()` will be called if your application throws an exception and you have not provided a view for the default error handler (`main.error` - if your `defaultSection` is `main`). This can lead to exceptions being masked and instead appearing as if you have a missing view!
+
+As of 4.1, there is an alternative way to handle missing views: you can specify an action to take when a view is missing. Much like the default `error` handler, you can specify `missingview` in your framework configuration and if the `FW1.viewNotFound` exception occurs -- because no `onMissingView()` handler exists -- then the action specified by `missingview` will be executed to handle that exception (instead of the default `error` action).
 
 ### Taking Actions on Every Request
 
@@ -398,8 +398,6 @@ In general, managing dependencies is as simple as adding `accessors=true` to you
 This will make `variables.userService` and `variables.securityService` available, based on `model/services/user.cfc` and `model/services/security.cfc`. You could also use long form CFC names like `userservice.cfc` and `securityservice.cfc` if you wanted. See the next section for more details on configuring DI/1.
 
 If you let FW/1 use DI/1 to automatically manage your beans, and you are using subsystems, FW/1 will also use it to manage your subsystems' beans. See [Using Subsystems](using-subsystems.html) for more details.
-
-As of release 3.5, DI/1 will also recognize component files with a `.lc` or `.lucee` file extension, to support Lucee 5's new dialect.
 
 ### Transients, Bean Factory, Framework
 
@@ -636,6 +634,7 @@ All of the configuration for FW/1 is done through a simple structure in `Applica
         // or: defaultSubsystem & subsystemDelimiter & defaultSection & '.' & defaultItem
         error = 'main.error', // defaultSection & '.error'
         // or: defaultSubsystem & subsystemDelimiter & defaultSection & '.error'
+        // missingview has no default value -- see below
         reload = 'reload',
         password = 'true',
         reloadApplicationOnEveryRequest = false,
@@ -684,6 +683,7 @@ The keys in the structure have the following meanings:
 * `subsystems` - An optional struct of structs containing per-subsystem configuration data. Each key in the top-level struct is named for a subsystem. The contents of the nested structs can be anything you want for your subsystems. Retrieved by calling `getSubsystemConfig()`. Currently the only keys used by FW/1 are `baseURL` and `diConfig` which can be used to configure per-subsystem values.
 * `home` - The default action when it is not specified in the URL or form post. By default, this is `defaultSection`.`defaultItem`. If you specify `home`, you are overriding (and hiding) `defaultSection` but not `defaultItem`. If `usingSubsystem` is `true`, the default for `home` is `"home:main.default"`, i.e., `defaultSubsystem & subsystemDelimiter & defaultSection & '.' & defaultItem`.
 * `error` - The action to use if an exception occurs. By default this is `defaultSection.error`.
+* `missingview` - If specified, the action to use if a `FW1.viewNotFound` exception occurs. This allows you to override the default exception handling for a missing view, as another alternative for handling missing views. _New in 4.1._
 * `reload` - The URL variable used to force FW/1 to reload its application cache and re-execute `setupApplication()`.
 * `password` - The value of the reload URL variable that must be specified, e.g., `?reload=true` is the default but you could specify `reload = 'refresh', password = 'fw1'` and then specifying `?refresh=fw1` would cause a reload.
 * `reloadApplicationOnEveryRequest` - If this is set to `true` then FW/1 behaves as if you specified the `reload` URL variable on every request, i.e., at the start of each request, the controller/service cache is cleared and `setupApplication()` is executed.
@@ -692,7 +692,7 @@ The keys in the structure have the following meanings:
 * `baseURL` - Normally, `redirect()` and `buildURL()` default to using `CGI.SCRIPT_NAME` as the basis for the URL they construct. This is the right choice for most applications but there are times when the base URL used for your application could be different. You can also specify `baseURL = "useRequestURI"` and instead of `CGI.SCRIPT_NAME`, the result of `getPageContext().getRequest().getRequestURI()` will be used to construct URLs. This is the right choice for FW/1 applications embedded inside Mura.
 * `generateSES` - If true, causes `redirect()` and `buildURL()` to generate SES-style URLs with items separated by `/` (and the path info in the URL will begin `/section/item` rather than `?action=section.item` - see the [Reference Manual](reference-manual.html) for more details).
 * `SESOmitIndex` - If SES URLs are enabled and this is `true`, will attempt to omit the base filename in the path when constructing URLs in `buildURL()` and `redirect()` which will generally omit `/index.cfm` from the start of the URL. Again, see the [Reference Manual](reference-manual.html) for more details.
-* `unhandledExtensions` - A list of file extensions that FW/1 should not handle. By default, just requests for CFCs, e.g., `some.cfc`, are not handled by FW/1. As of release 3.5, Lucee components, with extensions of `.lc` or `.lucee` are also not handled by the framework.
+* `unhandledExtensions` - A list of file extensions that FW/1 should not handle. By default, just requests for CFCs, e.g., `some.cfc`, are not handled by FW/1.
 * `unhandledPaths` - A list of file paths that FW/1 should not handle. By default, just requests for `/flex2gateway` are not handled by FW/1 (hey, some people are still using Flex - don't judge!). If you specify a directory path, requests for any files in that directory are then not handled by FW/1. For example, `unhandledPaths = '/flex2gateway,/404.cfm,/api'` will cause FW/1 to not handle requests from Flex, requests for the `/404.cfm` page and any requests for files in the `/api` folder.
 * `unhandledErrorCaught` - By default the framework does not attempt to catch errors raised by unhandled requests but sometimes when you are migrating from a legacy application it is useful to route error handling of legacy (unhandled) requests through FW/1. The default for this option is `false`. Set it `true` to have FW/1's error handling apply to unhandled requests.
 * `applicationKey` - A unique value for each FW/1 application that shares a common ColdFusion application name.
@@ -735,7 +735,7 @@ Routes can also be restricted to specific HTTP methods by prefixing them with `$
 
 Routes can also specify a redirect instead of a substitute URL by prefixing the URL with an HTTP status code and a colon, for example `{ "/thankyou" = "302:/main/thankyou" }` specifies a match for `/thankyou` which will cause a redirect to `/main/thankyou`.
 
-A route of `"*"` is a wildcard that will match any request and therefore must be the last route in the array. A wildcard route may be restricted to a specific method, e.g., `"$POST*"` will match a `POST` to any URL.
+A route of `"*"` is a wildcard that will match any request and therefore must be the last route in the array. A wildcard route may be restricted to a specific method, e.g., `"$POST*"` will match a `POST` to any URL. Note that URLs are normalized to end in `/` and routes are turned into regular expressions (in particular, the `"*"` is treated as `"^.*$"`). That means that a route of `"/$"` will match all URLs, since they will all end in `/`. If you want a total match, you need both start and end anchors: `"^/$"`.
 
 Route matches are case-sensitive unless you set `routesCaseSensitive` to `false` in the FW/1 configuration.
 
@@ -748,6 +748,8 @@ The keyword `"$RESOURCES"` can be used as a shorthand way of specifying resource
     { "$PATCH/dogs/:id/$" = "/dogs/update/id/:id", "$PUT/dogs/:id/$" = "/dogs/update/id/:id" },
     { "$DELETE/dogs/:id/$" = "/dogs/destroy/id/:id" },
     { "$*/dogs/$" = "/dogs/error" }
+
+Remember the caveat above that these will match URLs that _end_ in these strings. See below for a `pathRoot` option that can be used to provide a prefix for all routes.
 
 There are also some additional resource route settings that can be specified. First you should note that the following three lines are equivalent:
 

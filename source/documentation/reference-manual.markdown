@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2016-09-16 20:00
+date: 2017-07-01 18:50
 comments: false
 sharing: false
 footer: true
@@ -64,6 +64,8 @@ If no matching view file exists for a request, `onMissingView()` is called and w
 
 As noted in the [Developing Applications Manual](developing-applications.html#using-onmissingview-to-handle-missing-views), `onMissingView()` will be called if your application throws an exception and you have not provided a view for the default error handler (`main.error` - if `defaultSection` is `main`). This can lead to exceptions being masked and instead appearing as if you have a missing view!
 
+If you do not provide `onMissingView()` -- or your error handler view is missing -- then a `FW1.viewNotFound` exception will be thrown and if you have specified an action via `missingview` in your framework configuration, that action will be taken instead of the default `error` action. _New in 4.1._
+
 FW/1 Layouts
 ---
 Everything that applies to views above also applies to layouts. The variables that are available to layouts are the same as for views without `args` and with just one addition:
@@ -91,7 +93,7 @@ Request variables:
 * `request.failedMethod` - If an exception occurs during execution of a controller, this holds the name of the failed method (on the controller CFC). This can be accessed in the error action to provide more details of where the exception occurred. An API method may be added in the future to access this.
 * `request.item` - The item portion of the action. This can be obtained by calling `getItem()` (with no argument).
 * `request.layout` - This is a boolean that indicates whether layouts should be rendered. It can be set in a view or layout to prevent any further layouts from being processed. Use `disableLayout()` and `enableLayout()` to manipulate this flag.
-* `request.missingView` - When `onMissingView()` is triggered, this hold the name of the view that was not found. An API method may be added in future to access this.
+* `request.missingView` - When `onMissingView()` is triggered, this hold the name of the view that was not found. An API method may be added in future to access this. As of 4.1, this is available in any action (and view) triggered by `missingview` in the framework configuration as well.
 * `request.section` - The section portion of the action. This can be obtained by calling `getSection()` (with no argument).
 * `request.subsystem` - The subsystem portion of the action. This can be obtained by calling `getSubsystem()` (with no argument).
 * `request.subsystembase` - The path from the main application directory to the current subsystem's directory (where the `views/` and `layouts/` folders are). This can be obtained by calling `getSubsystemBase()`.
@@ -170,7 +172,7 @@ Will generate:
 
 Call this from your `Application.cfc` methods to add to the queue of controllers that will be called by the framework. The `action` is used to identify the controller that should be called, e.g., `"app1:section.item"`, `"section.item"` or `"section"` (which will call the default item with that section).
 
-A typical example is to trigger a security controller method invoked from setupRequest()`, e.g.,
+A typical example is to trigger a security controller method invoked from `setupRequest()`, e.g.,
 
     function setupRequest() {
         controller( 'security.checkAuthorization' );
@@ -193,6 +195,12 @@ The arguments are as follows:
 * `fullPath` - The default location of the view or layout: `"#pathInfo.base##type#s/#pathInfo.path#.cfm"`. For the example above, this would be `"sub/views/section/item.cfm"` for a view.
 
 Additional documentation will be provided for this feature in due course. Probably an entire section on skinning applications with FW/1.
+
+### public any function customTemplateEngine( string type, string path, struct scope )
+
+By default, this simply returns no value (null).
+
+It can be overridden to provide a custom rendering engine (non-CFML). If it returns a string, the `internalView()` and `internalLayout()` functions will skip including the CFML template that the view (or layout) would normally be used. See the `mustache` example.
 
 ### public void function disableFrameworkTrace()
 
@@ -348,6 +356,10 @@ Rendering views, using the `view()` method, is supported, documented and the rec
 
 As of release 4.0, `layout()` may be called from a controller to wrap HTML (such as produced by a call to `view()`). See the `view()` below for such use cases.
 
+### public struct function makeMethodProxies( array methodNames )
+
+If you are running on Java 8, this function will return a struct containing Java-callable proxies for the named methods in FW/1. They will implement the `java.util.function.Function` interface. See the `mustache` example.
+
 ### public function onApplicationStart()
 
 Part of the standard CFML lifecycle, this method is called automatically by the CFML engine at application startup. You should not override this nor call it (even tho' it is `public`). Use `setupApplication()` to perform application-specific initialization.
@@ -370,11 +382,17 @@ You may override this method to provide alternative behavior when a view is not 
        return view( 'page/notFound' );
     }
 
+As of 4.1, you can specify that the `FW1.viewNotFound` exception be handled via the `missingview` action in the configuration, as opposed to the `error` action.
+
 ### public void function onPopulateError( any cfc, string property, struct rc )
 
 Called when an exception occurs during an attempt to populate the named `property` of the specified `cfc` if no keys were specified for `populate()` and `trustKeys` was `true`. This method does nothing, effectively causing the exception to be ignored.
 
 If you intend to call `populate()` with no keys specified and you tell it to trust what it finds in the request context, you may wish to override `onPopulateError()` and do something like log such failed attempts. See `populate()` below.
+
+### public void function onReload()
+
+An extension point so that you can perform operations that may be necessary when FW/1 is about to reload itself. This was originally added so that any resources allocated by beans created by the bean factory could be deallocated prior to the bean factory being recreated.
 
 ### public function onRequest( string targetPage )
 
@@ -498,6 +516,30 @@ Although this form is deprecated, FW/1 will only issue a deprecation warning (wr
 ### public any function renderer()
 
 This returns the same "builder" expression that `renderData()` returns so that you can add settings and headers piecemeal in your controllers. _New in 4.0._
+
+### public void function sessionDefault( string keyname, string defaultValue )
+
+Extension point that is used to set a default value for a session variable. Use `sessionWrite()` to set a non-string value. _New in 4.1._
+
+### public void function sessionDelete( string keyname )
+
+Extension point that is used to delete a session variable. _New in 4.1._
+
+### public boolean function sessionHas( string keyname )
+
+Extension point that is used to check whether a session variable exists. _New in 4.1._
+
+### public void function sessionLock( required function callback )
+
+Extension point that is used execute code inside a "session lock" (however that works for your pluggable session handling). _New in 4.1._
+
+### public any function sessionRead( string keyname )
+
+Extension point that is used to read a session variable. _New in 4.1._
+
+### public void function sessionWrite( string keyname, any keyvalue )
+
+Extension point that is used to write to a session variable. _New in 4.1._
 
 ### public void function setBeanFactory( any factory )
 

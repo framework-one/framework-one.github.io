@@ -10,8 +10,6 @@ DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection fra
 
 DI/1 searches specified directories for CFCs and treats them as singletons or non-singletons (transients) based on naming conventions for the CFCs themselves, or the folders in which they are found. You can override the conventions by configuration if needed.
 
-As of release 3.5, DI/1 also looks for `.lc` and `.lucee` files, as well as `.cfc` files, to support Lucee 5's new dialect.
-
 * TOC
 {:toc}
 
@@ -20,7 +18,6 @@ As of release 3.5, DI/1 also looks for `.lc` and `.lucee` files, as well as `.cf
 - **Transient** or **non-singleton** : A bean that will be freshly created each time you call `getBean()`. It could be used for only the lifespan of the request, e.g., a shopping cart object ready to be populated with items.
 - **Singleton**: A bean where only one exists in the system, so that each time you call `getBean()` you will get the **same** bean, not a new one, e.g., a service that creates shopping cart objects.
 - **Bean Factory**: A service that creates beans for you, so you don't have to use `new` or `createObject`, and populates them with any dependencies.
-
 
 # Getting Started with DI/1
 
@@ -299,7 +296,7 @@ Note that a load listener can also be passed as a function or closure, or as a C
 
 ## Overriding
 
-Customizing the behavior of DI/1 by overriding its methods should probably be considered a "last resort" so before you go down this path, ask on Slack or on the mailing list if there is a way to achieve your goals without doing this. As an example of overridden behavior, the Clojure integration provided by `ioclj.cfc` could be a useful model for you. That overrides the constructor (to deal with finding Clojure code and modifying the metadata) and `getBeanInfo()` to provide metadata about Clojure code that is loaded.
+Customizing the behavior of DI/1 by overriding its methods should probably be considered a "last resort" so before you go down this path, ask on Slack or on the mailing list if there is a way to achieve your goals without doing this.
 
 DI/1 provides no specific public extension points but it does provide a few `private` extension points that are considered documented and supported. These are described in detail near the end of this document and they are primarily intended to allow you to customized how CFC instances are actually constructed, how metadata is obtained, and what to do if DI/1 cannot locate a bean that you have requested.
 
@@ -439,7 +436,7 @@ Tell DI/1 that the given `parent` object should be treated as a parent bean fact
 
 If you want to override the methods in DI/1, such as `logMissingBean()`, you can create your own CFC that extends `ioc.cfc` and overrides the desired methods. Then use your CFC instead of `ioc.cfc`. If any particular use case becomes common, we can discuss incorporating it into DI/1 as a configuration option.
 
-One possible use case is overriding the constructor to provide your own `init()` method that does additional configurtion (although using a load listener is probably a better way to do this in general). The Clojure integration provided by `ioclj.cfc` takes this approach because it needs to do additional setup work, as well as registering its own load listener (in addition to any `config.loadListener`), so that it can modify the bean metadata at startup, after the (CFC) beans have been discovered by DI/1.
+One possible use case is overriding the constructor to provide your own `init()` method that does additional configurtion (although using a load listener is probably a better way to do this in general).
 
 The following supported extension points are provided:
 

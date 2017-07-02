@@ -1,13 +1,11 @@
 ---
 layout: page
 title: "Using AOP/1"
-date: 2016-09-16 20:00
+date: 2017-07-01 19:40
 comments: false
 sharing: false
 footer: true
 ---
-_This is documentation for the upcoming 4.1 release. For the current release, see [this documentation](/documentation/)._
-
 AOP/1 is a simple Aspect Oriented Programming extension for [DI/1 (a.k.a Inject One)](using-di-one.html) which allows you to define interceptors for your beans.
 
 These interceptors can run code before or after a method is called on a bean without the need for you to alter the code in your bean.  This allows you to create generic services (such as a logger service) that is coded and configured to operate completely separate from your other services and beans.  What this means is you no longer need to mix unrelated service code together by using dedicated interceptors.

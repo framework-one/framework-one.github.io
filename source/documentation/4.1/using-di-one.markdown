@@ -6,8 +6,6 @@ comments: false
 sharing: false
 footer: true
 ---
-_This is documentation for the upcoming 4.1 release. For the current release, see [this documentation](/documentation/)._
-
 DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework.
 
 DI/1 searches specified directories for CFCs and treats them as singletons or non-singletons (transients) based on naming conventions for the CFCs themselves, or the folders in which they are found. You can override the conventions by configuration if needed.

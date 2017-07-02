@@ -6,8 +6,6 @@ comments: false
 sharing: false
 footer: true
 ---
-_This is documentation for the upcoming 4.1 release. For the current release, see [this documentation](/documentation/)._
-
 The following changes are part of FW/1 4.1 and DI/1 1.3.0.
 
 Summary
