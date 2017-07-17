@@ -112,19 +112,19 @@
 
 <h2 id="installing-fw1">Installing FW/1</h2>
 
-<p>There are two options by which to install FW/1: either download it, or install it via CommandBox.</p>
+<p>There are two options by which to install FW/1: either install it via CommandBox, or download it from Github.</p>
+
+<p><strong>Install with CommandBox</strong></p>
+
+<p>FW/1 can be installed via <a href="https://www.ortussolutions.com/products/commandbox">CommandBox</a>. From your command prompt, you can easily install FW/1 by entering <code>box install fw1</code> and the latest stable version will be installed to your current working directory from ForgeBox. To install the latest development vesion of FW/1, simply enter <code>box install fw1@be</code>. To download a specific release, use the pattern <code>fw1@[version]</code> (e.g., <code>fw1@4.1.0</code>). A list of avaialable versions can be found on the <a href="https://www.forgebox.io/view/fw1">ForgeBox package page</a>. Refer to the <a href="https://ortus.gitbooks.io/commandbox-documentation/content/setup/installation.html">CommandBox documentation</a> for more info on installing and using CommandBox.</p>
+
+<p><em>This is a minimal install and only the <code>framework</code> folder is installed via this method</em>. To start with a complete working application, you can grab the <code>examples</code> folder from the full Github/RIAForge download (see the first install method) or generate one via <a href="https://github.com/framework-one/fw1-commands">FW/1 Commands</a> from CommandBox.</p>
 
 <p><strong>Download from Github</strong></p>
 
-<p>FW/1 can be downloaded directly from the <strong>releases</strong> page on <a href="https://github.com/framework-one/fw1">Github</a>. Both paths will lead you to the same <a href="https://github.com/framework-one/fw1/releases">page which lists all the releases</a>, with the latest stable release and pre-release versions listed first.</p>
+<p>FW/1 can also be downloaded directly from the <strong>releases</strong> page on <a href="https://github.com/framework-one/fw1">Github</a>. Both paths will lead you to the same <a href="https://github.com/framework-one/fw1/releases">page which lists all the releases</a>, with the latest stable release and pre-release versions listed first.</p>
 
 <p>When you download FW/1 (or check it out from Github), it’s a complete web application. <strong>The <code>framework</code> folder should either be copied to your webroot (the simplest way to get started) or else made accessible via a mapping for <code>/framework</code>.</strong> Since <code>Application.cfc</code> extends <code>framework.one</code>, you have to add that mapping in your CFML admin - you cannot use a per-application mapping. <em>As of release 3.5 there is a way to avoid the mapping and extending <code>framework.one</code> which we’ll cover in the <a href="developing-applications.html#alternative-application-structure">Developing Applications Guide</a>.</em></p>
-
-<p><strong>Download with CommandBox</strong></p>
-
-<p>FW/1 may also be installed via <a href="https://www.ortussolutions.com/products/commandbox">CommandBox</a>. From your command prompt, you can easily install FW/1 by entering <code>box install fw1</code> and the latest stable version will be installed to your current working directory. To install the latest development vesion of FW/1, simply enter <code>box install fw1-dev</code>. Refer to the <a href="https://ortus.gitbooks.io/commandbox-documentation/content/setup/installation.html">CommandBox documentation</a> for more info on installing and using CommandBox.</p>
-
-<p><em>This is a minimal install and only the <code>framework</code> folder is installed via this method</em>. To start with a complete working application, you can grab the <code>examples</code> folder from the full Github download (see the first install method) or generate one via <a href="https://github.com/framework-one/fw1-commands">FW/1 Commands</a> from CommandBox.</p>
 
 <p><em><strong>Note: do not install FW/1 into a subfolder that contains . in the name as this may prevent CFC resolution from working!</strong></em></p>
 
