@@ -29,19 +29,19 @@ The FW/1 documentation is copyright (c) 2009-2017 Sean Corfield and is made avai
 
 ## Installing FW/1
 
-There are two options by which to install FW/1: either download it, or install it via CommandBox.
+There are two options by which to install FW/1: either install it via CommandBox, or download it from Github.
+
+**Install with CommandBox**
+
+FW/1 can be installed via [CommandBox](https://www.ortussolutions.com/products/commandbox). From your command prompt, you can easily install FW/1 by entering `box install fw1` and the latest stable version will be installed to your current working directory from ForgeBox. To install the latest development vesion of FW/1, simply enter `box install fw1@be`. To download a specific release, use the pattern `fw1@[version]` (ie: `fw1@4.1.0`). A list of avaialable versions can be found on the [ForgeBox package page](https://www.forgebox.io/view/fw1). Refer to the [CommandBox documentation](https://ortus.gitbooks.io/commandbox-documentation/content/setup/installation.html) for more info on installing and using CommandBox.
 
 **Download from Github**
 
-FW/1 can be downloaded directly from the **releases** page on [Github](https://github.com/framework-one/fw1). Both paths will lead you to the same [page which lists all the releases](https://github.com/framework-one/fw1/releases), with the latest stable release and pre-release versions listed first.
+FW/1 can also be downloaded directly from the **releases** page on [Github](https://github.com/framework-one/fw1). Both paths will lead you to the same [page which lists all the releases](https://github.com/framework-one/fw1/releases), with the latest stable release and pre-release versions listed first.
 
 When you download FW/1 (or check it out from Github), it's a complete web application. **The `framework` folder should either be copied to your webroot (the simplest way to get started) or else made accessible via a mapping for `/framework`.** Since `Application.cfc` extends `framework.one`, you have to add that mapping in your CFML admin - you cannot use a per-application mapping. _As of release 3.5 there is a way to avoid the mapping and extending `framework.one` which we'll cover in the [Developing Applications Guide](developing-applications.html#alternative-application-structure)._
 
-**Download with CommandBox**
-
-FW/1 may also be installed via [CommandBox](https://www.ortussolutions.com/products/commandbox). From your command prompt, you can easily install FW/1 by entering `box install fw1` and the latest stable version will be installed to your current working directory. To install the latest development vesion of FW/1, simply enter `box install fw1-dev`. Refer to the [CommandBox documentation](https://ortus.gitbooks.io/commandbox-documentation/content/setup/installation.html) for more info on installing and using CommandBox.
-
-_This is a minimal install and only the `framework` folder is installed via this method_. To start with a complete working application, you can grab the `examples` folder from the full Github download (see the first install method) or generate one via [FW/1 Commands](https://github.com/framework-one/fw1-commands) from CommandBox.
+_This is a minimal install and only the `framework` folder is installed via this method_. To start with a complete working application, you can grab the `examples` folder from the full Github/RIAForge download (see the first install method) or generate one via [FW/1 Commands](https://github.com/framework-one/fw1-commands) from CommandBox.
 
 _**Note: do not install FW/1 into a subfolder that contains . in the name as this may prevent CFC resolution from working!**_
 
