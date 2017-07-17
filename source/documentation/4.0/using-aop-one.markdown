@@ -1,13 +1,11 @@
 ---
 layout: page
 title: "Using AOP/1"
-date: 2015-10-27 10:00
+date: 2016-09-16 20:00
 comments: false
 sharing: false
 footer: true
 ---
-_This is documentation for the upcoming 4.0 release. For the current release, see [this documentation](/documentation/)._
-
 AOP/1 is a simple Aspect Oriented Programming extension for [DI/1 (a.k.a Inject One)](using-di-one.html) which allows you to define interceptors for your beans.
 
 These interceptors can run code before or after a method is called on a bean without the need for you to alter the code in your bean.  This allows you to create generic services (such as a logger service) that is coded and configured to operate completely separate from your other services and beans.  What this means is you no longer need to mix unrelated service code together by using dedicated interceptors.
@@ -26,12 +24,12 @@ Create an instance of the AOP/1 extended DI/1 bean factory and specify the folde
 So far nothing difficult since this is what we would typically see from [DI/1](using-di-one.html).  Now, if we want to intercept method calls to an object, we need to declare the interceptors and the objects that should be intercepted.
 
     var beanFactory = new framework.aop("/model");
-    
+
     beanFactory.intercept("pdfService", "beforeInterceptor");
     beanFactory.intercept("pdfService", "afterInterceptor", "createDocument");
-    
+
     var ps = beanFactory.getBean("pdfService");
-    
+
     var document = ps.createDocument("http://seancorfield.github.io");
     var pages = ps.splitPages(document);
 
@@ -57,7 +55,7 @@ Before interceptors will intercept method calls _before_ they are executed.  The
             arguments.args.input = "before" & arguments.args.input;
         }
     }
-    
+
 Because the interceptor is like any other bean handled by DI/1, dependencies can be intjected into the interceptor and used by the interceptor.
 
     component {
@@ -185,5 +183,3 @@ Stacks are executed in the following order.
 * **onError**
 
 All the stacks will only execute if there is an interceptor of their type present.  If the stack is emtpy, nothing is executed.  The **onError** stack only executes if there is an error in the execution of the other stacks.  The **before** and **after** stacks execute like a queue and will execute from start to finish regardless of changes to the arguments or result, skipping any interceptors that do not match the currently intercepted bean method.  The **around** stack executes more like a chain.  The chain execution can be stopped by not calling the `proceed()` method.
-
-

@@ -1,14 +1,21 @@
 ---
 layout: page
 title: "Using DI/1"
-date: 2015-09-05 19:30
+date: 2017-07-01 18:20
 comments: false
 sharing: false
 footer: true
 ---
-DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework. 
+DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework.
 
 DI/1 searches specified directories for CFCs and treats them as singletons or non-singletons (transients) based on naming conventions for the CFCs themselves, or the folders in which they are found. You can override the conventions by configuration if needed.
+
+### Terminology
+- **Bean**: A CFC that you want to create and manage. Any file with a .cfc extension can be a bean.
+- **Transient** or **non-singleton** : A bean that will be freshly created each time you call `getBean()`. It could be used for only the lifespan of the request, e.g., a shopping cart object ready to be populated with items.
+- **Singleton**: A bean where only one exists in the system, so that each time you call `getBean()` you will get the **same** bean, not a new one, e.g., a service that creates shopping cart objects.
+- **Bean Factory**: A service that creates beans for you, so you don't have to use `new` or `createObject`, and populates them with any dependencies.
+
 
 # Getting Started with DI/1
 
@@ -18,7 +25,7 @@ Create an instance of the DI/1 bean factory and specify the folder(s) you want i
     // or multiple folders:
     var beanFactory = new ioc("/model,/common/model");
 
-CFCs found in a folder called `beans` are assumed to be transients; otherwise CFCs are assumed to be singletons. If CFC names are unique, you can use that name to get the bean out of the factory:
+CFCs found in a folder called `beans` are assumed to be transients; otherwise CFCs are assumed to be singletons, this includes beans found in folders under the `beans` folder. If CFC names are unique, you can use that name to get the bean out of the factory:
 
     var userManager = beanFactory.getBean("userManager");
 
@@ -28,7 +35,7 @@ If a CFC has a constructor (a method called `init()`), DI/1 will use the argumen
 
 If DI/1 cannot find a matching bean for a constructor argument, it will throw an exception. If DI/1 cannot find a matching bean for a setter method or property, it will log the failure and ignore it (by default), and the corresponding variable will not be populated. You can configure DI/1 to be strict about matching bean names - see the configuration section below - in which case it will throw an exception.
 
-Note that DI/1 will only inject singletons via setters or properties. Injecting transients in those situations often leads to unexpected results (consider a transient `invoice` bean that has a `setCustomer()` method when you also have a transient `customer` bean - you almost certainly don't want DI/1 to automatically create a customer instance and inject it every time you ask DI/1 for a new invoice bean!). If a constructor argument matches a transient bean, DI/1 will still create an instance since it has to finish constructing the original bean.
+Note that DI/1 will inject both singletons and transients via constructors, but it will inject only singletons via setters or properties, not transients. Injecting transients in those situations often leads to unexpected results (consider a transient `invoice` bean that has a `setCustomer()` method when you also have a transient `customer` bean - you almost certainly don't want DI/1 to automatically create a customer instance and inject it every time you ask DI/1 for a new invoice bean!). If a constructor argument matches a transient bean, DI/1 will still create an instance since it has to finish constructing the original bean.
 
 ## Acceptable Folder Paths
 
@@ -189,7 +196,7 @@ This is called for each bean after its dependencies have been injected prior to 
 Two related extension points that can be useful as well are:
 
     private any function construct( string dottedPath )
-    
+
     private any function metadata( string dottedPath )
 
 These can be overridden if you want to change the behavior of how beans are created and how metadata is obtained for beans. An example from Adam Tuttle is the ability to silently ignore beans that have syntax errors during development, so the rest of the beans are loaded: you would override `metadata()` and have it wrap a call to `super.metadata( dottedPath )` in `try/catch` and return an empty struct if an exception is thrown.

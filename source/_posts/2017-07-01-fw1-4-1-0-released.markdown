@@ -1,0 +1,14 @@
+---
+layout: post
+title: "FW/1 4.1.0 Released!"
+date: 2017-07-01 20:00
+comments: true
+categories: [releases, fw1, di1, aop1]
+---
+[FW/1 4.1.0](https://github.com/framework-one/fw1/releases/tag/v4.1.0) has been released!
+
+This is a maintenance release for FW/1 4.0.0 that includes a number of bug fixes and some minor enhancements. See this [blog post about the release candidate](http://framework-one.github.io/blog/2017/06/16/fw1-4-1-0-rc1/) for the main changes in this release. Since the release candidate, most of the work has been on updating the documentation and adding an example of using a custom template engine (Mustache) with FW/1.
+
+Note that 4.1.0 includes an important bug fix for 4.0.0 which addresses a race condition that could cause transient beans to be partially resolved, leading to dependencies not being available under heavy load conditions.
+
+Lucee 5.x is now an officially supported platform for FW/1, along with Adobe ColdFusion 10, 11, and 2016, and Lucee 4.5.

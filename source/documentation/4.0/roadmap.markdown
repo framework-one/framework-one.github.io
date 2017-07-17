@@ -1,13 +1,11 @@
 ---
 layout: page
 title: "FW/1 Roadmap"
-date: 2016-01-05 23:00
+date: 2016-09-16 20:00
 comments: false
 sharing: false
 footer: true
 ---
-_This is documentation for the upcoming 4.0 release. For the current release, see [this documentation](/documentation/)._
-
 Whilst you can read the [FW/1 issues list](https://github.com/framework-one/fw1/issues) to see what's on the cards for future releases, several people have asked that I document things at a higher level so they can get a better sense of what's coming.
 
 5.x Lifecycle Restructuring

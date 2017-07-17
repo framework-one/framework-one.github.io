@@ -9,6 +9,4 @@ I mentioned it in passing in one of my early posts about using Clojure from CFML
 
 I'm planning to add a couple of more involved examples to the project repo, one of which will use FW/1 and have the entire Model built in Clojure with the View-Controller portion written in CFML / cfscript - and I'm also planning to create a simple ready-to-run Jetty-based package so folks can simply download cfmljure and try it out without needing to worry about installing anything.
 
-You can always get the [latest version of cfmljure from RIAForge](http://cfmljure.riaforge.org/)!
-
- 
+You can always get the [latest version of cfmljure from GitHub](https://github.com/framework-one/cfmljure/releases)!

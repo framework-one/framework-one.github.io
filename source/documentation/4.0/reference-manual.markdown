@@ -1,13 +1,11 @@
 ---
 layout: page
 title: "FW/1 Reference Manual"
-date: 2015-12-22 22:40
+date: 2016-09-16 20:00
 comments: false
 sharing: false
 footer: true
 ---
-_This is documentation for the upcoming 4.0 release. For the current release, see [this documentation](/documentation/)._
-
 This page provides a description of all the APIs and components involved in a FW/1 application. Please also read the [Roadmap](roadmap.html) to see how things may change in the future.
 
 * TOC
@@ -276,6 +274,10 @@ Returns the method (GET, POST, etc) used for the current request. This is a conv
 
 Returns the route that was used to initiate the current request (if any). Returns an empty string if the current request was not initiated via a matched route.
 
+### public string function getRoutePath()
+
+Returns the path info (SES URL) portion that either matched the current route (if any) or was used as the action for the current request. It is returned in the same format as `getRoute()`, i.e., `$POST/section/item/` or `$GET/users/123/` (where `getRoute()` might return `$GET/users/:id`).
+
 ### public array function getRoutes()
 
 Returns (a copy of) `variables.framework.routes`. This can be overridden in `Application.cfc` if you want to generate routes dynamically.
@@ -525,7 +527,7 @@ Override this in your `Application.cfc` to provide request-specific initializati
 
 ## public void function setupResponse( struct rc )
 
-Override this in your `Application.cfc` to provide request-specific finalization. This is called after all views and layouts have been rendered or immediately before a redirect. You do not need to call `super.setupResponse()`. 
+Override this in your `Application.cfc` to provide request-specific finalization. This is called after all views and layouts have been rendered or immediately before a redirect. You do not need to call `super.setupResponse()`.
 
 ## public void function setupSession()
 
@@ -541,7 +543,7 @@ This is called when the framework trace is about to be rendered at the end of a 
 
 ## public void function setupView( struct rc )
 
-Override this in your `Application.cfc` to provide pre-rendering logic, e.g., putting globally available data into the request context so it is available to all views. You do not need to call `super.setupView()`. 
+Override this in your `Application.cfc` to provide pre-rendering logic, e.g., putting globally available data into the request context so it is available to all views. You do not need to call `super.setupView()`.
 
 ## public void function setView( string action )
 

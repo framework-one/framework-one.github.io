@@ -17,7 +17,7 @@ For a complete list of changes since 3.0:
 * [Issues Closed](https://github.com/framework-one/fw1/issues?q=is%3Aissue+is%3Aclosed+milestone%3A3.1)
 * [Pull Requests Merged](https://github.com/framework-one/fw1/pulls?q=is%3Apr+is%3Aclosed+milestone%3A3.1)
 
-At this point, release 3.1 should be considered "production ready" and only critical bug fixes will be included between now and the "gold" release. It is the default download on RIAForge and will be merged to master tomorrow in preparation for the final release at the weekend.
+At this point, release 3.1 should be considered "production ready" and only critical bug fixes will be included between now and the "gold" release. It will be merged to master tomorrow in preparation for the final release at the weekend.
 
 As noted before, release 3.5 will follow fairly quickly after that, with a focus on language integration, bringing
 automatic support for Clojure code in the Model and Controllers, as well as first class support for the Lucee Language in the Model, the Views, and the Controllers.

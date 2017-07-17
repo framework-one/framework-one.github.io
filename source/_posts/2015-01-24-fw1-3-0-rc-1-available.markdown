@@ -17,5 +17,3 @@ In addition, AOP/1 is no longer bundled with FW/1. It's not ready for primetime 
 As part of the preparation for RC 1, all of the documentation has been reviewed and updated and DI/1's documentation is now [part of the main documentation site](http://framework-one.github.io/documentation/using-di-one.html). Big thanks go to Nando Breiter for bringing that across from the old wiki in the standalone DI/1 repo. Code contributors to RC 1 include: John Berquist, Ryan Guill, Cameron Childress. Thank you!
 
 At this point, only bug fixes will be considered before FW/1 3.0 goes "gold" and given the long period of testing so far on Beta 1, that final release shouldn't be too far away.
-
-Oh, and if you go to [FW/1's page on RIAForge](http://fw1.riaforge.org), you'll see that 3.0 RC 1 is the default download now, instead of 2.5.

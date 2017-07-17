@@ -1,13 +1,11 @@
 ---
 layout: page
 title: "Developing Applications with FW/1"
-date: 2015-12-22 22:40
+date: 2016-09-16 20:00
 comments: false
 sharing: false
 footer: true
 ---
-_This is documentation for the upcoming 4.0 release. For the current release, see [this documentation](/documentation/)._
-
 FW/1 is intended to allow you to quickly build applications with the minimum of overhead and interference from the framework itself. The convention-based approach means that you can quickly put together an outline of your site or application merely by creating folders and files in the `views` folder. As you are ready to start adding business logic to the application, you can add controllers and/or services and domain objects as needed to implement the validation and data processing.
 
 * Table of Contents
@@ -15,7 +13,7 @@ FW/1 is intended to allow you to quickly build applications with the minimum of 
 
 Basic Application Structure
 ---
-FW/1 applications generally have an `Application.cfc` that extends `framework.one` and an empty `index.cfm` as well as at least one view (under the `views` folder). Typical applications will also have folders for `controllers`, `layouts` and a `model` -- itself containing subfolders for `services` and `beans`. Some applications may also have a `subsystems` folder (see below). The folders may be in the same directory as `Application.cfc` / `index.cfm` or may be in a directory accessible via a mapping (or some other path under the webroot). If the folders are not in the same directory as `Application.cfc` / `index.cfm`, then `variables.framework.base` must be set in `Application.cfc` to identify the location of those folders.
+FW/1 applications generally have an `Application.cfc` that extends `framework.one` and an empty `index.cfm` as well as at least one view (under the `views` folder). Typical applications will also have folders for `controllers`, `layouts` and a `model` -- itself containing subfolders for `services` and `beans`. Some applications may also have a `subsystems` folder (see below). The folders may be in the same directory as `Application.cfc` / `index.cfm` or may be in a directory accessible via a mapping (or some other path under the webroot). If the folders are not in the same directory as `Application.cfc` / `index.cfm`, then `variables.framework.base` must be set in `Application.cfc` to identify the location of those folders (and you will need to use mapped paths for `diLocations`).
 
 As of release 3.5, these folder name conventions can be modified. See **[Configuring FW/1 Applications](#configuring-fw1-applications)** below.
 
@@ -50,7 +48,7 @@ Instead of having your `Application.cfc` extend `framework.one`, you can use `/f
             }
             return request._framework_one;
         }
-        
+
         // lifecycle methods, per /framework/Application.cfc
         ...
     }
@@ -77,7 +75,7 @@ This works well when you cannot set a mapping in the CFML admin and you don't ne
             }
             return request._framework_one;
         }
-        
+
         // lifecycle methods, per /framework/Application.cfc
         ...
     }
@@ -101,12 +99,13 @@ Note that you can put your version of `MyApplication.cfc` anywhere and call it a
                 // create my extended version of FW/1:
                 request._framework_one = new app.CustomApp( {
                     base : '/app',
+                    diLocations = '/app/model, /app/controllers',
                     trace : true
                 } );
             }
             return request._framework_one;
         }
-        
+
         // lifecycle methods, per /framework/Application.cfc
         ...
     }
@@ -314,7 +313,7 @@ Once you have called `renderData()`, you can either chain builder calls onto tha
         variables.fw.renderer().header( "X-Result", "Condition Happened" );
     }
 
-As of release 4.0, FW/1 can accept JSON data in the body of a POST. To enable this, set `enableJSONPOST` to `true` in your framework configuration. FW/1 assumes the JSON data will deserialize to a struct and that will be appended to the request context, overriding any URL variables of the same name as elements of the deserialized struct.
+As of release 4.0, FW/1 can accept JSON data or URL-encoded data in the body of a POST or PUT. To enable this, set `decodeRequestBody` to `true` in your framework configuration. FW/1 assumes the JSON data, or URL-encoded data, will decode to a struct, and that will be appended to the request context, overriding any URL variables of the same name as elements of the decoded struct.
 
 #### Custom Data Rendering
 
@@ -375,6 +374,10 @@ There are many ways to organize how you save and load data. You could use the OR
             variables.dataService.save( this );
         }
     }
+
+If you use the ORM, bear in mind that it acts as a bean factory and expects to manage your domain objects -- rather than you having DI/1 manage them. This means that domain objects created via the ORM (via `entityNew()`, `entityLoad()` etc) will not have any dependencies wired in. Since such domain objects will often need access to services in your main bean factory, one approach you can use is to obtain FW/1's bean factory via the `framework.facade` (new in 4.0.0):
+
+    var myService = new framework.facade().getBeanFactory().getBean( "someService" );
 
 Using Bean Factories
 ---
@@ -610,7 +613,7 @@ Error Handling
 ---
 By default, if an exception occurs, FW/1 will attempt to run the `main.error` action (as if you had asked for `?action=main.error`), assuming your `defaultSection` is `main`. If you change the `defaultSection`, that implicitly changes the default error handler to be the `error` item in that section. The exception thrown is stored directly in the `request` scope as `request.exception`. If FW/1 was processing an action when the exception occurred, the name of that action is available as `request.failedAction`. The default error handling action can be overridden in your `Application.cfc` by specifying `variables.framework.error` to be the name of the action to invoke when an exception occurs.
 
-If the specified error handler does not exist or another exception occurs during execution of the error handler, FW/1 provides a very basic fallback error handler that simply displays the exception. If you want to change this behavior, you can either override the `fail()` method or the `onError()` method but I don't intend to "support" that so the only documentation will be in the code!
+If the specified error handler does not exist or another exception occurs during execution of the error handler, FW/1 provides a very basic fallback error handler that simply displays the exception. If you want to change this behavior, you can either override the `failure()` method or the `onError()` method but I don't intend to "support" that so the only documentation will be in the code!
 
 Note: If you override `onMissingView()` and forget to define a view for the error handler, FW/1 will call `onMissingView()` and that will hide the original exception.
 
@@ -661,7 +664,7 @@ All of the configuration for FW/1 is done through a simple structure in `Applica
         diLocations = [ "model", "controllers" ],
         diConfig = { },
         diComponent = "framework.ioc",
-        enableJSONPOST = false,
+        decodeRequestBody = false,
         preflightOptions = false,
         optionsAccessControl = { },
         environments = { }
@@ -670,8 +673,8 @@ All of the configuration for FW/1 is done through a simple structure in `Applica
 The keys in the structure have the following meanings:
 
 * `action` - The URL or form variable used to specify the desired action (`?action=section.item`).
-* `base` - Provide this if the application itself is not in the same directory as `Application.cfc` and `index.cfm`. It should be the **relative** path to the application from the `Application.cfc` file, or a **mapped** path to the application. Examples: `"../myapp/"`, `"/appmaping/"`.
-* `cfcbase` - Provide this if the `controllers` and `model` folders are not in the same folder as the application. It is used as the dotted-path prefix for controller and service CFCs, e.g., if `cfcbase = 'com.myapp'` then a controller would be `com.myapp.controllers.MyController`.
+* `base` - Provide this if the application itself is not in the same directory as `Application.cfc` and `index.cfm`. It should either be the **relative** path to the folder containing the `views` and `layouts` from the `Application.cfc` file, or a **mapped** path to that folder. Examples: `"../myapp/"`, `"/appmapping/"`. You will also need to specify the location for `controllers` and `model` via `diLocations` if you are using a bean factory (the default), or via `cfcbase` if you have disabled the bean factory.
+* `cfcbase` - Essentially deprecated, this tells FW/1 how to find the `controllers` folder if you are not using a bean factory. It is used as the dotted-path prefix for controller CFCs when FW/1 is managing them (rather than a bean factory), e.g., if `cfcbase = 'com.myapp'` then a controller would be `com.myapp.controllers.MyController`.
 * `usingSubsystems` - Whether or not to use legacy style subsystems - see **[Using Subsystems](#using-subsystems)** below. This is automatically set `true` if you explicitly specify a `defaultSubsystem`. As of release 3.5, it is recommended to use the new style subsystems (and leave this as `false` or omit it).
 * `defaultSubsystem` - If legacy subsystems are enabled, this is the default subsystem when none is specified in the URL or form post. It defaults to `"home"`. As of release 3.5, it is recommended to use the new style subsystems (and omit this).
 * `defaultSection` - This is the default section to use when none is specified in the URL or form post. It defaults to `"main"`.
@@ -706,10 +709,10 @@ The keys in the structure have the following meanings:
 * `viewsFolder` - The name used for the views folder. Must be plural. Defaults to `"views"` but could be `"pages"` for example. _New in 3.5._
 * `diOverrideAllowed` - If `true`, FW/1 will throw an exception if you attempt to call `setBeanFactory()` twice. If `false`, FW/1 will allow you to call `setBeanFactory()` twice and override the previous Dependency Injection setting, but it will log a warning to the console. If you want FW/1 to manage your bean factory, use the `di*` settings above to configure it -- and do not call `setBeanFactory()` yourself. If you want to manage your bean factory directly, set `diEngine` to `"none"` so FW/1 doesn't also attempt to do this. _New in 3.5._
 * `diEngine` - The Dependency Injection framework that FW/1 should use.
-* `diLocations` - The list of folders to check for CFCs to manage; defaults to `[ "model", "controllers" ]`.
+* `diLocations` - The list of folders to check for CFCs to manage; defaults to `[ "model", "controllers" ]`. If you've had to use `base` to tell FW/1 where your `views` and `layouts` are, you'll need to include that location in the paths to the folders where your CFCs are, and use a **mapped** path instead of a relative path.
 * `diConfig` - Any additional configuration needed for the Dependency Injection engine; defaults to `{ }`.
 * `diComponent` - The dotted-path to the CFC used for the bean factory (which has sensible defaults based on `diEngine`).
-* `enableJSONPOST` - Default `false`. If `true`, FW/1 will accept JSON POST data and deserialize it automatically into the request context. _New in 4.0._
+* `decodeRequestBody` - Default `false`. If `true`, FW/1 will accept JSON or URL-encoded data in the request body (commonly provided by POST / PUT operations) and decode it automatically into the request context. _New in 4.0._
 * `preflightOptions` - Default `false`. If `true`, FW/1 will handle HTTP `OPTIONS` requests for you. See **[OPTIONS Support](#options-support)** above for more details. _New in 4.0._
 * `optionsAccessControl` - Default `{ }`. You can use this to override the default `Access-Control-*` headers returns by FW/1's `OPTIONS` support. Valid keys are: `origin`, `headers`, `credentials`, and `maxAge`. _New in 4.0._
 * `environments` - An optional struct containing per-tier and per-server configuration that should be merged into FW/1's settings. See **[Environment Control](#environment-control)** below for more details.
@@ -804,6 +807,7 @@ Here's an example showing all the features together:
 Environment Control
 ---
 FW/1 supports _environment control - the ability to automatically detect your application environment (development, production, etc) and adjust the framework configuration accordingly. There are three components to environment control:
+
 * `variables.framework.environments` - An optional structure containing groups of framework options for each environment.
 * `getEnvironment()` - A function that you override in `Application.cfc` that returns a string indicating the application environment.
 * `setupEnvironment( string env )` - A function that may optionally override in `Application.cfc` to provide more programmatic configuration for your application environment.
@@ -862,7 +866,7 @@ The easiest way to setup `request` variables (or even global variables scope) is
 
 Using Subsystems
 ===
-The subsystems feature allows you to modularize your FW/1 application as it grows, by breaking it down into a series of "mini FW/1 applications". It can also allow you to combine  other FW/1 applications as modules into your application. The subsystems feature was originally contributed by Ryan Cogswell and has been overhauled as part of reelase 3.5, based on ideas by Steve Neiland. The original documentation was written by Dutch Rapley. Read about [Using Subsystems](using-subsystems.html) to modularize or combine FW/1 applications.
+The subsystems feature allows you to modularize your FW/1 application as it grows, by breaking it down into a series of "mini FW/1 applications". It can also allow you to combine  other FW/1 applications as modules into your application. The subsystems feature was originally contributed by Ryan Cogswell and has been overhauled as part of release 3.5, based on ideas by Steve Neiland. The original documentation was written by Dutch Rapley. Read about [Using Subsystems](using-subsystems.html) to modularize or combine FW/1 applications.
 
 Accessing the FW/1 API
 ===
@@ -933,4 +937,3 @@ FW/1 provides a number of convenience methods for manipulating the action value 
 * `getSectionAndItem( action )` - Returns the _section.item_ portion of the action, including default values if either part is not specified.
 * `getFullyQualifiedAction( action )` - Returns the fully qualified _module:section.item_ version of the action, including defaults where appropriate. If the module name is empty, returns `getSectionAndItem( action )`, without the subsystem delimiter. Be careful that _section.item_ is a subsystem-relative action so if you use it inside a subsystem, it will be treated as part of the current subsystem, which is not the same as _:section.item_ (which is treated as part of the main application). This is provided mostly for backward-compatibility and use with Subsystems 1.0 applications.
 * `getSubsystemSectionAndItem( action )` - Returns the fully qualified _module:section.item_ version of the action, including defaults where appropriate. If the module name is empty, the subsystem delimiter is still present (so you get _:section.item_) unlike `getFullyQualifiedAction()` above.
-
