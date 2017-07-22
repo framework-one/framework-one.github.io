@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Getting Started with FW/1"
-date: 2017-07-16 19:40
+date: 2017-07-22 11:37
 comments: false
 sharing: false
 footer: true
@@ -33,7 +33,7 @@ There are two options by which to install FW/1: either install it via CommandBox
 
 **Install with CommandBox**
 
-FW/1 can be installed via [CommandBox](https://www.ortussolutions.com/products/commandbox). From your command prompt, you can easily install FW/1 by entering `box install fw1` and the latest stable version will be installed to your current working directory from ForgeBox. To install the latest development vesion of FW/1, simply enter `box install fw1@be`. To download a specific release, use the pattern `fw1@[version]` (e.g., `fw1@4.1.0`). A list of avaialable versions can be found on the [ForgeBox package page](https://www.forgebox.io/view/fw1). Refer to the [CommandBox documentation](https://ortus.gitbooks.io/commandbox-documentation/content/setup/installation.html) for more info on installing and using CommandBox.
+FW/1 can be installed via [CommandBox](https://www.ortussolutions.com/products/commandbox). From your command prompt, you can easily install FW/1 by entering `box install fw1` and the latest stable version will be installed to your current working directory from ForgeBox. To install the latest development vesion of FW/1, simply enter `box install fw1@be`. To download a specific release, use the pattern `fw1@[version]` (e.g., `fw1@4.1.0`). A list of available versions can be found on the [ForgeBox package page](https://www.forgebox.io/view/fw1). Refer to the [CommandBox documentation](https://ortus.gitbooks.io/commandbox-documentation/content/setup/installation.html) for more info on installing and using CommandBox.
 
 _This is a minimal install and only the `framework` folder is installed via this method_. To start with a complete working application, you can grab the `examples` folder from the full Github download (see the second install method) or generate one via [FW/1 Commands](https://github.com/framework-one/fw1-commands) from CommandBox.
 
