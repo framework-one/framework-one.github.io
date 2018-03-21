@@ -237,7 +237,7 @@ component accessors=true {
 
 <ul>
   <li><code>constants</code> - struct - defaults to <code>{}</code>. DI/1 will use any name/value pairs specified here to provide <em>beans</em> that resolve to the specified values. This can be used to provide resolution for constructor arguments that need values which are not actual beans. See also <code>declare()</code> in the <strong>Customization</strong> section that follows.</li>
-  <li><code>exclude</code> - array - defaults to <code>[]</code>. DI/1 will ignore any CFCs whose file path contains the strings in this array. DI/1 always excludes paths containing <code>/WEB-INF</code> and <code>/Application.cfc</code>, as well as various FW/1 and DI/1 framework files. The strings are not case-sensitive.</li>
+  <li><code>exclude</code> - array - defaults to <code>[]</code>. DI/1 will ignore any CFCs whose file path contains the strings in this array. DI/1 always excludes paths containing <code>/WEB-INF</code> and <code>/Application.cfc</code>, as well as various FW/1 and DI/1 framework files. The strings are not case-sensitive. Note that if you wish to exclude specific folders, you must include both the leading and trailing <code>/</code>, otherwise you will ignore all files and folders that begin with the string (i.e., <code>/com</code> will also ignore <code>/company</code>).</li>
   <li><code>initMethod</code> - string - If specified, identifies a method name on beans that DI/1 will attempt to call (with no arguments) on each bean after its dependencies have been injected.</li>
   <li><code>liberal</code> - boolean - default to <code>false</code>. If <code>true</code>, treat folder names ending in <code>ies</code> as plurals (of names ending in <code>y</code>, e.g., <code>libraries</code> would be treated as the plural of <code>librarie</code> by default, but with <code>liberal : true</code>, it would be treated as the plural of <code>library</code>).</li>
   <li><code>loadListener</code> - any - If specified, DI/1 will register it as a load listener by calling <code>this.onLoad( loadListener )</code>. It can be a CFC instance, the name of a bean, or a function or closure.</li>
@@ -788,7 +788,7 @@ moduleBeanFactory.setParent( mainBeanFactory );
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2017 - Sean Corfield -
+  Copyright &copy; 2018 - Sean Corfield -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
