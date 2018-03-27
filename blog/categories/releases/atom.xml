@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Releases | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/releases/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2018-03-27T11:28:04-07:00</updated>
+  <updated>2018-03-27T11:31:21-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -12,6 +12,17 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FW/1 4.2.0 Released!]]></title>
+    <link href="http://framework-one.github.io/blog/2018/03/27/fw1-4-2-0-released/"/>
+    <updated>2018-03-27T11:25:00-07:00</updated>
+    <id>http://framework-one.github.io/blog/2018/03/27/fw1-4-2-0-released</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/framework-one/fw1/releases/tag/v4.2.0">FW/1 4.2.0</a> has been released!</p>
+
+<p>This is a maintenance release for FW/1 4.1.0 that includes a handful of bug fixes and some experimental work to try to support ColdBox modules.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FW/1 4.1.0 Released!]]></title>
@@ -46,17 +57,6 @@
 <p>I consider this Release Candidate to be “production-ready” so I would appreciate as many users upgrading and testing it as possible!</p>
 
 <p>Thank you to everyone who contributes to FW/1 in every way!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 4.2.0 Released!]]></title>
-    <link href="http://framework-one.github.io/blog/2017/03/27/fw1-4-2-0-released/"/>
-    <updated>2017-03-27T11:25:00-07:00</updated>
-    <id>http://framework-one.github.io/blog/2017/03/27/fw1-4-2-0-released</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/framework-one/fw1/releases/tag/v4.2.0">FW/1 4.2.0</a> has been released!</p>
-
-<p>This is a maintenance release for FW/1 4.1.0 that includes a handful of bug fixes and some experimental work to try to support ColdBox modules.</p>
 ]]></content>
   </entry>
   
