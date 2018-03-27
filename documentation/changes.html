@@ -9,8 +9,8 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="Change Log for FW/1 and Friends Jul 1st, 2017 7:10 pm The following changes are part of FW/1 4.1 and DI/1 1.3.0. Summary
-The 4.1 release is intended &hellip;">
+  <meta name="description" content="Change Log for FW/1 and Friends Mar 27th, 2018 11:10 am The following changes are part of FW/1 4.2 and DI/1 4.2. Summary
+The 4.2 release is very a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,40 +75,28 @@ The 4.1 release is intended &hellip;">
 
 
 
-<time class='entry-date' datetime='2017-07-01T19:10:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2017</span></span> <span class='time'>7:10 pm</span></time></p>
+<time class='entry-date' datetime='2018-03-27T11:10:00-07:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>11:10 am</span></time></p>
   </header>
   
-  <p>The following changes are part of FW/1 4.1 and DI/1 1.3.0.</p>
+  <p>The following changes are part of FW/1 4.2 and DI/1 4.2.</p>
 
 <h2 id="summary">Summary</h2>
-<p>The 4.1 release is intended to be a minor maintenance release over 4.0.</p>
-
-<h2 id="breaking-changes">Breaking Changes</h2>
-
-<ul>
-  <li><a href="https://github.com/framework-one/fw1/issues/466">466</a> - Clojure integration is no longer provided out of the box, so that Lucee 5.x can be officially supported.</li>
-</ul>
+<p>The 4.2 release is very a minor maintenance release over 4.1.</p>
 
 <h2 id="enhancements">Enhancements</h2>
 
 <ul>
-  <li><a href="https://github.com/framework-one/fw1/issues/481">481</a> - <code>customTemplateEngine()</code> extension point and <code>makeMethodProxies()</code> utility function have been added to make it easier to support additional templating engines. An example is provided for <code>mustache</code> in which the views and layouts are HTML templates rendered by a Java implementation of the <a href="http://mustache.github.io">Mustache template language</a>.</li>
-  <li><a href="https://github.com/framework-one/fw1/issues/472">472</a> - Since Adobe ColdFusion 9 is no longer supported, dynamic method invocations are done via <code>invoke()</code> rather than <code>evaluate()</code> (and so they might be slightly faster).</li>
-  <li><a href="https://github.com/framework-one/fw1/pull/467">467</a> - Session scope handling is now pluggable (but still uses <code>session</code> scope by default).</li>
-  <li><a href="https://github.com/framework-one/fw1/issues/465">465</a> - The tests have been switched from MXUnit to TestBox and the CI system has been switched from Ant (and explicitly download CFML engines) to CommandBox. The test matrix now includes: Adobe ColdFusion 10, 11, 2016; Lucee 4.5, 5 (current 5.1).</li>
-  <li><a href="https://github.com/framework-one/fw1/issues/460">460</a> - New framework option <code>missingview</code> can specify an action to take on a <code>FW1.viewNotFound</code> exception, rather than the default <code>error</code> action.</li>
-  <li><a href="https://github.com/framework-one/fw1/issues/452">452</a> - <code>baseURL</code> with trailing <code>/</code> no longer causes <code>//</code> to appear in URLs (when calling <code>buildURL()</code>).</li>
-  <li><a href="https://github.com/framework-one/fw1/issues/424">424</a> - To partially support the desire to unload bean factory data when FW/1 is reloaded, there is a new extension point <code>onReload()</code>.</li>
+  <li>Add <code>onMissingMethod()</code> pass-thru support to AOP/1</li>
+  <li><a href="https://github.com/framework-one/fw1/issues/486">486</a> Experimental ColdBox Module support (work-in-progress)</li>
 </ul>
 
 <h2 id="bug-fixes">Bug Fixes</h2>
 
 <ul>
-  <li><a href="https://github.com/framework-one/fw1/issues/463">463</a> - A potential XSS vulnerability in the default exception reporting function has been addressed.</li>
-  <li><a href="https://github.com/framework-one/fw1/pull/462">462</a> - Addresses a race condition around resolving transients under heavy load. Thanks to John Whish and jcberquist for chasing this down!</li>
-  <li><a href="https://github.com/framework-one/fw1/issues/458">458</a> - If an exception occurs during bean discovery, and an application’s error handling causes any DI/1 method to be invoked, it’s likely that <code>discoverBeans()</code> will be run a second time. Previously, that caused beans to be loaded twice and, if you had <code>omitDirectoryAliases : true</code>, you would get a new exception (that bean names were not unique) which masked the original exception. Now, if an exception occurs during initialization, bean discovery is considered complete, which should allow the original exception to propagate (even if your exception handling then crashes and burns!).</li>
-  <li><a href="https://github.com/framework-one/fw1/issues/456">456</a> - <code>onError()</code> now resets <code>setLayout()</code> so that if an error occurs in a subsystem, the error handling is rendered correctly, using only layouts from the error action.</li>
-  <li><a href="https://github.com/framework-one/fw1/issues/383">383</a> - <code>redirect()</code> now accepts a <code>struct</code> for the <code>queryString</code> argument: this was introduced in version 3.5 but never actually worked until now!</li>
+  <li><a href="https://github.com/framework-one/fw1/pull/500">500</a> Fix unscoped variables <code>q</code> and <code>a</code> in <code>buildURL()</code></li>
+  <li><a href="https://github.com/framework-one/fw1/pull/496">496</a> Allow AOP/1 to accept array of folders (DI/1 already accepted this)</li>
+  <li><a href="https://github.com/framework-one/fw1/pull/493">493</a> Use <code>encodeForURL()</code> instead of <code>urlEncodedFormat()</code></li>
+  <li><a href="https://github.com/framework-one/fw1/pull/491">491</a> Fix trailing <code>&amp;</code> on query string</li>
 </ul>
 
   
@@ -120,7 +108,7 @@ The 4.1 release is intended &hellip;">
 
 
 
-<time class='entry-date' datetime='2017-07-01T19:10:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2017</span></span> <span class='time'>7:10 pm</span></time>
+<time class='entry-date' datetime='2018-03-27T11:10:00-07:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>11:10 am</span></time>
         
       </p>
       
@@ -139,7 +127,18 @@ The 4.1 release is intended &hellip;">
     <p>The main FW/1 Gitter room is also mirrored to the <a href="https://cfml.slack.com/messages/fw1/">FW/1 channel</a> on the <a href="http://cfml-slack.herokuapp.com/">CFML Slack</a> (that's the link to get an invite to sign up for the Slack).</p>
 </section>
 <section>
-    <h1>4.1 Documentation (current - master)</h1>
+    <h1>4.2 Documentation (current - master)</h1>
+    <a href="/documentation/4.2/">Getting Started Guide</a><br />
+    <a href="/documentation/4.2/developing-applications.html">Developing Applications Guide</a><br />
+    <a href="/documentation/4.2/using-aop-one.html">Using AOP/1</a><br />
+    <a href="/documentation/4.2/using-di-one.html">Using DI/1</a><br />
+    <a href="/documentation/4.2/using-subsystems.html">Using Subsystems</a><br />
+    <a href="/documentation/4.2/reference-manual.html">Reference Manual</a><br />
+    <a href="/documentation/4.2/changes.html">Change Log</a><br />
+    <a href="/documentation/4.2/roadmap.html">Roadmap</a><br />
+</section>
+<section>
+    <h1>4.1 Documentation</h1>
     <a href="/documentation/4.1/">Getting Started Guide</a><br />
     <a href="/documentation/4.1/developing-applications.html">Developing Applications Guide</a><br />
     <a href="/documentation/4.1/using-aop-one.html">Using AOP/1</a><br />
