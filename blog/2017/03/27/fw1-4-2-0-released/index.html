@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>FW/1 - the Napkin Spec - FW/1 - The Invisible Framework</title>
+  <title>FW/1 4.2.0 Released! - FW/1 - The Invisible Framework</title>
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="A few folks have asked me to post the “napkin” on which I wrote the spec for FW/1. My “napkin” is actually Evernote because I have it on every &hellip;">
+  <meta name="description" content="FW/1 4.2.0 has been released! This is a maintenance release for FW/1 4.1.0 that includes a handful of bug fixes and some experimental work to try to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://framework-one.github.io/blog/2010/02/06/fw1-the-napkin-spec">
+  <link rel="canonical" href="http://framework-one.github.io/blog/2017/03/27/fw1-4-2-0-released">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
@@ -69,7 +69,7 @@
   
   <header>
     
-      <h1 class="entry-title">FW/1 - the Napkin Spec</h1>
+      <h1 class="entry-title">FW/1 4.2.0 Released!</h1>
     
     
       <p class="meta">
@@ -78,7 +78,7 @@
 
 
 
-<time class='entry-date' datetime='2010-02-06T18:09:11-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>6:09 pm</span></time>
+<time class='entry-date' datetime='2017-03-27T11:25:00-07:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>11:25 am</span></time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://framework-one.github.io">Comments</a>
@@ -88,34 +88,9 @@
   </header>
 
 
-<div class="entry-content"><p>A few folks have asked me to post the “napkin” on which I wrote the spec for FW/1. My “napkin” is actually Evernote because I have it on every computer and my iPhone so it’s always with me and it’s easy to develop notes with. I started the spec on July 17th and “finished” it on July 20th. The spec was titled “New Lightweight Framework”. Here’s what it said:<!-- more --></p>
+<div class="entry-content"><p><a href="https://github.com/framework-one/fw1/releases/tag/v4.2.0">FW/1 4.2.0</a> has been released!</p>
 
-<blockquote>
-  <p>Goal: Create an extremely lightweight convention over configuration framework. Considerations:</p>
-
-  <ul>
-    <li>Leverage <code>Application.cfc</code> and lifecycle</li>
-    <li>Automatically call controller, model, view if appropriate</li>
-    <li>Autowire from bean factory?</li>
-    <li><code>Application.cfc</code> extends <code>org.corfield.X</code></li>
-    <li>Programmatically set everything, no XML</li>
-    <li><code>variables.framework</code> struct to specify everything</li>
-    <li><code>variables.framework.action</code> is URL / form variable for the, er, action, defaults to <code>'action'</code></li>
-    <li><code>variables.framework.home</code> is home action, defaults to <code>main.default</code>
-fold URL / form into request.context</li>
-    <li><code>?action=section.item</code> maps to <code>controllers/section.cfc:item()</code> then <code>models/section.cfc:item()</code> then <code>views/section/item.cfm</code></li>
-    <li>implicit layouts based on actions</li>
-  </ul>
-
-  <p>Caveats:</p>
-
-  <ul>
-    <li>Should controller / model be instantiated every request or cached?</li>
-    <li>How should cache be refreshed?</li>
-  </ul>
-</blockquote>
-
-<p>That’s it. I wrote the first version of FW/1 on July 19th. You can see the <a href="https://github.com/framework-one/fw1/blob/a686fd441ccd86e147f770f41b10f79a07be11f2/org/corfield/framework.cfc">original 381 line framework.cfc</a> on Github. So there you go: an insight into my design process!</p>
+<p>This is a maintenance release for FW/1 4.1.0 that includes a handful of bug fixes and some experimental work to try to support ColdBox modules.</p>
 </div>
 
 
@@ -131,12 +106,12 @@ fold URL / form into request.context</li>
 
 
 
-<time class='entry-date' datetime='2010-02-06T18:09:11-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>6:09 pm</span></time>
+<time class='entry-date' datetime='2017-03-27T11:25:00-07:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>11:25 am</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/fw1/'>fw1</a>, <a class='category' href='/blog/categories/roadmap/'>roadmap</a>
+    <a class='category' href='/blog/categories/aop1/'>aop1</a>, <a class='category' href='/blog/categories/di1/'>di1</a>, <a class='category' href='/blog/categories/fw1/'>fw1</a>, <a class='category' href='/blog/categories/releases/'>releases</a>
   
 </span>
 
@@ -145,7 +120,7 @@ fold URL / form into request.context</li>
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://framework-one.github.io/blog/2010/02/06/fw1-the-napkin-spec/" data-via="" data-counturl="http://framework-one.github.io/blog/2010/02/06/fw1-the-napkin-spec/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://framework-one.github.io/blog/2017/03/27/fw1-4-2-0-released/" data-via="" data-counturl="http://framework-one.github.io/blog/2017/03/27/fw1-4-2-0-released/" >Tweet</a>
   
   
   
@@ -154,10 +129,10 @@ fold URL / form into request.context</li>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2010/01/04/fw1-1-0-released-for-2010/" title="Previous Post: FW/1 1.0 released for 2010">&laquo; FW/1 1.0 released for 2010</a>
+        <a class="basic-alignment left" href="/blog/2016/09/16/fw1-4-0-0-released/" title="Previous Post: FW/1 4.0.0 Released!">&laquo; FW/1 4.0.0 Released!</a>
       
       
-        <a class="basic-alignment right" href="/blog/2010/06/11/fw1-release-1-1-available/" title="Next Post: FW/1 Release 1.1 Available!">FW/1 Release 1.1 Available! &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2017/06/16/fw1-4-1-0-rc1/" title="Next Post: FW/1 4.1.0 Release Candidate Available">FW/1 4.1.0 Release Candidate Available &raquo;</a>
       
     </p>
   </footer>
@@ -345,8 +320,8 @@ fold URL / form into request.context</li>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://framework-one.github.io/blog/2010/02/06/fw1-the-napkin-spec/';
-        var disqus_url = 'http://framework-one.github.io/blog/2010/02/06/fw1-the-napkin-spec/';
+        var disqus_identifier = 'http://framework-one.github.io/blog/2017/03/27/fw1-4-2-0-released/';
+        var disqus_url = 'http://framework-one.github.io/blog/2017/03/27/fw1-4-2-0-released/';
         var disqus_script = 'embed.js';
       
     (function () {

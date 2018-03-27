@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Di1 | FW/1 - The Invisible Framework]]></title>
   <link href="http://framework-one.github.io/blog/categories/di1/atom.xml" rel="self"/>
   <link href="http://framework-one.github.io/"/>
-  <updated>2018-03-27T11:23:54-07:00</updated>
+  <updated>2018-03-27T11:28:04-07:00</updated>
   <id>http://framework-one.github.io/</id>
   <author>
     <name><![CDATA[Sean Corfield]]></name>
@@ -50,6 +50,17 @@
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[FW/1 4.2.0 Released!]]></title>
+    <link href="http://framework-one.github.io/blog/2017/03/27/fw1-4-2-0-released/"/>
+    <updated>2017-03-27T11:25:00-07:00</updated>
+    <id>http://framework-one.github.io/blog/2017/03/27/fw1-4-2-0-released</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/framework-one/fw1/releases/tag/v4.2.0">FW/1 4.2.0</a> has been released!</p>
+
+<p>This is a maintenance release for FW/1 4.1.0 that includes a handful of bug fixes and some experimental work to try to support ColdBox modules.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[FW/1 4.0.0 Released!]]></title>
     <link href="http://framework-one.github.io/blog/2016/09/16/fw1-4-0-0-released/"/>
     <updated>2016-09-16T21:15:00-07:00</updated>
@@ -82,20 +93,6 @@
     <id>http://framework-one.github.io/blog/2016/07/26/fw1-4-0-0-rc-1</id>
     <content type="html"><![CDATA[<p><a href="https://github.com/framework-one/fw1/releases/tag/v4.0.0-rc1">FW/1 4.0.0 RC 1</a> is available.
 The only change from Beta 2 is a bug fix in the handling of load listeners for subsystem bean factories (the default load listener is no longer inherited).</p>
-
-<p>For full details, read the <a href="http://framework-one.github.io/documentation/4.0/changes.html">Change Log for FW/1 4.0</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[FW/1 4.0.0 Beta 2]]></title>
-    <link href="http://framework-one.github.io/blog/2016/07/12/fw1-4-0-0-beta-2/"/>
-    <updated>2016-07-12T12:35:00-07:00</updated>
-    <id>http://framework-one.github.io/blog/2016/07/12/fw1-4-0-0-beta-2</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/framework-one/fw1/releases/tag/v4.0.0-beta2">FW/1 4.0.0 Beta 2</a> is available.
-The only change from Beta 1 is that the <code>enableJSONPOST</code> setting has been renamed to <code>decodeRequestBody</code>.
-This is a <strong>breaking change</strong> if you were using that setting in the earlier Alpha / Beta builds:
-you will now get an exception and will need to update your application’s configuration.</p>
 
 <p>For full details, read the <a href="http://framework-one.github.io/documentation/4.0/changes.html">Change Log for FW/1 4.0</a>.</p>
 ]]></content>
