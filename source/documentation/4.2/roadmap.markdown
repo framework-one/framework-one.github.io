@@ -1,11 +1,13 @@
 ---
 layout: page
 title: "FW/1 Roadmap"
-date: 2018-03-28 11:20
+date: 2019-03-27 11:45
 comments: false
 sharing: false
 footer: true
 ---
+**This document is left as a historical roadmap -- see the [FW/1 Roadmap blog post](http://framework-one.github.io/blog/2019/03/27/fw1-roadmap/) for the current state of things.**
+
 Whilst you can read the [FW/1 issues list](https://github.com/framework-one/fw1/issues) to see what's on the cards for future releases, several people have asked that I document things at a higher level so they can get a better sense of what's coming.
 
 5.x Lifecycle Restructuring
