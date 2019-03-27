@@ -9,7 +9,7 @@ categories: [releases, fw1, di1, aop1]
 
 It's been a year now since [FW/1 4.2.0](https://github.com/framework-one/fw1/releases/tag/v4.2.0) was released so I wanted to revisit the [roadmap document](http://framework-one.github.io/documentation/4.2/roadmap.html) from that time. At the end of December 2018, I posted to the FW/1 channel on the CFML Slack (and to the FW/1 mailing list) that my involvement with CFML and FW/1 was coming to an end. I've asked, several times over the years, for new maintainers to step up for FW/1. Nolan Erck has permissions on the GitHub organization (as owner) but I'm not expecting him to lead development as he has a lot of other things on his plate. At this point, FW/1 is extremely stable and (fairly) well-documented. 4.0.0 was released in Fall 2016. There have been (minor) maintenance releases each year since (4.1.0 in July '17 and 4.2.0 at the end of March '18).
 
-There have been two very small enhancements on the develop branch since then (thank you Carl Vonner and Matthew Clemente) but not enough to warrant a new release (and, with CommandBox, it's easy enough to install that branch anyway: `box install fw1@be`). At this point, unless one or more genuinely proactive and engaged maintainers come forward, 4.2.0 will probably be the last official release of the framework.
+There have been two very small enhancements on the develop branch since then (thank you Carl Von Stetten and Matthew Clemente) but not enough to warrant a new release (and, with CommandBox, it's easy enough to install that branch anyway: `box install fw1@be`). At this point, unless one or more genuinely proactive and engaged maintainers come forward, 4.2.0 will probably be the last official release of the framework.
 
 ## The Roadmap
 
