@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="The “gold” release of FW/1 3.1 (3.1.0) is now available for production use! You can download FW/1 3.1.0 from GitHub. FW 3.1 is a maintenance release &hellip;">
+  <meta name="description" content="A couple of months have passed since FW/1 3.1 was released but things have been busy behind the scenes! As indicated in July, work on FW/1 3.5 had &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/09/06/fw1-news/">FW/1 New Releases Etc</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-09-06T22:25:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:25 pm</span></time>
+        
+           | <a href="/blog/2015/09/06/fw1-news/#disqus_thread"
+             data-disqus-identifier="http://framework-one.github.io/blog/2015/09/06/fw1-news/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A couple of months have passed since <a href="http://framework-one.github.io/blog/2015/07/12/fw1-3-1-released/">FW/1 3.1 was released</a> but things have been busy behind the scenes!</p>
+
+<p>As indicated in July, work on FW/1 3.5 had been progressing in parallel (the first time two releases of FW/1 have been worked on concurrently!) and you can already download <a href="https://github.com/framework-one/fw1/releases/tag/v3.5.0-alpha2">FW/1 3.5 Alpha 2</a>.
+Yes, there was an <a href="https://github.com/framework-one/fw1/releases/tag/v3.5.0-alpha1">Alpha 1</a> as well, but as work progressed on the <a href="http://framework-one.github.io/documentation/3.5/">massively overhauled 3.5 documentation</a>, some important usability enhancements
+appeared and a new alpha was released within 24 hours! In particular, the <a href="http://framework-one.github.io/documentation/3.5/cfml-and-clojure.html">Clojure and CFML Sitting in a Tree</a> section has been extensively updated and includes a fully worked example of
+how to create FW/1 application from scratch using the REPL to create Clojure services and controllers, with CFML views and layouts!</p>
+
+<p>You’ll also probably notice that the FW/1 website has had a facelift, finally getting the look’n’feel that Kevin Stannard designed five years ago. Better late than never, and huge thanks to Kevin again for his wonderful logo design and choice of colors!
+The 3.5 documentation now includes a table of contents on each page, making it easier to navigate (this will probably get backported to 3.1 and 3.0 at some point).</p>
+
+<p>In addition to the ongoing work on FW/1 3.5, we also have an <a href="https://github.com/framework-one/fw1/releases/tag/v3.1.1">important bug fix release for the 3.1.x version</a> which addresses a potential problem with REST APIs.</p>
+
+<p>Finally, if you’re a <a href="https://www.ortussolutions.com/products/commandbox">CommandBox</a> fan, we have good news: you can now easily install FW/1 3.1.2 and 3.5.0 (prerelease) via <code>box</code>. I’ll be blogging about this shortly. The 3.1.2 release is exactly the same as 3.1.1 (including the version number!)
+but it includes <code>box.json</code> for compatibility with ForgeBox / CommandBox. In addition, Tony Junkes has contributed an <a href="https://github.com/framework-one/fw1-commands">initial set of <code>box</code> commands for FW/1</a> that let you get up and running quickly. This will be covered in the next blog post.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -605,41 +650,6 @@ automatic support for Clojure code in the Model and Controllers, as well as firs
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/08/18/fw1-3-0-beta-1-available/">FW/1 3.0 Beta 1 Available</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-08-18T11:21:49-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:21 am</span></time>
-        
-           | <a href="/blog/2014/08/18/fw1-3-0-beta-1-available/#disqus_thread"
-             data-disqus-identifier="http://framework-one.github.io/blog/2014/08/18/fw1-3-0-beta-1-available/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Just over four weeks ago, I released <a href="http://framework-one.github.io/blog/2014/07/20/fw1-3-0-alpha-1-available-for-testing/">FW/1 3.0 Alpha 1</a> and declared it <em>feature complete</em>. There were some big changes in that release and, in particular, some long-standing features were removed (after being deprecated in FW/1 2.5) and some recently-introduced features were also deprecated. Today I am releasing the first Beta version which includes bug fixes and usability enhancements, focusing primarily on DI/1 and AOP/1.</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/08/18/fw1-3-0-beta-1-available/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -727,6 +737,10 @@ automatic support for Clojure code in the Model and Controllers, as well as firs
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2019/03/27/fw1-roadmap/">FW/1 Roadmap</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2018/03/27/fw1-4-2-0-released/">FW/1 4.2.0 Released!</a>
       </li>
     
@@ -760,10 +774,6 @@ automatic support for Clojure code in the Model and Controllers, as well as firs
     
       <li class="post">
         <a href="/blog/2016/01/05/fw1-4-0-and-beyond/">FW/1 4.0 and Beyond</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/21/fw1-3-5-0-released/">FW/1 3.5.0 Released!</a>
       </li>
     
   </ul>
@@ -811,7 +821,7 @@ automatic support for Clojure code in the Model and Controllers, as well as firs
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2018 - Sean Corfield -
+  Copyright &copy; 2019 - Sean Corfield -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

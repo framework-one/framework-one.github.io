@@ -9,7 +9,7 @@
   <meta name="author" content="Sean Corfield">
 
   
-  <meta name="description" content="FW/1 4.2.0 has been released! This is a maintenance release for FW/1 4.1.0 that includes a handful of bug fixes and some experimental work to try to &hellip;">
+  <meta name="description" content="State of the FW/1 Union It’s been a year now since FW/1 4.2.0 was released so I wanted to revisit the roadmap document from that time. At the end of &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2019/03/27/fw1-roadmap/">FW/1 Roadmap</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2019-03-27T12:45:00-07:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2019</span></span> <span class='time'>12:45 pm</span></time>
+        
+           | <a href="/blog/2019/03/27/fw1-roadmap/#disqus_thread"
+             data-disqus-identifier="http://framework-one.github.io/blog/2019/03/27/fw1-roadmap/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2 id="state-of-the-fw1-union">State of the FW/1 Union</h2>
+
+<p>It’s been a year now since <a href="https://github.com/framework-one/fw1/releases/tag/v4.2.0">FW/1 4.2.0</a> was released so I wanted to revisit the <a href="http://framework-one.github.io/documentation/4.2/roadmap.html">roadmap document</a> from that time. At the end of December 2018, I posted to the FW/1 channel on the CFML Slack (and to the FW/1 mailing list) that my involvement with CFML and FW/1 was coming to an end. I’ve asked, several times over the years, for new maintainers to step up for FW/1. Nolan Erck has permissions on the GitHub organization (as owner) but I’m not expecting him to lead development as he has a lot of other things on his plate. At this point, FW/1 is extremely stable and (fairly) well-documented. 4.0.0 was released in Fall 2016. There have been (minor) maintenance releases each year since (4.1.0 in July ‘17 and 4.2.0 at the end of March ‘18).</p>
+
+<p>There have been two very small enhancements on the develop branch since then (thank you Carl Vonner and Matthew Clemente) but not enough to warrant a new release (and, with CommandBox, it’s easy enough to install that branch anyway: <code>box install fw1@be</code>). At this point, unless one or more genuinely proactive and engaged maintainers come forward, 4.2.0 will probably be the last official release of the framework.</p>
+
+<h2 id="the-roadmap">The Roadmap</h2>
+
+<p>The roadmap document (linked above) talks about a refactoring of the lifecycle functionality that was intended to simplify <code>Application.cfc</code> and the “Alternative Application Structure” in current FW/1 apps but it would ultimately have been a significant breaking change (hence the mention of an intermediate 4.5 migration release before the breaking 5.0 release). Since that was mostly driven by my architectural preferences, I don’t see any value in any new maintainers following that path – I never fleshed out, on paper, what that should look like so I’m going to close out the associated GitHub issue for it. Making subsystems more self-contained and more “pluggable” probably should be a goal for any new maintainers, but tackled more incrementally. Beyond that, I don’t know what should be on a roadmap now: perhaps minimal, careful maintenance to fix bugs and stay compatible with new versions of Lucee and Adobe ColdFusion is all that is really needed?</p>
+
+<h2 id="my-road-to-here">My Road to Here</h2>
+
+<p>I’ve made no secret of how my work has transitioned from CFML to Clojure over the last roughly nine years. I initially ported FW/1 to Clojure but then decided to sunset that port, as it became clear that FW/1 added very little value to a (simpler) combination of the Ring, Compojure, Component, and Selmer libraries. At work, we ported our CFML FW/1 apps to Clojure FW/1 apps and then to plain Clojure apps a few years ago. Our primary CFML app – built with ColdBox – was retired completely this month, in favor of a React.js-based front end and a Clojure-based back end. We have two ColdBox apps remaining: a small, customer-facing app that we plan to redesign and rebuild (in Clojure) over the next year, and a medium-sized internal “administration” app that we started migrating to Clojure last year. We’ve gone from four servers running Lucee to just one, and expect to retire that before year end.</p>
+
+<p>I got started with CFML over seventeen years ago, when my then-employer Macromedia acquired Allaire, and as a technology it has been good to me throughout that time – at Macromedia, at Adobe, as a freelancer, at Broadchoice (Flex, Groovy, and Railo), as part of Railo Inc, as a freelancer again, and for several years at <a href="https://worldsinglesnetworks.com">World Singles Networks</a> where I also found myself writing Scala for a year or so and then Clojure. The CFML community is one of the friendliest, most supportive technology groups I’ve met, in a career that spans back to the early 80’s, and I’ve missed seeing my CFML friends at conferences as my work focus has shifted – it’s been six years now since I last attended a CFML conference!</p>
+
+<p>I expect I’ll still lurk on the CFML Slack for quite a while, and I’ll stay subscribed to the FW/1 mailing list – forever, I expect – so folks can still reach me for FW/1 and CFML questions and general chit-chat.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -594,51 +642,6 @@ I consider this stable enough to evaluate for production usage at this point –
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/09/06/fw1-news/">FW/1 New Releases Etc</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-09-06T22:25:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:25 pm</span></time>
-        
-           | <a href="/blog/2015/09/06/fw1-news/#disqus_thread"
-             data-disqus-identifier="http://framework-one.github.io/blog/2015/09/06/fw1-news/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A couple of months have passed since <a href="http://framework-one.github.io/blog/2015/07/12/fw1-3-1-released/">FW/1 3.1 was released</a> but things have been busy behind the scenes!</p>
-
-<p>As indicated in July, work on FW/1 3.5 had been progressing in parallel (the first time two releases of FW/1 have been worked on concurrently!) and you can already download <a href="https://github.com/framework-one/fw1/releases/tag/v3.5.0-alpha2">FW/1 3.5 Alpha 2</a>.
-Yes, there was an <a href="https://github.com/framework-one/fw1/releases/tag/v3.5.0-alpha1">Alpha 1</a> as well, but as work progressed on the <a href="http://framework-one.github.io/documentation/3.5/">massively overhauled 3.5 documentation</a>, some important usability enhancements
-appeared and a new alpha was released within 24 hours! In particular, the <a href="http://framework-one.github.io/documentation/3.5/cfml-and-clojure.html">Clojure and CFML Sitting in a Tree</a> section has been extensively updated and includes a fully worked example of
-how to create FW/1 application from scratch using the REPL to create Clojure services and controllers, with CFML views and layouts!</p>
-
-<p>You’ll also probably notice that the FW/1 website has had a facelift, finally getting the look’n’feel that Kevin Stannard designed five years ago. Better late than never, and huge thanks to Kevin again for his wonderful logo design and choice of colors!
-The 3.5 documentation now includes a table of contents on each page, making it easier to navigate (this will probably get backported to 3.1 and 3.0 at some point).</p>
-
-<p>In addition to the ongoing work on FW/1 3.5, we also have an <a href="https://github.com/framework-one/fw1/releases/tag/v3.1.1">important bug fix release for the 3.1.x version</a> which addresses a potential problem with REST APIs.</p>
-
-<p>Finally, if you’re a <a href="https://www.ortussolutions.com/products/commandbox">CommandBox</a> fan, we have good news: you can now easily install FW/1 3.1.2 and 3.5.0 (prerelease) via <code>box</code>. I’ll be blogging about this shortly. The 3.1.2 release is exactly the same as 3.1.1 (including the version number!)
-but it includes <code>box.json</code> for compatibility with ForgeBox / CommandBox. In addition, Tony Junkes has contributed an <a href="https://github.com/framework-one/fw1-commands">initial set of <code>box</code> commands for FW/1</a> that let you get up and running quickly. This will be covered in the next blog post.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -724,6 +727,10 @@ but it includes <code>box.json</code> for compatibility with ForgeBox / CommandB
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2019/03/27/fw1-roadmap/">FW/1 Roadmap</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2018/03/27/fw1-4-2-0-released/">FW/1 4.2.0 Released!</a>
       </li>
     
@@ -757,10 +764,6 @@ but it includes <code>box.json</code> for compatibility with ForgeBox / CommandB
     
       <li class="post">
         <a href="/blog/2016/01/05/fw1-4-0-and-beyond/">FW/1 4.0 and Beyond</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/21/fw1-3-5-0-released/">FW/1 3.5.0 Released!</a>
       </li>
     
   </ul>
@@ -808,7 +811,7 @@ but it includes <code>box.json</code> for compatibility with ForgeBox / CommandB
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2018 - Sean Corfield -
+  Copyright &copy; 2019 - Sean Corfield -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
