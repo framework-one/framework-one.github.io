@@ -105,4 +105,4 @@ google_analytics_tracking_id:
 # Facebook Like
 facebook_like: false
 
-theme: jekyll-theme-cayman
+theme: jekyll-theme-slate
