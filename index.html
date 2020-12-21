@@ -4,856 +4,844 @@
 <!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <title>FW/1 - The Invisible Framework</title>
-  <meta name="author" content="Sean Corfield">
+	<meta charset="utf-8">
+	<title>FW/1 - The Invisible Framework</title>
+	<meta name="author" content="Sean Corfield">
+	<meta name="description" content="BREAKING NEWS!! Updated March 28th, 2019 After seeing this blog post, Steven Neiland stepped up to take over maintenance of the framework! He has &hellip;">
 
-  
-  <meta name="description" content="BREAKING NEWS!! Updated March 28th, 2019 After seeing this blog post, Steven Neiland stepped up to take over maintenance of the framework! He has &hellip;">
-  
+	<!-- http://t.co/dKP3o1e -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://framework-one.github.io">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
+	<link rel="canonical" href="http://framework-one.github.io">
+	<link href="/favicon.png" rel="icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
+	<script src="/javascripts/modernizr-2.0.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+	<script src="/javascripts/octopress.js" type="text/javascript"></script>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+	<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+	<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 </head>
+<body>
+	<header role="banner">
+		<hgroup>
+			<h1><a href="/">FW/1 - The Invisible Framework</a></h1>
+			<h2>Framework One and friends...</h2>
+		</hgroup>
+	</header>
+
+	<nav role="navigation">
+		<ul class="subscription" data-subscription="rss">
+			<li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+		</ul>
 
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">FW/1 - The Invisible Framework</a></h1>
-  
-    <h2>Framework One and friends...</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:framework-one.github.io" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-    <li><a href="/">Blog</a></li>
-    <li><a href="/blog/archives">Archives</a></li>
-    <li><a href="/documentation">Documentation</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2019/03/27/fw1-roadmap/">FW/1 Roadmap</a></h1>
-    
-    
-      <p class="meta">
-        
+		<form action="https://www.google.com/search" method="get">
+			<fieldset role="search">
+				<input type="hidden" name="q" value="site:framework-one.github.io" />
+				<input class="search" type="text" name="q" results="0" placeholder="Search"/>
+			</fieldset>
+		</form>
 
-
+		<ul class="main-navigation">
+			<li><a href="/">Blog</a></li>
+			<li><a href="/blog/archives">Archives</a></li>
+			<li><a href="/documentation">Documentation</a></li>
+		</ul>
+	</nav>
 
+	<div id="main">
+		<div id="content">
+			<div class="blog-index">
+				<article>
+					<header>
+						<h1 class="entry-title" id="4.3-beta"><a href="/blog/2020/12/21/fw1-roadmap/">FW/1 4.3 Beta</a></h1>
+						<p class="meta">
+							<time class='entry-date' datetime='2020-12-21T08:00:00-07:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2020</span></span> <span class='time'>8:00 am</span></time> | <a href="/blog/2019/03/27/fw1-roadmap/#disqus_thread" data-disqus-identifier="http://framework-one.github.io/blog/2020/12/21/fw1-4_3-beta/">Comments</a>
+						</p>
+					</header>
+					
+					<div class="entry-content">
+						<p>Its been a long time coming but after over a year of learning the framework, accepting bug fixes, fighting jekyl and surviving the general hell that has been 2020 I can happily announce that the beta of FW/1 4.3 is now available for testing. This release is mostly bug fixes 
+							but also includes a new small feature hence the minor version number bump.</p>
 
-<time class='entry-date' datetime='2019-03-27T20:15:00-07:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2019</span></span> <span class='time'>8:15 pm</span></time>
-        
-           | <a href="/blog/2019/03/27/fw1-roadmap/#disqus_thread"
-             data-disqus-identifier="http://framework-one.github.io/blog/2019/03/27/fw1-roadmap/">Comments</a>
-        
-      </p>
-    
-  </header>
+						<h2 id="after-4.3">After 4.3.0</h2>
 
+						<p>So now that we are here, what is in store for FW/1. Well there are some new outstanding PR's that will be getting reviewed for 4.3.1 and then most likely some updates to how the documentation is generated since jekyl has proven to be so much of a pain to work with.</p>
 
-  <div class="entry-content"><h2 id="breaking-news-updated-march-28th-2019">BREAKING NEWS!! Updated March 28th, 2019</h2>
+						<p>After that the plan for now is to continue basic maintenance. The question I find myself asking is, is further enhancing the framework a good idea? At this point it has grown significantly from the original ethos of a small simple single file framework that Sean started with and additional complexity is not always a good thing. I
+							do have some ideas of further enhancing the subsystem behaviors but I've run into issues that make me think a ground up rewrite of certain sections of code may be necessary. Additionally I know Sean was looking into the possibility of a plugin system, but is there a desire for something like this?</p>
+							
+						<p>These are all questions I will be pondering over the next few months while we work on getting the beta to stable status.</p>
 
-<p>After seeing this blog post, <a href="https://github.com/sneiland">Steven Neiland</a> stepped up to take over maintenance of the framework! He has been a long-time user of FW/1 and designed the “2.0” version of subsystems four years ago. I’m looking forward to working with Steven to ensure a smooth hand-off over the next few months. Thank you!</p>
+					</div>
+				</article>
 
-<h2 id="state-of-the-fw1-union">State of the FW/1 Union</h2>
+				<article>
+					<header>
+						<h1 class="entry-title"><a href="/blog/2019/03/27/fw1-roadmap/">FW/1 Roadmap</a></h1>
+						<p class="meta">
+							<time class='entry-date' datetime='2019-03-27T20:15:00-07:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2019</span></span> <span class='time'>8:15 pm</span></time> | <a href="/blog/2019/03/27/fw1-roadmap/#disqus_thread" data-disqus-identifier="http://framework-one.github.io/blog/2019/03/27/fw1-roadmap/">Comments</a>
+						</p>
+					</header>
+					
+					<div class="entry-content">
+						<h2 id="breaking-news-updated-march-28th-2019">BREAKING NEWS!! Updated March 28th, 2019</h2>
+						<p>After seeing this blog post, <a href="https://github.com/sneiland">Steven Neiland</a> stepped up to take over maintenance of the framework! He has been a long-time user of FW/1 and designed the “2.0” version of subsystems four years ago. I’m looking forward to working with Steven to ensure a smooth hand-off over the next few months. Thank you!</p>
 
-<p>It’s been a year now since <a href="https://github.com/framework-one/fw1/releases/tag/v4.2.0">FW/1 4.2.0</a> was released so I wanted to revisit the <a href="http://framework-one.github.io/documentation/4.2/roadmap.html">roadmap document</a> from that time. At the end of December 2018, I posted to the FW/1 channel on the CFML Slack (and to the FW/1 mailing list) that my involvement with CFML and FW/1 was coming to an end. I’ve asked, several times over the years, for new maintainers to step up for FW/1. Nolan Erck has permissions on the GitHub organization (as owner) but I’m not expecting him to lead development as he has a lot of other things on his plate. At this point, FW/1 is extremely stable and (fairly) well-documented. 4.0.0 was released in Fall 2016. There have been (minor) maintenance releases each year since (4.1.0 in July ‘17 and 4.2.0 at the end of March ‘18).</p>
-
-<p>There have been two very small enhancements on the develop branch since then (thank you Carl Von Stetten and Matthew Clemente) but not enough to warrant a new release (and, with CommandBox, it’s easy enough to install that branch anyway: <code>box install fw1@be</code>). At this point, unless one or more genuinely proactive and engaged maintainers come forward, 4.2.0 will probably be the last official release of the framework.</p>
-
-<h2 id="the-roadmap">The Roadmap</h2>
-
-<p>The roadmap document (linked above) talks about a refactoring of the lifecycle functionality that was intended to simplify <code>Application.cfc</code> and the “Alternative Application Structure” in current FW/1 apps but it would ultimately have been a significant breaking change (hence the mention of an intermediate 4.5 migration release before the breaking 5.0 release). Since that was mostly driven by my architectural preferences, I don’t see any value in any new maintainers following that path – I never fleshed out, on paper, what that should look like so I’m going to close out the associated GitHub issue for it. Making subsystems more self-contained and more “pluggable” probably should be a goal for any new maintainers, but tackled more incrementally. Beyond that, I don’t know what should be on a roadmap now: perhaps minimal, careful maintenance to fix bugs and stay compatible with new versions of Lucee and Adobe ColdFusion is all that is really needed?</p>
+						<h2 id="state-of-the-fw1-union">State of the FW/1 Union</h2>
 
-<h2 id="my-road-to-here">My Road to Here</h2>
+						<p>It’s been a year now since <a href="https://github.com/framework-one/fw1/releases/tag/v4.2.0">FW/1 4.2.0</a> was released so I wanted to revisit the <a href="http://framework-one.github.io/documentation/4.2/roadmap.html">roadmap document</a> from that time. At the end of December 2018, I posted to the FW/1 channel on the CFML Slack (and to the FW/1 mailing list) that my involvement with CFML and FW/1 was coming to an end. I’ve asked, several times over the years, for new maintainers to step up for FW/1. Nolan Erck has permissions on the GitHub organization (as owner) but I’m not expecting him to lead development as he has a lot of other things on his plate. At this point, FW/1 is extremely stable and (fairly) well-documented. 4.0.0 was released in Fall 2016. There have been (minor) maintenance releases each year since (4.1.0 in July ‘17 and 4.2.0 at the end of March ‘18).</p>
+						
+						<p>There have been two very small enhancements on the develop branch since then (thank you Carl Von Stetten and Matthew Clemente) but not enough to warrant a new release (and, with CommandBox, it’s easy enough to install that branch anyway: <code>box install fw1@be</code>). At this point, unless one or more genuinely proactive and engaged maintainers come forward, 4.2.0 will probably be the last official release of the framework.</p>
+						
+						<h2 id="the-roadmap">The Roadmap</h2>
+						
+						<p>The roadmap document (linked above) talks about a refactoring of the lifecycle functionality that was intended to simplify <code>Application.cfc</code> and the “Alternative Application Structure” in current FW/1 apps but it would ultimately have been a significant breaking change (hence the mention of an intermediate 4.5 migration release before the breaking 5.0 release). Since that was mostly driven by my architectural preferences, I don’t see any value in any new maintainers following that path – I never fleshed out, on paper, what that should look like so I’m going to close out the associated GitHub issue for it. Making subsystems more self-contained and more “pluggable” probably should be a goal for any new maintainers, but tackled more incrementally. Beyond that, I don’t know what should be on a roadmap now: perhaps minimal, careful maintenance to fix bugs and stay compatible with new versions of Lucee and Adobe ColdFusion is all that is really needed?</p>
 
-<p>I’ve made no secret of how my work has transitioned from CFML to Clojure over the last roughly nine years. I initially ported FW/1 to Clojure but then decided to sunset that port, as it became clear that FW/1 added very little value to a (simpler) combination of the Ring, Compojure, Component, and Selmer libraries. At work, we ported our CFML FW/1 apps to Clojure FW/1 apps and then to plain Clojure apps a few years ago. Our primary CFML app – built with ColdBox – was retired completely this month, in favor of a React.js-based front end and a Clojure-based back end. We have two ColdBox apps remaining: a small, customer-facing app that we plan to redesign and rebuild (in Clojure) over the next year, and a medium-sized internal “administration” app that we started migrating to Clojure last year. We’ve gone from four servers running Lucee to just one, and expect to retire that before year end.</p>
+						<h2 id="my-road-to-here">My Road to Here</h2>
+						
+						<p>I’ve made no secret of how my work has transitioned from CFML to Clojure over the last roughly nine years. I initially ported FW/1 to Clojure but then decided to sunset that port, as it became clear that FW/1 added very little value to a (simpler) combination of the Ring, Compojure, Component, and Selmer libraries. At work, we ported our CFML FW/1 apps to Clojure FW/1 apps and then to plain Clojure apps a few years ago. Our primary CFML app – built with ColdBox – was retired completely this month, in favor of a React.js-based front end and a Clojure-based back end. We have two ColdBox apps remaining: a small, customer-facing app that we plan to redesign and rebuild (in Clojure) over the next year, and a medium-sized internal “administration” app that we started migrating to Clojure last year. We’ve gone from four servers running Lucee to just one, and expect to retire that before year end.</p>
+						
+						<p>I got started with CFML over seventeen years ago, when my then-employer Macromedia acquired Allaire, and as a technology it has been good to me throughout that time – at Macromedia, at Adobe, as a freelancer, at Broadchoice (Flex, Groovy, and Railo), as part of Railo Inc, as a freelancer again, and for several years at <a href="https://worldsinglesnetworks.com">World Singles Networks</a> where I also found myself writing Scala for a year or so and then Clojure. The CFML community is one of the friendliest, most supportive technology groups I’ve met, in a career that spans back to the early 80’s, and I’ve missed seeing my CFML friends at conferences as my work focus has shifted – it’s been six years now since I last attended a CFML conference!</p>
+						
+						<p>I expect I’ll still lurk on the CFML Slack for quite a while, and I’ll stay subscribed to the FW/1 mailing list – forever, I expect – so folks can still reach me for FW/1 and CFML questions and general chit-chat.</p>
+					</div>
+				</article>
 
-<p>I got started with CFML over seventeen years ago, when my then-employer Macromedia acquired Allaire, and as a technology it has been good to me throughout that time – at Macromedia, at Adobe, as a freelancer, at Broadchoice (Flex, Groovy, and Railo), as part of Railo Inc, as a freelancer again, and for several years at <a href="https://worldsinglesnetworks.com">World Singles Networks</a> where I also found myself writing Scala for a year or so and then Clojure. The CFML community is one of the friendliest, most supportive technology groups I’ve met, in a career that spans back to the early 80’s, and I’ve missed seeing my CFML friends at conferences as my work focus has shifted – it’s been six years now since I last attended a CFML conference!</p>
 
-<p>I expect I’ll still lurk on the CFML Slack for quite a while, and I’ll stay subscribed to the FW/1 mailing list – forever, I expect – so folks can still reach me for FW/1 and CFML questions and general chit-chat.</p>
-</div>
-  
-  
+	<article>
 
+	<header>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/03/27/fw1-4-2-0-released/">FW/1 4.2.0 Released!</a></h1>
-    
-    
-      <p class="meta">
-        
+	<h1 class="entry-title"><a href="/blog/2018/03/27/fw1-4-2-0-released/">FW/1 4.2.0 Released!</a></h1>
 
 
+	<p class="meta">
 
 
-<time class='entry-date' datetime='2018-03-27T11:25:00-07:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>11:25 am</span></time>
-        
-           | <a href="/blog/2018/03/27/fw1-4-2-0-released/#disqus_thread"
-             data-disqus-identifier="http://framework-one.github.io/blog/2018/03/27/fw1-4-2-0-released/">Comments</a>
-        
-      </p>
-    
-  </header>
 
 
-  <div class="entry-content"><p><a href="https://github.com/framework-one/fw1/releases/tag/v4.2.0">FW/1 4.2.0</a> has been released!</p>
 
-<p>This is a maintenance release for FW/1 4.1.0 that includes a handful of bug fixes and some experimental work to try to support ColdBox modules.</p>
-</div>
-  
-  
+	<time class='entry-date' datetime='2018-03-27T11:25:00-07:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>11:25 am</span></time>
 
+	| <a href="/blog/2018/03/27/fw1-4-2-0-released/#disqus_thread"
+	data-disqus-identifier="http://framework-one.github.io/blog/2018/03/27/fw1-4-2-0-released/">Comments</a>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2017/07/01/fw1-4-1-0-released/">FW/1 4.1.0 Released!</a></h1>
-    
-    
-      <p class="meta">
-        
+	</p>
 
+	</header>
 
 
+	<div class="entry-content"><p><a href="https://github.com/framework-one/fw1/releases/tag/v4.2.0">FW/1 4.2.0</a> has been released!</p>
 
-<time class='entry-date' datetime='2017-07-01T20:00:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2017</span></span> <span class='time'>8:00 pm</span></time>
-        
-           | <a href="/blog/2017/07/01/fw1-4-1-0-released/#disqus_thread"
-             data-disqus-identifier="http://framework-one.github.io/blog/2017/07/01/fw1-4-1-0-released/">Comments</a>
-        
-      </p>
-    
-  </header>
+	<p>This is a maintenance release for FW/1 4.1.0 that includes a handful of bug fixes and some experimental work to try to support ColdBox modules.</p>
+	</div>
 
 
-  <div class="entry-content"><p><a href="https://github.com/framework-one/fw1/releases/tag/v4.1.0">FW/1 4.1.0</a> has been released!</p>
 
-<p>This is a maintenance release for FW/1 4.0.0 that includes a number of bug fixes and some minor enhancements. See this <a href="http://framework-one.github.io/blog/2017/06/16/fw1-4-1-0-rc1/">blog post about the release candidate</a> for the main changes in this release. Since the release candidate, most of the work has been on updating the documentation and adding an example of using a custom template engine (Mustache) with FW/1.</p>
 
-<p>Note that 4.1.0 includes an important bug fix for 4.0.0 which addresses a race condition that could cause transient beans to be partially resolved, leading to dependencies not being available under heavy load conditions.</p>
+	</article>
 
-<p>Lucee 5.x is now an officially supported platform for FW/1, along with Adobe ColdFusion 10, 11, and 2016, and Lucee 4.5.</p>
-</div>
-  
-  
 
+	<article>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2017/06/16/fw1-4-1-0-rc1/">FW/1 4.1.0 Release Candidate Available</a></h1>
-    
-    
-      <p class="meta">
-        
+	<header>
 
+	<h1 class="entry-title"><a href="/blog/2017/07/01/fw1-4-1-0-released/">FW/1 4.1.0 Released!</a></h1>
 
 
+	<p class="meta">
 
-<time class='entry-date' datetime='2017-06-16T10:35:00-07:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>10:35 am</span></time>
-        
-           | <a href="/blog/2017/06/16/fw1-4-1-0-rc1/#disqus_thread"
-             data-disqus-identifier="http://framework-one.github.io/blog/2017/06/16/fw1-4-1-0-rc1/">Comments</a>
-        
-      </p>
-    
-  </header>
 
 
-  <div class="entry-content"><p>The first <a href="https://github.com/framework-one/fw1/releases/tag/v4.1.0-rc1">Release Candidate of FW/1 4.1.0</a> is available for testing.</p>
 
-<p>This is a maintenance release for FW/1 4.0.0 that includes a number of bug fixes and some minor enhancements. The most important bug fix addresses a race condition that could cause transient beans to be partially resolved, leading to dependencies not being available under heavy load conditions. My thanks to <a href="https://github.com/aliaspooryorik">John Whish</a> and <a href="https://github.com/jcberquist">John Berquist</a> for their work in tracking that down and providing a patch to address it!</p>
 
-<p>Other bug fixes mostly focus on error handling.</p>
+	<time class='entry-date' datetime='2017-07-01T20:00:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2017</span></span> <span class='time'>8:00 pm</span></time>
 
-<p>The enhancements include making session handling pluggable, improving handling of missing views, and a new <code>onReload()</code> extension point. In addition, the process to test FW/1 has been overhauled: it now uses CommandBox and TestBox, making it much easier for contributors to run tests locally, as well as expanding the matrix of servers/versions that can be automatically tested.</p>
+	| <a href="/blog/2017/07/01/fw1-4-1-0-released/#disqus_thread"
+	data-disqus-identifier="http://framework-one.github.io/blog/2017/07/01/fw1-4-1-0-released/">Comments</a>
 
-<p>Finally, Lucee 5.x is officially supported by this release. Although earlier versions of FW/1 “worked” on Lucee 5.x, the Clojure integration (introduced in FW/1 3.5) only worked in limited cases on Lucee 5.x so I could not consider it “officially supported” (for example, at World Singles, we could not upgrade to Lucee 5.x because it breaks our use of Clojure from CFML). In order to support Lucee 5.x officially, the Clojure integration functionality has been removed from FW/1. The files that provide Clojure integration are still available in the <a href="https://github.com/framework-one/cfmljure">cfmljure repository</a> on GitHub.</p>
+	</p>
 
-<p>I consider this Release Candidate to be “production-ready” so I would appreciate as many users upgrading and testing it as possible!</p>
+	</header>
 
-<p>Thank you to everyone who contributes to FW/1 in every way!</p>
-</div>
-  
-  
 
+	<div class="entry-content"><p><a href="https://github.com/framework-one/fw1/releases/tag/v4.1.0">FW/1 4.1.0</a> has been released!</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/09/16/fw1-4-0-0-released/">FW/1 4.0.0 Released!</a></h1>
-    
-    
-      <p class="meta">
-        
+	<p>This is a maintenance release for FW/1 4.0.0 that includes a number of bug fixes and some minor enhancements. See this <a href="http://framework-one.github.io/blog/2017/06/16/fw1-4-1-0-rc1/">blog post about the release candidate</a> for the main changes in this release. Since the release candidate, most of the work has been on updating the documentation and adding an example of using a custom template engine (Mustache) with FW/1.</p>
 
+	<p>Note that 4.1.0 includes an important bug fix for 4.0.0 which addresses a race condition that could cause transient beans to be partially resolved, leading to dependencies not being available under heavy load conditions.</p>
 
+	<p>Lucee 5.x is now an officially supported platform for FW/1, along with Adobe ColdFusion 10, 11, and 2016, and Lucee 4.5.</p>
+	</div>
 
 
-<time class='entry-date' datetime='2016-09-16T21:15:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>9:15 pm</span></time>
-        
-           | <a href="/blog/2016/09/16/fw1-4-0-0-released/#disqus_thread"
-             data-disqus-identifier="http://framework-one.github.io/blog/2016/09/16/fw1-4-0-0-released/">Comments</a>
-        
-      </p>
-    
-  </header>
 
 
-  <div class="entry-content"><p>The <a href="https://github.com/framework-one/fw1/releases/tag/v4.0.0">Gold Release of FW/1 4.0.0</a> is available for general release and production use. The focus of this release is improved REST support:</p>
+	</article>
 
-<ul>
-  <li>JSON-encoded and URL-encoded POST / PUT body support.</li>
-  <li>Controllers have easy access to HTTP headers.</li>
-  <li>Builder syntax for <code>renderData()</code> result elements.</li>
-  <li>Support for user-supplied rendering functions.</li>
-  <li>Integrated support for HTTP <code>OPTIONS</code> verb.</li>
-  <li>Per-resource error handling.</li>
-  <li>Setting status text (in addition to status code) in HTTP responses.</li>
-  <li>Wildcard HTTP method support.</li>
-</ul>
 
-<p>Dependency Injection (DI/1) has also received a lot of attention in this release, including the addition of a flexible and powerful builder syntax for declaring beans.</p>
+	<article>
 
-<p>See the <a href="http://framework-one.github.io/documentation/4.0/changes.html">FW/1 4.0.0 Change Log</a> for full details of all the enhancements and bug fixes. Please note that there are a few breaking (or potentially breaking) changes since 3.5.1, with the most notable one being that Adobe ColdFusion 10 is now the minimum supported version. Support for Railo and Lucee has not changed.</p>
+	<header>
 
-<p>This will be followed by a 4.1 maintenance release and a 4.5 migration release, which will pave the way for some breaking changes planned for the 5.0 release. For more details of future plans, consult the <a href="http://framework-one.github.io/documentation/roadmap.html">FW/1 Roadmap</a>.</p>
-</div>
-  
-  
+	<h1 class="entry-title"><a href="/blog/2017/06/16/fw1-4-1-0-rc1/">FW/1 4.1.0 Release Candidate Available</a></h1>
 
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/07/26/fw1-4-0-0-rc-1/">FW/1 4.0.0 Release Candidate 1</a></h1>
-    
-    
-      <p class="meta">
-        
+	<p class="meta">
 
 
 
 
-<time class='entry-date' datetime='2016-07-26T12:00:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>12:00 pm</span></time>
-        
-           | <a href="/blog/2016/07/26/fw1-4-0-0-rc-1/#disqus_thread"
-             data-disqus-identifier="http://framework-one.github.io/blog/2016/07/26/fw1-4-0-0-rc-1/">Comments</a>
-        
-      </p>
-    
-  </header>
 
+	<time class='entry-date' datetime='2017-06-16T10:35:00-07:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>10:35 am</span></time>
 
-  <div class="entry-content"><p><a href="https://github.com/framework-one/fw1/releases/tag/v4.0.0-rc1">FW/1 4.0.0 RC 1</a> is available.
-The only change from Beta 2 is a bug fix in the handling of load listeners for subsystem bean factories (the default load listener is no longer inherited).</p>
+	| <a href="/blog/2017/06/16/fw1-4-1-0-rc1/#disqus_thread"
+	data-disqus-identifier="http://framework-one.github.io/blog/2017/06/16/fw1-4-1-0-rc1/">Comments</a>
 
-<p>For full details, read the <a href="http://framework-one.github.io/documentation/4.0/changes.html">Change Log for FW/1 4.0</a>.</p>
-</div>
-  
-  
+	</p>
 
+	</header>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/07/12/fw1-4-0-0-beta-2/">FW/1 4.0.0 Beta 2</a></h1>
-    
-    
-      <p class="meta">
-        
 
+	<div class="entry-content"><p>The first <a href="https://github.com/framework-one/fw1/releases/tag/v4.1.0-rc1">Release Candidate of FW/1 4.1.0</a> is available for testing.</p>
 
+	<p>This is a maintenance release for FW/1 4.0.0 that includes a number of bug fixes and some minor enhancements. The most important bug fix addresses a race condition that could cause transient beans to be partially resolved, leading to dependencies not being available under heavy load conditions. My thanks to <a href="https://github.com/aliaspooryorik">John Whish</a> and <a href="https://github.com/jcberquist">John Berquist</a> for their work in tracking that down and providing a patch to address it!</p>
 
+	<p>Other bug fixes mostly focus on error handling.</p>
 
-<time class='entry-date' datetime='2016-07-12T12:35:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>12:35 pm</span></time>
-        
-           | <a href="/blog/2016/07/12/fw1-4-0-0-beta-2/#disqus_thread"
-             data-disqus-identifier="http://framework-one.github.io/blog/2016/07/12/fw1-4-0-0-beta-2/">Comments</a>
-        
-      </p>
-    
-  </header>
+	<p>The enhancements include making session handling pluggable, improving handling of missing views, and a new <code>onReload()</code> extension point. In addition, the process to test FW/1 has been overhauled: it now uses CommandBox and TestBox, making it much easier for contributors to run tests locally, as well as expanding the matrix of servers/versions that can be automatically tested.</p>
 
+	<p>Finally, Lucee 5.x is officially supported by this release. Although earlier versions of FW/1 “worked” on Lucee 5.x, the Clojure integration (introduced in FW/1 3.5) only worked in limited cases on Lucee 5.x so I could not consider it “officially supported” (for example, at World Singles, we could not upgrade to Lucee 5.x because it breaks our use of Clojure from CFML). In order to support Lucee 5.x officially, the Clojure integration functionality has been removed from FW/1. The files that provide Clojure integration are still available in the <a href="https://github.com/framework-one/cfmljure">cfmljure repository</a> on GitHub.</p>
 
-  <div class="entry-content"><p><a href="https://github.com/framework-one/fw1/releases/tag/v4.0.0-beta2">FW/1 4.0.0 Beta 2</a> is available.
-The only change from Beta 1 is that the <code>enableJSONPOST</code> setting has been renamed to <code>decodeRequestBody</code>.
-This is a <strong>breaking change</strong> if you were using that setting in the earlier Alpha / Beta builds:
-you will now get an exception and will need to update your application’s configuration.</p>
+	<p>I consider this Release Candidate to be “production-ready” so I would appreciate as many users upgrading and testing it as possible!</p>
 
-<p>For full details, read the <a href="http://framework-one.github.io/documentation/4.0/changes.html">Change Log for FW/1 4.0</a>.</p>
-</div>
-  
-  
+	<p>Thank you to everyone who contributes to FW/1 in every way!</p>
+	</div>
 
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/07/11/fw1-4-0-0-beta-1/">FW/1 4.0.0 Beta 1</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
+	</article>
 
 
-<time class='entry-date' datetime='2016-07-11T14:45:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>2:45 pm</span></time>
-        
-           | <a href="/blog/2016/07/11/fw1-4-0-0-beta-1/#disqus_thread"
-             data-disqus-identifier="http://framework-one.github.io/blog/2016/07/11/fw1-4-0-0-beta-1/">Comments</a>
-        
-      </p>
-    
-  </header>
+	<article>
 
+	<header>
 
-  <div class="entry-content"><p><a href="https://github.com/framework-one/fw1/releases/tag/v4.0.0-beta1">FW/1 4.0.0 Beta 1</a> is available.
-Per those release notes, the beta contains a small number of enhancements and bug fixes since Alpha 1 was released in March.</p>
+	<h1 class="entry-title"><a href="/blog/2016/09/16/fw1-4-0-0-released/">FW/1 4.0.0 Released!</a></h1>
 
-<p>For full details, read the <a href="http://framework-one.github.io/documentation/4.0/changes.html">Change Log for FW/1 4.0</a>.</p>
-</div>
-  
-  
 
+	<p class="meta">
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/03/05/fw1-4-0-0-alpha-1/">FW/1 4.0.0 Alpha 1</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
 
-<time class='entry-date' datetime='2016-03-05T17:00:00-08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>5:00 pm</span></time>
-        
-           | <a href="/blog/2016/03/05/fw1-4-0-0-alpha-1/#disqus_thread"
-             data-disqus-identifier="http://framework-one.github.io/blog/2016/03/05/fw1-4-0-0-alpha-1/">Comments</a>
-        
-      </p>
-    
-  </header>
+	<time class='entry-date' datetime='2016-09-16T21:15:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>9:15 pm</span></time>
 
+	| <a href="/blog/2016/09/16/fw1-4-0-0-released/#disqus_thread"
+	data-disqus-identifier="http://framework-one.github.io/blog/2016/09/16/fw1-4-0-0-released/">Comments</a>
 
-  <div class="entry-content"><p><a href="https://github.com/framework-one/fw1/releases/tag/v4.0.0-alpha1">FW/1 4.0.0 Alpha 1</a> is available. At this point FW/1 4.0.0 is feature complete – there may be a few very minor changes between now and the Beta, and then only bug fixes through the RC phase. We’ve been using this <strong>develop</strong> version in production at work all along so I consider it solid enough for serious work.</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/03/05/fw1-4-0-0-alpha-1/">Read on &rarr;</a>
-    </footer>
-  
+	</p>
 
+	</header>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/01/05/fw1-4-0-and-beyond/">FW/1 4.0 and Beyond</a></h1>
-    
-    
-      <p class="meta">
-        
 
+	<div class="entry-content"><p>The <a href="https://github.com/framework-one/fw1/releases/tag/v4.0.0">Gold Release of FW/1 4.0.0</a> is available for general release and production use. The focus of this release is improved REST support:</p>
 
+	<ul>
+	<li>JSON-encoded and URL-encoded POST / PUT body support.</li>
+	<li>Controllers have easy access to HTTP headers.</li>
+	<li>Builder syntax for <code>renderData()</code> result elements.</li>
+	<li>Support for user-supplied rendering functions.</li>
+	<li>Integrated support for HTTP <code>OPTIONS</code> verb.</li>
+	<li>Per-resource error handling.</li>
+	<li>Setting status text (in addition to status code) in HTTP responses.</li>
+	<li>Wildcard HTTP method support.</li>
+	</ul>
 
+	<p>Dependency Injection (DI/1) has also received a lot of attention in this release, including the addition of a flexible and powerful builder syntax for declaring beans.</p>
 
-<time class='entry-date' datetime='2016-01-05T22:20:00-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>10:20 pm</span></time>
-        
-           | <a href="/blog/2016/01/05/fw1-4-0-and-beyond/#disqus_thread"
-             data-disqus-identifier="http://framework-one.github.io/blog/2016/01/05/fw1-4-0-and-beyond/">Comments</a>
-        
-      </p>
-    
-  </header>
+	<p>See the <a href="http://framework-one.github.io/documentation/4.0/changes.html">FW/1 4.0.0 Change Log</a> for full details of all the enhancements and bug fixes. Please note that there are a few breaking (or potentially breaking) changes since 3.5.1, with the most notable one being that Adobe ColdFusion 10 is now the minimum supported version. Support for Railo and Lucee has not changed.</p>
 
+	<p>This will be followed by a 4.1 maintenance release and a 4.5 migration release, which will pave the way for some breaking changes planned for the 5.0 release. For more details of future plans, consult the <a href="http://framework-one.github.io/documentation/roadmap.html">FW/1 Roadmap</a>.</p>
+	</div>
 
-  <div class="entry-content"><p>Happy New Year and Welcome to 2016!</p>
 
-<p>FW/1 3.5 has been out for a few months now and I want to talk about what’s coming this year.</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/01/05/fw1-4-0-and-beyond/">Read on &rarr;</a>
-    </footer>
-  
 
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/10/21/fw1-3-5-0-released/">FW/1 3.5.0 Released!</a></h1>
-    
-    
-      <p class="meta">
-        
+	</article>
 
 
+	<article>
 
+	<header>
 
-<time class='entry-date' datetime='2015-10-21T12:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:00 pm</span></time>
-        
-           | <a href="/blog/2015/10/21/fw1-3-5-0-released/#disqus_thread"
-             data-disqus-identifier="http://framework-one.github.io/blog/2015/10/21/fw1-3-5-0-released/">Comments</a>
-        
-      </p>
-    
-  </header>
+	<h1 class="entry-title"><a href="/blog/2016/07/26/fw1-4-0-0-rc-1/">FW/1 4.0.0 Release Candidate 1</a></h1>
 
 
-  <div class="entry-content"><p>The <a href="https://github.com/framework-one/fw1/releases/tag/v3.5.0">Gold Release of FW/1 3.5.0</a> is available for general release and production use. The focus of this release is integration, bringing an improved way to add subsystems to an existing application, an easier way to add FW/1 to a legacy application, support for mixed CFML / Clojure applications, better support for WireBox, and full support for ForgeBox and CommandBox!</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/10/21/fw1-3-5-0-released/">Read on &rarr;</a>
-    </footer>
-  
+	<p class="meta">
 
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/10/06/fw1-3-5-0-rc-2/">FW/1 3.5.0 Release Candidate 2 Available!</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
+	<time class='entry-date' datetime='2016-07-26T12:00:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>12:00 pm</span></time>
 
-<time class='entry-date' datetime='2015-10-06T15:40:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:40 pm</span></time>
-        
-           | <a href="/blog/2015/10/06/fw1-3-5-0-rc-2/#disqus_thread"
-             data-disqus-identifier="http://framework-one.github.io/blog/2015/10/06/fw1-3-5-0-rc-2/">Comments</a>
-        
-      </p>
-    
-  </header>
+	| <a href="/blog/2016/07/26/fw1-4-0-0-rc-1/#disqus_thread"
+	data-disqus-identifier="http://framework-one.github.io/blog/2016/07/26/fw1-4-0-0-rc-1/">Comments</a>
 
+	</p>
 
-  <div class="entry-content"><p>The <a href="https://github.com/framework-one/fw1/releases/tag/v3.5.0-rc2">second Release Candidate of FW/1 3.5.0</a> is available for testing.</p>
+	</header>
 
-<p>This Release Candidate contains a few bug fixes discovered since Release Candidate 1.
-I consider this stable enough to evaluate for production usage at this point – I expect this RC to be the Gold Release unless end user testing uncovers a showstopping issue in the next week or two!</p>
 
-<p>You can read the <a href="https://github.com/framework-one/fw1/issues?q=is%3Aissue+milestone%3A3.5+is%3Aclosed">full list of changes since 3.1</a> on GitHub, along with
-<a href="https://github.com/framework-one/fw1/pulls?q=is%3Apr+is%3Aclosed+milestone%3A3.5">accepted pull requests since 3.1</a>..</p>
-</div>
-  
-  
+	<div class="entry-content"><p><a href="https://github.com/framework-one/fw1/releases/tag/v4.0.0-rc1">FW/1 4.0.0 RC 1</a> is available.
+	The only change from Beta 2 is a bug fix in the handling of load listeners for subsystem bean factories (the default load listener is no longer inherited).</p>
 
+	<p>For full details, read the <a href="http://framework-one.github.io/documentation/4.0/changes.html">Change Log for FW/1 4.0</a>.</p>
+	</div>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/09/22/fw1-3-5-0-rc-1/">FW/1 3.5.0 Release Candidate 1 Available!</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
+	</article>
 
-<time class='entry-date' datetime='2015-09-22T12:35:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>12:35 pm</span></time>
-        
-           | <a href="/blog/2015/09/22/fw1-3-5-0-rc-1/#disqus_thread"
-             data-disqus-identifier="http://framework-one.github.io/blog/2015/09/22/fw1-3-5-0-rc-1/">Comments</a>
-        
-      </p>
-    
-  </header>
 
+	<article>
 
-  <div class="entry-content"><p>The <a href="https://github.com/framework-one/fw1/releases/tag/v3.5.0-rc1">first Release Candidate of FW/1 3.5.0</a> is available for testing.</p>
+	<header>
 
-<p>This Release Candidate contains just bug fixes since Beta 2. Beta 2 contained mostly bug fixes since Beta 1, with one small enhancement to DI/1 (<code>liberal</code> plural support, e.g., <code>libraries</code> becomes <code>library</code>).</p>
-
-<p>You can read the <a href="https://github.com/framework-one/fw1/issues?q=is%3Aissue+milestone%3A3.5+is%3Aclosed">full list of changes since 3.1</a> on GitHub.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/09/10/fw1-3-5-0-beta-1/">FW/1 3.5.0 Beta 1 Available!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-09-10T13:35:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:35 pm</span></time>
-        
-           | <a href="/blog/2015/09/10/fw1-3-5-0-beta-1/#disqus_thread"
-             data-disqus-identifier="http://framework-one.github.io/blog/2015/09/10/fw1-3-5-0-beta-1/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The <a href="https://github.com/framework-one/fw1/releases/tag/v3.5.0-beta1">first Beta release of FW/1 3.5.0</a> is available for testing.</p>
-
-<p>The focus of this release is integration:</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/09/10/fw1-3-5-0-beta-1/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/09/06/out-of-the-box/">FW/1 Out of the Box</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-09-06T23:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:00 pm</span></time>
-        
-           | <a href="/blog/2015/09/06/out-of-the-box/#disqus_thread"
-             data-disqus-identifier="http://framework-one.github.io/blog/2015/09/06/out-of-the-box/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>FW/1 is up on <a href="http://www.coldbox.org/forgebox">ForgeBox</a>. ForgeBox is the npm / Maven of the CFML world. If you haven’t heard about it – or you think it’s only for “Box” products – you need to check it out! It’s a repository for CFML projects that can be easily installed via <a href="https://www.ortussolutions.com/products/commandbox">Command Box</a>. Wait! You haven’t heard of that either? Gosh, you’ve got some reading to do! It’ll change the way you do development!</p>
-
-<p>Go get it installed, then read on!</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/09/06/out-of-the-box/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/posts/2">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-    <h1>About FW/1</h1>
-    <p>FW/1 - Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.</p>
-    <p>For support and assistance, join <a href="http://groups.google.com/group/framework-one/">the FW/1 mailing list</a> and/or the <a href="https://gitter.im/framework-one/fw1">FW/1 room on Gitter</a>. There is also a Gitter room for <a href="https://gitter.im/framework-one/architecture">FW/1 (and MVC) architectural discussions</a>. You can sign into Gitter with either your Gitter or Twitter account.</p>
-    <p>The main FW/1 Gitter room is also mirrored to the <a href="https://cfml.slack.com/messages/fw1/">FW/1 channel</a> on the <a href="http://cfml-slack.herokuapp.com/">CFML Slack</a> (that's the link to get an invite to sign up for the Slack).</p>
-</section>
-<section>
-    <h1>4.2 Documentation (current - master)</h1>
-    <a href="/documentation/4.2/">Getting Started Guide</a><br />
-    <a href="/documentation/4.2/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/4.2/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/4.2/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/4.2/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/4.2/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/4.2/changes.html">Change Log</a><br />
-    <a href="/documentation/4.2/roadmap.html">Roadmap</a><br />
-</section>
-<section>
-    <h1>4.1 Documentation</h1>
-    <a href="/documentation/4.1/">Getting Started Guide</a><br />
-    <a href="/documentation/4.1/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/4.1/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/4.1/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/4.1/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/4.1/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/4.1/changes.html">Change Log</a><br />
-    <a href="/documentation/4.1/roadmap.html">Roadmap</a><br />
-</section>
-<section>
-    <h1>4.0 Documentation</h1>
-    <a href="/documentation/4.0/">Getting Started Guide</a><br />
-    <a href="/documentation/4.0/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/4.0/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/4.0/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/4.0/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/4.0/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/4.0/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
-    <a href="/documentation/4.0/changes.html">Change Log</a><br />
-    <a href="/documentation/4.0/roadmap.html">Roadmap</a><br />
-</section>
-<section>
-    <h1>3.5 Documentation</h1>
-    <a href="/documentation/3.5/">Getting Started Guide</a><br />
-    <a href="/documentation/3.5/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/3.5/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/3.5/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/3.5/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/3.5/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/3.5/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
-    <a href="/documentation/3.5/roadmap.html">Roadmap</a><br />
-</section>
-<section>
-    <h1>3.1 Documentation</h1>
-    <a href="/documentation/3.1">Getting Started Guide</a><br />
-    <a href="/documentation/3.1/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/3.1/using-aop-one.html">Using AOP/1</a><br />
-    <a href="/documentation/3.1/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/3.1/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/3.1/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/3.1/roadmap.html">Roadmap</a><br />
-</section>
-<section>
-    <h1>3.0 Documentation</h1>
-    <a href="/documentation/3.0">Getting Started Guide</a><br />
-    <a href="/documentation/3.0/developing-applications.html">Developing Applications Guide</a><br />
-    <a href="/documentation/3.0/using-di-one.html">Using DI/1</a><br />
-    <a href="/documentation/3.0/using-subsystems.html">Using Subsystems</a><br />
-    <a href="/documentation/3.0/reference-manual.html">Reference Manual</a><br />
-    <a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2019/03/27/fw1-roadmap/">FW/1 Roadmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/03/27/fw1-4-2-0-released/">FW/1 4.2.0 Released!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2017/07/01/fw1-4-1-0-released/">FW/1 4.1.0 Released!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2017/06/16/fw1-4-1-0-rc1/">FW/1 4.1.0 Release Candidate Available</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/09/16/fw1-4-0-0-released/">FW/1 4.0.0 Released!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/07/26/fw1-4-0-0-rc-1/">FW/1 4.0.0 Release Candidate 1</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/07/12/fw1-4-0-0-beta-2/">FW/1 4.0.0 Beta 2</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/07/11/fw1-4-0-0-beta-1/">FW/1 4.0.0 Beta 1</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/03/05/fw1-4-0-0-alpha-1/">FW/1 4.0.0 Alpha 1</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/01/05/fw1-4-0-and-beyond/">FW/1 4.0 and Beyond</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/framework-one">@framework-one</a> on GitHub
-  
-  <script type="text/javascript">
-    $(document).ready(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'framework-one',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-<section>
-  <a href="https://github.com/seancorfield">@seancorfield</a> on GitHub
-</section>
-
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2019 - Sean Corfield -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'framework-one';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
+	<h1 class="entry-title"><a href="/blog/2016/07/12/fw1-4-0-0-beta-2/">FW/1 4.0.0 Beta 2</a></h1>
 
 
+	<p class="meta">
 
 
 
+
+
+	<time class='entry-date' datetime='2016-07-12T12:35:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>12:35 pm</span></time>
+
+	| <a href="/blog/2016/07/12/fw1-4-0-0-beta-2/#disqus_thread"
+	data-disqus-identifier="http://framework-one.github.io/blog/2016/07/12/fw1-4-0-0-beta-2/">Comments</a>
+
+	</p>
+
+	</header>
+
+
+	<div class="entry-content"><p><a href="https://github.com/framework-one/fw1/releases/tag/v4.0.0-beta2">FW/1 4.0.0 Beta 2</a> is available.
+	The only change from Beta 1 is that the <code>enableJSONPOST</code> setting has been renamed to <code>decodeRequestBody</code>.
+	This is a <strong>breaking change</strong> if you were using that setting in the earlier Alpha / Beta builds:
+	you will now get an exception and will need to update your application’s configuration.</p>
+
+	<p>For full details, read the <a href="http://framework-one.github.io/documentation/4.0/changes.html">Change Log for FW/1 4.0</a>.</p>
+	</div>
+
+
+
+
+	</article>
+
+
+	<article>
+
+	<header>
+
+	<h1 class="entry-title"><a href="/blog/2016/07/11/fw1-4-0-0-beta-1/">FW/1 4.0.0 Beta 1</a></h1>
+
+
+	<p class="meta">
+
+
+
+
+
+	<time class='entry-date' datetime='2016-07-11T14:45:00-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>2:45 pm</span></time>
+
+	| <a href="/blog/2016/07/11/fw1-4-0-0-beta-1/#disqus_thread"
+	data-disqus-identifier="http://framework-one.github.io/blog/2016/07/11/fw1-4-0-0-beta-1/">Comments</a>
+
+	</p>
+
+	</header>
+
+
+	<div class="entry-content"><p><a href="https://github.com/framework-one/fw1/releases/tag/v4.0.0-beta1">FW/1 4.0.0 Beta 1</a> is available.
+	Per those release notes, the beta contains a small number of enhancements and bug fixes since Alpha 1 was released in March.</p>
+
+	<p>For full details, read the <a href="http://framework-one.github.io/documentation/4.0/changes.html">Change Log for FW/1 4.0</a>.</p>
+	</div>
+
+
+
+
+	</article>
+
+
+	<article>
+
+	<header>
+
+	<h1 class="entry-title"><a href="/blog/2016/03/05/fw1-4-0-0-alpha-1/">FW/1 4.0.0 Alpha 1</a></h1>
+
+
+	<p class="meta">
+
+
+
+
+
+	<time class='entry-date' datetime='2016-03-05T17:00:00-08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>5:00 pm</span></time>
+
+	| <a href="/blog/2016/03/05/fw1-4-0-0-alpha-1/#disqus_thread"
+	data-disqus-identifier="http://framework-one.github.io/blog/2016/03/05/fw1-4-0-0-alpha-1/">Comments</a>
+
+	</p>
+
+	</header>
+
+
+	<div class="entry-content"><p><a href="https://github.com/framework-one/fw1/releases/tag/v4.0.0-alpha1">FW/1 4.0.0 Alpha 1</a> is available. At this point FW/1 4.0.0 is feature complete – there may be a few very minor changes between now and the Beta, and then only bug fixes through the RC phase. We’ve been using this <strong>develop</strong> version in production at work all along so I consider it solid enough for serious work.</div>
+
+
+	<footer>
+	<a rel="full-article" href="/blog/2016/03/05/fw1-4-0-0-alpha-1/">Read on &rarr;</a>
+	</footer>
+
+
+
+	</article>
+
+
+	<article>
+
+	<header>
+
+	<h1 class="entry-title"><a href="/blog/2016/01/05/fw1-4-0-and-beyond/">FW/1 4.0 and Beyond</a></h1>
+
+
+	<p class="meta">
+
+
+
+
+
+	<time class='entry-date' datetime='2016-01-05T22:20:00-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>10:20 pm</span></time>
+
+	| <a href="/blog/2016/01/05/fw1-4-0-and-beyond/#disqus_thread"
+	data-disqus-identifier="http://framework-one.github.io/blog/2016/01/05/fw1-4-0-and-beyond/">Comments</a>
+
+	</p>
+
+	</header>
+
+
+	<div class="entry-content"><p>Happy New Year and Welcome to 2016!</p>
+
+	<p>FW/1 3.5 has been out for a few months now and I want to talk about what’s coming this year.</div>
+
+
+	<footer>
+	<a rel="full-article" href="/blog/2016/01/05/fw1-4-0-and-beyond/">Read on &rarr;</a>
+	</footer>
+
+
+
+	</article>
+
+
+	<article>
+
+	<header>
+
+	<h1 class="entry-title"><a href="/blog/2015/10/21/fw1-3-5-0-released/">FW/1 3.5.0 Released!</a></h1>
+
+
+	<p class="meta">
+
+
+
+
+
+	<time class='entry-date' datetime='2015-10-21T12:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:00 pm</span></time>
+
+	| <a href="/blog/2015/10/21/fw1-3-5-0-released/#disqus_thread"
+	data-disqus-identifier="http://framework-one.github.io/blog/2015/10/21/fw1-3-5-0-released/">Comments</a>
+
+	</p>
+
+	</header>
+
+
+	<div class="entry-content"><p>The <a href="https://github.com/framework-one/fw1/releases/tag/v3.5.0">Gold Release of FW/1 3.5.0</a> is available for general release and production use. The focus of this release is integration, bringing an improved way to add subsystems to an existing application, an easier way to add FW/1 to a legacy application, support for mixed CFML / Clojure applications, better support for WireBox, and full support for ForgeBox and CommandBox!</div>
+
+
+	<footer>
+	<a rel="full-article" href="/blog/2015/10/21/fw1-3-5-0-released/">Read on &rarr;</a>
+	</footer>
+
+
+
+	</article>
+
+
+	<article>
+
+	<header>
+
+	<h1 class="entry-title"><a href="/blog/2015/10/06/fw1-3-5-0-rc-2/">FW/1 3.5.0 Release Candidate 2 Available!</a></h1>
+
+
+	<p class="meta">
+
+
+
+
+
+	<time class='entry-date' datetime='2015-10-06T15:40:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:40 pm</span></time>
+
+	| <a href="/blog/2015/10/06/fw1-3-5-0-rc-2/#disqus_thread"
+	data-disqus-identifier="http://framework-one.github.io/blog/2015/10/06/fw1-3-5-0-rc-2/">Comments</a>
+
+	</p>
+
+	</header>
+
+
+	<div class="entry-content"><p>The <a href="https://github.com/framework-one/fw1/releases/tag/v3.5.0-rc2">second Release Candidate of FW/1 3.5.0</a> is available for testing.</p>
+
+	<p>This Release Candidate contains a few bug fixes discovered since Release Candidate 1.
+	I consider this stable enough to evaluate for production usage at this point – I expect this RC to be the Gold Release unless end user testing uncovers a showstopping issue in the next week or two!</p>
+
+	<p>You can read the <a href="https://github.com/framework-one/fw1/issues?q=is%3Aissue+milestone%3A3.5+is%3Aclosed">full list of changes since 3.1</a> on GitHub, along with
+	<a href="https://github.com/framework-one/fw1/pulls?q=is%3Apr+is%3Aclosed+milestone%3A3.5">accepted pull requests since 3.1</a>..</p>
+	</div>
+
+
+
+
+	</article>
+
+
+	<article>
+
+	<header>
+
+	<h1 class="entry-title"><a href="/blog/2015/09/22/fw1-3-5-0-rc-1/">FW/1 3.5.0 Release Candidate 1 Available!</a></h1>
+
+
+	<p class="meta">
+
+
+
+
+
+	<time class='entry-date' datetime='2015-09-22T12:35:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>12:35 pm</span></time>
+
+	| <a href="/blog/2015/09/22/fw1-3-5-0-rc-1/#disqus_thread"
+	data-disqus-identifier="http://framework-one.github.io/blog/2015/09/22/fw1-3-5-0-rc-1/">Comments</a>
+
+	</p>
+
+	</header>
+
+
+	<div class="entry-content"><p>The <a href="https://github.com/framework-one/fw1/releases/tag/v3.5.0-rc1">first Release Candidate of FW/1 3.5.0</a> is available for testing.</p>
+
+	<p>This Release Candidate contains just bug fixes since Beta 2. Beta 2 contained mostly bug fixes since Beta 1, with one small enhancement to DI/1 (<code>liberal</code> plural support, e.g., <code>libraries</code> becomes <code>library</code>).</p>
+
+	<p>You can read the <a href="https://github.com/framework-one/fw1/issues?q=is%3Aissue+milestone%3A3.5+is%3Aclosed">full list of changes since 3.1</a> on GitHub.</p>
+	</div>
+
+
+
+
+	</article>
+
+
+	<article>
+
+	<header>
+
+	<h1 class="entry-title"><a href="/blog/2015/09/10/fw1-3-5-0-beta-1/">FW/1 3.5.0 Beta 1 Available!</a></h1>
+
+
+	<p class="meta">
+
+
+
+
+
+	<time class='entry-date' datetime='2015-09-10T13:35:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:35 pm</span></time>
+
+	| <a href="/blog/2015/09/10/fw1-3-5-0-beta-1/#disqus_thread"
+	data-disqus-identifier="http://framework-one.github.io/blog/2015/09/10/fw1-3-5-0-beta-1/">Comments</a>
+
+	</p>
+
+	</header>
+
+
+	<div class="entry-content"><p>The <a href="https://github.com/framework-one/fw1/releases/tag/v3.5.0-beta1">first Beta release of FW/1 3.5.0</a> is available for testing.</p>
+
+	<p>The focus of this release is integration:</div>
+
+
+	<footer>
+	<a rel="full-article" href="/blog/2015/09/10/fw1-3-5-0-beta-1/">Read on &rarr;</a>
+	</footer>
+
+
+
+	</article>
+
+
+	<article>
+
+	<header>
+
+	<h1 class="entry-title"><a href="/blog/2015/09/06/out-of-the-box/">FW/1 Out of the Box</a></h1>
+
+
+	<p class="meta">
+
+
+
+
+
+	<time class='entry-date' datetime='2015-09-06T23:00:00-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:00 pm</span></time>
+
+	| <a href="/blog/2015/09/06/out-of-the-box/#disqus_thread"
+	data-disqus-identifier="http://framework-one.github.io/blog/2015/09/06/out-of-the-box/">Comments</a>
+
+	</p>
+
+	</header>
+
+
+	<div class="entry-content"><p>FW/1 is up on <a href="http://www.coldbox.org/forgebox">ForgeBox</a>. ForgeBox is the npm / Maven of the CFML world. If you haven’t heard about it – or you think it’s only for “Box” products – you need to check it out! It’s a repository for CFML projects that can be easily installed via <a href="https://www.ortussolutions.com/products/commandbox">Command Box</a>. Wait! You haven’t heard of that either? Gosh, you’ve got some reading to do! It’ll change the way you do development!</p>
+
+	<p>Go get it installed, then read on!</div>
+
+
+	<footer>
+	<a rel="full-article" href="/blog/2015/09/06/out-of-the-box/">Read on &rarr;</a>
+	</footer>
+
+
+
+	</article>
+
+	<div class="pagination">
+
+	<a class="prev" href="/posts/2">&larr; Older</a>
+
+	<a href="/blog/archives">Blog Archives</a>
+
+	</div>
+	</div>
+	<aside class="sidebar">
+
+	<section>
+	<h1>About FW/1</h1>
+	<p>FW/1 - Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.</p>
+	<p>For support and assistance, join <a href="http://groups.google.com/group/framework-one/">the FW/1 mailing list</a> and/or the <a href="https://gitter.im/framework-one/fw1">FW/1 room on Gitter</a>. There is also a Gitter room for <a href="https://gitter.im/framework-one/architecture">FW/1 (and MVC) architectural discussions</a>. You can sign into Gitter with either your Gitter or Twitter account.</p>
+	<p>The main FW/1 Gitter room is also mirrored to the <a href="https://cfml.slack.com/messages/fw1/">FW/1 channel</a> on the <a href="http://cfml-slack.herokuapp.com/">CFML Slack</a> (that's the link to get an invite to sign up for the Slack).</p>
+	</section>
+	<section>
+					<h1>4.3 Documentation (beta)</h1>
+					<a href="/documentation/4.3/">Getting Started Guide</a><br />
+					<a href="/documentation/4.3/developing-applications.html">Developing Applications Guide</a><br />
+					<a href="/documentation/4.3/using-aop-one.html">Using AOP/1</a><br />
+					<a href="/documentation/4.3/using-di-one.html">Using DI/1</a><br />
+					<a href="/documentation/4.3/using-subsystems.html">Using Subsystems</a><br />
+					<a href="/documentation/4.3/reference-manual.html">Reference Manual</a><br />
+					<a href="/documentation/4.3/changes.html">Change Log</a><br />
+					<a href="/documentation/4.3/roadmap.html">Roadmap</a><br />
+				</section>
+	<section>
+	<h1>4.2 Documentation (current - master)</h1>
+	<a href="/documentation/4.2/">Getting Started Guide</a><br />
+	<a href="/documentation/4.2/developing-applications.html">Developing Applications Guide</a><br />
+	<a href="/documentation/4.2/using-aop-one.html">Using AOP/1</a><br />
+	<a href="/documentation/4.2/using-di-one.html">Using DI/1</a><br />
+	<a href="/documentation/4.2/using-subsystems.html">Using Subsystems</a><br />
+	<a href="/documentation/4.2/reference-manual.html">Reference Manual</a><br />
+	<a href="/documentation/4.2/changes.html">Change Log</a><br />
+	<a href="/documentation/4.2/roadmap.html">Roadmap</a><br />
+	</section>
+	<section>
+	<h1>4.1 Documentation</h1>
+	<a href="/documentation/4.1/">Getting Started Guide</a><br />
+	<a href="/documentation/4.1/developing-applications.html">Developing Applications Guide</a><br />
+	<a href="/documentation/4.1/using-aop-one.html">Using AOP/1</a><br />
+	<a href="/documentation/4.1/using-di-one.html">Using DI/1</a><br />
+	<a href="/documentation/4.1/using-subsystems.html">Using Subsystems</a><br />
+	<a href="/documentation/4.1/reference-manual.html">Reference Manual</a><br />
+	<a href="/documentation/4.1/changes.html">Change Log</a><br />
+	<a href="/documentation/4.1/roadmap.html">Roadmap</a><br />
+	</section>
+	<section>
+	<h1>4.0 Documentation</h1>
+	<a href="/documentation/4.0/">Getting Started Guide</a><br />
+	<a href="/documentation/4.0/developing-applications.html">Developing Applications Guide</a><br />
+	<a href="/documentation/4.0/using-aop-one.html">Using AOP/1</a><br />
+	<a href="/documentation/4.0/using-di-one.html">Using DI/1</a><br />
+	<a href="/documentation/4.0/using-subsystems.html">Using Subsystems</a><br />
+	<a href="/documentation/4.0/reference-manual.html">Reference Manual</a><br />
+	<a href="/documentation/4.0/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+	<a href="/documentation/4.0/changes.html">Change Log</a><br />
+	<a href="/documentation/4.0/roadmap.html">Roadmap</a><br />
+	</section>
+	<section>
+	<h1>3.5 Documentation</h1>
+	<a href="/documentation/3.5/">Getting Started Guide</a><br />
+	<a href="/documentation/3.5/developing-applications.html">Developing Applications Guide</a><br />
+	<a href="/documentation/3.5/using-aop-one.html">Using AOP/1</a><br />
+	<a href="/documentation/3.5/using-di-one.html">Using DI/1</a><br />
+	<a href="/documentation/3.5/using-subsystems.html">Using Subsystems</a><br />
+	<a href="/documentation/3.5/reference-manual.html">Reference Manual</a><br />
+	<a href="/documentation/3.5/cfml-and-clojure.html">Mixing CFML &amp; Clojure</a><br />
+	<a href="/documentation/3.5/roadmap.html">Roadmap</a><br />
+	</section>
+	<section>
+	<h1>3.1 Documentation</h1>
+	<a href="/documentation/3.1">Getting Started Guide</a><br />
+	<a href="/documentation/3.1/developing-applications.html">Developing Applications Guide</a><br />
+	<a href="/documentation/3.1/using-aop-one.html">Using AOP/1</a><br />
+	<a href="/documentation/3.1/using-di-one.html">Using DI/1</a><br />
+	<a href="/documentation/3.1/using-subsystems.html">Using Subsystems</a><br />
+	<a href="/documentation/3.1/reference-manual.html">Reference Manual</a><br />
+	<a href="/documentation/3.1/roadmap.html">Roadmap</a><br />
+	</section>
+	<section>
+	<h1>3.0 Documentation</h1>
+	<a href="/documentation/3.0">Getting Started Guide</a><br />
+	<a href="/documentation/3.0/developing-applications.html">Developing Applications Guide</a><br />
+	<a href="/documentation/3.0/using-di-one.html">Using DI/1</a><br />
+	<a href="/documentation/3.0/using-subsystems.html">Using Subsystems</a><br />
+	<a href="/documentation/3.0/reference-manual.html">Reference Manual</a><br />
+	<a href="/documentation/3.0/roadmap.html">Roadmap</a><br />
+	</section>
+	<section>
+	<h1>Recent Posts</h1>
+	<ul id="recent_posts">
+
+	<li class="post">
+	<a href="/blog/2019/03/27/fw1-roadmap/">FW/1 Roadmap</a>
+	</li>
+
+	<li class="post">
+	<a href="/blog/2018/03/27/fw1-4-2-0-released/">FW/1 4.2.0 Released!</a>
+	</li>
+
+	<li class="post">
+	<a href="/blog/2017/07/01/fw1-4-1-0-released/">FW/1 4.1.0 Released!</a>
+	</li>
+
+	<li class="post">
+	<a href="/blog/2017/06/16/fw1-4-1-0-rc1/">FW/1 4.1.0 Release Candidate Available</a>
+	</li>
+
+	<li class="post">
+	<a href="/blog/2016/09/16/fw1-4-0-0-released/">FW/1 4.0.0 Released!</a>
+	</li>
+
+	<li class="post">
+	<a href="/blog/2016/07/26/fw1-4-0-0-rc-1/">FW/1 4.0.0 Release Candidate 1</a>
+	</li>
+
+	<li class="post">
+	<a href="/blog/2016/07/12/fw1-4-0-0-beta-2/">FW/1 4.0.0 Beta 2</a>
+	</li>
+
+	<li class="post">
+	<a href="/blog/2016/07/11/fw1-4-0-0-beta-1/">FW/1 4.0.0 Beta 1</a>
+	</li>
+
+	<li class="post">
+	<a href="/blog/2016/03/05/fw1-4-0-0-alpha-1/">FW/1 4.0.0 Alpha 1</a>
+	</li>
+
+	<li class="post">
+	<a href="/blog/2016/01/05/fw1-4-0-and-beyond/">FW/1 4.0 and Beyond</a>
+	</li>
+
+	</ul>
+	</section>
+
+	<section>
+	<h1>GitHub Repos</h1>
+	<ul id="gh_repos">
+	<li class="loading">Status updating...</li>
+	</ul>
+
+	<a href="https://github.com/framework-one">@framework-one</a> on GitHub
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+		if (!window.jXHR){
+		var jxhr = document.createElement('script');
+		jxhr.type = 'text/javascript';
+		jxhr.src = '/javascripts/libs/jXHR.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(jxhr, s);
+		}
+
+		github.showRepos({
+		user: 'framework-one',
+		count: 0,
+		skip_forks: true,
+		target: '#gh_repos'
+		});
+		});
+	</script>
+	<script src="/javascripts/github.js" type="text/javascript"> </script>
+	</section>
+	<section>
+	<a href="https://github.com/seancorfield">@seancorfield</a> on GitHub
+	</section>
+
+
+
+
+
+
+	</aside>
+
+	</div>
+	</div>
+	<footer role="contentinfo">
+		<p>
+			Copyright &copy; 2019 - Sean Corfield -
+			<span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+		</p>
+	</footer>
+
+	<script type="text/javascript">
+		var disqus_shortname = 'framework-one';
+		var disqus_script = 'count.js';
+
+		(function () {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		}());
+
+		(function(){
+		var twitterWidgets = document.createElement('script');
+		twitterWidgets.type = 'text/javascript';
+		twitterWidgets.async = true;
+		twitterWidgets.src = '//platform.twitter.com/widgets.js';
+		document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+		})();
+	</script>
 </body>
 </html>
