@@ -1,0 +1,25 @@
+.basic-alignment {
+	&.left { float: left; margin-right: 1.5em; }
+	&.right { float: right; margin-left: 1.5em; }
+	&.center { display:block; margin: 0 auto 1.5em; }
+	&.left, &.right { margin-bottom: .8em; }
+}
+
+article > footer p.meta {
+	margin-bottom: .8em;
+	clear: both;
+	overflow: hidden;
+}
+
+.documentation-nav {
+	float: right;
+
+	section {
+		margin-bottom: 1em;
+		margin-left: 1em;
+	}
+}
+
+.site-footer {
+	clear: both;
+}

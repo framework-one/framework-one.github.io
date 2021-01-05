@@ -1,0 +1,24 @@
+---
+layout: post
+title: "FW/1 4.0.0 Alpha 1"
+date: 2016-03-05 17:00
+comments: true
+categories: [releases, fw1, di1, aop1, clojure]
+author: Sean Corfield
+---
+[FW/1 4.0.0 Alpha 1](https://github.com/framework-one/fw1/releases/tag/v4.0.0-alpha1) is available. At this point FW/1 4.0.0 is feature complete -- there may be a few very minor changes between now and the Beta, and then only bug fixes through the RC phase. We've been using this **develop** version in production at work all along so I consider it solid enough for serious work.<!-- more -->
+
+The focus of the 4.0 release is on improving REST support. Improvements include:
+
+* JSON-encoded POST body support.
+* Controllers have easy access to HTTP headers.
+* Builder syntax for `renderData()` result elements.
+* Support for user-supplied rendering functions.
+* Integrated support for HTTP `OPTIONS` verb.
+* Per-resource error handling.
+* Setting status text (in addition to status code) in HTTP responses.
+* Wildcard HTTP method support.
+
+In addition, DI/1 has had a number of enhancements, including the addition of a builder syntax for programmatically declaring beans.
+
+For more detail, read the [Change Log for FW/1 4.0](http://framework-one.github.io/documentation/4.0/changes.html).
