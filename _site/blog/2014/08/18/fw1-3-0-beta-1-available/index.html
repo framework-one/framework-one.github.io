@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	
+	<meta charset="UTF-8">
+
+	<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>FW/1 3.0 Beta 1 available | FW/1 - The Invisible Framework</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="FW/1 3.0 Beta 1 available" />
+<meta name="author" content="Sean Corfield" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Just over four weeks ago, I released FW/1 3.0 Alpha 1 and declared it feature complete. There were some big changes in that release and, in particular, some long-standing features were removed (after being deprecated in FW/1 2.5) and some recently-introduced features were also deprecated. Today I am releasing the first Beta version which includes bug fixes and usability enhancements, focusing primarily on DI/1 and AOP/1." />
+<meta property="og:description" content="Just over four weeks ago, I released FW/1 3.0 Alpha 1 and declared it feature complete. There were some big changes in that release and, in particular, some long-standing features were removed (after being deprecated in FW/1 2.5) and some recently-introduced features were also deprecated. Today I am releasing the first Beta version which includes bug fixes and usability enhancements, focusing primarily on DI/1 and AOP/1." />
+<link rel="canonical" href="http://localhost:4000/blog/2014/08/18/fw1-3-0-beta-1-available/" />
+<meta property="og:url" content="http://localhost:4000/blog/2014/08/18/fw1-3-0-beta-1-available/" />
+<meta property="og:site_name" content="FW/1 - The Invisible Framework" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-08-18T14:21:49-04:00" />
+<script type="application/ld+json">
+{"headline":"FW/1 3.0 Beta 1 available","dateModified":"2014-08-18T14:21:49-04:00","datePublished":"2014-08-18T14:21:49-04:00","url":"http://localhost:4000/blog/2014/08/18/fw1-3-0-beta-1-available/","author":{"@type":"Person","name":"Sean Corfield"},"description":"Just over four weeks ago, I released FW/1 3.0 Alpha 1 and declared it feature complete. There were some big changes in that release and, in particular, some long-standing features were removed (after being deprecated in FW/1 2.5) and some recently-introduced features were also deprecated. Today I am releasing the first Beta version which includes bug fixes and usability enhancements, focusing primarily on DI/1 and AOP/1.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/2014/08/18/fw1-3-0-beta-1-available/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#157878" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<link rel="stylesheet" href="/assets/css/style.css?v=a3debbe0e02ab81ebdefec1b0e258acd9a63d866" />
+	<link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
+</head>
+<body>
+	<a id="skip-to-content" href="#content">Skip to the content.</a>
+
+	<header class="page-header" role="banner">
+		<h1 class="project-name">FW/1 3.0 Beta 1 available</h1>
+		<h2 class="project-tagline">Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.</h2>
+		
+		<a href="/" class="btn">Home</a>
+		<a href="/blog" class="btn">Blog</a>
+		<a href="/documentation" class="btn">Documentation</a>
+		
+			<a href="https://github.com/framework-one/fw1/" class="btn" target="_blank">View on GitHub</a>
+		
+		
+			<a href="https://github.com/framework-one/fw1/archive/master.zip" class="btn">Download 4.2 (Current)</a>
+			<a href="https://github.com/framework-one/fw1/archive/v4.3.0-beta.1.zip" class="btn">Download 4.3 (Beta)</a>
+		
+		
+			<a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS" class="btn">RSS</a>
+		
+	</header>
+
+	<main id="content" class="main-content" role="main">
+		<hr style="clear:both"/>
+
+<article class="hentry" role="article">
+	<p>Just over four weeks ago, I released <a href="http://framework-one.github.io/blog/2014/07/20/fw1-3-0-alpha-1-available-for-testing/">FW/1 3.0 Alpha 1</a> and declared it <em>feature complete</em>. There were some big changes in that release and, in particular, some long-standing features were removed (after being deprecated in FW/1 2.5) and some recently-introduced features were also deprecated. Today I am releasing the first Beta version which includes bug fixes and usability enhancements, focusing primarily on DI/1 and AOP/1.<!-- more --></p>
+
+<p>You can <a href="https://github.com/framework-one/fw1/releases/tag/v3.0-beta1">download FW/1 3.0 Beta 1 from Github</a> and that release page has a link to <a href="https://github.com/framework-one/fw1/issues?milestone=13&amp;page=1&amp;state=closed">the complete list of closed tickets in FW/1 3.0 Beta 1</a> and <a href="https://github.com/framework-one/di1/issues?milestone=1&amp;page=1&amp;state=closed">closed tickets in DI/1 that are for FW/1 3.0</a>. Note that those issues are only fixed in the FW/1 repository, not the DI/1 repository, but they will be backported later on.</p>
+
+<h2 id="di1-and-aop1-come-of-age">DI/1 and AOP/1 come of age</h2>
+
+<p>As indicated above, the focus of Beta 1 has been on cleaning up DI/1 and AOP/1 to get them to a “1.0” release status as part of FW/1 3.0. Going forward, the DI/1 and AOP/1 repositories will only get updated with released versions and will be stripped down to minimal examples for those who wish to use them standalone. Future development (including issues and test cases etc) will all be done in the FW/1 repository.</p>
+
+<p>DI/1 has been enhanced in this release to provide some features that will help developers migrating from ColdSpring (or who are looking for some of ColdSpring’s more advanced features in DI/1).</p>
+
+<p>AOP/1 has been rewritten to better integrate with DI/1 and ensure that injected beans are intercepted (the <code class="language-plaintext highlighter-rouge">beanProxy.cfc</code> needed only minor tweaks and it does the heavy lifting of interception).</p>
+
+<p>Here is the full list of changes in DI/1 and AOP/1 (since Alpha 1):</p>
+
+<ul>
+  <li>Dotted path deduction rewritten / improved <a href="https://github.com/framework-one/di1/issues/61">di1/#61</a>. There were a number of situations where DI/1 was unable to figure out a dotted component path for CFCs identified through relative folder paths, especially outside the primary webroot of an application. This should be addressed now!</li>
+  <li>New option <code class="language-plaintext highlighter-rouge">omitDirectoryAliases</code> - default <code class="language-plaintext highlighter-rouge">false</code> <a href="https://github.com/framework-one/di1/issues/64">di1/#64</a>. Set this <code class="language-plaintext highlighter-rouge">true</code> if you want to suppress the directory-based aliases that DI/1 creates (e.g., <code class="language-plaintext highlighter-rouge">beans/user.cfc</code> =&gt; <code class="language-plaintext highlighter-rouge">userBean</code>). This will enforce uniqueness of bean names (since the suffix will no longer differentiate beans with the same name in different folders).</li>
+  <li>IIS web server mapping case sensitivity <a href="https://github.com/framework-one/di1/issues/65">di1/#65</a>. A bug fix for an annoying edge case caused by IIS being case sensitive in a situation that caused hard-to-debug errors from DI/1.</li>
+  <li>AOP/1 now handles intercepted methods that return null <a href="https://github.com/framework-one/fw1/issues/264">#264</a>. Self-explanatory.</li>
+  <li>DI/1 now accepts a load listener as part of its configuration <a href="https://github.com/framework-one/fw1/issues/273">#273</a>. This was added to allow load listeners to be added easily via <code class="language-plaintext highlighter-rouge">diConfig</code> when using FW/1. A load listener is the recommended way to declare new beans, add aliases and additional beans and set up factory beans/methods (see next item).</li>
+</ul>
+
+<p>The following DI/1 setups are now equivalent:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var bf1 = new framework.ioc( "..." );
+bf1.onLoad( myListener );
+
+var bf2 = new framework.ioc( "...", { loadListener = myListener } );
+</code></pre></div></div>
+
+<ul>
+  <li>DI/1 now supports factory beans / factory methods <a href="https://github.com/framework-one/fw1/issues/274">#274</a>. The new API <code class="language-plaintext highlighter-rouge">factoryBean()</code> allows you to specify that a bean should be obtained from another bean - the <em>factory bean</em> - by calling a specified method - the <em>factory method</em> - with optionally specified arguments, and optional bean value overrides (similar to the <code class="language-plaintext highlighter-rouge">declareBean()</code> API).</li>
+</ul>
+
+<p>Here are some examples:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bf.factoryBean( "a1Bean", "myFactory", "theMethod" );
+// a1Bean = bf.getBean("myFactory").theMethod();
+bf.factoryBean( "a2Bean", "yourFactory", "createIt", [ "dsn" ] );
+// a2Bean = bf.getBean("yourFactory").createIt( bf.getBean("dsn") );
+bf.factoryBean( "a3Bean", "warehouse", "builder", [ "dsn", "config" ],
+    { dsn = "myDB" } );
+// a3Bean = bf.getBean("warehouse").builder( "myDB", bf.getBean("config") );
+</code></pre></div></div>
+
+<ul>
+  <li>DI/1 now supports a post-injection <em>init-method</em> like ColdSpring <a href="https://github.com/framework-one/fw1/issues/275">#275</a>. A new configuration option <code class="language-plaintext highlighter-rouge">initMethod</code> allows you to specify a no-argument method that DI/1 should attempt to call on all managed beans after all of their dependencies have been injected. This allows beans to perform additional configuration that requires access to their injected dependencies, which cannot be performed in a constructor. You can thank Daniel Budde II for this feature being added (and for spurring me to finally add factory beans/methods which I’d been thinking about for a while)!</li>
+  <li>AOP/1 now intercepts injected beans <a href="https://github.com/framework-one/fw1/issues/277">#277</a>. This was the rewrite of AOP/1 to hook into DI/1’s <code class="language-plaintext highlighter-rouge">resolveBean()</code> method via a new <code class="language-plaintext highlighter-rouge">setupInitMethod()</code> extension point (which will make additional extensions to DI/1 easier). Previously AOP/1 only intercepted beans obtained directly via <code class="language-plaintext highlighter-rouge">getBean()</code>. Thank you to Daniel Budde II for identifying this issue and providing a test case to help debug and verify the new behavior.</li>
+  <li>DI/1 no longer resolves beans multiple times <a href="https://github.com/framework-one/fw1/issues/279">#279</a>. This was a performance issue but previously harmless. With the enhancements to AOP/1, this introduced several bugs (hopefully all fixed now!).</li>
+</ul>
+
+<h2 id="fw1-bug-fixes-and-enhancements">FW/1 bug fixes and enhancements</h2>
+
+<p>Here are the changes in FW/1 itself since Alpha 1:</p>
+
+<ul>
+  <li>Controllers are reloaded after the bean factory is updated <a href="https://github.com/framework-one/fw1/issues/276">#276</a>. Previously, FW/1 cached controllers and recreating the bean factory was not sufficient to pick up changes in controller files. Now, when you call <code class="language-plaintext highlighter-rouge">setBeanFactory()</code>, the controller cache is cleared so controllers will be reloaded and any changes will be picked up (regardless of whether controllers are managed by FW/1 or DI/1).</li>
+</ul>
+
+<h2 id="the-road-to-gold">The road to gold</h2>
+
+<p>The next milestone should be Release Candidate 1 and only bug fixes are likely to be considered at this point, no new features or enhancements, unless they are required to make the Beta feature set fully usable. If all goes well, RC1 should be released in about 3-4 weeks, and the <em>gold</em> 3.0 release about 3-4 weeks after that (late September / early October).</p>
+
+<p>Note that <code class="language-plaintext highlighter-rouge">org.framework.corfield</code> is a deprecated path for FW/1 - it has moved to <code class="language-plaintext highlighter-rouge">framework.one</code> - and whilst it is supported during the 3.0 prerelease builds, it will be removed in the gold release. Similarly, as noted in the Alpha 1 blog post, <code class="language-plaintext highlighter-rouge">getRC()</code> and <code class="language-plaintext highlighter-rouge">getRCValue()</code> are deprecated and will also be removed in the gold release.</p>
+
+	<footer>
+		<p class="meta">
+			
+<span class="byline author vcard">Posted by <span class="fn">Sean Corfield</span></span>
+
+			
+
+
+
+
+
+			<div>
+				
+
+<span class="categories">
+	
+		
+			<a href="/blog/category/releases">releases</a>
+			,
+		
+			<a href="/blog/category/fw1">fw1</a>
+			,
+		
+			<a href="/blog/category/di1">di1</a>
+			
+		
+  
+</span>
+
+
+			</div>
+		</p>
+    
+		
+	<div class="sharing">
+		
+		
+		
+	</div>
+
+	
+		<p class="meta">
+			
+				<a class="basic-alignment left" href="/blog/2014/07/20/fw1-3-0-alpha-1-available-for-testing/" title="Previous Post: FW/1 3.0 Alpha 1 available for testing!">&laquo; FW/1 3.0 Alpha 1 available for testing!</a>
+			
+			
+				<a class="basic-alignment right" href="/blog/2015/01/23/cfmljure-0-1-0/" title="Next Post: cfmljure Release 0.1.0">cfmljure Release 0.1.0 &raquo;</a>
+			
+		</p>
+	
+		
+<section>
+	<h1>Comments</h1>
+	<div id="disqus_thread" aria-live="polite">
+		<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		
+		<script type="text/javascript">
+			var disqus_shortname = 'framework-one';
+			
+				
+				// var disqus_developer = 1;
+				var disqus_identifier = 'http://localhost:4000/blog/2014/08/18/fw1-3-0-beta-1-available/';
+				var disqus_url = 'http://localhost:4000/blog/2014/08/18/fw1-3-0-beta-1-available/';
+				var disqus_script = 'embed.js';
+			
+			(function () {
+					var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+					dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+					(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			}());
+		</script>
+	</div>
+</section>
+	
+	</footer>
+</article>
+
+		<footer class="site-footer">
+			
+				<span class="site-footer-owner"><a href="https://github.com/sneiland/sneiland.github.io">sneiland.github.io</a> is maintained by <a href="https://github.com/sneiland">sneiland</a>.</span>
+			
+		</footer>
+	</main>
+</body>
+</html>

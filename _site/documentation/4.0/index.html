@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	
+	<meta charset="UTF-8">
+
+	<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Getting Started with FW/1 | FW/1 - The Invisible Framework</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Getting Started with FW/1" />
+<meta name="author" content="Sean Corfield" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1." />
+<meta property="og:description" content="Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1." />
+<link rel="canonical" href="http://localhost:4000/documentation/4.0/" />
+<meta property="og:url" content="http://localhost:4000/documentation/4.0/" />
+<meta property="og:site_name" content="FW/1 - The Invisible Framework" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-09-16T20:00:00-04:00" />
+<script type="application/ld+json">
+{"headline":"Getting Started with FW/1","dateModified":"2016-09-16T20:00:00-04:00","datePublished":"2016-09-16T20:00:00-04:00","url":"http://localhost:4000/documentation/4.0/","author":{"@type":"Person","name":"Sean Corfield"},"description":"Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/documentation/4.0/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#157878" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<link rel="stylesheet" href="/assets/css/style.css?v=a3debbe0e02ab81ebdefec1b0e258acd9a63d866" />
+	<link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
+</head>
+<body>
+	<a id="skip-to-content" href="#content">Skip to the content.</a>
+
+	<header class="page-header" role="banner">
+		<h1 class="project-name">Getting Started with FW/1</h1>
+		<h2 class="project-tagline">Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.</h2>
+		
+		<a href="/" class="btn">Home</a>
+		<a href="/blog" class="btn">Blog</a>
+		<a href="/documentation" class="btn">Documentation</a>
+		
+			<a href="https://github.com/framework-one/fw1/" class="btn" target="_blank">View on GitHub</a>
+		
+		
+			<a href="https://github.com/framework-one/fw1/archive/master.zip" class="btn">Download 4.2 (Current)</a>
+			<a href="https://github.com/framework-one/fw1/archive/v4.3.0-beta.1.zip" class="btn">Download 4.3 (Beta)</a>
+		
+		
+			<a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS" class="btn">RSS</a>
+		
+	</header>
+
+	<main id="content" class="main-content" role="main">
+		<aside class="documentation-nav">
+	<section>
+		<a href="/documentation/changelog">Changelog</a><br />
+		<a href="/documentation/roadmap/">Roadmap</a><br />
+	</section>
+	<section>
+		<h3>4.3 Documentation (beta)</h3>
+		<a href="/documentation/4.3/">Getting Started Guide</a><br />
+		<a href="/documentation/4.3/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/4.3/using-aop-one/">Using AOP/1</a><br />
+		<a href="/documentation/4.3/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/4.3/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/4.3/reference-manual/">Reference Manual</a><br />
+		<a href="/documentation/4.3/changelog/">Change Log</a><br />
+	</section>
+	<section>
+		<h3>4.2 Documentation (Current Master)</h3>
+		<a href="/documentation/4.2/">Getting Started Guide</a><br />
+		<a href="/documentation/4.2/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/4.2/using-aop-one/">Using AOP/1</a><br />
+		<a href="/documentation/4.2/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/4.2/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/4.2/reference-manual/">Reference Manual</a><br />
+		<a href="/documentation/4.2/changelog/">Change Log</a><br />
+	</section>
+	<section>
+		<h3>4.1 Documentation</h3>
+		<a href="/documentation/4.1/">Getting Started Guide</a><br />
+		<a href="/documentation/4.1/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/4.1/using-aop-one/">Using AOP/1</a><br />
+		<a href="/documentation/4.1/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/4.1/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/4.1/reference-manual/">Reference Manual</a><br />
+		<a href="/documentation/4.1/changelog/">Change Log</a><br />
+	</section>
+	<section>
+		<h3>4.0 Documentation</h3>
+		<a href="/documentation/4.0/">Getting Started Guide</a><br />
+		<a href="/documentation/4.0/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/4.0/using-aop-one/">Using AOP/1</a><br />
+		<a href="/documentation/4.0/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/4.0/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/4.0/reference-manual/">Reference Manual</a><br />
+		<a href="/documentation/4.0/changelog/">Change Log</a><br />
+	</section>
+	<section>
+		<h3>3.5 Documentation</h3>
+		<a href="/documentation/3.5/">Getting Started Guide</a><br />
+		<a href="/documentation/3.5/cfml-and-clojure/">CFML and Clojure</a><br />
+		<a href="/documentation/3.5/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/3.5/using-aop-one/">Using AOP/1</a><br />
+		<a href="/documentation/3.5/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/3.5/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/3.5/reference-manual/">Reference Manual</a><br />
+	</section>
+	<section>
+		<h3>3.1 Documentation</h3>
+		<a href="/documentation/3.1/">Getting Started Guide</a><br />
+		<a href="/documentation/3.1/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/3.1/using-aop-one/">Using AOP/1</a><br />
+		<a href="/documentation/3.1/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/3.1/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/3.1/reference-manual/">Reference Manual</a><br />
+	</section>
+	<section>
+		<h3>3.0 Documentation</h3>
+		<a href="/documentation/3.0/">Getting Started Guide</a><br />
+		<a href="/documentation/3.0/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/3.0/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/3.0/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/3.0/reference-manual/">Reference Manual</a><br />
+	</section>
+</aside>
+
+<article>
+	<p>FW/1 was created in July 2009 as a reaction against complexity and bloat in other frameworks in the CFML community. FW/1 itself is a single file, and provides a simple, convention-based approach to MVC (Model-View-Controller) applications, as well as REST APIs. Whilst it has become more sophisticated over time, it has remained a single file, focused on getting out of your way and providing the intuitive plumbing you need. For historical background, you can read the <a href="http://framework-one.github.io/blog/2009/07/19/introducing-framework-one/">introductory blog post</a> from July 2009.</p>
+
+<p>As of release 3.1, FW/1 also includes DI/1 - a simple, convention-based Dependency Injection framework - and AOP/1 - a simple, convention-based Aspect-Oriented Programming framework. As of release 3.5, FW/1 lets you mix’n’match CFML and Clojure code. If those phrases don’t mean anything to you, don’t worry, you won’t need to know anything about them to get started. For a full list of changes in this release, see the <a href="changes.html">Change Log</a>.</p>
+
+<ul id="markdown-toc">
+  <li><a href="#requirements--supported-platforms" id="markdown-toc-requirements--supported-platforms">Requirements &amp; Supported Platforms</a></li>
+  <li><a href="#copyright-and-license" id="markdown-toc-copyright-and-license">Copyright and License</a></li>
+  <li><a href="#installing-fw1" id="markdown-toc-installing-fw1">Installing FW/1</a></li>
+  <li><a href="#your-first-fw1-application" id="markdown-toc-your-first-fw1-application">Your First FW/1 Application</a>    <ul>
+      <li><a href="#linking-pages-together" id="markdown-toc-linking-pages-together">Linking Pages Together</a></li>
+      <li><a href="#an-aside-on-url-structure" id="markdown-toc-an-aside-on-url-structure">An Aside on URL Structure</a></li>
+      <li><a href="#adding-a-controller-to-your-application" id="markdown-toc-adding-a-controller-to-your-application">Adding a Controller to Your Application</a></li>
+      <li><a href="#adding-a-layout-to-your-application" id="markdown-toc-adding-a-layout-to-your-application">Adding a Layout to Your Application</a></li>
+      <li><a href="#adding-a-service-to-your-application" id="markdown-toc-adding-a-service-to-your-application">Adding a Service to Your Application</a></li>
+    </ul>
+  </li>
+  <li><a href="#whats-next" id="markdown-toc-whats-next">What’s Next?</a></li>
+</ul>
+
+<h2 id="requirements--supported-platforms">Requirements &amp; Supported Platforms</h2>
+
+<p>FW/1 3.5 supports Adobe ColdFusion 9.0.2 or later (not 9.0.0 or 9.0.1), Lucee 4.5.0 (<strong>but not Lucee 5</strong>), and Railo 4.1 or later. I recommend using <a href="http://lucee.org/downloads.html">Lucee 4.5.0</a> or later since it’s free, open source, and fast, with a small footprint. If you’re using Adobe ColdFusion, I recommend upgrading to the latest version (ColdFusion 11 as of August 2014) to take advantage of the huge improvements in the core language since ColdFusion 9.0.2 (closures, member functions, full cfscript support, etc) – although there are quite a few bugs in several areas of ColdFusion 11 (even as of September 2015).</p>
+
+<p>Note that the Clojure support in FW/1 3.5 requires at least Railo 4.2, Lucee 4.5.1 or Adobe ColdFusion 11. Interoperability between CFML and Clojure is best in Lucee (or Railo) – in Adobe ColdFusion you’ll need to use <code class="language-plaintext highlighter-rouge">javaCast()</code> quite a lot (because numbers are stored as strings and need converting when you pass them to Clojure or Java).</p>
+
+<p>If you’re on ColdFusion 9.0.1, FW/1 3.5 should work but there may be some edge cases in <code class="language-plaintext highlighter-rouge">Application.cfc</code> lifecycle behavior that may trip you up.</p>
+
+<p>If you’re on ColdFusion 9.0.0 or earlier, or still using Open BlueDragon, you’ll need to stick with FW/1 1.3. Sorry, but supporting those versions is just too painful!</p>
+
+<h2 id="copyright-and-license">Copyright and License</h2>
+
+<p>The FW/1 software family is copyright (c) 2009-2016 Sean Corfield (and others). All rights reserved. The use and distribution terms for that software are covered by the Apache Software License 2.0 (http://www.apache.org/licenses/LICENSE-2.0) which can also be found in the file LICENSE at the root of that distribution and in individual licensed files. By using that software in any fashion, you are agreeing to be bound by the terms of that license. You must not remove that notice, or any other, from that software.</p>
+
+<p>The FW/1 documentation is copyright (c) 2009-2016 Sean Corfield and is made available under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>.</p>
+
+<h2 id="installing-fw1">Installing FW/1</h2>
+
+<p>There are two options by which to install FW/1: either download it, or install it via CommandBox.</p>
+
+<p><strong>Download from Github</strong></p>
+
+<p>FW/1 can be downloaded directly from the <strong>releases</strong> page on <a href="https://github.com/framework-one/fw1">Github</a>. Both paths will lead you to the same <a href="https://github.com/framework-one/fw1/releases">page which lists all the releases</a>, with the latest stable release and pre-release versions listed first.</p>
+
+<p>When you download FW/1 (or check it out from Github), it’s a complete web application. <strong>The <code class="language-plaintext highlighter-rouge">framework</code> folder should either be copied to your webroot (the simplest way to get started) or else made accessible via a mapping for <code class="language-plaintext highlighter-rouge">/framework</code>.</strong> Since <code class="language-plaintext highlighter-rouge">Application.cfc</code> extends <code class="language-plaintext highlighter-rouge">framework.one</code>, you have to add that mapping in your CFML admin - you cannot use a per-application mapping. <em>In release 3.5 there is a way to avoid the mapping and extending <code class="language-plaintext highlighter-rouge">framework.one</code> which we’ll cover in the <a href="developing-applications.html#alternative-application-structure">Developing Applications Guide</a>.</em></p>
+
+<p><strong>Download with CommandBox</strong></p>
+
+<p>FW/1 may also be installed via <a href="https://www.ortussolutions.com/products/commandbox">CommandBox</a>. From your command prompt, you can easily install FW/1 by entering <code class="language-plaintext highlighter-rouge">box install fw1</code> and the latest stable version will be installed to your current working directory. To install the latest development vesion of FW/1, simply enter <code class="language-plaintext highlighter-rouge">box install fw1-dev</code>. Refer to the <a href="https://ortus.gitbooks.io/commandbox-documentation/content/setup/installation.html">CommandBox documentation</a> for more info on installing and using CommandBox.</p>
+
+<p><em>This is a minimal install and only the <code class="language-plaintext highlighter-rouge">framework</code> folder is installed via this method</em>. To start with a complete working application, you can grab the <code class="language-plaintext highlighter-rouge">examples</code> folder from the full Github download (see the first install method) or generate one via <a href="https://github.com/framework-one/fw1-commands">FW/1 Commands</a> from CommandBox.</p>
+
+<p><em><strong>Note: do not install FW/1 into a subfolder that contains . in the name as this may prevent CFC resolution from working!</strong></em></p>
+
+<h2 id="your-first-fw1-application">Your First FW/1 Application</h2>
+
+<p>FW/1 itself consists of a single CFC: <code class="language-plaintext highlighter-rouge">framework.one</code>, i.e., <code class="language-plaintext highlighter-rouge">framework/one.cfc</code>. Your <code class="language-plaintext highlighter-rouge">Application.cfc</code> will extend that and your application’s “pages” will live under a <code class="language-plaintext highlighter-rouge">views</code> folder inside a subfolder for each <em>section</em> of your application.</p>
+
+<p>The simplest FW/1 application comprises:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Application.cfc</code> which extends <code class="language-plaintext highlighter-rouge">framework.one</code></li>
+  <li>Empty <code class="language-plaintext highlighter-rouge">index.cfm</code> (this file is required but the content is ignored)</li>
+  <li><code class="language-plaintext highlighter-rouge">views</code> folder containing a <code class="language-plaintext highlighter-rouge">main</code> subfolder containing <code class="language-plaintext highlighter-rouge">default.cfm</code> - your initial application view</li>
+</ul>
+
+<p>See the <code class="language-plaintext highlighter-rouge">1helloworld</code> example in the <code class="language-plaintext highlighter-rouge">examples</code> folder which is this same minimal application.</p>
+
+<p>Create <code class="language-plaintext highlighter-rouge">Application.cfc</code> containing:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>component extends=framework.one {
+}
+</code></pre></div></div>
+
+<p>Create an empty <code class="language-plaintext highlighter-rouge">index.cfm</code> file.</p>
+
+<p>Create <code class="language-plaintext highlighter-rouge">views/main/default.cfm</code> containing:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;p&gt;Hello FW/1!&lt;/p&gt;
+</code></pre></div></div>
+
+<p>When you access the application, it should say <code class="language-plaintext highlighter-rouge">Hello FW/1!</code></p>
+
+<h3 id="linking-pages-together">Linking Pages Together</h3>
+
+<p>FW/1 provides a convenient method for generating links between pages. We’re going to use that to link two pages together.</p>
+
+<p>Edit <code class="language-plaintext highlighter-rouge">views/main/default.cfm</code> and wrap the content in <code class="language-plaintext highlighter-rouge">cfoutput</code> since we’re going to be executing CFML code now:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;cfoutput&gt;
+  &lt;p&gt;Hello FW/1&lt;/p&gt;
+&lt;/cfoutput&gt;
+</code></pre></div></div>
+
+<p>Now we’ll add a link to a new page - a new <em>section.item</em> - using the <code class="language-plaintext highlighter-rouge">buildURL()</code> function FW/1 provides. Edit <code class="language-plaintext highlighter-rouge">default.cfm</code> so it looks like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;cfoutput&gt;
+  &lt;p&gt;Hello FW/1&lt;/p&gt;
+  &lt;p&gt;&lt;a href="#buildURL('main.other')#"&gt;Go away&lt;/a&gt;!&lt;/p&gt;
+&lt;/cfoutput&gt;
+</code></pre></div></div>
+
+<p>This will generate a link with an <code class="language-plaintext highlighter-rouge">action</code> of <code class="language-plaintext highlighter-rouge">main.other</code>. Now we’ll create <code class="language-plaintext highlighter-rouge">views/main/other.cfm</code> with this content:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;cfoutput&gt;
+  &lt;p&gt;Goodbye FW/1&lt;/p&gt;
+  &lt;p&gt;&lt;a href="#buildURL('main')#"&gt;Come back&lt;/a&gt;!&lt;/p&gt;
+&lt;/cfoutput&gt;
+</code></pre></div></div>
+
+<p>This will generate a link with an <code class="language-plaintext highlighter-rouge">action</code> of <code class="language-plaintext highlighter-rouge">main</code>, which is equivalent to <code class="language-plaintext highlighter-rouge">main.default</code> as we’ll see in the next section.</p>
+
+<p>Reload your application in your browser: you should see a <code class="language-plaintext highlighter-rouge">Go away!</code> link after <code class="language-plaintext highlighter-rouge">Hello FW/1!</code>. Click it and you should go to a URL with <code class="language-plaintext highlighter-rouge">?action=main.other</code> which should display <code class="language-plaintext highlighter-rouge">Goodbye FW/1!</code> and a link back to your default page. Click that <code class="language-plaintext highlighter-rouge">Come back</code> link and you should see your original page. Note that FW/1 realized that the <code class="language-plaintext highlighter-rouge">main</code> action is the default and omitted it from the URL completely: this helps keep URLs unique for search engines.</p>
+
+<p>See the <code class="language-plaintext highlighter-rouge">2hellolinked</code> example in the <code class="language-plaintext highlighter-rouge">examples</code> folder which is this simple two page application.</p>
+
+<h3 id="an-aside-on-url-structure">An Aside on URL Structure</h3>
+
+<p>Pages are accessed using <code class="language-plaintext highlighter-rouge">?action=section.item</code> in the URL which will display the <code class="language-plaintext highlighter-rouge">views/section/item.cfm</code> file. The default action is <code class="language-plaintext highlighter-rouge">main.default</code>, as you might have guessed from the examples above! If you specify just the section name - <code class="language-plaintext highlighter-rouge">?action=section</code> then the item has the value <code class="language-plaintext highlighter-rouge">default</code>, in other words, <code class="language-plaintext highlighter-rouge">?action=section</code> is equivalent to <code class="language-plaintext highlighter-rouge">?action=section.default</code>.</p>
+
+<p>If your application server supports it, so-called SES (Search Engine Safe) URLs can be used with FW/1:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">index.cfm/section</code> - equivalent to <code class="language-plaintext highlighter-rouge">?action=section</code></li>
+  <li><code class="language-plaintext highlighter-rouge">index.cfm/section/item</code> - equivalent to <code class="language-plaintext highlighter-rouge">?action=section.item</code></li>
+  <li><code class="language-plaintext highlighter-rouge">index.cfm/section/item/name/value</code> - equivalent to <code class="language-plaintext highlighter-rouge">?action=section.item&amp;name=value</code></li>
+</ul>
+
+<p>To use <em>name/value</em> pairs in SES URLs, you must specify both the <em>section</em> and <em>item</em> parts of the action. A trailing <em>name</em> with no <em>value</em> is equivalent to <em>&amp;name=</em> in a normal URL.</p>
+
+<p>You can tell FW/1 to generate URLs like this from <code class="language-plaintext highlighter-rouge">buildURL()</code> through a configuration setting we’ll look at later. You can also tell FW/1 to omit <code class="language-plaintext highlighter-rouge">index.cfm/</code> from the generated URL (although you’ll need web server URL rewrites in place to add <code class="language-plaintext highlighter-rouge">index.cfm/</code> back in so the requests are processed correctly by your CFML application server).</p>
+
+<h3 id="adding-a-controller-to-your-application">Adding a Controller to Your Application</h3>
+
+<p>When you ask for <code class="language-plaintext highlighter-rouge">action=section.item</code> FW/1 also looks for <code class="language-plaintext highlighter-rouge">section.cfc</code> in a <code class="language-plaintext highlighter-rouge">controllers</code> folder and, if present, invokes the <code class="language-plaintext highlighter-rouge">item()</code> method on it (and then displays the matching view). We’re going to change our view to display a variable and add a controller to set that variable.</p>
+
+<p>Change <code class="language-plaintext highlighter-rouge">views/main/default.cfm</code> to contain:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;cfoutput&gt;Hello #rc.name#!&lt;/cfoutput&gt;
+</code></pre></div></div>
+
+<p>Add <code class="language-plaintext highlighter-rouge">controllers/main.cfc</code> with a method, <code class="language-plaintext highlighter-rouge">default()</code>, that takes a single struct argument called <code class="language-plaintext highlighter-rouge">rc</code> (for request context) like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>component {
+    function default( struct rc ) {
+        param name="rc.name" default="anonymous";
+    }
+}
+</code></pre></div></div>
+
+<p>Note that controller CFC names must be all lowercase.</p>
+
+<p>When you access the application now, it should say <code class="language-plaintext highlighter-rouge">Hello anonymous!</code> but if you put <code class="language-plaintext highlighter-rouge">?name=Sean</code> on the URL, it should say <code class="language-plaintext highlighter-rouge">Hello Sean!</code> The request context passed to the controller method contains all the URL and form variables from the browser and is also made available to the view directly, as <code class="language-plaintext highlighter-rouge">rc</code>.</p>
+
+<p>See the <code class="language-plaintext highlighter-rouge">3hellocontroller</code> example in the <code class="language-plaintext highlighter-rouge">examples</code> folder which is this simple controller example.</p>
+
+<p>Controllers are cached. Add <code class="language-plaintext highlighter-rouge">?reload=true</code> to the URL to reload your controllers if you make changes.</p>
+
+<h3 id="adding-a-layout-to-your-application">Adding a Layout to Your Application</h3>
+
+<p>When you ask for <code class="language-plaintext highlighter-rouge">action=section.item</code> FW/1 looks for <code class="language-plaintext highlighter-rouge">layouts/section/item.cfm</code> to find a specific layout (it also knows how to look for default layouts for sections and for an application-wide layout - we’ll cover that next). The basic view is passed in as a variable called <code class="language-plaintext highlighter-rouge">body</code>. Let’s try this for our default action, <code class="language-plaintext highlighter-rouge">main.default</code>:</p>
+
+<p>Create <code class="language-plaintext highlighter-rouge">layouts/main/default.cfm</code> containing:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;h1&gt;Welcome to FW/1!&lt;/h1&gt;
+&lt;cfoutput&gt;#body#&lt;/cfoutput&gt;
+</code></pre></div></div>
+
+<p>Layout filenames, like view filenames, must be all lowercase.</p>
+
+<p>When you access the application now, it should have <code class="language-plaintext highlighter-rouge">Welcome to FW/1!</code> as a heading above the previous output.</p>
+
+<p>FW/1 also looks for a section-specific layout in <code class="language-plaintext highlighter-rouge">layouts/section.cfm</code> and an application-wide layout in <code class="language-plaintext highlighter-rouge">layouts/default.cfm</code>. Let’s create those just to see them in action!</p>
+
+<p>Create <code class="language-plaintext highlighter-rouge">layouts/main.cfm</code> containing:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;cfoutput&gt;&lt;div style="border: solid blue 1px;"&gt;#body#&lt;/div&gt;&lt;/cfoutput&gt;
+</code></pre></div></div>
+
+<p>When you access the application, you should see a blue box around the output you had before. Note that if you ask for <code class="language-plaintext highlighter-rouge">action=main.other</code> you’ll get the blue box but you won’t get <code class="language-plaintext highlighter-rouge">Welcome to FW/1!</code> because that came from a layout specific to the <code class="language-plaintext highlighter-rouge">main.default</code> action.</p>
+
+<p>Now create <code class="language-plaintext highlighter-rouge">layouts/default.cfm</code> containing:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;cfoutput&gt;
+  &lt;div style="border: solid green 2px; padding: 20px;"&gt;
+    #body#
+  &lt;/div&gt;
+&lt;/cfoutput&gt;
+</code></pre></div></div>
+
+<p>When you access the application now, you should see a green box added around the blue box that was there before.</p>
+
+<div style="border: solid green 2px; padding: 20px;">
+  <div style="border: solid blue 1px;">
+    <h1>Welcome to FW/1!</h1>
+    <p>Hello anonymous!</p>
+  </div>
+</div>
+
+<p>You can see how the layouts nest (and hopefully your artistic skills with CSS and HTML can produce something that looks a lot nicer than this example!).</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">4hellolayout</code> example in the <code class="language-plaintext highlighter-rouge">examples</code> folder corrsponds to what you should have at this point.</p>
+
+<h3 id="adding-a-service-to-your-application">Adding a Service to Your Application</h3>
+
+<p>Whilst you can keep adding functionality to your controllers, a well-structured MVC application tries to keep the controllers lightweight and delegate all the business logic to the “Model” of your application. The Model is generally exposed to your controllers through a service layer, including smart objects that represent the problem domain, known as domain objects.</p>
+
+<p>You can manage service CFCs yourself if you want but FW/1 ships with an easy to use “bean factory” that makes it easy to create service CFCs, have them automatically wired into your controllers, and then call their methods directly.</p>
+
+<p>Let’s create a greeting service that we can call from our controller. Create a <code class="language-plaintext highlighter-rouge">model</code> folder, with a <code class="language-plaintext highlighter-rouge">services</code> subfolder, and inside that we’ll put our <code class="language-plaintext highlighter-rouge">greeting.cfc</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>component {
+    function greet( string name ) {
+        return "so-called " &amp; name;
+    }
+}
+</code></pre></div></div>
+
+<p>FW/1 automatically looks in the <code class="language-plaintext highlighter-rouge">model</code> folder for CFCs to create and it expects domain objects to be in a <code class="language-plaintext highlighter-rouge">beans</code> subfolder and treats everything else as singletons, creating only a single unique instance.</p>
+
+<p>Now we need to tell our controller about this service so we will add <code class="language-plaintext highlighter-rouge">accessors=true</code> to the <code class="language-plaintext highlighter-rouge">component</code> tag (so that CFML will automatically provide set and get methods for our properties), and we will add a <code class="language-plaintext highlighter-rouge">property</code> for our greeting service like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>component accessors=true {
+    property greetingService;
+    function default( struct rc ) {
+        param name="rc.name" default="anonymous";
+    }
+}
+</code></pre></div></div>
+
+<p>Then <code class="language-plaintext highlighter-rouge">Service</code> suffix is just a convention that FW/1 and DI/1 use so that you don’t have to worry about CFCs with the same name in different parts of your application model - the subfolder is used as the suffix.</p>
+
+<p>Now we’ll add a call to the <code class="language-plaintext highlighter-rouge">greet()</code> method of that service:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>component accessors=true {
+    property greetingService;
+    function default( struct rc ) {
+        param name="rc.name" default="anonymous";
+        rc.name = variables.greetingService.greet( rc.name );
+    }
+}
+</code></pre></div></div>
+
+<p>When you access the application, you’ll see it says <code class="language-plaintext highlighter-rouge">Hello so-called anonymous!</code> so FW/1 has automatically found our service, <em>injected</em> it into our controller, and made it available for us to call in our <code class="language-plaintext highlighter-rouge">default()</code> method! This is called <em>Dependency Injection</em> and as we mentioned right at the start of this page, you mostly don’t need to worry about what it means or how it works: you just declare a <code class="language-plaintext highlighter-rouge">property</code> for each service you <em>depend on</em> and FW/1 and DI/1 work together to <em>inject</em> it for you.</p>
+
+<p>If you access the application with <code class="language-plaintext highlighter-rouge">?name=Sean</code> in the URL, it should say <code class="language-plaintext highlighter-rouge">Hello so-called Sean!</code> so you can see how URL variables are passed into the controller and can be passed as arguments to service calls.</p>
+
+<p>Your application at this point corresponds to the <code class="language-plaintext highlighter-rouge">5helloservice</code> example in the <code class="language-plaintext highlighter-rouge">examples</code> folder.</p>
+
+<h2 id="whats-next">What’s Next?</h2>
+<p>Once you’ve read this Getting Started guide, you’ll want to move on to the <a href="developing-applications.html">Developing Applications Manual</a> and when you need to look things up, use the <a href="reference-manual.html">Reference Manual</a>. In particular, if you are interested in building REST APIs, you’ll want to read <a href="developing-applications.html#controllers-for-rest-apis">Controllers for REST APIs</a> in the Developing Applications Guide. You may also want to learn about <a href="using-subsystems.html">Using Subsystems</a> which allows FW/1 applications to be combined as modules of a larger FW/1 application, or <a href="using-di-one.html">DI/1</a>, a simple, convention-based dependency injection framework. You may also want to learn about <a href="using-aop-one.html">AOP/1</a> and, if you feel like stretching beyond CFML, take a look at <a href="cfml-and-clojure.html">mixing CFML and Clojure</a>.</p>
+
+<p>You probably also want to <a href="http://groups.google.com/group/framework-one/">join the FW/1 mailing list</a> on Google Groups,
+<a href="http://cfml-slack.herokuapp.com">join the CFML Slack team</a> for the <a href="https://cfml.slack.com/messages/fw1/">#fw1 channel on Slack</a>,
+ or <a href="http://twitter.com/search/%23FW1">follow the #FW1 twitter stream</a>; you may also find help and inspiration in the <a href="https://github.com/framework-one/fw1/wiki/FW-1-Site-Showcase">FW/1 Site Showcase</a>, a directory of sites created with FW/1. To read about what’s coming in the future, take a look at the <a href="roadmap.html">Roadmap</a>.</p>
+
+</article>
+
+		<footer class="site-footer">
+			
+				<span class="site-footer-owner"><a href="https://github.com/sneiland/sneiland.github.io">sneiland.github.io</a> is maintained by <a href="https://github.com/sneiland">sneiland</a>.</span>
+			
+		</footer>
+	</main>
+</body>
+</html>

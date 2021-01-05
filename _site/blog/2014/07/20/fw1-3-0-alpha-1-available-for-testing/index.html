@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	
+	<meta charset="UTF-8">
+
+	<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>FW/1 3.0 Alpha 1 available for testing! | FW/1 - The Invisible Framework</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="FW/1 3.0 Alpha 1 available for testing!" />
+<meta name="author" content="Sean Corfield" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I consider FW/1 3.0 to be feature complete at this point so I am releasing Alpha 1 for testing. I expect people to run into a few bugs - this release has some big changes in it, compared to the 2.x release stream - and it’s possible that new feature requests will crop up during alpha testing, but everything I wanted to change is in place." />
+<meta property="og:description" content="I consider FW/1 3.0 to be feature complete at this point so I am releasing Alpha 1 for testing. I expect people to run into a few bugs - this release has some big changes in it, compared to the 2.x release stream - and it’s possible that new feature requests will crop up during alpha testing, but everything I wanted to change is in place." />
+<link rel="canonical" href="http://localhost:4000/blog/2014/07/20/fw1-3-0-alpha-1-available-for-testing/" />
+<meta property="og:url" content="http://localhost:4000/blog/2014/07/20/fw1-3-0-alpha-1-available-for-testing/" />
+<meta property="og:site_name" content="FW/1 - The Invisible Framework" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-07-20T21:14:24-04:00" />
+<script type="application/ld+json">
+{"headline":"FW/1 3.0 Alpha 1 available for testing!","dateModified":"2014-07-20T21:14:24-04:00","datePublished":"2014-07-20T21:14:24-04:00","url":"http://localhost:4000/blog/2014/07/20/fw1-3-0-alpha-1-available-for-testing/","author":{"@type":"Person","name":"Sean Corfield"},"description":"I consider FW/1 3.0 to be feature complete at this point so I am releasing Alpha 1 for testing. I expect people to run into a few bugs - this release has some big changes in it, compared to the 2.x release stream - and it’s possible that new feature requests will crop up during alpha testing, but everything I wanted to change is in place.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/2014/07/20/fw1-3-0-alpha-1-available-for-testing/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#157878" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<link rel="stylesheet" href="/assets/css/style.css?v=a3debbe0e02ab81ebdefec1b0e258acd9a63d866" />
+	<link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
+</head>
+<body>
+	<a id="skip-to-content" href="#content">Skip to the content.</a>
+
+	<header class="page-header" role="banner">
+		<h1 class="project-name">FW/1 3.0 Alpha 1 available for testing!</h1>
+		<h2 class="project-tagline">Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.</h2>
+		
+		<a href="/" class="btn">Home</a>
+		<a href="/blog" class="btn">Blog</a>
+		<a href="/documentation" class="btn">Documentation</a>
+		
+			<a href="https://github.com/framework-one/fw1/" class="btn" target="_blank">View on GitHub</a>
+		
+		
+			<a href="https://github.com/framework-one/fw1/archive/master.zip" class="btn">Download 4.2 (Current)</a>
+			<a href="https://github.com/framework-one/fw1/archive/v4.3.0-beta.1.zip" class="btn">Download 4.3 (Beta)</a>
+		
+		
+			<a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS" class="btn">RSS</a>
+		
+	</header>
+
+	<main id="content" class="main-content" role="main">
+		<hr style="clear:both"/>
+
+<article class="hentry" role="article">
+	<p>I consider FW/1 3.0 to be <em>feature complete</em> at this point so I am releasing Alpha 1 for testing. I expect people to run into a few bugs - this release has some big changes in it, compared to the 2.x release stream - and it’s possible that new feature requests will crop up during alpha testing, but everything I wanted to change is in place.<!-- more --></p>
+
+<p>You can <a href="https://github.com/framework-one/fw1/releases/tag/v3.0-alpha1">download FW/1 3.0 Alpha 1 from Github</a> and that release page has a link to <a href="https://github.com/framework-one/fw1/issues?milestone=13&amp;page=1&amp;state=closed">the complete list of closed tickets in FW/1 3.0 Alpha 1</a> although I’m going to summarize the most important ones in this blog post.</p>
+
+<h2 id="features-removed">Features Removed</h2>
+
+<p>First and foremost, some features that have been part of FW/1 from the early days have been removed. These features were deprecated in FW/1 2.5 as a migration path so I would strongly advise anyone still on FW/1 2.2.1 (or earlier) to upgrade to 2.5 in preparation for the (breaking) changes in 3.0!</p>
+
+<p>These features include the <code class="language-plaintext highlighter-rouge">service()</code> API call and the <code class="language-plaintext highlighter-rouge">start*()</code> and <code class="language-plaintext highlighter-rouge">end*()</code> item handlers within controllers, as well as global references to <code class="language-plaintext highlighter-rouge">rc</code> (where it was not passed as an argument or made available in a view automatically). You can read more about the deprecation (and now removal) of these features in <a href="http://framework-one.github.io/blog/2014/05/25/fw1-2-5-is-released/">the release announcement for FW/1 2.5</a> on this blog. Management of services via a bean factory, with property-based injection, and direct invocation has long been considered a much better way to interact with services than using the “service queue” that FW/1 originally provided.</p>
+
+<p>In addition, the recently added <code class="language-plaintext highlighter-rouge">getRC()</code> and <code class="language-plaintext highlighter-rouge">getRCValue()</code> API calls - added in FW/1 2.5 during the deprecation of global references to <code class="language-plaintext highlighter-rouge">rc</code> - have been deprecated <em>and will be removed in the final FW/1 3.0 release</em>. They were hastily added and they were unnecessary. In this alpha release, their use will trigger an exception explaining what to use instead. You can add:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>framework.enableLegacyRCAccessors = true
+</code></pre></div></div>
+
+<p>to your configuration while you update your code (this will suppress the exception but still write a message to your application server’s console output - just as the deprecation process did in FW/1 2.5).</p>
+
+<h2 id="automatic-bean-factory-usage">Automatic Bean Factory Usage</h2>
+
+<p>The other big change in this 3.0 release is that DI/1 (and AOP/1) is fully integrated. FW/1 itself moves from <code class="language-plaintext highlighter-rouge">org.corfield.framework</code> to <code class="language-plaintext highlighter-rouge">framework.one</code> alongside <code class="language-plaintext highlighter-rouge">framework.ioc</code> (DI/1), <code class="language-plaintext highlighter-rouge">framework.aop</code> (AOP/1), and some helper CFCs. <code class="language-plaintext highlighter-rouge">org.corfield.framework</code> still exists but will issue a deprecation warning if it is used. It will be removed in the final 3.0 release.</p>
+
+<p>You can still place the FW/1 CFCs anywhere you want but if you move DI/1, you’ll need to tell FW/1 where to find it - see below.</p>
+
+<p>Previously, it was expected that you create a bean factory in your <code class="language-plaintext highlighter-rouge">Application.cfc</code> <code class="language-plaintext highlighter-rouge">setupApplication()</code> function and call FW/1’s <code class="language-plaintext highlighter-rouge">setBeanFactory()</code> API to tell the framework about it. For some time, he conventional path to your <strong>Model</strong> CFCs has been <code class="language-plaintext highlighter-rouge">/model/beans</code> for your transient beans (domain objects) and <code class="language-plaintext highlighter-rouge">/model/services</code> for your singleton services (and perhaps <code class="language-plaintext highlighter-rouge">/model/gateways</code> for any data gateways, although those could just as easily live in your services folder too). That means you nearly always had the following code in <code class="language-plaintext highlighter-rouge">setupApplication()</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var bf = new framework.ioc( "model" );
+setBeanFactory( bf );
+</code></pre></div></div>
+
+<p>Or, if you also managed your controllers this way, you may have had:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var bf = new framework.ioc( "model,controllers" );
+bf.addBean( "fw", this );
+setBeanFactory( bf );
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">addBean()</code> call ensures that the bean factory knows <code class="language-plaintext highlighter-rouge">fw</code> is an alias for your bean factory so it will be available to any controller <code class="language-plaintext highlighter-rouge">init( any fw )</code> methods when they are constructed.</p>
+
+<p>If you use subsystems, you probably had something similar in your <code class="language-plaintext highlighter-rouge">setupSubsystem()</code> function (and hopefully you set the default bean factory as a parent for each subsystem bean factory).</p>
+
+<p>Now, FW/1 does this for you automatically. There are new configuration options to control the details, but the default cases <em>should just work</em> and you can remove your bean factory creation code from your <code class="language-plaintext highlighter-rouge">setupApplication()</code> function. Those options are:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">diEngine</code> - the type of the dependency injection engine: FW/1 knows about <strong>“di1”</strong>, <strong>“aop1”</strong>, and <strong>“wirebox”</strong>. The default is <strong>“di1”</strong>. You can also specify <strong>“none”</strong> to suppress the automatic bean factory machinery and <strong>“custom”</strong> if you want to tell FW/1 to use your own bean factory (see below). Note that ColdSpring is deliberately <em>not supported</em> as it is no longer maintained by anyone and has not been updated in years.</li>
+  <li><code class="language-plaintext highlighter-rouge">diComponent</code> - the default location of the bean factory CFC. For DI/1, this is <code class="language-plaintext highlighter-rouge">framework.ioc</code>; for AOP/1, this is <code class="language-plaintext highlighter-rouge">framework.aop</code>; and for WireBox, this is <code class="language-plaintext highlighter-rouge">framework.WireBoxAdapter</code>. If you move these files elsewhere, or setup a different mapping for them, set <code class="language-plaintext highlighter-rouge">diComponent</code> to that new location. If <code class="language-plaintext highlighter-rouge">diEngine</code> is <strong>“custom”</strong>, you can set <code class="language-plaintext highlighter-rouge">diComponent</code> to the dotted path of your bean factory for FW/1 to use it automatically.</li>
+  <li><code class="language-plaintext highlighter-rouge">diLocations</code> - the set of folders that DI/1, AOP/1, or WireBox will scan for CFCs. The default is <strong>“model,controllers”</strong> - note the relative paths! If you have these folders elsewhere (i.e., not relative to the application root), then you’ll need to specify <code class="language-plaintext highlighter-rouge">diLocations</code>, e.g., as <code class="language-plaintext highlighter-rouge">"/model,/controllers"</code> or <code class="language-plaintext highlighter-rouge">"/myapp/model,/myapp/controllers"</code> or something similar.</li>
+  <li><code class="language-plaintext highlighter-rouge">diConfig</code> - additional configuration passed to DI/1, AOP/1, WireBox, or your custom bean factory. Specifically, this is the second argument to the constructor for DI/1 or AOP/1, and the <code class="language-plaintext highlighter-rouge">properties</code> argument to the constructor for WireBox, or the single argument to the constructor for your own bean factory. By default, it is an empty struct.</li>
+</ul>
+
+<h2 id="additional-features">Additional Features</h2>
+
+<p>In addition to the two major changes listed above, there are a number of minor enhancements compared to FW/1 2.5:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">isUnhandledRequest( string targetPath )</code> - a new API that you can override to tell FW/1 not to handle certain requests. By default, this returns <strong>true</strong> for certain file extensions and certain paths, as specified by the <code class="language-plaintext highlighter-rouge">unhandledExtensions</code> and <code class="language-plaintext highlighter-rouge">unhandledPaths</code> configuration values but you can choose to override this completely, or still call <code class="language-plaintext highlighter-rouge">super.isUnhandledRequest(targetPath)</code> and add additional conditions of your own.</li>
+  <li><code class="language-plaintext highlighter-rouge">redirectCustomURL( string uri, string preserve = 'none', statusCode = '302' )</code> - a new API that uses <code class="language-plaintext highlighter-rouge">buildCustomURL()</code> to construct a URL for a redirect.</li>
+  <li><code class="language-plaintext highlighter-rouge">buildCustomURL()</code> - now supports variable substitution: if <code class="language-plaintext highlighter-rouge">:varname</code> is present in the URI passed in and <code class="language-plaintext highlighter-rouge">rc.varname</code> exists and is a simple value, then that value will be substituted into the returned URL. To avoid confusion with subsystem paths, <code class="language-plaintext highlighter-rouge">:varname</code> will only be recognized if it follows one of: <code class="language-plaintext highlighter-rouge">/</code>, <code class="language-plaintext highlighter-rouge">?</code>, <code class="language-plaintext highlighter-rouge">=</code>, <code class="language-plaintext highlighter-rouge">&amp;</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">setLayout()</code> - now accepts an optional second argument, a <strong>boolean</strong>, that let’s you tell FW/1 to automatically suppress any further layouts. This removes the need to specify <code class="language-plaintext highlighter-rouge">request.layouts = false</code> in your layout file.</li>
+  <li>Both DI/1 and FW/1 now try very hard to avoid attempting to autowire FW/1 itself (or the Application.cfc based on it, which acts as a global controller in a FW/1 application).</li>
+</ul>
+
+	<footer>
+		<p class="meta">
+			
+<span class="byline author vcard">Posted by <span class="fn">Sean Corfield</span></span>
+
+			
+
+
+
+
+
+			<div>
+				
+
+<span class="categories">
+	
+		
+			<a href="/blog/category/releases">releases</a>
+			,
+		
+			<a href="/blog/category/fw1">fw1</a>
+			,
+		
+			<a href="/blog/category/di1">di1</a>
+			
+		
+  
+</span>
+
+
+			</div>
+		</p>
+    
+		
+	<div class="sharing">
+		
+		
+		
+	</div>
+
+	
+		<p class="meta">
+			
+				<a class="basic-alignment left" href="/blog/2014/05/26/fw1-2-5-is-released/" title="Previous Post: FW/1 2.5 is released!">&laquo; FW/1 2.5 is released!</a>
+			
+			
+				<a class="basic-alignment right" href="/blog/2014/08/18/fw1-3-0-beta-1-available/" title="Next Post: FW/1 3.0 Beta 1 available">FW/1 3.0 Beta 1 available &raquo;</a>
+			
+		</p>
+	
+		
+<section>
+	<h1>Comments</h1>
+	<div id="disqus_thread" aria-live="polite">
+		<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		
+		<script type="text/javascript">
+			var disqus_shortname = 'framework-one';
+			
+				
+				// var disqus_developer = 1;
+				var disqus_identifier = 'http://localhost:4000/blog/2014/07/20/fw1-3-0-alpha-1-available-for-testing/';
+				var disqus_url = 'http://localhost:4000/blog/2014/07/20/fw1-3-0-alpha-1-available-for-testing/';
+				var disqus_script = 'embed.js';
+			
+			(function () {
+					var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+					dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+					(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			}());
+		</script>
+	</div>
+</section>
+	
+	</footer>
+</article>
+
+		<footer class="site-footer">
+			
+				<span class="site-footer-owner"><a href="https://github.com/sneiland/sneiland.github.io">sneiland.github.io</a> is maintained by <a href="https://github.com/sneiland">sneiland</a>.</span>
+			
+		</footer>
+	</main>
+</body>
+</html>

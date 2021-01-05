@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	
+	<meta charset="UTF-8">
+
+	<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Using DI/1 | FW/1 - The Invisible Framework</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Using DI/1" />
+<meta name="author" content="Sean Corfield" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1." />
+<meta property="og:description" content="Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1." />
+<link rel="canonical" href="http://localhost:4000/documentation/4.1/using-di-one/" />
+<meta property="og:url" content="http://localhost:4000/documentation/4.1/using-di-one/" />
+<meta property="og:site_name" content="FW/1 - The Invisible Framework" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-07-01T18:20:00-04:00" />
+<script type="application/ld+json">
+{"headline":"Using DI/1","dateModified":"2017-07-01T18:20:00-04:00","datePublished":"2017-07-01T18:20:00-04:00","url":"http://localhost:4000/documentation/4.1/using-di-one/","author":{"@type":"Person","name":"Sean Corfield"},"description":"Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/documentation/4.1/using-di-one/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#157878" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<link rel="stylesheet" href="/assets/css/style.css?v=a3debbe0e02ab81ebdefec1b0e258acd9a63d866" />
+	<link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
+</head>
+<body>
+	<a id="skip-to-content" href="#content">Skip to the content.</a>
+
+	<header class="page-header" role="banner">
+		<h1 class="project-name">Using DI/1</h1>
+		<h2 class="project-tagline">Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.</h2>
+		
+		<a href="/" class="btn">Home</a>
+		<a href="/blog" class="btn">Blog</a>
+		<a href="/documentation" class="btn">Documentation</a>
+		
+			<a href="https://github.com/framework-one/fw1/" class="btn" target="_blank">View on GitHub</a>
+		
+		
+			<a href="https://github.com/framework-one/fw1/archive/master.zip" class="btn">Download 4.2 (Current)</a>
+			<a href="https://github.com/framework-one/fw1/archive/v4.3.0-beta.1.zip" class="btn">Download 4.3 (Beta)</a>
+		
+		
+			<a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS" class="btn">RSS</a>
+		
+	</header>
+
+	<main id="content" class="main-content" role="main">
+		<aside class="documentation-nav">
+	<section>
+		<a href="/documentation/changelog">Changelog</a><br />
+		<a href="/documentation/roadmap/">Roadmap</a><br />
+	</section>
+	<section>
+		<h3>4.3 Documentation (beta)</h3>
+		<a href="/documentation/4.3/">Getting Started Guide</a><br />
+		<a href="/documentation/4.3/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/4.3/using-aop-one/">Using AOP/1</a><br />
+		<a href="/documentation/4.3/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/4.3/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/4.3/reference-manual/">Reference Manual</a><br />
+		<a href="/documentation/4.3/changelog/">Change Log</a><br />
+	</section>
+	<section>
+		<h3>4.2 Documentation (Current Master)</h3>
+		<a href="/documentation/4.2/">Getting Started Guide</a><br />
+		<a href="/documentation/4.2/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/4.2/using-aop-one/">Using AOP/1</a><br />
+		<a href="/documentation/4.2/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/4.2/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/4.2/reference-manual/">Reference Manual</a><br />
+		<a href="/documentation/4.2/changelog/">Change Log</a><br />
+	</section>
+	<section>
+		<h3>4.1 Documentation</h3>
+		<a href="/documentation/4.1/">Getting Started Guide</a><br />
+		<a href="/documentation/4.1/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/4.1/using-aop-one/">Using AOP/1</a><br />
+		<a href="/documentation/4.1/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/4.1/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/4.1/reference-manual/">Reference Manual</a><br />
+		<a href="/documentation/4.1/changelog/">Change Log</a><br />
+	</section>
+	<section>
+		<h3>4.0 Documentation</h3>
+		<a href="/documentation/4.0/">Getting Started Guide</a><br />
+		<a href="/documentation/4.0/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/4.0/using-aop-one/">Using AOP/1</a><br />
+		<a href="/documentation/4.0/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/4.0/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/4.0/reference-manual/">Reference Manual</a><br />
+		<a href="/documentation/4.0/changelog/">Change Log</a><br />
+	</section>
+	<section>
+		<h3>3.5 Documentation</h3>
+		<a href="/documentation/3.5/">Getting Started Guide</a><br />
+		<a href="/documentation/3.5/cfml-and-clojure/">CFML and Clojure</a><br />
+		<a href="/documentation/3.5/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/3.5/using-aop-one/">Using AOP/1</a><br />
+		<a href="/documentation/3.5/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/3.5/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/3.5/reference-manual/">Reference Manual</a><br />
+	</section>
+	<section>
+		<h3>3.1 Documentation</h3>
+		<a href="/documentation/3.1/">Getting Started Guide</a><br />
+		<a href="/documentation/3.1/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/3.1/using-aop-one/">Using AOP/1</a><br />
+		<a href="/documentation/3.1/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/3.1/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/3.1/reference-manual/">Reference Manual</a><br />
+	</section>
+	<section>
+		<h3>3.0 Documentation</h3>
+		<a href="/documentation/3.0/">Getting Started Guide</a><br />
+		<a href="/documentation/3.0/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/3.0/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/3.0/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/3.0/reference-manual/">Reference Manual</a><br />
+	</section>
+</aside>
+
+<article>
+	<p>DI/1 - a.k.a Inject One - is a simple, convention-based Dependency Injection framework.</p>
+
+<p>DI/1 searches specified directories for CFCs and treats them as singletons or non-singletons (transients) based on naming conventions for the CFCs themselves, or the folders in which they are found. You can override the conventions by configuration if needed.</p>
+
+<ul id="markdown-toc">
+  <li><a href="#terminology" id="markdown-toc-terminology">Terminology</a></li>
+  <li><a href="#getting-started-with-di1" id="markdown-toc-getting-started-with-di1">Getting Started with DI/1</a>    <ul>
+      <li><a href="#getting-started-with-di1-and-fw1" id="markdown-toc-getting-started-with-di1-and-fw1">Getting Started with DI/1 and FW/1</a></li>
+      <li><a href="#getting-started-with-di1-standalone" id="markdown-toc-getting-started-with-di1-standalone">Getting Started with DI/1 Standalone</a></li>
+      <li><a href="#basic-di1-conventions" id="markdown-toc-basic-di1-conventions">Basic DI/1 Conventions</a></li>
+      <li><a href="#acceptable-folder-paths" id="markdown-toc-acceptable-folder-paths">Acceptable Folder Paths</a></li>
+    </ul>
+  </li>
+  <li><a href="#beyond-convention" id="markdown-toc-beyond-convention">Beyond Convention</a>    <ul>
+      <li><a href="#configuration" id="markdown-toc-configuration">Configuration</a>        <ul>
+          <li><a href="#configuring-constant-beans" id="markdown-toc-configuring-constant-beans">Configuring “Constant” Beans</a></li>
+          <li><a href="#specifying-additional-transient-beans" id="markdown-toc-specifying-additional-transient-beans">Specifying Additional Transient Beans</a></li>
+        </ul>
+      </li>
+      <li><a href="#customization" id="markdown-toc-customization">Customization</a>        <ul>
+          <li><a href="#customization-examples" id="markdown-toc-customization-examples">Customization Examples</a></li>
+          <li><a href="#using-load-listeners" id="markdown-toc-using-load-listeners">Using Load Listeners</a></li>
+        </ul>
+      </li>
+      <li><a href="#overriding" id="markdown-toc-overriding">Overriding</a></li>
+    </ul>
+  </li>
+  <li><a href="#other-public-methods" id="markdown-toc-other-public-methods">Other Public Methods</a></li>
+  <li><a href="#parent-bean-factories" id="markdown-toc-parent-bean-factories">Parent Bean Factories</a></li>
+  <li><a href="#bean-factory-aware" id="markdown-toc-bean-factory-aware">Bean Factory Aware</a></li>
+  <li><a href="#reference-manual" id="markdown-toc-reference-manual">Reference Manual</a>    <ul>
+      <li><a href="#public-methods" id="markdown-toc-public-methods">Public Methods</a>        <ul>
+          <li><a href="#public-any-function-init-any-folders-struct-config----" id="markdown-toc-public-any-function-init-any-folders-struct-config----">public any function init( any folders, struct config = { } )</a></li>
+          <li><a href="#public-any-function-addalias-string-aliasname-string-beanname-" id="markdown-toc-public-any-function-addalias-string-aliasname-string-beanname-">public any function addAlias( string aliasName, string beanName )</a></li>
+          <li><a href="#public-any-function-addbean-string-beanname-any-beanvalue-" id="markdown-toc-public-any-function-addbean-string-beanname-any-beanvalue-">public any function addBean( string beanName, any beanValue )</a></li>
+          <li><a href="#public-boolean-function-containsbean-string-beanname-" id="markdown-toc-public-boolean-function-containsbean-string-beanname-">public boolean function containsBean( string beanName )</a></li>
+          <li><a href="#public-boolean-function-hasparent" id="markdown-toc-public-boolean-function-hasparent">public boolean function hasParent()</a></li>
+          <li><a href="#public-any-function-declare-string-beanname-" id="markdown-toc-public-any-function-declare-string-beanname-">public any function declare( string beanName )</a></li>
+          <li><a href="#public-any-function-declarebean-string-beanname-string-dottedpath-boolean-issingleton--true-struct-overrides----" id="markdown-toc-public-any-function-declarebean-string-beanname-string-dottedpath-boolean-issingleton--true-struct-overrides----">public any function declareBean( string beanName, string dottedPath, boolean isSingleton = true, struct overrides = { } )</a></li>
+          <li><a href="#public-any-function-factorybean-string-beanname-any-factory-string-methodname---array-args----struct-overrides----" id="markdown-toc-public-any-function-factorybean-string-beanname-any-factory-string-methodname---array-args----struct-overrides----">public any function factoryBean( string beanName, any factory, string methodName = “”, array args = [ ], struct overrides = { } )</a></li>
+          <li><a href="#public-any-function-getbean-string-beanname-struct-constructorargs----" id="markdown-toc-public-any-function-getbean-string-beanname-struct-constructorargs----">public any function getBean( string beanName, struct constructorArgs = { } )</a></li>
+          <li><a href="#public-any-function-getbeaninfo-string-beanname---boolean-flatten--false-string-regex---" id="markdown-toc-public-any-function-getbeaninfo-string-beanname---boolean-flatten--false-string-regex---">public any function getBeanInfo( string beanName = ‘’, boolean flatten = false, string regex = ‘’ )</a></li>
+          <li><a href="#public-struct-function-getconfig" id="markdown-toc-public-struct-function-getconfig">public struct function getConfig()</a></li>
+          <li><a href="#public-string-function-getversion" id="markdown-toc-public-string-function-getversion">public string function getVersion()</a></li>
+          <li><a href="#public-boolean-function-issingleton-string-beanname-" id="markdown-toc-public-boolean-function-issingleton-string-beanname-">public boolean function isSingleton( string beanName )</a></li>
+          <li><a href="#public-any-function-injectproperties-any-bean-struct-properties-" id="markdown-toc-public-any-function-injectproperties-any-bean-struct-properties-">public any function injectProperties( any bean, struct properties )</a></li>
+          <li><a href="#public-any-function-load" id="markdown-toc-public-any-function-load">public any function load()</a></li>
+          <li><a href="#public-any-function-onload-any-listener-" id="markdown-toc-public-any-function-onload-any-listener-">public any function onLoad( any listener )</a></li>
+          <li><a href="#public-any-function-setparent-any-parent-" id="markdown-toc-public-any-function-setparent-any-parent-">public any function setParent( any parent )</a></li>
+        </ul>
+      </li>
+      <li><a href="#overriding-di1-behavior" id="markdown-toc-overriding-di1-behavior">Overriding DI/1 Behavior</a>        <ul>
+          <li><a href="#overriding-missingbean" id="markdown-toc-overriding-missingbean">Overriding missingBean()</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="terminology">Terminology</h3>
+<ul>
+  <li><strong>Bean</strong>: A CFC that you want to create and manage. Any file with a .cfc extension can be a bean.</li>
+  <li><strong>Transient</strong> or <strong>non-singleton</strong> : A bean that will be freshly created each time you call <code class="language-plaintext highlighter-rouge">getBean()</code>. It could be used for only the lifespan of the request, e.g., a shopping cart object ready to be populated with items.</li>
+  <li><strong>Singleton</strong>: A bean where only one exists in the system, so that each time you call <code class="language-plaintext highlighter-rouge">getBean()</code> you will get the <strong>same</strong> bean, not a new one, e.g., a service that creates shopping cart objects.</li>
+  <li><strong>Bean Factory</strong>: A service that creates beans for you, so you don’t have to use <code class="language-plaintext highlighter-rouge">new</code> or <code class="language-plaintext highlighter-rouge">createObject</code>, and populates them with any dependencies.</li>
+</ul>
+
+<h1 id="getting-started-with-di1">Getting Started with DI/1</h1>
+
+<p>Most users will be using DI/1 as the default bean factory for FW/1, but you can also use DI/1 in a non-FW/1 application, and that can be a good way to start adding structure and automation to an existing legacy project if you’re not ready for an MVC framework. Both approaches will be covered below.</p>
+
+<h2 id="getting-started-with-di1-and-fw1">Getting Started with DI/1 and FW/1</h2>
+
+<p>By default, FW/1 creates an instance of DI/1 to use as its bean factory, to manage controller CFCs and also CFCs that are part of your application model. You control how FW/1 uses DI/1 through the <code class="language-plaintext highlighter-rouge">diEngine</code>, <code class="language-plaintext highlighter-rouge">diComponent</code>, <code class="language-plaintext highlighter-rouge">diLocations</code>, and <code class="language-plaintext highlighter-rouge">diConfig</code> settings.</p>
+
+<p>You should only need to call <code class="language-plaintext highlighter-rouge">getBean()</code> to get a transient – by default, a CFC found in a folder called <code class="language-plaintext highlighter-rouge">beans</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var user = fw.getBeanFactory().getBean( "user" ); // or "userBean"
+</code></pre></div></div>
+
+<p>CFCs found in other folders (e.g., <code class="language-plaintext highlighter-rouge">services</code>) are treated as singletons and will be autowired into each other, based on <code class="language-plaintext highlighter-rouge">property</code> declarations (if you have <code class="language-plaintext highlighter-rouge">accessors=true</code> on your <code class="language-plaintext highlighter-rouge">component</code>), <code class="language-plaintext highlighter-rouge">setXxx()</code> methods, and constructor arguments (<code class="language-plaintext highlighter-rouge">init()</code>). Read <a href="developing-applications.html#using-bean-factories">Using Bean Factories</a> in the Developing Applications Guide for more detail.</p>
+
+<h2 id="getting-started-with-di1-standalone">Getting Started with DI/1 Standalone</h2>
+
+<p>If you want to use DI/1 outside of FW/1, here’s how you should do it: create an instance of the DI/1 bean factory and specify the folder(s) you want it to search for beans (CFCs):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var beanFactory = new framework.ioc("/model");
+// or multiple folders:
+var beanFactory = new framework.ioc("/model,/common/model");
+// or an array:
+var beanFactory = new framework.ioc(["/model", "/common/model"]);
+</code></pre></div></div>
+
+<p>If CFC names are unique, you can use that name to get the bean out of the factory:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var userManager = beanFactory.getBean("userManager");
+</code></pre></div></div>
+
+<p>See below for how DI/1 handles CFCs that have the same name, found in different folders.</p>
+
+<h2 id="basic-di1-conventions">Basic DI/1 Conventions</h2>
+
+<p>CFCs found in a folder called <code class="language-plaintext highlighter-rouge">beans</code> are assumed to be transients; otherwise CFCs are assumed to be singletons, this includes beans found in folders under the <code class="language-plaintext highlighter-rouge">beans</code> folder. A singleton has just a single instance and DI/1 will cache that instance. A transient is created afresh every time you ask DI/1 for an instance.</p>
+
+<p>The name of a bean is the name of the CFC (without the path information or file extension). All beans are also given an alias which is the name of the CFC followed by (the singular form of) the folder name in which it was found, e.g., <code class="language-plaintext highlighter-rouge">/model/beans/product.cfc</code> would get the alias <code class="language-plaintext highlighter-rouge">"productBean"</code>. If no other CFC is called <code class="language-plaintext highlighter-rouge">product.cfc</code> in the folders that you asked DI/1 to search, you can use <code class="language-plaintext highlighter-rouge">"product"</code> or <code class="language-plaintext highlighter-rouge">"productBean"</code> to reference that bean (in your <code class="language-plaintext highlighter-rouge">property</code> declarations or <code class="language-plaintext highlighter-rouge">getBean()</code> calls).</p>
+
+<p>If a CFC has a constructor (a method called <code class="language-plaintext highlighter-rouge">init()</code>), DI/1 will use the argument names to look up beans and call the constructor with those beans. If a CFC has setter methods, DI/1 will use their names to look up beans and call the setters with those beans. If a CFC has <code class="language-plaintext highlighter-rouge">property</code> declarations and implicit setters are enabled (<code class="language-plaintext highlighter-rouge">accessors=true</code> on <code class="language-plaintext highlighter-rouge">component</code>), DI/1 will use their names to look up beans and call the implicit setters with those beans. This is called autowiring. By the time you get a bean back from DI/1, it should be fully populated. You can also specify an <code class="language-plaintext highlighter-rouge">"init-method"</code> function name that DI/1 should call after a bean has had its dependencies injected - see <strong><a href="#configuration">Configuration</a></strong> below. When using <code class="language-plaintext highlighter-rouge">property</code> to declare a dependency, do not specify a <code class="language-plaintext highlighter-rouge">type</code> or a <code class="language-plaintext highlighter-rouge">default</code>: DI/1 assumes that typed properties (and defaulted properties) are intended to generate specific getters and setters on transients or for ORM integration, rather than just dependencies. You can override this default behavior - see <strong><a href="#configuration">Configuration</a></strong> below.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// usermanager - managers/user.cfc or usermanager.cfc
+component accessors=true {
+
+    property roleService; // autowire services/role.cfc
+
+    function setLoggingService( loggingService ) { // autorwire services/logging.cfc
+        variables.logger = loggingService.getLogger( "user" );
+    }
+
+    function init( userdao ) { // autowire daos/user.cfc
+        variables.userdao = userdao;
+        return this;
+    }
+
+}
+</code></pre></div></div>
+
+<p>When you get this <code class="language-plaintext highlighter-rouge">usermanager</code> bean from DI/1 – either by calling <code class="language-plaintext highlighter-rouge">getBean( "usermanager" )</code> directly or autowired into another bean via <code class="language-plaintext highlighter-rouge">property usermanager;</code> (or a setter or constructor argument), it will already have <code class="language-plaintext highlighter-rouge">roleService</code>, <code class="language-plaintext highlighter-rouge">loggingService</code>, and <code class="language-plaintext highlighter-rouge">userDAO</code> autowired into it.</p>
+
+<p>If DI/1 cannot find a matching bean for a constructor argument, it will throw an exception. If DI/1 cannot find a matching bean for a setter method or property, it will log the failure and ignore it (by default), and the corresponding variable will not be populated. You can configure DI/1 to be strict about matching bean names - see the configuration section below - in which case it will throw an exception.</p>
+
+<p>As of FW/1 4.0 (DI/1 1.2), you can specify a second argument to <code class="language-plaintext highlighter-rouge">getBean()</code> that provides constructor arguments that should be used instead of beans in the factory:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var user = fw.getBeanFactory().getBean( "user", { name : "Sean", email : "sean@corfield.org" } );
+</code></pre></div></div>
+
+<p>This will use <code class="language-plaintext highlighter-rouge">name</code> and <code class="language-plaintext highlighter-rouge">email</code> as overrides so that they <em>hide</em> any beans of the same name when DI/1 calls the <code class="language-plaintext highlighter-rouge">init()</code> method. This can be particularly valuable when you are migrating legacy code to DI/1 and want it to manage bean creation while still providing constructor arguments in the (legacy) code.</p>
+
+<p>Note that DI/1 will inject both singletons and transients via constructors, but it will inject only singletons via setters or properties, not transients. Injecting transients in those situations often leads to unexpected results (consider a transient <code class="language-plaintext highlighter-rouge">invoice</code> bean that has a <code class="language-plaintext highlighter-rouge">setCustomer()</code> method when you also have a transient <code class="language-plaintext highlighter-rouge">customer</code> bean - you almost certainly don’t want DI/1 to automatically create a customer instance and inject it every time you ask DI/1 for a new invoice bean!). If a constructor argument matches a transient bean, DI/1 will still create an instance since it has to finish constructing the original bean.</p>
+
+<h2 id="acceptable-folder-paths">Acceptable Folder Paths</h2>
+
+<p>In general, you should use webroot-relative folders - starting with <code class="language-plaintext highlighter-rouge">/</code> - or mappings - also starting with <code class="language-plaintext highlighter-rouge">/</code> - as the constructor arguments to <code class="language-plaintext highlighter-rouge">ioc</code>. If you pass a full file system path, DI/1 will only be able to deduce the dotted-name of CFCs found there if it points into the webroot tree. Similarly, if you pass a relative folder path, it must point into the webroot tree. If DI/1 cannot deduce the dotted name of a CFC, it will throw an exception.</p>
+
+<h1 id="beyond-convention">Beyond Convention</h1>
+
+<p>For many applications, DI/1’s default conventions will be sufficient but it also supports more advanced usage through three avenues:</p>
+
+<ul>
+  <li>Configuration – a <code class="language-plaintext highlighter-rouge">config</code> struct that can be provided to the <code class="language-plaintext highlighter-rouge">ioc()</code> constructor. In a FW/1 application, this is specified as <code class="language-plaintext highlighter-rouge">diConfig</code> in the framework settings.</li>
+  <li>Customization – several public methods that can add additional beans to the factory.</li>
+  <li>Overriding – extending <code class="language-plaintext highlighter-rouge">ioc.cfc</code> to provide your own versions of several key methods. In a FW/1 application, you will be able to specify your extended CFC using the <code class="language-plaintext highlighter-rouge">diComponent</code> framework setting.</li>
+</ul>
+
+<p>Each of these approaches will be discussed in the following sections.</p>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>When the bean factory is created, you can optionally supply a struct containing configuration for DI/1. At present, DI/1 understands the follow configuration options:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">constants</code> - struct - defaults to <code class="language-plaintext highlighter-rouge">{}</code>. DI/1 will use any name/value pairs specified here to provide <em>beans</em> that resolve to the specified values. This can be used to provide resolution for constructor arguments that need values which are not actual beans. See also <code class="language-plaintext highlighter-rouge">declare()</code> in the <strong>Customization</strong> section that follows.</li>
+  <li><code class="language-plaintext highlighter-rouge">exclude</code> - array - defaults to <code class="language-plaintext highlighter-rouge">[]</code>. DI/1 will ignore any CFCs whose file path contains the strings in this array. DI/1 always excludes paths containing <code class="language-plaintext highlighter-rouge">/WEB-INF</code> and <code class="language-plaintext highlighter-rouge">/Application.cfc</code>, as well as various FW/1 and DI/1 framework files. The strings are not case-sensitive. Note that if you wish to exclude specific folders, you must include both the leading and trailing <code class="language-plaintext highlighter-rouge">/</code>, otherwise you will ignore all files and folders that begin with the string (i.e., <code class="language-plaintext highlighter-rouge">/com</code> will also ignore <code class="language-plaintext highlighter-rouge">/company</code>).</li>
+  <li><code class="language-plaintext highlighter-rouge">initMethod</code> - string - If specified, identifies a method name on beans that DI/1 will attempt to call (with no arguments) on each bean after its dependencies have been injected.</li>
+  <li><code class="language-plaintext highlighter-rouge">liberal</code> - boolean - default to <code class="language-plaintext highlighter-rouge">false</code>. If <code class="language-plaintext highlighter-rouge">true</code>, treat folder names ending in <code class="language-plaintext highlighter-rouge">ies</code> as plurals (of names ending in <code class="language-plaintext highlighter-rouge">y</code>, e.g., <code class="language-plaintext highlighter-rouge">libraries</code> would be treated as the plural of <code class="language-plaintext highlighter-rouge">librarie</code> by default, but with <code class="language-plaintext highlighter-rouge">liberal : true</code>, it would be treated as the plural of <code class="language-plaintext highlighter-rouge">library</code>).</li>
+  <li><code class="language-plaintext highlighter-rouge">loadListener</code> - any - If specified, DI/1 will register it as a load listener by calling <code class="language-plaintext highlighter-rouge">this.onLoad( loadListener )</code>. It can be a CFC instance, the name of a bean, or a function or closure.</li>
+  <li><code class="language-plaintext highlighter-rouge">omitDirectoryAliases</code> - boolean - defaults to <code class="language-plaintext highlighter-rouge">false</code>. If <code class="language-plaintext highlighter-rouge">true</code>, use CFC names as bean names directly, without appending the singular directory name as a suffix. If your CFC names are not unique, you will get an exception.</li>
+  <li><code class="language-plaintext highlighter-rouge">omitDefaultedProperties</code> - boolean - defaults to <code class="language-plaintext highlighter-rouge">true</code>. If <code class="language-plaintext highlighter-rouge">false</code>, property declarations that specify a default will still be treated as dependency declarations and autowired. If <code class="language-plaintext highlighter-rouge">true</code>, property declarations that specify a default will be ignored for injection. This is useful when you are using <code class="language-plaintext highlighter-rouge">property</code> declarations on transients solely for generating setters and getters, rather than for declaring dependencies. <em>New in 4.0.</em></li>
+  <li><code class="language-plaintext highlighter-rouge">omitTypedProperties</code> - boolean - defaults to <code class="language-plaintext highlighter-rouge">true</code>. If <code class="language-plaintext highlighter-rouge">false</code>, property declarations that specify a type (other than <code class="language-plaintext highlighter-rouge">any</code>) will still be treated as dependency declarations and autowired. If <code class="language-plaintext highlighter-rouge">true</code>, property declarations that specify a type will be ignored for injection. This is useful when you are working with the ORM (since those property declarations will typeically have types and should not be treated as dependencies). <em>The default changed from <code class="language-plaintext highlighter-rouge">false</code> to <code class="language-plaintext highlighter-rouge">true</code> in 4.0.</em></li>
+  <li><code class="language-plaintext highlighter-rouge">recurse</code> - boolean - defaults to <code class="language-plaintext highlighter-rouge">true</code>. Controls whether DI/1 searches subfolders recursively or not.</li>
+  <li><code class="language-plaintext highlighter-rouge">singletonPattern</code> - string - no default. Specifies a regular expression that DI/1 uses to determine whether a bean is singleton or not, based on its name. The <code class="language-plaintext highlighter-rouge">beans</code> folder convention and the <code class="language-plaintext highlighter-rouge">transients</code> configuration below still apply so nothing in those folders will be considered a singleton, even if its name matches the pattern.</li>
+  <li><code class="language-plaintext highlighter-rouge">singulars</code> - struct - defaults to <code class="language-plaintext highlighter-rouge">{}</code>. DI/1 will use any name/value pairs specified here to translate folder names to a singular variety, e.g., <code class="language-plaintext highlighter-rouge">pride = 'lion'</code> will convert the <em>plural</em> folder <code class="language-plaintext highlighter-rouge">pride</code> to the <em>singular</em> name <code class="language-plaintext highlighter-rouge">lion</code> and therefore a <code class="language-plaintext highlighter-rouge">simba.cfc</code> within the <code class="language-plaintext highlighter-rouge">pride</code> folder will get the alias <code class="language-plaintext highlighter-rouge">simbaLion</code>. This also allows for other folders to behave as if they were called <code class="language-plaintext highlighter-rouge">beans</code> by treating their singular name as <code class="language-plaintext highlighter-rouge">bean</code>. One of the DI/1 unit tests maps <code class="language-plaintext highlighter-rouge">sheep</code> to <code class="language-plaintext highlighter-rouge">bean</code> for this reason. This won’t work if the CFCs in <code class="language-plaintext highlighter-rouge">sheep</code> have the same name as the CFCs in a <code class="language-plaintext highlighter-rouge">beans</code> folder however.</li>
+  <li><code class="language-plaintext highlighter-rouge">strict</code> - boolean - defaults to <code class="language-plaintext highlighter-rouge">false</code>. If <code class="language-plaintext highlighter-rouge">true</code>, DI/1 will throw an exception if it cannot resolve a bean implied by a constructor argument, setter name or property name. If <code class="language-plaintext highlighter-rouge">false</code>, DI/1 simply calls <code class="language-plaintext highlighter-rouge">logMissingBean()</code> which writes the failure to the Java console. See <code class="language-plaintext highlighter-rouge">missingBean()</code> in <strong>Overriding DI/1 Behavior</strong> below for more details.</li>
+  <li><code class="language-plaintext highlighter-rouge">transients</code> - array - defaults to <code class="language-plaintext highlighter-rouge">[]</code>. DI/1 will consider any CFCs found in these folders to be transient, rather than singleton. The conversion to a singular form will still take place to create the alias for each CFC. For example, if <code class="language-plaintext highlighter-rouge">singulars = { pride = 'lion' }</code> and <code class="language-plaintext highlighter-rouge">transients = [ 'pride' ]</code> then any CFCs in the <code class="language-plaintext highlighter-rouge">pride</code> folder will be treated as transients and their alias will end in <code class="language-plaintext highlighter-rouge">Lion</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">transientPattern</code> - string - no default. Specifies a regular expression that DI/1 uses to determine whether a bean is transient or not, based on its name. The <code class="language-plaintext highlighter-rouge">beans</code> folder convention and the <code class="language-plaintext highlighter-rouge">transients</code> configuration below still apply so CFCs in those folders will be still considered transients, in addition to any name that matches the pattern.</li>
+</ul>
+
+<p>The examples below all show <code class="language-plaintext highlighter-rouge">diConfig</code> for FW/1 (and <code class="language-plaintext highlighter-rouge">diLocations</code> in some examples). If you are using DI/1 standalone, you can imagine creating the instance of DI/1 like this, in order to map those examples to your usage:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var beanFactory = new framework.ioc( diLocations, diConfig );
+</code></pre></div></div>
+
+<h3 id="configuring-constant-beans">Configuring “Constant” Beans</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">constants</code> config element is a struct containing mappings from bean names to specific constant values. This allows you to specify non-CFC values for constructor arguments, setters and properties (but is most commonly used for constructor arguments). The value may be of any type and any reference to that bean name will return the specified value as a singleton.</p>
+
+<p>These values may also be added after DI/1 has been initialized using the <code class="language-plaintext highlighter-rouge">declare()</code> method as shown below (in <strong>Customization</strong>).</p>
+
+<h3 id="specifying-additional-transient-beans">Specifying Additional Transient Beans</h3>
+
+<p>By default, any CFC in the <code class="language-plaintext highlighter-rouge">beans</code> folder is considered a transient and everything else is considered a singleton. There are three ways to specify other CFCs should be considered transient:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">config.singulars</code> allows you to specify irregular plural folder names and their singular mappings, e.g., <code class="language-plaintext highlighter-rouge">geese : "goose"</code></li>
+  <li><code class="language-plaintext highlighter-rouge">config.transients</code> allows you to specify additional folders whose contents are transient (i.e., in addition to the <code class="language-plaintext highlighter-rouge">beans</code> folder convention)</li>
+  <li><code class="language-plaintext highlighter-rouge">config.singletonPattern</code> allows you to specify a regular expression which limits which beans are considered singletons</li>
+  <li><code class="language-plaintext highlighter-rouge">config.transientPattern</code> allows you to specify a regular expression which limits which beans are considered transients</li>
+</ul>
+
+<p>For <code class="language-plaintext highlighter-rouge">config.singulars</code>, any folder name whose singular name is <code class="language-plaintext highlighter-rouge">bean</code> will cause CFCs to get an alias that ends in <code class="language-plaintext highlighter-rouge">Bean</code> and will be considered transients (see below for examples). For <code class="language-plaintext highlighter-rouge">config.transients</code>, the singular transformation will still be applied to create the alias, but the CFCs will be considered transients anyway. For <code class="language-plaintext highlighter-rouge">config.singletonPattern</code>, CFCs will also be considered transients if their name <strong>does not match</strong> the regular expression pattern supplied. For <code class="language-plaintext highlighter-rouge">config.transientPattern</code>, CFCs will also be considered transients if their name <strong>does match</strong> the regular expression pattern supplied. You cannot specify both <code class="language-plaintext highlighter-rouge">config.singletonPattern</code> and <code class="language-plaintext highlighter-rouge">config.transientPattern</code>.</p>
+
+<p>For example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>diConfig : { singulars : { objects : "bean" }, transients : [ "models" ] }
+</code></pre></div></div>
+
+<p>This will cause CFCs found in the <code class="language-plaintext highlighter-rouge">objects</code> folder to be treated as if they were in the <code class="language-plaintext highlighter-rouge">beans</code> folder (their alias will end with <code class="language-plaintext highlighter-rouge">Bean</code> and they will be considered transients because of that) and CFCs found in the <code class="language-plaintext highlighter-rouge">models</code> folder to be treated as transients too (but their alias will end with <code class="language-plaintext highlighter-rouge">Model</code>, the singular of <code class="language-plaintext highlighter-rouge">models</code>).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>diConfig : { singulars : { services : "manager" }, transients : [ "objects" ] }
+</code></pre></div></div>
+
+<p>This, on the other hand, will cause CFCs found in the <code class="language-plaintext highlighter-rouge">services</code> folder to be treated as if they were in the <code class="language-plaintext highlighter-rouge">managers</code> folder (their alias will end with <code class="language-plaintext highlighter-rouge">Manager</code> and they will be considered singletons because of that) and CFCs found in the <code class="language-plaintext highlighter-rouge">objects</code> folder to be treated as transients (their alias will end with <code class="language-plaintext highlighter-rouge">Object</code>, the singular of <code class="language-plaintext highlighter-rouge">objects</code>).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>diConfig :{ singletonPattern : "(Service|Factory)$" }
+</code></pre></div></div>
+
+<p>In addition to any CFCs found in a folder called <code class="language-plaintext highlighter-rouge">beans</code>, any CFC whose name does not end in <code class="language-plaintext highlighter-rouge">Service</code> or <code class="language-plaintext highlighter-rouge">Factory</code> will be considered a transient.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>diConfig : { transientPattern : "(Entity)$" }
+</code></pre></div></div>
+
+<p>In addition to any CFCs found in a folder called <code class="language-plaintext highlighter-rouge">beans</code>, any CFC whose name ends in <code class="language-plaintext highlighter-rouge">Entity</code> will be considered a transient.</p>
+
+<h2 id="customization">Customization</h2>
+
+<p>In addition to the configuration that lets you specify additional “constant” beans and define how the conventions work, DI/1 provides four ways to programmatically add beans to the bean factory:</p>
+
+<ul>
+  <li>Add an alias for a bean. This can be useful if the deduced name of a bean (based on the file system path) doesn’t match a property that you want injected. You can add an alias that matches the property name, and DI/1 will resolve it to the underlying bean.</li>
+  <li>Add a named value as a bean. This can be any constant, data structure, or object. This can be useful when you want to add properties whose values have to be computed in a load listener, rather than supplied as “constants” as part of DI/1’s configuration.</li>
+  <li>Declare a bean based on a CFC that is outside the folders you asked DI/1 to manage for you. When asked for this bean DI/1 will create an instance, calling the constructor, and injecting any declared properties. You can choose whether these instances are singletons or transients. You can also provide overrides for named constructor arguments and properties.</li>
+  <li>Declare that a bean should be obtained from a (another) factory (which, itself, can be one of your managed beans or an object you created directly). You specify the factory, the method to call on it, and the names of beans that should be passed as the arguments to that method. Like the declaration approach above, you can provide overrides for those beans.</li>
+</ul>
+
+<p>There is a corresponding method on DI/1 for each of these, but as of FW/1 4.0 (DI/1 1.2), there is a better way to declare beans to the bean factory, using a new “builder” syntax:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>beanFactory.declare( beanName ).aliasFor( existingBean );
+beanFactory.declare( beanName ).asValue( beanValue );
+beanFactory.declare( beanName ).instanceOf( dottedPath );
+beanFactory.declare( beanName ).fromFactory( factory, methodName );
+</code></pre></div></div>
+
+<p>For the last two declarations, you can also call <code class="language-plaintext highlighter-rouge">.asSingleton()</code> or <code class="language-plaintext highlighter-rouge">.asTransient()</code> to specify whether the bean should be a singleton or transient. Also for the last two declarations, you can call <code class="language-plaintext highlighter-rouge">.withOverrides()</code> to specify a struct containing bean / value pairs that should be used for constructor arguments and property injections, instead of existing beans in the factory.</p>
+
+<p>For the factory declaration, you can call <code class="language-plaintext highlighter-rouge">.withArguments()</code> to specify an array of bean names that should be looked up and passed as arguments to the <code class="language-plaintext highlighter-rouge">factory</code>’s <code class="language-plaintext highlighter-rouge">methodName</code>.</p>
+
+<p>All of the above declarations return the declaration itself, so you can chain the modifier functions:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>beanFactory.declare( "generated" ).fromFactory( factory, "gen" )
+    .withArguments( [ "rand256", "gaussDistStrategy" ] );
+</code></pre></div></div>
+
+<p>When DI/1 is asked for the <code class="language-plaintext highlighter-rouge">"generated"</code> bean, it will call the <code class="language-plaintext highlighter-rouge">gen()</code> method on the <code class="language-plaintext highlighter-rouge">factory</code>, passing two arguments: the values of the beans <code class="language-plaintext highlighter-rouge">"rand256"</code> and <code class="language-plaintext highlighter-rouge">"gaussDistStrategy"</code> respectively.</p>
+
+<p>In addition, you can call <code class="language-plaintext highlighter-rouge">.done()</code> on a declaration to get the bean factory back so that you can chain declarations:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>beanFactory.declare( "abbrev" ).aliasFor( "longBeanName" ).done()
+    .declare( "answer" ).asValue( 42 ).done()
+    .declare( "copyright" ).asValue( 2016 );
+</code></pre></div></div>
+
+<p>See <strong>Customization Examples</strong> below for more examples and explanations.</p>
+
+<p>Here are the four direct methods, as present in earlier versions of DI/1 (these may be deprecated in a future release):</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">addAlias( beanName, existingBean )</code> – tells DI/1 that <code class="language-plaintext highlighter-rouge">beanName</code> should resolve to the same bean as <code class="language-plaintext highlighter-rouge">existingBean</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">addbean( beanName, beanValue )</code> – tells DI/1 that <code class="language-plaintext highlighter-rouge">beanName</code> should resolve to the specified <code class="language-plaintext highlighter-rouge">beanValue</code> (which can be a constant or a data structure or an object).</li>
+  <li><code class="language-plaintext highlighter-rouge">declareBean( beanName, dottedPath, isSingleton, overrides )</code> – tells DI/1 that <code class="language-plaintext highlighter-rouge">beanName</code> should resolve to an instance of the specified <code class="language-plaintext highlighter-rouge">dottedPath</code>, and whether it should be treated as a singleton or a transient. In addition, you can provide specific bean/value pairs to be used for the construction and autowiring of that bean, which will override any beans known to the bean factory.</li>
+  <li><code class="language-plaintext highlighter-rouge">factoryBean( beanName, factory, methodName, args, overrides )</code> – tells DI/1 that <code class="language-plaintext highlighter-rouge">beanName</code> should be resolved by calling <code class="language-plaintext highlighter-rouge">methodName</code> on the <code class="language-plaintext highlighter-rouge">factory</code> object and passing arguments looked up by name (<code class="language-plaintext highlighter-rouge">args</code> contains an array of bean names to use). As with <code class="language-plaintext highlighter-rouge">declareBean()</code>, you can provide bean/value pairs for construction and autowiring.
+As of FW/1 4.0, the <code class="language-plaintext highlighter-rouge">factory</code> can be a function or closure (and <code class="language-plaintext highlighter-rouge">method</code> omitted).</li>
+</ul>
+
+<p>The recommended way to perform this programmatic customization is inside a load listener. A load listener is a function, closure, or method that accepts a bean factory as an argument and performs all the customization you need on that bean factory. You can register a load listener either by specifying it in the <code class="language-plaintext highlighter-rouge">config</code> struct, above, as <code class="language-plaintext highlighter-rouge">loadListener</code>, or by calling <code class="language-plaintext highlighter-rouge">onLoad( listener )</code> on the bean factory itself.</p>
+
+<ul>
+  <li>If <code class="language-plaintext highlighter-rouge">loadListener</code> is a CFC instance, DI/1 will call <code class="language-plaintext highlighter-rouge">loadListener.onLoad( beanFactory )</code>, passing the DI/1 instance in as an argument.</li>
+  <li>If <code class="language-plaintext highlighter-rouge">loadListener</code> is a bean name, DI/1 will call <code class="language-plaintext highlighter-rouge">beanFactory.getBean( loadListener ).onLoad( beanFactory )</code>, where <code class="language-plaintext highlighter-rouge">beanFactory</code> is the DI/1 instance.</li>
+  <li>If <code class="language-plaintext highlighter-rouge">loadListener</code> is a function or closure, DI/1 will call <code class="language-plaintext highlighter-rouge">loadListener( beanFactory )</code>. Note that if <code class="language-plaintext highlighter-rouge">loadListener</code> is a method on a CFC, it will be called out of context so it will not have access to the <code class="language-plaintext highlighter-rouge">variables</code> scope or <code class="language-plaintext highlighter-rouge">this</code> scope of that CFC instance and therefore also won’t have access to other methods of that CFC.</li>
+</ul>
+
+<p>See the next section for examples of customizing the bean factory.</p>
+
+<h3 id="customization-examples">Customization Examples</h3>
+
+<p>You can add an alias for a bean:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>beanFactory.declare("alsoKnownAs").aliasFor("navigation");
+</code></pre></div></div>
+
+<p>That will tell DI/1 that <code class="language-plaintext highlighter-rouge">alsoKnownAs</code> is an alias for the bean identified by <code class="language-plaintext highlighter-rouge">navigation</code> so <code class="language-plaintext highlighter-rouge">getBean("alsoKnownAs")</code> will behave the same as <code class="language-plaintext highlighter-rouge">getBean("navigation")</code>.</p>
+
+<p>You can programmatically add new bean instances - or named values:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>beanFactory.declare("magicvalue").asValue(42);
+beanFactory.declare("logger").asValue(new LogFactory("log4j"));
+</code></pre></div></div>
+
+<p>After these calls, <code class="language-plaintext highlighter-rouge">getBean("magicvalue")</code> will return the value 42 and <code class="language-plaintext highlighter-rouge">getBean("logger")</code> will return the CFC instance you provided. That means that any properties, setter methods or constructor arguments that refer to <code class="language-plaintext highlighter-rouge">magicvalue</code> or <code class="language-plaintext highlighter-rouge">logger</code> will get those values injected.</p>
+
+<p>You can also programmatically declare new beans to be managed by DI/1:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>beanFactory.declare("navigation").instanceOf("site.utils.navigation");
+</code></pre></div></div>
+
+<p>That will tell DI/1 that <code class="language-plaintext highlighter-rouge">/site/utils/navigation.cfc</code> should be managed as a singleton with name <code class="language-plaintext highlighter-rouge">navigation</code>. You can declare transients by adding a call to <code class="language-plaintext highlighter-rouge">.asTransient()</code>.</p>
+
+<p>When declaring a bean, you can also optionally provide a set of overrides for named beans, so that constructor arguments or properties will take on specified values, rather than what is managed by the bean factory. This is useful for creating variants of a single bean:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>beanFactory.declare("datasource").instanceOf("util.DataSource")
+    .withOverrides( { dsn = "main" } );
+beanFactory.declare("admindata").instanceOf("util.DataSource")
+    .withOverrides( { dsn = "admindb" } );
+</code></pre></div></div>
+
+<p>You can declare a factory bean - like Spring/ColdSpring - as follow:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>beanFactory.declare("generated").fromFactory(factory, "method")
+    .withArguments( [ ..args.. ] ).withOverrides( { ... } );
+</code></pre></div></div>
+
+<p>This tells DI/1 that when you call <code class="language-plaintext highlighter-rouge">getBean("generated")</code>, instead of trying to create the bean itself, it should call <code class="language-plaintext highlighter-rouge">factory.method(..args..)</code> to get the bean instance. If you don’t call <code class="language-plaintext highlighter-rouge">.withArguments()</code> then the method is called with no arguments.</p>
+
+<h3 id="using-load-listeners">Using Load Listeners</h3>
+
+<p>The easiest way to organize all your customization of the DI/1 bean factory is to use a load listener. I prefer to have a CFC, called <code class="language-plaintext highlighter-rouge">LoadListener.cfc</code>, somewhere in my <code class="language-plaintext highlighter-rouge">/model</code> folder that contains an <code class="language-plaintext highlighter-rouge">onLoad()</code> method, and I declare this in the <code class="language-plaintext highlighter-rouge">config</code> struct when I create DI/1:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// if letting FW/1 create DI/1 for you:
+variables.framework = {
+    ...
+    diLocations : [ "/model", "/controllers" ],
+    diConfig : { loadListener : "LoadListener" },
+    ...
+};
+
+// if creating DI/1 explicitly:
+var bf = new framework.ioc( [ "/model", "/controllers" ], { loadListener : "LoadListener" } );
+</code></pre></div></div>
+
+<p>This tells DI/1 that when it has first discovered all the beans in the folders you specified (after construction but before any further operations take place on the bean factory), it should call <code class="language-plaintext highlighter-rouge">getBean( "LoadListener" )</code> and then call <code class="language-plaintext highlighter-rouge">onLoad( this )</code> on that bean (i.e., passing itself into your method).</p>
+
+<p>Your load listener CFC would look like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// LoadListener.cfc:
+component {
+    function onLoad( beanFactory ) {
+        beanFactory.declare( ... ).asValue( ... ).done()
+            .declare( ... ).asValue( ... ).done()
+            .declare( ... ).instanceOf( ... ).done()
+            ...done()
+            // eagerly load all the singletons:
+            .load();
+    }
+}
+</code></pre></div></div>
+
+<p>That last step is optional, but I like to avoid lazy loading of singletons in applications that see heavy load (DI/1 deliberately avoids locks so heavy load can cause singletons to be constructed multiple times if you don’t eagerly load the singletons at startup).</p>
+
+<p>If you are using DI/1 standalone, you can also manually add load listeners by calling <code class="language-plaintext highlighter-rouge">onLoad()</code> on the bean factory itself, as long as you do it before any other operations are performed:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// only when creating DI/1 explicitly:
+var bf = new framework.ioc( [ "/model", "/controllers" ] );
+bf.onLoad( "LoadListener" );
+</code></pre></div></div>
+
+<p>If you let FW/1 manage your DI/1 bean factory for you, you need to specify the load listener as part of the configuration (<code class="language-plaintext highlighter-rouge">diConfig</code>) as shown above.</p>
+
+<p>Note that you cannot add load listeners inside your load listener method itself! If you want to add more load listeners, your best choice is to extend <code class="language-plaintext highlighter-rouge">ioc.cfc</code> and in your <code class="language-plaintext highlighter-rouge">init()</code> function, after calling <code class="language-plaintext highlighter-rouge">super.init()</code>, call <code class="language-plaintext highlighter-rouge">this.onLoad()</code> to register them before you <code class="language-plaintext highlighter-rouge">return this;</code>. You can easily tell FW/1 to use you extended version of DI/1 with the <code class="language-plaintext highlighter-rouge">variables.framework.diComponent</code> setting.</p>
+
+<p>Note that a load listener can also be passed as a function or closure, or as a CFC instance, so if you only wanted to eagerly load the singletons, you could declare it inline like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>variables.framework = {
+    ...
+    diConfig : { loadListener : function( di1 ) { di1.load(); } },
+    ...
+};
+</code></pre></div></div>
+
+<h2 id="overriding">Overriding</h2>
+
+<p>Customizing the behavior of DI/1 by overriding its methods should probably be considered a “last resort” so before you go down this path, ask on Slack or on the mailing list if there is a way to achieve your goals without doing this.</p>
+
+<p>DI/1 provides no specific public extension points but it does provide a few <code class="language-plaintext highlighter-rouge">private</code> extension points that are considered documented and supported. These are described in detail near the end of this document and they are primarily intended to allow you to customized how CFC instances are actually constructed, how metadata is obtained, and what to do if DI/1 cannot locate a bean that you have requested.</p>
+
+<p>In addition, there is a hook for modifying beans as they are initialized – <code class="language-plaintext highlighter-rouge">setupInitMethod()</code> – which is called after a bean has been fully populated but prior to calling the <code class="language-plaintext highlighter-rouge">"init-method"</code> (if any is specified).</p>
+
+<p>See <strong><a href="#overriding-di1-behavior">Overriding DI/1 Behavior</a></strong> for more detail.</p>
+
+<h1 id="other-public-methods">Other Public Methods</h1>
+
+<p>This section describes some of the other methods that DI/1 provides, which applications may find useful. See the <strong>Reference Manual</strong> section below for full details of the function signatures.</p>
+
+<p>Given a struct of values (such as form scope or URL scope), you can ask DI/1 to inject those values as properties into a given bean:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bean = beanFactory.injectProperties(myBeanInstance, form);
+user = beanFactory.injectProperties("user", userAttributes);
+</code></pre></div></div>
+
+<p>The first call will loop over the form scope and, for each key in that scope, call a setter on <code class="language-plaintext highlighter-rouge">myBeanInstance</code>. The second call asks DI/1 to create a <code class="language-plaintext highlighter-rouge">user</code> bean and populate it by calling a setter for each element of the struct <code class="language-plaintext highlighter-rouge">userAttributes</code>. You may also use a dotted-path to a CFC as the first argument in which case DI/1 will use <code class="language-plaintext highlighter-rouge">createObject</code> to instantiate it and <em>will not call the constructor</em>. Caution: DI/1 assumes you know what you’re doing and will call a setter for <em>every</em> member of the struct passed in!</p>
+
+<p>You can ask if the bean factory knows about a particular bean using the <code class="language-plaintext highlighter-rouge">containsBean()</code> method:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if ( beanFactory.containsBean("productService") ) ...
+</code></pre></div></div>
+
+<p>(although you probably shouldn’t need to do this unless you are building some sort of framework plugin that needs to check what is available to it at runtime!).</p>
+
+<p>You can force all singletons to be reloaded using the <code class="language-plaintext highlighter-rouge">load()</code> method:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>beanFactory.load();
+</code></pre></div></div>
+
+<p>That will empty the bean cache and then call <code class="language-plaintext highlighter-rouge">getBean()</code> on every bean that DI/1 knows about. Note: it does not call <code class="language-plaintext highlighter-rouge">load()</code> on any parent bean factory (see below) and it does not perform a new search on the folders (so it won’t see newly written CFCs). To force the search to be performed again, create a new instance of the bean factory as shown above.</p>
+
+<p>Metadata can be queried using the following methods:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if ( beanFactory.isSingleton("someBean") ) ...
+info = beanFactory.getBeanInfo("someBean");
+if ( beanFactory.hasParent() ) ...
+</code></pre></div></div>
+
+<p>I would expect these only to be useful to framework authors. The first two methods walk up into parent bean factories, if present, the third indicates whether the bean factory has a parent. If you omit the bean name for <code class="language-plaintext highlighter-rouge">getBeanInfo()</code> you get back a struct with a key <code class="language-plaintext highlighter-rouge">beanInfo</code> that refers to metadata for all of the beans known in the factory. If there is a parent bean factory, its metadata is returned under a key <code class="language-plaintext highlighter-rouge">parent</code> in that struct.</p>
+
+<p><code class="language-plaintext highlighter-rouge">getBeanInfo()</code> can be called with a <code class="language-plaintext highlighter-rouge">beanName</code> argument - the default - or with a <code class="language-plaintext highlighter-rouge">regex</code> argument which will return metadata about all the beans in the factory whose names match the regular expression, in a struct with the single key <code class="language-plaintext highlighter-rouge">beanInfo</code>, whose value will be a struct with a key for each matching bean.</p>
+
+<p><code class="language-plaintext highlighter-rouge">getBeanInfo()</code> can also be called with no arguments, in which case it will return metadata for all the beans in the factory (in the <code class="language-plaintext highlighter-rouge">beanInfo</code> key of the result) and metadata for all the beans in the factory’s parent, if any, in the <code class="language-plaintext highlighter-rouge">parent</code> key of the result. Optionally, you may specify an argument of <code class="language-plaintext highlighter-rouge">flatten = true</code> and the <code class="language-plaintext highlighter-rouge">parent</code> structures will be merged (recursively through the parents) into <code class="language-plaintext highlighter-rouge">beanInfo</code>, producing a flat struct.</p>
+
+<p><code class="language-plaintext highlighter-rouge">getConfig()</code> can be called to get a copy of the bean factory’s configuration, in case you need to have conditional behavior in your load listeners.</p>
+
+<h1 id="parent-bean-factories">Parent Bean Factories</h1>
+
+<p>If your application is assembled from multiple modules, you may have a main bean factory containing shared CFCs and each module may also have a bean factory. You can tell a module’s bean factory about the shared CFCs in the main bean factory using the <code class="language-plaintext highlighter-rouge">setParent()</code> method:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var moduleBeanFactory = new framework.ioc("/moduleModel");
+moduleBeanFactory.setParent( mainBeanFactory );
+</code></pre></div></div>
+
+<p>This causes DI/1 to ask its parent bean factory about any beans that are requested but unknown (within the moduleBeanFactory). Because DI/1 uses only <code class="language-plaintext highlighter-rouge">containsBean(name)</code> and <code class="language-plaintext highlighter-rouge">getBean(name)</code> the parent bean factory does not need to be another DI/1 instance - it can be any bean factory that provides that API.</p>
+
+<p>Note that this is done automatically by FW/1 in an application with subsystems: each subsystem has its own bean factory with the main application’s bean factory as the parent.</p>
+
+<h1 id="bean-factory-aware">Bean Factory Aware</h1>
+
+<p>If you need access to the bean factory itself within one of your CFCs, either declare a constructor argument called <code class="language-plaintext highlighter-rouge">beanFactory</code>, provide a <code class="language-plaintext highlighter-rouge">setBeanFactory( any beanFactory )</code> setter or declare <code class="language-plaintext highlighter-rouge">property beanFactory;</code> (with implicit setters enabled). DI/1 declares itself as a bean called <code class="language-plaintext highlighter-rouge">beanFactory</code> and will inject itself where any such dependencies appear.</p>
+
+<h1 id="reference-manual">Reference Manual</h1>
+
+<p>This section lists every public method in DI/1, along with a brief explanation. After the listing of public methods, some additional discussion is provided about extending DI/1 and overriding its behavior.</p>
+
+<h2 id="public-methods">Public Methods</h2>
+
+<p>This section describes the supported public API of DI/1.</p>
+
+<h3 id="public-any-function-init-any-folders-struct-config----">public any function init( any folders, struct config = { } )</h3>
+
+<p>The constructor. <code class="language-plaintext highlighter-rouge">folders</code> can be a list or array of paths to search for CFCs to manage. It is recommended to use webroot-relative paths or mappings (both starting with <code class="language-plaintext highlighter-rouge">/</code>) for the paths. The optional <code class="language-plaintext highlighter-rouge">config</code> struct can supply various configuration settings to override the default behavior.</p>
+
+<h3 id="public-any-function-addalias-string-aliasname-string-beanname-">public any function addAlias( string aliasName, string beanName )</h3>
+
+<p>Add an alias for a given bean name. Prefer the new “builder” syntax of the <code class="language-plaintext highlighter-rouge">declare()</code> method.</p>
+
+<h3 id="public-any-function-addbean-string-beanname-any-beanvalue-">public any function addBean( string beanName, any beanValue )</h3>
+
+<p>Tell DI/1 that the given bean name should resolve to the supplied value. The value may be any type of data. Prefer the new “builder” syntax of the <code class="language-plaintext highlighter-rouge">declare()</code> method.</p>
+
+<h3 id="public-boolean-function-containsbean-string-beanname-">public boolean function containsBean( string beanName )</h3>
+
+<p>Returns <code class="language-plaintext highlighter-rouge">true</code> if DI/1 knows about the given bean name. If DI/1 doesn’t know about it directly, but has been given a parent bean factory, it will ask the parent (by calling <code class="language-plaintext highlighter-rouge">containsBean()</code> on the parent).</p>
+
+<h3 id="public-boolean-function-hasparent">public boolean function hasParent()</h3>
+
+<p>Returns <code class="language-plaintext highlighter-rouge">true</code> if DI/1 has been given a parent bean factory.</p>
+
+<h3 id="public-any-function-declare-string-beanname-">public any function declare( string beanName )</h3>
+
+<p>Declare a new bean in the bean factory. Returns a “builder” on which you can call <code class="language-plaintext highlighter-rouge">aliasFor</code>, <code class="language-plaintext highlighter-rouge">asValue</code>, <code class="language-plaintext highlighter-rouge">instanceOf</code>, <code class="language-plaintext highlighter-rouge">fromFactory</code>, <code class="language-plaintext highlighter-rouge">asSingleton</code>, <code class="language-plaintext highlighter-rouge">asTransient</code>, <code class="language-plaintext highlighter-rouge">withArguments</code>, and/or <code class="language-plaintext highlighter-rouge">withOverrides</code>.</p>
+
+<h3 id="public-any-function-declarebean-string-beanname-string-dottedpath-boolean-issingleton--true-struct-overrides----">public any function declareBean( string beanName, string dottedPath, boolean isSingleton = true, struct overrides = { } )</h3>
+
+<p>Tell DI/1 that the given bean name should resolve to an instance of the named CFC. Prefer the new “builder” syntax of the <code class="language-plaintext highlighter-rouge">declare()</code> method.</p>
+
+<h3 id="public-any-function-factorybean-string-beanname-any-factory-string-methodname---array-args----struct-overrides----">public any function factoryBean( string beanName, any factory, string methodName = “”, array args = [ ], struct overrides = { } )</h3>
+
+<p>Tell DI/1 that the given bean name should be resolved by called the specified <code class="language-plaintext highlighter-rouge">methodName</code> on the <code class="language-plaintext highlighter-rouge">factory</code> bean, with the specified arguments (<code class="language-plaintext highlighter-rouge">args</code> by name). Prefer the new “builder” syntax of the <code class="language-plaintext highlighter-rouge">declare()</code> method.</p>
+
+<h3 id="public-any-function-getbean-string-beanname-struct-constructorargs----">public any function getBean( string beanName, struct constructorArgs = { } )</h3>
+
+<p>Ask DI/1 for the specified bean. If <code class="language-plaintext highlighter-rouge">constructArgs</code> are provided, they are treated as overrides and will <em>hide</em> any beans of the same name that DI/1 is managing, just for the initialization of the requested bean.</p>
+
+<h3 id="public-any-function-getbeaninfo-string-beanname---boolean-flatten--false-string-regex---">public any function getBeanInfo( string beanName = ‘’, boolean flatten = false, string regex = ‘’ )</h3>
+
+<p>Return metadata about the named bean. If no bean name is given, return a struct containing metadata about all beans that DI/1 knows about. By default, any parent bean factory’s metadata is returned as a nested struct but <code class="language-plaintext highlighter-rouge">flatten</code> will recursively unroll the chain of parent metadata (so the <code class="language-plaintext highlighter-rouge">structKeyList()</code> of the returned metadata will be all beans, not just the ones in the child bean factory). In addition, you can specify a <code class="language-plaintext highlighter-rouge">regex</code> to return metadata just for beans whose name matches the regular expression.</p>
+
+<h3 id="public-struct-function-getconfig">public struct function getConfig()</h3>
+
+<p>Return a (shallow) copy of DI/1’s configuration struct, with all the defaults populated.</p>
+
+<h3 id="public-string-function-getversion">public string function getVersion()</h3>
+
+<p>Return a string indicating the version of DI/1 being used.</p>
+
+<h3 id="public-boolean-function-issingleton-string-beanname-">public boolean function isSingleton( string beanName )</h3>
+
+<p>Return <code class="language-plaintext highlighter-rouge">true</code> if the specified bean is known to be a singleton. If the bean is known to be a non-singleton, this will return <code class="language-plaintext highlighter-rouge">false</code>. If the bean is not known in the current bean factory but a parent bean factory exists, the parent will be asked <code class="language-plaintext highlighter-rouge">isSingleton(beanName)</code>. If the bean is not known at all (or asking the parent fails), this will return <code class="language-plaintext highlighter-rouge">false</code>.</p>
+
+<h3 id="public-any-function-injectproperties-any-bean-struct-properties-">public any function injectProperties( any bean, struct properties )</h3>
+
+<p>Given a bean (either a name, a dotted path to a CFC, or an actual instance), inject each of the (non-null) <code class="language-plaintext highlighter-rouge">properties</code> specified by calling the matching setter on the bean. If a bean name is given, it will be fully constructed by DI/1 first, and then populated. If a dotted path to a CFC is given, it will be created – but its constructor will <strong>not</strong> be called – and then it will be populated. If an actual bean instance is given, it will be populated. If calling any setter fails, that exception will propagate and other properties of the bean will not be populated. In general, use of this method is not recommended as it is not very flexible and you need to know what you are doing!</p>
+
+<h3 id="public-any-function-load">public any function load()</h3>
+
+<p>This causes DI/1 to flush all its caches and to go through all the singleton beans it knows about and force full resolution of each. This can be used to reload a bean factory (although it is safer to just create a new instance of DI/1 and start over, because <code class="language-plaintext highlighter-rouge">load()</code> does not reload any parent bean factories), but the most common usage is to avoid lazy loading of beans (e.g., if you want to “warm up” your application after a deployment before putting it back in the cluster). Calling <code class="language-plaintext highlighter-rouge">load()</code> at the end of a load listener will also avoid any potential thread safety issues caused by lazy loading beans under heavy load in an application.</p>
+
+<h3 id="public-any-function-onload-any-listener-">public any function onLoad( any listener )</h3>
+
+<p>Register a load listener that DI/1 should call after the factory has initialized itself. This is the recommanded way to provide additional bean declarations since it ensures they all run before the constructed instance of DI/1 is returned to your program. The <code class="language-plaintext highlighter-rouge">listener</code> may be a bean name, in which case DI/1 will look it up internally, or an instance of a CFC, or a user-defined function or closure. If the <code class="language-plaintext highlighter-rouge">listener</code> resolves to a CFC instance, DI/1 will call <code class="language-plaintext highlighter-rouge">onLoad()</code> on that instance and pass itself in as the only argument. If the <code class="language-plaintext highlighter-rouge">listener</code> is a function or closure, DI/1 will call it and pass itself in as the only argument. You can then manipulate the bean factory further as part of its initialization. A single load listener is usually registered via the <code class="language-plaintext highlighter-rouge">loadListener</code> element of the <code class="language-plaintext highlighter-rouge">config</code> struct when DI/1 is initialized but <code class="language-plaintext highlighter-rouge">onLoad()</code> can be called multiple times to register additional listeners. When muliple listeners are registered, they are called in the reverse order of registration.</p>
+
+<h3 id="public-any-function-setparent-any-parent-">public any function setParent( any parent )</h3>
+
+<p>Tell DI/1 that the given <code class="language-plaintext highlighter-rouge">parent</code> object should be treated as a parent bean factory. Several calls in DI/1 will delegate to a parent bean factory if the specified information is not present in the child bean factory. This allows common beans to be shared with several child factories, for example with a main application that has subsystems.</p>
+
+<h2 id="overriding-di1-behavior">Overriding DI/1 Behavior</h2>
+
+<p>If you want to override the methods in DI/1, such as <code class="language-plaintext highlighter-rouge">logMissingBean()</code>, you can create your own CFC that extends <code class="language-plaintext highlighter-rouge">ioc.cfc</code> and overrides the desired methods. Then use your CFC instead of <code class="language-plaintext highlighter-rouge">ioc.cfc</code>. If any particular use case becomes common, we can discuss incorporating it into DI/1 as a configuration option.</p>
+
+<p>One possible use case is overriding the constructor to provide your own <code class="language-plaintext highlighter-rouge">init()</code> method that does additional configurtion (although using a load listener is probably a better way to do this in general).</p>
+
+<p>The following supported extension points are provided:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">private void function setupInitMethod( string name, any bean )</code> - this is called for each bean after its dependencies have been injected prior to calling <code class="language-plaintext highlighter-rouge">initMethod</code> (if specified).</li>
+  <li><code class="language-plaintext highlighter-rouge">private any function construct( string dottedPath )</code> - this is called to construct each CFC: the default implementation is <code class="language-plaintext highlighter-rouge">return createObject( "component", dottedPath );</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">private any function metadata( string dottedPath )</code> - this is called to obtain the metdata for each CFC: the default implementation is <code class="language-plaintext highlighter-rouge">return getComponentMetadata( dottedPath );</code> although it wraps that in <code class="language-plaintext highlighter-rouge">try/catch</code> and attempts to provide a more useful exception message in the case that <code class="language-plaintext highlighter-rouge">getComponentMetadata()</code> fails. An example from Adam Tuttle is the ability to silently ignore beans that have syntax errors during development, so the rest of the beans are loaded: you would override <code class="language-plaintext highlighter-rouge">metadata()</code> and have it wrap a call to <code class="language-plaintext highlighter-rouge">super.metadata( dottedPath )</code> in <code class="language-plaintext highlighter-rouge">try/catch</code> and return an empty struct if an exception is thrown.</li>
+  <li><code class="language-plaintext highlighter-rouge">private void function logMissingBean( string beanName, string resolvingBeanName = "" )</code> - this is called from <code class="language-plaintext highlighter-rouge">missingBean()</code> to log DI/1’s inability to find a dependency: the default implementation writes a message to the application server’s console log.</li>
+  <li><code class="language-plaintext highlighter-rouge">private any function missingBean( string beanName, string resolvingBeanName = "", boolean dependency = true )</code> - this is called when DI/1 cannot find a dependency and, new in FW/1 4.0 / DI/1 1.2, also when <code class="language-plaintext highlighter-rouge">getBean()</code> cannot find the specified bean. The default implementation is explained below.</li>
+</ul>
+
+<h3 id="overriding-missingbean">Overriding missingBean()</h3>
+
+<p><code class="language-plaintext highlighter-rouge">missingBean()</code> is called when DI/1 cannot find a bean. The default behavior when called from <code class="language-plaintext highlighter-rouge">getBean()</code> is to throw a “bean not found” exception. The default behavior when called during dependency resolution is to either throw a “bean not found” exception (when running in <code class="language-plaintext highlighter-rouge">strict</code> mode) or just call <code class="language-plaintext highlighter-rouge">logMissingBean()</code>. Prior to FW/1 4.0 (DI/1 1.2), <code class="language-plaintext highlighter-rouge">getBean()</code> threw the exception directly, and during dependency resolution the result of calling <code class="language-plaintext highlighter-rouge">missingBean()</code> was ignored.</p>
+
+<p>If you override <code class="language-plaintext highlighter-rouge">missingBean()</code> you could delegate bean lookup / creation to your own convention-based bean factory and return your own bean. You could decide whether to invoke that just for failed calls to <code class="language-plaintext highlighter-rouge">getBean()</code> (when <code class="language-plaintext highlighter-rouge">dependency</code> is <code class="language-plaintext highlighter-rouge">false</code>) or also for bean lookup during dependency resolution (when <code class="language-plaintext highlighter-rouge">dependency</code> is <code class="language-plaintext highlighter-rouge">true</code>). The <code class="language-plaintext highlighter-rouge">resolvingBeanName</code> argument is provided to allow for better error messages during failures to resolve dependencies and is not expected to affect the behavior of any override. If your <code class="language-plaintext highlighter-rouge">missingBean()</code> does not throw an exception, whatever result it returns will be used in place of the bean that DI/1 could not find. If you return nothing (<code class="language-plaintext highlighter-rouge">return;</code>), then DI/1 will not attempt to use the result: for dependency resolution that means the dependency will simply by ignored (and nothing injected); for <code class="language-plaintext highlighter-rouge">getBean()</code> calls that means that <code class="language-plaintext highlighter-rouge">getBean()</code> itself will return nothing (instead of throwing an exception - its default behavior) so be careful there!</p>
+
+</article>
+
+		<footer class="site-footer">
+			
+				<span class="site-footer-owner"><a href="https://github.com/sneiland/sneiland.github.io">sneiland.github.io</a> is maintained by <a href="https://github.com/sneiland">sneiland</a>.</span>
+			
+		</footer>
+	</main>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	
+	<meta charset="UTF-8">
+
+	<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>FW/1 Version 2.1 Released | FW/1 - The Invisible Framework</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="FW/1 Version 2.1 Released" />
+<meta name="author" content="Sean Corfield" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="FW/1 2.1 is now the official master release." />
+<meta property="og:description" content="FW/1 2.1 is now the official master release." />
+<link rel="canonical" href="http://localhost:4000/blog/2013/01/05/fw1-version-2-1-released/" />
+<meta property="og:url" content="http://localhost:4000/blog/2013/01/05/fw1-version-2-1-released/" />
+<meta property="og:site_name" content="FW/1 - The Invisible Framework" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-01-05T16:23:53-05:00" />
+<script type="application/ld+json">
+{"headline":"FW/1 Version 2.1 Released","dateModified":"2013-01-05T16:23:53-05:00","datePublished":"2013-01-05T16:23:53-05:00","url":"http://localhost:4000/blog/2013/01/05/fw1-version-2-1-released/","author":{"@type":"Person","name":"Sean Corfield"},"description":"FW/1 2.1 is now the official master release.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/2013/01/05/fw1-version-2-1-released/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#157878" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<link rel="stylesheet" href="/assets/css/style.css?v=a3debbe0e02ab81ebdefec1b0e258acd9a63d866" />
+	<link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
+</head>
+<body>
+	<a id="skip-to-content" href="#content">Skip to the content.</a>
+
+	<header class="page-header" role="banner">
+		<h1 class="project-name">FW/1 Version 2.1 Released</h1>
+		<h2 class="project-tagline">Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.</h2>
+		
+		<a href="/" class="btn">Home</a>
+		<a href="/blog" class="btn">Blog</a>
+		<a href="/documentation" class="btn">Documentation</a>
+		
+			<a href="https://github.com/framework-one/fw1/" class="btn" target="_blank">View on GitHub</a>
+		
+		
+			<a href="https://github.com/framework-one/fw1/archive/master.zip" class="btn">Download 4.2 (Current)</a>
+			<a href="https://github.com/framework-one/fw1/archive/v4.3.0-beta.1.zip" class="btn">Download 4.3 (Beta)</a>
+		
+		
+			<a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS" class="btn">RSS</a>
+		
+	</header>
+
+	<main id="content" class="main-content" role="main">
+		<hr style="clear:both"/>
+
+<article class="hentry" role="article">
+	<p>FW/1 2.1 is now the official master release.</p>
+
+<p>The develop branch has been merged to master and the ‘v2.1’ tag has been added. Work on version 2.2 will soon start on the develop branch.<!-- more --></p>
+
+<p>Version 2.1 has been a long time in the works. Version 2.0 was released in December 2011, just over a year ago. So what has been going on in Framework One Land since then? You can play along at home by reading <a href="https://github.com/seancorfield/fw1/commits/master">the commit list for the master branch</a>…</p>
+
+<p>January 2012 saw version 2.0.1 appear with a fix for <code class="language-plaintext highlighter-rouge">buildUrl("")</code> which was broken just before the 2.0 gold release and caught by Seb Duggan. Thank you. January also saw a patch from Daryl Banttari to improve the performance of <code class="language-plaintext highlighter-rouge">expandPath()</code> by caching, similar to how <code class="language-plaintext highlighter-rouge">fileExists()</code> was handled.</p>
+
+<p>February brought the start of FW/1’s MXUnit-based test suite with some stellar work by Ryan Anklam. Ryan continued that work in March, June and July - thank you! March brought a pull request from John Whish to improve application startup behavior in the face of errors in user code. In June, Matt Quackenbush contributed a nice improvement to <code class="language-plaintext highlighter-rouge">redirect()</code>: support for HTTP status codes. In July, Ryan Anklam contributed to <code class="language-plaintext highlighter-rouge">populate()</code>, providing the ability to handle child objects automatically, and Giancarlo Gomez enhanced the regex support in routes. In August, I fixed a bug in autowiring bean factories when using subsystems which was identified by Marco Betschart, and then Marcin Szczepanski substantially expanded the test suite throughout August, September and October - much appreciated! In October, I fixed a bug in how <code class="language-plaintext highlighter-rouge">setView()</code> interfered with error handling, identified by Alex Purice, and then I worked on the test suite and I test-drove the development of the new “environment control” feature. Peter Boughton spotted that <code class="language-plaintext highlighter-rouge">setLayout()</code> did not work inside <code class="language-plaintext highlighter-rouge">onMissingView()</code> so I test-drove a fix for that. I added the <code class="language-plaintext highlighter-rouge">unhandledExceptionCaught</code> option so you can choose to rely on FW/1 for handling errors in requests that would otherwise be ‘unhandled’ by the framework (thanks to ‘stubotnik’ for that suggestion). Dave Ferguson identified a nasty bug in ColdFusion 10’s WebSocket implementation that was causing him problems with FW/1 - which I fixed by copying <code class="language-plaintext highlighter-rouge">CGI</code> variables to the <code class="language-plaintext highlighter-rouge">request</code> scope. I cleaned up <code class="language-plaintext highlighter-rouge">request</code> scope usage and further improved FW/1’s robustness in the face of errors at startup, due to user code problems. In November, Richard Herbert found a case where FW/1 failed if <code class="language-plaintext highlighter-rouge">session</code> scope was disabled (now fixed). December was then a busy month with the addition of the new tracing / debugging facility, ensuring HTTP status code 500 is set when an unhandled exception is reported, and various small bug fixes and code cleanup in the new features added. Thanx there to Nando Breiter, Marcin Szczepanski and Chris Blackwell for finding those bugs!</p>
+
+<p>Thank you everyone for your contributions to FW/1 - I really appreciate the assistance in making the framework better for its community! As can be seen above, it really is a team effort.</p>
+
+<p>In summary then, version 2.1 contains:</p>
+
+<ul>
+  <li>Environment Control support.</li>
+  <li>Application tracing.</li>
+  <li><code class="language-plaintext highlighter-rouge">populate()</code> now handles child objects automatically.</li>
+  <li>Improved regex support in routes.</li>
+  <li>Addition of a nice test suite, making it easier to test-drive the development of new features, as well as ensure fewer regression bugs sneak in.</li>
+  <li><code class="language-plaintext highlighter-rouge">request</code> scope cleanup (and removal of several <code class="language-plaintext highlighter-rouge">request</code> variables that had previously been marked as deprecated.</li>
+  <li>Lots of small improvements to the robustness of application startup in the face of user code problems, making it easier to debug those problems, and several enhancements to error handling in general.</li>
+</ul>
+
+<p>You can <a href="https://github.com/framework-one/fw1/releases">download FW/1 2.1 at GitHub</a>.</p>
+
+	<footer>
+		<p class="meta">
+			
+<span class="byline author vcard">Posted by <span class="fn">Sean Corfield</span></span>
+
+			
+
+
+
+
+
+			<div>
+				
+
+<span class="categories">
+	
+		
+			<a href="/blog/category/releases">releases</a>
+			,
+		
+			<a href="/blog/category/fw1">fw1</a>
+			
+		
+  
+</span>
+
+
+			</div>
+		</p>
+    
+		
+	<div class="sharing">
+		
+		
+		
+	</div>
+
+	
+		<p class="meta">
+			
+				<a class="basic-alignment left" href="/blog/2011/12/18/fw1-2-0-released/" title="Previous Post: FW/1 2.0 Released">&laquo; FW/1 2.0 Released</a>
+			
+			
+				<a class="basic-alignment right" href="/blog/2013/04/06/new-fw1-organization-on-github/" title="Next Post: New FW/1 - Framework One - Organization on Github">New FW/1 - Framework One - Organization on Github &raquo;</a>
+			
+		</p>
+	
+		
+<section>
+	<h1>Comments</h1>
+	<div id="disqus_thread" aria-live="polite">
+		<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		
+		<script type="text/javascript">
+			var disqus_shortname = 'framework-one';
+			
+				
+				// var disqus_developer = 1;
+				var disqus_identifier = 'http://localhost:4000/blog/2013/01/05/fw1-version-2-1-released/';
+				var disqus_url = 'http://localhost:4000/blog/2013/01/05/fw1-version-2-1-released/';
+				var disqus_script = 'embed.js';
+			
+			(function () {
+					var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+					dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+					(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			}());
+		</script>
+	</div>
+</section>
+	
+	</footer>
+</article>
+
+		<footer class="site-footer">
+			
+				<span class="site-footer-owner"><a href="https://github.com/sneiland/sneiland.github.io">sneiland.github.io</a> is maintained by <a href="https://github.com/sneiland">sneiland</a>.</span>
+			
+		</footer>
+	</main>
+</body>
+</html>
