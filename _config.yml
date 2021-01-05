@@ -18,13 +18,13 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
+url: http://framework-one.github.io
 title: FW/1 - The Invisible Framework
+subtitle: Framework One and friends...
 email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
   Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
 
 permalink: /blog/:year/:month/:day/:title/
 author: Sean Corfield
@@ -38,15 +38,16 @@ theme: jekyll-theme-cayman
 plugins:
   - jekyll-feed
  
-
 subscribe_rss: /atom.xml
-show_downloads: false
+show_downloads: true
 
 # Disqus Comments
 disqus_short_name: framework-one
 disqus_show_comment_count: true
 
-show_downloads: true
+
+twitter_tweet_button: true
+facebook_like: false
 
 # Exclude from processing.
 # The following items will not be processed, by default.
