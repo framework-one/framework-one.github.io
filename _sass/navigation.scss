@@ -1,0 +1,52 @@
+.basic-alignment {
+	&.left { float: left; margin-right: 1.5em; }
+	&.right { float: right; margin-left: 1.5em; }
+	&.center { display:block; margin: 0 auto 1.5em; }
+	&.left, &.right { margin-bottom: .8em; }
+}
+
+article > footer p.meta {
+	margin-bottom: .8em;
+	clear: both;
+	overflow: hidden;
+}
+
+.documentation-nav {
+	float: right;
+
+	section {
+		margin-bottom: 1em;
+		margin-left: 1em;
+	}
+}
+
+.blog-index {
+	h2 {
+		margin-bottom: .3em;
+		font-weight: normal;
+		display: block;
+		position: relative;
+		top: -1px;
+		float: left;
+	}
+
+	article {
+		padding-left: 4.5em;
+		padding-bottom: .7em;
+		margin-left: 5em;
+		position: relative;
+	}
+
+	time {
+		position: absolute;
+text-align: right;
+left: 0em;
+top: 1.8em;
+font-size: .9em;
+line-height: 1.2em;
+	}
+}
+
+.site-footer {
+	clear: both;
+}

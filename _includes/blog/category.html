@@ -1,0 +1,19 @@
+
+<div>
+{% for post in site.posts %}
+	{% for category in post.categories %}
+		{% if category contains page.category %}
+			{% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
+		{% unless year == this_year %}
+			{% assign year = this_year %}
+			<h2>{{ year }}</h2>
+			<hr/>
+		{% endunless %}
+		
+		<article>
+			{% include blog/year.html %}
+		</article>
+		{% endif %}
+	{% endfor %}
+{% endfor %}
+</div>

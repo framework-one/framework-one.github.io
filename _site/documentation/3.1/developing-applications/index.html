@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	
+	<meta charset="UTF-8">
+
+	<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Developing Applications with FW/1 | FW/1 - The Invisible Framework</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Developing Applications with FW/1" />
+<meta name="author" content="Sean Corfield" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1." />
+<meta property="og:description" content="Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1." />
+<link rel="canonical" href="http://localhost:4000/documentation/3.1/developing-applications/" />
+<meta property="og:url" content="http://localhost:4000/documentation/3.1/developing-applications/" />
+<meta property="og:site_name" content="FW/1 - The Invisible Framework" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2015-07-12T21:40:00-04:00" />
+<script type="application/ld+json">
+{"headline":"Developing Applications with FW/1","dateModified":"2015-07-12T21:40:00-04:00","datePublished":"2015-07-12T21:40:00-04:00","url":"http://localhost:4000/documentation/3.1/developing-applications/","author":{"@type":"Person","name":"Sean Corfield"},"description":"Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/documentation/3.1/developing-applications/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#157878" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<link rel="stylesheet" href="/assets/css/style.css?v=a3debbe0e02ab81ebdefec1b0e258acd9a63d866" />
+	<link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
+</head>
+<body>
+	<a id="skip-to-content" href="#content">Skip to the content.</a>
+
+	<header class="page-header" role="banner">
+		<h1 class="project-name">Developing Applications with FW/1</h1>
+		<h2 class="project-tagline">Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.</h2>
+		
+		<a href="/" class="btn">Home</a>
+		<a href="/blog" class="btn">Blog</a>
+		<a href="/documentation" class="btn">Documentation</a>
+		
+			<a href="https://github.com/framework-one/fw1/" class="btn" target="_blank">View on GitHub</a>
+		
+		
+			<a href="https://github.com/framework-one/fw1/archive/master.zip" class="btn">Download 4.2 (Current)</a>
+			<a href="https://github.com/framework-one/fw1/archive/v4.3.0-beta.1.zip" class="btn">Download 4.3 (Beta)</a>
+		
+		
+			<a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS" class="btn">RSS</a>
+		
+	</header>
+
+	<main id="content" class="main-content" role="main">
+		<aside class="documentation-nav">
+	<section>
+		<a href="/documentation/changelog">Changelog</a><br />
+		<a href="/documentation/roadmap/">Roadmap</a><br />
+	</section>
+	<section>
+		<h3>4.3 Documentation (beta)</h3>
+		<a href="/documentation/4.3/">Getting Started Guide</a><br />
+		<a href="/documentation/4.3/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/4.3/using-aop-one/">Using AOP/1</a><br />
+		<a href="/documentation/4.3/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/4.3/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/4.3/reference-manual/">Reference Manual</a><br />
+		<a href="/documentation/4.3/changelog/">Change Log</a><br />
+	</section>
+	<section>
+		<h3>4.2 Documentation (Current Master)</h3>
+		<a href="/documentation/4.2/">Getting Started Guide</a><br />
+		<a href="/documentation/4.2/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/4.2/using-aop-one/">Using AOP/1</a><br />
+		<a href="/documentation/4.2/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/4.2/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/4.2/reference-manual/">Reference Manual</a><br />
+		<a href="/documentation/4.2/changelog/">Change Log</a><br />
+	</section>
+	<section>
+		<h3>4.1 Documentation</h3>
+		<a href="/documentation/4.1/">Getting Started Guide</a><br />
+		<a href="/documentation/4.1/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/4.1/using-aop-one/">Using AOP/1</a><br />
+		<a href="/documentation/4.1/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/4.1/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/4.1/reference-manual/">Reference Manual</a><br />
+		<a href="/documentation/4.1/changelog/">Change Log</a><br />
+	</section>
+	<section>
+		<h3>4.0 Documentation</h3>
+		<a href="/documentation/4.0/">Getting Started Guide</a><br />
+		<a href="/documentation/4.0/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/4.0/using-aop-one/">Using AOP/1</a><br />
+		<a href="/documentation/4.0/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/4.0/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/4.0/reference-manual/">Reference Manual</a><br />
+		<a href="/documentation/4.0/changelog/">Change Log</a><br />
+	</section>
+	<section>
+		<h3>3.5 Documentation</h3>
+		<a href="/documentation/3.5/">Getting Started Guide</a><br />
+		<a href="/documentation/3.5/cfml-and-clojure/">CFML and Clojure</a><br />
+		<a href="/documentation/3.5/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/3.5/using-aop-one/">Using AOP/1</a><br />
+		<a href="/documentation/3.5/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/3.5/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/3.5/reference-manual/">Reference Manual</a><br />
+	</section>
+	<section>
+		<h3>3.1 Documentation</h3>
+		<a href="/documentation/3.1/">Getting Started Guide</a><br />
+		<a href="/documentation/3.1/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/3.1/using-aop-one/">Using AOP/1</a><br />
+		<a href="/documentation/3.1/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/3.1/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/3.1/reference-manual/">Reference Manual</a><br />
+	</section>
+	<section>
+		<h3>3.0 Documentation</h3>
+		<a href="/documentation/3.0/">Getting Started Guide</a><br />
+		<a href="/documentation/3.0/developing-applications/">Developing Applications Guide</a><br />
+		<a href="/documentation/3.0/using-di-one/">Using DI/1</a><br />
+		<a href="/documentation/3.0/using-subsystems/">Using Subsystems</a><br />
+		<a href="/documentation/3.0/reference-manual/">Reference Manual</a><br />
+	</section>
+</aside>
+
+<article>
+	<p>FW/1 is intended to allow you to quickly build applications with the minimum of overhead and interference from the framework itself. The convention-based approach means that you can quickly put together an outline of your site or application merely by creating folders and files in the <code class="language-plaintext highlighter-rouge">views</code> folder. As you are ready to start adding business logic to the application, you can add controllers and/or services and domain objects as needed to implement the validation and data processing.</p>
+
+<h2 id="basic-application-structure">Basic Application Structure</h2>
+<p>FW/1 applications must have an <code class="language-plaintext highlighter-rouge">Application.cfc</code> that extends <code class="language-plaintext highlighter-rouge">framework.one</code> and an empty <code class="language-plaintext highlighter-rouge">index.cfm</code> as well as at least one view (under the <code class="language-plaintext highlighter-rouge">views</code> folder). Typical applications will also have folders for <code class="language-plaintext highlighter-rouge">controllers</code>, a <code class="language-plaintext highlighter-rouge">model</code>, containing subfolders for <code class="language-plaintext highlighter-rouge">services</code> and <code class="language-plaintext highlighter-rouge">beans</code>, and <code class="language-plaintext highlighter-rouge">layouts</code>. The folders may be in the same directory as <code class="language-plaintext highlighter-rouge">Application.cfc</code> / <code class="language-plaintext highlighter-rouge">index.cfm</code> or may be in a directory accessible via a mapping (or some other path under the webroot). If the folders are not in the same directory as <code class="language-plaintext highlighter-rouge">Application.cfc</code> / <code class="language-plaintext highlighter-rouge">index.cfm</code>, then <code class="language-plaintext highlighter-rouge">variables.framework.base</code> must be set in <code class="language-plaintext highlighter-rouge">Application.cfc</code> to identify the location of those folders.</p>
+
+<p>Note: because <code class="language-plaintext highlighter-rouge">Application.cfc</code> must extend the FW/1 <code class="language-plaintext highlighter-rouge">/framework/one.cfc</code>, you need a mapping in the CFML administrator. An alternative approach is to simply copy the <code class="language-plaintext highlighter-rouge">framework</code> folder to your application’s web root. This requires no mapping - but means that you have the framework CFCs as web-accessible resources.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">views</code> folder contains a subfolder for each section of the site, each section’s subfolder containing individual view files (pages or page fragments) used within that section. Note that if your operating system is case-sensitive, all view folders and filenames must be all lowercase.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">layouts</code> folder may contain general layouts for each section and/or a default layout for the entire site. The <code class="language-plaintext highlighter-rouge">layouts</code> folder may also contain subfolders for sections within the site, which in turn contain layouts for specific views. Note that if your operating system is case-sensitive, all layout folders and filenames must be all lowercase.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">controllers</code> folder contains a CFC for each section of the site (that needs a controller!). Each CFC contains a method for each requested item in that section (where control logic is needed). Again, controller CFC filenames must be all lowercase if your operating system is case-sensitive.</p>
+
+<p>You would typically also have a <code class="language-plaintext highlighter-rouge">model</code> folder containing CFCs for your services and your domain objects - the business logic of your application. The convention is to have your domain objects in a <code class="language-plaintext highlighter-rouge">beans</code> subfolder and all your singleton service CFCs in a <code class="language-plaintext highlighter-rouge">services</code> subfolder. FW/1 and DI/1 use a convention where you typically reference model instances via a name that is the name of the CFC followed by the singular of the subfolder, e.g., <code class="language-plaintext highlighter-rouge">productService</code>, <code class="language-plaintext highlighter-rouge">userBean</code> but that behavior can be configured.</p>
+
+<p>An application may have additional web-accessible assets such as CSS, images and so on.</p>
+
+<h2 id="views-and-layouts">Views and Layouts</h2>
+<p>Views and layouts are simple CFML pages. Both views and layouts are passed a variable called <code class="language-plaintext highlighter-rouge">rc</code> which is the request context (containing the URL and form variables merged together). Layouts are also passed a variable called <code class="language-plaintext highlighter-rouge">body</code> which is the current rendered view. Both views and layouts have direct access to the full FW/1 API (see below).</p>
+
+<p>The general principle behind views and layouts in FW/1 is that each request will yield a unique page that contains a core view, optionally wrapped in a section-specific layout, wrapped in a general layout for the site. In fact, layouts are more flexible than that, allowing for item-specific layouts as well as section-specific layouts. See below for more detail about layouts.</p>
+
+<p>Both views and layouts may invoke other views by name, using the <code class="language-plaintext highlighter-rouge">view()</code> method in the FW/1 API. For example, the home page of a site might be a portal style view that aggregates the company mission with the latest news. <code class="language-plaintext highlighter-rouge">views/home/default.cfm</code> might therefore look like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;cfoutput&gt;
+  &lt;div&gt;#view('company/mission')#&lt;/div&gt;
+  &lt;div&gt;#view('news/list')#&lt;/div&gt;
+&lt;/cfoutput&gt;
+</code></pre></div></div>
+
+<p>This would render the <code class="language-plaintext highlighter-rouge">company.mission</code> view and the <code class="language-plaintext highlighter-rouge">news.list</code> view.</p>
+
+<p>Note: The <code class="language-plaintext highlighter-rouge">view()</code> method behaves like a smart include, automatically handling subsystems and providing a <code class="language-plaintext highlighter-rouge">local</code> scope that is private to each view, as well as the <code class="language-plaintext highlighter-rouge">rc</code> request context variable (through which views can communicate, if necessary). No controllers are executed as part of a <code class="language-plaintext highlighter-rouge">view()</code> call. Additional data may be passed to the <code class="language-plaintext highlighter-rouge">view()</code> method in an optional second argument, as elements of a struct that is added to the <code class="language-plaintext highlighter-rouge">local</code> scope.</p>
+
+<h3 id="views-and-layouts-in-more-depth">Views and Layouts in more depth</h3>
+
+<p>As hinted at above, layouts may nest, with a view-specific layout, a section-specific layout and a site-wide layout. When FW/1 is asked for <code class="language-plaintext highlighter-rouge">section.item</code>, it looks for layouts in the following places:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">layouts/section/item.cfm</code> - The view-specific layout</li>
+  <li><code class="language-plaintext highlighter-rouge">layouts/section.cfm</code> - The section-specific layout</li>
+  <li><code class="language-plaintext highlighter-rouge">layouts/default.cfm</code> - The site-wide layout</li>
+</ul>
+
+<p>For a given <em>action</em> (<em>section.item</em>) up to three layouts may be found and executed, so the view may be wrapped in a view-specific layout, which may be wrapped in a section-specific layout, which may be wrapped in a site-wide layout. To stop the cascade, set <code class="language-plaintext highlighter-rouge">request.layout = false;</code> in your view-specific (or section-specific) layout. This allows for full control in authoring section and/or page specific layouts which may be very different from your site-wide layout.</p>
+
+<p>By default, FW/1 selects views (and layouts) based on the action initiated, <em>subsystem:section.item</em> but that can be overridden in a controller by calling the <code class="language-plaintext highlighter-rouge">setView()</code> and <code class="language-plaintext highlighter-rouge">setLayout()</code> methods to specify a new action to use for the view and layout lookup respectively. This can be useful when several actions need to result in the same view, such as redisplaying a form when errors are present.</p>
+
+<p>For example, in your <code class="language-plaintext highlighter-rouge">product.list</code> controller method, you could call <code class="language-plaintext highlighter-rouge">setLayout( 'general.list' )</code> and FW/1 would look for <code class="language-plaintext highlighter-rouge">layouts/general/list.cfm</code> and <code class="language-plaintext highlighter-rouge">layouts/general.cfm</code> instead of layouts related to <code class="language-plaintext highlighter-rouge">product.list</code>. In addition, you can pass <code class="language-plaintext highlighter-rouge">true</code> as the second argument to <code class="language-plaintext highlighter-rouge">setLayout()</code> and cascading is automatically disabled (so only the specified layout will be applied).</p>
+
+<p>The view and layout CFML pages are actually executed by being included directly into the framework CFC. That’s how the <code class="language-plaintext highlighter-rouge">view()</code> method is made available to them. In fact, all methods in the framework CFC are directly available inside views and layouts so you can access the bean factory (if present), execute layouts and so on. It also means you need to be a little bit careful about unscoped variables inside views and layouts: a struct called <code class="language-plaintext highlighter-rouge">local</code> is available for you to use inside views and layouts for temporary data, such as loop variables and so on.</p>
+
+<p>It would be hard to give a comprehensive list of variables available inside a view or layout but here are the important ones:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">body</code> - The generated output passed into a layout that the layout should wrap up. Strictly speaking, this is <code class="language-plaintext highlighter-rouge">arguments.body</code>, the value passed into the <code class="language-plaintext highlighter-rouge">layout()</code> method.</li>
+  <li><code class="language-plaintext highlighter-rouge">rc</code> - A shorthand for the request context (the <code class="language-plaintext highlighter-rouge">request.context</code> struct). If you write to the <code class="language-plaintext highlighter-rouge">rc</code> struct, layouts will be able to read those values so this can be a useful way to set a page title, for example (set in the view, rendered in the layout where <code class="language-plaintext highlighter-rouge">&lt;title&gt;</code> appears).</li>
+  <li><code class="language-plaintext highlighter-rouge">local</code> - An empty struct, created as a local scope for the view or layout.</li>
+  <li><code class="language-plaintext highlighter-rouge">framework</code> - The FW/1 configuration structure (<code class="language-plaintext highlighter-rouge">variables.framework</code> in the framework CFC) which includes a number of useful values including <code class="language-plaintext highlighter-rouge">framework.action</code>, the name of the URL parameter that holds the action (if you’re building links, you should use the <code class="language-plaintext highlighter-rouge">buildURL()</code> API method which knows how to handle subsystems as well as regular section and item values in the action value). You can also write SES URLs without this variable, e.g., <em>/index.cfm/section/item</em> as long as your application server supports such URLs (better to use <code class="language-plaintext highlighter-rouge">buildCustomURL()</code> for this!).</li>
+</ul>
+
+<p>In addition, FW/1 uses a number of <code class="language-plaintext highlighter-rouge">request</code> scope variables to pass data between its various methods so it is advisable not to write to the <code class="language-plaintext highlighter-rouge">request</code> scope inside a view or layout. See the <a href="/documentation/3.1/reference-manual.html">Reference Manual</a> for complete details of <code class="language-plaintext highlighter-rouge">request</code> scope variables used by FW/1.</p>
+
+<p>It is strongly recommended to use the <code class="language-plaintext highlighter-rouge">local</code> struct for any variables you need to create yourself in a view or layout!</p>
+
+<p>If you have data that is needed by all of your views, it may be convenient to set that up in your <code class="language-plaintext highlighter-rouge">setupView()</code> method in <code class="language-plaintext highlighter-rouge">Application.cfc</code> - see <strong>Taking Actions on Every Request</strong> below.</p>
+
+<h3 id="rendering-data-to-the-caller">Rendering Data to the Caller</h3>
+
+<p>If you want to return plain text, XML, or JSON from a request instead of rendering an HTML view, you can use the <code class="language-plaintext highlighter-rouge">renderData()</code> API to bypass views and layouts completely and automatically return data rendered as JSON, XML, or plain text to your caller, with the correct content type automatically set. See below for more details.</p>
+
+<h2 id="designing-controllers">Designing Controllers</h2>
+<p>Controllers are the pounding heart of an MVC application and FW/1 provides quite a bit of flexibility in this area. The most basic convention is that when FW/1 is asked for <code class="language-plaintext highlighter-rouge">section.item</code> it will look for <code class="language-plaintext highlighter-rouge">controllers/section.cfc</code> and attempt to call the <code class="language-plaintext highlighter-rouge">item()</code> method on it, passing in the request context as a single argument called <code class="language-plaintext highlighter-rouge">rc</code> and controllers may call into the application model as needed, then render a view.</p>
+
+<p>Controllers are cached in FW/1’s application cache so controller methods need to be written with thread safety in mind (i.e., use <code class="language-plaintext highlighter-rouge">var</code> to declare variables properly!). Any <code class="language-plaintext highlighter-rouge">setXxx()</code> methods on a controller CFC may be used by FW/1 to autowire beans from the bean factory into the controller when it is created. In addition, if you add <code class="language-plaintext highlighter-rouge">accessors=true</code> to your controller’s <code class="language-plaintext highlighter-rouge">component</code> tag, you can declare dependencies with the <code class="language-plaintext highlighter-rouge">property</code> keyword are those will be autowired by FW/1. <code class="language-plaintext highlighter-rouge">property</code>-based injection is the preferred approach.</p>
+
+<p>In addition, if you need certain actions to take place before all items in a particular section, you can define a <code class="language-plaintext highlighter-rouge">before()</code> method in your controller and FW/1 will automatically call it for you, before calling the <code class="language-plaintext highlighter-rouge">item()</code> method. This might be a good place to put a security check, to ensure a user is logged in before they can execute other actions in that section. The variable <code class="language-plaintext highlighter-rouge">request.item</code> contains the name of the controller method that will be called, in case you need to have exceptions on the security check (such as for a <code class="language-plaintext highlighter-rouge">main.doLogin</code> action that attempts to log a user in).</p>
+
+<p>Similarly, if you need certain actions to take place after all items in a particular section, you can define an <code class="language-plaintext highlighter-rouge">after()</code> method in your controller and FW/1 will automatically call it for you, after calling the <code class="language-plaintext highlighter-rouge">item()</code> method.</p>
+
+<p>Note that your <code class="language-plaintext highlighter-rouge">Application.cfc</code> is also considered to be a controller and if it defines <code class="language-plaintext highlighter-rouge">before()</code> and/or <code class="language-plaintext highlighter-rouge">after()</code> methods, those are called as part of the lifecycle, around any regular controller methods. Unlike other controllers, it does not need an <code class="language-plaintext highlighter-rouge">init()</code> method and instead of referring to the FW/1 API methods via <code class="language-plaintext highlighter-rouge">variables.fw...</code> you can just use the API methods directly - unqualified - since <code class="language-plaintext highlighter-rouge">Application.cfc</code> extends the framework and all those methods are available implicitly.</p>
+
+<p>Here is the full list of methods called automatically when FW/1 is asked for <code class="language-plaintext highlighter-rouge">section.item</code> :</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Application.cfc</code> : <code class="language-plaintext highlighter-rouge">before()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">controllers/section.cfc</code> : <code class="language-plaintext highlighter-rouge">before()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">controllers/section.cfc</code> : <code class="language-plaintext highlighter-rouge">item()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">controllers/section.cfc</code> : <code class="language-plaintext highlighter-rouge">after()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Application.cfc</code> : <code class="language-plaintext highlighter-rouge">after()</code></li>
+</ul>
+
+<p>Methods that do not exist are not called.</p>
+
+<h3 id="using-onmissingmethod-to-implement-items">Using onMissingMethod() to Implement Items</h3>
+
+<p>FW/1 supports <code class="language-plaintext highlighter-rouge">onMissingMethod()</code>, i.e., if a desired method is not present but <code class="language-plaintext highlighter-rouge">onMissingMethod()</code> is defined, FW/1 will call the method anyway. That applies to all three potential controller methods: <code class="language-plaintext highlighter-rouge">before</code>, <code class="language-plaintext highlighter-rouge">item</code>, and <code class="language-plaintext highlighter-rouge">after</code>. That means you must be a little careful if you implement <code class="language-plaintext highlighter-rouge">onMissingMethod()</code> since it will be called whenever FW/1 needs a method that isn’t already defined. If you are going to use <code class="language-plaintext highlighter-rouge">onMissingMethod()</code>, I would recommend always defining <code class="language-plaintext highlighter-rouge">before()</code> and <code class="language-plaintext highlighter-rouge">after()</code> methods, even if they are empty. Calls to <code class="language-plaintext highlighter-rouge">onMissingMethod()</code> are passed two arguments in <code class="language-plaintext highlighter-rouge">missingMethodArguments</code>: <code class="language-plaintext highlighter-rouge">rc</code> and <code class="language-plaintext highlighter-rouge">method</code> which is the type of the method being invoked (<code class="language-plaintext highlighter-rouge">"before"</code>, <code class="language-plaintext highlighter-rouge">"item"</code> - literally, regardless of the actual requested <em>item</em>, <code class="language-plaintext highlighter-rouge">"after"</code>).</p>
+
+<h3 id="using-onmissingview-to-handle-missing-views">Using onMissingView() to Handle Missing Views</h3>
+
+<p>FW/1 provides a default <code class="language-plaintext highlighter-rouge">onMissingView()</code> method for <code class="language-plaintext highlighter-rouge">Application.cfc</code> that throws an exception (view not found). This allows you to provide your own handler for when a view is not present for a specific request. Whatever <code class="language-plaintext highlighter-rouge">onMissingView()</code> returns is used as the core view and, unless layouts are disabled, it will be wrapped in layouts and then displayed to the user. Make sure you return a string value!</p>
+
+<p>Be aware that <code class="language-plaintext highlighter-rouge">onMissingView()</code> will be called if your application throws an exception and you have not provided a view for the default error handler (<code class="language-plaintext highlighter-rouge">main.error</code> - if your <code class="language-plaintext highlighter-rouge">defaultSection</code> is <code class="language-plaintext highlighter-rouge">main</code>). This can lead to exceptions being masked and instead appearing as if you have a missing view!</p>
+
+<h3 id="taking-actions-on-every-request">Taking Actions on Every Request</h3>
+
+<p>FW/1 provides direct support for handling a specific request’s lifecycle based on an action (either supplied explicitly or implicitly) but relies on your <code class="language-plaintext highlighter-rouge">Application.cfc</code> for general lifecycle events. That’s why FW/1 expects you to write per-request logic in <code class="language-plaintext highlighter-rouge">setupRequest()</code> (or <code class="language-plaintext highlighter-rouge">before()</code> if you need to interact with <code class="language-plaintext highlighter-rouge">rc</code>), per-session logic in <code class="language-plaintext highlighter-rouge">setupSession()</code> and application initialization logic in <code class="language-plaintext highlighter-rouge">setupApplication()</code>. In addition there is  <code class="language-plaintext highlighter-rouge">setupView()</code> which is called just before view rendering begins to allow you to set up data for your views that needs to be globally available, but may depend on the results of running controllers or services.</p>
+
+<p>If you have some logic that is meant to be run on every request, the best way is generally to implement <code class="language-plaintext highlighter-rouge">setupRequest()</code> in your <code class="language-plaintext highlighter-rouge">Application.cfc</code> and have it queue up the desired controller method by name, like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function setupRequest() {
+    controller( 'security.checkAuthorization' );
+}
+</code></pre></div></div>
+
+<p>This queues up a call to that controller at the start of the request processing, calling <code class="language-plaintext highlighter-rouge">before()</code>, <code class="language-plaintext highlighter-rouge">checkAuthorization()</code>, and <code class="language-plaintext highlighter-rouge">after()</code> as appropriate, if those methods are present.</p>
+
+<p>Note that the <em>request context</em> itself is <em>not available at this point</em>! <code class="language-plaintext highlighter-rouge">setupRequest()</code> is to set things up <em>prior to the request being processed</em>. If you need access to <code class="language-plaintext highlighter-rouge">rc</code>, you will want to implement <code class="language-plaintext highlighter-rouge">before()</code> in your <code class="language-plaintext highlighter-rouge">Application.cfc</code> which is a regular controller method that is called before any others (including <code class="language-plaintext highlighter-rouge">before()</code> in other controllers which get queued up):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function before( struct rc ) {
+    // set up your RC values
+}
+</code></pre></div></div>
+
+<p>If you need to perform some actions after controllers and services have completed but before any views are rendered, you can implement <code class="language-plaintext highlighter-rouge">setupView()</code> in your <code class="language-plaintext highlighter-rouge">Application.cfc</code> and FW/1 will call it after setting up the view and layout queue but before any rendering takes place:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function setupView( struct rc ) {
+    // pre-rendering logic
+}
+</code></pre></div></div>
+
+<p>You cannot call controllers here - this lifecycle method is intended for common data setup that is needed by most (or all) of your views and layouts. If services from your model have been autowired into <code class="language-plaintext highlighter-rouge">Application.cfc</code>, you can call those.</p>
+
+<p>Finally, there is a lifecycle method that FW/1 calls at the end of every request - including redirects - where you can implement <code class="language-plaintext highlighter-rouge">setupResponse()</code> in your <code class="language-plaintext highlighter-rouge">Application.cfc</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function setupResponse( struct rc ) {
+    // end of request processing
+}
+</code></pre></div></div>
+
+<p>This is called after all views and layouts have been rendered in a regular request or immediately before the redirect actually occurs when <code class="language-plaintext highlighter-rouge">redirect()</code> has been called. You cannot call controllers here. If services from your model have been autowired into <code class="language-plaintext highlighter-rouge">Application.cfc</code>, you can call those.</p>
+
+<h3 id="short-circuiting-the-controller--services-lifecycle">Short-Circuiting the Controller / Services Lifecycle</h3>
+
+<p>If you need to immediately halt execution of a controller and prevent any further controllers or services from being called, use the <code class="language-plaintext highlighter-rouge">abortController()</code> method. See the <a href="/documentation/3.1/reference-manual.html">Reference Manual</a> for more details of <code class="language-plaintext highlighter-rouge">abortController()</code>, in particular how it interacts with exception-handling code in your controllers.</p>
+
+<h3 id="controllers-for-rest-apis">Controllers for REST APIs</h3>
+
+<p>You can return data directly to the caller, bypassing views and layouts, using the <code class="language-plaintext highlighter-rouge">renderData()</code> function.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>variables.fw.renderData( contentType, resultData );
+</code></pre></div></div>
+
+<p>Calling this function does not exit from your controller, but tells FW/1 that instead of looking for a view to render, the <code class="language-plaintext highlighter-rouge">resultData</code> value should be converted to the specified <code class="language-plaintext highlighter-rouge">contentType</code> and that should be the result of the complete HTTP request.</p>
+
+<p><code class="language-plaintext highlighter-rouge">contentType</code> may be <code class="language-plaintext highlighter-rouge">"html"</code>, <code class="language-plaintext highlighter-rouge">"json"</code>, <code class="language-plaintext highlighter-rouge">"jsonp"</code>, <code class="language-plaintext highlighter-rouge">"rawjson"</code>, <code class="language-plaintext highlighter-rouge">"xml"</code>, or <code class="language-plaintext highlighter-rouge">"text"</code>. The <code class="language-plaintext highlighter-rouge">Content-Type</code> HTTP header is automatically set to:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">text/html; charset=utf-8</code></li>
+  <li><code class="language-plaintext highlighter-rouge">application/json; charset=utf-8</code></li>
+  <li><code class="language-plaintext highlighter-rouge">application/javascript; charset=utf-8</code></li>
+  <li><code class="language-plaintext highlighter-rouge">application/json; charset=utf-8</code></li>
+  <li><code class="language-plaintext highlighter-rouge">text/xml; charset=utf-8</code></li>
+  <li><code class="language-plaintext highlighter-rouge">text/plain; charset=utf-8</code></li>
+</ul>
+
+<p>respectively. For JSON and JSONP, the <code class="language-plaintext highlighter-rouge">resultData</code> value is converted to
+a string by calling <code class="language-plaintext highlighter-rouge">serializeJSON()</code> (so use RAWJSON if your
+<code class="language-plaintext highlighter-rouge">resultData</code> value is already a valid JSON string); for XML, the
+<code class="language-plaintext highlighter-rouge">resultData</code> value is expected to be either a valid XML string or an XML
+object (constructed via CFML’s various <code class="language-plaintext highlighter-rouge">xml...()</code> functions); for plain
+text and HTML, the <code class="language-plaintext highlighter-rouge">resultData</code> value must be a string. <em><code class="language-plaintext highlighter-rouge">"html"</code>, <code class="language-plaintext highlighter-rouge">"jsonp"</code> and <code class="language-plaintext highlighter-rouge">"rawjson"</code> are new in 3.1.</em></p>
+
+<p>For JSONP, you must also specify the <code class="language-plaintext highlighter-rouge">jsonpCallback</code> argument:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>variables.fw.renderData( contentType, resultData, statusCode, callback );
+// or:
+variables.fw.renderData(
+    type = contentType, data = resultData, jsonpCallback = callback
+);
+</code></pre></div></div>
+
+<p>You can also specify an HTTP status code as a third argument. The default is 200.</p>
+
+<p>When you use <code class="language-plaintext highlighter-rouge">renderData()</code>, no matching view is required for the action being executed.</p>
+
+<h2 id="designing-services-and-domain-objects">Designing Services and Domain Objects</h2>
+<p>Services - and domain objects - should encapsulate all of the business logic in your application. Where possible, most of the application logic should be in the domain objects, making them smart objects, and services can take care of orchestrating work that reaches across multiple domain objects.</p>
+
+<p>Controllers should call methods on domain objects and services to do all the heavylifting in your application, passing specific elements of the request context as arguments. FW/1’s <code class="language-plaintext highlighter-rouge">populate()</code> API is designed to allow you to store arbitrary elements of the request context in domain objects.</p>
+
+<p>It is expected that you’ll be using a bean factory, your services will be autowired into your controllers, making it easier to call them directly, without having to worry about how and where to construct those CFCs. Using a bean factory means that your domain objects can also be managed, with services autowired into them as necessary, so your controllers can simply ask the bean factory for a new domain object (or ask a service for it), <code class="language-plaintext highlighter-rouge">populate()</code> it from the request context, call methods on the domain object, or pass them to services as necessary.</p>
+
+<p>Services should not know anything about the framework. Service methods should not “reach out” into the request scope to interact with FW/1 - or any other scopes! - they should simply have some declared arguments, perform some operation and return some data.</p>
+
+<h3 id="services-domain-objects-and-persistence">Services, Domain Objects and Persistence</h3>
+
+<p>There are many ways to organize how you save and load data. You could use the ORM that comes with ColdFusion, Lucee, or Railo, you could write your own data mapping service, you could write custom SQL for every domain object. Regardless of how you choose to handle your persistence, encapsulating it in a service CFC is probably a good idea. For convenience it is often worth injecting your persistence service into your domain object so you can have a convenient <code class="language-plaintext highlighter-rouge">domainObject.save()</code> call to use from your controller, even if it just delegates to the persistence service internally:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>component accessors=true{
+    property dataService;
+    //...
+    function save() {
+        variables.dataService.save( this );
+    }
+}
+</code></pre></div></div>
+
+<h2 id="using-bean-factories">Using Bean Factories</h2>
+<p>By default, FW/1 will use DI/1 to manage your controllers and your model. You don’t have to do anything for that to happen automatically.</p>
+
+<p><em>Note: in previous releases of FW/1 (prior to 3.0), you had to create the bean factory yourself and tell FW/1 about it, in <code class="language-plaintext highlighter-rouge">setupApplication()</code>. If you are migrating a 2.x application that uses a bean factory to 3.0, review the <strong>Bean Factory Configuration</strong> section below to see how to set up your bean factory the same way.</em></p>
+
+<p>FW/1 &amp; DI/1 expect to find a <code class="language-plaintext highlighter-rouge">controllers</code> folder and a <code class="language-plaintext highlighter-rouge">model</code> folder in the base of the application tree. Under DI/1’s conventions, <code class="language-plaintext highlighter-rouge">controllers/section.cfc</code> becomes <code class="language-plaintext highlighter-rouge">sectionController</code>, <code class="language-plaintext highlighter-rouge">model/beans/foo.cfc</code> becomes <code class="language-plaintext highlighter-rouge">fooBean</code>, and <code class="language-plaintext highlighter-rouge">model/services/bar.cfc</code> becomes <code class="language-plaintext highlighter-rouge">barService</code>. Other pluralized subfolders under <code class="language-plaintext highlighter-rouge">model</code> are treated in a similar fashion. By default, everything is treated as a singleton - a single, unique instance, essentially cached in <code class="language-plaintext highlighter-rouge">application</code> scope - except for CFCs in the <code class="language-plaintext highlighter-rouge">beans</code> subfolder.</p>
+
+<p>In general, managing dependencies is as simple as adding <code class="language-plaintext highlighter-rouge">accessors=true</code> to your <code class="language-plaintext highlighter-rouge">component</code> tag, and declaring dependencies with the <code class="language-plaintext highlighter-rouge">property</code> keyword, like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>component accessors=true {
+    property userService;
+    property securityService;
+    //...
+}
+</code></pre></div></div>
+
+<p>This will make <code class="language-plaintext highlighter-rouge">variables.userService</code> and <code class="language-plaintext highlighter-rouge">variables.securityService</code> available, based on <code class="language-plaintext highlighter-rouge">model/services/user.cfc</code> and <code class="language-plaintext highlighter-rouge">model/services/security.cfc</code>. You could also use long form CFC names like <code class="language-plaintext highlighter-rouge">userservice.cfc</code> and <code class="language-plaintext highlighter-rouge">securityservice.cfc</code> if you wanted. See the next section for more details on configuring DI/1.</p>
+
+<p>If you let FW/1 use DI/1 to automatically manage your beans, and you are using subsystems, FW/1 will also use it to manage your subsystems’ beans. See <a href="/documentation/3.1/using-subsystems.html">Using Subsystems</a> for more details.</p>
+
+<h3 id="transients-bean-factory-framework">Transients, Bean Factory, Framework</h3>
+
+<p>All of the above talks about singletons being injected into your controllers and services. There are three important cases that are not standard singletons:</p>
+
+<ul>
+  <li>transients - your domain objects (in the <code class="language-plaintext highlighter-rouge">beans</code> subfolder of the <code class="language-plaintext highlighter-rouge">model</code>), each time you request one of these from the bean factory, you get a fresh instance, fully populated.</li>
+  <li>bean factory - sometimes you need access to the bean factory directly (such as for obtaining a transient) and whilst you can get at it inside your controllers via <code class="language-plaintext highlighter-rouge">variables.fw.getBeanFactory()</code> it’s better to have the bean factory injected by declaring <code class="language-plaintext highlighter-rouge">property beanFactory;</code> (which can be used in both controllers and services), then you can call <code class="language-plaintext highlighter-rouge">variables.beanFactory.getBean()</code> whenevr you need a transient.</li>
+  <li>framework - if you let FW/1 use DI/1 (or AOP/1), it will create an alias of <code class="language-plaintext highlighter-rouge">fw</code> for the FW/1 instance and if your controllers have a constructor argument that matches, the framework will be passed into <code class="language-plaintext highlighter-rouge">init( fw )</code>; if you are using a different bean factory, or you don’t want to bother with a constructor, you can declare <code class="language-plaintext highlighter-rouge">property framework;</code> and FW/1 will inject itself into your controller.</li>
+</ul>
+
+<h3 id="bean-factory-configuration">Bean Factory Configuration</h3>
+
+<p>Although FW/1 uses DI/1 by default, it also has out-of-the-box support for AOP/1 and WireBox. It can also support other bean factories that follow certain conventions - see <strong>Custom Bean Factory Support</strong> below for more details.</p>
+
+<p>You tell FW/1 which bean factory to use through the <code class="language-plaintext highlighter-rouge">variables.framework.diEngine</code> configuration variable:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">"di1"</code> - the default, use DI/1.</li>
+  <li><code class="language-plaintext highlighter-rouge">"aop1"</code> - use AOP/1; additional configuration is the same as for DI/1.</li>
+  <li><code class="language-plaintext highlighter-rouge">"wirebox"</code> - use WireBox, via the supplied adapter.</li>
+  <li><code class="language-plaintext highlighter-rouge">"none"</code> - do not use a bean factory automatically; you may still create your own bean factory in <code class="language-plaintext highlighter-rouge">setupApplication()</code> and use <code class="language-plaintext highlighter-rouge">setBeanFactory()</code> to tell FW/1 about it (this is the easiest way to migrate a 2.x application to 3.0 - but also see below).</li>
+  <li><code class="language-plaintext highlighter-rouge">"custom"</code> - use a non-standard bean factory - see <strong>Custom Bean Factory Support</strong> below for the requirements on such a bean factory.</li>
+</ul>
+
+<p>Unless you choose <code class="language-plaintext highlighter-rouge">"none"</code>, FW/1 will use <code class="language-plaintext highlighter-rouge">variables.framework.diComponent</code> as the dotted-path of a CFC to construct and use as the bean factory. This configuration variable has a default based on <code class="language-plaintext highlighter-rouge">diEngine</code> as follows:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">"di1"</code> - <code class="language-plaintext highlighter-rouge">"framework.ioc"</code></li>
+  <li><code class="language-plaintext highlighter-rouge">"aop1"</code> - <code class="language-plaintext highlighter-rouge">"framework.aop"</code></li>
+  <li><code class="language-plaintext highlighter-rouge">"wirebox"</code> - <code class="language-plaintext highlighter-rouge">"framework.WireBoxAdapter"</code></li>
+</ul>
+
+<p>You can override these if you have installed FW/1’s <code class="language-plaintext highlighter-rouge">framework</code> folder contents elsewhere. If you specify a <code class="language-plaintext highlighter-rouge">diEngine</code> of <code class="language-plaintext highlighter-rouge">"custom"</code>, you must supply your own value for <code class="language-plaintext highlighter-rouge">diComponent</code>.</p>
+
+<p><em>Note: in order to use AOP/1 you need to manually download it and place it in the <code class="language-plaintext highlighter-rouge">framework</code> folder yourself.</em></p>
+
+<p>The following configuration variables are used in the construction of the bean factory component:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">diLocations</code> - for <code class="language-plaintext highlighter-rouge">diEngine</code> <code class="language-plaintext highlighter-rouge">"di1"</code> or <code class="language-plaintext highlighter-rouge">"aop1"</code>, this is the first argument to the constructor and represents a list of folders to be scanned; for <code class="language-plaintext highlighter-rouge">diEngine</code> <code class="language-plaintext highlighter-rouge">"wirebox"</code>, this is used to set the <code class="language-plaintext highlighter-rouge">scanLocations()</code> on WireBox’s binder; for <code class="language-plaintext highlighter-rouge">diEngine</code> <code class="language-plaintext highlighter-rouge">"custom"</code>, this is the first argument to the constructor.</li>
+  <li><code class="language-plaintext highlighter-rouge">diConfig</code> - for <code class="language-plaintext highlighter-rouge">diEngine</code> <code class="language-plaintext highlighter-rouge">"di1"</code> or <code class="language-plaintext highlighter-rouge">"aop1"</code>, this is the second argument to the constructor and represents configuration settings for DI/1 (or AOP/1); for <code class="language-plaintext highlighter-rouge">diEngine</code> <code class="language-plaintext highlighter-rouge">"wirebox"</code>, this is the <code class="language-plaintext highlighter-rouge">properties</code> argument to the constructor; for <code class="language-plaintext highlighter-rouge">diEngine</code> <code class="language-plaintext highlighter-rouge">"custom"</code>, this is the second argument to the constructor.</li>
+</ul>
+
+<p>Here’s how those values are used in code to construct the bean factory:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// di1 / aop1:
+var bf = new "#variables.framework.diComponent#"(
+    variables.framework.diLocations,
+    variables.framework.diConfig
+);
+// wirebox:
+var bf = new "#variables.framework.diComponent#"(
+    properties = variables.framework.diConfig
+);
+bf.getBinder().scanLocations( variables.framework.diLocations );
+// custom:
+var bf = new "#variables.framework.diComponent#"(
+    variables.framework.diLocations,
+    variables.framework.diConfig
+);
+</code></pre></div></div>
+
+<p>If you are using subsystems and also using DI/1 as your default bean factory component, <code class="language-plaintext highlighter-rouge">diConfig</code> will be passed to subsystem bean factories when they are constructed. You can override this on a per-subsystem basis by setting <code class="language-plaintext highlighter-rouge">diConfig</code> in the specific <code class="language-plaintext highlighter-rouge">framework.subsystems</code> configuration structure. <em>Per-subsystem <code class="language-plaintext highlighter-rouge">diConfig</code> is new in 3.1.</em></p>
+
+<h4 id="migrating-2x-applications-to-30">Migrating 2.x Applications to 3.0</h4>
+
+<p>If you migrated through FW/1 2.5 (recommended), you’ll have already dealt with the features that were deprecated in 2.5 and are removed in 3.0. The other changes are that <code class="language-plaintext highlighter-rouge">org.corfield.framework</code> has moved to <code class="language-plaintext highlighter-rouge">framework.one</code> and both <code class="language-plaintext highlighter-rouge">getRC()</code> and <code class="language-plaintext highlighter-rouge">getRCValue()</code> have been removed (these changes were deprecated throughout the 3.0 prerelease cycle and removed in the RC cycle).</p>
+
+<p>The final change that you will run into if you were using a bean factory is how FW/1 3.0 manages this automatically now. The simplest migration is to set <code class="language-plaintext highlighter-rouge">variables.framework.diEngine</code> to <code class="language-plaintext highlighter-rouge">"none"</code> and carry on doing what you were doing (manually creating the bean factory).</p>
+
+<p>The recommended migration is to set the <code class="language-plaintext highlighter-rouge">di*</code> configuration variables appropriately to allow FW/1 to take over and manage your bean factory for you. If you are using DI/1, this is likely to be easier than, say, ColdSpring (see <strong>Custom Bean Factory Support</strong> below). If your DI/1 setup is fairly simple, you won’t need to do much. Here are some examples:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 2.x setupApplication():
+var bf = new framework.ioc("model,controllers");
+setBeanFactory(bf);
+// 3.0 - no configuration necessary
+// just remove those lines from setupApplication()
+
+// 2.x setupApplication():
+var bf = new framework.ioc("/model,/app/controllers");
+setBeanFactory(bf);
+// 3.0 - remove those lines and add this config:
+variables.framework = {
+    ...
+    diLocations = "/model,/app/controllers",
+    ...
+};
+
+// 2.x setupApplication():
+var bf = new path.to.ioc("/model,/app/controllers");
+setBeanFactory(bf);
+// 3.0 - remove those lines and add this config:
+variables.framework = {
+    ...
+    diComponent = "path.to.ioc",
+    diLocations = "/model,/app/controllers",
+    ...
+};
+
+// 2.x setupApplication():
+var bf = new path.to.ioc(
+    "/model,/app/controllers",
+    { ... config ... }
+);
+setBeanFactory(bf);
+// 3.0 - remove those lines and add this config:
+variables.framework = {
+    ...
+    diComponent = "path.to.ioc",
+    diLocations = "/model,/app/controllers",
+    diConfig = { ... config ... },
+    ...
+};
+</code></pre></div></div>
+
+<p>If you use a load listener and call <code class="language-plaintext highlighter-rouge">bf.onLoad( myListener )</code>, you use <code class="language-plaintext highlighter-rouge">diConfig</code> and add <code class="language-plaintext highlighter-rouge">loadListener = myListener</code> to it instead.</p>
+
+<p>If you perform more complex configuration of DI/1 (adding bean declarations etc), add a new function to your <code class="language-plaintext highlighter-rouge">Application.cfc</code> that accepts the bean factory as an argument, and then specify that as the <code class="language-plaintext highlighter-rouge">loadListener</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 2.x setupApplication():
+var bf = new path.to.ioc(
+    "/model,/app/controllers",
+    { ... config ... }
+);
+bf...( ... );
+... other bf stuff ...
+setBeanFactory(bf);
+// 3.0 - move the bf configuration to a load listener function:
+function factoryConfig( bf ) {
+    bf...( ... );
+    ... other bf stuff ...
+}
+// 3.0 - then remove the 2.x code and add this config:
+variables.framework = {
+    ...
+    diComponent = "path.to.ioc",
+    diLocations = "/model,/app/controllers",
+    diConfig = { ... config ..., loadListener = factoryConfig },
+    ...
+};
+</code></pre></div></div>
+
+<p>If you’re still using ColdSpring - which hasn’t been updated in many years now! - you’ll have to use the <code class="language-plaintext highlighter-rouge">"custom"</code> <code class="language-plaintext highlighter-rouge">diEngine</code> and probably create a wrapper CFC if you want FW/1 to manage it for you (but it’s probably simpler to set <code class="language-plaintext highlighter-rouge">diEngine</code> to <code class="language-plaintext highlighter-rouge">"none"</code> and continue doing what you’re doing!).</p>
+
+<h3 id="custom-bean-factory-support">Custom Bean Factory Support</h3>
+
+<p>FW/1 can support any bean factory that conforms to the following API:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">boolean containsBean(string name)</code> - returns true if the factory knows of the named bean</li>
+  <li><code class="language-plaintext highlighter-rouge">any getBean(string name)</code> - returns a fully initialized bean identified by name</li>
+</ul>
+
+<p>You can either set <code class="language-plaintext highlighter-rouge">diEngine</code> to <code class="language-plaintext highlighter-rouge">"none"</code> and do all your configuration manually and then call <code class="language-plaintext highlighter-rouge">setBeanFactory()</code> in <code class="language-plaintext highlighter-rouge">setupApplication()</code> or you can configure FW/1 to use your bean factory and manage it for you. You may need to write a wrapper CFC.</p>
+
+<p>Here’s an example of writing a wrapper CFC for ColdSpring so you could have FW/1 manage your beans with that. To manually setup ColdSpring as a bean factory, you would need the following in your <code class="language-plaintext highlighter-rouge">setupApplication()</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var bf = new coldspring.beans.DefaultXmlBeanFactory();
+bf.loadBeans( expandPath('config/coldspring.xml') );
+setBeanFactory(bf);
+</code></pre></div></div>
+
+<p>The constructor may take two optional arguments (<code class="language-plaintext highlighter-rouge">defaultAttributes</code> and <code class="language-plaintext highlighter-rouge">defaultProperties</code>) so we need to cater for those, and the actual bean “location” is specified via a file path. This maps well to <code class="language-plaintext highlighter-rouge">diLocations</code> for the latter and <code class="language-plaintext highlighter-rouge">diConfig</code> for the former pair.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// ioc.ColdSpringAdapter
+component extends=coldspring.beans.DefaultXmlBeanFactory {
+    function init( filePath, config ) {
+        super.init( argumentCollection = config );
+        this.loadBeans( filePath );
+        return this;
+    }
+}
+</code></pre></div></div>
+
+<p>Now we can configure FW/1 to use this as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>variables.framework = {
+    ...
+    diEngine = "custom",
+    diComponent = "ioc.ColdSpringAdapter",
+    diLocations = expandPath('config/coldspring.xml'),
+    diConfig = {},
+    ...
+};
+</code></pre></div></div>
+
+<p>And we could pass in default properties like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>variables.framework = {
+    ...
+    diEngine = "custom",
+    diComponent = "ioc.ColdSpringAdapter",
+    diLocations = expandPath('config/coldspring.xml'),
+    diConfig = { defaultProperties = { ... } },
+    ...
+};
+</code></pre></div></div>
+
+<h2 id="error-handling">Error Handling</h2>
+<p>By default, if an exception occurs, FW/1 will attempt to run the <code class="language-plaintext highlighter-rouge">main.error</code> action (as if you had asked for <code class="language-plaintext highlighter-rouge">?action=main.error</code>), assuming your <code class="language-plaintext highlighter-rouge">defaultSection</code> is <code class="language-plaintext highlighter-rouge">main</code>. If you change the <code class="language-plaintext highlighter-rouge">defaultSection</code>, that implicitly changes the default error handler to be the <code class="language-plaintext highlighter-rouge">error</code> item in that section. The exception thrown is stored directly in the <code class="language-plaintext highlighter-rouge">request</code> scope as <code class="language-plaintext highlighter-rouge">request.exception</code>. If FW/1 was processing an action when the exception occurred, the name of that action is available as <code class="language-plaintext highlighter-rouge">request.failedAction</code>. The default error handling action can be overridden in your <code class="language-plaintext highlighter-rouge">Application.cfc</code> by specifying <code class="language-plaintext highlighter-rouge">variables.framework.error</code> to be the name of the action to invoke when an exception occurs.</p>
+
+<p>If the specified error handler does not exist or another exception occurs during execution of the error handler, FW/1 provides a very basic fallback error handler that simply displays the exception. If you want to change this behavior, you can either override the <code class="language-plaintext highlighter-rouge">fail()</code> method or the <code class="language-plaintext highlighter-rouge">onError()</code> method but I don’t intend to “support” that so the only documentation will be in the code!</p>
+
+<p>Note: If you override <code class="language-plaintext highlighter-rouge">onMissingView()</code> and forget to define a view for the error handler, FW/1 will call <code class="language-plaintext highlighter-rouge">onMissingView()</code> and that will hide the original exception.</p>
+
+<h2 id="configuring-fw1-applications">Configuring FW/1 Applications</h2>
+<p>All of the configuration for FW/1 is done through a simple structure in <code class="language-plaintext highlighter-rouge">Application.cfc</code>. The default behavior for the application is as if you specified this structure:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>variables.framework = {
+    action = 'action',
+    usingSubsystems = false,
+    defaultSubsystem = 'home',
+    defaultSection = 'main',
+    defaultItem = 'default',
+    subsystemDelimiter = ':',
+    siteWideLayoutSubsystem = 'common',
+    subsystems = { },
+    home = 'main.default', // defaultSection &amp; '.' &amp; defaultItem
+    // or: defaultSubsystem &amp; subsystemDelimiter &amp; defaultSection &amp; '.' &amp; defaultItem
+    error = 'main.error', // defaultSection &amp; '.error'
+    // or: defaultSubsystem &amp; subsystemDelimiter &amp; defaultSection &amp; '.error'
+    reload = 'reload',
+    password = 'true',
+    reloadApplicationOnEveryRequest = false,
+    generateSES = false,
+    SESOmitIndex = false,
+    // base = omitted so that the framework calculates a sensible default
+    baseURL = 'useCgiScriptName',
+    // cfcbase = omitted so that the framework calculates a sensible default
+    unhandledExtensions = 'cfc',
+    unhandledPaths = '/flex2gateway',
+    unhandledErrorCaught = false,
+    preserveKeyURLKey = 'fw1pk',
+    maxNumContextsPreserved = 10,
+    cacheFileExists = false,
+    applicationKey = 'framework.one',
+    trace = false,
+    routes = [ ],
+    // resourceRouteTemplates - see routes documentation
+    routesCaseSensitive = true,
+    noLowerCase = false,
+    diEngine = "di1",
+    diComponent = "framework.ioc",
+    diLocations = "model,controllers",
+    diConfig = { }
+};
+</code></pre></div></div>
+
+<p>The keys in the structure have the following meanings:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">action</code> - The URL or form variable used to specify the desired action (<code class="language-plaintext highlighter-rouge">section.item</code>).</li>
+  <li><code class="language-plaintext highlighter-rouge">usingSubsystems</code> - Whether or not to use subsystems - see <code class="language-plaintext highlighter-rouge">Using Subsystems</code> below. This is automatically set <code class="language-plaintext highlighter-rouge">true</code> if you set any of the of the subsystem-related configuration.</li>
+  <li><code class="language-plaintext highlighter-rouge">defaultSubsystem</code> - If subsystems are enabled, this is the default subsystem when no action is specified in the URL or form post.</li>
+  <li><code class="language-plaintext highlighter-rouge">defaultSection</code> - If subsystems are enabled, this is the default section within a subsystem when either no action is specified at all or just the subsystem is specified in the action. If subsystems are not enabled, this is the default section when no action is specified in the URL or form post.</li>
+  <li><code class="language-plaintext highlighter-rouge">defaultItem</code> - The default item within a section when either no action is specified at all or just the section is specified in the action.</li>
+  <li><code class="language-plaintext highlighter-rouge">subsystemDelimiter</code> - When subsystems are enabled, this specifies the delimiter between the subsystem name and the action in a URL or form post.</li>
+  <li><code class="language-plaintext highlighter-rouge">siteWideLayoutSubsystem</code> - When subsystems are enabled, this specifies the subsystem that is used for the (optional) site-wide default layout.</li>
+  <li><code class="language-plaintext highlighter-rouge">subsystems</code> - An optional struct of structs containing per-subsystem configuration data. Each key in the top-level struct is named for a subsystem. The contents of the nested structs can be anything you want for your subsystems. Retrieved by calling <code class="language-plaintext highlighter-rouge">getSubsystemConfig()</code>. Currently the only keys used by FW/1 are <code class="language-plaintext highlighter-rouge">baseURL</code> and <code class="language-plaintext highlighter-rouge">diConfig</code> which can be used to configure per-subsystem values.</li>
+  <li><code class="language-plaintext highlighter-rouge">home</code> - The default action when it is not specified in the URL or form post. By default, this is <code class="language-plaintext highlighter-rouge">defaultSection</code>.<code class="language-plaintext highlighter-rouge">defaultItem</code>. If you specify <code class="language-plaintext highlighter-rouge">home</code>, you are overriding (and hiding) <code class="language-plaintext highlighter-rouge">defaultSection</code> but not <code class="language-plaintext highlighter-rouge">defaultItem</code>. If <code class="language-plaintext highlighter-rouge">usingSubsystem</code> is <code class="language-plaintext highlighter-rouge">true</code>, the default for <code class="language-plaintext highlighter-rouge">home</code> is <code class="language-plaintext highlighter-rouge">"home:main.default"</code>, i.e., <code class="language-plaintext highlighter-rouge">defaultSubsystem &amp; subsystemDelimiter &amp; defaultSection &amp; '.' &amp; defaultItem</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">error</code> - The action to use if an exception occurs. By default this is <code class="language-plaintext highlighter-rouge">defaultSection.error</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">reload</code> - The URL variable used to force FW/1 to reload its application cache and re-execute <code class="language-plaintext highlighter-rouge">setupApplication()</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">password</code> - The value of the reload URL variable that must be specified, e.g., <code class="language-plaintext highlighter-rouge">?reload=true</code> is the default but you could specify <code class="language-plaintext highlighter-rouge">reload = 'refresh', password = 'fw1'</code> and then specifying <code class="language-plaintext highlighter-rouge">?refresh=fw1</code> would cause a reload.</li>
+  <li><code class="language-plaintext highlighter-rouge">reloadApplicationOnEveryRequest</code> - If this is set to <code class="language-plaintext highlighter-rouge">true</code> then FW/1 behaves as if you specified the <code class="language-plaintext highlighter-rouge">reload</code> URL variable on every request, i.e., at the start of each request, the controller/service cache is cleared and <code class="language-plaintext highlighter-rouge">setupApplication()</code> is executed.</li>
+  <li><code class="language-plaintext highlighter-rouge">generateSES</code> - If true, causes <code class="language-plaintext highlighter-rouge">redirect()</code> and <code class="language-plaintext highlighter-rouge">buildURL()</code> to generate SES-style URLs with items separated by <code class="language-plaintext highlighter-rouge">/</code> (and the path info in the URL will begin <code class="language-plaintext highlighter-rouge">/section/item</code> rather than <code class="language-plaintext highlighter-rouge">?action=section.item</code> - see the <a href="/documentation/3.1/reference-manual.html">Reference Manual</a> for more details).</li>
+  <li><code class="language-plaintext highlighter-rouge">SESOmitIndex</code> - If SES URLs are enabled and this is <code class="language-plaintext highlighter-rouge">true</code>, will attempt to omit the base filename in the path when constructing URLs in <code class="language-plaintext highlighter-rouge">buildURL()</code> and <code class="language-plaintext highlighter-rouge">redirect()</code> which will generally omit <code class="language-plaintext highlighter-rouge">/index.cfm</code> from the start of the URL. Again, see the <a href="/documentation/3.1/reference-manual.html">Reference Manual</a> for more details.</li>
+  <li><code class="language-plaintext highlighter-rouge">base</code> - Provide this if the application itself is not in the same directory as <code class="language-plaintext highlighter-rouge">Application.cfc</code> and <code class="language-plaintext highlighter-rouge">index.cfm</code>. It should be the <strong>relative</strong> path to the application from the <code class="language-plaintext highlighter-rouge">Application.cfc</code> file.</li>
+  <li><code class="language-plaintext highlighter-rouge">baseURL</code> - Normally, <code class="language-plaintext highlighter-rouge">redirect()</code> and <code class="language-plaintext highlighter-rouge">buildURL()</code> default to using <code class="language-plaintext highlighter-rouge">CGI.SCRIPT_NAME</code> as the basis for the URL they construct. This is the right choice for most applications but there are times when the base URL used for your application could be different. You can also specify <code class="language-plaintext highlighter-rouge">baseURL = "useRequestURI"</code> and instead of <code class="language-plaintext highlighter-rouge">CGI.SCRIPT_NAME</code>, the result of <code class="language-plaintext highlighter-rouge">getPageContext().getRequest().getRequestURI()</code> will be used to construct URLs. This is the right choice for FW/1 applications embedded inside Mura.</li>
+  <li><code class="language-plaintext highlighter-rouge">cfcbase</code> - Provide this if the <code class="language-plaintext highlighter-rouge">controllers</code> and <code class="language-plaintext highlighter-rouge">model</code> folders are not in the same folder as the application. It is used as the dotted-path prefix for controller and service CFCs, e.g., if <code class="language-plaintext highlighter-rouge">cfcbase = 'com.myapp'</code> then a controller would be <code class="language-plaintext highlighter-rouge">com.myapp.controllers.MyController</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">unhandledExtensions</code> - A list of file extensions that FW/1 should not handle. By default, just requests for CFCs, e.g., <code class="language-plaintext highlighter-rouge">some.cfc</code>, are not handled by FW/1.</li>
+  <li><code class="language-plaintext highlighter-rouge">unhandledPaths</code> - A list of file paths that FW/1 should not handle. By default, just requests for <code class="language-plaintext highlighter-rouge">/flex2gateway</code> are not handled by FW/1 (hey, some people are still using Flex - don’t judge!). If you specify a directory path, requests for any files in that directory are then not handled by FW/1. For example, <code class="language-plaintext highlighter-rouge">unhandledPaths = '/flex2gateway,/404.cfm,/api'</code> will cause FW/1 to not handle requests from Flex, requests for the <code class="language-plaintext highlighter-rouge">/404.cfm</code> page and any requests for files in the <code class="language-plaintext highlighter-rouge">/api</code> folder.</li>
+  <li><code class="language-plaintext highlighter-rouge">unhandledErrorCaught</code> - By default the framework does not attempt to catch errors raised by unhandled requests but sometimes when you are migrating from a legacy application it is useful to route error handling of legacy (unhandled) requests through FW/1. The default for this option is <code class="language-plaintext highlighter-rouge">false</code>. Set it <code class="language-plaintext highlighter-rouge">true</code> to have FW/1’s error handling apply to unhandled requests.</li>
+  <li><code class="language-plaintext highlighter-rouge">preserveKeyURLKey</code> - In order to support multiple, concurrent flash scope uses - across redirects - for a single user, such as when they have multiple browser windows open, this value is used as a URL key that identifies which flash context should be restored for that browser window. If that doesn’t make sense, don’t worry about it - it’s magic! This value just needs to be something unique that won’t clash with any of your own URL variables. This will be ignored if you set <code class="language-plaintext highlighter-rouge">maxNumContextsPreserved</code> to <code class="language-plaintext highlighter-rouge">1</code> because with only one context, FW/1 will not use a URL variable to track flash scope across redirects.</li>
+  <li><code class="language-plaintext highlighter-rouge">maxNumContextsPreserved</code> - If you expect users to have more than 10 browser windows open at the same time, you’ll want to set this value higher. I know, Ryan was very thorough when he implemented multiple flash contexts! Setting <code class="language-plaintext highlighter-rouge">maxNumContextsPreserved</code> to <code class="language-plaintext highlighter-rouge">1</code> will prevent the URL key from being used for redirects (since FW/1 will not need to track multiple flash contexts).</li>
+  <li><code class="language-plaintext highlighter-rouge">cacheFileExists</code> - If you are running on a system where disk access is slow - or you simply want to avoid several calls to <code class="language-plaintext highlighter-rouge">fileExists()</code> during requests for performance - you can set this to true and FW/1 will cache all its calls to <code class="language-plaintext highlighter-rouge">fileExists()</code>. Be aware that if the result of <code class="language-plaintext highlighter-rouge">fileExists()</code> is cached and you add a new layout or a new view, it won’t be noticed until you reload the framework.</li>
+  <li><code class="language-plaintext highlighter-rouge">applicationKey</code> - A unique value for each FW/1 application that shares a common ColdFusion application name.</li>
+  <li><code class="language-plaintext highlighter-rouge">noLowerCase</code> - If <code class="language-plaintext highlighter-rouge">true</code>, FW/1 will not force actions to lowercase so subsystem, section and item names will be case sensitive (in particular, filenames for controllers, views and layouts may therefore be mixed case on a case-sensitive operating system). The default is <code class="language-plaintext highlighter-rouge">false</code>. Use of this option is <em>not</em> recommended and is not considered good practice.</li>
+  <li><code class="language-plaintext highlighter-rouge">trace</code> - If <code class="language-plaintext highlighter-rouge">true</code>, FW/1 will print out debugging / tracing information at the bottom of each page. This can be very useful for debugging your application! If you want to track framework behavior across redirects, you need to enable session management in your application if you use this feature. (Note that FW/1 will not print out debugging / tracing information when the <code class="language-plaintext highlighter-rouge">renderData()</code> function is used, unless the content type is <code class="language-plaintext highlighter-rouge">"html"</code>. You can still access and output debugging / tracing information in such cases by overriding the <code class="language-plaintext highlighter-rouge">setupTraceRender()</code> function. See the <a href="/documentation/3.1/reference-manual.html">Reference Manual</a> for more details.).</li>
+  <li><code class="language-plaintext highlighter-rouge">routes</code> - An array of URL path mappings. This allows you to override the conventional mapping of <code class="language-plaintext highlighter-rouge">/section/item</code> to controllers.</li>
+  <li><code class="language-plaintext highlighter-rouge">resourceRouteTemplates</code> - see <strong>URL Routes</strong> below.</li>
+  <li><code class="language-plaintext highlighter-rouge">routesCaseSensitive</code> - Default <code class="language-plaintext highlighter-rouge">true</code>. Controls whether route matches are case-sensitive or not. <em>New in 3.1.</em></li>
+  <li><code class="language-plaintext highlighter-rouge">diEngine</code> - the Dependency Injection framework that FW/1 should use.</li>
+  <li><code class="language-plaintext highlighter-rouge">diComponent</code> - the dotted-path to the CFC used for the bean factory (which has sensible defaults based on <code class="language-plaintext highlighter-rouge">diEngine</code>).</li>
+  <li><code class="language-plaintext highlighter-rouge">diLocations</code> - the list of folders to check for CFCs to manage; defaults to <code class="language-plaintext highlighter-rouge">"model,controllers"</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">diConfig</code> - any additional configuration needed for the Dependency Injection engine; defaults to <code class="language-plaintext highlighter-rouge">{ }</code>.</li>
+</ul>
+
+<p>At runtime, this structure also contains the following key (from release 0.4 onward):</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">version</code> - The release number (version) of the framework.</li>
+</ul>
+
+<p>This is set automatically by the framework and cannot be overridden (well, it shouldn’t be overridden!).</p>
+
+<p>In addition you can override the base directory for the application, which is necessary when the <code class="language-plaintext highlighter-rouge">controllers</code>, <code class="language-plaintext highlighter-rouge">model</code>, <code class="language-plaintext highlighter-rouge">views</code> and <code class="language-plaintext highlighter-rouge">layouts</code> are not in the same directory as the application’s <code class="language-plaintext highlighter-rouge">index.cfm</code> file. <code class="language-plaintext highlighter-rouge">variables.framework.base</code> should specify the relative path to the directory containing the <code class="language-plaintext highlighter-rouge">layouts</code> and <code class="language-plaintext highlighter-rouge">views</code> folders, either as a mapped path or a webroot-relative path (i.e., it must start with / and expand to a full file system path). If the <code class="language-plaintext highlighter-rouge">controllers</code> and <code class="language-plaintext highlighter-rouge">model</code> folders are in that same directory, FW/1 will find them automatically. If you decide to put your <code class="language-plaintext highlighter-rouge">controllers</code> and <code class="language-plaintext highlighter-rouge">model</code> folders somewhere else, you can also specify <code class="language-plaintext highlighter-rouge">variables.framework.cfcbase</code> as a dotted-path to those components, e.g., <code class="language-plaintext highlighter-rouge">com.myapp.cfcs</code> assuming that <code class="language-plaintext highlighter-rouge">com.myapp.cfcs.controllers.Controller</code> maps to your <code class="language-plaintext highlighter-rouge">Controller.cfc</code> and <code class="language-plaintext highlighter-rouge">com.myapp.cfcs.model.services.Service</code> maps to your <code class="language-plaintext highlighter-rouge">Service.cfc</code>.</p>
+
+<h2 id="url-routes">URL Routes</h2>
+<p>In addition to the standard /section/item URLs that FW/1 supports, you can also specify <code class="language-plaintext highlighter-rouge">routes</code> that are URL patterns, optionally containing variables, that map to standard /section/item URLs.</p>
+
+<p>To use routes, specify <code class="language-plaintext highlighter-rouge">variables.framework.routes</code> as an array of structures, where each structure specifies mappings from routes to standard URLs. The array is searched in order and the first matching route is the one selected (and any subsequent match is ignored). This allows you to control which route should be used when several possibilities match.</p>
+
+<p>Placeholder variables in the route are identified by a leading colon and can appear in the URL as well, for example <code class="language-plaintext highlighter-rouge">{ "/product/:id" = "/product/view/id/:id" }</code> specifies a match for <code class="language-plaintext highlighter-rouge">/product/something</code> which will be treated as if the URL was <code class="language-plaintext highlighter-rouge">/product/view/id/something</code> - section: <code class="language-plaintext highlighter-rouge">product</code>, item: <code class="language-plaintext highlighter-rouge">view</code>, query string <code class="language-plaintext highlighter-rouge">id=something</code>.</p>
+
+<p>Routes can also be restricted to specific HTTP methods by prefixing them with <code class="language-plaintext highlighter-rouge">$</code> and the <em>method</em>, for example <code class="language-plaintext highlighter-rouge">{ "$POST/search" = "/main/search" }</code> specifies a match for a <code class="language-plaintext highlighter-rouge">POST</code> on <code class="language-plaintext highlighter-rouge">/search</code> which will be treated as if the URL was <code class="language-plaintext highlighter-rouge">/main/search</code> - section: <code class="language-plaintext highlighter-rouge">main</code>, item: <code class="language-plaintext highlighter-rouge">search</code>. A <code class="language-plaintext highlighter-rouge">GET</code> operation will not match this route.</p>
+
+<p>Routes can also specify a redirect instead of a substitute URL by prefixing the URL with an HTTP status code and a colon, for example <code class="language-plaintext highlighter-rouge">{ "/thankyou" = "302:/main/thankyou" }</code> specifies a match for <code class="language-plaintext highlighter-rouge">/thankyou</code> which will cause a redirect to <code class="language-plaintext highlighter-rouge">/main/thankyou</code>.</p>
+
+<p>A route of <code class="language-plaintext highlighter-rouge">"*"</code> is a wildcard that will match any request and therefore must be the last route in the array. A wildcard route may be restricted to a specific method, e.g., <code class="language-plaintext highlighter-rouge">"$POST*"</code> will match a <code class="language-plaintext highlighter-rouge">POST</code> to any URL.</p>
+
+<p>Route matches are case-sensitive unless you set <code class="language-plaintext highlighter-rouge">routesCaseSensitive</code> to <code class="language-plaintext highlighter-rouge">false</code> in the FW/1 configuration.</p>
+
+<p>The keyword <code class="language-plaintext highlighter-rouge">"$RESOURCES"</code> can be used as a shorthand way of specifying resource routes: <code class="language-plaintext highlighter-rouge">{ "$RESOURCES" = "dogs,cats,hamsters,gerbils" }</code>. FW/1 will interpret this as if you had specified a standard set of routes for each of the listed resources. For example, for the resource “dogs”, FW/1 will parse the following routes:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{ "$GET/dogs/$" = "/dogs/default" },
+{ "$GET/dogs/new/$" = "/dogs/new" },
+{ "$POST/dogs/$" = "/dogs/create" },
+{ "$GET/dogs/:id/$" = "/dogs/show/id/:id" },
+{ "$PATCH/dogs/:id/$" = "/dogs/update/id/:id", "$PUT/dogs/:id/$" = "/dogs/update/id/:id" },
+{ "$DELETE/dogs/:id/$" = "/dogs/destroy/id/:id" }
+</code></pre></div></div>
+
+<p>There are also some additional resource route settings that can be specified. First you should note that the following three lines are equivalent:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{ "$RESOURCES" = "dogs,cats,hamsters,gerbils" },
+{ "$RESOURCES" = [ "dogs","cats","hamsters","gerbils" ] },
+{ "$RESOURCES" = { resources = "dogs,cats,hamsters,gerbils" } }
+</code></pre></div></div>
+
+<p>The first two lines are shorthand ways of specifying the full configuration struct given in the third line. An example of a full configuration struct would be the following:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    resources = "dogs",
+    methods = "default,create,show",
+    pathRoot = "/animals",
+    nested = "..."/[...]/{...}
+}
+</code></pre></div></div>
+
+<p>The key <code class="language-plaintext highlighter-rouge">"methods"</code>, if specified, limits the generated routes to the method names listed.</p>
+
+<p>The key <code class="language-plaintext highlighter-rouge">"pathRoot"</code>, if specified, is prepended to the generated route paths, so, given the above configuration struct, you get routes such as <code class="language-plaintext highlighter-rouge">{ "$GET/animals/dogs/:id" = "/dogs/show/id/:id" }</code>.</p>
+
+<p>Alternatively (or in addition), you can specify a subsystem: <code class="language-plaintext highlighter-rouge">subsystem = "animals"</code>, which generates routes such as <code class="language-plaintext highlighter-rouge">{ "$GET/animals/dogs/:id" = "/animals:dogs/show/id/:id" }</code>.</p>
+
+<p>The key <code class="language-plaintext highlighter-rouge">"nested"</code> is used to indicate resources which should be nested under another resource, and again can be specified as a string list, an array, or a struct. For example: <code class="language-plaintext highlighter-rouge">{ "$RESOURCES" = { resources = "posts", nested = "comments" } }</code> results in all of the standard routes for <code class="language-plaintext highlighter-rouge">"posts"</code>, and in addition generates nested routes for <code class="language-plaintext highlighter-rouge">"comments"</code> such as <code class="language-plaintext highlighter-rouge">{ "$GET/posts/:posts_id/comments" = "/comments/default/posts_id/:posts_id" }</code>. Here it should be noted that the convention is to map the parent resource key to the variable name <code class="language-plaintext highlighter-rouge">"#resource#_id"</code>. Also, you cannot specify a path root or subsystem for a nested resource as it inherits these from its parent resource.</p>
+
+<p>The specific routes that FW/1 generates are determined by the <code class="language-plaintext highlighter-rouge">variables.framework.resourceRouteTemplates</code> array. By default it looks like the following:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> variables.framework.resourceRouteTemplates = [
+     { method = 'default', httpMethods = [ '$GET' ] },
+     { method = 'new', httpMethods = [ '$GET' ], routeSuffix = '/new' },
+     { method = 'create', httpMethods = [ '$POST' ] },
+     { method = 'show', httpMethods = [ '$GET' ], includeId = true },
+     { method = 'update', httpMethods = [ '$PUT','$PATCH' ], includeId = true },
+     { method = 'destroy', httpMethods = [ '$DELETE' ], includeId = true }
+];
+</code></pre></div></div>
+
+<p>If you wish to change the controller methods the routes are mapped to, for instance, you can specify this array in your <code class="language-plaintext highlighter-rouge">Application.cfc</code> and then change the default method names. For example, if you want <code class="language-plaintext highlighter-rouge">"$GET/dogs/$"</code> to map to <code class="language-plaintext highlighter-rouge">"/dogs/index"</code>, you would change <code class="language-plaintext highlighter-rouge">method = 'default'</code> to <code class="language-plaintext highlighter-rouge">method = 'index'</code> in the first template struct.</p>
+
+<p>A route structure may also have documentation by specifying a hint: <code class="language-plaintext highlighter-rouge">{ "/product/:id" = "/product/view/id/:id", hint = "Display a product" }</code>.</p>
+
+<p>Here’s an example showing all the features together:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>variables.framework.routes = [
+    { "/product/:id" = "/product/view/id/:id", "/user/:id" = "/user/view/id/:id",
+      hint = "Display a specific product or user" },
+    { "/products" = "/product/list", "/users" = "/user/list" },
+    { "/old/url" = "302:/new/url" },
+    { "$GET/login" = "/not/authorized", "$POST/login" = "/auth/login" },
+    { "$RESOURCES" = { resources = "posts", subsystem = "blog", nested = "comments,tags" } },
+    { "*" = "/not/found" }
+];
+</code></pre></div></div>
+
+<h2 id="environment-control">Environment Control</h2>
+<p>FW/1 supports _environment control - the ability to automatically detect your application environment (development, production, etc) and adjust the framework configuration accordingly. There are three components to environment control:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">variables.framework.environments</code> - An optional structure containing groups of framework options for each environment.</li>
+  <li><code class="language-plaintext highlighter-rouge">getEnvironment()</code> - A function that you override in <code class="language-plaintext highlighter-rouge">Application.cfc</code> that returns a string indicating the application environment.</li>
+  <li><code class="language-plaintext highlighter-rouge">setupEnvironment( string env )</code> - A function that may optionally override in <code class="language-plaintext highlighter-rouge">Application.cfc</code> to provide more programmatic configuration for your application environment.</li>
+</ul>
+
+<p>Environment control is based on the concept of <em>tier</em> - development, staging, production etc - and optionally a <em>server</em> specifier. This two-part string determines how elements of <code class="language-plaintext highlighter-rouge">variables.framework.environments</code> are selected and merged into the base framework configuration. A string of the format <em><code class="language-plaintext highlighter-rouge">"tier"</code></em> or <em><code class="language-plaintext highlighter-rouge">"tier-server"</code></em> should be returned from <code class="language-plaintext highlighter-rouge">getEnvironment()</code>. FW/1 first looks for a group of options matching just <em>tier</em> and, if found, appends those to the base configuration. FW/1 then looks for a group of options matching <em>tier-server</em> and, if found, appends those to the configuration. After merging configuration options, FW/1 calls <code class="language-plaintext highlighter-rouge">setupEnvironment()</code> passing the tier/server string so your application may perform additional customization. This process is executed on every request (so be aware of performance considerations) which allows a single application to serve multiple domains and behave accordingly for each domain, for example.</p>
+
+<p>Note that for the most part, the <em>tier</em> or <em>tier-server</em> configuration will override any default configuration in the <code class="language-plaintext highlighter-rouge">variables.framework</code> structure. There are two exceptions to that basic rule:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">diConfig</code> is recursively merged: the <code class="language-plaintext highlighter-rouge">constants</code> and <code class="language-plaintext highlighter-rouge">singulars</code> structures are key-merged, the <code class="language-plaintext highlighter-rouge">exclude</code> and <code class="language-plaintext highlighter-rouge">transients</code> arrays are appended. <em>tier-server</em> takes precedence in the key-merging, then <em>tier</em>, then the default configuration.</li>
+  <li><code class="language-plaintext highlighter-rouge">subsystems</code> is key-merged across the <em>tier</em> and <em>tier-server</em> data (with <em>tier-server</em> taking precedence, then <em>tier</em>, then then default).</li>
+</ul>
+
+<p>This gives the most intuitive behavior for DI/1 bean factory configuration. It also provides a convenient behavior for environment-based subsystem configuration. Be cautious when specifying subsystem-specific DI/1 configuration since that does not merge across environments. <em>Note that environment merging is new in 3.1.</em></p>
+
+<p>Your <code class="language-plaintext highlighter-rouge">getEnvironment()</code> function can use any means to determine which environment is active. Common methods are examining <code class="language-plaintext highlighter-rouge">CGI.SERVER_NAME</code> or using the server’s actual hostname (accessible thru the new <code class="language-plaintext highlighter-rouge">getHostname()</code> API method). Here’s an example setup:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public function getEnvironment() {
+    if ( findNoCase( "www", CGI.SERVER_NAME ) ) return "prod";
+    if ( findNoCase( "dev", CGI.SERVER_NAME ) ) return "dev";
+    else return "dev-qa";
+}
+
+variables.framework.environments = {
+    dev = { reloadApplicationOnEveryRequest = true, error = "main.detailederror" },
+    dev-qa = { reloadApplicationOnEveryRequest = false },
+    prod = { password = "supersecret" }
+};
+</code></pre></div></div>
+
+<p>With this setup, if the URL contains <code class="language-plaintext highlighter-rouge">www</code>, e.g., <code class="language-plaintext highlighter-rouge">www.company.com</code>, the tier will be production (<code class="language-plaintext highlighter-rouge">"prod"</code>) and the reload password will be changed to <code class="language-plaintext highlighter-rouge">"supersecret"</code>. If the URL contains <code class="language-plaintext highlighter-rouge">dev</code>, e.g., <code class="language-plaintext highlighter-rouge">dev.company.com</code>, the tier will be development (<code class="language-plaintext highlighter-rouge">"dev"</code>) and the application will reload on every request. In addition, a detailed error page will be used instead of the default. Otherwise, the tier will still be development (<code class="language-plaintext highlighter-rouge">"dev"</code>) but the environment will be treated as a QA server: the development error setting will still be in effect but the framework will no longer reload on every request.</p>
+
+<p>Here is another example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public function getEnvironment() {
+    var hostname = getHostname();
+    if ( findNoCase( "local", hostname ) ) return "dev-" &amp; listFirst( hostname, "-" );
+    var svrname = listFirst( hostname, "." ); // drop domain name etc
+    switch ( svrname ) {
+        case "proserver14a": return "prod-1";
+        case "proserver15c": return "prod-2";
+        case "proserver22x": return "prod-3";
+        case "proserver03b": return "qa";
+        default: return "dev-unknown";
+    }
+}
+</code></pre></div></div>
+
+<p>This maps local hostnames to specific developers machines (e.g., my development machine is called <code class="language-plaintext highlighter-rouge">Sean-Corfields-iMac.local</code> and my team’s machines follow similar naming). It specifically identifies the three servers in the production cluster and the QA server. All other environments are treated as development with an unknown server specifier.</p>
+
+<p>If you want to ensure that all environments are known configurations, your <code class="language-plaintext highlighter-rouge">setupEnvironment()</code> function can halt the application if a default environment is detected.</p>
+
+<h2 id="setting-up-application-session-and-request-variables">Setting up application, session and request variables</h2>
+<p>The easiest way to setup <code class="language-plaintext highlighter-rouge">application</code> variables is to define a <code class="language-plaintext highlighter-rouge">setupApplication()</code> method in your <code class="language-plaintext highlighter-rouge">Application.cfc</code> and put the initialization in there. This method is automatically called by FW/1 when the application starts up and when the FW/1 application is reloaded.</p>
+
+<p>The easiest way to setup <code class="language-plaintext highlighter-rouge">session</code> variables is to define a <code class="language-plaintext highlighter-rouge">setupSession()</code> method in your <code class="language-plaintext highlighter-rouge">Application.cfc</code> and put the initialization in there. This method is automatically called by FW/1 as part of <code class="language-plaintext highlighter-rouge">onSessionStart()</code>.</p>
+
+<p>The easiest way to setup <code class="language-plaintext highlighter-rouge">request</code> variables (or even global variables scope) is to define a <code class="language-plaintext highlighter-rouge">setupRequest()</code> method in your <code class="language-plaintext highlighter-rouge">Application.cfc</code> and put the initialization in there. Note that if you set <code class="language-plaintext highlighter-rouge">variables</code> scope data, it will be accessible inside your views and layouts but not inside your controllers or services.</p>
+
+<h1 id="using-subsystems">Using Subsystems</h1>
+<p>The subsystems feature allows you to combine existing FW/1 applications as modules of a larger FW/1 application. The subsystems feature was contributed by Ryan Cogswell and the documentation was written by Dutch Rapley. Read about <a href="/documentation/3.1/using-subsystems.html">Using Subsystems</a> to combine FW/1 applications.</p>
+
+<h1 id="accessing-the-fw1-api">Accessing the FW/1 API</h1>
+<p>FW/1 uses the <code class="language-plaintext highlighter-rouge">request</code> scope for some of its temporary data so that it can communicate between <code class="language-plaintext highlighter-rouge">Application.cfc</code> lifecycle methods without relying on <code class="language-plaintext highlighter-rouge">variables</code> scope (and potentially interfering with user data in variables scope). The <a href="/documentation/3.1/reference-manual.html">Reference Manual</a> specifies which request scope variables are used and what you may and may not do with them.</p>
+
+<p>In addition, the API of FW/1 is exposed to controllers, views and layouts in a particular way as documented below.</p>
+
+<h2 id="controllers-and-the-fw1-api">Controllers and the FW/1 API</h2>
+<p>Each controller method is passed the request context as a single argument called <code class="language-plaintext highlighter-rouge">rc</code>, of type <code class="language-plaintext highlighter-rouge">struct</code>. If access to the FW/1 API is required inside a controller, you can define an <code class="language-plaintext highlighter-rouge">init()</code> method (constructor) which takes a single argument, of type <code class="language-plaintext highlighter-rouge">any</code>, and when FW/1 creates the controller CFC, it passes itself in as the argument to <code class="language-plaintext highlighter-rouge">init()</code>. Your <code class="language-plaintext highlighter-rouge">init()</code> method should save that argument in the variables scope for use within the controller methods:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function init(fw) {
+    variables.framework = fw;
+    return this;
+}
+
+function setBeanFactory( beanFactory ) {
+    variables.beanFactory = beanFactory;
+}
+</code></pre></div></div>
+
+<p>Alternatively, you can declare a dependency on the <code class="language-plaintext highlighter-rouge">framework</code> like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>property beanFactory;
+property framework;
+</code></pre></div></div>
+
+<p>Then you could call any framework method:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> var user = variables.beanFactory.getBean("user");
+ variables.framework.populate(user);
+</code></pre></div></div>
+
+<p>This will call <code class="language-plaintext highlighter-rouge">setXxx()</code> methods on the user bean, passing in matching elements from the request context. An optional second argument may be provided that specifies the keys to populate (the default is to attempt to match against every <code class="language-plaintext highlighter-rouge">setXxx()</code> method on the bean):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>variables.framework.populate(user,'firstName, lastName, email');
+</code></pre></div></div>
+
+<p>This will call <code class="language-plaintext highlighter-rouge">setFirstName()</code>, <code class="language-plaintext highlighter-rouge">setLastName()</code> and <code class="language-plaintext highlighter-rouge">setEmail()</code> on the user bean, passing in matching elements from the request context.</p>
+
+<p>The other framework methods that are useful for controllers are:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>variables.framework.redirect( action, preserve, append, path, queryString );
+</code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">action</code> is the action to redirect to, <code class="language-plaintext highlighter-rouge">preserve</code> is a list of request context keys that should be preserved across the redirect (using <code class="language-plaintext highlighter-rouge">session</code> scope) and <code class="language-plaintext highlighter-rouge">append</code> is a list of request context keys that should be appended to the redirect URL. <code class="language-plaintext highlighter-rouge">preserve</code> and <code class="language-plaintext highlighter-rouge">append</code> can both be omitted and default to none, i.e., no values preserved or appended. The optional <code class="language-plaintext highlighter-rouge">path</code> argument allows you to force a new base URL to be used (instead of the default <code class="language-plaintext highlighter-rouge">variables.framework.baseURL</code> which is normally <code class="language-plaintext highlighter-rouge">CGI.SCRIPT_NAME</code>). <code class="language-plaintext highlighter-rouge">queryString</code> allows you to specify additional URL parameters and/or anchors to be added to the generated URL. See the <a href="/documentation/3.1/reference-manual.html">Reference Manual</a> for more details.</p>
+
+<p>I cannot imagine other FW/1 API methods being called from controllers at this point but the option is there if you need it.</p>
+
+<h2 id="viewslayouts-and-the-fw1-api">Views/Layouts and the FW/1 API</h2>
+<p>As indicated above under the “in depth” paragraph about views and layouts, the entire FW/1 API is available to views and layouts directly (effectively in the <code class="language-plaintext highlighter-rouge">variables</code> scope) because of the way views and layouts are executed. This allows views and layouts to access utility beans from the bean factory, such as formatting services, as well as render views and, if necessary, other layouts. Views and layouts also have access to the <code class="language-plaintext highlighter-rouge">framework</code> structure which contains the <code class="language-plaintext highlighter-rouge">action</code> key - which could be used for building links:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;a href="?#framework.action#=section.item"&gt;Go to section.item&lt;/a&gt;
+</code></pre></div></div>
+
+<p>But you’re better off using the <em>buildURL()</em> API method:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;a href="#buildURL( 'section.item' )#"&gt;Go to section.item&lt;/a&gt;
+</code></pre></div></div>
+
+<p>You can provide additional query string values to <code class="language-plaintext highlighter-rouge">buildURL()</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;a href="#buildURL( 'section.item?arg=val' )#"&gt;Go to section.item with arg=val in URL&lt;/a&gt;
+&lt;a href="#buildURL( action = 'section.item', queryString = 'arg=val' )#"&gt;Go to section.item with arg=val in URL&lt;/a&gt;
+</code></pre></div></div>
+
+<p>I cannot imagine a view or layout needing full access to the FW/1 API methods beyond <code class="language-plaintext highlighter-rouge">view()</code>, <code class="language-plaintext highlighter-rouge">layout()</code> and <code class="language-plaintext highlighter-rouge">getBeanFactory()</code> but the option is there if you need it.</p>
+
+<h2 id="convenience-methods-in-the-fw1-api">Convenience Methods in the FW/1 API</h2>
+<p>FW/1 provides a number of convenience methods for manipulating the action value to extract parts of the action (the <code class="language-plaintext highlighter-rouge">action</code> argument is optional in all these methods and defaults to the currently requested action):</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">getSubsystem( action )</code> - If subsystems are enabled, this returns either the <em>subsystem</em> portion of the action or the default subsystem. If subsystems are not enabled, returns an empty string.</li>
+  <li><code class="language-plaintext highlighter-rouge">getSection( action )</code> - Returns the <em>section</em> portion of the action. If subsystems are enabled but no section is specified, returns the default section.</li>
+  <li><code class="language-plaintext highlighter-rouge">getItem( action )</code> - Returns the <em>item</em> portion of the action. If no item is specified, returns the default item.</li>
+  <li><code class="language-plaintext highlighter-rouge">getSectionAndItem( action )</code> - Returns the <em>section.item</em> portion of the action, including default values if either part is not specified.</li>
+  <li><code class="language-plaintext highlighter-rouge">getFullyQualifiedAction( action )</code> - If subsystems are enabled, returns the fully qualified <em>subsystem:section.item</em> version of the action, including defaults where appropriate. If subsystems are not enabled, returns <code class="language-plaintext highlighter-rouge">getSectionAndItem( action )</code>.</li>
+</ul>
+
+</article>
+
+		<footer class="site-footer">
+			
+				<span class="site-footer-owner"><a href="https://github.com/sneiland/sneiland.github.io">sneiland.github.io</a> is maintained by <a href="https://github.com/sneiland">sneiland</a>.</span>
+			
+		</footer>
+	</main>
+</body>
+</html>

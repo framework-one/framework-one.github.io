@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	
+	<meta charset="UTF-8">
+
+	<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Introducing Framework One | FW/1 - The Invisible Framework</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Introducing Framework One" />
+<meta name="author" content="Sean Corfield" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The first question on everyone’s mind is probably: why on earth would you create and publish yet another MVC application framework?" />
+<meta property="og:description" content="The first question on everyone’s mind is probably: why on earth would you create and publish yet another MVC application framework?" />
+<link rel="canonical" href="http://localhost:4000/blog/2009/07/19/introducing-framework-one/" />
+<meta property="og:url" content="http://localhost:4000/blog/2009/07/19/introducing-framework-one/" />
+<meta property="og:site_name" content="FW/1 - The Invisible Framework" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2009-07-19T22:26:21-04:00" />
+<script type="application/ld+json">
+{"headline":"Introducing Framework One","dateModified":"2009-07-19T22:26:21-04:00","datePublished":"2009-07-19T22:26:21-04:00","url":"http://localhost:4000/blog/2009/07/19/introducing-framework-one/","author":{"@type":"Person","name":"Sean Corfield"},"description":"The first question on everyone’s mind is probably: why on earth would you create and publish yet another MVC application framework?","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/2009/07/19/introducing-framework-one/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#157878" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<link rel="stylesheet" href="/assets/css/style.css?v=a3debbe0e02ab81ebdefec1b0e258acd9a63d866" />
+	<link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
+</head>
+<body>
+	<a id="skip-to-content" href="#content">Skip to the content.</a>
+
+	<header class="page-header" role="banner">
+		<h1 class="project-name">Introducing Framework One</h1>
+		<h2 class="project-tagline">Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.</h2>
+		
+		<a href="/" class="btn">Home</a>
+		<a href="/blog" class="btn">Blog</a>
+		<a href="/documentation" class="btn">Documentation</a>
+		
+			<a href="https://github.com/framework-one/fw1/" class="btn" target="_blank">View on GitHub</a>
+		
+		
+			<a href="https://github.com/framework-one/fw1/archive/master.zip" class="btn">Download 4.2 (Current)</a>
+			<a href="https://github.com/framework-one/fw1/archive/v4.3.0-beta.1.zip" class="btn">Download 4.3 (Beta)</a>
+		
+		
+			<a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS" class="btn">RSS</a>
+		
+	</header>
+
+	<main id="content" class="main-content" role="main">
+		<hr style="clear:both"/>
+
+<article class="hentry" role="article">
+	<p>The first question on everyone’s mind is probably: why on earth would you create and publish yet another MVC application framework?<!-- more --></p>
+
+<p>I’ve become increasingly dissatisfied with the application frameworks out there. They’re big, bloated, complex and, with one or two exceptions, they require XML configuration in some way or other. A discussion on the recently created <a href="http://groups.google.com/group/coldfusionoo">ColdFusion OO mailing list</a> (started in the wake of the verbal sparring match between Brian Kotek and Hal Helms), saw me admit this… ColdFusion’s simplicity was being buried in the complexity of application frameworks and there was no simple on-ramp. Even Fusebox, the mainstay of ColdFusion application frameworks has become far too much for simple applications.</p>
+
+<p>The second question is probably: why did you choose that name?</p>
+
+<p>Years ago, I worked with a programming language called PL/1 (Programming Language One) which was intended to be the “one language to rule them all”, so to speak. I wanted to create a very small, simple framework. Something that involved only one core file if possible. Once I’d built it, I needed a name for my one file framework… FW/1 seemed like a good pun.</p>
+
+<p>The third question is going to be: why should I care and why should I use it?</p>
+
+<p>If you’re happy with an existing framework, keep using and feel free to ignore FW/1. If you haven’t picked a framework yet because they all seem so complex, maybe FW/1 is for you. If, like me, you’re tired of framework bloat, try FW/1 and give me your feedback.</p>
+
+<p>I’ll be posting some examples as blog posts as well as building out the project wiki over the coming weeks. I built FW/1 in a few hours. It’s a single CFC. It’s 400 lines of code - including comments. It’s entirely convention based. It supports controllers (CFCs), services (CFCs), views (.cfm) and layouts (.cfm). URL/form actions take the form section.item and FW/1 will look for section.cfc (controller and service) and section/item.cfm (view and layouts). It optionally supports your favorite bean factory (ColdSpring, Lightwire and any other IoC container that implements getBean() and containsBean() methods). If you use a bean factory, it will autowire your controllers and services - or your controllers and/or services can be managed by the bean factory.</p>
+
+	<footer>
+		<p class="meta">
+			
+<span class="byline author vcard">Posted by <span class="fn">Sean Corfield</span></span>
+
+			
+
+
+
+
+
+			<div>
+				
+
+<span class="categories">
+	
+		
+			<a href="/blog/category/releases">releases</a>
+			,
+		
+			<a href="/blog/category/fw1">fw1</a>
+			
+		
+  
+</span>
+
+
+			</div>
+		</p>
+    
+		
+	<div class="sharing">
+		
+		
+		
+	</div>
+
+	
+		<p class="meta">
+			
+			
+				<a class="basic-alignment right" href="/blog/2010/01/04/fw1-1-0-released-for-2010/" title="Next Post: FW/1 1.0 released for 2010">FW/1 1.0 released for 2010 &raquo;</a>
+			
+		</p>
+	
+		
+<section>
+	<h1>Comments</h1>
+	<div id="disqus_thread" aria-live="polite">
+		<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		
+		<script type="text/javascript">
+			var disqus_shortname = 'framework-one';
+			
+				
+				// var disqus_developer = 1;
+				var disqus_identifier = 'http://localhost:4000/blog/2009/07/19/introducing-framework-one/';
+				var disqus_url = 'http://localhost:4000/blog/2009/07/19/introducing-framework-one/';
+				var disqus_script = 'embed.js';
+			
+			(function () {
+					var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+					dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+					(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			}());
+		</script>
+	</div>
+</section>
+	
+	</footer>
+</article>
+
+		<footer class="site-footer">
+			
+				<span class="site-footer-owner"><a href="https://github.com/sneiland/sneiland.github.io">sneiland.github.io</a> is maintained by <a href="https://github.com/sneiland">sneiland</a>.</span>
+			
+		</footer>
+	</main>
+</body>
+</html>

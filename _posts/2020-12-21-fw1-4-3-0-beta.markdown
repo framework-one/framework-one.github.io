@@ -1,0 +1,19 @@
+---
+layout: post
+title: "FW/1 4.3 Beta"
+date: 2020-12-21 08:00
+comments: true
+categories: [releases, fw1]
+author: Steven Neiland
+---
+
+Its been a long time coming but after over a year of learning the framework, accepting bug fixes, fighting jekyl and surviving the general hell that has been 2020 I can happily announce that [FW/1 4.3.0 beta](https://github.com/framework-one/fw1/tree/v4.3.0-beta.1) is now available for testing. This release is mostly bug fixes but also includes a new small feature hence the minor version number bump.
+
+## After 4.3.0
+
+So now that we are here, what is in store for FW/1. Well there are some new outstanding PR's that will be getting reviewed for 4.3.1 and then most likely some updates to how the documentation is generated since jekyl has proven to be so much of a pain to work with.
+
+After that the plan for now is to continue basic maintenance. The question I find myself asking is, is further enhancing the framework a good idea? At this point it has grown significantly from the original ethos of a small simple single file framework that Sean started with and additional complexity is not always a good thing. I do have some ideas of further enhancing the subsystem behaviors but I've run into issues that make me think a ground up rewrite of certain sections of code may be necessary. Additionally I know Sean was looking into the possibility of a plugin system, but is there a desire for something like this?</p>
+							
+These are all questions I will be pondering over the next few months while we work on getting the beta to stable status.
+					

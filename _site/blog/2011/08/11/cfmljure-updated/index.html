@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	
+	<meta charset="UTF-8">
+
+	<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>cfmljure updated | FW/1 - The Invisible Framework</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="cfmljure updated" />
+<meta name="author" content="Sean Corfield" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Even tho’ it’s far from a 1.0 release, I’ve updated the cfmljure project on github to contain the latest version that we’re using at World Singles and update the examples so they work again, along with updated instructions - mainly that the Clojure code needs to be in WEB-INF/classes/ so that it can be picked up dynamically. This is a fundamental piece of our infrastructure at World Singles, since we rely heavily on Clojure for the Model of our application, with our View-Controller in CFML. It’s not intended to be general purpose code but if you want to play around with calling Clojure from CFML, it should get you started." />
+<meta property="og:description" content="Even tho’ it’s far from a 1.0 release, I’ve updated the cfmljure project on github to contain the latest version that we’re using at World Singles and update the examples so they work again, along with updated instructions - mainly that the Clojure code needs to be in WEB-INF/classes/ so that it can be picked up dynamically. This is a fundamental piece of our infrastructure at World Singles, since we rely heavily on Clojure for the Model of our application, with our View-Controller in CFML. It’s not intended to be general purpose code but if you want to play around with calling Clojure from CFML, it should get you started." />
+<link rel="canonical" href="http://localhost:4000/blog/2011/08/11/cfmljure-updated/" />
+<meta property="og:url" content="http://localhost:4000/blog/2011/08/11/cfmljure-updated/" />
+<meta property="og:site_name" content="FW/1 - The Invisible Framework" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2011-08-11T16:21:49-04:00" />
+<script type="application/ld+json">
+{"headline":"cfmljure updated","dateModified":"2011-08-11T16:21:49-04:00","datePublished":"2011-08-11T16:21:49-04:00","url":"http://localhost:4000/blog/2011/08/11/cfmljure-updated/","author":{"@type":"Person","name":"Sean Corfield"},"description":"Even tho’ it’s far from a 1.0 release, I’ve updated the cfmljure project on github to contain the latest version that we’re using at World Singles and update the examples so they work again, along with updated instructions - mainly that the Clojure code needs to be in WEB-INF/classes/ so that it can be picked up dynamically. This is a fundamental piece of our infrastructure at World Singles, since we rely heavily on Clojure for the Model of our application, with our View-Controller in CFML. It’s not intended to be general purpose code but if you want to play around with calling Clojure from CFML, it should get you started.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/2011/08/11/cfmljure-updated/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#157878" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<link rel="stylesheet" href="/assets/css/style.css?v=a3debbe0e02ab81ebdefec1b0e258acd9a63d866" />
+	<link href="/atom.xml" rel="alternate" title="FW/1 - The Invisible Framework" type="application/atom+xml">
+</head>
+<body>
+	<a id="skip-to-content" href="#content">Skip to the content.</a>
+
+	<header class="page-header" role="banner">
+		<h1 class="project-name">cfmljure updated</h1>
+		<h2 class="project-tagline">Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.</h2>
+		
+		<a href="/" class="btn">Home</a>
+		<a href="/blog" class="btn">Blog</a>
+		<a href="/documentation" class="btn">Documentation</a>
+		
+			<a href="https://github.com/framework-one/fw1/" class="btn" target="_blank">View on GitHub</a>
+		
+		
+			<a href="https://github.com/framework-one/fw1/archive/master.zip" class="btn">Download 4.2 (Current)</a>
+			<a href="https://github.com/framework-one/fw1/archive/v4.3.0-beta.1.zip" class="btn">Download 4.3 (Beta)</a>
+		
+		
+			<a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS" class="btn">RSS</a>
+		
+	</header>
+
+	<main id="content" class="main-content" role="main">
+		<hr style="clear:both"/>
+
+<article class="hentry" role="article">
+	<p>Even tho’ it’s far from a 1.0 release, I’ve updated the <a href="https://github.com/framework-one/cfmljure">cfmljure</a> project on github to contain the latest version that we’re using at World Singles and update the examples so they work again, along with updated instructions - mainly that the Clojure code needs to be in <code class="language-plaintext highlighter-rouge">WEB-INF/classes/</code> so that it can be picked up dynamically. This is a fundamental piece of our infrastructure at World Singles, since we rely heavily on Clojure for the Model of our application, with our View-Controller in CFML. It’s not intended to be general purpose code but if you want to play around with calling Clojure from CFML, it should get you started.</p>
+
+<p>Don’t forget the <a href="http://groups.google.com/group/cfmljure">cfmljure</a> mailing list if you need assistance!</p>
+
+	<footer>
+		<p class="meta">
+			
+<span class="byline author vcard">Posted by <span class="fn">Sean Corfield</span></span>
+
+			
+
+
+
+
+
+			<div>
+				
+
+<span class="categories">
+	
+		
+			<a href="/blog/category/releases">releases</a>
+			,
+		
+			<a href="/blog/category/clojure">clojure</a>
+			
+		
+  
+</span>
+
+
+			</div>
+		</p>
+    
+		
+	<div class="sharing">
+		
+		
+		
+	</div>
+
+	
+		<p class="meta">
+			
+				<a class="basic-alignment left" href="/blog/2011/03/19/fw1-roadmap/" title="Previous Post: FW/1 Roadmap, DI/1 etc">&laquo; FW/1 Roadmap, DI/1 etc</a>
+			
+			
+				<a class="basic-alignment right" href="/blog/2011/11/07/fw1-comes-to-clojure/" title="Next Post: FW/1 comes to Clojure">FW/1 comes to Clojure &raquo;</a>
+			
+		</p>
+	
+		
+<section>
+	<h1>Comments</h1>
+	<div id="disqus_thread" aria-live="polite">
+		<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		
+		<script type="text/javascript">
+			var disqus_shortname = 'framework-one';
+			
+				
+				// var disqus_developer = 1;
+				var disqus_identifier = 'http://localhost:4000/blog/2011/08/11/cfmljure-updated/';
+				var disqus_url = 'http://localhost:4000/blog/2011/08/11/cfmljure-updated/';
+				var disqus_script = 'embed.js';
+			
+			(function () {
+					var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+					dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+					(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			}());
+		</script>
+	</div>
+</section>
+	
+	</footer>
+</article>
+
+		<footer class="site-footer">
+			
+				<span class="site-footer-owner"><a href="https://github.com/sneiland/sneiland.github.io">sneiland.github.io</a> is maintained by <a href="https://github.com/sneiland">sneiland</a>.</span>
+			
+		</footer>
+	</main>
+</body>
+</html>

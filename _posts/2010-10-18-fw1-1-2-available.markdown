@@ -1,0 +1,11 @@
+---
+layout: post
+title: "FW/1 1.2 Available"
+date: 2010-10-18 18:59:11 -0700
+comments: true
+categories: [releases, fw1]
+author: Sean Corfield
+---
+The official 1.2 release of Framework One - FW/1 - has just been tagged and published on github. You can [download it from GitHub](https://github.com/framework-one/fw1/releases).
+
+Release Candidate 2 had been out for about a month with no issues reported. A few small enhancements were made since RC2. You can see the [list of commits](http://github.com/seancorfield/fw1/commits/master) here, on github.
