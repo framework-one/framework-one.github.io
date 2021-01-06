@@ -27,9 +27,9 @@ GEM
       sass (>= 3.2, < 3.5)
     execjs (2.6.0)
     fast-stemmer (1.0.2)
-    ffi (1.9.10)
-    ffi (1.9.10-java)
-    ffi (1.9.10-x86-mingw32)
+    ffi (1.14.1)
+    ffi (1.14.1-java)
+    ffi (1.14.1-x86-mingw32)
     haml (4.0.7)
       tilt
     hitimes (1.2.2)
