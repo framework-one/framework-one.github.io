@@ -34,7 +34,7 @@ If the controller needs to invoke FW/1 API methods (see **[framework.one](#frame
 
 Within other controller methods, you can then invoke FW/1 API methods using `variables.fw.apimethod(args)` if you use this constructor approach, or `variables.framework.apimethod(args)` if you use the `property framework;` approach.
 
-Your `Application.cfc` is also considered a controller and if it defines `before()` or `after()` methods, those will be called at the start and end of the controller lifecycle. Unlike other controllers, it does not need an `init()` method and instead of referring to the FW/1 API methods via `variables.fw...` you can just use the API methods directly - unqualified - since `Application.cfc` extends the framework and all those methods are available implicitly. _Note: if you use the **[Alternative Application Structure](developing-applications.html#alternative-application-structure)** where `Application.cfc` does not extend `framework.one`, then these methods would go in your equivalent to `MyApplication.cfc` (whatever you've called it).
+Your `Application.cfc` is also considered a controller and if it defines `before()` or `after()` methods, those will be called at the start and end of the controller lifecycle. Unlike other controllers, it does not need an `init()` method and instead of referring to the FW/1 API methods via `variables.fw...` you can just use the API methods directly - unqualified - since `Application.cfc` extends the framework and all those methods are available implicitly. _Note: if you use the **[Alternative Application Structure](developing-applications#alternative-application-structure)** where `Application.cfc` does not extend `framework.one`, then these methods would go in your equivalent to `MyApplication.cfc` (whatever you've called it).
 
 A controller is instantiated on the first request to an _item_ in that _section_ and is cached in `application` scope. You can ask FW/1 to reload the cache at any point (by default, you add `?reload=true` to the URL).
 
@@ -62,7 +62,7 @@ Any other variables assigned to by a view (without a scope qualifier - or explic
 
 If no matching view file exists for a request, `onMissingView()` is called and whatever is returned is used as the text of the view, and layouts are applied (unless they are suppressed). The default implementation is to throw an exception but by overriding this method you can create any behavior you want for requests that have no specific view, e.g., you can return a default view or pretty much anything you want.
 
-As noted in the [Developing Applications Manual](developing-applications.html#using-onmissingview-to-handle-missing-views), `onMissingView()` will be called if your application throws an exception and you have not provided a view for the default error handler (`main.error` - if `defaultSection` is `main`). This can lead to exceptions being masked and instead appearing as if you have a missing view!
+As noted in the [Developing Applications Manual](developing-applications#using-onmissingview-to-handle-missing-views), `onMissingView()` will be called if your application throws an exception and you have not provided a view for the default error handler (`main.error` - if `defaultSection` is `main`). This can lead to exceptions being masked and instead appearing as if you have a missing view!
 
 FW/1 Layouts
 ---
@@ -244,7 +244,7 @@ If the application is not using legacy subsystems, return an empty string (since
 
 ### public string function getEnvironment()
 
-Returns an empty string by default. If you want to use the **Environment Control** feature, you should override this in `Application.cfc` and have it return the appropriate _"tier"_ or _"tier-server"_ string. See **Environment Control** in the [Developing Applications Manual](developing-applications.html#environment-control) for more detail.
+Returns an empty string by default. If you want to use the **Environment Control** feature, you should override this in `Application.cfc` and have it return the appropriate _"tier"_ or _"tier-server"_ string. See **Environment Control** in the [Developing Applications Manual](developing-applications#environment-control) for more detail.
 
 ### public string function getEnvVar( string name )
 
@@ -485,7 +485,7 @@ The following restrictions apply to the data payload, for each type as shown:
 * `"xml"` - the payload must be either a valid XML string or an XML object (constructed via CFML's various `xml...()` functions). If the payload is an XML object, FW/1 calls `toString( payload )` to generate the result of the HTTP request, otherwise the XML string is used as the result of the request. In both cases, FW/1 sets the `Content-Type` header to `text/xml; charset=utf-8`.
 * `"text"` - the payload must be a string and that is the result of the HTTP request. FW/1 sets the `Content-Type` header to `text/plain; charset=utf-8`.
 
-If a function or closure is passed as the type, you can perform pretty much any custom rendering you can imagine. See [Custom Data Rendering](developing-applications.html#custom-data-rendering) in the Developing Applications Guide for more detail on how to use this.
+If a function or closure is passed as the type, you can perform pretty much any custom rendering you can imagine. See [Custom Data Rendering](developing-applications#custom-data-rendering) in the Developing Applications Guide for more detail on how to use this.
 
 When you call `renderData()`, processing continues in your controller (so use `return;` if you want processing to stop at that point), and subsequent calls to `setView()` or `setLayout()` will have no effect (since FW/1 will ignore views and layouts for this request).
 
@@ -519,7 +519,7 @@ Override this in your `Application.cfc` to provide application-specific initiali
 
 ## public void function setupEnvironment( string env )
 
-Override this in your `Application.cfc` to provide environment-specific initialization. See **Environment Control** in the [Developing Applications Manual](developing-applications.html#environment-control) for more detail.
+Override this in your `Application.cfc` to provide environment-specific initialization. See **Environment Control** in the [Developing Applications Manual](developing-applications#environment-control) for more detail.
 
 ## public void function setupRequest()
 

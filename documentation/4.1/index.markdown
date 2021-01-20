@@ -41,7 +41,7 @@ _This is a minimal install and only the `framework` folder is installed via this
 
 FW/1 can also be downloaded directly from the **releases** page on [Github](https://github.com/framework-one/fw1). Both paths will lead you to the same [page which lists all the releases](https://github.com/framework-one/fw1/releases), with the latest stable release and pre-release versions listed first.
 
-When you download FW/1 (or check it out from Github), it's a complete web application. **The `framework` folder should either be copied to your webroot (the simplest way to get started) or else made accessible via a mapping for `/framework`.** Since `Application.cfc` extends `framework.one`, you have to add that mapping in your CFML admin - you cannot use a per-application mapping. _As of release 3.5 there is a way to avoid the mapping and extending `framework.one` which we'll cover in the [Developing Applications Guide](developing-applications.html#alternative-application-structure)._
+When you download FW/1 (or check it out from Github), it's a complete web application. **The `framework` folder should either be copied to your webroot (the simplest way to get started) or else made accessible via a mapping for `/framework`.** Since `Application.cfc` extends `framework.one`, you have to add that mapping in your CFML admin - you cannot use a per-application mapping. _As of release 3.5 there is a way to avoid the mapping and extending `framework.one` which we'll cover in the [Developing Applications Guide](developing-applications#alternative-application-structure)._
 
 _**Note: do not install FW/1 into a subfolder that contains . in the name as this may prevent CFC resolution from working!**_
 
@@ -225,7 +225,7 @@ Your application at this point corresponds to the `5helloservice` example in the
 
 What's Next?
 ---
-Once you've read this Getting Started guide, you'll want to move on to the [Developing Applications Manual](developing-applications.html) and when you need to look things up, use the [Reference Manual](reference-manual.html). In particular, if you are interested in building REST APIs, you'll want to read [Controllers for REST APIs](developing-applications.html#controllers-for-rest-apis) in the Developing Applications Guide. You may also want to learn about [Using Subsystems](using-subsystems.html) which allows FW/1 applications to be combined as modules of a larger FW/1 application, or [DI/1](using-di-one.html), a simple, convention-based dependency injection framework. You may also want to learn about [AOP/1](using-aop-one.html).
+Once you've read this Getting Started guide, you'll want to move on to the [Developing Applications Manual](developing-applications) and when you need to look things up, use the [Reference Manual](reference-manual/). In particular, if you are interested in building REST APIs, you'll want to read [Controllers for REST APIs](developing-applications#controllers-for-rest-apis) in the Developing Applications Guide. You may also want to learn about [Using Subsystems](using-subsystems.html) which allows FW/1 applications to be combined as modules of a larger FW/1 application, or [DI/1](using-di-one.html), a simple, convention-based dependency injection framework. You may also want to learn about [AOP/1](using-aop-one.html).
 
 You probably also want to [join the FW/1 mailing list](http://groups.google.com/group/framework-one/) on Google Groups,
 [join the CFML Slack team](http://cfml-slack.herokuapp.com) for the [#fw1 channel on Slack](https://cfml.slack.com/messages/fw1/),

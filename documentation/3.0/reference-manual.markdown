@@ -59,7 +59,7 @@ Any other variables assigned to by a view (without a scope qualifier - or explic
 
 If no matching view file exists for a request, `onMissingView()` is called and whatever is returned is used as the text of the view, and layouts are applied (unless they are suppressed). The default implementation is to throw an exception but by overriding this method you can create any behavior you want for requests that have no specific view, e.g., you can return a default view or pretty much anything you want.
 
-As noted in the [Developing Applications Manual](/documentation/3.0/developing-applications.html), `onMissingView()` will be called if your application throws an exception and you have not provided a view for the default error handler (`main.error` - if `defaultSection` is `main`). This can lead to exceptions being masked and instead appearing as if you have a missing view!
+As noted in the [Developing Applications Manual](/documentation/3.0/developing-applications), `onMissingView()` will be called if your application throws an exception and you have not provided a view for the default error handler (`main.error` - if `defaultSection` is `main`). This can lead to exceptions being masked and instead appearing as if you have a missing view!
 
 FW/1 Layouts
 ---
@@ -250,7 +250,7 @@ If the application is using subsystems and the current request's action does not
 
 ### public string function getEnvironment()
 
-Returns an empty string by default. If you want to use the **Environment Control** feature, you should override this in `Application.cfc` and have it return the appropriate _"tier"_ or _"tier-server"_ string. See **Environment Control** in the [Developing Applications Manual](/documentation/3.0/developing-applications.html) for more detail.
+Returns an empty string by default. If you want to use the **Environment Control** feature, you should override this in `Application.cfc` and have it return the appropriate _"tier"_ or _"tier-server"_ string. See **Environment Control** in the [Developing Applications Manual](/documentation/3.0/developing-applications) for more detail.
 
 ### public string function getEnvVar( string name )
 
@@ -479,7 +479,7 @@ Override this in your `Application.cfc` to provide application-specific initiali
 
 ## public void function setupEnvironment( string env )
 
-Override this in your `Application.cfc` to provide environment-specific initialization. See **Environment Control** in the [Developing Applications Manual](/documentation/3.0/developing-applications.html) for more detail.
+Override this in your `Application.cfc` to provide environment-specific initialization. See **Environment Control** in the [Developing Applications Manual](/documentation/3.0/developing-applications) for more detail.
 
 ### public void function setupRequest()
 

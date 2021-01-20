@@ -202,7 +202,7 @@ Your application at this point corresponds to the `5helloservice` example in the
 
 What's Next?
 ---
-Once you've read this Getting Started guide, you'll want to move on to the [Developing Applications Manual](/documentation/3.1/developing-applications.html) and when you need to look things up, use the [Reference Manual](/documentation/3.1/reference-manual.html). You may also want to learn about [Using Subsystems](/documentation/3.1/using-subsystems.html) which allows FW/1 applications to be combined as modules of a larger FW/1 application, or [DI/1](/documentation/3.1/using-di-one.html), a simple, convention-based dependency injection framework.
+Once you've read this Getting Started guide, you'll want to move on to the [Developing Applications Manual](/documentation/3.1/developing-applications) and when you need to look things up, use the [Reference Manual](/documentation/3.1/reference-manual/). You may also want to learn about [Using Subsystems](/documentation/3.1/using-subsystems.html) which allows FW/1 applications to be combined as modules of a larger FW/1 application, or [DI/1](/documentation/3.1/using-di-one.html), a simple, convention-based dependency injection framework.
 
 You probably also want to [join the FW/1 mailing list](http://groups.google.com/group/framework-one/) on Google Groups,
 [join the CFML Slack team](http://cfml-slack.herokuapp.com) for the [#fw1 channel on Slack](https://cfml.slack.com/messages/fw1/),

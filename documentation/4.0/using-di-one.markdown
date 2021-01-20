@@ -34,7 +34,7 @@ You should only need to call `getBean()` to get a transient -- by default, a CFC
 
     var user = fw.getBeanFactory().getBean( "user" ); // or "userBean"
 
-CFCs found in other folders (e.g., `services`) are treated as singletons and will be autowired into each other, based on `property` declarations (if you have `accessors=true` on your `component`), `setXxx()` methods, and constructor arguments (`init()`). Read [Using Bean Factories](developing-applications.html#using-bean-factories) in the Developing Applications Guide for more detail.
+CFCs found in other folders (e.g., `services`) are treated as singletons and will be autowired into each other, based on `property` declarations (if you have `accessors=true` on your `component`), `setXxx()` methods, and constructor arguments (`init()`). Read [Using Bean Factories](developing-applications#using-bean-factories) in the Developing Applications Guide for more detail.
 
 ## Getting Started with DI/1 Standalone
 
