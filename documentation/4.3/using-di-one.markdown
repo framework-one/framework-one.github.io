@@ -312,6 +312,7 @@ Given a struct of values (such as form scope or URL scope), you can ask DI/1 to 
 
     bean = beanFactory.injectProperties(myBeanInstance, form);
     user = beanFactory.injectProperties("user", userAttributes);
+	user = beanFactory.injectProperties("user", userAttributes, true); // Ignore additional keys in userAttributes not defined in the user bean
 
 The first call will loop over the form scope and, for each key in that scope, call a setter on `myBeanInstance`. The second call asks DI/1 to create a `user` bean and populate it by calling a setter for each element of the struct `userAttributes`. You may also use a dotted-path to a CFC as the first argument in which case DI/1 will use `createObject` to instantiate it and *will not call the constructor*. Caution: DI/1 assumes you know what you're doing and will call a setter for *every* member of the struct passed in!
 
@@ -416,9 +417,11 @@ Return a string indicating the version of DI/1 being used.
 
 Return `true` if the specified bean is known to be a singleton. If the bean is known to be a non-singleton, this will return `false`. If the bean is not known in the current bean factory but a parent bean factory exists, the parent will be asked `isSingleton(beanName)`. If the bean is not known at all (or asking the parent fails), this will return `false`.
 
-### public any function injectProperties( any bean, struct properties )
+### public any function injectProperties( any bean, struct properties, boolean ignoreMissing=false )
 
 Given a bean (either a name, a dotted path to a CFC, or an actual instance), inject each of the (non-null) `properties` specified by calling the matching setter on the bean. If a bean name is given, it will be fully constructed by DI/1 first, and then populated. If a dotted path to a CFC is given, it will be created -- but its constructor will **not** be called -- and then it will be populated. If an actual bean instance is given, it will be populated. If calling any setter fails, that exception will propagate and other properties of the bean will not be populated. In general, use of this method is not recommended as it is not very flexible and you need to know what you are doing!
+
+If ignoreMissing is true then missing properties not defined in the bean but present in the properties struct will not throw an error
 
 ### public any function load()
 
