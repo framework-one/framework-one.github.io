@@ -1,0 +1,13 @@
+---
+layout: post
+title: "FW/1 3.0.2 - Important Update!"
+date: 2015-05-09 22:00:49 -0700
+comments: true
+categories: [releases, fw1, di1]
+author: Sean Corfield
+---
+If you are using SES URLs or routes with FW/1 3.0 you should [download FW/1 3.0.2](https://github.com/framework-one/fw1/releases/tag/v3.0.2) and update your applications as soon as possible, to address a thread safety issue in the way that `CGI.PATH_INFO` was handled in FW/1 3.0. This is an update to 3.0.1 and includes a context root fix.
+
+The symptoms you might see include incorrectly routed requests under load.
+
+Thank you to David Sedeño who highlighted this critical issue!

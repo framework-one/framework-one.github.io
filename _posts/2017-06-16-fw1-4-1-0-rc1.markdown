@@ -1,0 +1,21 @@
+---
+layout: post
+title: "FW/1 4.1.0 Release Candidate Available"
+date: 2017-06-16 10:35
+comments: true
+categories: [releases, fw1, di1, aop1, clojure]
+author: Sean Corfield
+---
+The first [Release Candidate of FW/1 4.1.0](https://github.com/framework-one/fw1/releases/tag/v4.1.0-rc1) is available for testing.
+
+This is a maintenance release for FW/1 4.0.0 that includes a number of bug fixes and some minor enhancements. The most important bug fix addresses a race condition that could cause transient beans to be partially resolved, leading to dependencies not being available under heavy load conditions. My thanks to [John Whish](https://github.com/aliaspooryorik) and [John Berquist](https://github.com/jcberquist) for their work in tracking that down and providing a patch to address it!
+
+Other bug fixes mostly focus on error handling.
+
+The enhancements include making session handling pluggable, improving handling of missing views, and a new `onReload()` extension point. In addition, the process to test FW/1 has been overhauled: it now uses CommandBox and TestBox, making it much easier for contributors to run tests locally, as well as expanding the matrix of servers/versions that can be automatically tested.
+
+Finally, Lucee 5.x is officially supported by this release. Although earlier versions of FW/1 "worked" on Lucee 5.x, the Clojure integration (introduced in FW/1 3.5) only worked in limited cases on Lucee 5.x so I could not consider it "officially supported" (for example, at World Singles, we could not upgrade to Lucee 5.x because it breaks our use of Clojure from CFML). In order to support Lucee 5.x officially, the Clojure integration functionality has been removed from FW/1. The files that provide Clojure integration are still available in the [cfmljure repository](https://github.com/framework-one/cfmljure) on GitHub.
+
+I consider this Release Candidate to be "production-ready" so I would appreciate as many users upgrading and testing it as possible!
+
+Thank you to everyone who contributes to FW/1 in every way!

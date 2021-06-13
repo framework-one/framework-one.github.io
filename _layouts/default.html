@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+<head>
+	{% if site.google_analytics %}
+		<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', '{{ site.google_analytics }}');
+		</script>
+	{% endif %}
+	<meta charset="UTF-8">
+
+	{% seo %}
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#157878" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}" />
+	<link href="{{ site.subscribe_rss }}" rel="alternate" title="{{site.title}}" type="application/atom+xml">
+</head>
+<body>
+	<a id="skip-to-content" href="#content">Skip to the content.</a>
+
+	<header class="page-header" role="banner">
+		<h1 class="project-name">{{ page.title | default: site.title | default: site.github.repository_name }}</h1>
+		<h2 class="project-tagline">{{ page.description | default: site.description | default: site.github.project_tagline }}</h2>
+		
+		<a href="{{ root_url }}/" class="btn">Home</a>
+		<a href="{{ root_url }}/blog" class="btn">Blog</a>
+		<a href="{{ root_url }}/documentation" class="btn">Documentation</a>
+		{% if site.github.is_project_page %}
+			<a href="https://github.com/framework-one/fw1/" class="btn" target="_blank">View on GitHub</a>
+		{% endif %}
+		{% if site.show_downloads %}
+			<a href="https://github.com/framework-one/fw1/archive/master.zip" class="btn">Download 4.2 (Current)</a>
+			<a href="https://github.com/framework-one/fw1/archive/v4.3.0-beta2.zip" class="btn">Download 4.3 (Beta2)</a>
+		{% endif %}
+		{% if site.subscribe_rss %}
+			<a href="{{ site.subscribe_rss }}" rel="subscribe-rss" title="subscribe via RSS" class="btn">RSS</a>
+		{% endif %}
+	</header>
+
+	<main id="content" class="main-content" role="main">
+		{{ content }}
+
+		<footer class="site-footer">
+			{% if site.github.is_project_page %}
+				<span class="site-footer-owner"><a href="{{ site.github.repository_url }}">{{ site.github.repository_name }}</a> is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>.</span>
+			{% endif %}
+		</footer>
+	</main>
+</body>
+</html>

@@ -1,0 +1,70 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+#
+# If you need help with YAML syntax, here are some quick references for you: 
+# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
+# https://learnxinyminutes.com/docs/yaml/
+#
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+
+url: http://framework-one.github.io
+title: FW/1 - The Invisible Framework
+subtitle: Framework One and friends...
+email: your-email@example.com
+description: >- # this means to ignore newlines until "baseurl:"
+  Framework One - is a family of small, lightweight, convention-over-configuration frameworks, primarily for CFML. FW/1 itself provides MVC, DI/1 provides dependency injection (a.k.a. inversion of control), and AOP/1 provides aspect-oriented programming features on top of DI/1.
+baseurl: "" # the subpath of your site, e.g. /blog
+
+permalink: /blog/:year/:month/:day/:title/
+author: Sean Corfield
+simple_search: https://www.google.com/search
+
+# Github repositories
+github_user: framework-one
+
+# Build settings
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-feed
+ 
+subscribe_rss: /atom.xml
+show_downloads: true
+
+# Disqus Comments
+disqus_short_name: framework-one
+disqus_show_comment_count: true
+
+
+twitter_tweet_button: true
+facebook_like: false
+
+# Exclude from processing.
+# The following items will not be processed, by default.
+# Any item listed under the `exclude:` key here will be automatically added to
+# the internal "default list".
+#
+# Excluded items can be processed by explicitly listing the directories or
+# their entries' file path in the `include:` list.
+#
+# exclude:
+#   - .sass-cache/
+#   - .jekyll-cache/
+#   - gemfiles/
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules/
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
